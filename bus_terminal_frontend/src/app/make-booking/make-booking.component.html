@@ -1,0 +1,65 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card card-plain">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Make Booking</h4>
+      </div>
+      <p></p>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-body">
+            <mat-dialog-content>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Choose Slot</mat-label>
+                    <mat-select multiple>
+                      <mat-option *ngFor="let ba of slot" [value]="ba.value">
+                        {{ ba.viewValue }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Bus Operator" type="text" />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Bus Number" type="text" />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Bus Route" type="text" />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Bus Capacity" type="text" />
+                  </mat-form-field>
+                </div>
+              </div>
+            </mat-dialog-content>
+
+            <mat-dialog-actions>
+              <button class="mat-raised-button" (click)="close()">Close</button>
+              <button
+                mat-raised-button
+                class="btn btn-primary"
+                (click)="save()"
+              >
+                Make Booking
+              </button>
+            </mat-dialog-actions>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

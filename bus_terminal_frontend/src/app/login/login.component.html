@@ -1,0 +1,113 @@
+<nav class="navbar navbar-light navbar-color" style="background: #00184a;">
+  <diV class="contain">
+    <a class="navbar-brand" href="#">
+      <img
+        src="https://enapsa.napsa.co.zm/assets/common/images/logo1.png"
+        width="250px"
+        class="d-inline-block align-top"
+        alt=""
+      />
+    </a>
+  </diV>
+</nav>
+<div class="container">
+  <div class="col-md-6 card-position">
+    <div class="card">
+      <div class="card-header">Login</div>
+      <div class="card-body">
+        <!-- Form Controls: Simple Forms -->
+        <div class="row mb-5">
+          <div class="col-md-12">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1"
+                        ><i class="fa fa-user"></i
+                      ></span>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Username"
+                      formControlName="username"
+                      [ngClass]="{ 'is-invalid': submitted &amp;&amp; loginForm.controls.username.errors }"
+                      aria-label="Username"
+                      aria-describedby="basic-addon1"
+                    />
+                    <div
+                      *ngIf="submitted &amp;&amp; loginForm.controls.username.errors"
+                      class="text-danger"
+                    >
+                      <div *ngIf="loginForm.controls.username.errors.required">
+                        First Name is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1"
+                        ><i class="fa fa-lock"></i
+                      ></span>
+                    </div>
+                    <input
+                      type="password"
+                      class="form-control"
+                      placeholder="Password"
+                      formControlName="password"
+                      [ngClass]="{ 'is-invalid': submitted &amp;&amp; loginForm.controls.password.errors }"
+                      aria-label="Password"
+                      aria-describedby="basic-addon1"
+                    />
+                    <div
+                      *ngIf="submitted &amp;&amp; loginForm.controls.password.errors"
+                      class="text-danger"
+                    >
+                      <div *ngIf="loginForm.controls.password.errors.required">
+                        Password is required
+                      </div>
+                      <div *ngIf="loginForm.controls.password.errors.minlength">
+                        Password must be at least 6 characters
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <diV class="form-group col-md-12">
+                  <div class="btn-size">
+                    <button
+                      type="submit"
+                      [disabled]="loading"
+                      class="btn btn-pill btn-color"
+                    >
+                      <span
+                        *ngIf="loading"
+                        class="spinner-border spinner-border-sm mr-1"
+                      ></span>
+                      Login
+                    </button>
+                  </div>
+                </diV>
+              </div>
+              <div class="row">
+                <diV class="col-md-12">
+                  <div class="forgot-size">
+                    <a href="#" class="forgot-color">forgot Password</a>
+                  </div>
+                </diV>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
