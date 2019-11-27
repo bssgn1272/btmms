@@ -13,7 +13,7 @@ type Reservation struct {
 	Status string `gorm:"default:'p'" json:"status"`
 	Route string `json:"route"`
 	UserId uint `json:"user_id"`
-	ReservedTime time.Time `gorm:"type:time" json:"reserved_time"`
+	ReservedTime time.Time ` json:"reserved_time"`
 }
 
 /*
@@ -43,7 +43,7 @@ func (reservation *Reservation) Validate() (map[string] interface{}, bool) {
 }
 
 
-//
+// create reservation
 func (reservation *Reservation) Create() (map[string] interface{}) {
 
 	if resp, ok := reservation.Validate(); !ok {
@@ -59,7 +59,7 @@ func (reservation *Reservation) Create() (map[string] interface{}) {
 }
 
 
-
+// get reservation
 func GetReservation(id uint) ([]*Reservation) {
 
 	reservations := make([]*Reservation, 0)
@@ -71,6 +71,7 @@ func GetReservation(id uint) ([]*Reservation) {
 	return reservations
 }
 
+// get reservations
 func GetReservations() ([]*Reservation) {
 
 	reservations := make([]*Reservation, 0)
@@ -84,3 +85,22 @@ func GetReservations() ([]*Reservation) {
 	return reservations
 }
 
+
+
+// get reservations for a particular day
+
+// get reservation
+func GetCurrentReservation() ([]*Reservation) {
+
+	t := time.Now()
+	reservedTime := time.Date(t.Year(), t.Month(), t.Day(), 23, 59, 59, 0, t.Location())
+	reservations := make([]*Reservation, 0)
+	err := GetDB().Table("reservations").Where("reserved_time > ?", reservedTime).Find(&reservations).Error
+	log.Println(err)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+
+	return reservations
+}

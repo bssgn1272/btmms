@@ -29,7 +29,6 @@ func main() {
 	log.Println("init started")
 
 	// Reset Slots table
-
 	 go c.InitMidNight()
 
 
@@ -46,7 +45,11 @@ func main() {
 	// Slots routes
 	router.Handle("/api/slots/create", c.CreateSlotController).Methods("POST")
 	router.Handle("/api/slots/get", c.GetSlotsController).Methods("GET")
-	router.Handle("/api/slots/update", c.CreateSlotController).Methods("PUT")
+
+
+	// Reservations Approval routes
+	router.Handle("/api/reservations/requests", c.GetReservationsRequestsController).Methods("GET")
+
 
 
 	if err := http.ListenAndServe("0.0.0.0:7080", logs.LogRequest("",handlers.LoggingHandler(os.Stdout, router))); err != nil {
