@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+//a struct to rep Slot model
 type Slot struct {
 	gorm.Model
 	SlotOne string `gorm:"default:'open'" json:"slot_one"`
@@ -89,9 +90,6 @@ func GetSlots() ([]*Slot) {
 
 func (slot *Slot) Update() (map[string] interface{}) {
 
-	//if resp, ok := slot.Validate(); !ok {
-	//	return resp
-	//}
 
 	day := time.Now().AddDate(0,0,1)
 

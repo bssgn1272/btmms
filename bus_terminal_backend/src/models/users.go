@@ -127,14 +127,3 @@ func Login(email, password string) (map[string]interface{}) {
 	return resp
 }
 
-func GetUser(u uint) *User {
-
-	acc := &User{}
-	GetDB().Table("accounts").Where("id = ?", u).First(acc)
-	if acc.Email == "" { //User not found!
-		return nil
-	}
-
-	acc.Password = ""
-	return acc
-}

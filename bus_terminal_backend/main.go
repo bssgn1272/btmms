@@ -49,6 +49,7 @@ func main() {
 
 	// Reservations Approval routes
 	router.Handle("/api/reservations/requests", c.GetReservationsRequestsController).Methods("GET")
+	router.Handle("/api/approve/reservations/requests/{id}", c.UpdateReservationController).Methods("PUT")
 
 
 

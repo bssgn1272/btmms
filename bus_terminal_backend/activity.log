@@ -2374,3 +2374,1056 @@ Connection: close
 Content-Type: application/json
 
 
+LOG: 2019/11/27 23:35:10.124618 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/11/27 23:35:17.227620 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjJ9.DzOJ7GHkPwiDE3T78dFMriY96VwzytQSBV7-c64dxx8
+Cache-Control: no-cache
+Connection: keep-alive
+Postman-Token: 972f34f7-ac6f-447c-9dad-af66cdc1d58a
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/27 23:35:17.228617 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=2)
+LOG: 2019/11/27 23:35:17.247617 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:99: <nil>
+LOG: 2019/11/27 23:35:17.247617 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:15: map[data:[] message:success status:true]
+LOG: 2019/11/27 23:35:17.249616 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/27 23:36:22.753408 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjJ9.DzOJ7GHkPwiDE3T78dFMriY96VwzytQSBV7-c64dxx8
+Cache-Control: no-cache
+Connection: keep-alive
+Postman-Token: 707cddde-3609-4afc-aaa5-c7981d375a62
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/27 23:36:22.753408 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=2)
+LOG: 2019/11/27 23:36:22.754416 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:99: <nil>
+LOG: 2019/11/27 23:36:22.754416 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:15: map[data:[0xc000232c60] message:success status:true]
+LOG: 2019/11/27 23:36:22.754416 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 08:38:19.745576 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:102: map[message:success slot:0xc0000ac540 status:true]
+LOG: 2019/11/28 08:38:19.748577 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:53: map[message:success slot:0xc0000ac540 status:true]
+LOG: 2019/11/28 10:21:28.888772 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/11/28 10:21:58.448180 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjJ9.DzOJ7GHkPwiDE3T78dFMriY96VwzytQSBV7-c64dxx8
+Cache-Control: no-cache
+Connection: keep-alive
+Postman-Token: 9855c774-130c-42e0-a024-6306038aa506
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 10:21:58.454179 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=2)
+LOG: 2019/11/28 10:21:58.461183 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:99: <nil>
+LOG: 2019/11/28 10:21:58.461183 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:15: map[data:[] message:success status:true]
+LOG: 2019/11/28 10:21:58.464180 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 10:22:14.023636 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/reservation/requests/create HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 38
+Content-Type: application/json
+Postman-Token: 98dfb79f-9c6b-43cf-a52e-50618efa87dc
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 10:22:14.023636 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 10:22:14.023636 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:41: map[message:success status:true]
+LOG: 2019/11/28 10:22:14.029632 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:57: map[message:success reservation:0xc0002b42d0 status:true]
+LOG: 2019/11/28 10:22:14.030632 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 10:22:23.282100 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjJ9.DzOJ7GHkPwiDE3T78dFMriY96VwzytQSBV7-c64dxx8
+Cache-Control: no-cache
+Connection: keep-alive
+Postman-Token: 7048d884-88ed-4146-95bb-6dbf3807a38e
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 10:22:23.282100 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=2)
+LOG: 2019/11/28 10:22:23.286099 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:99: <nil>
+LOG: 2019/11/28 10:22:23.286099 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:15: map[data:[] message:success status:true]
+LOG: 2019/11/28 10:22:23.298099 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 10:23:41.372345 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/reservation/requests/create HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 38
+Content-Type: application/json
+Postman-Token: 75b71def-13ac-4059-bc6e-5f6f864e55d1
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 10:23:41.372345 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 10:23:41.372345 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:41: map[message:success status:true]
+LOG: 2019/11/28 10:23:41.377342 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:57: map[message:success reservation:0xc000238990 status:true]
+LOG: 2019/11/28 10:23:41.378342 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 10:25:06.903081 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/reservation/requests/create HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 93
+Content-Type: application/json
+Postman-Token: 62a5211f-212e-4561-9310-344e6228414d
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 10:25:06.903081 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 10:25:06.903081 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:41: map[message:success status:true]
+LOG: 2019/11/28 10:25:06.907083 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:57: map[message:success reservation:0xc000238ab0 status:true]
+LOG: 2019/11/28 10:25:06.908082 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 10:25:11.689125 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjJ9.DzOJ7GHkPwiDE3T78dFMriY96VwzytQSBV7-c64dxx8
+Cache-Control: no-cache
+Connection: keep-alive
+Postman-Token: b2e62aca-20c1-4e1d-a9f4-22b7baaf5301
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 10:25:11.689125 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=2)
+LOG: 2019/11/28 10:25:11.690126 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:99: <nil>
+LOG: 2019/11/28 10:25:11.690126 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:15: map[data:[0xc000238d80] message:success status:true]
+LOG: 2019/11/28 10:25:11.690126 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 10:25:42.564596 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/reservation/requests/create HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 93
+Content-Type: application/json
+Postman-Token: 44554369-fdd8-471c-94ee-228601d9dc41
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 10:25:42.564596 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 10:25:42.564596 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:41: map[message:success status:true]
+LOG: 2019/11/28 10:25:42.568597 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:57: map[message:success reservation:0xc0002da2d0 status:true]
+LOG: 2019/11/28 10:25:42.572623 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 10:25:44.214781 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/reservation/requests/create HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 93
+Content-Type: application/json
+Postman-Token: 0229d362-4618-4c8d-a745-edeb3635d3a4
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 10:25:44.214781 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 10:25:44.214781 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:41: map[message:success status:true]
+LOG: 2019/11/28 10:25:44.216781 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:57: map[message:success reservation:0xc0002b45a0 status:true]
+LOG: 2019/11/28 10:25:44.216781 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 10:39:11.193113 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/11/28 10:42:40.218471 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: 3d9b72f5-2c15-42e9-a083-da8a81ca69c6
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 10:42:40.219469 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/11/28 10:42:50.708127 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: 28301075-9fdb-40fa-b124-54a3ec998cb9
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 10:42:50.709132 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 10:42:50.709132 C:/Go/src/net/http/server.go:3012: http: panic serving [::1]:64391: interface conversion: interface {} is nil, not uint
+goroutine 6 [running]:
+net/http.(*conn).serve.func1(0xc00025bb80)
+	C:/Go/src/net/http/server.go:1769 +0x140
+panic(0x82e360, 0xc0001e6e10)
+	C:/Go/src/runtime/panic.go:522 +0x1c3
+_/C_/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers.glob..func2(0x2c600e8, 0xc000244900, 0xc0002e0200)
+	C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:23 +0x2ef
+net/http.HandlerFunc.ServeHTTP(0x8b6378, 0x2c600e8, 0xc000244900, 0xc0002e0200)
+	C:/Go/src/net/http/server.go:1995 +0x4b
+_/C_/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth.glob..func1.1(0x2c600e8, 0xc000244900, 0xc0002e0100)
+	C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:79 +0x93a
+net/http.HandlerFunc.ServeHTTP(0xc000244920, 0x2c600e8, 0xc000244900, 0xc0002e0100)
+	C:/Go/src/net/http/server.go:1995 +0x4b
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0002640c0, 0x2c600e8, 0xc000244900, 0xc0002be300)
+	C:/Users/user/go/src/github.com/gorilla/mux/mux.go:210 +0xea
+github.com/gorilla/handlers.loggingHandler.ServeHTTP(0x92cdc0, 0xc000088008, 0x92c860, 0xc0002640c0, 0x8b6830, 0x934260, 0xc0001e03c0, 0xc0002be300)
+	C:/Users/user/go/src/github.com/gorilla/handlers/logging.go:45 +0x249
+_/C_/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs.LogRequest.func1(0x934220, 0xc0002d4000, 0xc0002be300)
+	C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:20 +0x27e
+net/http.HandlerFunc.ServeHTTP(0xc000258ab0, 0x934220, 0xc0002d4000, 0xc0002be300)
+	C:/Go/src/net/http/server.go:1995 +0x4b
+net/http.serverHandler.ServeHTTP(0xc000260680, 0x934220, 0xc0002d4000, 0xc0002be300)
+	C:/Go/src/net/http/server.go:2774 +0xaf
+net/http.(*conn).serve(0xc00025bb80, 0x934da0, 0xc00003a1c0)
+	C:/Go/src/net/http/server.go:1878 +0x858
+created by net/http.(*Server).Serve
+	C:/Go/src/net/http/server.go:2884 +0x2fb
+LOG: 2019/11/28 10:44:56.521007 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/11/28 10:45:32.759860 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/4 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: 94ee1dca-71b1-4bcc-940b-b38ccd9fcd73
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 10:45:32.760859 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 10:45:32.760859 C:/Go/src/net/http/server.go:3012: http: panic serving [::1]:64450: interface conversion: interface {} is nil, not uint
+goroutine 7 [running]:
+net/http.(*conn).serve.func1(0xc0002a0000)
+	C:/Go/src/net/http/server.go:1769 +0x140
+panic(0x82e360, 0xc0001dc660)
+	C:/Go/src/runtime/panic.go:522 +0x1c3
+_/C_/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers.glob..func2(0xeb0088, 0xc000004180, 0xc0002a6300)
+	C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:23 +0x2ef
+net/http.HandlerFunc.ServeHTTP(0x8b6380, 0xeb0088, 0xc000004180, 0xc0002a6300)
+	C:/Go/src/net/http/server.go:1995 +0x4b
+_/C_/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth.glob..func1.1(0xeb0088, 0xc000004180, 0xc0002a6200)
+	C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:79 +0x93a
+net/http.HandlerFunc.ServeHTTP(0xc0000041a0, 0xeb0088, 0xc000004180, 0xc0002a6200)
+	C:/Go/src/net/http/server.go:1995 +0x4b
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0001fe300, 0xeb0088, 0xc000004180, 0xc0002a6000)
+	C:/Users/user/go/src/github.com/gorilla/mux/mux.go:210 +0xea
+github.com/gorilla/handlers.loggingHandler.ServeHTTP(0x92cdc0, 0xc000088008, 0x92c860, 0xc0001fe300, 0x8b6838, 0x934260, 0xc00003a380, 0xc0002a6000)
+	C:/Users/user/go/src/github.com/gorilla/handlers/logging.go:45 +0x249
+_/C_/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs.LogRequest.func1(0x934220, 0xc0002aa000, 0xc0002a6000)
+	C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:20 +0x27e
+net/http.HandlerFunc.ServeHTTP(0xc0002054d0, 0x934220, 0xc0002aa000, 0xc0002a6000)
+	C:/Go/src/net/http/server.go:1995 +0x4b
+net/http.serverHandler.ServeHTTP(0xc000262340, 0x934220, 0xc0002aa000, 0xc0002a6000)
+	C:/Go/src/net/http/server.go:2774 +0xaf
+net/http.(*conn).serve(0xc0002a0000, 0x934da0, 0xc00003a140)
+	C:/Go/src/net/http/server.go:1878 +0x858
+created by net/http.(*Server).Serve
+	C:/Go/src/net/http/server.go:2884 +0x2fb
+LOG: 2019/11/28 10:45:40.699857 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/4 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: 13e8a148-d2aa-4d11-84b6-0f7d27e46b0c
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 10:45:40.699857 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 10:45:40.700859 C:/Go/src/net/http/server.go:3012: http: panic serving [::1]:64457: interface conversion: interface {} is nil, not uint
+goroutine 24 [running]:
+net/http.(*conn).serve.func1(0xc000135360)
+	C:/Go/src/net/http/server.go:1769 +0x140
+panic(0x82e360, 0xc000162d80)
+	C:/Go/src/runtime/panic.go:522 +0x1c3
+_/C_/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers.glob..func2(0xeb0088, 0xc0001f4120, 0xc000142d00)
+	C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:23 +0x2ef
+net/http.HandlerFunc.ServeHTTP(0x8b6380, 0xeb0088, 0xc0001f4120, 0xc000142d00)
+	C:/Go/src/net/http/server.go:1995 +0x4b
+_/C_/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth.glob..func1.1(0xeb0088, 0xc0001f4120, 0xc000142c00)
+	C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:79 +0x93a
+net/http.HandlerFunc.ServeHTTP(0xc0001f4140, 0xeb0088, 0xc0001f4120, 0xc000142c00)
+	C:/Go/src/net/http/server.go:1995 +0x4b
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0001fe300, 0xeb0088, 0xc0001f4120, 0xc000142a00)
+	C:/Users/user/go/src/github.com/gorilla/mux/mux.go:210 +0xea
+github.com/gorilla/handlers.loggingHandler.ServeHTTP(0x92cdc0, 0xc000088008, 0x92c860, 0xc0001fe300, 0x8b6838, 0x934260, 0xc000147100, 0xc000142a00)
+	C:/Users/user/go/src/github.com/gorilla/handlers/logging.go:45 +0x249
+_/C_/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs.LogRequest.func1(0x934220, 0xc0002e6000, 0xc000142a00)
+	C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:20 +0x27e
+net/http.HandlerFunc.ServeHTTP(0xc0002054d0, 0x934220, 0xc0002e6000, 0xc000142a00)
+	C:/Go/src/net/http/server.go:1995 +0x4b
+net/http.serverHandler.ServeHTTP(0xc000262340, 0x934220, 0xc0002e6000, 0xc000142a00)
+	C:/Go/src/net/http/server.go:2774 +0xaf
+net/http.(*conn).serve(0xc000135360, 0x934da0, 0xc000146f80)
+	C:/Go/src/net/http/server.go:1878 +0x858
+created by net/http.(*Server).Serve
+	C:/Go/src/net/http/server.go:2884 +0x2fb
+LOG: 2019/11/28 10:49:24.526902 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/11/28 10:49:44.069028 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/4 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: f321ae81-1c86-463a-8984-9925f9a68a8a
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 10:49:44.070029 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 10:49:44.070029 C:/Go/src/net/http/server.go:3012: http: panic serving [::1]:64534: interface conversion: interface {} is nil, not uint
+goroutine 4 [running]:
+net/http.(*conn).serve.func1(0xc00029e000)
+	C:/Go/src/net/http/server.go:1769 +0x140
+panic(0x82e360, 0xc000292660)
+	C:/Go/src/runtime/panic.go:522 +0x1c3
+_/C_/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers.glob..func2(0x2c80088, 0xc0000040c0, 0xc00029a400)
+	C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:23 +0x341
+net/http.HandlerFunc.ServeHTTP(0x8b6380, 0x2c80088, 0xc0000040c0, 0xc00029a400)
+	C:/Go/src/net/http/server.go:1995 +0x4b
+_/C_/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth.glob..func1.1(0x2c80088, 0xc0000040c0, 0xc00029a300)
+	C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:79 +0x93a
+net/http.HandlerFunc.ServeHTTP(0xc0000040e0, 0x2c80088, 0xc0000040c0, 0xc00029a300)
+	C:/Go/src/net/http/server.go:1995 +0x4b
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc000202300, 0x2c80088, 0xc0000040c0, 0xc00029a100)
+	C:/Users/user/go/src/github.com/gorilla/mux/mux.go:210 +0xea
+github.com/gorilla/handlers.loggingHandler.ServeHTTP(0x92ce20, 0xc000088008, 0x92c8c0, 0xc000202300, 0x8b6838, 0x9342c0, 0xc00003a440, 0xc00029a100)
+	C:/Users/user/go/src/github.com/gorilla/handlers/logging.go:45 +0x249
+_/C_/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs.LogRequest.func1(0x934280, 0xc0002a8000, 0xc00029a100)
+	C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:20 +0x27e
+net/http.HandlerFunc.ServeHTTP(0xc0001e7530, 0x934280, 0xc0002a8000, 0xc00029a100)
+	C:/Go/src/net/http/server.go:1995 +0x4b
+net/http.serverHandler.ServeHTTP(0xc000258340, 0x934280, 0xc0002a8000, 0xc00029a100)
+	C:/Go/src/net/http/server.go:2774 +0xaf
+net/http.(*conn).serve(0xc00029e000, 0x934e00, 0xc00003a200)
+	C:/Go/src/net/http/server.go:1878 +0x858
+created by net/http.(*Server).Serve
+	C:/Go/src/net/http/server.go:2884 +0x2fb
+LOG: 2019/11/28 10:50:21.755762 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/6 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: aa4effc9-60dd-4b8e-8846-f8a2f68b6e4a
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 10:50:21.755762 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 10:50:21.755762 C:/Go/src/net/http/server.go:3012: http: panic serving [::1]:64548: interface conversion: interface {} is nil, not uint
+goroutine 6 [running]:
+net/http.(*conn).serve.func1(0xc00029e280)
+	C:/Go/src/net/http/server.go:1769 +0x140
+panic(0x82e360, 0xc000292b70)
+	C:/Go/src/runtime/panic.go:522 +0x1c3
+_/C_/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers.glob..func2(0x2c80088, 0xc0000042c0, 0xc00029a900)
+	C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:23 +0x341
+net/http.HandlerFunc.ServeHTTP(0x8b6380, 0x2c80088, 0xc0000042c0, 0xc00029a900)
+	C:/Go/src/net/http/server.go:1995 +0x4b
+_/C_/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth.glob..func1.1(0x2c80088, 0xc0000042c0, 0xc00029a800)
+	C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:79 +0x93a
+net/http.HandlerFunc.ServeHTTP(0xc0000042e0, 0x2c80088, 0xc0000042c0, 0xc00029a800)
+	C:/Go/src/net/http/server.go:1995 +0x4b
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc000202300, 0x2c80088, 0xc0000042c0, 0xc00029a600)
+	C:/Users/user/go/src/github.com/gorilla/mux/mux.go:210 +0xea
+github.com/gorilla/handlers.loggingHandler.ServeHTTP(0x92ce20, 0xc000088008, 0x92c8c0, 0xc000202300, 0x8b6838, 0x9342c0, 0xc00003a640, 0xc00029a600)
+	C:/Users/user/go/src/github.com/gorilla/handlers/logging.go:45 +0x249
+_/C_/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs.LogRequest.func1(0x934280, 0xc0002a80e0, 0xc00029a600)
+	C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:20 +0x27e
+net/http.HandlerFunc.ServeHTTP(0xc0001e7530, 0x934280, 0xc0002a80e0, 0xc00029a600)
+	C:/Go/src/net/http/server.go:1995 +0x4b
+net/http.serverHandler.ServeHTTP(0xc000258340, 0x934280, 0xc0002a80e0, 0xc00029a600)
+	C:/Go/src/net/http/server.go:2774 +0xaf
+net/http.(*conn).serve(0xc00029e280, 0x934e00, 0xc00003a500)
+	C:/Go/src/net/http/server.go:1878 +0x858
+created by net/http.(*Server).Serve
+	C:/Go/src/net/http/server.go:2884 +0x2fb
+LOG: 2019/11/28 11:06:21.532226 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/11/28 11:06:45.098858 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/6 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: 6ea7576a-a5c1-4aef-ad32-6f0d133f1a01
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 11:06:45.099860 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 11:06:45.099860 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:117: map[message:success reservation:0xc00022cc60 status:true]
+LOG: 2019/11/28 11:06:45.102861 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 11:07:21.901519 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/0 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: b64c114b-405b-49f7-bd65-011faa6c2c3b
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 11:07:21.901519 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 11:07:21.901519 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:117: map[message:success reservation:0xc0002cc000 status:true]
+LOG: 2019/11/28 11:07:21.902518 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 11:07:40.216692 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjJ9.DzOJ7GHkPwiDE3T78dFMriY96VwzytQSBV7-c64dxx8
+Cache-Control: no-cache
+Connection: keep-alive
+Postman-Token: 24d35a7a-01d6-4ccc-ac63-8812ff9383ca
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 11:07:40.217692 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=2)
+LOG: 2019/11/28 11:07:40.219690 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:99: <nil>
+LOG: 2019/11/28 11:07:40.220690 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:17: map[data:[0xc00022d170 0xc00022d290 0xc00022d3b0] message:success status:true]
+LOG: 2019/11/28 11:07:40.220690 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 11:22:05.211099 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/11/28 11:22:44.223969 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/6 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: 18c0bd43-d7b4-4b54-8195-fb3dd8c8fc1d
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 11:22:44.225969 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 11:22:44.225969 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:117: map[message:success reservation:0xc000234c60 status:true]
+LOG: 2019/11/28 11:22:44.245969 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 11:28:39.066452 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/11/28 11:29:13.888926 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/6 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: 803899a7-fb2b-4649-956f-016212cddab6
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 11:29:13.889928 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 11:29:13.891926 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:116: map[message:success reservation:0xc000115950 status:true]
+LOG: 2019/11/28 11:29:13.894925 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 11:29:17.038925 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/6 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: d5351407-ac54-46cb-9667-f2f7ab69fb76
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 11:29:17.038925 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 11:29:17.039925 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:116: map[message:success reservation:0xc0002d8000 status:true]
+LOG: 2019/11/28 11:29:17.039925 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 11:30:16.581537 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/11/28 11:30:21.444598 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/6 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: 03902afa-d439-45b5-a086-c190487d22d6
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 11:30:21.446594 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 11:30:21.447597 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:116: map[message:success reservation:0xc000232c60 status:true]
+LOG: 2019/11/28 11:30:21.447597 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:118: 6
+LOG: 2019/11/28 11:30:21.475597 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 11:41:17.921330 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/11/28 11:41:38.337148 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/6 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: 6a579be6-95e8-497b-a7ff-8e24553021cc
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 11:41:38.338145 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 11:41:38.338145 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:117: map[message:success reservation:0xc000230c60 status:true]
+LOG: 2019/11/28 11:41:38.340148 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 11:42:15.334941 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/11/28 11:42:51.963256 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/6 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: ebce0c64-d0da-4995-9869-2abcc9fb6d5b
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 11:42:51.963256 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 11:42:51.964261 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:115: {{0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC <nil>}    0 0001-01-01 00:00:00 +0000 UTC}
+LOG: 2019/11/28 11:42:51.964261 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:118: map[message:success reservation:0xc00024ac60 status:true]
+LOG: 2019/11/28 11:42:51.964261 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 11:46:48.590677 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/11/28 11:47:14.891748 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/6 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: 0d01fcb0-eff4-432b-960e-92ceb5c05f8d
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 11:47:14.893749 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 11:47:14.893749 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:27: &{{0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC <nil>}    0 0001-01-01 00:00:00 +0000 UTC}
+LOG: 2019/11/28 11:47:14.894748 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:115: {{0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC <nil>}    0 0001-01-01 00:00:00 +0000 UTC}
+LOG: 2019/11/28 11:47:14.894748 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:118: map[message:success reservation:0xc0002823f0 status:true]
+LOG: 2019/11/28 11:47:14.897750 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 11:49:27.150508 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/11/28 11:49:37.544561 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/6 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: c84d1464-ddbe-4c55-ac65-e57b2bdc2e8c
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 11:49:37.546560 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 11:49:37.546560 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:27: &{{0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC <nil>}    0 0001-01-01 00:00:00 +0000 UTC}
+LOG: 2019/11/28 11:49:37.546560 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:115: &{{0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC <nil>}    0 0001-01-01 00:00:00 +0000 UTC}
+LOG: 2019/11/28 11:49:37.546560 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:118: map[message:success reservation:0xc00024ac60 status:true]
+LOG: 2019/11/28 11:49:37.551562 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 11:51:03.635401 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/11/28 11:51:09.661403 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/6 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: cdd7d636-0959-4c81-901d-b2492d91870c
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 11:51:09.662406 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 11:51:09.662406 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:27: &{{0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC <nil>}    0 0001-01-01 00:00:00 +0000 UTC}
+LOG: 2019/11/28 11:51:09.664403 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:115: &{{0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC <nil>}    0 0001-01-01 00:00:00 +0000 UTC}
+LOG: 2019/11/28 11:51:09.664403 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:119: map[message:success reservation:0xc000232c60 status:true]
+LOG: 2019/11/28 11:51:09.667402 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 11:55:01.319014 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/11/28 11:55:08.274020 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/6 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: e53761bb-cfe4-4732-8af7-c85be12e3a1d
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 11:55:08.276014 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 11:55:08.282015 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:30: &{{0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC <nil>}    0 0001-01-01 00:00:00 +0000 UTC}
+LOG: 2019/11/28 11:55:08.345015 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:115: &{{6 2019-11-28 10:25:44.2147819 +0200 SAST 2019-11-28 10:25:44.2147819 +0200 SAST <nil>} slot_4 R lsk 3 2019-11-29 10:23:41.3723451 +0200 SAST}
+LOG: 2019/11/28 11:55:08.346015 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:119: map[message:success reservation:0xc000236c60 status:true]
+LOG: 2019/11/28 11:55:08.348015 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 11:56:23.592949 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjJ9.DzOJ7GHkPwiDE3T78dFMriY96VwzytQSBV7-c64dxx8
+Cache-Control: no-cache
+Connection: keep-alive
+Postman-Token: 9599fc84-f5d8-4736-886a-da60207d59f6
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 11:56:23.593950 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=2)
+LOG: 2019/11/28 11:56:23.596951 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:99: <nil>
+LOG: 2019/11/28 11:56:23.596951 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc0002ce120 0xc0002ce240 0xc0002ce360 0xc0002ce480 0xc0002ce5a0 0xc0002ce6c0] message:success status:true]
+LOG: 2019/11/28 11:56:23.597950 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 15:46:49.197595 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/1 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: fe0a1325-c0fb-4cc8-b219-5b163055e98a
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 15:46:49.213597 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 15:46:49.213597 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:30: &{{0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC <nil>}    0 0001-01-01 00:00:00 +0000 UTC}
+LOG: 2019/11/28 15:46:49.229600 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:115: &{{6 2019-11-28 10:25:44.2147819 +0200 SAST 2019-11-28 10:25:44.2147819 +0200 SAST <nil>} slot_4 R lsk 3 2019-11-29 10:23:41.3723451 +0200 SAST}
+LOG: 2019/11/28 15:46:49.229600 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:119: map[message:success reservation:0xc000115830 status:true]
+LOG: 2019/11/28 15:46:49.239596 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 15:47:07.725865 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/1 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: 3403db26-3cf8-4e29-849f-13b8f2088b72
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 15:47:07.725865 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 15:47:07.725865 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:30: &{{0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC <nil>}    0 0001-01-01 00:00:00 +0000 UTC}
+LOG: 2019/11/28 15:47:07.800859 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:115: &{{1 2019-11-28 10:25:44.2147819 +0200 SAST 2019-11-28 10:25:44.2147819 +0200 SAST <nil>} slot_4 R lsk 3 2019-11-29 10:23:41.3723451 +0200 SAST}
+LOG: 2019/11/28 15:47:07.800859 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:119: map[message:success reservation:0xc0002ce900 status:true]
+LOG: 2019/11/28 15:47:07.838864 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 15:52:16.251326 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/11/28 15:52:45.560070 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/1 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: 2d26fb56-fcb4-4385-a565-e060f8eaea90
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 15:52:45.561074 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 15:52:45.562070 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:30: &{{0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC <nil>}    0 0001-01-01 00:00:00 +0000 UTC}
+LOG: 2019/11/28 15:52:45.740072 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:115: &{{1 2019-11-28 10:25:44.2147819 +0200 SAST 2019-11-28 10:25:44.2147819 +0200 SAST <nil>} slot_4 R lsk 3 2019-11-29 10:23:41.3723451 +0200 SAST}
+LOG: 2019/11/28 15:52:45.740072 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:119: map[message:success reservation:0xc00024ec60 status:true]
+LOG: 2019/11/28 15:52:45.746071 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 15:53:02.407224 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/1 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: 95c98361-e4e3-45d0-a167-fd8c7b0db64f
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 15:53:02.407224 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 15:53:02.408230 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:30: &{{0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC <nil>}    0 0001-01-01 00:00:00 +0000 UTC}
+LOG: 2019/11/28 15:53:02.413228 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:115: &{{6 2019-11-28 10:25:44.2147819 +0200 SAST 2019-11-28 10:25:44.2147819 +0200 SAST <nil>} slot_4 R lsk 3 2019-11-29 10:23:41.3723451 +0200 SAST}
+LOG: 2019/11/28 15:53:02.413228 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:119: map[message:success reservation:0xc00024f050 status:true]
+LOG: 2019/11/28 15:53:02.414227 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 15:54:45.608972 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/11/28 15:55:04.855971 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/1 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: fcc603a5-0d90-40a4-a370-5fc18ba3c6ac
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 15:55:04.855971 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 15:55:04.856970 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:30: &{{0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC <nil>}    0 0001-01-01 00:00:00 +0000 UTC}
+LOG: 2019/11/28 15:55:04.882971 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:115: slot_4
+LOG: 2019/11/28 15:55:04.882971 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:119: map[message:success reservation:0xc00023ac60 status:true]
+LOG: 2019/11/28 15:55:04.883969 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 15:55:08.885429 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/6 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: 6f1a953a-c2b2-4950-a18a-f5b0dc6fe31e
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 15:55:08.886432 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 15:55:08.886432 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:30: &{{0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC <nil>}    0 0001-01-01 00:00:00 +0000 UTC}
+LOG: 2019/11/28 15:55:08.914430 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:115: slot_4
+LOG: 2019/11/28 15:55:08.914430 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:119: map[message:success reservation:0xc0002ea000 status:true]
+LOG: 2019/11/28 15:55:08.916431 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 15:56:11.333784 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/11/28 15:56:28.178785 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/6 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: 7e51dd67-e129-4efe-84f9-6dbb2ee3bd27
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 15:56:28.179787 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 15:56:28.179787 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:30: &{{0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC <nil>}    0 0001-01-01 00:00:00 +0000 UTC}
+LOG: 2019/11/28 15:56:28.422784 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:115: R
+LOG: 2019/11/28 15:56:28.422784 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:119: map[message:success reservation:0xc000232c60 status:true]
+LOG: 2019/11/28 15:56:28.443786 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 16:01:10.455746 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/11/28 16:01:39.137813 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/6 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: b5672ce1-b4ec-4a31-aafb-2d7c94a205ca
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 16:01:39.137813 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 16:01:39.142813 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:115: R
+LOG: 2019/11/28 16:01:39.142813 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:119: map[message:success reservation:0xc000230c60 status:true]
+LOG: 2019/11/28 16:01:39.143829 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 16:01:57.004435 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/6 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: a9c18f91-01d8-4e84-9b7c-64300393958f
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 16:01:57.004435 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 16:01:57.047434 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:115: R
+LOG: 2019/11/28 16:01:57.047434 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:119: map[message:success reservation:0xc0002c0090 status:true]
+LOG: 2019/11/28 16:01:57.056433 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 16:02:08.744137 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/1 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 312
+Content-Type: application/json
+Postman-Token: 72c172db-40d1-4251-a263-73bcafac52bb
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 16:02:08.745102 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 16:02:08.779104 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:115: R
+LOG: 2019/11/28 16:02:08.779104 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:119: map[message:success reservation:0xc0002c0240 status:true]
+LOG: 2019/11/28 16:02:08.782100 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 16:03:45.993940 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/1 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 340
+Content-Type: application/json
+Postman-Token: ac5f05a7-55e3-41cc-ae46-ca593dccc0a3
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 16:03:45.993940 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 16:03:45.994942 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:115: A
+LOG: 2019/11/28 16:03:45.995938 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:119: map[message:success reservation:0xc000230fc0 status:true]
+LOG: 2019/11/28 16:03:45.995938 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 16:04:38.903059 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/2 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 340
+Content-Type: application/json
+Postman-Token: 05e2dce6-629f-4d49-bd38-ade9e9a08942
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 16:04:38.903059 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 16:04:38.907058 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:115: p
+LOG: 2019/11/28 16:04:38.907058 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:119: map[message:success reservation:0xc0002c0360 status:true]
+LOG: 2019/11/28 16:04:38.909056 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 16:04:48.864301 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  PUT /api/approve/reservations/requests/2 HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjN9.g_tVFfrVjTDWM_XcBtcwVX9-tDtJumHVqKNIJ9lIF4k
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 340
+Content-Type: application/json
+Postman-Token: 5f4e3d65-a066-4670-ad8e-c874ba59ea70
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 16:04:48.866301 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=3)
+LOG: 2019/11/28 16:04:48.880300 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:115: A
+LOG: 2019/11/28 16:04:48.880300 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:119: map[message:success reservation:0xc0002c0510 status:true]
+LOG: 2019/11/28 16:04:48.881300 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 16:06:26.836539 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjJ9.DzOJ7GHkPwiDE3T78dFMriY96VwzytQSBV7-c64dxx8
+Cache-Control: no-cache
+Connection: keep-alive
+Postman-Token: 62b95d67-6272-4f49-85ed-8a177629b29f
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 16:06:26.836539 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=2)
+LOG: 2019/11/28 16:06:26.837537 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:99: <nil>
+LOG: 2019/11/28 16:06:26.837537 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc0002c0870 0xc0002c0990 0xc0002c0ab0 0xc0002c0bd0 0xc0002c0cf0 0xc0002c0e10] message:success status:true]
+LOG: 2019/11/28 16:06:26.838539 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/11/28 16:07:47.031558 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjJ9.DzOJ7GHkPwiDE3T78dFMriY96VwzytQSBV7-c64dxx8
+Cache-Control: no-cache
+Connection: keep-alive
+Postman-Token: e7890bdf-7dee-427a-acf2-654041718f1e
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/11/28 16:07:47.031558 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/auth/authMiddleware.go:76: User %!(NOVERB)%!(EXTRA uint=2)
+LOG: 2019/11/28 16:07:47.033559 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:99: <nil>
+LOG: 2019/11/28 16:07:47.033559 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc000115830 0xc000115950 0xc000115a70 0xc000115b90 0xc000115cb0] message:success status:true]
+LOG: 2019/11/28 16:07:47.044558 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+

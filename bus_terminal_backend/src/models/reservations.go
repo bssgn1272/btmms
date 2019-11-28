@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+//a struct to rep reservation model
 type Reservation struct {
 	gorm.Model
 	Slot string `json:"slot"`
@@ -103,4 +104,19 @@ func GetCurrentReservation() ([]*Reservation) {
 	}
 
 	return reservations
+}
+
+
+// Approve or reject reservation
+
+func (reservation *Reservation) Update(id uint) (map[string] interface{}) {
+
+	db.Model(&reservation).Where("id = ?", id).Updates(Reservation{Status: reservation.Status})
+
+	log.Println(reservation.Status)
+
+	resp := u.Message(true, "success")
+	resp["reservation"] = reservation
+	log.Println(resp)
+	return resp
 }
