@@ -1,0 +1,29 @@
+[22-Nov-2019 08:37:01 Africa/Lusaka] PHP Notice:  Undefined variable: num in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 262
+[22-Nov-2019 08:37:01 Africa/Lusaka] PHP Notice:  Undefined variable: num in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 262
+[22-Nov-2019 08:37:06 Africa/Lusaka] PHP Notice:  Undefined variable: num in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 262
+[22-Nov-2019 08:37:06 Africa/Lusaka] PHP Notice:  Undefined variable: num in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 262
+[22-Nov-2019 08:37:20 Africa/Lusaka] PHP Notice:  Undefined variable: num in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 262
+[22-Nov-2019 08:37:20 Africa/Lusaka] PHP Notice:  Undefined variable: num in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 262
+[22-Nov-2019 08:37:26 Africa/Lusaka] PHP Notice:  Undefined variable: num in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 262
+[22-Nov-2019 08:37:26 Africa/Lusaka] PHP Notice:  Undefined variable: num in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 262
+[22-Nov-2019 09:35:29 Africa/Lusaka] PHP Notice:  Undefined variable: msisdn in /var/www/html/Market_Sales_USSD/app/lib/utils/SharedUtils.php on line 131
+[22-Nov-2019 09:35:29 Africa/Lusaka] PHP Notice:  Undefined variable: msisdn in /var/www/html/Market_Sales_USSD/app/lib/utils/SharedUtils.php on line 134
+[27-Nov-2019 14:04:05 Africa/Lusaka] PHP Notice:  Undefined index: MAIN_BUYERS in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 184
+[27-Nov-2019 14:04:42 Africa/Lusaka] PHP Notice:  Undefined index: MAIN_BUYERS in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 184
+[27-Nov-2019 14:06:12 Africa/Lusaka] PHP Notice:  Undefined index: menu-selection in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 187
+[27-Nov-2019 14:06:12 Africa/Lusaka] PHP Warning:  Illegal string offset 'END_OF_SESSION' in /var/www/html/Market_Sales_USSD/mtn.php on line 70
+[27-Nov-2019 14:06:12 Africa/Lusaka] PHP Notice:  Uninitialized string offset: 0 in /var/www/html/Market_Sales_USSD/mtn.php on line 70
+[27-Nov-2019 14:06:12 Africa/Lusaka] PHP Warning:  Illegal string offset 'USSD_BODY' in /var/www/html/Market_Sales_USSD/mtn.php on line 71
+[27-Nov-2019 14:06:12 Africa/Lusaka] PHP Notice:  Uninitialized string offset: 0 in /var/www/html/Market_Sales_USSD/mtn.php on line 71
+[27-Nov-2019 14:19:38 Africa/Lusaka] PHP Notice:  Undefined variable: iput in /var/www/html/Market_Sales_USSD/app/lib/utils/SharedUtils.php on line 111
+[27-Nov-2019 14:19:42 Africa/Lusaka] PHP Notice:  Undefined variable: iput in /var/www/html/Market_Sales_USSD/app/lib/utils/SharedUtils.php on line 111
+[27-Nov-2019 14:19:47 Africa/Lusaka] PHP Notice:  Undefined variable: iput in /var/www/html/Market_Sales_USSD/app/lib/utils/SharedUtils.php on line 111
+[27-Nov-2019 14:54:49 Africa/Lusaka] PHP Notice:  Undefined index: status in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 356
+[27-Nov-2019 14:55:37 Africa/Lusaka] PHP Notice:  Undefined index: status in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 356
+[27-Nov-2019 14:56:10 Africa/Lusaka] PHP Notice:  Undefined index: status in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 356
+[27-Nov-2019 14:57:20 Africa/Lusaka] PHP Notice:  Undefined index: status in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 356
+[27-Nov-2019 14:57:27 Africa/Lusaka] PHP Notice:  Undefined index: status in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 356
+[27-Nov-2019 15:53:41 Africa/Lusaka] PHP Notice:  Undefined index: status in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 571
+[27-Nov-2019 15:54:14 Africa/Lusaka] PHP Notice:  Undefined index: status in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 571
+[27-Nov-2019 15:54:40 Africa/Lusaka] PHP Notice:  Undefined index: status in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 571
+[27-Nov-2019 16:09:18 Africa/Lusaka] PHP Notice:  Undefined index: token_balance in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 261

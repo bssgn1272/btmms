@@ -1,0 +1,13 @@
+{
+    "autoload": {
+        "classmap": [
+            "app/src",
+            "app/lib",
+            "app/lib/utils"
+
+        ]
+    },
+    "require": {
+        "apache/log4php": "^2.3"
+    }
+}
