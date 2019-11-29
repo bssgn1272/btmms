@@ -1,0 +1,28 @@
+[20-Nov-2019 19:59:08 Africa/Khartoum] PHP Notice:  Undefined variable: url in /var/www/html/emulator/app/Emulator.php on line 29
+[21-Nov-2019 18:30:12 Africa/Khartoum] PHP Notice:  Undefined index: mno in /var/www/html/emulator/app/Emulator.php on line 50
+[21-Nov-2019 18:30:12 Africa/Khartoum] PHP Notice:  Undefined index: mno in /var/www/html/emulator/app/Emulator.php on line 59
+[21-Nov-2019 18:30:12 Africa/Khartoum] PHP Notice:  Undefined index: shortcode in /var/www/html/emulator/app/Emulator.php on line 65
+[21-Nov-2019 18:30:12 Africa/Khartoum] PHP Notice:  Undefined index: mobile in /var/www/html/emulator/app/Emulator.php on line 66
+[21-Nov-2019 18:30:12 Africa/Khartoum] PHP Notice:  Undefined index: shortcode in /var/www/html/emulator/app/Emulator.php on line 66
+[22-Nov-2019 07:46:23 Africa/Khartoum] PHP Notice:  Undefined index: mno in /var/www/html/emulator/app/Emulator.php on line 50
+[22-Nov-2019 07:46:23 Africa/Khartoum] PHP Notice:  Undefined index: mno in /var/www/html/emulator/app/Emulator.php on line 59
+[22-Nov-2019 07:46:23 Africa/Khartoum] PHP Notice:  Undefined index: shortcode in /var/www/html/emulator/app/Emulator.php on line 65
+[22-Nov-2019 07:46:23 Africa/Khartoum] PHP Notice:  Undefined index: mobile in /var/www/html/emulator/app/Emulator.php on line 66
+[22-Nov-2019 07:46:23 Africa/Khartoum] PHP Notice:  Undefined index: shortcode in /var/www/html/emulator/app/Emulator.php on line 66
+[22-Nov-2019 08:38:06 Africa/Khartoum] PHP Warning:  Illegal string offset 'USSD_BODY' in /var/www/html/emulator/app/Emulator.php on line 26
+[22-Nov-2019 08:38:06 Africa/Khartoum] PHP Notice:  Uninitialized string offset: 0 in /var/www/html/emulator/app/Emulator.php on line 26
+[22-Nov-2019 09:25:09 Africa/Khartoum] PHP Warning:  Illegal string offset 'USSD_BODY' in /var/www/html/emulator/app/Emulator.php on line 26
+[22-Nov-2019 09:25:09 Africa/Khartoum] PHP Notice:  Uninitialized string offset: 0 in /var/www/html/emulator/app/Emulator.php on line 26
+[22-Nov-2019 10:41:37 Africa/Khartoum] PHP Warning:  Illegal string offset 'USSD_BODY' in /var/www/html/emulator/app/Emulator.php on line 26
+[22-Nov-2019 10:41:37 Africa/Khartoum] PHP Notice:  Uninitialized string offset: 0 in /var/www/html/emulator/app/Emulator.php on line 26
+[22-Nov-2019 12:22:35 Africa/Khartoum] PHP Notice:  Undefined index: mno in /var/www/html/emulator/app/Emulator.php on line 22
+[22-Nov-2019 12:22:35 Africa/Khartoum] PHP Notice:  Undefined index: mno in /var/www/html/emulator/app/Emulator.php on line 27
+[22-Nov-2019 12:22:35 Africa/Khartoum] PHP Notice:  Undefined index: shortcode in /var/www/html/emulator/app/Emulator.php on line 34
+[22-Nov-2019 12:22:35 Africa/Khartoum] PHP Notice:  Undefined index: shortcode in /var/www/html/emulator/app/Emulator.php on line 35
+[22-Nov-2019 12:22:35 Africa/Khartoum] PHP Notice:  Undefined index: session_id in /var/www/html/emulator/app/Emulator.php on line 35
+[22-Nov-2019 12:22:35 Africa/Khartoum] PHP Notice:  Undefined index: mobile in /var/www/html/emulator/app/Emulator.php on line 35
+[22-Nov-2019 12:22:35 Africa/Khartoum] PHP Notice:  Undefined index: shortcode in /var/www/html/emulator/app/Emulator.php on line 35
+[27-Nov-2019 14:54:49 Africa/Khartoum] PHP Warning:  Illegal string offset 'USSD_BODY' in /var/www/html/emulator/app/Emulator.php on line 26
+[27-Nov-2019 14:54:49 Africa/Khartoum] PHP Notice:  Uninitialized string offset: 0 in /var/www/html/emulator/app/Emulator.php on line 26
+[27-Nov-2019 14:55:37 Africa/Khartoum] PHP Warning:  Illegal string offset 'USSD_BODY' in /var/www/html/emulator/app/Emulator.php on line 26
+[27-Nov-2019 14:55:37 Africa/Khartoum] PHP Notice:  Uninitialized string offset: 0 in /var/www/html/emulator/app/Emulator.php on line 26
