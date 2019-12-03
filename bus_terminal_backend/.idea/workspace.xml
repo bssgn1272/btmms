@@ -3,6 +3,23 @@
   <component name="ChangeListManager">
     <list default="true" id="8fde5a15-3397-459b-a421-2712d1adbea6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/reservationApprovalsController.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/reservationApprovalsController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/reservationsController.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/reservationsController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bus_terminal_frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../bus_terminal_frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/components/sidebar/sidebar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/components/sidebar/sidebar.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/guard/auth.guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/guard/auth.guard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/layouts/admin-layout/admin-layout.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/layouts/admin-layout/admin-layout.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/layouts/admin-layout/admin-layout.routing.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/layouts/admin-layout/admin-layout.routing.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/login/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/login/auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/login/login.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/login/login.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/make-booking/make-booking.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/make-booking/make-booking.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/make-booking/make-booking.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/make-booking/make-booking.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/models/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/models/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/user-profile/user-profile.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/user-profile/user-profile.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/user-profile/user-profile.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/user-profile/user-profile.component.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,22 +30,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="363">
-              <caret line="50" column="19" selection-start-line="50" selection-start-column="19" selection-end-line="50" selection-end-column="45" />
-              <folding>
-                <element signature="e#15#160#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/models/reservations.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1541">
-              <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
+            <state relative-caret-position="170">
+              <caret line="35" column="83" lean-forward="true" selection-start-line="35" selection-start-column="83" selection-end-line="35" selection-end-column="83" />
               <folding>
                 <element signature="e#16#88#0" expanded="true" />
               </folding>
@@ -37,12 +42,12 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/models/users.go">
+        <entry file="file://$PROJECT_DIR$/src/controllers/usersController.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="20" selection-start-line="20" selection-end-line="20" selection-end-column="30" />
+            <state relative-caret-position="395">
+              <caret line="24" column="4" lean-forward="true" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="30" />
               <folding>
-                <element signature="e#16#158#0" expanded="true" />
+                <element signature="e#21#108#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -51,8 +56,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/models/slots.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1116">
-              <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+            <state relative-caret-position="724">
+              <caret line="101" column="1" lean-forward="true" selection-start-line="101" selection-start-column="1" selection-end-line="101" selection-end-column="1" />
+              <folding>
+                <element signature="e#16#88#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -60,8 +68,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/controllers/slotsController.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="50" column="30" selection-start-line="50" selection-start-column="30" selection-end-line="50" selection-end-column="30" />
+            <state relative-caret-position="255">
+              <caret line="23" column="22" selection-start-line="14" selection-start-column="4" selection-end-line="23" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -69,8 +77,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/controllers/reservationsController.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="731">
-              <caret line="43" column="53" lean-forward="true" selection-start-line="43" selection-start-column="53" selection-end-line="43" selection-end-column="53" />
+            <state relative-caret-position="493">
+              <caret line="29" column="10" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="10" />
               <folding>
                 <element signature="e#21#131#0" expanded="true" />
               </folding>
@@ -81,11 +89,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/controllers/reservationApprovalsController.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="25" column="41" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
-              <folding>
-                <element signature="e#21#80#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="551">
+              <caret line="49" column="17" lean-forward="true" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -93,26 +98,41 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/activity.log">
           <provider selected="true" editor-type-id="LogFileEditorProvider">
-            <state relative-caret-position="-9056">
-              <caret line="2875" column="23" lean-forward="true" selection-start-line="2875" selection-start-column="23" selection-end-line="2875" selection-end-column="23" />
+            <state relative-caret-position="-16924">
+              <caret line="9127" lean-forward="true" selection-start-line="9127" selection-end-line="9127" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/auth/authMiddleware.go">
+        <entry file="file://$PROJECT_DIR$/src/models/users.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="66" column="27" selection-start-line="66" selection-start-column="25" selection-end-line="66" selection-end-column="27" />
+            <state relative-caret-position="68">
+              <caret line="31" lean-forward="true" selection-start-line="20" selection-end-line="31" />
+              <folding>
+                <element signature="e#16#158#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="211">
+              <caret line="42" column="22" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="44" />
+              <folding>
+                <element signature="e#15#160#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/models/config.go">
+        <entry file="file://$PROJECT_DIR$/src/auth/authMiddleware.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="26" column="130" selection-start-line="26" selection-start-column="130" selection-end-line="26" selection-end-column="130" />
+            <state relative-caret-position="136">
+              <caret line="18" column="67" selection-start-line="18" selection-start-column="67" selection-end-line="18" selection-end-column="67" />
             </state>
           </provider>
         </entry>
@@ -142,6 +162,18 @@
       <find>db.AutoMigrate(&amp;Resource{})</find>
       <find>contact</find>
       <find>reservation</find>
+      <find>&quot;Missing auth token</find>
+      <find>create</find>
+      <find>/api/reservation/requests/create</find>
+      <find>CreateReservationController</find>
+      <find>resul</find>
+      <find>res</find>
+      <find>upd</find>
+      <find>GetCurrentReservation</find>
+      <find>Close</find>
+      <find>CloseReservationController</find>
+      <find>Close()</find>
+      <find>GetReservationsRequestsController</find>
     </findStrings>
     <replaceStrings>
       <replace>Reservation</replace>
@@ -162,24 +194,26 @@
         <option value="$PROJECT_DIR$/src/controllers/resourceController.go" />
         <option value="$PROJECT_DIR$/src/models/resource.go" />
         <option value="$PROJECT_DIR$/.env" />
-        <option value="$PROJECT_DIR$/src/auth/authMiddleware.go" />
-        <option value="$PROJECT_DIR$/src/controllers/usersController.go" />
         <option value="$PROJECT_DIR$/src/models/config.go" />
         <option value="$PROJECT_DIR$/src/controllers/slotsController.go" />
-        <option value="$PROJECT_DIR$/src/controllers/reservationsController.go" />
-        <option value="$PROJECT_DIR$/main.go" />
         <option value="$PROJECT_DIR$/src/controllers/reservationApprovalsController.go" />
+        <option value="$PROJECT_DIR$/bus_mgnt.puml" />
+        <option value="$PROJECT_DIR$/main.go" />
+        <option value="$PROJECT_DIR$/src/controllers/reservationsController.go" />
+        <option value="$PROJECT_DIR$/../ClassDiagram.puml" />
         <option value="$PROJECT_DIR$/src/models/users.go" />
         <option value="$PROJECT_DIR$/src/models/slots.go" />
+        <option value="$PROJECT_DIR$/src/controllers/usersController.go" />
         <option value="$PROJECT_DIR$/src/models/reservations.go" />
+        <option value="$PROJECT_DIR$/src/auth/authMiddleware.go" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="100" />
-    <option name="y" value="20" />
-    <option name="width" value="1400" />
-    <option name="height" value="860" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1616" />
+    <option name="height" value="916" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -189,7 +223,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -206,7 +239,7 @@
               <item name="bus_terminal_backend" type="b2602c69:ProjectViewProjectNode" />
               <item name="bus_terminal_backend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="auth" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bus_terminal_backend" type="b2602c69:ProjectViewProjectNode" />
@@ -218,12 +251,14 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="full.screen.before.presentation.mode" value="false" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -251,9 +286,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="916" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26285347" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27956298" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -266,15 +300,16 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.3231162" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.34099618" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" id="PlantUML" order="4" weight="0.36747852" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26285347" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27956298" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -287,12 +322,13 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.33971903" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.34099618" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" id="PlantUML" order="4" weight="0.32969153" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -319,13 +355,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/models/resource.go" />
     <entry file="file://$PROJECT_DIR$/src/controllers/resourceController.go" />
-    <entry file="file://$PROJECT_DIR$/src/controllers/usersController.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="16" column="56" selection-start-line="16" selection-start-column="56" selection-end-line="16" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/utils.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -336,93 +365,132 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/auth/authMiddleware.go">
+    <entry file="file://$PROJECT_DIR$/bus_mgmt_puml" />
+    <entry file="file://$PROJECT_DIR$/bus_mgnt.puml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="66" column="27" selection-start-line="66" selection-start-column="25" selection-end-line="66" selection-end-column="27" />
+        <state>
+          <caret column="9" selection-start-column="9" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.go">
+    <entry file="file://$PROJECT_DIR$/../../../lipila/src/bus_terminal_backend/ClassDiagram.puml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="50" column="19" selection-start-line="50" selection-start-column="19" selection-end-line="50" selection-end-column="45" />
-          <folding>
-            <element signature="e#15#160#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="68">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/controllers/slotsController.go">
+    <entry file="file://$PROJECT_DIR$/.gv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="50" column="30" selection-start-line="50" selection-start-column="30" selection-end-line="50" selection-end-column="30" />
+        <state relative-caret-position="884">
+          <caret line="52" column="25" selection-start-line="52" selection-start-column="25" selection-end-line="52" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/activity.log">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="501" lean-forward="true" selection-start-line="501" selection-end-line="501" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="LogFileEditorProvider">
-        <state relative-caret-position="-9056">
-          <caret line="2875" column="23" lean-forward="true" selection-start-line="2875" selection-start-column="23" selection-end-line="2875" selection-end-column="23" />
+    <entry file="file://$PROJECT_DIR$/../ClassDiagram.puml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="24" selection-end-column="53" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/controllers/reservationApprovalsController.go">
+    <entry file="file://$PROJECT_DIR$/src/models/config.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="25" column="41" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
-          <folding>
-            <element signature="e#21#80#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controllers/reservationsController.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="43" column="53" lean-forward="true" selection-start-line="43" selection-start-column="53" selection-end-line="43" selection-end-column="53" />
-          <folding>
-            <element signature="e#21#131#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="323">
+          <caret line="26" column="130" selection-start-line="26" selection-start-column="130" selection-end-line="26" selection-end-column="130" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/models/users.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="20" selection-start-line="20" selection-end-line="20" selection-end-column="30" />
+        <state relative-caret-position="68">
+          <caret line="31" lean-forward="true" selection-start-line="20" selection-end-line="31" />
           <folding>
             <element signature="e#16#158#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/slots.go">
+    <entry file="file://$PROJECT_DIR$/src/controllers/reservationsController.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1116">
-          <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+        <state relative-caret-position="493">
+          <caret line="29" column="10" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="10" />
+          <folding>
+            <element signature="e#21#131#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/usersController.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="24" column="4" lean-forward="true" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="30" />
+          <folding>
+            <element signature="e#21#108#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/models/reservations.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1541">
-          <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
+        <state relative-caret-position="170">
+          <caret line="35" column="83" lean-forward="true" selection-start-line="35" selection-start-column="83" selection-end-line="35" selection-end-column="83" />
           <folding>
             <element signature="e#16#88#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/config.go">
+    <entry file="file://$PROJECT_DIR$/src/controllers/reservationApprovalsController.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="26" column="130" selection-start-line="26" selection-start-column="130" selection-end-line="26" selection-end-column="130" />
+        <state relative-caret-position="551">
+          <caret line="49" column="17" lean-forward="true" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/slotsController.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="23" column="22" selection-start-line="14" selection-start-column="4" selection-end-line="23" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/slots.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="724">
+          <caret line="101" column="1" lean-forward="true" selection-start-line="101" selection-start-column="1" selection-end-line="101" selection-end-column="1" />
+          <folding>
+            <element signature="e#16#88#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="42" column="22" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="44" />
+          <folding>
+            <element signature="e#15#160#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/activity.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="-16924">
+          <caret line="9127" lean-forward="true" selection-start-line="9127" selection-end-line="9127" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="501" lean-forward="true" selection-start-line="501" selection-end-line="501" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/auth/authMiddleware.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="18" column="67" selection-start-line="18" selection-start-column="67" selection-end-line="18" selection-end-column="67" />
         </state>
       </provider>
     </entry>

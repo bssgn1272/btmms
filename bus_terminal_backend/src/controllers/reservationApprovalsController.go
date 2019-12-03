@@ -36,3 +36,18 @@ var UpdateReservationController = http.HandlerFunc(func(w http.ResponseWriter, r
 	u.Respond(w, resp)
 
 })
+
+var CloseReservationController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+	slot :=&models.Slot{}
+
+	err := json.NewDecoder(r.Body).Decode(slot)
+	if err != nil {
+		u.Respond(w, u.Message(false, "Error while decoding request body"))
+		return
+	}
+
+	resp := slot.Close()
+	u.Respond(w, resp)
+
+})

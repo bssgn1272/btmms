@@ -10,11 +10,19 @@ import (
 //a struct to rep reservation model
 type Reservation struct {
 	gorm.Model
+	RID   uint  `gorm:"AUTO_INCREMENT;column:r_id;" json:"r_id"`
 	Slot string `json:"slot"`
 	Status string `gorm:"default:'p'" json:"status"`
 	Route string `json:"route"`
 	UserId uint `json:"user_id"`
+	Time string ` json:"time"`
 	ReservedTime time.Time ` json:"reserved_time"`
+}
+
+// join struct
+type Result struct {
+	Reservation
+	User
 }
 
 /*
@@ -91,19 +99,19 @@ func GetReservations() ([]*Reservation) {
 // get reservations for a particular day
 
 // get reservation
-func GetCurrentReservation() ([]*Reservation) {
+func GetCurrentReservation() ([]*Result) {
 
 	t := time.Now()
 	reservedTime := time.Date(t.Year(), t.Month(), t.Day(), 23, 59, 59, 0, t.Location())
-	reservations := make([]*Reservation, 0)
-	err := GetDB().Table("reservations").Where("reserved_time > ?", reservedTime).Find(&reservations).Error
+	result := make([]*Result, 0)
+	err := GetDB().Table("reservations").Select("reservations.*, reservations.id, users.username").Joins("left join users on users.id=reservations.user_id").Where("reservations.reserved_time > ?", reservedTime).Find(&result).Error
 	log.Println(err)
 	if err != nil {
 		log.Println(err)
 		return nil
 	}
 
-	return reservations
+	return result
 }
 
 

@@ -8,19 +8,25 @@ declare interface RouteInfo {
   class: string;
 }
 export const ROUTES: RouteInfo[] = [
-         {
-           path: '/dashboard',
-           title: 'Dashboard',
-           icon: 'dashboard',
-           class: ''
-         },
-         {
-           path: '/veiw-slot',
-           title: 'View Slots',
-           icon: 'view_list',
-           class: ''
-         }
-       ];
+  {
+    path: '/dashboard',
+    title: 'Dashboard',
+    icon: 'dashboard',
+    class: ''
+  },
+  {
+    path: '/veiw-slot',
+    title: 'View Slots',
+    icon: 'view_list',
+    class: ''
+  },
+  {
+    path: '/veiw-resavations-requests',
+    title: 'View Requests',
+    icon: 'view_module',
+    class: ''
+  }
+];
 
 @Component({
   selector: 'app-sidebar',

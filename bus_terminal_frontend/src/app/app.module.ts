@@ -11,7 +11,13 @@ import { AppComponent } from './app.component';
 import { AgmCoreModule } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './login/login.component';
+import { AlertComponent } from './alert/alert.component';
 import { MatDialogModule } from '@angular/material';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthService } from './login/auth.service';
+import { AuthGuard } from './guard';
+import { JwtInterceptor, ErrorInterceptor } from './_helpers';
+// import { JwtInterceptor, ErrorInterceptor } from './interceptor';
 
 @NgModule({
   imports: [
@@ -19,6 +25,7 @@ import { MatDialogModule } from '@angular/material';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    HttpClientModule,
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
@@ -31,8 +38,16 @@ import { MatDialogModule } from '@angular/material';
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
+    AlertComponent
   ],
-  providers: [],
+  providers: [
+    // AuthService,
+    // AuthGuard,
+    // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

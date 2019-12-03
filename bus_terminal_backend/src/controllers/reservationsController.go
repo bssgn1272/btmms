@@ -12,7 +12,8 @@ import (
 
 var CreateReservationController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
-	user := r.Context().Value("user") . (uint) //Grab the id of the user that send the request
+
+	//user := r.Context().Value("user") . (uint) //Grab the id of the user that send the request
 	reservation := &models.Reservation{}
 
 	err := json.NewDecoder(r.Body).Decode(reservation)
@@ -21,7 +22,7 @@ var CreateReservationController = http.HandlerFunc(func(w http.ResponseWriter, r
 		return
 	}
 
-	reservation.UserId = user
+	// reservation.UserId = user
 	resp := reservation.Create()
 	u.Respond(w, resp)
 })

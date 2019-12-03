@@ -91,9 +91,23 @@ func GetSlots() ([]*Slot) {
 func (slot *Slot) Update() (map[string] interface{}) {
 
 
-	day := time.Now().AddDate(0,0,1)
+	day := time.Now().AddDate(0,0,1,)
 
 	db.Model(&slot).UpdateColumns(Slot{SlotOne: "open", SlotTwo: "open", SlotThree: "open", SlotFour: "open", SlotFive: "open", ReservationTime: day})
+
+	resp := u.Message(true, "success")
+	resp["slot"] = slot
+	log.Println(resp)
+	return resp
+}
+
+
+// upadate Slots Table
+
+func (slot *Slot) Close() (map[string] interface{}) {
+
+
+	db.Model(&slot).Where("time = ?", slot.Time).Updates(Slot{SlotOne:slot.SlotOne, SlotTwo:slot.SlotTwo,SlotThree:slot.SlotThree,SlotFour:slot.SlotFour, SlotFive:slot.SlotFive})
 
 	resp := u.Message(true, "success")
 	resp["slot"] = slot

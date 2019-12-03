@@ -32,16 +32,16 @@
                       class="form-control"
                       placeholder="Username"
                       formControlName="username"
-                      [ngClass]="{ 'is-invalid': submitted &amp;&amp; loginForm.controls.username.errors }"
+                      [ngClass]="{ 'is-invalid': submitted &amp;&amp; f.username.errors }"
                       aria-label="Username"
                       aria-describedby="basic-addon1"
                     />
                     <div
-                      *ngIf="submitted &amp;&amp; loginForm.controls.username.errors"
+                      *ngIf="submitted &amp;&amp; f.username.errors"
                       class="text-danger"
                     >
-                      <div *ngIf="loginForm.controls.username.errors.required">
-                        First Name is required
+                      <div *ngIf="f.username.errors.required">
+                        Username is required
                       </div>
                     </div>
                   </div>
@@ -61,18 +61,18 @@
                       class="form-control"
                       placeholder="Password"
                       formControlName="password"
-                      [ngClass]="{ 'is-invalid': submitted &amp;&amp; loginForm.controls.password.errors }"
+                      [ngClass]="{ 'is-invalid': submitted &amp;&amp; f.password.errors }"
                       aria-label="Password"
                       aria-describedby="basic-addon1"
                     />
                     <div
-                      *ngIf="submitted &amp;&amp; loginForm.controls.password.errors"
+                      *ngIf="submitted &amp;&amp; f.password.errors"
                       class="text-danger"
                     >
-                      <div *ngIf="loginForm.controls.password.errors.required">
+                      <div *ngIf="f.password.errors.required">
                         Password is required
                       </div>
-                      <div *ngIf="loginForm.controls.password.errors.minlength">
+                      <div *ngIf="f.password.errors.minlength">
                         Password must be at least 6 characters
                       </div>
                     </div>

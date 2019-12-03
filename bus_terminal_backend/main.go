@@ -14,7 +14,7 @@ import (
 
 func main() {
 	router := mux.NewRouter().StrictSlash(true)
-	router.Use(a.JwtAuthentication) //attaching JWT auth middleware
+	router.Use(a.JwtAuthentication)
 	f, err := os.OpenFile("" +
 		"activity.log",
 		os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
@@ -34,7 +34,7 @@ func main() {
 
 	// authentication routes
 	router.Handle("/api/user/register", c.CreateUserController).Methods("POST")
-	router.Handle("/api/user/login", c.AuthenticateUserController).Methods("POST")
+	router.Handle("/api/login", c.AuthenticateUserController).Methods("POST")
 
 
 	// reservations routes
@@ -50,6 +50,8 @@ func main() {
 	// Reservations Approval routes
 	router.Handle("/api/reservations/requests", c.GetReservationsRequestsController).Methods("GET")
 	router.Handle("/api/approve/reservations/requests/{id}", c.UpdateReservationController).Methods("PUT")
+	router.Handle("/api/slots/close", c.CloseReservationController).Methods("PUT")
+
 
 
 

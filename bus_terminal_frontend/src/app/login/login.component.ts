@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from '../_services';
+// import { AuthService } from './auth.service';
+import { AlertService } from '../alert/alert.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -17,8 +20,19 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
-  ) {}
+    private router: Router,
+    // private authService: AuthService,
+    private authenticationService: AuthenticationService,
+    private alertService: AlertService
+  ) {
+    // redirect to home if already logged in
+    // if (this.authService.currentUserValue) {
+    //   this.router.navigate(['/']);
+    // }
+    if (this.authenticationService.currentUserValue) {
+      this.router.navigate(['/']);
+    }
+  }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -27,6 +41,11 @@ export class LoginComponent implements OnInit {
     });
 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  }
+
+  // convenience getter for easy access to form fields
+  get f() {
+    return this.loginForm.controls;
   }
 
   onSubmit() {
@@ -38,6 +57,29 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.router.navigate([this.returnUrl]);
+    this.authenticationService
+      .login(this.f.username.value, this.f.password.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.router.navigate([this.returnUrl]);
+        },
+        error => {
+          this.loading = false;
+          this.alertService.error(error);
+        }
+      );
+    //  this.authService
+    //    .login(this.f.username.value, this.f.password.value)
+    //    .pipe(first())
+    //    .subscribe(
+    //      data => {
+    //        this.router.navigate([this.returnUrl]);
+    //      },
+    //      error => {
+    //        this.alertService.error(error);
+    //        this.loading = false;
+    //      }
+    //    );
   }
 }

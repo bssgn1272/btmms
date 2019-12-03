@@ -27,6 +27,7 @@ var AuthenticateUserController = http.HandlerFunc(func(w http.ResponseWriter, r 
 	account := &models.User{}
 	err := json.NewDecoder(r.Body).Decode(account) //decode the request body into struct and failed if any error occur
 	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
 		u.Respond(w, u.Message(false, "Invalid request"))
 		return
 	}

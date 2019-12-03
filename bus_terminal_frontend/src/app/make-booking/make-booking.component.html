@@ -11,39 +11,60 @@
             <mat-dialog-content>
               <div class="row">
                 <div class="col-md-12">
-                  <mat-form-field class="example-full-width">
+                  <mat-form-field>
+                    <mat-label>Select Slots</mat-label>
+                    <mat-select [(ngModel)]="slot">
+                      <mat-option>None</mat-option>
+                      <div *ngIf="slot_one == 'open'">
+                        <mat-option value="slot_one">Slot One</mat-option>
+                      </div>
+                      <div *ngIf="slot_two == 'open'">
+                        <mat-option value="slot_two">Slot Two</mat-option>
+                      </div>
+                      <div *ngIf="slot_three == 'open'">
+                        <mat-option value="slot_three">Slot Three</mat-option>
+                      </div>
+                      <div *ngIf="slot_four == 'open'">
+                        <mat-option value="slot_four">Slot Four</mat-option>
+                      </div>
+                      <div *ngIf="slot_five == 'open'">
+                        <mat-option value="slot_five">Slot Five</mat-option>
+                      </div>
+                    </mat-select>
+                  </mat-form-field>
+                  <!-- <mat-form-field class="example-full-width">
                     <mat-label>Choose Slot</mat-label>
                     <mat-select multiple>
                       <mat-option *ngFor="let ba of slot" [value]="ba.value">
                         {{ ba.viewValue }}
                       </mat-option>
                     </mat-select>
-                  </mat-form-field>
+                  </mat-form-field> -->
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <mat-form-field class="example-full-width">
                     <input matInput placeholder="Bus Operator" type="text" />
                   </mat-form-field>
                 </div>
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                   <mat-form-field class="example-full-width">
                     <input matInput placeholder="Bus Number" type="text" />
                   </mat-form-field>
-                </div>
+                </div> -->
               </div>
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Bus Route" type="text" />
+                    <input matInput [(ngModel)]="route" placeholder="Bus Route" type="text" />
                   </mat-form-field>
                 </div>
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                   <mat-form-field class="example-full-width">
                     <input matInput placeholder="Bus Capacity" type="text" />
                   </mat-form-field>
-                </div>
+                </div> -->
               </div>
             </mat-dialog-content>
 

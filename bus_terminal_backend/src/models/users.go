@@ -23,6 +23,7 @@ type User struct {
 	gorm.Model
 	BusOperator string `json:"bus_operator"`
 	Username string `json:"username"`
+	Role string `json:"role"`
 	Email string `json:"email"`
 	Phone string `json:"phone"`
 	Password string `json:"password"`
@@ -94,14 +95,14 @@ func (account *User) Create() (map[string] interface{}) {
 }
 
 // login function
-func Login(email, password string) (map[string]interface{}) {
+func Login(username, password string) (map[string]interface{}) {
 
 	account := &User{}
-	err := GetDB().Table("users").Where("email = ?", email).First(account).Error
+	err := GetDB().Table("users").Where("username = ?", username).First(account).Error
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
-			log.Println(u.Message(false, "Email address not found"))
-			return u.Message(false, "Email address not found")
+			log.Println(u.Message(false, "Username address not found"))
+			return u.Message(false, "Username address not found")
 		}
 		log.Println(u.Message(false, "Connection error. Please retry"))
 		return u.Message(false, "Connection error. Please retry")

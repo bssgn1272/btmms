@@ -1,0 +1,57 @@
+digraph gocallvis {
+    label="command-line-arguments";
+    labeljust="l";
+    fontname="Arial";
+    fontsize="14";
+    rankdir="LR";
+    bgcolor="lightgray";
+    style="solid";
+    penwidth="0.5";
+    pad="0.0";
+    nodesep="0.35";
+
+    node [shape="ellipse" style="filled" fillcolor="honeydew" fontname="Verdana" penwidth="1.0" margin="0.05,0.0"];
+    edge [minlen="2"]
+
+    subgraph "cluster_focus" {
+        bgcolor="#e6ecfa";
+label="main";
+labelloc="t";
+labeljust="c";
+fontsize="18";
+        
+        "command-line-arguments.main" [ fillcolor="lightblue" label="main" penwidth="0.5" ]
+        "github.com/gorilla/mux.NewRouter" [ fillcolor="moccasin" label="mux\nNewRouter" penwidth="1.5" ]
+        "(*github.com/gorilla/mux.Router).StrictSlash" [ penwidth="1.5" fillcolor="moccasin" label="mux\n(*Router).StrictSlash" ]
+        "(*github.com/gorilla/mux.Router).Use" [ label="mux\n(*Router).Use" penwidth="1.5" fillcolor="moccasin" ]
+        "os.OpenFile" [ label="os\nOpenFile" penwidth="1.5" fillcolor="#adedad" ]
+        "log.Println" [ fillcolor="#adedad" label="log\nPrintln" penwidth="1.5" ]
+        "(*os.File).Close" [ label="os\n(*File).Close" penwidth="1.5" fillcolor="#adedad" ]
+        "log.SetOutput" [ fillcolor="#adedad" label="log\nSetOutput" penwidth="1.5" ]
+        "log.SetPrefix" [ fillcolor="#adedad" label="log\nSetPrefix" penwidth="1.5" ]
+        "log.SetFlags" [ fillcolor="#adedad" label="log\nSetFlags" penwidth="1.5" ]
+        "_/C_/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers.InitMidNight" [ fillcolor="moccasin" label="controllers\nInitMidNight" penwidth="1.5" ]
+        "(*github.com/gorilla/mux.Router).Handle" [ fillcolor="moccasin" label="mux\n(*Router).Handle" penwidth="1.5" ]
+        "(*github.com/gorilla/mux.Route).Methods" [ penwidth="1.5" fillcolor="moccasin" label="mux\n(*Route).Methods" ]
+        "github.com/gorilla/handlers.LoggingHandler" [ fillcolor="moccasin" label="handlers\nLoggingHandler" penwidth="1.5" ]
+        "_/C_/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs.LogRequest" [ fillcolor="moccasin" label="logs\nLogRequest" penwidth="1.5" ]
+        "net/http.ListenAndServe" [ fillcolor="#adedad" label="http\nListenAndServe" penwidth="1.5" ]
+        
+    }
+
+    "command-line-arguments.main" -> "github.com/gorilla/mux.NewRouter" [ color="saddlebrown" ]
+    "command-line-arguments.main" -> "(*github.com/gorilla/mux.Router).StrictSlash" [ color="saddlebrown" ]
+    "command-line-arguments.main" -> "(*github.com/gorilla/mux.Router).Use" [ color="saddlebrown" ]
+    "command-line-arguments.main" -> "os.OpenFile" [ color="saddlebrown" ]
+    "command-line-arguments.main" -> "log.Println" [ color="saddlebrown" ]
+    "command-line-arguments.main" -> "(*os.File).Close" [ arrowhead="normalnoneodiamond" color="saddlebrown" ]
+    "command-line-arguments.main" -> "log.SetOutput" [ color="saddlebrown" ]
+    "command-line-arguments.main" -> "log.SetPrefix" [ color="saddlebrown" ]
+    "command-line-arguments.main" -> "log.SetFlags" [ color="saddlebrown" ]
+    "command-line-arguments.main" -> "_/C_/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers.InitMidNight" [ arrowhead="normalnoneodot" color="saddlebrown" ]
+    "command-line-arguments.main" -> "(*github.com/gorilla/mux.Router).Handle" [ color="saddlebrown" ]
+    "command-line-arguments.main" -> "(*github.com/gorilla/mux.Route).Methods" [ color="saddlebrown" ]
+    "command-line-arguments.main" -> "github.com/gorilla/handlers.LoggingHandler" [ color="saddlebrown" ]
+    "command-line-arguments.main" -> "_/C_/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs.LogRequest" [ color="saddlebrown" ]
+    "command-line-arguments.main" -> "net/http.ListenAndServe" [ color="saddlebrown" ]
+}

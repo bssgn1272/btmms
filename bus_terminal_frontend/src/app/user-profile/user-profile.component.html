@@ -6,14 +6,7 @@
           <div class="card-header card-header-tabs card-header-primary">
             <div class="nav-tabs-navigation">
               <div class="nav-tabs-wrapper">
-                <!-- <span class="nav-tabs-title">Tasks:</span> -->
                 <ul class="nav nav-tabs" data-tabs="tabs">
-                  <!-- <li class="nav-item">
-                                      <a mat-button class="nav-link" href="#register" data-toggle="tab">
-                                          <i class="material-icons">add</i> Register User
-                                          <div class="ripple-container"></div>
-                                      </a>
-                                  </li> -->
                   <li class="nav-item">
                     <a
                       mat-button
@@ -25,12 +18,6 @@
                       <div class="ripple-container"></div>
                     </a>
                   </li>
-                  <!-- <li class="nav-item">
-                                      <a mat-button class="nav-link" href="#settings" data-toggle="tab">
-                                          <i class="material-icons">cloud</i> Server
-                                          <div class="ripple-container"></div>
-                                      </a>
-                                  </li>-->
                 </ul>
               </div>
             </div>
@@ -50,67 +37,58 @@
                   <table class="table" mat-table [dataSource]="dataSource">
                     <!-- time Column -->
                     <ng-container matColumnDef="time">
-                      <th mat-header-cell *matHeaderCellDef>No.</th>
+                      <th mat-header-cell *matHeaderCellDef>time</th>
                       <td mat-cell *matCellDef="let element">
                         {{ element.time }}
                       </td>
                     </ng-container>
 
                     <!-- status Column -->
-                    <ng-container matColumnDef="status">
+                    <ng-container matColumnDef="slot_one">
                       <th mat-header-cell *matHeaderCellDef>Slot One</th>
                       <td mat-cell *matCellDef="let element">
-                        {{ element.status }}
+                        {{ element.slot_one }}
                       </td>
                     </ng-container>
 
                     <!-- status1 Column -->
-                    <ng-container matColumnDef="status2">
+                    <ng-container matColumnDef="slot_two">
                       <th mat-header-cell *matHeaderCellDef>Slot Two</th>
                       <td mat-cell *matCellDef="let element">
-                        {{ element.status2 }}
+                        {{ element.slot_two }}
                       </td>
                     </ng-container>
 
                     <!-- status2 Column -->
-                    <ng-container matColumnDef="status3">
+                    <ng-container matColumnDef="slot_three">
                       <th mat-header-cell *matHeaderCellDef>Slot Three</th>
                       <td mat-cell *matCellDef="let element">
-                        {{ element.status3 }}
+                        {{ element.slot_three }}
                       </td>
                     </ng-container>
 
                     <!-- status2 Column -->
-                    <ng-container matColumnDef="status4">
+                    <ng-container matColumnDef="slot_four">
                       <th mat-header-cell *matHeaderCellDef>Slot Four</th>
                       <td mat-cell *matCellDef="let element">
-                        {{ element.status4 }}
+                        {{ element.slot_four }}
                       </td>
                     </ng-container>
 
                      <!-- status2 Column -->
-                    <ng-container matColumnDef="status5">
+                    <ng-container matColumnDef="slot_five">
                       <th mat-header-cell *matHeaderCellDef>Slot Five</th>
                       <td mat-cell *matCellDef="let element">
-                        {{ element.status5 }}
+                        {{ element.slot_five }}
                       </td>
                     </ng-container>
 
                     <ng-container matColumnDef="action">
                       <th mat-header-cell *matHeaderCellDef>Action</th>
-                      <td mat-cell *matCellDef="let element">
-                        <!-- <button
-                        mat-raised-button
-                        type="button"
-                        matTooltip="Edit Task"
-                        [matTooltiptime]="'above'"
-                        class="btn btn-primary btn-link btn-sm btn-just-icon"
-                      >
-                        <i class="material-icons">edit</i>
-                      </button> -->
+                      <td mat-cell *matCellDef="let row">
                         <button
                           mat-raised-button
-                          (click)="onOpenDialog()"
+                          (click)="onOpenDialog(row)"
                           matTooltip="Book Slot"
                           aria-label="Button that displays a tooltip when focused or hovered over"
                           class="btn btn-primary btn-link btn-sm btn-just-icon"
