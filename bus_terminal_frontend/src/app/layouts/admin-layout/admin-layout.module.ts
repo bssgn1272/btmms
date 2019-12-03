@@ -29,6 +29,8 @@ import { MakeBookingComponent } from 'app/make-booking/make-booking.component';
 import { ViewMySlotsComponent } from 'app/view-my-slots/view-my-slots.component';
 import { RoservationRequestsComponent } from 'app/roservation-requests/roservation-requests.component';
 import { ApproveReservationComponent } from 'app/approve-reservation/approve-reservation.component';
+import { AlertsComponent } from 'app/alert/alerts.component';
+import { AlertsService } from 'app/alert/alerts.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -59,7 +61,11 @@ import { ApproveReservationComponent } from 'app/approve-reservation/approve-res
     MakeBookingComponent,
     ViewMySlotsComponent,
     RoservationRequestsComponent,
-    ApproveReservationComponent
+    ApproveReservationComponent,
+    AlertsComponent
+  ],
+  providers: [
+    AlertsService
   ]
 })
 export class AdminLayoutModule {}

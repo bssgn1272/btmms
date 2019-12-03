@@ -21,21 +21,20 @@ type Token struct {
 //a struct to rep user account
 type User struct {
 	gorm.Model
-	BusOperator string `json:"bus_operator"`
 	Username string `json:"username"`
 	Role string `json:"role"`
 	Email string `json:"email"`
 	Phone string `json:"phone"`
 	Password string `json:"password"`
-	Token string `json:"token";sql:"-"`
+	Token string `json:"token"`
 }
 
 //Validate incoming user details...
 func (account *User) Validate() (map[string] interface{}, bool) {
 
 	if !strings.Contains(account.Email, "@") {
-		log.Println(u.Message(false, "Email address is required"))
-		return u.Message(false, "Email address is required"), false
+		log.Println(u.Message(false, "Email is required"))
+		return u.Message(false, "Email is required"), false
 	}
 
 	if len(account.Password) < 6 {
@@ -47,7 +46,7 @@ func (account *User) Validate() (map[string] interface{}, bool) {
 	temp := &User{}
 
 	//check for errors and duplicate emails
-	err := GetDB().Table("users").Where("email = ?", account.Email).First(temp).Error
+	err := GetDB().Table("users").Where("username = ?", account.Username).First(temp).Error
 
 	log.Println(err)
 
@@ -55,9 +54,9 @@ func (account *User) Validate() (map[string] interface{}, bool) {
 		log.Println(u.Message(false, "Connection error. Please retry"))
 		return u.Message(false, "Connection error. Please retry"), false
 	}
-	if temp.Email != "" {
+	if temp.Username != "" {
 		log.Println(u.Message(false, "Email address already in use by another user."))
-		return u.Message(false, "Email address already in use by another user."), false
+		return u.Message(false, "Username already in use by another user."), false
 	}
 
 	return u.Message(false, "Requirement passed"), true
@@ -98,11 +97,12 @@ func (account *User) Create() (map[string] interface{}) {
 func Login(username, password string) (map[string]interface{}) {
 
 	account := &User{}
+	log.Println(username)
 	err := GetDB().Table("users").Where("username = ?", username).First(account).Error
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
-			log.Println(u.Message(false, "Username address not found"))
-			return u.Message(false, "Username address not found")
+			log.Println(u.Message(false, "Username not found"))
+			return u.Message(false, "Username not found")
 		}
 		log.Println(u.Message(false, "Connection error. Please retry"))
 		return u.Message(false, "Connection error. Please retry")

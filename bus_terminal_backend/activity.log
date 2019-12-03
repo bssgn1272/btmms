@@ -10609,3 +10609,495 @@ Content-Type: application/json
 
 
 LOG: 2019/12/03 13:05:21.109649 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/12/03 13:12:44.268580 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 13:12:44.283580 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 13:25:50.757071 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@12PhG78Q/u95XdjL30n4uw--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 13:25:50.785069 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 13:26:25.976871 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@gqTDFPUXNB1+SUYTzkHUTw--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 13:26:26.006873 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 13:28:10.372021 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@lIbKLJbynv5g4tb7PFTozQ--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 13:28:10.374022 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 13:30:58.955946 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@iXVeCFYBJrVKuku/VxR/Nw--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 13:30:59.020944 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 13:31:41.870208 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/12/03 13:32:54.285832 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@Gz9GB0OC6FN1d6NLiOz1DA--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 13:32:54.306833 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 13:33:30.335579 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/12/03 13:34:04.617744 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@WZ6Abyy5iXih2R3S8MGR/w--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 13:34:04.728742 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 13:40:22.329914 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@jHR1BkBEIzaPL1CUnOEt7g--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 13:40:22.347914 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 13:41:14.700787 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@TEZaZosD1Fx5Rv93cAYvaw--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 13:41:14.729788 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 13:41:50.677791 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@9XfFuq9FN/RwDl9T24xLmA--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 13:41:50.699792 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 13:42:02.975851 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@BzId5u2BErtTAEyc0QfAlA--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 13:42:03.068851 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 13:42:43.073602 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@v+Np/4hw/b+nJWzLxTCo0A--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 13:42:43.228600 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 13:43:10.525601 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@ut6xuF+Bc9Q5LLoscAYqKA--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 13:43:10.561603 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 13:43:56.339323 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@oojN63yDmHv79xzriN0w4Q--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 13:43:56.390318 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 13:44:26.753904 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@pt9yK8BtwUP4rSMKT+XiOQ--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 13:44:26.759904 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 13:46:20.136987 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@KZQRR0t34kBMlXfhz/D9ng--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 13:46:20.140987 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 14:00:02.572684 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 14:00:02.595683 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:104: map[message:Username address not found status:false]
+LOG: 2019/12/03 14:00:02.596683 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 14:00:34.994796 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 14:00:34.996796 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:104: map[message:Username address not found status:false]
+LOG: 2019/12/03 14:00:34.999795 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 14:01:25.984322 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 14:01:25.986322 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:104: map[message:Username address not found status:false]
+LOG: 2019/12/03 14:01:25.988323 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 14:10:05.878388 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/12/03 14:11:23.561679 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 47
+Content-Type: application/json
+Postman-Token: 8a8b74dd-809e-4837-829d-5fe9976c8cb1
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/12/03 14:11:23.569676 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:104: map[message:Username not found status:false]
+LOG: 2019/12/03 14:11:23.574684 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 14:11:58.914676 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/user/register HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 123
+Content-Type: application/json
+Postman-Token: a272dbd9-e5ee-467e-8364-b49f692f7856
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/12/03 14:11:58.914676 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:37: map[message:User is required status:false]
+LOG: 2019/12/03 14:11:58.928679 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 14:12:12.080679 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/user/register HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 123
+Content-Type: application/json
+Postman-Token: 869cb41a-4bdf-42db-8d42-88568f0875e9
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/12/03 14:12:12.081679 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:37: map[message:User is required status:false]
+LOG: 2019/12/03 14:12:12.088677 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 14:14:32.908288 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/12/03 14:14:38.278289 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/user/register HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 123
+Content-Type: application/json
+Postman-Token: 3b021828-d984-4cc0-a034-a8f50c86f189
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/12/03 14:14:38.281292 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:52: record not found
+LOG: 2019/12/03 14:14:38.643291 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:93: map[account:0xc00021ee70 message:Account has been created status:true]
+LOG: 2019/12/03 14:14:38.664292 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 14:16:16.808932 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/12/03 14:16:32.854934 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/user/register HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 123
+Content-Type: application/json
+Postman-Token: dee3566d-fe0e-48e5-b187-b0abc8ab5b15
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/12/03 14:16:32.858936 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:51: record not found
+LOG: 2019/12/03 14:16:33.162932 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:92: map[account:0xc000221ae0 message:Account has been created status:true]
+LOG: 2019/12/03 14:16:33.186934 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 14:18:32.706700 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 47
+Content-Type: application/json
+Postman-Token: 58d692ed-3959-4dc9-94e6-e06ae19b9d6a
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/12/03 14:18:32.737700 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:103: map[message:Username not found status:false]
+LOG: 2019/12/03 14:18:32.760699 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 14:19:45.382223 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/12/03 14:20:05.565227 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 47
+Content-Type: application/json
+Postman-Token: 8ebd4562-fcc4-4364-bae7-8013cf0e0a91
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/12/03 14:20:05.566228 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: 
+LOG: 2019/12/03 14:20:05.603225 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:104: map[message:Username not found status:false]
+LOG: 2019/12/03 14:20:05.625224 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+

@@ -15,9 +15,9 @@ import { AlertComponent } from './alert/alert.component';
 import { MatDialogModule } from '@angular/material';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './login/auth.service';
-import { AuthGuard } from './guard';
-import { JwtInterceptor, ErrorInterceptor } from './_helpers';
-// import { JwtInterceptor, ErrorInterceptor } from './interceptor';
+import { AuthGuard } from './guard/auth.guard';
+import { JwtInterceptor, ErrorInterceptor } from './interceptor';
+
 
 @NgModule({
   imports: [
@@ -41,10 +41,8 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
     AlertComponent
   ],
   providers: [
-    // AuthService,
-    // AuthGuard,
-    // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    AuthService,
+    AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],

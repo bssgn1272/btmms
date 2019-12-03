@@ -3,7 +3,6 @@ export class User {
   username: string;
   password: string;
   email: string;
-  bus_operator: string;
   role: string;
-  token?: string;
+  token: string;
 }
