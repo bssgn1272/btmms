@@ -55,7 +55,7 @@ func (account *User) Validate() (map[string] interface{}, bool) {
 		return u.Message(false, "Connection error. Please retry"), false
 	}
 	if temp.Username != "" {
-		log.Println(u.Message(false, "Email address already in use by another user."))
+		log.Println(u.Message(false, "Username address already in use by another user."))
 		return u.Message(false, "Username already in use by another user."), false
 	}
 

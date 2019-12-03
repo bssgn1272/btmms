@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   loading = false;
   returnUrl: string;
+  userItems: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,14 +35,29 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  public getFromLocalStrorage() {
+    const users = JSON.parse(localStorage.getItem('currentUser'));
+    return users;
+  }
+
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
 
+    this.userItems = this.getFromLocalStrorage();
+    const _role = this.userItems.account.role;
+    if (_role === 'admin') {
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+      this.returnUrl =
+        this.route.snapshot.queryParams['returnUrl'] ||
+        '/veiw-resavations-requests';
+    } else {
+      // get return url from route parameters or default to '/'
+      this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    }
+
   }
 
   // convenience getter for easy access to form fields

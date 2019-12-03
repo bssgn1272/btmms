@@ -27,11 +27,13 @@ export const AdminLayoutRoutes: Routes = [
   {
     path: 'veiw-slot',
     component: ViewMySlotsComponent,
-     canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    //  data: { roles: [Role.admin] }
   },
   {
     path: 'veiw-resavations-requests',
     component: RoservationRequestsComponent,
-     canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    //  data: { roles: [Role.admin] }
   }
 ];

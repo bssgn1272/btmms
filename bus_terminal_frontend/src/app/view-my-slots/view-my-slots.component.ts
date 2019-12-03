@@ -10,6 +10,9 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ViewSlotsService } from './view-slots.service';
+import { AuthService } from 'app/login/auth.service';
+
+
 
 @Component({
   selector: 'app-view-my-slots',
@@ -38,23 +41,33 @@ export class ViewMySlotsComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  userItems: any;
 
   constructor(
     private httpClient: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
     private _snackBar: MatSnackBar,
-    private viewSlots: ViewSlotsService
+    private viewSlots: ViewSlotsService,
+    private authenticationService: AuthService
   ) {}
 
+  public getFromLocalStrorage() {
+    const users = JSON.parse(localStorage.getItem('currentUser'));
+    return users;
+  }
+
   ngOnInit() {
-    this.viewSlots.getList().then(res => {
+    this.userItems = this.getFromLocalStrorage();
+    const _id = this.userItems.account.ID;
+
+    this.viewSlots.getList(_id).then(res => {
       this.dataSource = new MatTableDataSource(res.data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
 
-    console.log(this.dataSource);
+    // console.log(this.currentUser.id);
   }
 
   applyFilter(filterValue: string) {
@@ -62,7 +75,7 @@ export class ViewMySlotsComponent implements OnInit {
   }
 
   cancel(row) {
-this.slot = row.slot;
+    this.slot = row.slot;
     this.id = row.r_id;
     this.status = 'C';
     this.time = row.time;

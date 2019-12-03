@@ -11101,3 +11101,3335 @@ Connection: close
 Content-Type: application/json
 
 
+LOG: 2019/12/03 14:26:24.918037 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@+dgxioJ3e/3mt1OVhJ3LmA--
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 14:26:24.925037 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: 
+LOG: 2019/12/03 14:26:24.932036 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:104: map[message:Username not found status:false]
+LOG: 2019/12/03 14:26:24.933036 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 14:28:41.862036 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/12/03 14:29:12.651038 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 47
+Content-Type: application/json
+Postman-Token: 007b8a66-ffa2-4d25-b41e-c39b675c1a67
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/12/03 14:29:12.652037 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 14:29:12.655039 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:104: map[message:Username not found status:false]
+LOG: 2019/12/03 14:29:12.671037 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 14:29:18.444039 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 47
+Content-Type: application/json
+Postman-Token: e1f50ae4-d078-4a12-9102-01582bdb1c36
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/12/03 14:29:18.444039 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 14:29:18.445038 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:104: map[message:Username not found status:false]
+LOG: 2019/12/03 14:29:18.504036 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 14:29:49.153036 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/12/03 14:31:37.639622 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@9BXM7MRC1pqBeWQxr5K8CQ--
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 14:31:37.641623 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 14:31:37.644623 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:104: map[message:Username not found status:false]
+LOG: 2019/12/03 14:31:37.668622 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 14:41:07.757377 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/12/03 14:41:32.440629 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 47
+Content-Type: application/json
+Postman-Token: ba9d5cbc-b42a-4cb8-a363-fa810e3c16ac
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/12/03 14:41:32.442628 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 14:41:32.460629 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:104: map[message:Username not found status:false]
+LOG: 2019/12/03 14:41:32.468629 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 14:42:15.949285 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/12/03 14:42:38.842873 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:7080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 47
+Content-Type: application/json
+Postman-Token: 9094cd9e-f7ae-4e3b-9218-7f827ef369d8
+User-Agent: PostmanRuntime/7.20.1
+
+
+LOG: 2019/12/03 14:42:38.843872 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 14:42:38.986874 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc00024d400 message:Logged In status:true]
+LOG: 2019/12/03 14:42:39.002875 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 14:44:52.203394 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@8irtZGBYWru/XIqeeH1eYg--
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 14:44:52.205394 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 14:44:52.471395 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc00024d5e0 message:Logged In status:true]
+LOG: 2019/12/03 14:44:52.485395 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 15:04:50.332814 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 15:04:50.403817 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 15:04:50.668816 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc0002a26e0 message:Logged In status:true]
+LOG: 2019/12/03 15:04:50.693815 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 15:04:51.669814 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 15:04:51.685815 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 15:06:54.710675 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 15:06:54.710675 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 15:06:54.993674 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc0002a2a00 message:Logged In status:true]
+LOG: 2019/12/03 15:06:55.004675 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 15:06:55.653678 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 15:06:55.658678 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 15:08:14.700765 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 15:08:14.702765 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 15:08:14.879768 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc0002a2dc0 message:Logged In status:true]
+LOG: 2019/12/03 15:08:14.887768 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 15:08:16.146765 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 15:08:16.157765 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 15:12:24.692150 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:29: init started
+LOG: 2019/12/03 15:13:19.562152 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@xRXqPrs3vV+uLtbhcx/uCQ--
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 15:13:19.659152 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 15:13:19.691152 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:104: map[message:Username not found status:false]
+LOG: 2019/12/03 15:13:19.708152 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 15:13:20.319152 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@xRXqPrs3vV+uLtbhcx/uCQ--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 15:13:20.322153 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 15:23:51.386623 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 15:23:51.389622 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A54
+LOG: 2019/12/03 15:23:51.406621 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:104: map[message:Username not found status:false]
+LOG: 2019/12/03 15:23:51.407622 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 15:23:52.387625 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 15:23:52.411622 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 15:25:42.083623 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@Tu4S6TeIv9wsda+aIN2WFA--
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 15:25:42.083623 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A54
+LOG: 2019/12/03 15:25:42.086620 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:104: map[message:Username not found status:false]
+LOG: 2019/12/03 15:25:42.086620 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 15:25:42.633625 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@Tu4S6TeIv9wsda+aIN2WFA--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 15:25:42.639624 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 15:27:06.376953 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 15:27:06.376953 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 15:27:06.510952 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc000137860 message:Logged In status:true]
+LOG: 2019/12/03 15:27:06.510952 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 15:27:07.305951 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 15:27:07.370954 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 15:28:15.306017 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 15:28:15.321017 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 15:28:17.136016 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 15:28:17.196017 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 15:33:18.794758 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@YXdRBSBNtsPAJPZ99vLbaA--
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 15:33:18.839756 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 15:36:07.078591 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fveiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 15:36:07.078591 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 15:36:07.339587 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc00031c280 message:Logged In status:true]
+LOG: 2019/12/03 15:36:07.342590 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 15:36:08.353590 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 15:36:08.424589 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 15:37:33.537588 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@eDedr5ODeTHiJFXrRdn2xw--
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 15:37:33.558592 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 15:39:15.301653 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fveiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 15:39:15.309654 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 15:39:15.465651 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc00031c8c0 message:Logged In status:true]
+LOG: 2019/12/03 15:39:15.466650 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 15:39:16.569653 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 15:39:16.573652 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 15:41:30.510972 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@kMe2fctzzFY5EyfQPUf7zg--
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 15:41:30.552971 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 15:44:12.283990 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fveiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 15:44:12.284989 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 15:44:12.476990 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc00031cf00 message:Logged In status:true]
+LOG: 2019/12/03 15:44:12.506991 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 15:55:06.684320 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fveiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 15:55:06.751320 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 15:55:06.929319 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc00031d400 message:Logged In status:true]
+LOG: 2019/12/03 15:55:06.933321 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 15:55:08.182320 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 15:55:08.216320 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 15:56:39.799324 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@C8DKyPr/G2nPqWuGBUCZMw--
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fveiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 15:56:39.800324 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 15:56:40.115320 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc00031d9a0 message:Logged In status:true]
+LOG: 2019/12/03 15:56:40.128323 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 15:56:41.403322 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@C8DKyPr/G2nPqWuGBUCZMw--
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 15:56:41.409319 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 15:56:47.523320 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@C8DKyPr/G2nPqWuGBUCZMw--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 15:56:47.524319 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 403 Forbidden
+Connection: close
+
+
+LOG: 2019/12/03 15:58:58.569541 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/main.go:28: init started
+LOG: 2019/12/03 16:00:12.632707 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 16:00:12.687705 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 16:00:12.897705 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc00026f360 message:Logged In status:true]
+LOG: 2019/12/03 16:00:12.920706 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:00:13.584707 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 16:00:13.598705 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 16:00:13.599705 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc00021e3c0 0xc00021e480 0xc00021e540 0xc00021e600 0xc00021e6c0 0xc00021e780 0xc00021e840 0xc00021e900 0xc00021e9c0 0xc00021ea80 0xc00021eb40] message:success status:true]
+LOG: 2019/12/03 16:00:13.600706 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:00:29.603707 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 16:00:29.646706 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:108: <nil>
+LOG: 2019/12/03 16:00:29.659705 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc00033c000 0xc00033c420] message:success status:true]
+LOG: 2019/12/03 16:00:29.687706 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:02:04.158921 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@l5/dh5ANoTNHk20bc6mChA--
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 16:02:04.177922 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:108: <nil>
+LOG: 2019/12/03 16:02:04.177922 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc00033cdc0 0xc00033d1e0] message:success status:true]
+LOG: 2019/12/03 16:02:04.272923 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:02:15.253919 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@l5/dh5ANoTNHk20bc6mChA--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 16:02:15.254920 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 16:02:15.255921 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:02:20.082922 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@l5/dh5ANoTNHk20bc6mChA--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 16:02:20.102922 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 16:02:20.104920 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc0003460c0 0xc000346180 0xc000346240 0xc000346300 0xc0003463c0 0xc000346480 0xc000346540 0xc000346600 0xc0003466c0 0xc000346780 0xc000346840] message:success status:true]
+LOG: 2019/12/03 16:02:20.139921 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:02:23.667921 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@l5/dh5ANoTNHk20bc6mChA--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 16:02:23.671921 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 16:02:23.676922 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:11:26.286888 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@k3iOWVLAdOgEy4N34ZjPoA--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 16:11:26.459889 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 16:11:26.517889 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:12:34.150980 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fveiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 16:12:34.155980 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 16:12:34.338981 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc0003368c0 message:Logged In status:true]
+LOG: 2019/12/03 16:12:34.340981 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:12:35.202982 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 16:12:35.237981 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 16:12:35.256978 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:14:32.098952 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@jcsi8MIUQ/DCKo529TfCIA--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 16:14:32.218954 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 16:14:32.227953 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc00021ec00 0xc00021ecc0 0xc00021ed80 0xc00021ee40 0xc00021ef00 0xc00021efc0 0xc00021f080 0xc00021f140 0xc00021f200 0xc00021f2c0 0xc00021f380] message:success status:true]
+LOG: 2019/12/03 16:14:32.257954 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:15:31.253480 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 16:15:31.255480 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 16:15:31.398481 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc0002d2a00 message:Logged In status:true]
+LOG: 2019/12/03 16:15:31.404477 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:15:32.047482 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 16:15:32.113479 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 16:15:32.146482 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc0002f20c0 0xc0002f2180 0xc0002f2240 0xc0002f2300 0xc0002f23c0 0xc0002f2480 0xc0002f2540 0xc0002f2600 0xc0002f26c0 0xc0002f2780 0xc0002f2840] message:success status:true]
+LOG: 2019/12/03 16:15:32.224482 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:26:57.461581 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 16:26:57.461581 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 16:26:57.608578 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc0002d3040 message:Logged In status:true]
+LOG: 2019/12/03 16:26:57.610580 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:26:59.353582 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 16:26:59.366582 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 16:26:59.366582 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc0002f2900 0xc0002f29c0 0xc0002f2a80 0xc0002f2b40 0xc0002f2c00 0xc0002f2cc0 0xc0002f2d80 0xc0002f2e40 0xc0002f2f00 0xc0002f2fc0 0xc0002f3080] message:success status:true]
+LOG: 2019/12/03 16:26:59.367582 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:29:20.648580 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 16:29:20.649581 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 16:29:20.759580 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc0002d3720 message:Logged In status:true]
+LOG: 2019/12/03 16:29:20.762581 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:37:58.754384 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@2TdAAd+4XsDLGa0aQsZuiw--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 16:37:58.771384 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 16:37:58.774384 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc00021f440 0xc00021f500 0xc00021f5c0 0xc00021f680 0xc00021f740 0xc00021f800 0xc00021f8c0 0xc00021f980 0xc00021fa40 0xc00021fb00 0xc00021fbc0] message:success status:true]
+LOG: 2019/12/03 16:37:58.805385 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:39:39.285386 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 16:39:39.285386 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 16:39:39.406382 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc000337180 message:Logged In status:true]
+LOG: 2019/12/03 16:39:39.407381 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:39:40.652384 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 16:39:40.892382 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 16:39:40.903384 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc00021fc80 0xc00021fd40 0xc00021fe00 0xc00021fec0 0xc00044c000 0xc00044c0c0 0xc000346900 0xc0003469c0 0xc000346a80 0xc000346b40 0xc000346c00] message:success status:true]
+LOG: 2019/12/03 16:39:40.918385 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:43:20.529431 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 16:43:20.537430 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 16:43:20.537430 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc0000ae000 0xc0000ae0c0 0xc0000ae180 0xc0000ae240 0xc0000ae300 0xc0000ae3c0 0xc0000ae540 0xc0000ae600 0xc0000ae6c0 0xc0000ae780 0xc0000ae840] message:success status:true]
+LOG: 2019/12/03 16:43:20.551430 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:43:46.784430 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@3n+zE1tbdNcflgAUNcI2QA--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 16:43:46.983431 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 16:43:46.983431 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc00021e000 0xc00021e180 0xc00021e240 0xc00021e3c0 0xc00021e480 0xc00021e540 0xc00021e600 0xc00021e6c0 0xc00021e780 0xc00021e840 0xc00021e900] message:success status:true]
+LOG: 2019/12/03 16:43:47.053429 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:44:10.555429 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@gsGOc0LO2Zhz83l/bSkJlA--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 16:44:10.577432 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 16:44:10.577432 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc0000ae000 0xc0000ae0c0 0xc0000ae180 0xc0000ae240 0xc0000ae300 0xc0000ae3c0 0xc0000ae540 0xc0000ae600 0xc0000ae6c0 0xc0000ae780 0xc0000ae840] message:success status:true]
+LOG: 2019/12/03 16:44:10.641432 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:48:03.396469 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@nGTMn5e3GqjEVlJfB23pdA--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 16:48:03.418476 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 16:48:03.419467 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc00021e000 0xc00021e0c0 0xc00021e180 0xc00021e240 0xc00021e3c0 0xc00021e480 0xc00021e540 0xc00021e600 0xc00021e6c0 0xc00021e780 0xc00021e840] message:success status:true]
+LOG: 2019/12/03 16:48:03.430466 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:49:14.802467 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 16:49:14.803468 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 16:49:14.985466 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc0000581e0 message:Logged In status:true]
+LOG: 2019/12/03 16:49:14.991468 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:49:15.620468 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 16:49:15.644468 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 16:49:15.644468 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc0000ae0c0 0xc0000ae180 0xc0000ae240 0xc0000ae300 0xc0000ae3c0 0xc0000ae540 0xc0000ae600 0xc0000ae6c0 0xc0000ae780 0xc0000ae840 0xc0000ae900] message:success status:true]
+LOG: 2019/12/03 16:49:15.659465 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:51:16.242521 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 16:51:16.243520 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 16:51:16.412521 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc00010c140 message:Logged In status:true]
+LOG: 2019/12/03 16:51:16.416522 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:51:17.002523 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 16:51:17.011521 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 16:51:17.011521 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc0000ae0c0 0xc0000ae180 0xc0000ae240 0xc0000ae300 0xc0000ae3c0 0xc0000ae540 0xc0000ae600 0xc0000ae6c0 0xc0000ae780 0xc0000ae840 0xc0000ae900] message:success status:true]
+LOG: 2019/12/03 16:51:17.028523 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:58:15.266120 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 16:58:15.266120 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 16:58:15.617117 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc00010c140 message:Logged In status:true]
+LOG: 2019/12/03 16:58:15.767118 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:58:16.660120 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 16:58:16.664121 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 16:58:16.664121 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc0000ae0c0 0xc0000ae180 0xc0000ae240 0xc0000ae300 0xc0000ae3c0 0xc0000ae540 0xc0000ae600 0xc0000ae6c0 0xc0000ae780 0xc0000ae840 0xc0000ae900] message:success status:true]
+LOG: 2019/12/03 16:58:16.700119 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:58:19.397120 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 16:58:19.420120 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 16:58:19.431117 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:58:21.332118 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 16:58:21.428122 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:108: <nil>
+LOG: 2019/12/03 16:58:21.428122 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc0002b9e40 0xc0002502c0] message:success status:true]
+LOG: 2019/12/03 16:58:21.436132 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:58:24.949119 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 16:58:24.954119 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 16:58:24.969121 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:58:27.156121 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 16:58:27.162120 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 16:58:27.162120 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc0002940c0 0xc000294180 0xc000294240 0xc000294300 0xc0002943c0 0xc000294480 0xc000294540 0xc000294600 0xc0002946c0 0xc000294780 0xc000294840] message:success status:true]
+LOG: 2019/12/03 16:58:27.170119 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 16:59:56.045181 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@Pf/l6CENba38QAKkHsnRhw--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 16:59:56.046183 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 16:59:56.046183 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc00021e0c0 0xc00021e180 0xc00021e240 0xc00021e3c0 0xc00021e480 0xc00021e540 0xc00021e600 0xc00021e6c0 0xc00021e780 0xc00021e840 0xc00021e900] message:success status:true]
+LOG: 2019/12/03 16:59:56.182181 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 17:00:08.272178 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@Pf/l6CENba38QAKkHsnRhw--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 17:00:08.282181 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 17:00:08.290183 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 17:00:16.312182 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@Pf/l6CENba38QAKkHsnRhw--
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 17:00:16.315181 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:108: <nil>
+LOG: 2019/12/03 17:00:16.315181 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc000122f20 0xc000123340] message:success status:true]
+LOG: 2019/12/03 17:00:16.319181 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 17:03:54.468705 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@rdcGOJm6PR44/oP6fldv0g--
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 17:03:54.498706 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:108: <nil>
+LOG: 2019/12/03 17:03:54.498706 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc000126000 0xc000126420] message:success status:true]
+LOG: 2019/12/03 17:03:54.557705 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 17:04:03.969704 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/3 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@rdcGOJm6PR44/oP6fldv0g--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 17:04:03.970705 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 17:04:03.972702 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 17:08:53.609749 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/undefined HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@5KH1OE1lKLTAo8ry2jpq3w--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 17:08:53.709748 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 17:09:00.518747 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 17:09:00.535747 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:108: <nil>
+LOG: 2019/12/03 17:09:00.535747 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc00014a000 0xc00014a420] message:success status:true]
+LOG: 2019/12/03 17:09:00.544746 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 17:09:11.580745 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/undefined HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 17:09:11.600745 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 17:10:01.261745 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@TMtEdRmURA8anmtNsa3rrQ--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 17:10:01.266747 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 17:10:01.272749 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 18:05:34.536670 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@6we2B43D7CCnYIN8lXI9Rg--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 18:05:34.539671 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 18:05:34.551672 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:02:04.289789 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/undefined HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@WYt0UUuYut3ZTjx2kGrnaw--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 20:02:04.291789 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:02:47.833569 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/undefined HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@yCAp5TgKIyHjShnNucuSLw--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:02:47.898571 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:22:37.029754 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/undefined HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:22:37.274753 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:22:49.223752 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:22:49.336751 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:108: <nil>
+LOG: 2019/12/03 20:22:49.337752 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc00023a9a0 0xc00023adc0] message:success status:true]
+LOG: 2019/12/03 20:22:49.337752 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:24:14.846754 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@oFf5YdS7pbHcywjjzlNfjw--
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:24:14.978753 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:108: <nil>
+LOG: 2019/12/03 20:24:14.984755 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc00009e000 0xc00009e420] message:success status:true]
+LOG: 2019/12/03 20:24:14.991757 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:25:57.841754 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:25:58.254751 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:108: <nil>
+LOG: 2019/12/03 20:25:58.256752 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc00023a9a0 0xc00023adc0] message:success status:true]
+LOG: 2019/12/03 20:25:58.278754 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:26:43.873881 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@s8FxBZX3NkILhaIVWXaXbw--
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:26:44.083879 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:108: <nil>
+LOG: 2019/12/03 20:26:44.193883 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc000260000 0xc000260420] message:success status:true]
+LOG: 2019/12/03 20:26:44.253882 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:27:00.466881 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@C3MXSKHid9jrndC5AOk9kQ--
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:27:00.753884 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:108: <nil>
+LOG: 2019/12/03 20:27:00.753884 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc000261600 0xc000261a20] message:success status:true]
+LOG: 2019/12/03 20:27:00.787885 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:27:15.205880 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/undefined HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:27:15.218880 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:33:42.802402 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/undefined HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@olcS2VdvKwvmsx5+qQmMsw--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:33:43.007401 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:34:40.831405 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@QhOR97gimuLdP4ZuH91naQ--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:34:40.996406 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 20:34:41.226402 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:34:52.277401 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:34:52.281401 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:108: <nil>
+LOG: 2019/12/03 20:34:52.281401 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc00009eb00 0xc00009ef20] message:success status:true]
+LOG: 2019/12/03 20:34:52.283400 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:34:54.659401 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:34:54.671403 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 20:34:54.680400 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:37:15.870013 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@kFqy1c7nqL0S6odAIX1ygg--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:37:16.168007 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 20:37:16.291007 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:38:04.562490 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@VFMSNvzIkJWH0Ywu8ozelQ--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:38:05.770490 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 20:38:05.783489 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:38:27.728490 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@z1nfanf3MPJcU8O23ChgFQ--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:38:27.746490 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 20:38:27.868489 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:38:35.295489 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:38:35.299490 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:108: <nil>
+LOG: 2019/12/03 20:38:35.299490 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc00016a000 0xc00016a420] message:success status:true]
+LOG: 2019/12/03 20:38:35.300490 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:38:37.402490 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:38:37.413489 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 20:38:37.417491 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:40:43.523022 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:40:43.553019 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 20:40:43.587022 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:43:29.284022 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@ooaVg4w1c7iDCD6cGgFk8A--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:43:29.295023 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 20:43:29.318022 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:45:48.391810 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@sEmzHXJFuUdW6b5PIvzQ+g--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:45:48.420812 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 20:45:48.434808 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:47:19.436063 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@qULVhVO2MACqpbndcWnR0g--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:47:19.472064 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 20:47:19.497066 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:48:43.021714 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@KFXrszLNIqLqQxdGWt3MaA--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:48:43.050717 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 20:48:43.109715 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:53:52.546485 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:53:55.146484 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 20:53:55.546482 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:54:33.122055 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@qr3O6lyeJ5DyhJROpIpidQ--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:54:33.206056 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 20:54:33.420055 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:54:44.965054 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:54:44.971052 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:108: <nil>
+LOG: 2019/12/03 20:54:44.971052 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc00003e000 0xc00003e420] message:success status:true]
+LOG: 2019/12/03 20:54:44.972053 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:54:47.368057 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:54:47.390055 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 20:54:47.397054 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 20:56:51.193097 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@lhPlTwcKlfQLc4IvpL/V1w--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 20:56:51.210097 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 20:56:51.230097 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:21:05.094819 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@7/eKQys4sDhggsTEF6xMAg--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 21:21:05.204822 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 21:21:05.230822 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:21:19.479823 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@gvJFKuM64VyxeLD/zzUY3w--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 21:21:19.481823 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 21:21:19.569825 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:21:31.232821 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@gvJFKuM64VyxeLD/zzUY3w--
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 21:21:31.237819 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:108: <nil>
+LOG: 2019/12/03 21:21:31.237819 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc00009d080 0xc00009d4a0] message:success status:true]
+LOG: 2019/12/03 21:21:31.237819 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:21:32.943820 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@gvJFKuM64VyxeLD/zzUY3w--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 21:21:32.956821 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 21:21:32.967821 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:24:07.104130 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 21:24:07.106130 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:108: <nil>
+LOG: 2019/12/03 21:24:07.106130 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc00023a9a0 0xc00023adc0] message:success status:true]
+LOG: 2019/12/03 21:24:07.107131 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:27:00.401130 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 21:27:00.457130 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:108: <nil>
+LOG: 2019/12/03 21:27:00.459132 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc00023a9a0 0xc00023adc0] message:success status:true]
+LOG: 2019/12/03 21:27:00.468131 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:27:25.561132 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 21:27:25.563130 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:108: <nil>
+LOG: 2019/12/03 21:27:25.563130 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc00023b760 0xc00023bb80] message:success status:true]
+LOG: 2019/12/03 21:27:25.564130 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:29:27.939132 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@Y0tMyupuKfQKnSveyVCWmQ--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 21:29:27.988131 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 21:29:28.095136 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:29:38.108132 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 21:29:38.124129 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:108: <nil>
+LOG: 2019/12/03 21:29:38.124129 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc000122840 0xc000122c60] message:success status:true]
+LOG: 2019/12/03 21:29:38.134130 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:29:39.111132 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 21:29:39.112132 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 21:29:39.122131 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:34:27.349716 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@0Psbq7QwC2/6wX5B2NH4xg--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 21:34:27.373716 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 21:34:27.401716 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:36:20.211717 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@BRnZ9l50gFSNKUpX05cniQ--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 21:36:20.244717 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 21:36:20.303716 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:37:51.303717 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@smIelTclEnaMbISpnPXTRw--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 21:37:52.098715 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 21:37:52.112715 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:39:12.552715 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@EhzQX9GtokAZOZS82YMgzg--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 21:39:12.590717 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 21:39:12.723715 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:40:36.177719 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 21:40:36.228716 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 21:40:36.292716 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:40:52.579717 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@Df1MJLf5pt1JZ4usS/or6Q--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 21:40:52.582715 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 21:40:52.589715 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:44:43.924716 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@5FcQg3i9kFCMxPYq7fQ7VQ--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 21:44:43.926718 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 21:44:44.057715 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:45:08.104716 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@PNBROAee36J5rd3/xdUxUA--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 21:45:08.127716 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 21:45:08.147716 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:46:44.509715 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@E+N/6eP9xZx3ui6RyHpjAw--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 21:46:44.515714 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 21:46:44.521714 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:47:35.157238 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 21:47:35.193237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 21:47:35.202237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:47:54.430238 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@RQNnB23qgHeXhHV71lbagA--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 21:47:54.476237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 21:47:54.539239 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:48:20.092239 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@55jExpH0ftmzPg9HmVST2g--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 21:48:20.161238 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 21:48:20.172236 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:49:06.113236 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@M5MZcTijZeA1WzBmKE/C2A--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 21:49:06.135235 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 21:49:06.148241 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:49:33.863237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@wMp1Kj7emuby+GMqYjzrZA--
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 21:49:33.865240 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 21:49:33.990238 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:49:56.377236 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 21:49:56.388237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 21:49:56.388237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc00021e000 0xc00021e0c0 0xc00021e180 0xc00021e240 0xc00021e3c0 0xc00021e480 0xc00021e540 0xc00021e600 0xc00021e6c0 0xc00021e780 0xc00021e840] message:success status:true]
+LOG: 2019/12/03 21:49:56.393237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:51:24.860238 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@pUV+LwXtaDnlFCEgJOPLLw--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 21:51:25.035239 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 21:51:25.035239 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc00021e9c0 0xc00021ea80 0xc00021eb40 0xc00021ec00 0xc00021ecc0 0xc00021ed80 0xc00021ee40 0xc00021ef00 0xc00021efc0 0xc00021f080 0xc00021f140] message:success status:true]
+LOG: 2019/12/03 21:51:25.059239 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:52:50.714235 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 21:52:50.716236 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 21:52:50.716236 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc00021e0c0 0xc00021e180 0xc00021e240 0xc00021e3c0 0xc00021e480 0xc00021e540 0xc00021e600 0xc00021e6c0 0xc00021e780 0xc00021e840 0xc00021e900] message:success status:true]
+LOG: 2019/12/03 21:52:50.760239 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:53:44.826237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@GPxW/DWib+iXtaeoYYfG4Q--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 21:53:44.875241 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 21:53:44.875241 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc0000ae000 0xc0000ae0c0 0xc0000ae180 0xc0000ae240 0xc0000ae300 0xc0000ae3c0 0xc0000ae540 0xc0000ae600 0xc0000ae6c0 0xc0000ae780 0xc0000ae840] message:success status:true]
+LOG: 2019/12/03 21:53:44.944237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:54:47.748236 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@1vQs1905C3Ra3DgPAoT5cw--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 21:54:47.772238 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 21:54:47.772238 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc0000ae000 0xc0000ae0c0 0xc0000ae180 0xc0000ae240 0xc0000ae300 0xc0000ae3c0 0xc0000ae540 0xc0000ae600 0xc0000ae6c0 0xc0000ae780 0xc0000ae840] message:success status:true]
+LOG: 2019/12/03 21:54:47.854240 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:55:04.496240 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@x8qWnQu4CcnQ1gtRLOTbCg--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36
+
+
+LOG: 2019/12/03 21:55:04.497237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 21:55:04.497237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc00021e0c0 0xc00021e180 0xc00021e240 0xc00021e3c0 0xc00021e480 0xc00021e540 0xc00021e600 0xc00021e6c0 0xc00021e780 0xc00021e840 0xc00021e900] message:success status:true]
+LOG: 2019/12/03 21:55:04.551241 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:55:15.552239 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 21:55:15.567236 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:108: <nil>
+LOG: 2019/12/03 21:55:15.568237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc00024c000 0xc00024c420] message:success status:true]
+LOG: 2019/12/03 21:55:15.590238 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:56:56.177240 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 21:56:56.193240 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 21:56:56.193240 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc00021e9c0 0xc00021ea80 0xc00021eb40 0xc00021ec00 0xc00021ecc0 0xc00021ed80 0xc00021ee40 0xc00021ef00 0xc00021efc0 0xc00021f080 0xc00021e000] message:success status:true]
+LOG: 2019/12/03 21:56:56.196237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:57:05.456237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservations/requests HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-resavations-requests
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 21:57:05.502238 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:108: <nil>
+LOG: 2019/12/03 21:57:05.502238 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/reservationApprovalsController.go:18: map[data:[0xc000294000 0xc000294420] message:success status:true]
+LOG: 2019/12/03 21:57:05.537236 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 21:58:19.680236 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 21:58:19.682235 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 21:58:19.683237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc0002520c0 0xc000252180 0xc000252240 0xc000252300 0xc0002523c0 0xc000252480 0xc000252540 0xc000252600 0xc0002526c0 0xc000252780 0xc000252840] message:success status:true]
+LOG: 2019/12/03 21:58:19.769239 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 22:00:10.077240 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@aUS4Ude0CbmbTrMomp77HQ--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 22:00:10.079237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 22:00:10.080236 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc0000ae0c0 0xc0000ae180 0xc0000ae240 0xc0000ae300 0xc0000ae3c0 0xc0000ae540 0xc0000ae600 0xc0000ae6c0 0xc0000ae780 0xc0000ae840 0xc0000ae900] message:success status:true]
+LOG: 2019/12/03 22:00:10.101237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 22:01:00.716237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 22:01:00.720236 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 22:01:00.847236 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc000058460 message:Logged In status:true]
+LOG: 2019/12/03 22:01:00.848236 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 22:01:01.182240 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 22:01:01.183239 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 22:01:01.184239 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc00021e0c0 0xc00021e180 0xc00021e240 0xc00021e3c0 0xc00021e480 0xc00021e540 0xc00021e600 0xc00021e6c0 0xc00021e780 0xc00021e840 0xc00021e900] message:success status:true]
+LOG: 2019/12/03 22:01:01.191239 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 22:01:14.665237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/reservation/get/1 HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/veiw-slot
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 22:01:14.675239 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/reservations.go:76: <nil>
+LOG: 2019/12/03 22:01:14.687237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 22:01:17.195238 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 22:01:17.209236 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 22:01:17.209236 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc00021e9c0 0xc00021ea80 0xc00021eb40 0xc00021ec00 0xc00021ecc0 0xc00021ed80 0xc00021ee40 0xc00021ef00 0xc00021efc0 0xc00021f080 0xc00021f140] message:success status:true]
+LOG: 2019/12/03 22:01:17.238239 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 22:08:57.463238 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@ODdeWvqroLLWdmHK1AzXkg--
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 22:08:57.466237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 22:08:57.651236 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc0002381e0 message:Logged In status:true]
+LOG: 2019/12/03 22:08:57.652237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 22:08:58.287237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@ODdeWvqroLLWdmHK1AzXkg--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 22:08:58.289237 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 22:08:58.290236 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc00021e0c0 0xc00021e180 0xc00021e240 0xc00021e3c0 0xc00021e480 0xc00021e540 0xc00021e600 0xc00021e6c0 0xc00021e780 0xc00021e840 0xc00021e900] message:success status:true]
+LOG: 2019/12/03 22:08:58.301238 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 22:10:33.043763 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@Kl2SIbvLbpZdaaZiY1k5Ag--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 22:10:33.059764 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 22:10:33.059764 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc00021e9c0 0xc00021ea80 0xc00021eb40 0xc00021ec00 0xc00021ecc0 0xc00021ed80 0xc00021ee40 0xc00021ef00 0xc00021efc0 0xc00021f080 0xc00021f140] message:success status:true]
+LOG: 2019/12/03 22:10:33.067764 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 22:10:49.798765 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@5QCZr+LR7GW6uneGuSWeXQ--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 22:10:49.803768 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 22:10:49.803768 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc00021e000 0xc00021e0c0 0xc00021e180 0xc00021e240 0xc00021e3c0 0xc00021e480 0xc00021e540 0xc00021e600 0xc00021e6c0 0xc00021e780 0xc00021e840] message:success status:true]
+LOG: 2019/12/03 22:10:49.806766 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 22:13:02.791766 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@CckOBb6t9fQOzic4Gh40Qg--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 22:13:02.825764 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 22:13:02.825764 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc00021e000 0xc00021e0c0 0xc00021e180 0xc00021e240 0xc00021e3c0 0xc00021e480 0xc00021e540 0xc00021e600 0xc00021e6c0 0xc00021e780 0xc00021e840] message:success status:true]
+LOG: 2019/12/03 22:13:02.897765 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 22:13:22.413766 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@miX+I4UcMsnbhonZmc5Maw--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 22:13:22.415765 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 22:13:22.415765 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc0000ae0c0 0xc0000ae180 0xc0000ae240 0xc0000ae300 0xc0000ae3c0 0xc0000ae540 0xc0000ae600 0xc0000ae6c0 0xc0000ae780 0xc0000ae840 0xc0000ae900] message:success status:true]
+LOG: 2019/12/03 22:13:22.418765 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 22:16:55.708764 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@DKPs+PQPj9HOC/85Y/+yHA--
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 22:16:55.708764 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 22:16:55.920767 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc0002381e0 message:Logged In status:true]
+LOG: 2019/12/03 22:16:55.931766 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 22:16:56.833766 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@DKPs+PQPj9HOC/85Y/+yHA--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 22:16:56.844766 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 22:16:56.845765 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc0000ae0c0 0xc0000ae180 0xc0000ae240 0xc0000ae300 0xc0000ae3c0 0xc0000ae540 0xc0000ae600 0xc0000ae6c0 0xc0000ae780 0xc0000ae840 0xc0000ae900] message:success status:true]
+LOG: 2019/12/03 22:16:56.850763 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 22:20:40.163282 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@gILfjX3Sg/IIZwGyIlbNFQ--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 22:20:40.165281 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 22:20:40.165281 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc0000ae0c0 0xc0000ae180 0xc0000ae240 0xc0000ae300 0xc0000ae3c0 0xc0000ae540 0xc0000ae600 0xc0000ae6c0 0xc0000ae780 0xc0000ae840 0xc0000ae900] message:success status:true]
+LOG: 2019/12/03 22:20:40.176281 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 22:21:55.121282 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@lbmBqNH+Yg6dv5WbV8lMKA--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 22:21:55.124280 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 22:21:55.124280 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc0000ae9c0 0xc0000aea80 0xc0000aeb40 0xc0000aec00 0xc0000aecc0 0xc0000aed80 0xc0000aee40 0xc0000aef00 0xc0000aefc0 0xc0000af080 0xc0000af140] message:success status:true]
+LOG: 2019/12/03 22:21:55.134281 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 22:22:48.704438 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@oEMwKmsnl3AGijVkyJC6QQ--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 22:22:48.708434 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 22:22:48.708434 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc00021e000 0xc00021e0c0 0xc00021e180 0xc00021e240 0xc000250000 0xc0002500c0 0xc000250180 0xc000250240 0xc000250300 0xc0002503c0 0xc000250480] message:success status:true]
+LOG: 2019/12/03 22:22:48.711436 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 22:24:01.274434 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 22:24:01.283434 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 22:24:01.283434 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc0000ae000 0xc0000ae0c0 0xc0000ae180 0xc0000ae240 0xc0000ae300 0xc0000ae3c0 0xc0000ae540 0xc0000ae600 0xc0000ae6c0 0xc0000ae780 0xc0000ae840] message:success status:true]
+LOG: 2019/12/03 22:24:01.300436 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 22:24:27.625442 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  GET /api/slots/get HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@74Bme58xXxWJl+3lKB3Qnw--
+Referer: http://localhost:4200/dashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 22:24:27.637436 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/slots.go:79: <nil>
+LOG: 2019/12/03 22:24:27.637436 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/controllers/slotsController.go:32: map[data:[0xc0000ae900 0xc0000ae9c0 0xc0000aea80 0xc0000aeb40 0xc0000aec00 0xc0000aecc0 0xc0000aed80 0xc0000aee40 0xc0000aef00 0xc0000aefc0 0xc0000af080] message:success status:true]
+LOG: 2019/12/03 22:24:27.668434 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+
+LOG: 2019/12/03 22:25:46.235435 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:17:  POST /api/login HTTP/1.1
+Host: localhost:4200
+Connection: close
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: close
+Content-Length: 40
+Content-Type: application/json
+Cookie: Phpstorm-f78d000e=1416a28b-399c-456e-8e87-4a0c1a90a472; __lfcc=1; _wamtcstandards=AAAAAAAAAAAAAA--@0@0@W10-@czuA6FL3NQwziXVuDkXVlg--
+Origin: http://localhost:4200
+Referer: http://localhost:4200/login?returnUrl=%2Fdashboard
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+
+
+LOG: 2019/12/03 22:25:46.235435 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:100: A53
+LOG: 2019/12/03 22:25:46.417436 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/models/users.go:127: map[account:0xc0002381e0 message:Logged In status:true]
+LOG: 2019/12/03 22:25:46.438436 C:/Users/user/Documents/projects/bus_management/btmms/bus_terminal_backend/src/logs/logs.go:26:  HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json
+
+

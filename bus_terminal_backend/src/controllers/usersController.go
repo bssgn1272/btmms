@@ -32,7 +32,7 @@ var AuthenticateUserController = http.HandlerFunc(func(w http.ResponseWriter, r 
 		return
 	}
 
-	resp := models.Login(account.Email, account.Password)
+	resp := models.Login(account.Username, account.Password)
 	u.Respond(w, resp)
 })
 

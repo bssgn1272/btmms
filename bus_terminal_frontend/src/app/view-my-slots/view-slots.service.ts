@@ -1,24 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { User } from 'app/models/user';
+import { AuthService } from 'app/login/auth.service';
 // import { IGroup } from './group';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ViewSlotsService {
+  currentUser: User;
 
-  id = 3;
-  private url = '/api/reservation/get/';
+  private url = '/api/reservation/get';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {
+    this.currentUser = this.authService.currentUserValue;
+  }
 
-  async getList(): Promise<any> {
-    const url = `${this.url + this.id}`;
+  async getList(id: number): Promise<any> {
+    const url = `${this.url}/${id}`;
     return await this.http
       .get(url)
       .toPromise()
       .catch(this.handleError);
+    console.log(this.currentUser.username);
   }
 
   // handler for error in URL
