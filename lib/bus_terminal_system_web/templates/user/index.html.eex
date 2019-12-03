@@ -1,0 +1,206 @@
+<!-- Timeline -->
+                                    <div class="timeline timeline-left content-group">
+                                        <div class="timeline-container">
+
+                                            <!-- Sales stats -->
+                                            <div class="timeline-row">
+                                                <div class="timeline-icon">
+                                                    <a href="#"><img src="assets/images/placeholder.jpg" alt=""></a>
+                                                </div>
+
+                                                <div class="panel panel-flat timeline-content">
+                                                    <div class="panel-heading">
+                                                        <h6 class="panel-title">Admin Dashboard</h6>
+                                                    </div>
+                                                    <hr>
+
+                                                    <div class="panel-body">
+                                                        <div class="chart-container">
+                                                            <div class="row">
+                                                                <div class="col-sm-4 col-md-4">
+                                                                    <div class="w3-card-2" style="margin-bottom: 6%;">
+                                                                        <header class="w3-container w3-blue">
+                                                                            <h3>Ticketing Module</h3>
+                                                                        </header>
+
+                                                                         <div class="container-fluid" id="marketButtons">
+                                                                            <p>
+                                                                                <button class="w3-btn w3-block w3-indigo w3-hover-cyan">
+                                                                                    Create Market
+                                                                                </button>
+                                                                            </p>
+
+                                                                            <p>
+                                                                                <button class="w3-btn w3-block w3-indigo w3-hover-cyan">
+                                                                                    Create Section
+                                                                                </button>   
+                                                                            </p>
+
+                                                                            <p>
+                                                                                <button class="w3-btn w3-block w3-indigo w3-hover-cyan">
+                                                                                    Create Kiosk
+                                                                                </button>
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-sm-4 col-md-4">
+                                                                    <div class="w3-card-2" style="margin-bottom: 6%;">
+                                                                        <header class="w3-container w3-blue">
+                                                                            <h3>Bus Teminus Module</h3>
+                                                                        </header>
+
+                                                                         <div class="container-fluid" id="marketButtons">
+                                                                            <p>
+                                                                                <button class="w3-btn w3-block w3-indigo w3-hover-cyan">
+                                                                                    Create Market
+                                                                                </button>
+                                                                            </p>
+
+                                                                            <p>
+                                                                                <button class="w3-btn w3-block w3-indigo w3-hover-cyan">
+                                                                                    Create Section
+                                                                                </button>   
+                                                                            </p>
+
+                                                                            <p>
+                                                                                <button class="w3-btn w3-block w3-indigo w3-hover-cyan">
+                                                                                    Create Kiosk
+                                                                                </button>
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-sm-4 col-md-4">
+                                                                    <div class="w3-card-2" style="margin-bottom: 6%;">
+                                                                        <header class="w3-container w3-blue">
+                                                                            <h3>Marketing Module</h3>
+                                                                        </header>
+
+                                                                        <div class="container-fluid" id="marketButtons">
+
+                                                                            <div class="row">
+                                                                                <div class="col-sm-6 col-md-6">
+                                                                                    <p>
+                                                                                        <a href="<%= Routes.marketer_path(@conn, :form) %>">
+                                                                                            <button class="w3-btn w3-block w3-indigo w3-hover-cyan">
+                                                                                                Create Market
+                                                                                            </button>
+                                                                                        </a>
+                                                                                    </p>
+
+                                                                                    <p>
+                                                                                        <a href="<%= Routes.marketer_path(@conn, :formSection) %>">
+                                                                                        <button class="w3-btn w3-block w3-indigo w3-hover-cyan">
+                                                                                            Create Section
+                                                                                        </button>
+                                                                                        </a>   
+                                                                                    </p>
+
+                                                                                    <p>
+                                                                                        <a href="<%= Routes.marketer_path(@conn, :formShop) %>">
+                                                                                        <button class="w3-btn w3-block w3-indigo w3-hover-cyan">
+                                                                                            Create Kiosk
+                                                                                        </button>
+                                                                                    </a>
+                                                                                    </p>
+                                                                                </div>
+
+                                                                                <div class="col-sm-6 col-md-6">
+                                                                                    <div class="container">
+                                                                                    <img src="<%= Routes.static_path(@conn, "/images/icons/6.png") %>" class="img-responsive" width="100" height="100" alt="">     
+                                                                                    </div>                                            
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div> 
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /sales stats -->
+
+                                            <!-- Date stamp -->
+                                            <div class="timeline-date text-muted">
+                                                <i class="icon-history position-left"></i> <span class="text-semibold"></span><a onclick="this.innerHTML=Date()">Click To Check Time</a>
+                                            </div>
+                                            <!-- /date stamp -->
+
+
+                                            <!-- Invoices -->
+                                            <div class="timeline-row">
+                                                <div class="timeline-icon">
+                                                    <div class="bg-warning-400">
+                                                        <i class="icon-cash3"></i>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="panel border-left-lg border-left-danger invoice-grid timeline-content">
+                                                            <div class="panel-body">
+                                                                <div class="row">
+                                                                    <div class="col-sm-6">
+                                                                        <h6 class="text-semibold no-margin-top">
+                                                            <a href="<%= Routes.user_path(@conn, :table_users) %>">
+                                                                            List of System users
+                                                                        </a>
+                                                                        </h6>
+                                                                    </div>
+
+                                                                    <div class="col-sm-6">
+                                                                        <h6 class="text-semibold text-right no-margin-top">     <--- Click That
+                                                                        </h6>
+                                                                    </div>
+
+                                                                    <p>
+                                                                        To add new users of this system please click on 
+                                                                        Register new user. To view the registered users 
+                                                                        please click on List of System Users.
+                                                                    </p>
+                                                                   
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-6">
+                                                        <div class="panel border-left-lg border-left-success invoice-grid timeline-content">
+                                                            <div class="panel-body">
+                                                                <div class="row">
+                                                                    <div class="col-sm-6">
+                                                                        <h6 class="text-semibold no-margin-top">
+
+                                                                            <a href="<%= Routes.user_path(@conn, :new) %>">
+                                                                            Register New User
+                                                                        </h6>
+                                                                    </div>
+
+                                                                    <div class="col-sm-6">
+                                                                        <h6 class="text-semibold text-right no-margin-top">     <--- Click That
+                                                                        </h6>
+                                                                    </div>
+
+                                                                    <p>
+                                                                        To add new users of this system please click on 
+                                                                        Register new user. To view the registered users 
+                                                                        please click on List of System Users.
+                                                                    </p>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /invoices -->
+                                        </div>
+                                    </div>
+                                    <!-- /timeline -->
+

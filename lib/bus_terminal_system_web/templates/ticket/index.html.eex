@@ -1,0 +1,60 @@
+<h1>Listing Tickets</h1>
+
+<!-- Basic datatable -->
+<div class="panel panel-flat" style="padding: 9px">
+    <div class="panel-heading">
+        <h5 class="panel-title">Users</h5>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+                <li><a data-action="close"></a></li>
+            </ul>
+        </div>
+    </div>
+
+
+<div style="overflow-x:auto;">
+<table class="table table-striped table-bordered" id="dataTableBusTerminusId">
+  <thead>
+    <tr>
+      <th>Reference number</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Age</th>
+      <th>Mobile</th>
+      <th>Traveling From</th>
+      <th>Traveling To</th>
+      <th>Date of Depature</th>
+      <th>Date of Return</th>
+      <th>Number of Travellers</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for ticket <- @tickets do %>
+    <tr>
+      <td><%= ticket.reference_number %></td>
+      <td><%= ticket.first_name %></td>
+      <td><%= ticket.last_name %></td>
+      <td><%= ticket.age %></td>
+      <td><%= ticket.mobile %></td>
+      <td><%= ticket.traveling_from %></td>
+      <td><%= ticket.traveling_to %></td>
+      <td><%= ticket.date_of_depature %></td>
+      <td><%= ticket.date_of_return %></td>
+      <td><%= ticket.number_of_travelers %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.ticket_path(@conn, :show, ticket) %></span>
+        <span><%= link "Edit", to: Routes.ticket_path(@conn, :edit, ticket) %></span>
+        <span><%= link "Delete", to: Routes.ticket_path(@conn, :delete, ticket), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+</div>
+</div>
+
+<span><%= link "New Ticket", class: "w3-btn w3-round w3-indigo w3-hover-blue", to: Routes.ticket_path(@conn, :new) %></span>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Login</title>
+
+	<!-- Global stylesheets -->
+	    <link rel="shortcut icon" href="<%= Routes.static_path(@conn, "/images/icon.png") %>">
+    	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    	<link href="<%= Routes.static_path(@conn, "/css/material/icons/icomoon/styles.css") %>" rel="stylesheet" type="text/css">
+        <link href="<%= Routes.static_path(@conn, "/css/material/bootstrap.css") %>" rel="stylesheet" type="text/css">
+        <link href="<%= Routes.static_path(@conn, "/css/material/core.css") %>" rel="stylesheet" type="text/css">
+        <link href="<%= Routes.static_path(@conn, "/css/material/components.css") %>" rel="stylesheet" type="text/css">
+        <link href="<%= Routes.static_path(@conn, "/css/material/colors.css") %>" rel="stylesheet" type="text/css">
+    	<!-- /global stylesheets -->
+
+    	<!-- Core JS files -->
+                <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/loaders/pace.min.js") %>"></script>
+                <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/core/libraries/bootstrap.min.js") %>"></script>
+                <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/loaders/blockui.min.js") %>"></script>
+                <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/jquery.min.js") %>"></script>
+            <!-- /core JS files -->
+
+
+    	<!-- Theme JS files -->
+    	<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/core/app.js") %>"></script>
+
+    	<script type="text/javascript" src="assets/js/plugins/ui/ripple.min.js"></script>
+    	<!-- /theme JS files -->
+
+</head>
+
+<body class="navbar-bottom login-container">
+
+	<!-- Page container -->
+	<div class="page-container">
+
+		<!-- Page content -->
+		<div class="page-content">
+
+			<!-- Main content -->
+			<div class="content-wrapper">
+
+				<!-- Simple login form -->
+                <div align="center">
+
+                    <div class="col-md-2"></div>
+
+                    <div class="col-md-4">
+                        <form>
+                            <div class="panel panel-body" style="margin-top: 200px">
+                                <div class="text-center">
+                                    <div class="icon-object border-slate-300 text-slate-300"><i class="icon-ticket"></i></div>
+                                    <h5 class="content-group">Tickets<small class="display-block">Travels Available 24/7</small></h5>
+                                </div>
+
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <input name="location" class="form-control" placeholder="Province" >
+                                    <div class="form-control-feedback">
+                                        <i class="icon-location3 text-muted"></i>
+                                    </div>
+                                </div>
+
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <input name="date" class="form-control" type="date" placeholder="Date">
+                                    <div class="form-control-feedback">
+                                        <i class="icon-direction text-muted"></i>
+                                    </div>
+                                </div>
+
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <input name="route" class="form-control" placeholder="Route">
+                                    <div class="form-control-feedback">
+                                        <i class="icon-direction text-muted"></i>
+                                    </div>
+                                </div>
+
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <input name="passengers" class="form-control" type="number" placeholder="Passengers">
+                                    <div class="form-control-feedback">
+                                        <i class="icon-people text-muted"></i>
+                                    </div>
+                                </div>
+
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <input name="seats" class="form-control" type="number" placeholder="Seats">
+                                    <div class="form-control-feedback">
+                                        <i class="icon-chair text-muted"></i>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" value="Sign in" class="btn btn-primary btn-block"> Purchase ticket </button>
+                                </div>
+
+                            </div>
+                        </form>
+                        </div>
+
+                    <div class="col-md-4">
+                        <%= form_for @changeset, @action, fn f -> %>
+                            <div class="panel panel-body login-form" style="margin-top: 200px">
+                                <div class="text-center">
+                                    <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div>
+                                    <h5 class="content-group">Login to your account <small class="display-block">Enter your credentials below</small></h5>
+                                </div>
+
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <%= text_input f, :username, class: "form-control", placeholder: "Username" %>
+                                    <%= error_tag f, :username %>
+                                    <div class="form-control-feedback">
+                                        <i class="icon-user text-muted"></i>
+                                    </div>
+                                </div>
+
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <%= password_input f, :password, class: "form-control", placeholder: "Password" %>
+                                    <%= error_tag f, :password %>
+                                    <div class="form-control-feedback">
+                                        <i class="icon-lock2 text-muted"></i>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <%= submit "Sign in", value: "Sign in", class: "btn btn-primary btn-block" %>
+                                </div>
+
+                                <div class="text-center">
+                                    <a href="login_password_recover.html">Forgot password?</a>
+                                </div>
+                            </div>
+                        <% end %>
+                    </div>
+                </div>
+
+				<!-- /simple login form -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /page content -->
+
+	</div>
+	<!-- /page container -->
+
+
+	<!-- Footer -->
+	<div class="navbar navbar-default navbar-fixed-bottom footer">
+		<ul class="nav navbar-nav visible-xs-block">
+			<li><a class="text-center collapsed" data-toggle="collapse" data-target="#footer"><i class="icon-circle-up2"></i></a></li>
+		</ul>
+
+		<div class="navbar-collapse collapse" id="footer">
+			<div class="navbar-text">
+				&copy; 2019. <a href="#" class="navbar-link">Bus Terminus System</a> by <a href="http://www.probasegroup.com" class="navbar-link" target="_blank">ProBase</a>
+			</div>
+
+			<div class="navbar-right">
+				<ul class="nav navbar-nav">
+					<li><a href="#">About</a></li>
+					<li><a href="#">Terms</a></li>
+					<li><a href="#">Contact</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- /footer -->
+
+</body>
+</html>

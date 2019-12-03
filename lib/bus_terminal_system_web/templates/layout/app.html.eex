@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title><%= title() %></title>
+    <!-- Global stylesheets -->
+    <link rel="shortcut icon" href="<%= Routes.static_path(@conn, "/images/icon.png") %>">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    <link href="<%= Routes.static_path(@conn, "/css/material/icons/icomoon/styles.css") %>" rel="stylesheet" type="text/css">
+    <link href="<%= Routes.static_path(@conn, "/css/material/bootstrap.css") %>" rel="stylesheet" type="text/css">
+    <link href="<%= Routes.static_path(@conn, "/css/material/core.css") %>" rel="stylesheet" type="text/css">
+    <link href="<%= Routes.static_path(@conn, "/css/material/components.css") %>" rel="stylesheet" type="text/css">
+    <link href="<%= Routes.static_path(@conn, "/css/material/colors.css") %>" rel="stylesheet" type="text/css">
+    <link href="<%= Routes.static_path(@conn, "/js/datatables/css/jquery.datatables.css") %>" rel="stylesheet" type="text/css" />
+     <link href="<%= Routes.static_path(@conn, "/css/custom.css") %>" rel="stylesheet" type="text/css">
+    <link href="<%= Routes.static_path(@conn, "/css/w3.css") %>" rel="stylesheet" type="text/css" />
+    <!-- /global stylesheets -->
+  </head>
+  <body class="navbar-bottom">
+
+    <!-- Main navbar -->
+    <div class="navbar navbar-inverse bg-indigo navbar-fixed-top">
+    	<div class="navbar-header">
+    		<a class="navbar-brand" href="index.html"><img src="" alt=""></a>
+
+    		<ul class="nav navbar-nav visible-xs-block">
+    			<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+    			<li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
+    		</ul>
+    	</div>
+
+    	<div class="navbar-collapse collapse" id="navbar-mobile">
+    		<ul class="nav navbar-nav">
+    			 <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
+    		</ul>
+
+    		<ul class="nav navbar-nav navbar-right">
+    			<li class="dropdown dropdown-user">
+    				<a class="dropdown-toggle" data-toggle="dropdown">
+    					<img src="<%= Routes.static_path(@conn, "/images/material/avatar/1.png") %>" alt="">
+    					<span><%= @user.username %></span>
+    					<i class="caret"></i>
+    				</a>
+
+    				<ul class="dropdown-menu dropdown-menu-right">
+    					<li><a href="<%= Routes.user_path(@conn, :profile) %>"><i class="icon-user-plus"></i> My profile</a></li>
+                        <li><a href="#"><i class="icon-cog5"></i> <span>Account settings</span></a></li>
+    					<li class="divider"></li>
+    					<li><a href="<%= Routes.session_path(@conn, :logout) %>"><i class="icon-switch2"></i> Logout</a></li>
+    				</ul>
+    			</li>
+    		</ul>
+    	</div>
+    </div>
+    <!-- /main navbar -->
+
+
+    <!-- Page header -->
+    <div class="page-header">
+    	<div class="breadcrumb-line">
+    		<ul class="breadcrumb">
+    			<li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
+    			<li class="active">Dashboard</li>
+    		</ul>
+    	</div>
+
+    	<div class="page-header-content">
+    		<div class="page-title">
+    			<h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Home</span> <small></small></h4>
+    		</div>
+    	</div>
+    </div>
+    <!-- /page header -->
+
+
+    	<!-- Page container -->
+    	<div class="page-container">
+
+    		<!-- Page content -->
+    		<div class="page-content">
+
+    			<!-- Main sidebar -->
+    			<div class="sidebar sidebar-main sidebar-default">
+    				<div class="sidebar-content">
+
+    					<!-- Main navigation -->
+    					<div class="sidebar-category sidebar-category-visible">
+    						<div class="sidebar-user-material">
+    							<div class="category-content">
+    								<div class="sidebar-user-material-content">
+    									<a href="#"><img src="<%= Routes.static_path(@conn, "/images/material/avatar/1.png") %>" class="img-circle img-responsive" alt=""></a>
+    									<h6 style="color:rgb(0,0,0);"> <%= @user.username %> </h6>
+    									<span class="text-size-small" style="color:rgb(0,0,0);">Lusaka, Zambia.</span>
+    								</div>
+    							</div>
+
+    						</div>
+
+    						<div class="category-content no-padding">
+    							<ul class="navigation navigation-main navigation-accordion">
+
+    								<%= if @user.role == "ADMIN" do %>
+                                    <li class="active">
+    								    <%= link "Dashboard", to: Routes.user_path(@conn, :index) %>
+    								</li>
+
+    								<li>
+                                        <a href="#"><i class="icon-stack2"></i> <span>Ticketing</span></a>
+                                        <ul>
+                                            <li><%= link "Buy Ticket", to: Routes.ticket_path(@conn, :index) %></li>
+                                        </ul>
+                                    </li>
+    								<% end %>
+
+                                    <%= if @user.role == "BOP" or @user.role == "ADMIN" do %>
+    								<li>
+    									<a href="#"><i class="icon-stack2"></i> <span>Bus Terminus</span></a>
+    									<ul>
+    										<li><%= link "Management", to: Routes.bus_terminus_path(@conn, :index) %></li>
+    									</ul>
+    								</li>
+    								<% end %>
+
+    								<%= if @user.role == "MOP" or @user.role == "ADMIN" do %>
+    								<li>
+                                        <a href="#"><i class="icon-stack2"></i> <span>Market Operations</span></a>
+                                        <ul>
+                                            <li><%= link "Management", to: Routes.marketer_path(@conn, :index) %></li>
+                                        </ul>
+                                    </li>
+                                    <% end %>
+
+    								<!-- /main -->
+    							</ul>
+    						</div>
+    					</div>
+    					<!-- /main navigation -->
+
+    				</div>
+    			</div>
+    			<!-- /main sidebar -->
+
+
+    			  <main role="main" class="container-fluid">
+                      <%= render @view_module, @view_template, assigns %>
+                  </main>
+
+    		</div>
+    		<!-- /page content -->
+
+    	</div>
+    	<!-- /page container -->
+
+
+    	<!-- Footer -->
+    	<div class="navbar navbar-default navbar-fixed-bottom footer">
+    		<ul class="nav navbar-nav visible-xs-block">
+    			<li><a class="text-center collapsed" data-toggle="collapse" data-target="#footer"><i class="icon-circle-up2"></i></a></li>
+    		</ul>
+
+    		<div class="navbar-collapse collapse" id="footer">
+    			<div class="navbar-text">
+    				&copy; <%= DateTime.utc_now.year %>. <a href="#" class="navbar-link">Bus Ticketing System</a> by <a href="http://probasegroup.com" class="navbar-link" target="_blank">ProBase</a>
+    			</div>
+
+    			<div class="navbar-right">
+    				<ul class="nav navbar-nav">
+    					<li><a href="#">About</a></li>
+    					<li><a href="#">Terms</a></li>
+    					<li><a href="#">Contact</a></li>
+    				</ul>
+    			</div>
+    		</div>
+    	</div>
+    	<!-- /footer -->
+
+    <!-- Core JS files -->
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/loaders/pace.min.js") %>"></script>
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/jquery.min.js") %>"></script>
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/core/libraries/bootstrap.min.js") %>"></script>
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/loaders/blockui.min.js") %>"></script>
+    <!-- /core JS files -->
+
+    <!-- Theme JS files -->
+    	<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/visualization/d3/d3.min.js") %>"></script>
+    	<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/visualization/d3/d3_tooltip.js") %>"></script>
+    	<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/forms/styling/switchery.min.js") %>"></script>
+    	<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/forms/styling/uniform.min.js") %>"></script>
+    	<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/forms/selects/bootstrap_multiselect.js") %>"></script>
+    	<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/ui/moment/moment.min.js") %>"></script>
+    	<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/pickers/daterangepicker.js") %>"></script>
+
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/notifications/bootbox.min.js") %>"></script>
+	    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/notifications/sweet_alert.min.js") %>"></script>
+	    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/pages/components_modals.js") %>"></script>
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/forms/selects/select2.min.js") %>"></script>
+
+    	<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/core/app.js") %>"></script>
+    	<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/pages/dashboard.js") %>"></script>
+
+    	<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/ui/ripple.min.js") %>"></script>
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/datatables/js/jquery.datatables.js") %>"></script>
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/appMechanics.js") %>"></script>
+
+    	<!-- /theme JS files -->
+  </body>
+</html>
+
