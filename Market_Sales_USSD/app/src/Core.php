@@ -263,8 +263,12 @@ class Core {
                 $this->gw_response = $this->get_response_array();
                 break;
             case "5":
-                $_SESSION['menu-selection'] = "LOGIN";
-                $this->body = $this->menus['LOGIN'];
+                // $_SESSION['menu-selection'] = "LOGIN";
+                // $this->body = $this->menus['LOGIN'];
+                // $this->gw_response = $this->get_response_array();
+                $this->end_of_session = TRUE;
+                $_SESSION['menu-selection'] = "TODO";
+                $this->body = $this->menus['TODO'];
                 $this->gw_response = $this->get_response_array();
                 break;
             default:
@@ -344,6 +348,7 @@ class Core {
     private function makeSaleBuyerMobile() {
         if (SharedUtils::validateMsisdn($this->body, $this->log, $this->msisdn)) {
             $_SESSION['menu-selection'] = "MAKE_SALE_CONFIRM";
+            $_SESSION['buyer_msisdn'] = Config::country_code . $this->body;
             $this->body = SharedUtils::strReplace("{msisdn}", $this->body, $this->menus['MAKE_SALE_CONFIRM']);
             $this->body = SharedUtils::strReplace("{amount}", $_SESSION['Sale_amount'], $this->body);
             $this->gw_response = $this->get_response_array();
@@ -362,11 +367,14 @@ class Core {
     private function makeSaleConfirm() {
         switch ($this->body) {
             case "1":
-                //TODO: Post the transaction to the API for processing
+                //Lets push the transaction to the api
+                $payload = SharedUtils::buildPushTransactionRequest($_SESSION['trader_details']['trader_id'], $_SESSION['Sale_amount'], $_SESSION['buyer_msisdn']);
+                $result = SharedUtils::httpPostJson("transactions", $payload, $this->msisdn, $this->log);
                 $this->end_of_session = TRUE;
                 $_SESSION['menu-selection'] = "TRX_PROCESSING";
                 $this->body = $this->menus['TRX_PROCESSING'];
                 $this->gw_response = $this->get_response_array();
+
                 break;
             case "2":
                 $this->end_of_session = TRUE;
@@ -389,20 +397,27 @@ class Core {
     //----------------------------------------
     //ORDER GOODS FUNCTIONS START HERE
     private function orderGoods() {
-        $payload = SharedUtils::buildAPIRequest("", "", "", "", "", "", "26" . $this->body, "", "");
+        $payload = SharedUtils::buildAPIRequest("", "", "", "", "", "", Config::country_code . $this->body, "", "");
         $result = SharedUtils::httpGet("users", $payload, $this->msisdn, $this->log);
         if (SharedUtils::validateMsisdn($this->body, $this->log, $this->msisdn) && !empty($result['users'])) {
-            if ($result['users']['status'] === Config::ACC_ACTIVE_STATUS) {
-                $_SESSION['seller_details'] = $result['users'];
-                $_SESSION['seller_names'] = $result['users']['firstname'] . " " . $result['users']['lastname'];
-                $_SESSION['menu-selection'] = "ORDER_GOODS_AMOUNT";
-                $_SESSION['seller_mobile'] = $this->body;
-                $this->body = SharedUtils::strReplace("{trader}", $_SESSION['seller_names'], $this->menus['ORDER_GOODS_AMOUNT']);
-                $this->body = SharedUtils::strReplace("{mobile}", $_SESSION['seller_mobile'], $this->body);
-                $this->gw_response = $this->get_response_array();
+            //Trader cannot buy from themselves
+            if ($this->msisdn != "26" . $this->body) {
+                if ($result['users']['status'] === Config::ACC_ACTIVE_STATUS) {
+                    $_SESSION['seller_details'] = $result['users'];
+                    $_SESSION['seller_names'] = $result['users']['firstname'] . " " . $result['users']['lastname'];
+                    $_SESSION['menu-selection'] = "ORDER_GOODS_AMOUNT";
+                    $_SESSION['seller_mobile'] = $this->body;
+                    $this->body = SharedUtils::strReplace("{trader}", $_SESSION['seller_names'], $this->menus['ORDER_GOODS_AMOUNT']);
+                    $this->body = SharedUtils::strReplace("{mobile}", $_SESSION['seller_mobile'], $this->body);
+                    $this->gw_response = $this->get_response_array();
+                } else {
+                    $this->end_of_session = TRUE;
+                    $this->body = $this->menus['TRADER_BLOCKED1'];
+                    $this->gw_response = $this->get_response_array();
+                }
             } else {
-                $this->end_of_session = TRUE;
-                $this->body = $this->menus['TRADER_BLOCKED1'];
+                $_SESSION['menu-selection'] = "ORDER_GOODS";
+                $this->body = SharedUtils::strReplace("{val}", "mobile number. You cannot order from yourself", Config::INVALID_STR) . $this->menus['ORDER_GOODS'];
                 $this->gw_response = $this->get_response_array();
             }
         } else {
@@ -439,6 +454,9 @@ class Core {
         switch ($this->body) {
             case "1":
                 //TODO: Post the transaction to the API for processing
+                //Lets push the transaction to the api
+                $payload = SharedUtils::buildPushTransactionRequest($_SESSION['seller_details']['trader_id'], $_SESSION['Sale_amount'], $this->msisdn);
+                $result = SharedUtils::httpPostJson("transactions", $payload, $this->msisdn, $this->log);
                 $this->end_of_session = TRUE;
                 $_SESSION['menu-selection'] = "TRX_PROCESSING";
                 $this->body = $this->menus['TRX_PROCESSING'];

@@ -287,7 +287,7 @@ class DbHandler
         return $response;
     }
 
-    public function checkTokenBalance($trader_id = null,$mobile_number = null)
+    public function checkTokenBalance($trader_id = null, $mobile_number = null)
     {
         $response = array();
 
@@ -301,8 +301,8 @@ class DbHandler
             $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
         }
 
-        $mobile_number = '%'.$mobile_number.'%';
-        $isParamBound = $stmt->bind_param('is', $trader_id,$mobile_number);
+        $mobile_number = '%' . $mobile_number . '%';
+        $isParamBound = $stmt->bind_param('is', $trader_id, $mobile_number);
         if (!$isParamBound) {
             $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
         }
@@ -2192,7 +2192,7 @@ class DbHandler
 
             if ($stmt->affected_rows > 0) {
                 //UPDATE SUCCESSFUL
-                if($mobile_number != null) {
+                if ($mobile_number != null) {
                     $telco = substr(trim($mobile_number), 0, -3);
 
                     switch ($telco) {
@@ -2441,16 +2441,15 @@ class DbHandler
                         $resFloat = "Telco not identified";
                 }
 
-                if(!$resFloat){
-                    $res = $this->decrementTokenBalance($token_value_tendered, $trader_id,$recipient_msisdn);
+                if (!$resFloat) {
+                    $res = $this->decrementTokenBalance($token_value_tendered, $trader_id, $recipient_msisdn);
                 }
-
 
 
                 $response['error'] = false;
                 $response['message'] = 'Token redemption log created successfully';
                 $response['float_balance'] = $resFloat;
-                if(!$resFloat){
+                if (!$resFloat) {
                     $response['message_token'] = $res;
                 }
                 $stmt->close();
@@ -2481,12 +2480,12 @@ class DbHandler
         return null;
     }
 
-    public function decrementTokenBalance($token_value, $trader_id = null,$mobile_number = null)
+    public function decrementTokenBalance($token_value, $trader_id = null, $mobile_number = null)
     {
 
         $response = array();
 
-        $res = $this->checkTokenBalance($trader_id,$mobile_number);
+        $res = $this->checkTokenBalance($trader_id, $mobile_number);
 
         if ($res[TOKEN_BALANCE] >= $token_value) {
 
@@ -2496,8 +2495,8 @@ class DbHandler
                 $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
             }
 
-            $buyer_number = '%'.$mobile_number.'%';
-            $isParamBound = $stmt->bind_param('dis', $token_value, $trader_id,$buyer_number);
+            $buyer_number = '%' . $mobile_number . '%';
+            $isParamBound = $stmt->bind_param('dis', $token_value, $trader_id, $buyer_number);
             if (!$isParamBound) {
                 $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
             }
@@ -3148,7 +3147,7 @@ class DbHandler
 
         if ($cart_id !== null) {
 
-            $sql = 'SELECT cart_id, marketeer_id,m.firstname,m.lastname, buyer_id,b.firstname,b.lastname, total_amount_due, token_tendered, device_serial, points_marketeer_earned, points_buyer_earned, transaction_date 
+            $sql = 'SELECT cart_id, marketeer_id,m.firstname,m.lastname, buyer_id,b.firstname,b.lastname, amount_due, token_tendered, device_serial, points_marketeer_earned, points_buyer_earned, transaction_date 
                     FROM transaction_summaries
                     JOIN traders b ON b.trader_id = transaction_summaries.buyer_id
                     JOIN traders m ON m.trader_id = transaction_summaries.marketeer_id
@@ -3165,7 +3164,7 @@ class DbHandler
 
         } else {
 
-            $sql = 'SELECT cart_id, marketeer_id,m.firstname,m.lastname, buyer_id,b.firstname,b.lastname, total_amount_due, token_tendered, device_serial, points_marketeer_earned, points_buyer_earned, transaction_date 
+            $sql = 'SELECT cart_id, marketeer_id,m.firstname,m.lastname, buyer_id,b.firstname,b.lastname, amount_due, token_tendered, device_serial, points_marketeer_earned, points_buyer_earned, transaction_date 
                     FROM transaction_summaries
                     JOIN traders b ON b.trader_id = transaction_summaries.buyer_id
                     JOIN traders m ON m.trader_id = transaction_summaries.marketeer_id
@@ -3201,7 +3200,7 @@ class DbHandler
                     $tmp['buyer_id'] = $buyer_id;
                     $tmp['b_firstname'] = $b_firstname;
                     $tmp['b_lastname'] = $b_lastname;
-                    $tmp['total_amount_due'] = $total_amount_due;
+                    $tmp['amount_due'] = $total_amount_due;
                     $tmp['token_tendered'] = $token_tendered;
                     $tmp['device_serial'] = $device_serial;
                     $tmp['points_marketeer_earned'] = $points_marketeer_earned;
@@ -3346,15 +3345,15 @@ class DbHandler
         return $response;
     }
 
-    public function createTransactionsSummaries($marketeer_id, $buyer_id = null,$buyer_mobile =null, $amount_due, $token_tendered, $device_serial, $transaction_date, $transaction_details)
+    public function createTransactionsSummaries($marketeer_id, $buyer_id = null, $buyer_mobile = null, $amount_due, $token_tendered, $device_serial, $transaction_date, $transaction_details)
     {
 
         $response = array();
 
         //CHECK BUYER'S CURRENT BALANCE
-        $res = $this->checkTokenBalance($buyer_id,$buyer_mobile);
+       // $res = $this->checkTokenBalance($buyer_id, $buyer_mobile);
 
-        if ($res[TOKEN_BALANCE] >= $amount_due) {
+       // if ($res[TOKEN_BALANCE] >= $amount_due) {
 
             //LOG ATTEMPTED TRANSACTION
             $sql = 'INSERT INTO transaction_summaries(marketeer_id, buyer_id,buyer_mobile, amount_due, token_tendered, device_serial, points_marketeer_earned, points_buyer_earned, transaction_date) VALUES(?,?,?,?,?,?,?,?,?)';
@@ -3366,7 +3365,7 @@ class DbHandler
             $marketeer_points = 0;
             $buyer_points = 0;
 
-            $isParamBound = $stmt->bind_param('iisddsiis', $marketeer_id, $buyer_id,$buyer_mobile, $amount_due, $token_tendered, $device_serial, $marketeer_points, $buyer_points, $transaction_date);
+            $isParamBound = $stmt->bind_param('iisddsiis', $marketeer_id, $buyer_id, $buyer_mobile, $amount_due, $token_tendered, $device_serial, $marketeer_points, $buyer_points, $transaction_date);
             if (!$isParamBound) {
                 $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
             }
@@ -3376,7 +3375,7 @@ class DbHandler
                 //$cart_id = $this->conn->insert_id;
 
                 //DECREMENT BUYER'S TOKEN
-                $resBuyer = $this->decrementBuyerTokenBalance($token_tendered, $buyer_id,$buyer_mobile);
+                $resBuyer = $this->decrementBuyerTokenBalance($token_tendered, $buyer_id, $buyer_mobile);
 
                 //INCREMENT MARKETEER'S TOKEN
                 $resMarketeer = $this->incrementTokenBalance($token_tendered, $marketeer_id);
@@ -3406,12 +3405,12 @@ class DbHandler
             }
 
 
-        } else {
+        /*} else {
             $response['error'] = false;
             $response['message'] = 'Token value tendered is greater than available token value';
 
             $this->echoResponse(HTTP_status_409_Conflict, $response);
-        }
+        }*/
 
         return null;
     }
@@ -3458,12 +3457,12 @@ class DbHandler
         return $response;
     }
 
-    public function decrementBuyerTokenBalance($token_value, $trader_id = null,$mobile_number = null)
+    public function decrementBuyerTokenBalance($token_value, $trader_id = null, $mobile_number = null)
     {
 
         $response = array();
 
-        $res = $this->checkTokenBalance($trader_id,$mobile_number);
+        $res = $this->checkTokenBalance($trader_id, $mobile_number);
 
         if ($res[TOKEN_BALANCE] >= $token_value) {
 
@@ -3473,8 +3472,8 @@ class DbHandler
                 $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
             }
 
-            $buyer_number = '%'.$mobile_number.'%';
-            $isParamBound = $stmt->bind_param('dis', $token_value, $trader_id,$buyer_number);
+            $buyer_number = '%' . $mobile_number . '%';
+            $isParamBound = $stmt->bind_param('dis', $token_value, $trader_id, $buyer_number);
             if (!$isParamBound) {
                 $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
             }
@@ -3534,7 +3533,7 @@ class DbHandler
         return $response;
     }
 
-    public function updateByProbase($external_trans_id,$probase_status_code,$probase_status_description,$cart_id)
+    public function updateByProbase($external_trans_id, $probase_status_code, $probase_status_description, $cart_id)
     {
 
         $response = array();
@@ -3550,7 +3549,7 @@ class DbHandler
         }
 
 
-        $isParamBound = $stmt->bind_param('iisi', $external_trans_id,$probase_status_code,$probase_status_description,$cart_id);
+        $isParamBound = $stmt->bind_param('iisi', $external_trans_id, $probase_status_code, $probase_status_description, $cart_id);
         if (!$isParamBound) {
             $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
         }
@@ -3580,7 +3579,7 @@ class DbHandler
         return $response;
     }
 
-    public function updateByTelco($momo_status_code,$momo_status_description,$cart_id)
+    public function updateByTelco($momo_status_code, $momo_status_description, $cart_id)
     {
 
         $response = array();
@@ -3595,7 +3594,7 @@ class DbHandler
         }
 
 
-        $isParamBound = $stmt->bind_param('isi', $momo_status_code,$momo_status_description,$cart_id);
+        $isParamBound = $stmt->bind_param('isi', $momo_status_code, $momo_status_description, $cart_id);
         if (!$isParamBound) {
             $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
         }
@@ -3879,20 +3878,26 @@ class DbHandler
 
         return null;
     }
+
     //************************END OF AVAILABLE BUS***************************//
 
-    public function connectToTelcoAPI()
+    public function wallet_API($mno = 'MTNZM', $kuwaita, $msisdn, $amount, $refID = null)
     {
-        $url = 'http://api.domain.com';
+        $apiKey = "xxxxxxxxxxxxxxxxxxxxxxxx";
+        $url = "https://IP:Port/api/fusion/tp/" . $apiKey;
+        $port = 500;
 
         $headers = [
-            'apiKey:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
             'Content-Type: application/x-www-form-urlencoded',
             'Accept: application/json'
         ];
 
         $post_fields = [
-            'key' => 'value',
+            'mno' => $mno,
+            'kuwaita' => $kuwaita,
+            'msisdn' => $msisdn,
+            'amount' => $amount,
+            'refID' => $refID == null ? date("YmdHis") : $refID,
         ];
 
 
@@ -3901,6 +3906,7 @@ class DbHandler
 
         curl_setopt($curl_handler, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl_handler, CURLOPT_URL, $url);
+        curl_setopt($curl_handler, CURLOPT_PORT, $port);
         curl_setopt($curl_handler, CURLOPT_POST, true);
         curl_setopt($curl_handler, CURLOPT_POSTFIELDS, http_build_query($post_fields));
         curl_setopt($curl_handler, CURLOPT_RETURNTRANSFER, true);
@@ -3911,7 +3917,134 @@ class DbHandler
         $result = curl_exec($curl_handler);
         if ($result === FALSE) {
 
-            $file = __DIR__ . '/SMS_Send_Errors.txt';
+            $file = null;
+            if ($kuwaita == "mikopo") {
+
+                $file = __DIR__ . '/Credit_Wallet_Errors.txt';
+            } else if ($kuwaita == "malipo") {
+                $file = __DIR__ . '/Debit_Wallet_Errors.txt';
+
+            }
+
+            $date = 'Script was executed at ' . date('d/m/Y H:i:s') . "\n" . json_encode(curl_error($curl_handler)) . "\n" . "\n";
+
+            file_put_contents($file, $date, FILE_APPEND);
+
+            die('Curl failed: ' . curl_error($curl_handler));
+
+        } else {
+
+            if($kuwaita == "malipo"){
+
+                $json_obj = json_decode($result, true);
+                $code = $json_obj['code'];
+
+                $this->notify_API($kuwaita, $refID, $code);
+            }
+        }
+
+        curl_close($curl_handler);
+
+        return $result;
+    }
+
+    public function notify_API($kuwaita, $refID, $code)
+    {
+        $apiKey = "xxxxxxxxxxxxxxxxxxxxxxxx";
+        $url = "https://IP:Port/api/fusion/tp/" . $apiKey;
+        $port = 500;
+
+        $headers = [
+            'Content-Type: application/x-www-form-urlencoded',
+            'Accept: application/json'
+        ];
+
+        $msg = null;
+        switch ($code) {
+            case 00://for success-transaction ends,
+                $msg = "Credit Successful";
+                break;
+            case 01://for failure-transaction is reversed
+
+                $msg = "Failure transaction";
+                break;
+            case 02:// for system errors-transaction is reversed
+                $msg = "System errors transaction";
+                break;
+
+            default:
+                $msg = "Error occurred";
+        }
+
+        $post_fields = [
+            'kuwaita' => $kuwaita,
+            'metadataID' => $refID,
+            'code' => $code,
+            'msg' => $msg
+        ];
+
+
+        //Initializing curl to open a connection
+        $curl_handler = curl_init();
+
+        curl_setopt($curl_handler, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl_handler, CURLOPT_URL, $url);
+        curl_setopt($curl_handler, CURLOPT_PORT, $port);
+        curl_setopt($curl_handler, CURLOPT_POST, true);
+        curl_setopt($curl_handler, CURLOPT_POSTFIELDS, http_build_query($post_fields));
+        curl_setopt($curl_handler, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl_handler, CURLOPT_SSL_VERIFYPEER, false);//set to true in production
+        curl_setopt($curl_handler, CURLOPT_SSL_VERIFYHOST, false);//set to true in production
+        curl_setopt($curl_handler, CURLOPT_CONNECTTIMEOUT, 0);// 100; // set to zero for no timeout
+
+        $result = curl_exec($curl_handler);
+        if ($result === FALSE) {
+
+            $file = __DIR__ . '/Notify_Fusion_Errors.txt';
+
+            $date = 'Script was executed at ' . date('d/m/Y H:i:s') . "\n" . json_encode(curl_error($curl_handler)) . "\n" . "\n";
+
+            file_put_contents($file, $date, FILE_APPEND);
+
+            die('Curl failed: ' . curl_error($curl_handler));
+
+        } else {
+
+        }
+
+        curl_close($curl_handler);
+
+        return $result;
+    }
+
+    public function check_status_API( $refID = null)
+    {
+        $apiKey = "xxxxxxxxxxxxxxxxxxxxxxxx";
+        $url = "https://IP:Port/api/fusion/tp/metadata/".$refID ."/" . $apiKey;
+        $port = 500;
+
+        $headers = [
+            'Content-Type: application/x-www-form-urlencoded',
+            'Accept: application/json'
+        ];
+
+
+        //Initializing curl to open a connection
+        $curl_handler = curl_init();
+
+        curl_setopt($curl_handler, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl_handler, CURLOPT_URL, $url);
+        curl_setopt($curl_handler, CURLOPT_PORT, $port);
+        curl_setopt($curl_handler,  CURLOPT_CUSTOMREQUEST,  "GET");
+        curl_setopt($curl_handler, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl_handler, CURLOPT_SSL_VERIFYPEER, false);//set to true in production
+        curl_setopt($curl_handler, CURLOPT_SSL_VERIFYHOST, false);//set to true in production
+        curl_setopt($curl_handler, CURLOPT_CONNECTTIMEOUT, 0);// 100; // set to zero for no timeout
+
+        $result = curl_exec($curl_handler);
+        if ($result === FALSE) {
+
+            $file = __DIR__ . '/Check_Transaction_Errors.txt';
 
             $date = 'Script was executed at ' . date('d/m/Y H:i:s') . "\n" . json_encode(curl_error($curl_handler)) . "\n" . "\n";
 

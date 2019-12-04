@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="785d8b8c-a005-4c2a-ad72-91fc547245f1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/DbHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/include/DbHandler.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,46 +37,54 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/v1/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1690">
-              <caret line="92" column="29" lean-forward="true" selection-start-line="92" selection-start-column="29" selection-end-line="92" selection-end-column="29" />
+            <state relative-caret-position="510">
+              <caret line="578" column="14" selection-start-line="578" selection-start-column="14" selection-end-line="578" selection-end-column="14" />
               <folding>
                 <element signature="e#6#260#0#PHP" expanded="true" />
                 <element signature="e#792#956#0#PHP" />
                 <element signature="e#2066#2381#1#PHP" />
-                <element signature="e#2745#3592#1#PHP" />
-                <element signature="e#3625#4502#1#PHP" />
-                <element signature="e#4527#5069#1#PHP" />
-                <element signature="e#5104#5558#1#PHP" />
-                <element signature="e#5589#5897#1#PHP" />
-                <element signature="e#5931#6382#1#PHP" />
-                <element signature="e#6468#6690#1#PHP" />
-                <element signature="e#6853#7085#1#PHP" />
-                <element signature="e#7265#7498#1#PHP" />
-                <element signature="e#7536#7900#1#PHP" />
-                <element signature="e#8585#8811#1#PHP" />
-                <element signature="e#8839#9322#1#PHP" />
-                <element signature="e#10070#10296#1#PHP" />
-                <element signature="e#10324#10651#1#PHP" />
-                <element signature="e#11295#11536#1#PHP" />
-                <element signature="e#11574#12039#1#PHP" />
-                <element signature="e#12852#13091#1#PHP" />
-                <element signature="e#13128#14105#1#PHP" />
-                <element signature="e#14291#14529#1#PHP" />
-                <element signature="e#14565#15548#1#PHP" />
-                <element signature="n#echoResponse#0;n#!!top" />
+                <element signature="e#2405#2717#1#PHP" />
+                <element signature="e#2743#3033#1#PHP" />
+                <element signature="e#3061#3908#1#PHP" />
+                <element signature="e#3941#4818#1#PHP" />
+                <element signature="e#4843#5385#1#PHP" />
+                <element signature="e#5420#5874#1#PHP" />
+                <element signature="e#5905#6213#1#PHP" />
+                <element signature="e#6247#6698#1#PHP" />
+                <element signature="e#6784#7006#1#PHP" />
+                <element signature="e#7169#7401#1#PHP" />
+                <element signature="e#7581#7814#1#PHP" />
+                <element signature="e#7852#8216#1#PHP" />
+                <element signature="e#8253#8728#1#PHP" />
+                <element signature="e#8901#9127#1#PHP" />
+                <element signature="e#9155#9638#1#PHP" />
+                <element signature="e#9665#10224#1#PHP" />
+                <element signature="e#10386#10612#1#PHP" />
+                <element signature="e#10640#10967#1#PHP" />
+                <element signature="e#10994#11429#1#PHP" />
+                <element signature="e#11611#11852#1#PHP" />
+                <element signature="e#11890#12355#1#PHP" />
+                <element signature="e#12392#12977#1#PHP" />
+                <element signature="e#13168#13407#1#PHP" />
+                <element signature="e#13444#14421#1#PHP" />
+                <element signature="e#14881#15864#1#PHP" />
+                <element signature="e#16050#16316#1#PHP" />
+                <element signature="e#16352#17394#1#PHP" />
+                <element signature="e#17429#18579#1#PHP" />
+                <element signature="e#18765#19004#1#PHP" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/include/DbHandler.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="289" column="20" selection-start-line="289" selection-start-column="20" selection-end-line="289" selection-end-column="20" />
+            <state relative-caret-position="735">
+              <caret line="3202" column="26" selection-start-line="3202" selection-start-column="26" selection-end-line="3202" selection-end-column="26" />
               <folding>
                 <element signature="e#6#161#0#PHP" expanded="true" />
                 <element signature="e#413#742#0#PHP" />
@@ -92,27 +101,7 @@
                 <element signature="e#5354#6943#0#PHP" />
                 <element signature="e#6949#7216#0#PHP" />
                 <element signature="e#7222#8778#0#PHP" />
-                <element signature="e#8784#10493#0#PHP" />
-                <element signature="e#120280#124492#0#PHP" />
-                <element signature="e#124498#128462#0#PHP" />
-                <element signature="e#131316#132845#0#PHP" />
-                <element signature="e#132851#135765#0#PHP" />
-                <element signature="e#135771#137487#0#PHP" />
-                <element signature="e#137493#139094#0#PHP" />
-                <element signature="e#139257#141514#0#PHP" />
-                <element signature="e#141676#145082#0#PHP" />
-                <element signature="e#148506#150038#0#PHP" />
-                <element signature="e#150044#151578#0#PHP" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/include/Config.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -141,8 +130,8 @@
         <option value="$PROJECT_DIR$/include/StatusCodes.php" />
         <option value="$PROJECT_DIR$/include/Security.php" />
         <option value="$PROJECT_DIR$/include/Config.php" />
-        <option value="$PROJECT_DIR$/include/DbHandler.php" />
         <option value="$PROJECT_DIR$/v1/index.php" />
+        <option value="$PROJECT_DIR$/include/DbHandler.php" />
       </list>
     </option>
   </component>
@@ -157,7 +146,26 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="MarketSalesAPI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MarketSalesAPI" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MarketSalesAPI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MarketSalesAPI" type="462c0819:PsiDirectoryNode" />
+              <item name="include" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
@@ -220,6 +228,9 @@
       <workItem from="1574512771679" duration="16026000" />
       <workItem from="1574691143139" duration="601000" />
       <workItem from="1574861318539" duration="1241000" />
+      <workItem from="1575047984222" duration="1712000" />
+      <workItem from="1575145916326" duration="5854000" />
+      <workItem from="1575392055865" duration="3695000" />
     </task>
     <task id="LOCAL-00001" summary="endpoints added">
       <created>1572711523052</created>
@@ -305,17 +316,31 @@
       <option name="project" value="LOCAL" />
       <updated>1574861852990</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="added status to the response of traders">
+      <created>1575048103006</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1575048103006</updated>
+    </task>
+    <task id="LOCAL-00014" summary="added cURL for connecting with NSANO API">
+      <created>1575152731144</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1575152731145</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="153861000" />
+    <option name="totallyTimeSpent" value="165122000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.14832215" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.15033557" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -329,14 +354,14 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.21176471" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.45588234" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.46470588" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" visible="true" weight="0.038255032" />
+      <window_info anchor="right" id="Database" order="3" weight="0.03691275" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
-      <window_info anchor="right" id="SciView" order="5" />
+      <window_info anchor="right" id="SciView" order="5" weight="0.3295302" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -355,7 +380,9 @@
     <MESSAGE value="implemented test URLs and simulation of BusTicketing" />
     <MESSAGE value="implemented simulation for deduction" />
     <MESSAGE value="implemented simulation for deduction v2" />
-    <option name="LAST_COMMIT_MESSAGE" value="implemented simulation for deduction v2" />
+    <MESSAGE value="added status to the response of traders" />
+    <MESSAGE value="added cURL for connecting with NSANO API" />
+    <option name="LAST_COMMIT_MESSAGE" value="added cURL for connecting with NSANO API" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/dc6c5e84-8ba4-4106-af58-c2853f0e8d77/console.sql">
@@ -408,10 +435,51 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/v1/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="578" column="14" selection-start-line="578" selection-start-column="14" selection-end-line="578" selection-end-column="14" />
+          <folding>
+            <element signature="e#6#260#0#PHP" expanded="true" />
+            <element signature="e#792#956#0#PHP" />
+            <element signature="e#2066#2381#1#PHP" />
+            <element signature="e#2405#2717#1#PHP" />
+            <element signature="e#2743#3033#1#PHP" />
+            <element signature="e#3061#3908#1#PHP" />
+            <element signature="e#3941#4818#1#PHP" />
+            <element signature="e#4843#5385#1#PHP" />
+            <element signature="e#5420#5874#1#PHP" />
+            <element signature="e#5905#6213#1#PHP" />
+            <element signature="e#6247#6698#1#PHP" />
+            <element signature="e#6784#7006#1#PHP" />
+            <element signature="e#7169#7401#1#PHP" />
+            <element signature="e#7581#7814#1#PHP" />
+            <element signature="e#7852#8216#1#PHP" />
+            <element signature="e#8253#8728#1#PHP" />
+            <element signature="e#8901#9127#1#PHP" />
+            <element signature="e#9155#9638#1#PHP" />
+            <element signature="e#9665#10224#1#PHP" />
+            <element signature="e#10386#10612#1#PHP" />
+            <element signature="e#10640#10967#1#PHP" />
+            <element signature="e#10994#11429#1#PHP" />
+            <element signature="e#11611#11852#1#PHP" />
+            <element signature="e#11890#12355#1#PHP" />
+            <element signature="e#12392#12977#1#PHP" />
+            <element signature="e#13168#13407#1#PHP" />
+            <element signature="e#13444#14421#1#PHP" />
+            <element signature="e#14881#15864#1#PHP" />
+            <element signature="e#16050#16316#1#PHP" />
+            <element signature="e#16352#17394#1#PHP" />
+            <element signature="e#17429#18579#1#PHP" />
+            <element signature="e#18765#19004#1#PHP" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/include/DbHandler.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="289" column="20" selection-start-line="289" selection-start-column="20" selection-end-line="289" selection-end-column="20" />
+        <state relative-caret-position="735">
+          <caret line="3202" column="26" selection-start-line="3202" selection-start-column="26" selection-end-line="3202" selection-end-column="26" />
           <folding>
             <element signature="e#6#161#0#PHP" expanded="true" />
             <element signature="e#413#742#0#PHP" />
@@ -428,50 +496,6 @@
             <element signature="e#5354#6943#0#PHP" />
             <element signature="e#6949#7216#0#PHP" />
             <element signature="e#7222#8778#0#PHP" />
-            <element signature="e#8784#10493#0#PHP" />
-            <element signature="e#120280#124492#0#PHP" />
-            <element signature="e#124498#128462#0#PHP" />
-            <element signature="e#131316#132845#0#PHP" />
-            <element signature="e#132851#135765#0#PHP" />
-            <element signature="e#135771#137487#0#PHP" />
-            <element signature="e#137493#139094#0#PHP" />
-            <element signature="e#139257#141514#0#PHP" />
-            <element signature="e#141676#145082#0#PHP" />
-            <element signature="e#148506#150038#0#PHP" />
-            <element signature="e#150044#151578#0#PHP" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/v1/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1690">
-          <caret line="92" column="29" lean-forward="true" selection-start-line="92" selection-start-column="29" selection-end-line="92" selection-end-column="29" />
-          <folding>
-            <element signature="e#6#260#0#PHP" expanded="true" />
-            <element signature="e#792#956#0#PHP" />
-            <element signature="e#2066#2381#1#PHP" />
-            <element signature="e#2745#3592#1#PHP" />
-            <element signature="e#3625#4502#1#PHP" />
-            <element signature="e#4527#5069#1#PHP" />
-            <element signature="e#5104#5558#1#PHP" />
-            <element signature="e#5589#5897#1#PHP" />
-            <element signature="e#5931#6382#1#PHP" />
-            <element signature="e#6468#6690#1#PHP" />
-            <element signature="e#6853#7085#1#PHP" />
-            <element signature="e#7265#7498#1#PHP" />
-            <element signature="e#7536#7900#1#PHP" />
-            <element signature="e#8585#8811#1#PHP" />
-            <element signature="e#8839#9322#1#PHP" />
-            <element signature="e#10070#10296#1#PHP" />
-            <element signature="e#10324#10651#1#PHP" />
-            <element signature="e#11295#11536#1#PHP" />
-            <element signature="e#11574#12039#1#PHP" />
-            <element signature="e#12852#13091#1#PHP" />
-            <element signature="e#13128#14105#1#PHP" />
-            <element signature="e#14291#14529#1#PHP" />
-            <element signature="e#14565#15548#1#PHP" />
-            <element signature="n#echoResponse#0;n#!!top" />
           </folding>
         </state>
       </provider>

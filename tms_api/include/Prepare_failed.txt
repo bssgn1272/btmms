@@ -1,0 +1,40 @@
+Script was executed at 04-Dec-19 10:31:18
+"Prepare failed: (1054) Unknown column 'amount_due' in 'field list'"
+SELECT cart_id, marketeer_id,m.firstname,m.lastname, buyer_id,b.firstname,b.lastname, amount_due, token_tendered, device_serial, points_marketeer_earned, points_buyer_earned, transaction_date 
+                    FROM transaction_summaries
+                    JOIN traders b ON b.trader_id = transaction_summaries.buyer_id
+                    JOIN traders m ON m.trader_id = transaction_summaries.marketeer_id
+                    
+
+Script was executed at 04-Dec-19 10:45:04
+"Prepare failed: (1054) Unknown column 'buyer_mobile' in 'field list'"
+INSERT INTO transaction_summaries(marketeer_id, buyer_id,buyer_mobile, amount_due, token_tendered, device_serial, points_marketeer_earned, points_buyer_earned, transaction_date) VALUES(?,?,?,?,?,?,?,?,?)
+
+Script was executed at 04-Dec-19 10:46:17
+"Prepare failed: (1054) Unknown column 'buyer_mobile' in 'field list'"
+INSERT INTO transaction_summaries(marketeer_id, buyer_id,buyer_mobile, amount_due, token_tendered, device_serial, points_marketeer_earned, points_buyer_earned, transaction_date) VALUES(?,?,?,?,?,?,?,?,?)
+
+Script was executed at 04-Dec-19 10:48:48
+"Prepare failed: (1054) Unknown column 'buyer_mobile' in 'field list'"
+INSERT INTO transaction_summaries(marketeer_id, buyer_id,buyer_mobile, amount_due, token_tendered, device_serial, points_marketeer_earned, points_buyer_earned, transaction_date) VALUES(?,?,?,?,?,?,?,?,?)
+
+Script was executed at 04-Dec-19 11:01:37
+"Prepare failed: (1054) Unknown column 'buyer_mobile' in 'field list'"
+INSERT INTO transaction_summaries(marketeer_id, buyer_id,buyer_mobile, amount_due, token_tendered, device_serial, points_marketeer_earned, points_buyer_earned, transaction_date) VALUES(?,?,?,?,?,?,?,?,?)
+
+Script was executed at 04-Dec-19 11:03:13
+"Prepare failed: (1054) Unknown column 'buyer_mobile' in 'field list'"
+INSERT INTO transaction_summaries(marketeer_id, buyer_id,buyer_mobile, amount_due, token_tendered, device_serial, points_marketeer_earned, points_buyer_earned, transaction_date) VALUES(?,?,?,?,?,?,?,?,?)
+
+Script was executed at 04-Dec-19 11:07:14
+"Prepare failed: (1054) Unknown column 'buyer_mobile' in 'field list'"
+INSERT INTO transaction_summaries(marketeer_id, buyer_id,buyer_mobile, amount_due, token_tendered, device_serial, points_marketeer_earned, points_buyer_earned, transaction_date) VALUES(?,?,?,?,?,?,?,?,?)
+
+Script was executed at 04-Dec-19 11:11:16
+"Prepare failed: (1054) Unknown column 'buyer_mobile' in 'field list'"
+INSERT INTO transaction_summaries(marketeer_id, buyer_id,buyer_mobile, amount_due, token_tendered, device_serial, points_marketeer_earned, points_buyer_earned, transaction_date) VALUES(?,?,?,?,?,?,?,?,?)
+
+Script was executed at 04-Dec-19 11:18:17
+"Prepare failed: (1054) Unknown column 'buyer_mobile' in 'field list'"
+INSERT INTO transaction_summaries(marketeer_id, buyer_id,buyer_mobile, amount_due, token_tendered, device_serial, points_marketeer_earned, points_buyer_earned, transaction_date) VALUES(?,?,?,?,?,?,?,?,?)
+

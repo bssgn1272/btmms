@@ -614,6 +614,54 @@ $app->post('/transactions', function () use ($app) {
 
 });
 
+$app->post('/credit_wallet', function () use ($app) {
+
+    //check for required params
+    verifyRequiredParams(array('mno','msisdn','amount'));
+
+    //reading post params
+    $mno = $app->request->post('mno');
+    $msisdn = $app->request()->post('msisdn');
+    $amount = $app->request()->post('amount');
+    $refID = $app->request()->post('refID');
+
+    $db = new DbHandler();
+
+    $result = $db->wallet_API($mno,'mikopo',$msisdn,$amount,$refID);
+
+    echoResponse(200, $result);
+});
+
+$app->post('/debit_wallet', function () use ($app) {
+
+    //check for required params
+    verifyRequiredParams(array('mno','msisdn','amount'));
+
+    //reading post params
+    $mno = $app->request->post('mno');
+    $msisdn = $app->request()->post('msisdn');
+    $amount = $app->request()->post('amount');
+    $refID = $app->request()->post('refID');
+
+    $db = new DbHandler();
+
+    $result = $db->wallet_API($mno,'malipo',$msisdn,$amount,$refID);
+
+    echoResponse(200, $result);
+});
+
+
+$app->get('/check_transaction_status', function () use ($app) {
+
+    $metadata = $app->request->get('metadata');
+
+    $db = new DbHandler();
+
+    $db->check_status_API($metadata);
+
+});
+
+
 $app->get('/test', function () use ($app) {
 
     parse_str($_SERVER["QUERY_STRING"], $params);

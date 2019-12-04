@@ -116,5 +116,9 @@ class Config {
      * MOMO Pin length
      */
     CONST MOMO_PIN_LEN = 4;
+    /**
+     * Country code
+     */
+    CONST country_code = 26;
 
 }

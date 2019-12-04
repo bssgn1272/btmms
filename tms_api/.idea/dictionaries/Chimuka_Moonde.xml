@@ -3,6 +3,7 @@
     <words>
       <w>firstname</w>
       <w>lastname</w>
+      <w>msisdn</w>
       <w>probase</w>
     </words>
   </dictionary>

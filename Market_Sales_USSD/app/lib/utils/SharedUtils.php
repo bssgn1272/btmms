@@ -63,7 +63,7 @@ class SharedUtils {
      * @return output of curl
      */
     public static function httpPostJson($method, $params, $msisdn, $log) {
-        $log->logInfo(Config::APP_INFO_LOG, $msisdn, '| Sending API request data::' . print_r($payload, TRUE));
+        $log->logInfo(Config::APP_INFO_LOG, $msisdn, '| Sending API request data::' . print_r($params, TRUE));
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, Config::API_URL . $method);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -101,6 +101,19 @@ class SharedUtils {
         return $payload;
     }
 
+    public static function buildPushTransactionRequest($trader_id, $amount, $mobile_number) {
+        # Packet
+        $payload = [
+            'marketeer_id' => $trader_id,
+            'transaction_date' => date('Y-m-d'),
+            'device_serial' => "1111111",
+            'token_tendered' => $amount,
+            'amount_due' => $amount,
+            'buyer_mobile_number' => $mobile_number,
+        ];
+        return $payload;
+    }
+
     public static function strReplace($search, $replace, $subject) {
         return str_replace($search, $replace, $subject);
     }
@@ -108,7 +121,7 @@ class SharedUtils {
     public static function validateMsisdn($input, $log, $msisdn) {
         $log->logInfo(Config::APP_INFO_LOG, $msisdn, '| Validating entered buyers mobile number:' . $input);
         $response = false;
-        if (is_numeric($input) && substr($input, 0,2)=="09" && preg_match('/^[0-9]*$/', $input) && strlen($input) == Config::MSISDN_LEN) {
+        if (is_numeric($input) && substr($input, 0, 2) == "09" && preg_match('/^[0-9]*$/', $input) && strlen($input) == Config::MSISDN_LEN) {
             $log->logInfo(Config::APP_INFO_LOG, $msisdn, '| The entered buyers mobile number:' . $input . ' is valid');
             $response = TRUE;
         }

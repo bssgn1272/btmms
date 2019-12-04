@@ -27,3 +27,38 @@
 [27-Nov-2019 15:54:14 Africa/Lusaka] PHP Notice:  Undefined index: status in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 571
 [27-Nov-2019 15:54:40 Africa/Lusaka] PHP Notice:  Undefined index: status in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 571
 [27-Nov-2019 16:09:18 Africa/Lusaka] PHP Notice:  Undefined index: token_balance in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 261
+[04-Dec-2019 10:45:04 Africa/Lusaka] PHP Notice:  Undefined index: trader_details in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 372
+[04-Dec-2019 10:45:04 Africa/Lusaka] PHP Notice:  Undefined index: Sale_amount in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 372
+[04-Dec-2019 10:45:04 Africa/Lusaka] PHP Notice:  Undefined index: buyer_msisdn in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 372
+[04-Dec-2019 10:45:04 Africa/Lusaka] PHP Notice:  Undefined variable: payload in /var/www/html/Market_Sales_USSD/app/lib/utils/SharedUtils.php on line 66
+[04-Dec-2019 10:46:17 Africa/Lusaka] PHP Notice:  Undefined index: trader_details in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 372
+[04-Dec-2019 10:46:17 Africa/Lusaka] PHP Notice:  Undefined index: Sale_amount in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 372
+[04-Dec-2019 10:46:17 Africa/Lusaka] PHP Notice:  Undefined index: buyer_msisdn in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 372
+[04-Dec-2019 10:46:17 Africa/Lusaka] PHP Notice:  Undefined variable: payload in /var/www/html/Market_Sales_USSD/app/lib/utils/SharedUtils.php on line 66
+[04-Dec-2019 10:48:48 Africa/Lusaka] PHP Notice:  Undefined index: trader_details in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 372
+[04-Dec-2019 10:48:48 Africa/Lusaka] PHP Notice:  Undefined index: Sale_amount in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 372
+[04-Dec-2019 10:48:48 Africa/Lusaka] PHP Notice:  Undefined index: buyer_msisdn in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 372
+[04-Dec-2019 10:57:37 Africa/Lusaka] PHP Fatal error:  Uncaught Error: Call to undefined method App\Src\Core::log() in /var/www/html/Market_Sales_USSD/app/src/Core.php:372
+Stack trace:
+#0 /var/www/html/Market_Sales_USSD/app/src/Core.php(208): App\Src\Core->makeSaleConfirm()
+#1 /var/www/html/Market_Sales_USSD/app/src/Core.php(190): App\Src\Core->menuSelections()
+#2 /var/www/html/Market_Sales_USSD/app/src/Core.php(169): App\Src\Core->processRequest()
+#3 /var/www/html/Market_Sales_USSD/airtel.php(46): App\Src\Core->handle(Array)
+#4 [internal function]: callMenu('USSD_MESSAGE', Array, Array)
+#5 /var/www/html/Market_Sales_USSD/airtel.php(24): xmlrpc_server_call_method(Resource id #5, '<?xml version="...', Array)
+#6 {main}
+  thrown in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 372
+[04-Dec-2019 11:01:37 Africa/Lusaka] PHP Notice:  Undefined index: trader_details in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 374
+[04-Dec-2019 11:01:37 Africa/Lusaka] PHP Notice:  Undefined index: Sale_amount in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 374
+[04-Dec-2019 11:01:37 Africa/Lusaka] PHP Notice:  Undefined index: buyer_msisdn in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 374
+[04-Dec-2019 11:03:13 Africa/Lusaka] PHP Notice:  Undefined index: trader_details in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 372
+[04-Dec-2019 11:03:13 Africa/Lusaka] PHP Notice:  Undefined index: trader_details in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 374
+[04-Dec-2019 11:03:13 Africa/Lusaka] PHP Notice:  Undefined index: Sale_amount in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 374
+[04-Dec-2019 11:03:13 Africa/Lusaka] PHP Notice:  Undefined index: buyer_msisdn in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 374
+[04-Dec-2019 11:07:14 Africa/Lusaka] PHP Notice:  Undefined index: Sale_amount in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 372
+[04-Dec-2019 11:07:14 Africa/Lusaka] PHP Notice:  Undefined index: trader_details in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 374
+[04-Dec-2019 11:07:14 Africa/Lusaka] PHP Notice:  Undefined index: Sale_amount in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 374
+[04-Dec-2019 11:07:14 Africa/Lusaka] PHP Notice:  Undefined index: buyer_msisdn in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 374
+[04-Dec-2019 11:11:16 Africa/Lusaka] PHP Notice:  Undefined index: trader_details in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 375
+[04-Dec-2019 11:11:16 Africa/Lusaka] PHP Notice:  Undefined index: Sale_amount in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 375
+[04-Dec-2019 11:11:16 Africa/Lusaka] PHP Notice:  Undefined index: buyer_msisdn in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 375
