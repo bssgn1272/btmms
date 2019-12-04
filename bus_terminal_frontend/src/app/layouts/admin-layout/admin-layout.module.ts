@@ -31,6 +31,7 @@ import { RoservationRequestsComponent } from 'app/roservation-requests/roservati
 import { ApproveReservationComponent } from 'app/approve-reservation/approve-reservation.component';
 import { AlertsComponent } from 'app/alert/alerts.component';
 import { AlertsService } from 'app/alert/alerts.service';
+import { NavbarComponent } from 'app/components/navbar/navbar.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -62,10 +63,8 @@ import { AlertsService } from 'app/alert/alerts.service';
     ViewMySlotsComponent,
     RoservationRequestsComponent,
     ApproveReservationComponent,
-    AlertsComponent
+    AlertsComponent,
   ],
-  providers: [
-    AlertsService
-  ]
+  providers: [AlertsService]
 })
 export class AdminLayoutModule {}
