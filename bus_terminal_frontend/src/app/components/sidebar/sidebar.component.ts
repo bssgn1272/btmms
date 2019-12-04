@@ -70,7 +70,8 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.userItems = this.getFromLocalStrorage();
-    const _role = this.userItems.account.role;
+    const _role = this.userItems.role;
+    console.log(_role)
     if (_role === 'admin') {
       this.menuItems = ROUTESTWO.filter(menuItem => menuItem);
       // get return url from route parameters or default to '/'

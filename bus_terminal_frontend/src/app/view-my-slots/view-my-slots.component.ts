@@ -59,7 +59,7 @@ export class ViewMySlotsComponent implements OnInit {
 
   ngOnInit() {
     this.userItems = this.getFromLocalStrorage();
-    const _id = this.userItems.account.ID;
+    const _id = this.userItems.ID;
 
     this.viewSlots.getList(_id).then(res => {
       this.dataSource = new MatTableDataSource(res.data);

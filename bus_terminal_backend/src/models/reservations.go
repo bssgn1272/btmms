@@ -41,10 +41,10 @@ func (reservation *Reservation) Validate() (map[string] interface{}, bool) {
 		return u.Message(false, "Route should be on the payload"), false
 	}
 
-	if reservation.UserId <= 0 {
-		log.Println(u.Message(false, "User is not recognized"))
-		return u.Message(false, "User is not recognized"), false
-	}
+	//if reservation.UserId <= 0 {
+	//	log.Println(u.Message(false, "User is not recognized"))
+	//	return u.Message(false, "User is not recognized"), false
+	//}
 
 	//All the required parameters are present
 	log.Println(u.Message(true, "success"))

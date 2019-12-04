@@ -4,6 +4,7 @@ import (
 	"../models"
 	u "../utils"
 	"encoding/json"
+	"fmt"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
@@ -41,6 +42,8 @@ var GetReservationsForController = http.HandlerFunc(func(w http.ResponseWriter, 
 
 	params := mux.Vars(r)
 	id, err := strconv.Atoi(params["id"])
+
+	fmt.Print(id)
 	if err != nil {
 		//The passed path parameter is not an integer
 		u.Respond(w, u.Message(false, "There was an error in your request"))

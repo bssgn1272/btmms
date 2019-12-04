@@ -45,19 +45,7 @@ export class LoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
-
-    // this.userItems = this.getFromLocalStrorage();
-    // const _role = this.userItems.account.role;
-    // console.log(_role)
-    // if (_role === 'admin') {
-    // get return url from route parameters or default to '/'
-      // this.returnUrl =
-      //   this.route.snapshot.queryParams['returnUrl'] ||
-      //   'veiw-resavations-requests';
-    // } else {
-      // get return url from route parameters or default to '/'
       this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
-    // }
 
   }
 

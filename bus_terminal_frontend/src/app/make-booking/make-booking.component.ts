@@ -30,6 +30,8 @@ export class MakeBookingComponent implements OnInit {
   slot_four = '';
   slot_five = '';
   returnUrl: '';
+  userItems: any;
+  _id: any;
 
   constructor(
     public dialogRef: MatDialogRef<MakeBookingComponent>,
@@ -40,7 +42,15 @@ export class MakeBookingComponent implements OnInit {
     private _snackBar: MatSnackBar
   ) {}
 
+  public getFromLocalStrorage() {
+    const users = JSON.parse(localStorage.getItem('currentUser'));
+    return users;
+  }
+
   ngOnInit() {
+    this.userItems = this.getFromLocalStrorage();
+    this._id = this.userItems.ID;
+
     this.slot_one = this.data.row.slot_one;
 
     if (this.slot_one === 'closed' && this.data.row.time === '08:00') {
@@ -97,9 +107,9 @@ export class MakeBookingComponent implements OnInit {
       this.closed = false;
     }
 
-    this.user_id = this.data.row.id
-    this.time = this.data.row.time
-    this.reserved_time = this.data.row.reserved_time
+    this.user_id = this.data.row.id;
+    this.time = this.data.row.time;
+    this.reserved_time = this.data.row.reserved_time;
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.routes.snapshot.queryParams['returnUrl'] || '/';
@@ -113,7 +123,7 @@ export class MakeBookingComponent implements OnInit {
         slot: this.slot,
         status: this.status,
         route: this.route,
-        user_id: this.data.row.id,
+        user_id: this._id,
         time: this.data.row.time,
         reserved_time: this.data.row.reserved_time
       })
