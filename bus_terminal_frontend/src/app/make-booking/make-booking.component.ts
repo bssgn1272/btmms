@@ -19,7 +19,7 @@ export class MakeBookingComponent implements OnInit {
   route = '';
   time = '';
   user_id = 0;
-  reserved_time = '';
+  // reserved_time = '';
 
   open = false;
   closed = false;
@@ -109,7 +109,7 @@ export class MakeBookingComponent implements OnInit {
 
     this.user_id = this.data.row.id;
     this.time = this.data.row.time;
-    this.reserved_time = this.data.row.reserved_time;
+    // this.reserved_time = this.data.row.reserved_time;
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.routes.snapshot.queryParams['returnUrl'] || '/';
@@ -117,32 +117,32 @@ export class MakeBookingComponent implements OnInit {
   }
 
   save() {
-    console.log(this.data.row.id);
+    console.log(this.data.row.reservation_time);
     this.httpClient
-      .post('/api/reservation/requests/create', {
+      .post("/api/reservation/requests/create", {
         slot: this.slot,
         status: this.status,
         route: this.route,
         user_id: this._id,
         time: this.data.row.time,
-        reserved_time: this.data.row.reserved_time
+        reserved_time: this.data.row.reservation_time
       })
       .subscribe(
         data => {
           this.router.navigate([this.returnUrl]);
-          this._snackBar.open('Successfully Updated', null, {
+          this._snackBar.open("Successfully Updated", null, {
             duration: 1000,
-            horizontalPosition: 'center',
-            panelClass: ['blue-snackbar'],
-            verticalPosition: 'top'
+            horizontalPosition: "center",
+            panelClass: ["blue-snackbar"],
+            verticalPosition: "top"
           });
         },
         error => {
-          this._snackBar.open('Failed', null, {
+          this._snackBar.open("Failed", null, {
             duration: 2000,
-            horizontalPosition: 'center',
-            panelClass: ['background-red'],
-            verticalPosition: 'top'
+            horizontalPosition: "center",
+            panelClass: ["background-red"],
+            verticalPosition: "top"
           });
         }
       );
