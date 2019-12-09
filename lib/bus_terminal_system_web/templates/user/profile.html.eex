@@ -1,0 +1,430 @@
+<style>
+* {box-sizing: border-box;}
+ul {list-style-type: none;}
+body {font-family: Verdana, sans-serif;}
+
+.month {
+  padding: 70px 25px;
+  width: 100%;
+  background: rgb(71, 117, 209);
+  text-align: center;
+}
+
+.month ul {
+  margin: 0;
+  padding: 0;
+}
+
+.month ul li {
+  color: white;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.month .prev {
+  float: left;
+  padding-top: 10px;
+}
+
+.month .next {
+  float: right;
+  padding-top: 10px;
+}
+
+.weekdays {
+  margin: 0;
+  padding: 10px 0;
+  background-color: #ddd;
+}
+
+.weekdays li {
+  display: inline-block;
+  width: 13.6%;
+  color: #666;
+  text-align: center;
+}
+
+.days {
+  padding: 10px 0;
+  background: #eee;
+  margin: 0;
+}
+
+.days li {
+  list-style-type: none;
+  display: inline-block;
+  width: 13.6%;
+  text-align: center;
+  margin-bottom: 5px;
+  font-size:12px;
+  color: #777;
+}
+
+.days li .active {
+  padding: 5px;
+  background: #1abc9c;
+  color: white !important
+}
+
+/* Add media queries for smaller screens */
+@media screen and (max-width:720px) {
+  .weekdays li, .days li {width: 13.1%;}
+}
+
+@media screen and (max-width: 420px) {
+  .weekdays li, .days li {width: 12.5%;}
+  .days li .active {padding: 2px;}
+}
+
+@media screen and (max-width: 290px) {
+  .weekdays li, .days li {width: 12.2%;}
+}
+</style>
+
+
+<!-- Main content -->
+<div class="container">
+				<!-- Cover area -->
+				<div class="profile-cover">
+					<div class="profile-cover-img" style="background: url('/images/backgrounds/2.jpg')"></div>
+					<div class="media">
+						<div class="media-left">
+							<a href="#" class="profile-thumb">
+								<img src="/images/material/avatar/1.png" class="img-circle" alt="">
+							</a>
+						</div>
+
+						<div class="media-body">
+				    		<h1><%= @user.username %> <small class="display-block">UX/UI designer</small></h1>
+						</div>
+						
+						<!--
+						<div class="media-right media-middle">
+							<ul class="list-inline list-inline-condensed no-margin-bottom text-nowrap">
+								<li><a href="#" class="btn btn-default"><i class="icon-file-picture position-left"></i> Cover image</a></li>
+								<li><a href="#" class="btn btn-default"><i class="icon-file-stats position-left"></i> Statistics</a></li>
+							</ul>
+						</div>
+						-->
+					</div>
+				</div>
+				<!-- /cover area -->
+
+				<!-- Toolbar -->
+				<div class="navbar navbar-default navbar-xs navbar-component no-border-radius-top">
+					<ul class="nav navbar-nav visible-xs-block">
+						<li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+					</ul>
+
+					<div class="navbar-collapse collapse" id="navbar-filter">
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="#activity" data-toggle="tab"><i class="icon-menu7 position-left"></i> Activity</a></li>
+							<li><a href="#schedule" data-toggle="tab"><i class="icon-calendar3 position-left"></i> Schedule</a></li>
+							
+						</ul>
+
+						<div class="navbar-right">
+							<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-gear"></i> <span class="visible-xs-inline-block position-right"> Options</span> <span class="caret"></span></a>
+									<ul class="dropdown-menu dropdown-menu-right">
+										<li><a href="#"><i class="icon-image2"></i> Update cover</a></li>
+										<li><a href="#"><i class="icon-clippy"></i> Update info</a></li>
+										<li><a href="#"><i class="icon-make-group"></i> Manage sections</a></li>
+										<li class="divider"></li>
+										<li><a href="#"><i class="icon-three-bars"></i> Activity log</a></li>
+										<li><a href="#"><i class="icon-cog5"></i> Profile settings</a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- /toolbar -->
+
+
+				<!-- User profile -->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="tabbable">
+							<div class="tab-content">
+								<div class="tab-pane fade in active" id="activity">
+
+									<!-- Timeline -->
+									<div class="timeline timeline-left content-group">
+										<div class="timeline-container">
+
+											<!-- Sales stats -->
+											<div class="timeline-row">
+												<div class="timeline-icon">
+													<a href="#"><img src="assets/images/placeholder.jpg" alt=""></a>
+												</div>
+
+												<div class="panel panel-flat timeline-content">
+													<div class="panel-heading">
+														<h6 class="panel-title">Daily statistics</h6>
+														<div class="heading-elements">
+															<span class="heading-text"><i class="icon-history position-left text-success"></i> Updated 3 hours ago</span>
+
+															<ul class="icons-list">
+										                		<li><a data-action="reload"></a></li>
+										                	</ul>
+									                	</div>
+													</div>
+													<hr>
+
+													<div class="panel-body">
+														<div class="chart-container">
+															<!--<div class="chart has-fixed-height" id="sales"></div>-->
+															<h1>
+																Hi welcome to your Daily Statics!
+															</h1>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!-- /sales stats -->
+
+											<!-- Date stamp -->
+											<div class="timeline-date text-muted">
+												<i class="icon-history position-left"></i> <span class="text-semibold"></span><a onclick="this.innerHTML=Date()">Click To Check Time</a>
+											</div>
+											<!-- /date stamp -->
+
+
+											<!-- Invoices -->
+											<div class="timeline-row">
+												<div class="timeline-icon">
+													<div class="bg-warning-400">
+														<i class="icon-cash3"></i>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-lg-6">
+														<div class="panel border-left-lg border-left-danger invoice-grid timeline-content">
+															<div class="panel-body">
+																<div class="row">
+																	<div class="col-sm-6">
+																		<h6 class="text-semibold no-margin-top">Leonardo Kapamba</h6>
+																		<ul class="list list-unstyled">
+																			<li>SSN : 9090909090</li>
+																			<li>Refernce No.: 0028</li>
+																			<li>Issued on: <span class="text-semibold">2019/01/25</span></li>
+																		</ul>
+																	</div>
+
+																	<div class="col-sm-6">
+																		<h6 class="text-semibold text-right no-margin-top">K8,750</h6>
+																		<ul class="list list-unstyled text-right">
+																			<li>Method: <span class="text-semibold">CASH</span></li>
+																			<li class="dropdown">
+																				Status: &nbsp;
+																				<a href="#" class="label bg-danger-400 dropdown-toggle" data-toggle="dropdown">Overdue <span class="caret"></span></a>
+																				<ul class="dropdown-menu dropdown-menu-right">
+																					<li class="active"><a href="#"><i class="icon-alert"></i> Overdue</a></li>
+																					<li><a href="#"><i class="icon-alarm"></i> Pending</a></li>
+																					<li><a href="#"><i class="icon-checkmark3"></i> Paid</a></li>
+																					<li class="divider"></li>
+																					<li><a href="#"><i class="icon-spinner2 spinner"></i> On hold</a></li>
+																					<li><a href="#"><i class="icon-cross2"></i> Canceled</a></li>
+																				</ul>
+																			</li>
+																		</ul>
+																	</div>
+																</div>
+															</div>
+
+															<div class="panel-footer panel-footer-condensed">
+																<div class="heading-elements">
+																	<span class="heading-text">
+																		<span class="status-mark border-danger position-left"></span> Due: <span class="text-semibold">2019/02/25</span>
+																	</span>
+
+																	<ul class="list-inline list-inline-condensed heading-text pull-right">
+																		<li><a href="#" class="text-default" data-toggle="modal" data-target="#invoice"><i class="icon-eye8"></i></a></li>
+																		<li class="dropdown">
+																			<a href="#" class="text-default dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i> <span class="caret"></span></a>
+																			<ul class="dropdown-menu dropdown-menu-right">
+																				<li><a href="#"><i class="icon-printer"></i> Print invoice</a></li>
+																				<li><a href="#"><i class="icon-file-download"></i> Download invoice</a></li>
+																				<li class="divider"></li>
+																				<li><a href="#"><i class="icon-file-plus"></i> Edit invoice</a></li>
+																				<li><a href="#"><i class="icon-cross2"></i> Remove invoice</a></li>
+																			</ul>
+																		</li>
+																	</ul>
+
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<div class="col-lg-6">
+														<div class="panel border-left-lg border-left-success invoice-grid timeline-content">
+															<div class="panel-body">
+																<div class="row">
+																	<div class="col-sm-6">
+																		<h6 class="text-semibold no-margin-top">Rebecca Malunga</h6>
+																		<ul class="list list-unstyled">
+																			<li>SSN : 9090909090</li>
+																			<li>Reference No.: 0027</li>
+																			<li>Issued on: <span class="text-semibold">2019/01/25</span></li>
+																		</ul>
+																	</div>
+
+																	<div class="col-sm-6">
+																		<h6 class="text-semibold text-right no-margin-top">K5,100</h6>
+																		<ul class="list list-unstyled text-right">
+																			<li>Method: <span class="text-semibold">Online Banking</span></li>
+																			<li class="dropdown">
+																				Status: &nbsp;
+																				<a href="#" class="label bg-success-400 dropdown-toggle" data-toggle="dropdown">Paid <span class="caret"></span></a>
+																				<ul class="dropdown-menu dropdown-menu-right">
+																					<li><a href="#"><i class="icon-alert"></i> Overdue</a></li>
+																					<li><a href="#"><i class="icon-alarm"></i> Pending</a></li>
+																					<li class="active"><a href="#"><i class="icon-checkmark3"></i> Paid</a></li>
+																					<li class="divider"></li>
+																					<li><a href="#"><i class="icon-spinner2 spinner"></i> On hold</a></li>
+																					<li><a href="#"><i class="icon-cross2"></i> Canceled</a></li>
+																				</ul>
+																			</li>
+																		</ul>
+																	</div>
+																</div>
+															</div>
+
+															<div class="panel-footer panel-footer-condensed">
+																<div class="heading-elements">
+																	<span class="heading-text">
+																		<span class="status-mark border-success position-left"></span> Due: <span class="text-semibold">2019/03/24</span>
+																	</span>
+
+																	<ul class="list-inline list-inline-condensed heading-text pull-right">
+																		<li><a href="#" class="text-default" data-toggle="modal" data-target="#invoice"><i class="icon-eye8"></i></a></li>
+																		<li class="dropdown">
+																			<a href="#" class="text-default dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i> <span class="caret"></span></a>
+																			<ul class="dropdown-menu dropdown-menu-right">
+																				<li><a href="#"><i class="icon-printer"></i> Print invoice</a></li>
+																				<li><a href="#"><i class="icon-file-download"></i> Download invoice</a></li>
+																				<li class="divider"></li>
+																				<li><a href="#"><i class="icon-file-plus"></i> Edit invoice</a></li>
+																				<li><a href="#"><i class="icon-cross2"></i> Remove invoice</a></li>
+																			</ul>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!-- /invoices -->
+										</div>
+								    </div>
+								    <!-- /timeline -->
+								    0971 859 675
+
+								</div>
+
+								<div class="tab-pane fade" id="schedule">
+
+									<!-- Schedule hours -->
+									<div class="panel panel-flat">
+										<div class="panel-heading">
+											<h6 class="panel-title">Schedule Your Week</h6>
+											<div class="heading-elements">
+												<ul class="icons-list">
+							                		<li><a data-action="collapse"></a></li>
+							                		<li><a data-action="reload"></a></li>
+							                		<li><a data-action="close"></a></li>
+							                	</ul>
+						                	</div>
+										</div>
+										<hr>
+
+										<div class="panel-body">
+											<div class="chart-container">
+												<!--<div class="chart has-fixed-height" id="plans"></div>-->
+												<div class="month">      
+												  <ul>
+												    <li class="prev">&#10094;</li>
+												    <li class="next">&#10095;</li>
+												    <li>
+												      December<br>
+												      <span style="font-size:18px">2019</span>
+												    </li>
+												  </ul>
+												</div>
+
+												<ul class="weekdays">
+												  <li>Mo</li>
+												  <li>Tu</li>
+												  <li>We</li>
+												  <li>Th</li>
+												  <li>Fr</li>
+												  <li>Sa</li>
+												  <li>Su</li>
+												</ul>
+
+												<ul class="days">  
+												  <li>1</li>
+												  <li>2</li>
+												  <li>3</li>
+												  <li>4</li>
+												  <li>5</li>
+												  <li>6</li>
+												  <li>7</li>
+												  <li>8</li>
+												  <li>9</li>
+												  <li><span class="active">10</span></li>
+												  <li>11</li>
+												  <li>12</li>
+												  <li>13</li>
+												  <li>14</li>
+												  <li>15</li>
+												  <li>16</li>
+												  <li>17</li>
+												  <li>18</li>
+												  <li>19</li>
+												  <li>20</li>
+												  <li>21</li>
+												  <li>22</li>
+												  <li>23</li>
+												  <li>24</li>
+												  <li>25</li>
+												  <li>26</li>
+												  <li>27</li>
+												  <li>28</li>
+												  <li>29</li>
+												  <li>30</li>
+												  <li>31</li>
+												</ul>
+
+											</div>
+										</div>
+									</div>
+									<!-- /available hours -->
+								</div>
+
+
+
+
+
+
+
+
+								
+
+
+
+
+							</div>
+						</div>
+					</div>
+					<div style="margin-bottom: 60%"></div>
+</div>
+
+		
+

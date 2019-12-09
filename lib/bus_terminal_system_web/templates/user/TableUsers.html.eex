@@ -1,0 +1,305 @@
+<!-- Basic datatable -->
+<div class="panel panel-flat" style="padding: 9px">
+    <div class="panel-heading">
+        <h5 class="panel-title">Users</h5>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+                <li><a data-action="close"></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <table class="table table-striped table-bordered" id="dataTableId">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Username</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>SSN</th>
+                  <th>NID</th>
+                  <th>Email</th>
+                  <th>Mobile</th>
+                  <th>Tel:</th>
+                  <th>UUID</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+            <%= for user <- @users do %>
+                <tr>
+                  <td><%= user.id %></td>
+                  <td><%= user.username %></td>
+                  <td><%= user.first_name %></td>
+                  <td><%= user.last_name %></td>
+                  <td><%= user.ssn %></td>
+                  <td><%= user.nrc %></td>
+                  <td><%= user.email %></td>
+                  <td><%= user.mobile %></td>
+                  <td><%= user.tel %></td>
+                  <td><%= user.uuid %></td>
+                  <td class="text-center">
+                    <ul class="icons-list">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="icon-menu9"></i>
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><button style="margin-left: 10px" type="button" class="btn btn-default btn-sm" data-user-id="" data-toggle="modal" data-target="#modal_form_horizontal_user">
+                                Info <i class="icon-user position-right"></i></button></li>
+
+                                <!--<li><%= link "Edit", class: "icon-pencil", to: Routes.user_path(@conn, :edit, user) %></li> -->
+                            </ul>
+                        </li>
+                    </ul>
+                </td>
+            <% end %>
+              </tbody>
+            </table>
+
+    <span><%= link "New User", to: Routes.user_path(@conn, :new), class: "btn btn-primary", style: "margin-left: 20px; margin-bottom: 10px" %></span>
+</div>
+
+<!-- Horizontal form modal -->
+ <div id="modal_form_horizontal_user" class="modal fade">
+     <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+             <div class="modal-header bg-info">
+                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                 <h5 class="modal-title">User Information</h5>
+             </div>
+
+             <!-- Profile info -->
+             <div class="panel panel-flat">
+                 <div class="panel-heading">
+                     <h6 class="panel-title"></h6>
+                     <div class="heading-elements">
+                         <ul class="icons-list">
+                             <li><a data-action="collapse"></a></li>
+                             <li><a data-action="reload"></a></li>
+                             <li><a data-action="close"></a></li>
+                         </ul>
+                     </div>
+                 </div>
+
+                 <div class="panel-body">
+                     <form id="infoForm" action="#">
+                         <div class="form-group">
+                             <div class="row">
+                                 <div class="col-md-4">
+                                     <label>Username</label>
+                                     <input type="text" name="username" value="<%=  %>" class="form-control">
+                                 </div>
+                                 <div class="col-md-4">
+                                     <label>First Name</label>
+                                     <input type="text" value="<%=  %>" class="form-control">
+                                 </div>
+
+                                 <div class="col-md-4">
+                                     <label>Last Name</label>
+                                     <input type="text" value="<%=  %>" class="form-control">
+                                 </div>
+                             </div>
+                         </div>
+
+                         <div class="form-group">
+                             <div class="row">
+                                 <div class="col-md-6">
+                                     <label>Address line 1</label>
+                                     <input type="text" value="Ring street 12" class="form-control">
+                                 </div>
+                                 <div class="col-md-6">
+                                     <label>Address line 2</label>
+                                     <input type="text" value="building D, flat #67" class="form-control">
+                                 </div>
+                             </div>
+                         </div>
+
+                         <div class="form-group">
+                             <div class="row">
+                                 <div class="col-md-4">
+                                     <label>City</label>
+                                     <input type="text" value="Munich" class="form-control">
+                                 </div>
+                                 <div class="col-md-4">
+                                     <label>State/Province</label>
+                                     <input type="text" value="Bayern" class="form-control">
+                                 </div>
+                                 <div class="col-md-4">
+                                     <label>ZIP code</label>
+                                     <input type="text" value="1031" class="form-control">
+                                 </div>
+                             </div>
+                         </div>
+
+                         <div class="form-group">
+                             <div class="row">
+                                 <div class="col-md-6">
+                                     <label>Email</label>
+                                     <input type="text" readonly="readonly" value="eugene@kopyov.com" class="form-control">
+                                 </div>
+                                 <div class="col-md-6">
+                                     <label>Your country</label>
+                                     <select class="select">
+                                         <option value="germany" selected="selected">Germany</option>
+                                         <option value="france">France</option>
+                                         <option value="spain">Spain</option>
+                                         <option value="netherlands">Netherlands</option>
+                                         <option value="other">...</option>
+                                         <option value="uk">United Kingdom</option>
+                                     </select>
+                                 </div>
+                             </div>
+                         </div>
+
+                         <div class="form-group">
+                             <div class="row">
+                                 <div class="col-md-6">
+                                     <label>Phone #</label>
+                                     <input type="text" value="+99-99-9999-9999" class="form-control">
+                                     <span class="help-block">+99-99-9999-9999</span>
+                                 </div>
+
+                                 <div class="col-md-6">
+                                     <label class="display-block">Upload profile image</label>
+                                     <input type="file" class="file-styled">
+                                     <span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>
+                                 </div>
+                             </div>
+                         </div>
+
+                         <div class="text-right">
+                             <button type="submit" class="btn btn-primary">Save <i class="icon-arrow-right14 position-right"></i></button>
+                         </div>
+                     </form>
+                 </div>
+             </div>
+             <!-- /profile info -->
+
+
+             <!-- Account settings -->
+             <div class="panel panel-flat">
+                 <div class="panel-heading">
+                     <h6 class="panel-title">Account settings</h6>
+                     <div class="heading-elements">
+                         <ul class="icons-list">
+                             <li><a data-action="collapse"></a></li>
+                             <li><a data-action="reload"></a></li>
+                             <li><a data-action="close"></a></li>
+                         </ul>
+                     </div>
+                 </div>
+
+                 <div class="panel-body">
+                     <form action="#">
+                         <div class="form-group">
+                             <div class="row">
+                                 <div class="col-md-6">
+                                     <label>Username</label>
+                                     <input type="text" value="Kopyov" readonly="readonly" class="form-control">
+                                 </div>
+
+                                 <div class="col-md-6">
+                                     <label>Current password</label>
+                                     <input type="password" value="password" readonly="readonly" class="form-control">
+                                 </div>
+                             </div>
+                         </div>
+
+                         <div class="form-group">
+                             <div class="row">
+                                 <div class="col-md-6">
+                                     <label>New password</label>
+                                     <input type="password" placeholder="Enter new password" class="form-control">
+                                 </div>
+
+                                 <div class="col-md-6">
+                                     <label>Repeat password</label>
+                                     <input type="password" placeholder="Repeat new password" class="form-control">
+                                 </div>
+                             </div>
+                         </div>
+
+                         <div class="form-group">
+                             <div class="row">
+                                 <div class="col-md-6">
+                                     <label>Profile visibility</label>
+
+                                     <div class="radio">
+                                         <label>
+                                             <input type="radio" name="visibility" class="styled" checked="checked">
+                                             Visible to everyone
+                                         </label>
+                                     </div>
+
+                                     <div class="radio">
+                                         <label>
+                                             <input type="radio" name="visibility" class="styled">
+                                             Visible to friends only
+                                         </label>
+                                     </div>
+
+                                     <div class="radio">
+                                         <label>
+                                             <input type="radio" name="visibility" class="styled">
+                                             Visible to my connections only
+                                         </label>
+                                     </div>
+
+                                     <div class="radio">
+                                         <label>
+                                             <input type="radio" name="visibility" class="styled">
+                                             Visible to my colleagues only
+                                         </label>
+                                     </div>
+                                 </div>
+
+                                 <div class="col-md-6">
+                                     <label>Notifications</label>
+
+                                     <div class="checkbox">
+                                         <label>
+                                             <input type="checkbox" class="styled" checked="checked">
+                                             Password expiration notification
+                                         </label>
+                                     </div>
+
+                                     <div class="checkbox">
+                                         <label>
+                                             <input type="checkbox" class="styled" checked="checked">
+                                             New message notification
+                                         </label>
+                                     </div>
+
+                                     <div class="checkbox">
+                                         <label>
+                                             <input type="checkbox" class="styled" checked="checked">
+                                             New task notification
+                                         </label>
+                                     </div>
+
+                                     <div class="checkbox">
+                                         <label>
+                                             <input type="checkbox" class="styled">
+                                             New contact request notification
+                                         </label>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+
+                         <div class="text-right">
+                             <button type="submit" class="btn btn-primary">Save <i class="icon-arrow-right14 position-right"></i></button>
+                         </div>
+                     </form>
+                 </div>
+             </div>
+             <!-- /account settings -->
+         </div>
+     </div>
+ </div>
+ <!-- /horizontal form modal -->
+<!-- /basic datatable -->
