@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.innovitrix.napsamarketsales">
+    <!-- PERMISSIONS -->
+    <!-- Your permissions are declared above the application tag, but within the manifest -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- This permission will allow your app to communicate over the web. -->
+    <!-- To check network state whether data can be downloaded or not -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name=".NapsaMarketSalesApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".MakeSell"></activity>
+        <activity android:name=".CheckBalance"></activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".BuyFromTrader"
+            android:label="@string/title_activity_buy_from_trader"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".BuyBusTicketActivity" />
+        <activity android:name=".MainActivity" />
+    </application>
+
+</manifest>
