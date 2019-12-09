@@ -1,5 +1,9 @@
 # Contributor Covenant Code of Conduct
 
+## Gitignore and Dependencies
+
+Any code that can be generated using package managers should be declared in your .gitignore files, meaning DO NOT commit package dependecies. These dependencies can serve up to tens of thousands of files which will make the repository bloated. It is good practice to ignore these and give instructions on how to generate them in your README files instead.
+
 ## Our Pledge
 
 In the interest of fostering an open and welcoming environment, we as
