@@ -62,3 +62,4 @@ Stack trace:
 [04-Dec-2019 11:11:16 Africa/Lusaka] PHP Notice:  Undefined index: trader_details in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 375
 [04-Dec-2019 11:11:16 Africa/Lusaka] PHP Notice:  Undefined index: Sale_amount in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 375
 [04-Dec-2019 11:11:16 Africa/Lusaka] PHP Notice:  Undefined index: buyer_msisdn in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 375
+[09-Dec-2019 14:36:43 Africa/Lusaka] PHP Notice:  Undefined index: Sale_buyer_mobile in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 387
