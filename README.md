@@ -1,6 +1,8 @@
 # btmms
 Code base for the BTMMS project
 
+# Revision REquired
+
 # Frontend
 
 The Frontend of this system has been developed using Angular material.
@@ -63,7 +65,6 @@ port Number
 
 for the DB postgreSQL was used
 
-To install follow the process from [w3resource](https://www.w3resource.com/PostgreSQL/install-postgresql-on-linux-and-windows.php)
+ 
+To install follow the process from [w3resource](https://www.w3resource.com/PostgreSQL/install-postgresql-on-linux-and-windows.php) 
 
- 
- 
