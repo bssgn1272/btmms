@@ -14,7 +14,7 @@ defmodule BusTerminalSystem.Market do
   def changeset(market, attrs) do
     market
     |> cast(attrs, [:market_name, :location, :market_uid, :city_town])
-    |> validate_required([:market_name])
+    |> validate_required([:market_name, :location, :market_uid, :city_town])
   end
 
 end

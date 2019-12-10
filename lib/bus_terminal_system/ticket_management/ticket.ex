@@ -2,17 +2,19 @@ defmodule BusTerminalSystem.TicketManagement.Ticket do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias BusTerminalSystem.TravelRoutes
+
+  @derive {Poison.Encoder, only: [:reference_number, :serial_number, :external_ref, :inserted_at, :bus_no, :class, :activation_status]}
   schema "tickets" do
     field :reference_number, :string
-    field :first_name, :string
-    field :last_name, :string
-    field :age, :string
-    field :mobile, :string
-    field :traveling_from, :string
-    field :traveling_to, :string
-    field :date_of_depature, :string
-    field :date_of_return, :string
-    field :number_of_travelers, :string
+    field :serial_number, :string
+    field :external_ref, :string
+    field :route, :integer
+    field :date, :string
+    field :bus_no, :string
+    field :class, :string
+    field :activation_status, :string
+
 
     timestamps()
   end
@@ -20,8 +22,7 @@ defmodule BusTerminalSystem.TicketManagement.Ticket do
   @doc false
   def changeset(ticket, attrs) do
     ticket
-    |> cast(attrs, [:reference_number])
-    |> validate_required([:reference_number])
-    |> unique_constraint(:reference_number)
+    |> cast(attrs, [:reference_number, :external_ref, :serial_number, :route, :activation_status])
+    |> validate_required([:reference_number, :external_ref, :serial_number, :route, :activation_status])
   end
 end

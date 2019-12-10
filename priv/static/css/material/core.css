@@ -40,6 +40,8 @@
 * ---------------------------------------------------------------------------- */
 html {
   height: 100%;
+  width:100%;
+  overflow-x: hidden;
 }
 body {
   position: relative;
@@ -257,19 +259,23 @@ svg {
   width: 100%;
   z-index: -1;
 }
+
 .icon-object {
   border-radius: 50%;
   text-align: center;
   margin: 10px;
   border-width: 3px;
   border-style: solid;
-  padding: 20px;
+  padding: 5px;
   display: inline-block;
+  color: orange;
 }
 .icon-object > i {
   font-size: 32px;
   top: 0;
+  color: orange;
 }
+
 .img-preview {
   max-height: 70px;
 }
@@ -6069,6 +6075,7 @@ a.thumbnail.active {
 .media-list-linked.media-list-bordered > .media-header:first-child {
   border-top-width: 0;
 }
+
 /* ------------------------------------------------------------------------------
 *
 *  # List groups component

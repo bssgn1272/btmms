@@ -4,8 +4,7 @@ defmodule BusTerminalSystem.AccountManager.User do
   import Ecto.Changeset
   #alias Argon2
 
-
-
+  @derive {Poison.Encoder, only: [:id, :username, :role]}
   schema "users" do
     field :password, :string
     field :username, :string
@@ -31,7 +30,6 @@ defmodule BusTerminalSystem.AccountManager.User do
   end
 
   defp put_password_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
-    # Argon2.hash_pwd_salt(password)
     change(changeset, password: Base.encode16(:crypto.hash(:sha512,password)))
   end
 

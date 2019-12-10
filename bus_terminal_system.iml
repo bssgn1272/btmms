@@ -8,6 +8,7 @@
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/argon2_elixir" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/barlix" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/base64url" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/certifi" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/combine" />
@@ -20,6 +21,7 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ecto" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ecto_sql" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/elixir_make" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/eqrcode" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/file_system" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/gettext" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/guardian" />
@@ -40,6 +42,7 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/plug" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/plug_cowboy" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/plug_crypto" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/png" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/poison" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/postgrex" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ranch" />
@@ -114,5 +117,13 @@
     <orderEntry type="library" name="combine" level="project" />
     <orderEntry type="library" name="stream_data" level="project" />
     <orderEntry type="library" name="hackney" level="project" />
+    <orderEntry type="library" name="eqrcode" level="project" />
+    <orderEntry type="library" name="barlix" level="project" />
+    <orderEntry type="library" name="png" level="project" />
+    <orderEntry type="library" name="mix_test_watch" level="project" />
+    <orderEntry type="library" name="tempfile" level="project" />
+    <orderEntry type="library" name="excheck" level="project" />
+    <orderEntry type="library" name="triq" level="project" />
+    <orderEntry type="library" name="barcode" level="project" />
   </component>
 </module>

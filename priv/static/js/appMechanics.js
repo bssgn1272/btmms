@@ -1,6 +1,9 @@
 $(document).ready( function () {
     $('#dataTableId').DataTable(); //User DataTable
     $('#dataTableBusTerminusId').DataTable(); //Bus Terminus DataTable
+    $('#dataTableMarket').DataTable(); //Marktet DataTable
+    $('#gates').DataTable(); //Gates DataTable
+    $('#stations').DataTable(); //Stations DataTable
 } );
 
 $('#modal_form_horizontal_user').on('show.bs.model', function(e) {

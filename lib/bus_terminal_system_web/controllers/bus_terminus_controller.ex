@@ -7,14 +7,14 @@ defmodule BusTerminalSystemWeb.BusTerminusController do
   plug(
     BusTerminalSystemWeb.Plugs.RequireAuth
     when action in [
-      :index,
-      :new,
-      :create,
-      :show,
-      :edit,
-      :update,
-      :delete
-    ]
+           :index,
+           :new,
+           :create,
+           :show,
+           :edit,
+           :update,
+           :delete
+         ]
   )
 
   def index(conn, _params) do
@@ -38,6 +38,66 @@ defmodule BusTerminalSystemWeb.BusTerminusController do
         render(conn, "new.html", changeset: changeset)
     end
   end
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  def createTerminus(conn, _params) do
+    changeset = BusManagement.change_bus_terminus(%BusTerminus{})
+    render(conn, "createTerminus.html", changeset: changeset)
+  end
+  
+  def new(conn, _params) do
+    changeset = BusManagement.change_bus_terminus(%BusTerminus{})
+    render(conn, "createStation.html", changeset: changeset)
+  end
+
+  def new(conn, _params) do
+    changeset = BusManagement.change_bus_terminus(%BusTerminus{})
+    render(conn, "createGate.html", changeset: changeset)
+  end
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
   def show(conn, %{"id" => id}) do
     bus_terminus = BusManagement.get_bus_terminus!(id)
@@ -71,5 +131,17 @@ defmodule BusTerminalSystemWeb.BusTerminusController do
     conn
     |> put_flash(:info, "Bus terminus deleted successfully.")
     |> redirect(to: Routes.bus_terminus_path(conn, :index))
+  end
+
+  def form_teminus(conn, _params) do
+    render(conn, "form_teminus.html")
+  end
+
+  def form_station(conn, _params) do
+    render(conn, "form_station.html")
+  end
+
+  def form_gate(conn, _params) do
+    render(conn, "form_gate.html")
   end
 end

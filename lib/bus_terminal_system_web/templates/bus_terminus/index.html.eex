@@ -1,64 +1,497 @@
-<h1>Listing Bus terminus</h1>
+<h1 style="text-align:center">LISTING BUS TERMINUS</h1><hr style="border-top: 1px solid orange;">
 
-<!-- Basic datatable -->
-<div class="panel panel-flat" style="padding: 9px">
-    <div class="panel-heading">
-        <h5 class="panel-title">Users</h5>
-        <div class="heading-elements">
-            <ul class="icons-list">
-                <li><a data-action="collapse"></a></li>
-                <li><a data-action="reload"></a></li>
-                <li><a data-action="close"></a></li>
+
+            <div class="container-fluid">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Management</a></li>
+                <li><a data-toggle="tab" href="#menu1">Create Terminus</a></li>
+                <li><a data-toggle="tab" href="#menu2">Create Station</a></li>
+                <li><a data-toggle="tab" href="#menu3">Create Gate</a></li>
             </ul>
-        </div>
-    </div>
 
-    <div style="overflow-x:auto;">
-    <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
-      <thead>
-        <tr>
-             <th>ID</th>
-             <th>UID</th>
-             <th>Liscense plate</th>
-             <th>Engine Type</th>
-             <th>Model</th>
-             <th>Make</th>
-             <th>Year</th>
-             <th>Color</th>
-             <th>State of Registration</th>
-             <th>Vin Number</th>
-             <th>Serial Number</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-    <%= for bus_terminus <- @bus_terminus do %>
-        <tr>
-          <td><%= bus_terminus.id %></td>
-          <td><%= bus_terminus.uid %></td>
-          <td><%= bus_terminus.liscense_plate %></td>
-          <td><%= bus_terminus.engine_type %></td>
-          <td><%= bus_terminus.model %></td>
-          <td><%= bus_terminus.make %></td>
-          <td><%= bus_terminus.year %></td>
-          <td><%= bus_terminus.color %></td>
-          <td><%= bus_terminus.state_of_registration %></td>
-          <td><%= bus_terminus.vin_number %></td>
-          <td><%= bus_terminus.serial_number %></td>
-          <td>
-            <span><%= link "Show", to: Routes.bus_terminus_path(@conn, :show, bus_terminus) %></span>
-            <span><%= link "Edit", to: Routes.bus_terminus_path(@conn, :edit, bus_terminus) %></span>
-            <span><%= link "Delete", to: Routes.bus_terminus_path(@conn, :delete, bus_terminus), method: :delete, data: [confirm: "Are you sure?"] %></span>
-          </td>
-        </tr>
-    <% end %>
-      </tbody>
-    </table>
+            <div class="tab-content">
+
+                        <div id="home" class="tab-pane fade in active">
+
+                        <div>
+                        <!-- Basic datatable -->
+                        <div class="panel panel-flat" style="padding: 9px">
+                            <div class="panel-heading">
+                                <h5 class="panel-title" style="text-align:center; text-decoration: underline;">TERMINALS</h5>
+                                <div class="heading-elements">
+                                    <ul class="icons-list">
+                                        <li><a data-action="collapse"></a></li>
+                                        <li><a data-action="reload"></a></li>
+                                        <li><a data-action="close"></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div style="overflow-x:auto;">
+                                <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
+                                <thead>
+                                    <tr>
+                                        <th>Terminal Name</th>
+                                        <th>Location</th>
+                                        <th>Town</th>
+                                    <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <%= for bus_terminus <- @bus_terminus do %>
+                                    <tr>
+                                    <td><%= bus_terminus.id %></td>
+                                    <td><%= bus_terminus.uid %></td>
+                                    <td><%= bus_terminus.liscense_plate %></td>
+                                    <td>
+                                        <span><%= link "Show", to: Routes.bus_terminus_path(@conn, :show, bus_terminus) %></span>
+                                        <span><%= link "Edit", to: Routes.bus_terminus_path(@conn, :edit, bus_terminus) %></span>
+                                        <span><%= link "Delete", to: Routes.bus_terminus_path(@conn, :delete, bus_terminus), method: :delete, data: [confirm: "Are you sure?"] %></span>
+                                    </td>
+                                    </tr>
+                                <% end %>
+                                </tbody>
+                                </table>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+                                    <div class="row">
+                                    <div class="col-md-12">   
+                                        <div class="col-md-6 panel panel-flat" style="padding: 9px">
+                                            <div class="panel-heading">
+                                                <h5 class="panel-title" style="text-align:center; text-decoration: underline;">STATIONS</h5>
+                                                <div class="heading-elements">
+                                                    <ul class="icons-list">
+                                                        <li><a data-action="collapse"></a></li>
+                                                        <li><a data-action="reload"></a></li>
+                                                        <li><a data-action="close"></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div style="overflow-x:auto;">
+                                                    <table class="table table-striped table-bordered" id="stations">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Station Name</th>
+                                                                <th>StationLabel</th>
+                                                                <th>Town</th>
+                                                            <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <%= for bus_terminus <- @bus_terminus do %>
+                                                            <tr>
+                                                            <td><%= bus_terminus.id %></td>
+                                                            <td><%= bus_terminus.uid %></td>
+                                                            <td><%= bus_terminus.liscense_plate %></td>
+                                                            <td>
+                                                                <span><%= link "Show", to: Routes.bus_terminus_path(@conn, :show, bus_terminus) %></span>
+                                                                <span><%= link "Edit", to: Routes.bus_terminus_path(@conn, :edit, bus_terminus) %></span>
+                                                                <span><%= link "Delete", to: Routes.bus_terminus_path(@conn, :delete, bus_terminus), method: :delete, data: [confirm: "Are you sure?"] %></span>
+                                                            </td>
+                                                            </tr>
+                                                        <% end %>
+                                                        </tbody>
+                                                    </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        <div class="panel panel-flat" style="padding: 9px">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title" style="text-align:center; text-decoration: underline;">GATES</h5>
+                                            <div class="heading-elements">
+                                                <ul class="icons-list">
+                                                    <li><a data-action="collapse"></a></li>
+                                                    <li><a data-action="reload"></a></li>
+                                                    <li><a data-action="close"></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div style="overflow-x:auto;">
+                                            <table class="table table-striped table-bordered" id="gates">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Gate Name</th>
+                                                        <th>Gate Number</th>
+                                                    <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <%= for bus_terminus <- @bus_terminus do %>
+                                                    <tr>
+                                                    <td><%= bus_terminus.id %></td>
+                                                    <td><%= bus_terminus.uid %></td>
+                                                    <td>
+                                                        <span><%= link "Show", to: Routes.bus_terminus_path(@conn, :show, bus_terminus) %></span>
+                                                        <span><%= link "Edit", to: Routes.bus_terminus_path(@conn, :edit, bus_terminus) %></span>
+                                                        <span><%= link "Delete", to: Routes.bus_terminus_path(@conn, :delete, bus_terminus), method: :delete, data: [confirm: "Are you sure?"] %></span>
+                                                    </td>
+                                                    </tr>
+                                                <% end %>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </div>
+                </div>
+                      
+            <div id="menu1" class="tab-pane fade">
+            <h3 style="text-align:center;">Add A New Terminus</h3>
+            <div class="col-md-6">
+                <form class="form-vertical" action="<%= Routes.bus_terminus_path(@conn, :create) %>" method="post">
+                        <div class="panel panel-flat">
+                            <div class="panel-heading">
+                                <h5 class="panel-title"></h5>
+                                <div class="heading-elements">
+                                    <ul class="icons-list">
+                                        <li><a data-action="collapse"></a></li>
+                                        <li><a data-action="reload"></a></li>
+                                        <li><a data-action="close"></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <fieldset>
+                                            <legend class="text-semibold"><i class="icon-bus position-left"></i> Create Terminus</legend>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Name Of Terminus:</label>
+                                                        <input name="vehicle[model]" id="vehicleModel" class="form-control" placeholder="Enter Name" type="text">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <input name="vehicle[uid]" id="vehicleUid" type="hidden" class="form-control" readonly="readonly" value="<%= Randomizer.randomizer(8)%>" placeholder="Auto Generated">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>Location:</label>
+                                                        <input name="vehicle[year]" id="vehicleYear" class="form-control" placeholder="Enter Location" type="text">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>City:</label>
+                                                        <input name="vehicle[color]" id="vehicleColor" class="form-control" placeholder="Enter City" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <br>
+
+                                <div class="text-right">
+                                    <button type="submit" id="submitVehicleButton" class="w3-btn w3-round w3-indigo w3-hover-blue w3-left">
+                                        <b><i class="icon-checkmark2"></i></b>Create Terminus
+                                    </button>
+                                    
+                                    <span>
+                                        <%= link "Back" , class: "w3-btn w3-round w3-indigo w3-hover-blue", type: "submit",to: Routes.bus_terminus_path(@conn, :index) %>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+            </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title"></h5>
+                    <div class="heading-elements">
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fieldset>
+                                    <legend class="text-semibold"><i class="icon-reading position-left"></i> PREVIEW</legend>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <b>TERMINUS NAME </b><div id="vehicleModelText"></div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <b>CITY </b><div id="vehicleColorText"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 30px">
+                                        
+                                    <div class="col-md-6">
+                                            <b>LOCATION </b><div id="vehicleYearText"></div>
+                                        </div>
+                                    </div>
+
+                                    <legend class="text-semibold"><i class=""></i></legend>
+                                </fieldset>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+                </div>
+                <div id="menu2" class="tab-pane fade">
+
+                <h3 style="text-align:center;">Add A New Station</h3>
+                <div class="col-md-6">
+                    <form class="form-vertical" action="<%= Routes.bus_terminus_path(@conn, :create) %>" method="post">
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title"></h5>
+                                    <div class="heading-elements">
+                                        <ul class="icons-list">
+                                            <li><a data-action="collapse"></a></li>
+                                            <li><a data-action="reload"></a></li>
+                                            <li><a data-action="close"></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <fieldset>
+                                                <legend class="text-semibold"><i class="icon-bus position-left"></i> Create Station</legend>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Name of station:</label>
+                                                            <input name="vehicle[make]" id="vehicleMake" class="form-control" placeholder="Enter Name" type="text">
+                                                            <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Choose Terminus:</label>
+                                                            <!--<input name="vehicle[state_of_registration]" id="stateOfRegistration" class="form-control" placeholder="Select Terminus" type="text">-->
+                                                        
+                                                            <select class="form-control">
+                                                            <option value="volvo">Eastern Power</option>
+                                                            <option value="saab">Southern</option>
+                                                            <option value="mercedes">Coperbelt</option>
+                                                            <option value="audi">Western</option>
+                                                            </select>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Station Label:</label>
+                                                            <input name="vehicle[engine_type]" id="engineType" class="form-control" placeholder="Enter Station Label" type="text">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <br>
+
+                                    <div class="text-right">
+                                        <button type="submit" id="submitVehicleButton" class="w3-btn w3-round w3-indigo w3-hover-blue w3-left">
+                                            <b><i class="icon-checkmark2"></i></b>Create Station
+                                        </button>
+                                        
+                                        <span>
+                                            <%= link "Back" , class: "w3-btn w3-round w3-indigo w3-hover-blue", type: "submit",to: Routes.bus_terminus_path(@conn, :index) %>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+
+            <div class="col-md-6">
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h5 class="panel-title"></h5>
+                        <div class="heading-elements">
+                        </div>
+                    </div>
+
+                <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fieldset>
+                                    <legend class="text-semibold"><i class="icon-reading position-left"></i> PREVIEW</legend>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <b>Name of Station </b><div id="vehicleMakeText"></div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <b>Station Label </b><div id="vehicleEngineTypeText"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 30px">
+                                        
+                                        <div class="col-md-6">
+                                                <b>Choose Terminus </b><div id="vehicleStateOfRegText"></div>
+                                            </div>
+                                    </div>
+
+                                    <legend class="text-semibold"><i class=""></i></legend>
+
+                                </fieldset>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+                </div>
+
+                <div id="menu3" class="tab-pane fade">
+                
+                <h3 style="text-align:center;">Add A New Gate</h3>
+                <div class="col-md-6">
+                    <form class="form-vertical" action="<%= Routes.bus_terminus_path(@conn, :create) %>" method="post">
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title"></h5>
+                                    <div class="heading-elements">
+                                        <ul class="icons-list">
+                                            <li><a data-action="collapse"></a></li>
+                                            <li><a data-action="reload"></a></li>
+                                            <li><a data-action="close"></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <fieldset>
+                                                <legend class="text-semibold"><i class="icon-bus position-left"></i> Create Gate</legend>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Gate Name:</label>
+                                                            <input name="vehicle[vin_number]" id="vinNumber" class="form-control" placeholder="Enter Gate Name" type="text">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Select Station:</label>
+                                                            <!--<input name="vehicle[company]" id="vehicleCompany" class="form-control" placeholder="Choose Station" type="text">-->
+                                                           
+                                                            <select class="form-control">
+                                                            <option value="volvo">Station A</option>
+                                                            <option value="saab">Station B</option>
+                                                            <option value="mercedes">Station C</option>
+                                                            <option value="audi">Station D</option>
+                                                            </select>
+                                                        </div>
+                                                        
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                    <div class="form-group">
+                                                            <label>Gate Number:</label>
+                                                            <input name="vehicle[serial_number]" id="vehicleSerialNumber" class="form-control" placeholder="Enter Gate Number" type="text">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <br>
+
+                                    <div class="text-right">
+                                        <button type="submit" id="submitVehicleButton" class="w3-btn w3-round w3-indigo w3-hover-blue w3-left">
+                                            <b><i class="icon-checkmark2"></i></b>Create Gate
+                                        </button>
+                                        
+                                        <span>
+                                            <%= link "Back" , class: "w3-btn w3-round w3-indigo w3-hover-blue", type: "submit",to: Routes.bus_terminus_path(@conn, :index) %>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+
+            <div class="col-md-6">
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h5 class="panel-title"></h5>
+                        <div class="heading-elements">
+                        </div>
+                    </div>
+
+                <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fieldset>
+                                    <legend class="text-semibold"><i class="icon-reading position-left"></i> PREVIEW</legend>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                                <b>GATE NAME </b><div id="vehicleVinNumberText"></div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <b>GATE NUMBER </b><div id="vehicleSerialNumberText"></div>
+                                            </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 30px">
+                                            <div class="col-md-6">
+                                                <b>SELECTED STATION </b><div id="vehicleCompanyText"></div>
+                                            </div>
+                                    </div>
+
+                                    <legend class="text-semibold"><i class=""></i></legend>
+                                </fieldset>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+ 
+      </div>
+  </div>
+
+
+
+
 </div>
-</div>
 
 
 
 
-
-<span><%= link "Add new bus",class: "w3-btn w3-round w3-indigo w3-hover-blue", to: Routes.bus_terminus_path(@conn, :new) %></span>

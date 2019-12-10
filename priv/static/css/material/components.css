@@ -1118,9 +1118,7 @@ a.badge,
 *
 * ---------------------------------------------------------------------------- */
 .page-container {
-  position: relative;
-  padding: 20px 20px;
-  padding-bottom: 60px;
+  
 }
 .navbar-bottom .page-container,
 .navbar-bottom-lg .page-container,

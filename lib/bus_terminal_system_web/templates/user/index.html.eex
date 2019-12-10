@@ -1,206 +1,896 @@
 <!-- Timeline -->
-                                    <div class="timeline timeline-left content-group">
-                                        <div class="timeline-container">
+<%= if @user.role == "ADMIN" do %>
+    <div class="timeline timeline-left content-group" style="margin-top: 2%;">
+        <div class="timeline-container">
+                               
+            <div class="timeline-row">
+                <div class="timeline-icon">
+                    <div class="bg-primary-400">
+                        <i class="icon-table"></i>
+                    </div>
+                    <a href="#"><img src="assets/images/placeholder.jpg" alt=""></a>
+                </div>
+            
+                <div class="panel border-left-lg border-left-primary timeline-content">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">Admin Dashboard</h6>
+                    </div>
+                    <hr>
 
-                                            <!-- Sales stats -->
-                                            <div class="timeline-row">
-                                                <div class="timeline-icon">
-                                                    <a href="#"><img src="assets/images/placeholder.jpg" alt=""></a>
-                                                </div>
+                <div class="panel-body">
+                    <div class="chart-container">
+                        <div class="row">
+                            <div class="col-sm-4 col-md-4">
+                                <div class="w3-card-2" style="margin-bottom: 6%;">
+                                    <header class="w3-container w3-deep-purple">
+                                        <h4>Ticketing Module</h4>
+                                    </header>
 
-                                                <div class="panel panel-flat timeline-content">
-                                                    <div class="panel-heading">
-                                                        <h6 class="panel-title">Admin Dashboard</h6>
-                                                    </div>
-                                                    <hr>
-
-                                                    <div class="panel-body">
-                                                        <div class="chart-container">
-                                                            <div class="row">
-                                                                <div class="col-sm-4 col-md-4">
-                                                                    <div class="w3-card-2" style="margin-bottom: 6%;">
-                                                                        <header class="w3-container w3-blue">
-                                                                            <h3>Ticketing Module</h3>
-                                                                        </header>
-
-                                                                         <div class="container-fluid" id="marketButtons">
-                                                                            <p>
-                                                                                <button class="w3-btn w3-block w3-indigo w3-hover-cyan">
-                                                                                    Create Market
-                                                                                </button>
-                                                                            </p>
-
-                                                                            <p>
-                                                                                <button class="w3-btn w3-block w3-indigo w3-hover-cyan">
-                                                                                    Create Section
-                                                                                </button>   
-                                                                            </p>
-
-                                                                            <p>
-                                                                                <button class="w3-btn w3-block w3-indigo w3-hover-cyan">
-                                                                                    Create Kiosk
-                                                                                </button>
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-sm-4 col-md-4">
-                                                                    <div class="w3-card-2" style="margin-bottom: 6%;">
-                                                                        <header class="w3-container w3-blue">
-                                                                            <h3>Bus Teminus Module</h3>
-                                                                        </header>
-
-                                                                         <div class="container-fluid" id="marketButtons">
-                                                                            <p>
-                                                                                <button class="w3-btn w3-block w3-indigo w3-hover-cyan">
-                                                                                    Create Market
-                                                                                </button>
-                                                                            </p>
-
-                                                                            <p>
-                                                                                <button class="w3-btn w3-block w3-indigo w3-hover-cyan">
-                                                                                    Create Section
-                                                                                </button>   
-                                                                            </p>
-
-                                                                            <p>
-                                                                                <button class="w3-btn w3-block w3-indigo w3-hover-cyan">
-                                                                                    Create Kiosk
-                                                                                </button>
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-sm-4 col-md-4">
-                                                                    <div class="w3-card-2" style="margin-bottom: 6%;">
-                                                                        <header class="w3-container w3-blue">
-                                                                            <h3>Marketing Module</h3>
-                                                                        </header>
-
-                                                                        <div class="container-fluid" id="marketButtons">
-
-                                                                            <div class="row">
-                                                                                <div class="col-sm-6 col-md-6">
-                                                                                    <p>
-                                                                                        <a href="<%= Routes.marketer_path(@conn, :form) %>">
-                                                                                            <button class="w3-btn w3-block w3-indigo w3-hover-cyan">
-                                                                                                Create Market
-                                                                                            </button>
-                                                                                        </a>
-                                                                                    </p>
-
-                                                                                    <p>
-                                                                                        <a href="<%= Routes.marketer_path(@conn, :formSection) %>">
-                                                                                        <button class="w3-btn w3-block w3-indigo w3-hover-cyan">
-                                                                                            Create Section
-                                                                                        </button>
-                                                                                        </a>   
-                                                                                    </p>
-
-                                                                                    <p>
-                                                                                        <a href="<%= Routes.marketer_path(@conn, :formShop) %>">
-                                                                                        <button class="w3-btn w3-block w3-indigo w3-hover-cyan">
-                                                                                            Create Kiosk
-                                                                                        </button>
-                                                                                    </a>
-                                                                                    </p>
-                                                                                </div>
-
-                                                                                <div class="col-sm-6 col-md-6">
-                                                                                    <div class="container">
-                                                                                    <img src="<%= Routes.static_path(@conn, "/images/icons/6.png") %>" class="img-responsive" width="100" height="100" alt="">     
-                                                                                    </div>                                            
-                                                                                </div>
-                                                                            </div>
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div> 
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                    <div class="container-fluid" id="marketButtons">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <img src="<%= Routes.static_path(@conn, "/images/icons/1.jpg") %>" class="img-responsive" alt="">
                                             </div>
-                                            <!-- /sales stats -->
 
-                                            <!-- Date stamp -->
-                                            <div class="timeline-date text-muted">
-                                                <i class="icon-history position-left"></i> <span class="text-semibold"></span><a onclick="this.innerHTML=Date()">Click To Check Time</a>
+                                            <div class="col-sm-6 col-md-6">
+                                                <p>
+                                                    <a href="<%= Routes.ticket_path(@conn, :index) %>">
+                                                        <button class="w3-btn-block w3-indigo w3-hover-orange">
+                                                            View Tickets
+                                                        </button>
+                                                    </a>
+                                                </p>
                                             </div>
-                                            <!-- /date stamp -->
-
-
-                                            <!-- Invoices -->
-                                            <div class="timeline-row">
-                                                <div class="timeline-icon">
-                                                    <div class="bg-warning-400">
-                                                        <i class="icon-cash3"></i>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <div class="panel border-left-lg border-left-danger invoice-grid timeline-content">
-                                                            <div class="panel-body">
-                                                                <div class="row">
-                                                                    <div class="col-sm-6">
-                                                                        <h6 class="text-semibold no-margin-top">
-                                                            <a href="<%= Routes.user_path(@conn, :table_users) %>">
-                                                                            List of System users
-                                                                        </a>
-                                                                        </h6>
-                                                                    </div>
-
-                                                                    <div class="col-sm-6">
-                                                                        <h6 class="text-semibold text-right no-margin-top">     <--- Click That
-                                                                        </h6>
-                                                                    </div>
-
-                                                                    <p>
-                                                                        To add new users of this system please click on 
-                                                                        Register new user. To view the registered users 
-                                                                        please click on List of System Users.
-                                                                    </p>
-                                                                   
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-6">
-                                                        <div class="panel border-left-lg border-left-success invoice-grid timeline-content">
-                                                            <div class="panel-body">
-                                                                <div class="row">
-                                                                    <div class="col-sm-6">
-                                                                        <h6 class="text-semibold no-margin-top">
-
-                                                                            <a href="<%= Routes.user_path(@conn, :new) %>">
-                                                                            Register New User
-                                                                        </h6>
-                                                                    </div>
-
-                                                                    <div class="col-sm-6">
-                                                                        <h6 class="text-semibold text-right no-margin-top">     <--- Click That
-                                                                        </h6>
-                                                                    </div>
-
-                                                                    <p>
-                                                                        To add new users of this system please click on 
-                                                                        Register new user. To view the registered users 
-                                                                        please click on List of System Users.
-                                                                    </p>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- /invoices -->
                                         </div>
                                     </div>
-                                    <!-- /timeline -->
+                                    <br>
+                                </div>
+                            </div>
 
+                            <div class="col-sm-4 col-md-4">
+                                <div class="w3-card-2" style="margin-bottom: 6%;">
+                                    <header class="w3-container w3-deep-purple">
+                                        <h4>Bus Teminus Module</h4>
+                                    </header>
+
+                                        <div class="container-fluid" id="marketButtons">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="container">
+                                                    <img src="<%= Routes.static_path(@conn, "/images/icons/2.jpg") %>"  class="img-responsive" alt="">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-6">
+                                                <p>
+                                                    <a href="<%= Routes.bus_terminus_path(@conn, :form_teminus) %>">
+                                                        <button class="w3-btn-block w3-indigo w3-hover-orange">
+                                                            Register Teminus
+                                                        </button>
+                                                    </a>
+                                                </p>
+
+                                                <p>
+                                                    <a href="<%= Routes.bus_terminus_path(@conn, :form_station) %>">
+                                                        <button class="w3-btn-block w3-indigo w3-hover-orange">
+                                                            Create Station
+                                                        </button> 
+                                                    </a>  
+                                                </p>
+
+                                                <p>
+                                                    <a href="<%= Routes.bus_terminus_path(@conn, :form_gate) %>">
+                                                        <button class="w3-btn-block w3-indigo w3-hover-orange">
+                                                            Assign Gates
+                                                        </button>
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4 col-md-4">
+                                <div class="w3-card-2" style="margin-bottom: 6%;">
+                                    <header class="w3-container w3-deep-purple">
+                                        <h4>Marketing Module</h4>
+                                    </header>
+
+                                    <div class="container-fluid" id="marketButtons">
+
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="container">
+                                                <img src="<%= Routes.static_path(@conn, "/images/icons/3.jpg") %>"  class="img-responsive" alt="">     
+                                                </div>                                            
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-6">
+                                                <p>
+                                                    <a href="<%= Routes.marketer_path(@conn, :form_market) %>">
+                                                        <button class="w3-btn-block w3-indigo w3-hover-orange">
+                                                            Register Market
+                                                        </button>
+                                                    </a>
+                                                </p>
+
+                                                <p>
+                                                    <a href="<%= Routes.marketer_path(@conn, :form_section) %>">
+                                                        <button class="w3-btn-block w3-indigo w3-hover-orange">
+                                                            Create Section
+                                                        </button>
+                                                    </a>   
+                                                </p>
+
+                                                <p>
+                                                    <a href="<%= Routes.marketer_path(@conn, :form_shop) %>">
+                                                        <button class="w3-btn-block w3-indigo w3-hover-orange">
+                                                            Allocate Shop
+                                                        </button>
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div> 
+
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+
+
+            <!-- Date stamp -->
+            <div class="container" style="text-align: center; color: orange;">
+                <i class="icon-history position-left"></i> <span class="text-semibold"></span><a onclick="this.innerHTML=Date()">Click To Check Time</a>
+            </div>
+            <!-- /date stamp -->
+                                                
+            <div class="timeline-row">
+                <div class="timeline-icon">
+                    <div class="bg-warning-400">
+                        <i class="icon-user"></i>
+                    </div>
+                </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel border-left-lg border-left-danger invoice-grid timeline-content">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h6 class="text-semibold no-margin-top">
+                                        <a href="<%= Routes.user_path(@conn, :table_users) %>">
+                                            List of System users
+                                        </a>
+                                    </h6>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <h6 class="text-semibold text-right no-margin-top">
+                                        <--- Click That
+                                    </h6>
+                                </div>
+
+                                <p>
+                                    To add new users of this system please click on 
+                                    Register new user. To view the registered users 
+                                    please click on List of System Users.
+                                </p>
+                                                                       
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="panel border-left-lg border-left-danger invoice-grid timeline-content">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h6 class="text-semibold no-margin-top">
+                                        <a href="#" data-toggle="modal" data-target="#exampleModalLong">
+                                            Register New User
+                                        </a>
+                                    </h6>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <h6 class="text-semibold text-right no-margin-top">
+                                        <--- Click That
+                                    </h6>
+                                </div>
+
+                                <p>
+                                    To add new users of this system please click on 
+                                    Register new user. To view the registered users 
+                                    please click on List of System Users.
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+                                                
+        </div>
+    </div>
+<% end %>
+
+
+<!--########################### NAPSA SEARCH ###########################-->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">
+            <b>SOCIAL SECURITY NUMBER SEARCH</b>
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <fieldset>
+                        <legend class="text-semibold"><i class="icon-reading position-left"></i> NAPSA SEARCH</legend>
+
+                        <div class="form-group">
+                            <label>SSN:</label>
+                            <input name="ssn" class="form-control" placeholder="Social Security Number" type="text">
+                            <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                        </div>
+
+                        <div style="margin-bottom: 15px">
+                            OR SEARCH WITH
+                        </div>
+
+                        <div class="form-group">
+                            <label>NRC:</label>
+                            <input name="uuid" class="form-control" placeholder="National ID" type="text">
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="text-right">
+            <%= link "Search", to: Routes.user_path(@conn, :new), class: "w3-btn w3-indigo w3-hover-orange", style: "margin-left: 20px; margin-bottom: 10px"%>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--########################### NAPSA SEARCH ###########################-->
+
+
+
+<%= if @user.role == "BOP" or @user.role == "MOP" do %>
+<div class="container-fluid" id="profile">
+<!-- Main content -->
+<div class="container-fluid">
+
+<!--################BOP COVER################--> 
+<%= if @user.role == "BOP" do %>    
+    <div class="profile-cover">
+        <div class="profile-cover-img" style="background: url('/images/backgrounds/terminus/3.jpg')"></div>
+        <div class="media">
+            <div class="media-left">
+                <a href="#" class="profile-thumb">
+                    <img src="/images/material/avatar/1.png" class="img-circle" alt="">
+                </a>
+            </div>
+
+            <div class="media-body">
+                   <h1 style="font-weight: 40px; font-size: 60px;">
+                    <%= @user.username %> <small class="display-block">Market Operator</small></h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="navbar navbar-default navbar-xs navbar-component no-border-radius-top">
+        <ul class="nav navbar-nav visible-xs-block">
+            <li class="full-width text-center">
+                <a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a>
+            </li>
+        </ul>
+
+        <div class="navbar-collapse collapse" id="navbar-filter">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="#activity" data-toggle="tab"><i class="icon-menu7 position-left"></i> Activity</a>
+                </li>          
+            </ul>
+
+            <div class="navbar-right">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-gear"></i>
+                            <span class="visible-xs-inline-block position-right"> Options</span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="#"><i class="icon-image2"></i> Update cover</a></li>
+                            <li><a href="#"><i class="icon-clippy"></i> Update info</a></li>
+                            <li><a href="#"><i class="icon-make-group"></i> Manage sections</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#"><i class="icon-three-bars"></i> Activity log</a></li>
+                            <li><a href="#"><i class="icon-cog5"></i> Profile settings</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /toolbar -->
+<% end %>
+<!--################BOP COVER################-->
+
+
+<!--################MOP COVER################--> 
+<%= if @user.role == "MOP" do %>    
+    <div class="profile-cover">
+        <div class="profile-cover-img" style="background: url('/images/backgrounds/market/2.1.jpg'); background-position: no-repeat;"></div>
+        <div class="media">
+            <div class="media-left">
+                <a href="#" class="profile-thumb">
+                    <img src="/images/material/avatar/4.png" class="img-circle" alt="">
+                </a>
+            </div>
+
+            <div class="media-body">
+                   <h1 style="font-weight: 40px; font-size: 60px;">
+                    <%= @user.username %> <small class="display-block">Market Operator</small></h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="navbar navbar-default navbar-xs navbar-component no-border-radius-top">
+        <ul class="nav navbar-nav visible-xs-block">
+            <li class="full-width text-center">
+                <a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a>
+            </li>
+        </ul>
+
+        <div class="navbar-collapse collapse" id="navbar-filter">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="#activity" data-toggle="tab">
+                        <i class="icon-menu7 position-left"></i> Home
+                    </a>
+                </li>  
+                <li>
+                    <a href="#documentation" data-toggle="tab">
+                        <i class="icon-book position-left"></i> Documentation 
+                    </a>
+                </li>    
+                <li>
+                    <a href="#registerMarketeers" data-toggle="tab">
+                        <i class="icon-calendar3 position-left"></i> Register Marketeers 
+                    </a>
+                </li>    
+            </ul>
+
+            <div class="navbar-right">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-gear"></i>
+                            <span class="visible-xs-inline-block position-right"> Options</span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="#"><i class="icon-image2"></i> Update cover</a></li>
+                            <li><a href="#"><i class="icon-clippy"></i> Update info</a></li>
+                            <li><a href="#"><i class="icon-make-group"></i> Manage sections</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#"><i class="icon-three-bars"></i> Activity log</a></li>
+                            <li><a href="#"><i class="icon-cog5"></i> Profile settings</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /toolbar -->
+<% end %>
+<!--################MOP COVER################-->
+
+</div>
+
+
+
+
+
+<%= if @user.role == "BOP" do %>
+ <!--################BOP DASHBOARD################--> 
+<div class="container-fluid">
+<!-- Timeline -->
+<div class="timeline timeline-left content-group">
+    <div class="timeline-container">
+
+                                            
+        <div class="timeline-row">
+            <div class="timeline-icon">
+                <div class="bg-primary-400">
+                    <i class="icon-table"></i>
+                </div>
+                <a href="#"><img src="assets/images/placeholder.jpg" alt=""></a>
+            </div>
+
+        <div class="panel border-left-lg border-left-primary timeline-content">
+            <div class="panel-heading">
+                <h6 class="panel-title">Registered Buses</h6>
+            </div>
+            <hr>
+
+        <div class="panel-body">
+            <div class="chart-container">
+                <div style="overflow-x:auto;">
+                    <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>UID</th>
+                                <th>Liscense plate</th>
+                                <th>Engine Type</th>
+                                <th>Model</th>
+                                <th>Make</th>
+                                <th>Year</th>
+                                <th>Color</th>
+                                <th>State of Registration</th>
+                                <th>Vin Number</th>
+                                <th>Serial Number</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <!--
+                                TO ADD TABLE CONTENT
+                            -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </div>
+
+        <!-- Date stamp -->
+        <div class="timeline-date text-muted">
+            <i class="icon-history position-left"></i> 
+            <span class="text-semibold"></span>
+            <a onclick="this.innerHTML=Date()">Click To Check Time</a>
+        </div>
+        <!-- /date stamp -->
+
+
+                                            
+        <div class="timeline-row">
+            <div class="timeline-icon">
+                <div class="bg-warning-400">
+                    <i class="icon-user"></i>
+                </div>
+            </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel border-left-lg border-left-danger invoice-grid timeline-content">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h6 class="text-semibold no-margin-top">
+                                    Resgistering Buses
+                                </h6>
+                                <hr>
+                            </div>
+                            
+                            <p>
+                                Bus operators can register their new buses here, by clicking the <i>Add New Bus</i> button. 
+                            </p>                                    
+                        </div>
+                        <div class="panel-footer panel-footer-condensed">
+                            <div class="container">
+                                <span>
+                                    <%= link "Add New Bus",class: "w3-btn w3-indigo w3-hover-orange", to: Routes.bus_terminus_path(@conn, :new) %>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="panel border-left-lg border-left-danger invoice-grid timeline-content">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h6 class="text-semibold no-margin-top">
+                                    Check Available Routes
+                                </h6>
+                                <hr>
+                            </div>
+
+                            <p>
+                                You can view the available Bus Terminus and Stations here. Then you can proceed to register your buses with selected stations in their respective terminus.
+                            </p>
+                        </div>
+
+                         <div class="panel-footer panel-footer-condensed">
+                            <div class="container">
+                                <span>
+                                    <button type="submit" class="w3-btn w3-indigo w3-hover-orange">
+                                        Available Terminus
+                                    </button> 
+                                </span>
+
+                                <span>
+                                    <button type="submit" class="w3-btn w3-indigo w3-hover-orange">
+                                        Stations in Terminus
+                                    </button> 
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+                                            
+    </div>
+</div>
+<% end %>
+ <!--################BOP DASHBOARD################--> 
+
+<%= if @user.role == "MOP" do %>
+<% end %>
+
+
+
+
+<!--################MOP DASHBOARD################--> 
+<%= if @user.role == "MOP" do %>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="tabbable">
+            <div class="tab-content">
+
+                <!--############ACTIVITY###########-->
+                <div class="tab-pane fade in active" id="activity">
+                <div class="container-fluid">
+                <!-- Timeline -->
+                <div class="timeline timeline-left content-group">
+                    <div class="timeline-container">
+
+                                                            
+                        <div class="timeline-row">
+                            <div class="timeline-icon">
+                                <div class="bg-primary-400">
+                                    <i class="icon-table"></i>
+                                </div>
+                                <a href="#"><img src="assets/images/placeholder.jpg" alt=""></a>
+                            </div>
+
+                        <div class="panel border-left-lg border-left-primary timeline-content">
+                            <div class="panel-heading">
+                                <h6 class="panel-title">Registered Marketeers</h6>
+                            </div>
+                            <hr>
+
+                        <div class="panel-body">
+                            <div class="chart-container">
+                                <div style="overflow-x:auto;">
+                                    <table class="table table-striped table-bordered" id="dataTableMarket">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Stand Id</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>NRC Number</th>
+                                                <th>Account Number</th>
+                                                <th>Mobile Number</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <!--
+                                                TO ADD TABLE CONTENT
+                                            -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>  
+                        </div>
+                        </div>
+                    </div>
+
+                        <!-- Date stamp -->
+                        <div class="timeline-date text-muted">
+                            <i class="icon-history position-left"></i> 
+                            <span class="text-semibold"></span>
+                            <a onclick="this.innerHTML=Date()">Click To Check Time</a>
+                        </div>
+                        <!-- /date stamp -->
+
+
+                                                            
+                        <div class="timeline-row">
+                            <div class="timeline-icon">
+                                <div class="bg-warning-400">
+                                    <i class="icon-user"></i>
+                                </div>
+                            </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel border-left-lg border-left-danger invoice-grid timeline-content">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <h6 class="text-semibold no-margin-top">
+                                                    Register a Marketeer
+                                                </h6>
+                                                <hr>
+                                            </div>
+                                            
+                                            <p>
+                                                Market operators can register their new clients here, by clicking the <i>New Marketeer</i> button. 
+                                            </p>                                    
+                                        </div>
+                                        <div class="panel-footer panel-footer-condensed">
+                                            <div class="container-fluid">
+                                                <span>
+                                                    <a href="#registerMarketeers" data-toggle="tab" class="w3-btn-block w3-indigo w3-hover-orange">
+                                                        New Marketeer
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                                                            
+                    </div>
+                </div>
+                </div>
+                <!--############ACTIVITY###########-->
+
+                <!--############SCHEDULE###########-->
+                <div class="tab-pane fade" id="documentation">
+                <div class="container-fluid">
+
+                <!--############REGISTER_MARKETEERS############-->
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">Register New User</h6>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                                <li><a data-action="reload"></a></li>
+                                <li><a data-action="close"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="chart-container">
+                            <div class="chart has-fixed-height" id="plans">
+                                
+                                 <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h6 class="text-semibold no-margin-top">
+                                                Register a Marketeer
+                                            </h6>
+                                            <hr>
+                                        </div>
+                                                    
+                                        <p>
+                                            Market operators are individuals or firms that manage the market were marketeers are assured of a smooth flow of business. These individuals or firms are responsible for tax collection from the the traders operating in that particular market. Market opeartors are required to deem-fit weather someone has the capability of operating in a particular market, if they are, the operator will be required to assign a shop in a specific section
+                                            of the market. To register a new marketeer click the <i>New Marketeer</i> button. 
+                                        </p>                                    
+                                    </div>
+                                    <div class="panel-footer panel-footer-condensed">
+                                        <div class="container-fluid">
+                                            <span>
+                                                <a href="#registerMarketeers" data-toggle="tab" class="w3-btn w3-indigo w3-hover-orange">
+                                                    New Marketeer
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div><br><br>
+
+                                    <div class="col-sm-12">
+                                        <h6 class="text-semibold no-margin-top">
+                                            View Created Traders
+                                        </h6>
+                                        <hr>
+                                    </div>
+                                    <p>
+                                        To View the new created marketeers, click the tab  dubbed Home. This will take you to a home page where they exist a Datatable which is displaying all resgitered traders of a particular market.
+                                    </p>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!--############REGISTER_MARKETEERS############-->
+
+
+                <!-- Calendar -->
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">Rules To Be Shared With All Traders</h6>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                                <li><a data-action="reload"></a></li>
+                                <li><a data-action="close"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="schedule">
+                            <ul>
+                                <li>Always Use a Trading Plan.</li>
+                                <li>Treat Trading Like a Business.</li>
+                                <li>Use Technology.</li>
+                                <li>Protect Your Trading Capital.</li>
+                                <li>Study the Markets.</li>
+                                <li>Risk Only What You Can Afford.</li>
+                                <li>Develop a Trading Methodology.</li>
+                                <li>Always Use a Stop Loss.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- /calendar -->
+                </div>
+                </div>
+<!--############SCHEDULE###########-->
+
+<!--############SETTINGS##########-->
+<div class="tab-pane fade" id="registerMarketeers">
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h6 class="panel-title">Register Marketeer</h6>
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                    <li><a data-action="reload"></a></li>
+                    <li><a data-action="close"></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel-body">                                        
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <fieldset>
+                            <legend class="text-semibold"><i class="icon-reading position-left"></i> MARKETER REGISTRATION</legend>
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Stand ID:</label>
+                                        <input name="standID" id="vehicleMake" class="form-control" placeholder="Stand ID" type="text">
+                                        <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input name="vehicle[uid]" id="vehicleUid" type="hidden" class="form-control" readonly="readonly" value="<%= Randomizer.randomizer(8)%>" placeholder="Auto Generated">
+                                    </div>
+
+                                    <div class="form-group">
+                                          <label>First Name:</label>
+                                          <input name="vehicle[liscense_plate]" id="licensePlate" class="form-control" placeholder="First Name" type="text">
+                                    </div>
+
+                                    <div class="form-group">
+                                          <label>Last Name:</label>
+                                          <input name="vehicle[engine_type]" id="engineType" class="form-control" placeholder="Last Name" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                   <div class="form-group">
+                                          <label>NRC Number:</label>
+                                          <input name="vehicle[model]" id="vehicleModel" class="form-control" placeholder="NRC Number" type="text">
+                                    </div>
+
+                                    <div class="form-group">
+                                          <label>Account Number:</label>
+                                          <input name="vehicle[year]" id="vehicleYear" class="form-control" placeholder="Account Number" type="text">
+                                    </div>
+
+                                    <div class="form-group">
+                                          <label>Mobile:</label>
+                                          <input name="vehicle[color]" id="vehicleColor" class="form-control" placeholder="Mobile" type="text">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </fieldset>
+                </div>
+
+                <div class="col-md-6 col-sm-6">
+                     <fieldset>
+                    <legend class="text-semibold"><i class="icon-reading position-left"></i> PREVIEW</legend>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <b>STAND ID </b><div id="vehicleMakeText"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <b>FIRST NAME </b><div id="vehicleLicensePlateText"></div>
+                        </div>
+
+                         <div class="col-md-4">
+                            <b>LAST NAME </b><div id="vehicleEngineTypeText"></div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 30px">
+                      <div class="col-md-4">
+                            <b>NRC NUMBER </b><div id="vehicleModelText"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <b>ACCOUNT NUMBER </b><div id="vehicleYearText"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <b>MOBILE NUMBER </b><div id="vehicleColorText"></div>
+                        </div>                           
+                    </div>
+
+                    <legend class="text-semibold"><i class=""></i></legend>
+                </fieldset>
+                </div>
+
+                <br>
+                <div class="container pull-left">
+                    <button type="submit" id="submitVehicleButton" class="w3-btn w3-indigo w3-hover-orange">
+                        <b><i class="icon-checkmark2"></i></b>Register Marketer
+                    </button>
+                </div>
+                        
+            </div>
+        </div>
+    </div>
+</div>
+<!--############SETTINGS##########-->
+
+</div>
+</div>
+<% end %>
+ <!--################MOP DASHBOARD################--> 
+
+
+</div>
+<% end %>

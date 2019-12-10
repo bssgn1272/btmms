@@ -7,13 +7,14 @@
 	<title>Login</title>
 
 	<!-- Global stylesheets -->
-	    <link rel="shortcut icon" href="<%= Routes.static_path(@conn, "/images/icon.png") %>">
     	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
     	<link href="<%= Routes.static_path(@conn, "/css/material/icons/icomoon/styles.css") %>" rel="stylesheet" type="text/css">
         <link href="<%= Routes.static_path(@conn, "/css/material/bootstrap.css") %>" rel="stylesheet" type="text/css">
         <link href="<%= Routes.static_path(@conn, "/css/material/core.css") %>" rel="stylesheet" type="text/css">
         <link href="<%= Routes.static_path(@conn, "/css/material/components.css") %>" rel="stylesheet" type="text/css">
         <link href="<%= Routes.static_path(@conn, "/css/material/colors.css") %>" rel="stylesheet" type="text/css">
+         <link href="<%= Routes.static_path(@conn, "/css/w3.css") %>" rel="stylesheet" type="text/css" />
+         <link href="<%= Routes.static_path(@conn, "/css/custom.css") %>" rel="stylesheet" type="text/css">
     	<!-- /global stylesheets -->
 
     	<!-- Core JS files -->
@@ -32,142 +33,205 @@
 
 </head>
 
-<body class="navbar-bottom login-container">
+<body class="navbar-bottom login-container" id="backgroundLog">
+
+	<!-- Main navbar -->
+	<div class="navbar navbar-fixed bg-indigo w3-card-2 navbar-fixed-top">
+		<!--
+			COLLAPSE FOR LOGIN MULFUNCTIONING WILL DEBUG LATER
+		<div class="navbar-header">           
+    		<ul class="nav navbar-nav visible-xs-block">
+    			<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+    		</ul>
+    	</div>
+    	-->
+
+		<div class="navbar-header pull-right" style="margin-top: 0.5%;" id="navbar-mobile">
+			<ul style="list-style: none;" id="textColor">
+				<li class="tab active" style="display:inline;">
+					<a href="#ticketForm">
+						<i class="icon-cash3 position-left">
+							Buy Ticket
+						</i>
+					</a>
+				</li>
+
+				<li class="tab" style="display:inline;">
+					<a href="#loginForm">
+						<i class="icon-user position-left">
+							Login
+						</i>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /main navbar -->
+
 
 	<!-- Page container -->
 	<div class="page-container">
+		<!-- Main content -->
+		<div class="container"><!--id="LoginForm"-->
 
-		<!-- Page content -->
-		<div class="page-content">
+			<!--#################### Ticket Form ####################-->
+			<div class="container-fluid forms" id="styleForms">
+			   	<form method="POST" action="" id="ticketForm" style="margin-top: 3%;">
+			   		<div class="panel panel-body login-form" style="width: 70%;">
 
-			<!-- Main content -->
-			<div class="content-wrapper">
+						<div class="text-center" style="height: 5%">
+							<div class="icon-object border-slate-100 text-slate-100 w3-orange">
+								<img src="<%= Routes.static_path(@conn, "/images/logo/1.png") %>" width="100" height="70" alt="NapsaLogo">
+							</div>
 
-				<!-- Simple login form -->
-                <div align="center">
+							<h5 class="content-group">To Purschase Ticket <small class="display-block">Fill Form Below</small></h5>
+						</div>
 
-                    <div class="col-md-2"></div>
+			    		<div class="form-group has-feedback has-feedback-left">
+							<input name="PassengerName" type="text" class="form-control" placeholder="Name of Passenger">
+							<div class="form-control-feedback">
+								<i class="icon-user text-muted"></i>
+							</div>
+						</div>
 
-                    <div class="col-md-4">
-                        <form>
-                            <div class="panel panel-body" style="margin-top: 200px">
-                                <div class="text-center">
-                                    <div class="icon-object border-slate-300 text-slate-300"><i class="icon-ticket"></i></div>
-                                    <h5 class="content-group">Tickets<small class="display-block">Travels Available 24/7</small></h5>
-                                </div>
+			    		<div class="form-group has-feedback has-feedback-left">
+			    			<input name="location" type="text" class="form-control" placeholder="Name of of Terminus">
+							<div class="form-control-feedback">
+								<i class="icon-pin text-muted"></i>
+							</div>
+						</div>
 
-                                <div class="form-group has-feedback has-feedback-left">
-                                    <input name="location" class="form-control" placeholder="Province" >
-                                    <div class="form-control-feedback">
-                                        <i class="icon-location3 text-muted"></i>
-                                    </div>
-                                </div>
+						<div class="form-group has-feedback has-feedback-left">
+							<div class="row">
+								<div class="form-control-feedback">
+									<i class="icon-road text-muted"></i>
+								</div>
 
-                                <div class="form-group has-feedback has-feedback-left">
-                                    <input name="date" class="form-control" type="date" placeholder="Date">
-                                    <div class="form-control-feedback">
-                                        <i class="icon-direction text-muted"></i>
-                                    </div>
-                                </div>
+								<div class="col-md-6">
+									<input name="RouteForm" type="text" class="form-control" placeholder="From">
+								</div>
 
-                                <div class="form-group has-feedback has-feedback-left">
-                                    <input name="route" class="form-control" placeholder="Route">
-                                    <div class="form-control-feedback">
-                                        <i class="icon-direction text-muted"></i>
-                                    </div>
-                                </div>
+								<div class="col-md-6">
+									<input name="RouteTo" type="text" class="form-control" placeholder="To">
+								</div>
+							</div>
+							
+							
+						</div>
 
-                                <div class="form-group has-feedback has-feedback-left">
-                                    <input name="passengers" class="form-control" type="number" placeholder="Passengers">
-                                    <div class="form-control-feedback">
-                                        <i class="icon-people text-muted"></i>
-                                    </div>
-                                </div>
+						<div class="form-group has-feedback has-feedback-left">
+							<select class="w3-select" name="option">
+							    <option value="" disabled selected>Time of Departure</option>
+							    <option value="1">06:00</option>
+							    <option value="2">10:00</option>
+							    <option value="3">14:00</option>
+							</select>
+						</div>
 
-                                <div class="form-group has-feedback has-feedback-left">
-                                    <input name="seats" class="form-control" type="number" placeholder="Seats">
-                                    <div class="form-control-feedback">
-                                        <i class="icon-chair text-muted"></i>
-                                    </div>
-                                </div>
+						<div class="form-group has-feedback has-feedback-left">
+							<input name="location" type="number" class="form-control" placeholder="Number of Passengers">
+							<div class="form-control-feedback">
+								<i class="icon-user text-muted"></i>
+							</div>
+						</div>
 
-                                <div class="form-group">
-                                    <button type="submit" value="Sign in" class="btn btn-primary btn-block"> Purchase ticket </button>
-                                </div>
+						<div class="form-group has-feedback has-feedback-left">
+							<input name="location" type="Date" class="form-control" placeholder="Date of Depature">
+							<div class="form-control-feedback">
+								<i class="icon-table text-muted"></i>
+							</div>
+						</div>
 
-                            </div>
-                        </form>
-                        </div>
+						<div class="form-group has-feedback has-feedback-left">
+							<input name="location" type="text" class="form-control" placeholder="Name of Bus">
+							<div class="form-control-feedback">
+								<i class="icon-car text-muted"></i>
+							</div>
+						</div>
 
-                    <div class="col-md-4">
-                        <%= form_for @changeset, @action, fn f -> %>
-                            <div class="panel panel-body login-form" style="margin-top: 200px">
-                                <div class="text-center">
-                                    <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div>
-                                    <h5 class="content-group">Login to your account <small class="display-block">Enter your credentials below</small></h5>
-                                </div>
 
-                                <div class="form-group has-feedback has-feedback-left">
-                                    <%= text_input f, :username, class: "form-control", placeholder: "Username" %>
-                                    <%= error_tag f, :username %>
-                                    <div class="form-control-feedback">
-                                        <i class="icon-user text-muted"></i>
-                                    </div>
-                                </div>
+						<div class="form-group">
+							<button class="w3-btn w3-indigo w3-hover-orange">
+								Buy Ticket
+						    </button>
+						</div>
 
-                                <div class="form-group has-feedback has-feedback-left">
-                                    <%= password_input f, :password, class: "form-control", placeholder: "Password" %>
-                                    <%= error_tag f, :password %>
-                                    <div class="form-control-feedback">
-                                        <i class="icon-lock2 text-muted"></i>
-                                    </div>
-                                </div>
+			  		</div>
+			    </form>
 
-                                <div class="form-group">
-                                    <%= submit "Sign in", value: "Sign in", class: "btn btn-primary btn-block" %>
-                                </div>
+			<!--#################### Ticket Form ####################-->
 
-                                <div class="text-center">
-                                    <a href="login_password_recover.html">Forgot password?</a>
-                                </div>
-                            </div>
-                        <% end %>
-                    </div>
-                </div>
+			<!--#################### Login Form ####################-->
 
-				<!-- /simple login form -->
+				<form method="POST" action="<%= Routes.session_path(@conn, :login) %>" id="loginForm" style="margin-top: 6%; margin-left: 5%;">
+					<div class="panel panel-body login-form">
+						<div class="text-center">
+							<div class="icon-object border-slate-100 text-slate-100 w3-orange">
+								<img src="<%= Routes.static_path(@conn, "/images/logo/1.png") %>" width="120" height="120" alt="NapsaLogo">
+							</div>
+							<h5 class="content-group">Login to your account <small class="display-block">Enter your credentials below</small></h5>
+						</div>
 
+						<div class="form-group has-feedback has-feedback-left">
+							<input name="user[username]" type="text" class="form-control" placeholder="Username">
+							<input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+							<div class="form-control-feedback">
+								<i class="icon-user text-muted"></i>
+							</div>
+						</div>
+
+						<div class="form-group has-feedback has-feedback-left">
+							<input name="user[password]" type="password" class="form-control" placeholder="Password">
+							<div class="form-control-feedback">
+								<i class="icon-lock2 text-muted"></i>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<button class="w3-btn w3-indigo w3-hover-orange">
+								Sign In
+						    </button>
+						</div>
+
+						<div class="text-center">
+							<a href="login_password_recover.html">Forgot password?</a>
+						</div>
+					</div>
+				</form>
+				<!--#################### Login Form ####################-->				
 			</div>
-			<!-- /main content -->
 
 		</div>
-		<!-- /page content -->
-
+		<!-- Main content -->
 	</div>
-	<!-- /page container -->
 
+	<div id="footer" class="w3-indigo">
+  		<div class="container">
+            <h5 id="busStatement">
+            	&copy; 2019. <a href="#" class="navbar-link" target="_blank">Bus Terminus System</a> 
+            </h5>
 
-	<!-- Footer -->
-	<div class="navbar navbar-default navbar-fixed-bottom footer">
-		<ul class="nav navbar-nav visible-xs-block">
-			<li><a class="text-center collapsed" data-toggle="collapse" data-target="#footer"><i class="icon-circle-up2"></i></a></li>
-		</ul>
-
-		<div class="navbar-collapse collapse" id="footer">
-			<div class="navbar-text">
-				&copy; 2019. <a href="#" class="navbar-link">Bus Terminus System</a> by <a href="http://www.probasegroup.com" class="navbar-link" target="_blank">ProBase</a>
-			</div>
-
-			<div class="navbar-right">
-				<ul class="nav navbar-nav">
-					<li><a href="#">About</a></li>
-					<li><a href="#">Terms</a></li>
-					<li><a href="#">Contact</a></li>
-				</ul>
-			</div>
-		</div>
+           	<h5 id="probaseStatement">
+	            Powered by <e style="color:orange;">Pro</e><e style="color:black;">BASE</e>    
+            </h5>
+        </div>
 	</div>
-	<!-- /footer -->
+
+	<script>
+	  $(document).ready(function(){
+	  $('.tab a').on('click', function (e) {
+	  e.preventDefault();
+	  
+	  $(this).parent().addClass('active');
+	  $(this).parent().siblings().removeClass();
+	  
+	  
+	  var href = $(this).attr('href');
+	  $('.forms > form').hide();
+	  $(href).fadeIn(500);
+	});
+		});
+	</script>
 
 </body>
 </html>

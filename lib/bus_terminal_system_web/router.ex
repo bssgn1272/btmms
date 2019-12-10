@@ -28,23 +28,36 @@ defmodule BusTerminalSystemWeb.Router do
   scope "/", BusTerminalSystemWeb do
     pipe_through [:browser, :auth]
 
+    # PAGE_CONTROLLER
     get "/platform/secure/commercial/services/management/dashboard", PageController, :index
 
+    # USER_CONTROLLER
     resources "/platform/secure/commercial/services/users/management", UserController
-    get "/platform/secure/commercial/services/user/management/profile", UserController, :profile
     get "/platform/secure/v1/json/commercial/services/users", UserController, :all_users_json
     get "/TableUsers", UserController, :table_users
+    get "/Registration_Form", UserController, :registration_form
 
+    # BUSTERMINUS_CONTROLLER
     resources "/platform/secure/commercial/services/auto/terminus", BusTerminusController
-    resources "/platform/secure/commercial/services/marketer/market", MarketerController
-    get("/creating_market", MarketerController, :form)
-    get("/creating_section", MarketerController, :formSection)
-    get("/creating_shop", MarketerController, :formShop)
-    resources "/platform/secure/commercial/services/ticketing/tickets", TicketController
+    get "/Register_Bus_Teminus", BusTerminusController, :form_teminus
+    get "/Create_Bus_Station", BusTerminusController, :form_station
+    get "/Assign_Gate", BusTerminusController, :form_gate
 
+    # MARKETER_CONTROLLER
+    resources "/platform/secure/commercial/services/marketer/market", MarketerController
+    get("/Registering_Market", MarketerController, :form_market)
+    get("/Creating_Section", MarketerController, :form_section)
+    get("/Allocating_shop", MarketerController, :form_shop)
+
+    # TICKET_CONTROLLER
+    resources "/platform/secure/commercial/services/ticketing/tickets", TicketController
     get "/", SessionController, :new
+    post "/", SessionController, :login
     post "/login", SessionController, :login
     get "/logout", SessionController, :logout
+
+    # ROUTE_CONTROLLER
+    get "/routes", RouteController, :index
   end
 
   scope "/", BusTerminalSystemWeb do
@@ -57,12 +70,8 @@ defmodule BusTerminalSystemWeb.Router do
   scope "/api/v1", BusTerminalSystemWeb do
     pipe_through :api
 
-    post "/platform/secure/commercial/services/users/management/create_user",
-         UserController,
-         :api_create_user
-
-    get "/platform/secure/commercial/services/users/management/get_users",
-        UserController,
-        :all_users_json
+    post "/tickets/secured/find", TicketController, :find_ticket
+    post "/tickets/secured/purchase", TicketController, :purchase_ticket
+    get "/tickets/secured/list", TicketController, :list_tickets
   end
 end

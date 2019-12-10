@@ -2,8 +2,11 @@ defmodule BusTerminalSystem.Hub do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "hub" do
-    field :hub, :string
+  alias BusTerminalSystem.Section
+
+  schema "market_kiosk" do
+    field :kiosk, :string
+    #field :assigned_section, Section
 
     timestamps()
   end

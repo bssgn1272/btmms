@@ -3,7 +3,6 @@ defmodule BusTerminalSystemWeb.UserController do
 
   alias BusTerminalSystem.AccountManager
   alias BusTerminalSystem.AccountManager.User
-  alias BusTerminalSystem.Utility
 
   plug(
     BusTerminalSystemWeb.Plugs.RequireAuth
@@ -86,6 +85,10 @@ defmodule BusTerminalSystemWeb.UserController do
   def table_users(conn, _params) do
     users = AccountManager.list_users()
     render(conn, "TableUsers.html", users: users)
+  end
+
+  def registration_form(conn, _params) do
+    render(conn, "form.html")
   end
 
   # ----APIs -----------------------------

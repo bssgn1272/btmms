@@ -45,8 +45,9 @@ defmodule BusTerminalSystem.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:guardian, "~> 2.0.0"},
       {:poison, "~> 3.1.0"},
-      {:json, "~> 1.3.0"}
-      #{:argon2_elixir, "~> 2.1.2"}
+      {:json, "~> 1.3.0"},
+      {:eqrcode, "~> 0.1.6"},
+      {:barlix, "~> 0.6.0"}
     ]
   end
 

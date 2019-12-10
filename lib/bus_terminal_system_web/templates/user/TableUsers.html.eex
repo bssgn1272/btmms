@@ -1,4 +1,5 @@
 <!-- Basic datatable -->
+<div style="margin-top: 5%;">
 <div class="panel panel-flat" style="padding: 9px">
     <div class="panel-heading">
         <h5 class="panel-title">Users</h5>
@@ -11,6 +12,7 @@
         </div>
     </div>
 
+    <div style="overflow-x:auto;">
     <table class="table table-striped table-bordered" id="dataTableId">
               <thead>
                 <tr>
@@ -56,13 +58,24 @@
                         </li>
                     </ul>
                 </td>
+                </tr>
             <% end %>
               </tbody>
             </table>
+        </div>
 
-    <span><%= link "New User", to: Routes.user_path(@conn, :new), class: "btn btn-primary", style: "margin-left: 20px; margin-bottom: 10px" %></span>
+    <span>
+        <a href="<%= Routes.user_path(@conn, :registration_form) %>">
+            <button class="w3-btn w3-indigo w3-hover-orange">
+                New User
+            </button>
+        </a>
+    </span>
+
+    <span>
+        <%= link "Back" , class: "w3-btn w3-indigo w3-hover-orange", type: "submit",to: Routes.user_path(@conn, :index) %>
+    </span>
 </div>
-
 <!-- Horizontal form modal -->
  <div id="modal_form_horizontal_user" class="modal fade">
      <div class="modal-dialog modal-lg">
@@ -303,3 +316,4 @@
  </div>
  <!-- /horizontal form modal -->
 <!-- /basic datatable -->
+</div>

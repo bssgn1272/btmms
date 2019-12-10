@@ -4,6 +4,7 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTickets do
   def change do
     create table(:tickets) do
       add :reference_number, :string
+      add :serial_number, :string
 
       timestamps()
     end

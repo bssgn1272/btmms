@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title() %></title>
     <!-- Global stylesheets -->
     <link rel="shortcut icon" href="<%= Routes.static_path(@conn, "/images/icon.png") %>">
@@ -14,27 +14,37 @@
     <link href="<%= Routes.static_path(@conn, "/css/material/components.css") %>" rel="stylesheet" type="text/css">
     <link href="<%= Routes.static_path(@conn, "/css/material/colors.css") %>" rel="stylesheet" type="text/css">
     <link href="<%= Routes.static_path(@conn, "/js/datatables/css/jquery.datatables.css") %>" rel="stylesheet" type="text/css" />
-     <link href="<%= Routes.static_path(@conn, "/css/custom.css") %>" rel="stylesheet" type="text/css">
+    <link href="<%= Routes.static_path(@conn, "/css/custom.css") %>" rel="stylesheet" type="text/css">
     <link href="<%= Routes.static_path(@conn, "/css/w3.css") %>" rel="stylesheet" type="text/css" />
     <!-- /global stylesheets -->
   </head>
+
+
   <body class="navbar-bottom">
 
     <!-- Main navbar -->
     <div class="navbar navbar-inverse bg-indigo navbar-fixed-top">
     	<div class="navbar-header">
-    		<a class="navbar-brand" href="index.html"><img src="" alt=""></a>
-
+    		<a class="navbar-brand" href="#">
+                <img src="<%= Routes.static_path(@conn, "/images/logo/2.png") %>" class="img-fluid" style="width:150px;height:30px" alt="NapsaLogo">
+            </a>
+             
     		<ul class="nav navbar-nav visible-xs-block">
     			<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+                <%= if @user.role == "ADMIN" do %>
     			<li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
+                <% end %>
     		</ul>
+            
     	</div>
 
     	<div class="navbar-collapse collapse" id="navbar-mobile">
+
+            <%= if @user.role == "ADMIN" do %>
     		<ul class="nav navbar-nav">
     			 <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
     		</ul>
+            <% end %>
 
     		<ul class="nav navbar-nav navbar-right">
     			<li class="dropdown dropdown-user">
@@ -45,36 +55,19 @@
     				</a>
 
     				<ul class="dropdown-menu dropdown-menu-right">
-    					<li><a href="<%= Routes.user_path(@conn, :profile) %>"><i class="icon-user-plus"></i> My profile</a></li>
-                        <li><a href="#"><i class="icon-cog5"></i> <span>Account settings</span></a></li>
-    					<li class="divider"></li>
-    					<li><a href="<%= Routes.session_path(@conn, :logout) %>"><i class="icon-switch2"></i> Logout</a></li>
+    					<li>
+                            <a href="<%= Routes.session_path(@conn, :logout) %>">
+                                <i class="icon-switch2"></i> Logout
+                            </a>
+                        </li>
     				</ul>
     			</li>
     		</ul>
     	</div>
     </div>
     <!-- /main navbar -->
-
-
-    <!-- Page header -->
-    <div class="page-header">
-    	<div class="breadcrumb-line">
-    		<ul class="breadcrumb">
-    			<li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-    			<li class="active">Dashboard</li>
-    		</ul>
-    	</div>
-
-    	<div class="page-header-content">
-    		<div class="page-title">
-    			<h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Home</span> <small></small></h4>
-    		</div>
-    	</div>
-    </div>
-    <!-- /page header -->
-
-
+    
+    <br><br><br>
     	<!-- Page container -->
     	<div class="page-container">
 
@@ -82,6 +75,7 @@
     		<div class="page-content">
 
     			<!-- Main sidebar -->
+                <%= if @user.role == "ADMIN" do %>
     			<div class="sidebar sidebar-main sidebar-default">
     				<div class="sidebar-content">
 
@@ -103,7 +97,11 @@
 
     								<%= if @user.role == "ADMIN" do %>
                                     <li class="active">
-    								    <%= link "Dashboard", to: Routes.user_path(@conn, :index) %>
+    								    <a href="#"><i class="icon-stack2"></i> <span>Management</span></a>
+                                        <ul>
+                                            <li><%= link "Dashboard", to: Routes.user_path(@conn, :index) %></li>
+                                            <li><%= link "Routes", to: Routes.route_path(@conn, :index) %></li>
+                                        </ul>
     								</li>
 
     								<li>
@@ -131,7 +129,6 @@
                                         </ul>
                                     </li>
                                     <% end %>
-
     								<!-- /main -->
     							</ul>
     						</div>
@@ -140,30 +137,38 @@
 
     				</div>
     			</div>
+                <% end %>
     			<!-- /main sidebar -->
 
 
-    			  <main role="main" class="container-fluid">
+    			  <main role="main" id="renderApp" class="container-fluid">
                       <%= render @view_module, @view_template, assigns %>
                   </main>
 
     		</div>
     		<!-- /page content -->
-
     	</div>
+        
     	<!-- /page container -->
 
 
     	<!-- Footer -->
-    	<div class="navbar navbar-default navbar-fixed-bottom footer">
+    	<div class="navbar w3-indigo navbar-fixed-bottom footer">
+            <div class="container">
     		<ul class="nav navbar-nav visible-xs-block">
-    			<li><a class="text-center collapsed" data-toggle="collapse" data-target="#footer"><i class="icon-circle-up2"></i></a></li>
+    			<li>
+                    <a class="text-center collapsed" data-toggle="collapse" data-target="#footer">
+                        <i class="icon-circle-up2"></i>
+                    </a>
+                </li>
     		</ul>
 
-    		<div class="navbar-collapse collapse" id="footer">
+    		<div class="navbar-collapse collapse">
     			<div class="navbar-text">
-    				&copy; <%= DateTime.utc_now.year %>. <a href="#" class="navbar-link">Bus Ticketing System</a> by <a href="http://probasegroup.com" class="navbar-link" target="_blank">ProBase</a>
-    			</div>
+                &copy; 2019. <a href="#" class="navbar-link">Bus Terminus System</a> by <a href="http://www.probasegroup.com" class="navbar-link" target="_blank">
+                    <e style="color:orange;">Pro</e><e style="color:black;">BASE</e>
+                </a>
+                </div>
 
     			<div class="navbar-right">
     				<ul class="nav navbar-nav">
@@ -173,6 +178,7 @@
     				</ul>
     			</div>
     		</div>
+        </div>
     	</div>
     	<!-- /footer -->
 

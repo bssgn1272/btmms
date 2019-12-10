@@ -1,4 +1,4 @@
-defmodule Randomizer do
+defmodule BusTerminalSystem.Randomizer do
   @moduledoc """
   Random string generator module.
   """

@@ -73,15 +73,15 @@ defmodule BusTerminalSystemWeb.MarketerController do
     |> redirect(to: Routes.marketer_path(conn, :index))
   end
 
-  def form(conn, _params) do
-    render(conn, "form.html")
+  def form_market(conn, _params) do
+    render(conn, "form_market.html")
   end
 
-  def formSection(conn, _params) do
-    render(conn, "formSection.html")
+  def form_section(conn, _params) do
+    render(conn, "form_section.html")
   end
 
-  def formShop(conn, _params) do
-    render(conn, "formShop.html")
+  def form_shop(conn, _params) do
+    render(conn, "form_shop.html")
   end
 end

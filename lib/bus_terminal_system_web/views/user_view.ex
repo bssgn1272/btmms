@@ -1,7 +1,7 @@
 defmodule BusTerminalSystemWeb.UserView do
   use BusTerminalSystemWeb, :view
 
-  def user_id(id) do
+  def user_id(_id) do
 
   end
 

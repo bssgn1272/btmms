@@ -1,6 +1,140 @@
 /* THE FOLLOWING IS CUSTOM STYLES */
+#textColor i:hover{
+  color: orange;
+}
+#backgroundLog {
+  height: 100%;
+  width:100%;
+  overflow-x: hidden;
+}
+#footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   color: white;
+   text-align: center;
+}
+#probaseStatement{
+   float: right;
+}
+#busStatement{
+  float: left;
+}
 #marketButtons{
   margin-top: 4%;
   margin-bottom: 4%;
   text-align: justify;
+}
+
+#backgroundLog{
+	   background: url("/images/backgrounds/bg.jpg");
+    background-repeat: no-repeat;
+    background-size:cover;
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    /* Preserve aspet ratio */
+    min-width: 100%;
+    min-height: 100%;
+
+    /* For Responsiveness */
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;   
+}
+#profile{
+    * {box-sizing: border-box;}
+ul {list-style-type: none;}
+body {font-family: Verdana, sans-serif;}
+
+#footer {
+    background-color: rgb(241, 143, 14);
+    display: inline;
+    float: left;
+    padding: 40px 0;
+    width: 100%;
+  }
+
+.month {
+  padding: 70px 25px;
+  width: 100%;
+  background: rgb(71, 117, 209);
+  text-align: center;
+}
+
+.month ul {
+  margin: 0;
+  padding: 0;
+}
+
+.month ul li {
+  color: white;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.month .prev {
+  float: left;
+  padding-top: 10px;
+}
+
+.month .next {
+  float: right;
+  padding-top: 10px;
+}
+
+.weekdays {
+  margin: 0;
+  padding: 10px 0;
+  background-color: #ddd;
+}
+
+.weekdays li {
+  display: inline-block;
+  width: 13.6%;
+  color: #666;
+  text-align: center;
+}
+
+.days {
+  padding: 10px 0;
+  background: #eee;
+  margin: 0;
+}
+
+.days li {
+  list-style-type: none;
+  display: inline-block;
+  width: 13.6%;
+  text-align: center;
+  margin-bottom: 5px;
+  font-size:12px;
+  color: #777;
+}
+
+.days li .active {
+  padding: 5px;
+  background: #1abc9c;
+  color: white !important
+}
+
+/* Add media queries for smaller screens */
+@media screen and (max-width:720px) {
+  .weekdays li, .days li {width: 13.1%;}
+}
+
+@media screen and (max-width: 420px) {
+  .weekdays li, .days li {width: 12.5%;}
+  .days li .active {padding: 2px;}
+}
+
+@media screen and (max-width: 290px) {
+  .weekdays li, .days li {width: 12.2%;}
+}
+}
+
+#loginForm{
+  display: none;
 }
