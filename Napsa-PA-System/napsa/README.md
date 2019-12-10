@@ -21,6 +21,10 @@ Build Instructions:
 
     • Download zip or Clone the source repository from Github.
        On the command line enter https://github.com/napsa-4805/btmms.git
+       
+    • Add cloned file to either XAMP or MAMP'S Application folder i.e xamppfiles/htdocs
+      and  open your browser and type localhost/napsa or  localhost:8080/napsa .
+     NOTE: port (8080) depends on your localhost server.
 
 
 System Requirements:
