@@ -26,20 +26,248 @@
             <div class="tab-content">
               <div class="tab-pane active" id="view">
                            <mat-horizontal-stepper labelPosition="bottom" #stepper>
-    <mat-step [stepControl]="firstFormGroup">
-        <form [formGroup]="firstFormGroup">
+    <mat-step >
             <ng-template matStepLabel>Slot one</ng-template>
-            <mat-form-field>
-                <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+            <form [formGroup]="slotRequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="05:00"  readonly>
             </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotOneFive($event) [(ngModel)]="request">
+                <mat-option *ngFor="let req of requ15es" [value]="req.username">
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve()">{{request}}</button>
+              </div>
+            </div>
+            </form>
+            
+
+            <!-- <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput placeholder="06:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="q">
+                <mat-option *ngFor="let req of reqs" [value]="req.r_id">
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve()">Approve</button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput placeholder="07:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
+                <mat-option *ngFor="let req of reqs" [value]="req.status">
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <button mat-button>Next</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput placeholder="08:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
+                <mat-option *ngFor="let req of reqs" [value]="req.status">
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <button mat-button>Next</button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput placeholder="09:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
+                <mat-option *ngFor="let req of reqs" [value]="req.status">
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <button mat-button>Next</button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput placeholder=":10:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
+                <mat-option *ngFor="let req of reqs" [value]="req.status">
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <button mat-button>Next</button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput placeholder="11:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
+                <mat-option *ngFor="let req of reqs" [value]="req.status">
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <button mat-button>Next</button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput placeholder="12:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
+                <mat-option *ngFor="let req of reqs" [value]="req.status">
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <button mat-button>Next</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput placeholder="13:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
+                <mat-option *ngFor="let req of reqs" [value]="req.status">
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <button mat-button>Next</button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput placeholder="14:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
+                <mat-option *ngFor="let req of reqs" [value]="req.status">
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <button mat-button>Next</button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput placeholder="15:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
+                <mat-option *ngFor="let req of reqs" [value]="req.status">
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <button mat-button>Next</button>
+              </div>
+            </div> -->
+            
             <div>
                 <button mat-button matStepperNext>Next</button>
             </div>
-        </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup" optional>
-        <form [formGroup]="secondFormGroup">
-            <ng-template matStepLabel>Fill out your address</ng-template>
+    <mat-step >
+            <ng-template matStepLabel>Slot two</ng-template>
             <mat-form-field>
                 <input matInput placeholder="Address" formControlName="secondCtrl" required>
             </mat-form-field>
@@ -47,7 +275,23 @@
                 <button mat-button matStepperPrevious>Back</button>
                 <button mat-button matStepperNext>Next</button>
             </div>
-        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        You are now done.
+        <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        You are now done.
+        <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Done</ng-template>

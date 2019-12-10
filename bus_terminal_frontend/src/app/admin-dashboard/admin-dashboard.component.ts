@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort, MatSnackBar } from '@angular/material';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AdminDashboardService } from './admin-dashboard.service';
 
 import * as reque from './admin-dashboard'
 
@@ -184,18 +183,21 @@ export class AdminDashboardComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   summaries: any[];
-  firstFormGroup: any;
-  secondFormGroup: any;
   req110s: any[];
   req210s: any[];
   req310s: any[];
   req410s: any;
   req510s: any[];
-  requ11s: any;
+  requ11s: any[];
+
+  slotRequestFormGroup: FormGroup;
+
+  _id: number;
+
+  id = 0; 
 
   constructor(
     private _formBuilder: FormBuilder,
-    private service: AdminDashboardService,
     private httpClient: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
@@ -203,11 +205,11 @@ export class AdminDashboardComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
+
+
+    this.slotRequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
     });
 
     this.dataSource.paginator = this.paginator;
@@ -682,5 +684,5 @@ export class AdminDashboardComponent implements OnInit {
 
   // approve
 
-  approve() {}
+  approve() { }
 }

@@ -25,7 +25,7 @@ import {
   MatSnackBarModule,
   MatMenuModule,
   MatStepperModule
-} from "@angular/material";
+} from '@angular/material';
 import { MakeBookingComponent } from 'app/make-booking/make-booking.component';
 import { ViewMySlotsComponent } from 'app/view-my-slots/view-my-slots.component';
 import { RoservationRequestsComponent } from 'app/roservation-requests/roservation-requests.component';

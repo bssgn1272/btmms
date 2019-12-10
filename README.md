@@ -54,9 +54,16 @@ Run
 go Build
 ```
 
+port Number
+```bash
+:7080
+```
+
 # Database
 
 for the DB postgreSQL was used
 
-To install follow the process from [w3resource](https://www.w3resource.com/PostgreSQL/install-postgresql-on-linux-and-windows.php) 
+To install follow the process from [w3resource](https://www.w3resource.com/PostgreSQL/install-postgresql-on-linux-and-windows.php)
+
+ 
  
