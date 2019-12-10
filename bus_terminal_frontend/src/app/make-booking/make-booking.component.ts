@@ -119,7 +119,7 @@ export class MakeBookingComponent implements OnInit {
   save() {
     console.log(this.data.row.reservation_time);
     this.httpClient
-      .post("/api/reservation/requests/create", {
+      .post('/api/reservation/requests/create', {
         slot: this.slot,
         status: this.status,
         route: this.route,
@@ -130,19 +130,19 @@ export class MakeBookingComponent implements OnInit {
       .subscribe(
         data => {
           this.router.navigate([this.returnUrl]);
-          this._snackBar.open("Successfully Updated", null, {
+          this._snackBar.open('Successfully Updated', null, {
             duration: 1000,
-            horizontalPosition: "center",
-            panelClass: ["blue-snackbar"],
-            verticalPosition: "top"
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
           });
         },
         error => {
-          this._snackBar.open("Failed", null, {
+          this._snackBar.open('Failed', null, {
             duration: 2000,
-            horizontalPosition: "center",
-            panelClass: ["background-red"],
-            verticalPosition: "top"
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
           });
         }
       );

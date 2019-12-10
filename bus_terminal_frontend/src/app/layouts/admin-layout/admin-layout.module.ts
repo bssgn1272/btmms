@@ -32,6 +32,7 @@ import { ApproveReservationComponent } from 'app/approve-reservation/approve-res
 import { AlertsComponent } from 'app/alert/alerts.component';
 import { AlertsService } from 'app/alert/alerts.service';
 import { NavbarComponent } from 'app/components/navbar/navbar.component';
+import { AdminDashboardComponent } from 'app/admin-dashboard/admin-dashboard.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -64,6 +65,7 @@ import { NavbarComponent } from 'app/components/navbar/navbar.component';
     RoservationRequestsComponent,
     ApproveReservationComponent,
     AlertsComponent,
+    AdminDashboardComponent
   ],
   providers: [AlertsService]
 })

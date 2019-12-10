@@ -37,6 +37,7 @@ var GetReservationsController = http.HandlerFunc(func(w http.ResponseWriter, r *
 	u.Respond(w, resp)
 })
 
+// Slot Requests
 
 var GetReservationsForController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
