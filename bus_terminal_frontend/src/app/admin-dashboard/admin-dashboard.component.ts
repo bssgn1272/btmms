@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort, MatSnackBar } from '@angular/material';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminDashboardService } from './admin-dashboard.service';
@@ -60,7 +60,7 @@ export class AdminDashboardComponent implements OnInit {
   public req114s: reque.Req114[] = [];
   public req115s: reque.Req115[] = [];
 
-  public requ15s: any[];
+  public requ15es: any[];
   public requ16s: any[];
   public requ17s: any[];
   public requ18s: any[];
@@ -172,20 +172,26 @@ export class AdminDashboardComponent implements OnInit {
   public requ514s: any[];
   public requ515s: any[];
 
-  displayedColumns: string[] = [
-    'time',
-    'slot_one',
-    'slot_two',
-    'slot_three',
-    'slot_four',
-    'slot_five',
-    'action'
-  ];
+  displayedColumns: string[] = ['time', 'action'];
+  // ,
+  //   'slot_one',
+  //   'slot_two',
+  //   'slot_three',
+  //   'slot_four',
+  //   'slot_five',
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   summaries: any[];
+  firstFormGroup: any;
+  secondFormGroup: any;
+  req110s: any[];
+  req210s: any[];
+  req310s: any[];
+  req410s: any;
+  req510s: any[];
+  requ11s: any;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -193,10 +199,17 @@ export class AdminDashboardComponent implements OnInit {
     private httpClient: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
   ) {}
 
   async ngOnInit() {
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
+
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
@@ -273,7 +286,7 @@ export class AdminDashboardComponent implements OnInit {
       .get<any[]>('/api/reservations/requests/slot_one/five')
       .toPromise();
 
-    this.requ15s = this.req15s.data;
+    this.requ15es = this.req15s.data;
   }
 
   async loadSlotOneSix() {
@@ -666,4 +679,8 @@ export class AdminDashboardComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  // approve
+
+  approve() {}
 }

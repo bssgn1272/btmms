@@ -25,7 +25,40 @@
           <div class="card-body">
             <div class="tab-content">
               <div class="tab-pane active" id="view">
-                <mat-form-field>
+                           <mat-horizontal-stepper labelPosition="bottom" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Slot one</ng-template>
+            <mat-form-field>
+                <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" optional>
+        <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Fill out your address</ng-template>
+            <mat-form-field>
+                <input matInput placeholder="Address" formControlName="secondCtrl" required>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        You are now done.
+        <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+    </mat-step>
+</mat-horizontal-stepper>
+                <!-- <mat-form-field>
                   <input
                     matInput
                     (keyup)="applyFilter($event.target.value)"
@@ -33,17 +66,22 @@
                   />
                 </mat-form-field>
 
-                <div class="mat-elevation-z8">
+                <div class="mat-elevation-z8"> -->
 
-                  <table class="table">
+
+       
+
+
+                  <!-- <table class="table">
     <thead>
         <tr>
             <th>Time</th>
-            <th>SLot One Position</th>
+            <th>SLot One</th>
             <th>Slot Two</th>
             <th>SLot Three</th>
             <th>SLot Four</th>
             <th>SLot Five</th>
+            <th>Actions</th>
             
         </tr>
     </thead>
@@ -54,7 +92,7 @@
               <mat-form-field>
                 <mat-label>Requests</mat-label>
                 <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ15s" [value]="req.r_id">
+                  <mat-option *ngFor="let req of requ15es" [value]="req.r_id">
                     {{req.username}}
                   </mat-option>
                 </mat-select>
@@ -99,6 +137,9 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
+            </td>
+            <td>
+              <button (click)="approve()">Approve</button>
             </td>
         </tr>
         <tr>
@@ -632,13 +673,12 @@
             </td>
         </tr>
     </tbody>
-</table>
+</table> -->
 
 
 
 
-                  <!-- <table class="table" mat-table [dataSource]="dataSource">
-                    !-- time Column --
+                  <!-- <table class="table" style="width: 10%;" mat-table [dataSource]="dataSource">
                     <ng-container matColumnDef="time">
                       <th mat-header-cell *matHeaderCellDef>time</th>
                       <td mat-cell *matCellDef="let element">
@@ -646,52 +686,73 @@
                       </td>
                     </ng-container>
 
-                    !-- status Column --
                     <ng-container matColumnDef="slot_one">
-                      <th mat-header-cell *matHeaderCellDef>Slot One</th>
+                      <th mat-header-cell *matHeaderCellDef>Slot 1</th>
                       <td mat-cell *matCellDef="let element">
-                        <div class="col-md-6">
                           <mat-form-field>
-                              <mat-label>Group</mat-label>
+                              <mat-label>Requests</mat-label>
                               <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
                                 <mat-option *ngFor="let req of reqs" [value]="req.status">
                                   {{req.username}}
                                 </mat-option>
                               </mat-select>
                             </mat-form-field>
-                      </div>
                       </td>
                     </ng-container>
 
-                    !-- status1 Column --
                     <ng-container matColumnDef="slot_two">
-                      <th mat-header-cell *matHeaderCellDef>Slot Two</th>
+                      <th mat-header-cell *matHeaderCellDef>Slot 2</th>
                       <td mat-cell *matCellDef="let element">
-                        
+                          <mat-form-field>
+                              <mat-label>Requests</mat-label>
+                              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
+                                <mat-option *ngFor="let req of reqs" [value]="req.status">
+                                  {{req.username}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
                       </td>
                     </ng-container>
 
-                    !-- status2 Column --
                     <ng-container matColumnDef="slot_three">
-                      <th mat-header-cell *matHeaderCellDef>Slot Three</th>
+                      <th mat-header-cell *matHeaderCellDef>Slot 3</th>
                       <td mat-cell *matCellDef="let element">
-                        
+                          <mat-form-field>
+                              <mat-label>Requests</mat-label>
+                              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
+                                <mat-option *ngFor="let req of reqs" [value]="req.status">
+                                  {{req.username}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
                       </td>
                     </ng-container>
 
-                    !-- status2 Column --
                     <ng-container matColumnDef="slot_four">
-                      <th mat-header-cell *matHeaderCellDef>Slot Four</th>
+                      <th mat-header-cell *matHeaderCellDef>Slot 4</th>
                       <td mat-cell *matCellDef="let element">
-                        
+                          <mat-form-field>
+                              <mat-label>Requests</mat-label>
+                              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
+                                <mat-option *ngFor="let req of reqs" [value]="req.status">
+                                  {{req.username}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
                       </td>
                     </ng-container>
 
-                     !-- status2 Column --
                     <ng-container matColumnDef="slot_five">
-                      <th mat-header-cell *matHeaderCellDef>Slot Five</th>
+                      <th mat-header-cell *matHeaderCellDef>Slot 5</th>
                       <td mat-cell *matCellDef="let element">
-                        
+                          <mat-form-field>
+                              <mat-label>Requests</mat-label>
+                              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
+                                <mat-option *ngFor="let req of reqs" [value]="req.status">
+                                  {{req.username}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
                       </td>
                     </ng-container>
 
@@ -700,7 +761,7 @@
                       <td mat-cell *matCellDef="let row">
                         <button
                           mat-raised-button
-                          (click)="onOpenDialog(row)"
+                          (click)="onOpen(row)"
                           matTooltip="Book Slot"
                           aria-label="Button that displays a tooltip when focused or hovered over"
                           class="btn btn-primary btn-link btn-sm btn-just-icon"
@@ -717,11 +778,11 @@
                     ></tr>
                   </table> -->
 
-                  <mat-paginator
+                  <!-- <mat-paginator
                     [pageSizeOptions]="[5, 10, 20]"
                     showFirstLastButtons
                   ></mat-paginator>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>

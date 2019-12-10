@@ -23,8 +23,9 @@ import {
   MatNativeDateModule,
   MatSortModule,
   MatSnackBarModule,
-  MatMenuModule
-} from '@angular/material';
+  MatMenuModule,
+  MatStepperModule
+} from "@angular/material";
 import { MakeBookingComponent } from 'app/make-booking/make-booking.component';
 import { ViewMySlotsComponent } from 'app/view-my-slots/view-my-slots.component';
 import { RoservationRequestsComponent } from 'app/roservation-requests/roservation-requests.component';
@@ -54,6 +55,7 @@ import { AdminDashboardComponent } from 'app/admin-dashboard/admin-dashboard.com
     MatMenuModule,
     SignaturePadModule,
     MatSortModule,
+    MatStepperModule,
     HttpClientModule
   ],
   declarations: [

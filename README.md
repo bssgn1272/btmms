@@ -23,7 +23,7 @@ cd bus_terminal_frontend
 ```
 
 
-use [npm]() to install and build the frontend.
+use [npm](https://www.npmjs.com/get-npm) to install and build the frontend.
 
 Run
 ```bash
@@ -38,7 +38,7 @@ npm run-script build
 
 The backend API has been developed using [Golang]()
 
-Follow the installations steps from [golang.org]()
+Follow the installations steps from [golang.org](https://golang.org/doc/install)
 
 Follow the setup process from [golang.org/doc/code.html](golang.org/doc/code.html)
 
@@ -53,4 +53,10 @@ Run
 ```bash
 go Build
 ```
+
+# Database
+
+for the DB postgreSQL was used
+
+To install follow the process from [w3resource](https://www.w3resource.com/PostgreSQL/install-postgresql-on-linux-and-windows.php) 
  
