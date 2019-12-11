@@ -10,7 +10,7 @@ import { ViewMySlotsComponent } from 'app/view-my-slots/view-my-slots.component'
 import { Role } from 'app/models/role';
 import { RoservationRequestsComponent } from 'app/roservation-requests/roservation-requests.component';
 import { AuthGuard } from 'app/guard/auth.guard';
-import { AdminDashboardComponent } from 'app/admin-dashboard/admin-dashboard.component';
+// import { AdminDashboardComponent } from 'app/admin-dashboard/admin-dashboard.component';
 
 export const AdminLayoutRoutes: Routes = [
          { path: 'user-profile', component: DashboardComponent },
@@ -37,10 +37,10 @@ export const AdminLayoutRoutes: Routes = [
            canActivate: [AuthGuard]
            //  data: { roles: [Role.admin] }
          },
-         {
-           path: 'admin-dashboard',
-           component: AdminDashboardComponent,
-           canActivate: [AuthGuard]
-           //  data: { roles: [Role.admin] }
-         }
+        //  {
+        //    path: 'admin-dashboard',
+        //    component: AdminDashboardComponent,
+        //    canActivate: [AuthGuard]
+        //    //  data: { roles: [Role.admin] }
+        //  }
        ];

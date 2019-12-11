@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort, MatSnackBar } from '@angular/material';
 import { ReservationRequestsService } from './reservation-requests.service';
 import { HttpClient } from '@angular/common/http';
+import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { reject } from 'q';
 
@@ -42,7 +43,8 @@ export class RoservationRequestsComponent implements OnInit {
     private httpClient: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    public _location: Location
   ) {}
 
   ngOnInit() {
@@ -152,7 +154,10 @@ export class RoservationRequestsComponent implements OnInit {
             verticalPosition: 'top'
           });
         }
-      );
+    );
+    this.router.navigateByUrl('/veiw-resavations-requests', { skipLocationChange: true }).then(() => {
+      this.router.navigate([decodeURI(this._location.path())]);
+    })
     console.log(row);
   }
 }
