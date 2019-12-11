@@ -63,3 +63,9 @@ Stack trace:
 [04-Dec-2019 11:11:16 Africa/Lusaka] PHP Notice:  Undefined index: Sale_amount in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 375
 [04-Dec-2019 11:11:16 Africa/Lusaka] PHP Notice:  Undefined index: buyer_msisdn in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 375
 [09-Dec-2019 14:36:43 Africa/Lusaka] PHP Notice:  Undefined index: Sale_buyer_mobile in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 387
+[09-Dec-2019 22:44:50 Africa/Lusaka] PHP Notice:  Array to string conversion in /var/www/html/Market_Sales_USSD/app/lib/utils/SharedUtils.php on line 50
+[09-Dec-2019 22:44:52 Africa/Lusaka] PHP Notice:  Array to string conversion in /var/www/html/Market_Sales_USSD/app/lib/utils/SharedUtils.php on line 50
+[09-Dec-2019 22:44:54 Africa/Lusaka] PHP Notice:  Array to string conversion in /var/www/html/Market_Sales_USSD/app/lib/utils/SharedUtils.php on line 50
+[09-Dec-2019 22:44:56 Africa/Lusaka] PHP Notice:  Array to string conversion in /var/www/html/Market_Sales_USSD/app/lib/utils/SharedUtils.php on line 50
+[09-Dec-2019 22:44:59 Africa/Lusaka] PHP Notice:  Array to string conversion in /var/www/html/Market_Sales_USSD/app/lib/utils/SharedUtils.php on line 50
+[11-Dec-2019 09:15:30 Africa/Lusaka] PHP Notice:  Undefined index: token_balance in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 261

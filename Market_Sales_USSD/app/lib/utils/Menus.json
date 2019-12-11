@@ -8,7 +8,7 @@
     "MAKE_SALE_BUYER_MOMO_PIN": "Enter the Buyers 4-digit MOMO Pin",
     "MAKE_SALE_CONFIRM": "Make a sale to Buyer with mobile number {msisdn} for a total of K{amount}.\n1.Confirm\n0.Previous Menu\n#.Main menu",
     "ORDER_GOODS": "Enter the traders mobile number i.e 09xxxxxxxx\n\nEnter # for Main menu",
-    "ORDER_GOODS_AMOUNT": "Order from {trader}-{mobile}.\nEnter total sale amount\n\nEnter 0 for previous menu or # for Main menu",
+    "ORDER_GOODS_AMOUNT": "Order from {trader}-{mobile}.Enter total sale amount\n\nEnter 0 for previous menu or # for Main menu",
     "ORDER_GOODS_CONFIRM": "Order Goods from {trader}-{mobile} for a total of K{amount}.\n1.Confirm\n0.Previous Menu\n#.Main menu",
     "CHECK_BALANCE": "Your account balance is K{balance}\n1.Main Menu",
     "LOGIN": "Enter Your 4-digit MoMo Pin",
@@ -18,7 +18,7 @@
     "RESETPIN_NRC": "Enter your NRC number",
     "RESETPIN_NRC_INVALID": "Invalid NRC. Enter correct NRC number",
     "RESETPIN_NRC_OTP_MSG": "You will soon receive an sms with a One time pin(OTP). Use the OTP to reset your pin by dialing again.",
-    "TRX_PROCESSING": "Transaction is being processed. You will soon receive a Confirmation SMS",
+    "TRX_PROCESSING": "Transaction is being processed. You will soon receive a Confirmation SMS\n1.Main Menu",
     "TODO": "Not yet implemented. Check again!",
     "EXIT": "Thank you for using the Market Sales Service"
 }

@@ -219,6 +219,9 @@ class Core {
             case "CHECK_BALANCE":
                 $this->gw_response = $this->checkBalance();
                 break;
+            case "TRX_PROCESSING":
+                $this->gw_response = $this->transactionProcessing();
+                break;
             case "LOGIN":
                 $this->gw_response = $this->login();
                 break;
@@ -274,7 +277,7 @@ class Core {
             default:
                 $_SESSION['menu-selection'] = "MAIN";
                 $this->body = SharedUtils::strReplace("{Marketeer}", $_SESSION['names'], $this->menus['MAIN']);
-                $this->body = SharedUtils::strReplace("{val}", "selection", Config::INVALID_STR) . $this->body;
+                $this->body = SharedUtils::strReplace("{val}", "selection", Config::INVALID_STR) . "\n" . $this->body;
                 $this->gw_response = $this->get_response_array();
                 break;
         }
@@ -314,13 +317,31 @@ class Core {
             default:
                 $_SESSION['menu-selection'] = "CHECK_BALANCE";
                 $this->body = SharedUtils::strReplace("{balance}", $_SESSION['balance'], $this->menus['CHECK_BALANCE']);
-                $this->body = SharedUtils::strReplace("{val}", "selection", Config::INVALID_STR) . $this->body;
+                $this->body = SharedUtils::strReplace("{val}", "selection", Config::INVALID_STR) . "\n" . $this->body;
                 $this->gw_response = $this->get_response_array();
                 break;
         }
         return $this->gw_response;
     }
 
+    //Transaction processing STARTS
+    private function transactionProcessing() {
+        switch ($this->body) {
+            case "1":
+                $_SESSION['menu-selection'] = "MAIN";
+                $this->body = SharedUtils::strReplace("{Marketeer}", $_SESSION['names'], $this->menus['MAIN']);
+                $this->gw_response = $this->get_response_array();
+                break;
+            default:
+                $_SESSION['menu-selection'] = "TRX_PROCESSING";
+                $this->body = SharedUtils::strReplace("{val}", "selection", Config::INVALID_STR) . "\n" . $this->menus['TRX_PROCESSING'];
+                $this->gw_response = $this->get_response_array();
+                break;
+        }
+        return $this->gw_response;
+    }
+
+    //Transaction processing ENDS
     //CHECK BALANCE ENDS
     //--------------------------------
     //MAKE SALE FUNCTIONS STARTS HERE
@@ -342,7 +363,7 @@ class Core {
                     $this->gw_response = $this->get_response_array();
                 } else {
                     $_SESSION['menu-selection'] = "MAKE_SALE_AMOUNT";
-                    $this->body = SharedUtils::strReplace("{val}", "amount", Config::INVALID_STR) . $this->menus['MAKE_SALE_AMOUNT'];
+                    $this->body = SharedUtils::strReplace("{val}", "amount", Config::INVALID_STR) . "\n" . $this->menus['MAKE_SALE_AMOUNT'];
                     $this->gw_response = $this->get_response_array();
                 }
                 break;
@@ -374,12 +395,12 @@ class Core {
                         $this->gw_response = $this->get_response_array();
                     } else {
                         $_SESSION['menu-selection'] = "MAKE_SALE_BUYER_MOBILE";
-                        $this->body = SharedUtils::strReplace("{val}", "mobile number", Config::INVALID_STR) . $this->menus['MAKE_SALE_BUYER_MOBILE'];
+                        $this->body = SharedUtils::strReplace("{val}", "mobile number", Config::INVALID_STR) . "\n" . $this->menus['MAKE_SALE_BUYER_MOBILE'];
                         $this->gw_response = $this->get_response_array();
                     }
                 } else {
                     $_SESSION['menu-selection'] = "MAKE_SALE_BUYER_MOBILE";
-                    $this->body = SharedUtils::strReplace("{val}", "mobile number. You cannot sale to yourself", Config::INVALID_STR) . $this->menus['MAKE_SALE_BUYER_MOBILE'];
+                    $this->body = SharedUtils::strReplace("{val}", "mobile number. You cannot sale to yourself", Config::INVALID_STR) . "\n" . $this->menus['MAKE_SALE_BUYER_MOBILE'];
                     $this->gw_response = $this->get_response_array();
                 }
                 break;
@@ -397,7 +418,6 @@ class Core {
                 //Lets push the transaction to the api
                 $payload = SharedUtils::buildPushTransactionRequest($_SESSION['trader_details']['trader_id'], $_SESSION['Sale_amount'], $_SESSION['buyer_msisdn']);
                 $result = SharedUtils::httpPostJson("transactions", $payload, $this->msisdn, $this->log);
-                $this->end_of_session = TRUE;
                 $_SESSION['menu-selection'] = "TRX_PROCESSING";
                 $this->body = $this->menus['TRX_PROCESSING'];
                 $this->gw_response = $this->get_response_array();
@@ -414,7 +434,7 @@ class Core {
                 $_SESSION['menu-selection'] = "MAKE_SALE_CONFIRM";
                 $this->body = SharedUtils::strReplace("{msisdn}", $_SESSION['buyer_msisdn'], $this->menus['MAKE_SALE_CONFIRM']);
                 $this->body = SharedUtils::strReplace("{amount}", $_SESSION['Sale_amount'], $this->body);
-                $this->body = SharedUtils::strReplace("{val}", "selection", Config::INVALID_STR) . $this->body;
+                $this->body = SharedUtils::strReplace("{val}", "selection", Config::INVALID_STR) . "\n" . $this->body;
                 $this->gw_response = $this->get_response_array();
                 break;
         }
@@ -451,12 +471,12 @@ class Core {
                         }
                     } else {
                         $_SESSION['menu-selection'] = "ORDER_GOODS";
-                        $this->body = SharedUtils::strReplace("{val}", "mobile number. You cannot order from yourself", Config::INVALID_STR) . $this->menus['ORDER_GOODS'];
+                        $this->body = SharedUtils::strReplace("{val}", "mobile number. You cannot order from yourself", Config::INVALID_STR) . "\n" . $this->menus['ORDER_GOODS'];
                         $this->gw_response = $this->get_response_array();
                     }
                 } else {
                     $_SESSION['menu-selection'] = "ORDER_GOODS";
-                    $this->body = SharedUtils::strReplace("{val}", "traders mobile number", Config::INVALID_STR) . $this->menus['ORDER_GOODS'];
+                    $this->body = SharedUtils::strReplace("{val}", "traders mobile number", Config::INVALID_STR) . "\n" . $this->menus['ORDER_GOODS'];
                     $this->gw_response = $this->get_response_array();
                 }
                 break;
@@ -486,7 +506,7 @@ class Core {
                     $_SESSION['menu-selection'] = "ORDER_GOODS_AMOUNT";
                     $this->body = SharedUtils::strReplace("{trader}", $_SESSION['seller_names'], $this->menus['ORDER_GOODS_AMOUNT']);
                     $this->body = SharedUtils::strReplace("{mobile}", $_SESSION['seller_mobile'], $this->body);
-                    $this->body = SharedUtils::strReplace("{val}", "amount", Config::INVALID_STR) . $this->body;
+                    $this->body = SharedUtils::strReplace("{val}", "amount", Config::INVALID_STR) . "\n" . $this->body;
                     $this->gw_response = $this->get_response_array();
                 }
                 break;
@@ -505,7 +525,6 @@ class Core {
                 //Lets push the transaction to the api
                 $payload = SharedUtils::buildPushTransactionRequest($_SESSION['seller_details']['trader_id'], $_SESSION['Sale_amount'], $this->msisdn);
                 $result = SharedUtils::httpPostJson("transactions", $payload, $this->msisdn, $this->log);
-                $this->end_of_session = TRUE;
                 $_SESSION['menu-selection'] = "TRX_PROCESSING";
                 $this->body = $this->menus['TRX_PROCESSING'];
                 $this->gw_response = $this->get_response_array();
@@ -523,7 +542,7 @@ class Core {
                 $this->body = SharedUtils::strReplace("{trader}", $_SESSION['seller_names'], $this->menus['ORDER_GOODS_CONFIRM']);
                 $this->body = SharedUtils::strReplace("{mobile}", $_SESSION['seller_mobile'], $this->body);
                 $this->body = SharedUtils::strReplace("{amount}", $_SESSION['Sale_amount'], $this->body);
-                $this->body = SharedUtils::strReplace("{val}", "selection", Config::INVALID_STR) . $this->body;
+                $this->body = SharedUtils::strReplace("{val}", "selection", Config::INVALID_STR) . "\n" . $this->body;
                 $this->gw_response = $this->get_response_array();
                 break;
         }

@@ -9,22 +9,6 @@ require_once __DIR__ . "/../../../vendor/autoload.php";
 //reference class Logger from the global namespace
 use \Logger;
 
-
-/**
- * This is a utility class for logging.Every log message
- * will contain the phoneNumber making the payment and
- * payBillNumber receiving the payment
- *
- * PHP VERSION 5.3.6
- *
- * @category  Logging
- * @package   Logger
- * @author    Daniel Mbugua <daniel.mbugua@cellulant.com>
- * Modified by @author    Michael Muriuki <michael.muriuki@cellulant.com>
- * @copyright 2013 Cellulant Ltd
- * @license   Proprietory License
- * @link      http://www.cellulant.com
- */
 class USSDLogger extends Logger
 {
 
