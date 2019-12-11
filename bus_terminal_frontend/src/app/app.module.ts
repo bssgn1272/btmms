@@ -17,7 +17,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './login/auth.service';
 import { AuthGuard } from './guard/auth.guard';
 import { JwtInterceptor, ErrorInterceptor } from './interceptor';
-import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 
 @NgModule({
