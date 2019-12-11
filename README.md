@@ -1,7 +1,7 @@
 # btmms
 Code base for the BTMMS project
 
-# Revision REquired
+# Revision Required
 
 # Frontend
 
@@ -95,3 +95,23 @@ Admin
 	"role": "admin",
 	"email": <email>
 }
+
+
+# Slots
+
+To create Slots postman can be used
+
+> localhost:7080/api/slots/create
+
+{
+    "slot_one": "open",
+    "slot_two": "open",
+    "slot_three": "open",
+    "slot_four": "open",
+    "slot_five": "open",
+    "time":<string>,
+    "reservation_time":<date(timeStamp)>
+}
+
++ Time should be a string from '05:00' to 15:00
++ Date should be for the following day
