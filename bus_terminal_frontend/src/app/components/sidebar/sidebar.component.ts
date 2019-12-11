@@ -44,12 +44,12 @@ export const ROUTESTWO: RouteInfo[] = [
     icon: 'view_module',
     class: ''
   },
-  {
-    path: '/admin-dashboard',
-    title: 'Admin Dashboard',
-    icon: 'dashboard',
-    class: ''
-  }
+  // {
+  //   path: '/admin-dashboard',
+  //   title: 'Admin Dashboard',
+  //   icon: 'dashboard',
+  //   class: ''
+  // }
 ];
 
 @Component({

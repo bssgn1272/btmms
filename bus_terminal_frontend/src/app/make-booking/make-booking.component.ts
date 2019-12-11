@@ -53,7 +53,7 @@ export class MakeBookingComponent implements OnInit {
 
     this.slot_one = this.data.row.slot_one;
 
-    if (this.slot_one === 'closed' && this.data.row.time === '08:00') {
+    if (this.slot_one !== 'open') {
       this.closed = true;
       this.open = false;
     }
@@ -64,18 +64,18 @@ export class MakeBookingComponent implements OnInit {
     }
 
     this.slot_two = this.data.row.slot_two;
-    if (this.slot_two === 'closed' && this.data.row.time === '08:00') {
+    if (this.slot_two !== 'open') {
       this.closed = true;
       this.open = false;
     }
 
-    if (this.slot_two === 'open' && this.data.row.time === '08:00') {
+    if (this.slot_two === 'open') {
       this.open = true;
       this.closed = false;
     }
 
     this.slot_three = this.data.row.slot_three;
-    if (this.slot_three === 'closed') {
+    if (this.slot_three !== 'open') {
       this.closed = true;
       this.open = false;
     }
@@ -86,7 +86,7 @@ export class MakeBookingComponent implements OnInit {
     }
 
     this.slot_four = this.data.row.slot_four;
-    if (this.slot_four === 'closed') {
+    if (this.slot_four !== 'open') {
       this.closed = true;
       this.open = false;
     }
@@ -97,7 +97,7 @@ export class MakeBookingComponent implements OnInit {
     }
 
     this.slot_five = this.data.row.slot_five;
-    if (this.slot_five === 'closed') {
+    if (this.slot_five !== 'open') {
       this.closed = true;
       this.open = false;
     }

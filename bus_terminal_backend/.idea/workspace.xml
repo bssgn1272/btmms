@@ -8,8 +8,10 @@
       <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/admin-dashboard/admin-dashboard.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/admin-dashboard/admin-dashboard.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/admin-dashboard/admin-dashboard.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/admin-dashboard/admin-dashboard.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/admin-dashboard/admin-dashboard.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/components/sidebar/sidebar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/components/sidebar/sidebar.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/layouts/admin-layout/admin-layout.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/layouts/admin-layout/admin-layout.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/make-booking/make-booking.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/make-booking/make-booking.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/roservation-requests/roservation-requests.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bus_terminal_frontend/src/app/roservation-requests/roservation-requests.component.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,10 +22,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/models/reservations.go">
+        <entry file="file://$PROJECT_DIR$/src/models/slots.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="106" column="227" selection-start-line="106" selection-start-column="227" selection-end-line="106" selection-end-column="230" />
+            <state relative-caret-position="701">
+              <caret line="120" selection-start-line="120" selection-end-line="120" />
               <folding>
                 <element signature="e#16#88#0" expanded="true" />
               </folding>
@@ -32,10 +34,13 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/controllers/slotsController.go">
+        <entry file="file://$PROJECT_DIR$/src/models/reservations.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="38" column="54" selection-start-line="38" selection-start-column="54" selection-end-line="38" selection-end-column="54" />
+            <state relative-caret-position="17">
+              <caret line="106" column="227" selection-start-line="106" selection-start-column="227" selection-end-line="106" selection-end-column="230" />
+              <folding>
+                <element signature="e#16#88#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -62,8 +67,8 @@
         <entry file="file://$PROJECT_DIR$/../README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="566">
-                <caret line="58" column="5" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
+              <first_editor relative-caret-position="325">
+                <caret line="76" column="1" selection-start-line="76" selection-start-column="1" selection-end-line="76" selection-end-column="1" />
               </first_editor>
               <second_editor />
             </state>
@@ -239,6 +244,12 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="logs" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="bus_terminal_backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bus_terminal_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -377,16 +388,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/slots.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1632">
-          <caret line="101" column="1" selection-start-line="101" selection-start-column="1" selection-end-line="101" selection-end-column="1" />
-          <folding>
-            <element signature="e#16#88#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/controllers/slotsController.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
@@ -461,11 +462,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/slots.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="701">
+          <caret line="120" selection-start-line="120" selection-end-line="120" />
+          <folding>
+            <element signature="e#16#88#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="566">
-            <caret line="58" column="5" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
+          <first_editor relative-caret-position="325">
+            <caret line="76" column="1" selection-start-line="76" selection-start-column="1" selection-end-line="76" selection-end-column="1" />
           </first_editor>
           <second_editor />
         </state>

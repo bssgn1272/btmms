@@ -68,3 +68,30 @@ for the DB postgreSQL was used
  
 To install follow the process from [w3resource](https://www.w3resource.com/PostgreSQL/install-postgresql-on-linux-and-windows.php) 
 
+
+# Credentials
+
+To create user postman can be used
+
+URL 
+> localhost:7080/api/user/register
+
+
+Bus Operator
+
+{
+	"username": <username>,
+	"password": <password>,
+	"role": "operator",
+	"email": <email>
+}
+
+
+Admin
+
+{
+	"username": <username>,
+	"password": <password>,
+	"role": "admin",
+	"email": <email>
+}

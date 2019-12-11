@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort, MatSnackBar } from '@angular/material';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -10,20 +10,7 @@ export interface Time {
   time: string;
 }
 
-/** Constants used to fill up our data base. */
-const ELEMENT_DATA: Time[] = [
-  { time: '05:00' },
-  { time: '06:00' },
-  { time: '07:00' },
-  { time: '08:00' },
-  { time: '09:00' },
-  { time: '10:00' },
-  { time: '11:00' },
-  { time: '12:00' },
-  { time: '13:00' },
-  { time: '14:00' },
-  { time: '15:00' }
-];
+
 
 
 export interface Req {
@@ -171,17 +158,6 @@ export class AdminDashboardComponent implements OnInit {
   public requ514s: any[];
   public requ515s: any[];
 
-  displayedColumns: string[] = ['time', 'action'];
-  // ,
-  //   'slot_one',
-  //   'slot_two',
-  //   'slot_three',
-  //   'slot_four',
-  //   'slot_five',
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
   summaries: any[];
   req110s: any[];
   req210s: any[];
@@ -190,30 +166,370 @@ export class AdminDashboardComponent implements OnInit {
   req510s: any[];
   requ11s: any[];
 
-  slotRequestFormGroup: FormGroup;
+  // Slot One Declaration
+  slot15RequestFormGroup: FormGroup;
+  slot115RequestFormGroup: FormGroup;
+  slot16RequestFormGroup: FormGroup;
+  slot17RequestFormGroup: FormGroup;
+  slot18RequestFormGroup: FormGroup;
+  slot19RequestFormGroup: FormGroup;
+  slot110RequestFormGroup: FormGroup;
+  slot111RequestFormGroup: FormGroup;
+  slot112RequestFormGroup: FormGroup;
+  slot113RequestFormGroup: FormGroup;
+  slot114RequestFormGroup: FormGroup;
 
-  _id: number;
+  // Slot Two Declaration
+  slot25RequestFormGroup: FormGroup;
+  slot215RequestFormGroup: FormGroup;
+  slot26RequestFormGroup: FormGroup;
+  slot27RequestFormGroup: FormGroup;
+  slot28RequestFormGroup: FormGroup;
+  slot29RequestFormGroup: FormGroup;
+  slot210RequestFormGroup: FormGroup;
+  slot211RequestFormGroup: FormGroup;
+  slot212RequestFormGroup: FormGroup;
+  slot213RequestFormGroup: FormGroup;
+  slot214RequestFormGroup: FormGroup;
 
-  id = 0; 
+  // Slot Three Declaration
+  slot35RequestFormGroup: FormGroup;
+  slot315RequestFormGroup: FormGroup;
+  slot36RequestFormGroup: FormGroup;
+  slot37RequestFormGroup: FormGroup;
+  slot38RequestFormGroup: FormGroup;
+  slot39RequestFormGroup: FormGroup;
+  slot310RequestFormGroup: FormGroup;
+  slot311RequestFormGroup: FormGroup;
+  slot312RequestFormGroup: FormGroup;
+  slot313RequestFormGroup: FormGroup;
+  slot314RequestFormGroup: FormGroup;
+
+  // Slot Four Declaration
+  slot45RequestFormGroup: FormGroup;
+  slot415RequestFormGroup: FormGroup;
+  slot46RequestFormGroup: FormGroup;
+  slot47RequestFormGroup: FormGroup;
+  slot48RequestFormGroup: FormGroup;
+  slot49RequestFormGroup: FormGroup;
+  slot410RequestFormGroup: FormGroup;
+  slot411RequestFormGroup: FormGroup;
+  slot412RequestFormGroup: FormGroup;
+  slot413RequestFormGroup: FormGroup;
+  slot414RequestFormGroup: FormGroup;
+
+  // Slot Five Declaration
+  slot55RequestFormGroup: FormGroup;
+  slot515RequestFormGroup: FormGroup;
+  slot56RequestFormGroup: FormGroup;
+  slot57RequestFormGroup: FormGroup;
+  slot58RequestFormGroup: FormGroup;
+  slot59RequestFormGroup: FormGroup;
+  slot510RequestFormGroup: FormGroup;
+  slot511RequestFormGroup: FormGroup;
+  slot512RequestFormGroup: FormGroup;
+  slot513RequestFormGroup: FormGroup;
+  slot514RequestFormGroup: FormGroup;
+
+  id = 0;
+  status = 'A';
+  disableSelect = false;
+  user = '';
+  slot = '';
+  time: any;
+  slot_one: any;
+  request: any;
 
   constructor(
     private _formBuilder: FormBuilder,
     private httpClient: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
-    private _snackBar: MatSnackBar,
+    private _snackBar: MatSnackBar
   ) {}
 
   async ngOnInit() {
-
-
-    this.slotRequestFormGroup = this._formBuilder.group({
+    // Slot One Form Group
+    this.slot15RequestFormGroup = this._formBuilder.group({
       request: [null, [Validators.required]],
       time: [null, [Validators.required]]
     });
 
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.slot16RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot17RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot18RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot19RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot110RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot111RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot112RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot113RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot114RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot115RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    // Slot Two Form Group
+    this.slot25RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot26RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot27RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot28RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot29RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot210RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot211RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot212RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot213RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot214RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot215RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    // Slot Three Form Group
+    this.slot35RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot36RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot37RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot38RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot39RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot310RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot311RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot312RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot313RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot314RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot315RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    // Slot Four Form Group
+    this.slot45RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot46RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot47RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot48RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot49RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot410RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot411RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot412RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot413RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot414RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot415RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    // Slot Five Form Group
+    this.slot55RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot56RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot57RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot58RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot59RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot510RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot511RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot512RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot513RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot514RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+    this.slot515RequestFormGroup = this._formBuilder.group({
+      request: [null, [Validators.required]],
+      time: [null, [Validators.required]]
+    });
+
+
 
     // slot One
     await this.loadSlotOneFive();
@@ -677,12 +993,2033 @@ export class AdminDashboardComponent implements OnInit {
     this.requ515s = this.req515s.data;
   }
 
-  // table filtering
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  // Slot One Approve
+
+  approve15(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+  approve16(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
   }
 
-  // approve
+  approve17(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
 
-  approve() { }
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve18(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve19(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve110(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve111(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve112(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+  approve113(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+  approve114(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve115(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  // Slot Two Approve
+
+  approve25(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+  approve26(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve27(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve28(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve29(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve210(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve211(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve212(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+  approve213(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+  approve214(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve215(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  // Slot Three Approve
+
+  approve35(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+  approve36(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve37(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve38(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve39(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve310(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve311(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve312(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+  approve313(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+  approve314(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve315(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  // Slot Four Approve
+
+  approve45(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+  approve46(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve47(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve48(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve49(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve410(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve411(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve412(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+  approve413(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+  approve414(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve415(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  // Slot Five Approve
+
+  approve55(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+  approve56(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve57(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve58(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve59(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve510(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve511(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve512(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+  approve513(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+  approve514(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
+
+  approve515(request) {
+    this.id = request.r_id;
+    this.user = request.username;
+    this.slot_one = request.slot;
+    this.time = request.time;
+    console.log(this.id);
+
+    this.httpClient
+      .put('/api/slots/close', {
+        time: this.time,
+        slot_one: this.user
+      })
+      .toPromise();
+    this.httpClient
+      .put('/api/approve/reservations/requests/' + this.id, {
+        status: this.status
+      })
+      .subscribe(
+        data => {
+          this._snackBar.open('Successfully Updated', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
 }

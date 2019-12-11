@@ -19,6 +19,7 @@ export class RoservationRequestsComponent implements OnInit {
   slot_three = 'open';
   slot_four = 'open';
   slot_five = 'open';
+  user = '';
   time = '';
   returnUrl: string;
   // Roservation Requests
@@ -26,6 +27,7 @@ export class RoservationRequestsComponent implements OnInit {
     'username',
     'slot',
     'route',
+    'time',
     'status',
     'action'
   ];
@@ -59,44 +61,45 @@ export class RoservationRequestsComponent implements OnInit {
     this.slot = row.slot;
     this.id = row.r_id;
     this.status = 'A';
-    this.time = row.time
-    if (this.slot !== 'slot_one') {
+    this.time = row.time;
+    this.user = row.username;
+    if (this.slot === 'slot_one') {
       this.httpClient
         .put('/api/slots/close', {
           time: this.time,
-          slot_one: this.slot_one
+          slot_one: this.user
         })
         .toPromise();
     }
-    if (this.slot !== 'slot_two') {
+    if (this.slot === 'slot_two') {
       this.httpClient
         .put('/api/slots/close', {
           time: this.time,
-          slot_two: this.slot_two
+          slot_two: this.user
         })
         .toPromise();
     }
-    if (this.slot !== 'slot_three') {
+    if (this.slot === 'slot_three') {
       this.httpClient
         .put('/api/slots/close', {
           time: this.time,
-          slot_three: this.slot_three
+          slot_three: this.user
         })
         .toPromise();
     }
-    if (this.slot !== 'slot_four') {
+    if (this.slot === 'slot_four') {
       this.httpClient
         .put('/api/slots/close', {
           time: this.time,
-          slot_four: this.slot_four
+          slot_four: this.user
         })
         .toPromise();
     }
-    if (this.slot !== 'slot_five') {
+    if (this.slot === 'slot_five') {
       this.httpClient
         .put('/api/slots/close', {
           time: this.time,
-          slot_five: this.slot_five
+          slot_five: this.user
         })
         .toPromise();
     }

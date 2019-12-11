@@ -28,7 +28,7 @@
                            <mat-horizontal-stepper labelPosition="bottom" #stepper>
     <mat-step >
             <ng-template matStepLabel>Slot one</ng-template>
-            <form [formGroup]="slotRequestFormGroup">
+            <form [formGroup]="slot15RequestFormGroup">
 
               <div class="row">
               <div class="col-md-4">
@@ -40,7 +40,7 @@
                 <mat-form-field>
               <mat-label>Requests</mat-label>
               <mat-select formControlName="request" (change)=loadSlotOneFive($event) [(ngModel)]="request">
-                <mat-option *ngFor="let req of requ15es" [value]="req.username">
+                <mat-option  *ngFor="let req of requ15es" [value]="req" >
                   {{req.username}}
                 </mat-option>
               </mat-select>
@@ -48,985 +48,1395 @@
             
               </div>
               <div class="col-md-4">
-                <button mat-button (click)="approve()">{{request}}</button>
+                <button mat-button (click)="approve15(request)" [formControl]="disableSelect">Approve</button>
               </div>
             </div>
             </form>
             
 
-            <!-- <div class="row">
-              <div class="col-md-4">
-                <mat-form-field>
-                <input matInput placeholder="06:00"  readonly>
-            </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <mat-form-field>
-              <mat-label>Requests</mat-label>
-              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="q">
-                <mat-option *ngFor="let req of reqs" [value]="req.r_id">
-                  {{req.username}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <button mat-button (click)="approve()">Approve</button>
-              </div>
-            </div>
+            <form [formGroup]="slot16RequestFormGroup">
 
-            <div class="row">
+              <div class="row">
               <div class="col-md-4">
                 <mat-form-field>
-                <input matInput placeholder="07:00"  readonly>
+                <input matInput formControlName="time" placeholder="06:00"  readonly>
             </mat-form-field>
               </div>
               <div class="col-md-4">
                 <mat-form-field>
               <mat-label>Requests</mat-label>
-              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
-                <mat-option *ngFor="let req of reqs" [value]="req.status">
+              <mat-select formControlName="request" (change)=loadSlotOneSix($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ16s" [value]="req" >
                   {{req.username}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <button mat-button>Next</button>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4">
-                <mat-form-field>
-                <input matInput placeholder="08:00"  readonly>
-            </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <mat-form-field>
-              <mat-label>Requests</mat-label>
-              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
-                <mat-option *ngFor="let req of reqs" [value]="req.status">
-                  {{req.username}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <button mat-button>Next</button>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-4">
-                <mat-form-field>
-                <input matInput placeholder="09:00"  readonly>
-            </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <mat-form-field>
-              <mat-label>Requests</mat-label>
-              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
-                <mat-option *ngFor="let req of reqs" [value]="req.status">
-                  {{req.username}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <button mat-button>Next</button>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-4">
-                <mat-form-field>
-                <input matInput placeholder=":10:00"  readonly>
-            </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <mat-form-field>
-              <mat-label>Requests</mat-label>
-              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
-                <mat-option *ngFor="let req of reqs" [value]="req.status">
-                  {{req.username}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <button mat-button>Next</button>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-4">
-                <mat-form-field>
-                <input matInput placeholder="11:00"  readonly>
-            </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <mat-form-field>
-              <mat-label>Requests</mat-label>
-              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
-                <mat-option *ngFor="let req of reqs" [value]="req.status">
-                  {{req.username}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <button mat-button>Next</button>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-4">
-                <mat-form-field>
-                <input matInput placeholder="12:00"  readonly>
-            </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <mat-form-field>
-              <mat-label>Requests</mat-label>
-              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
-                <mat-option *ngFor="let req of reqs" [value]="req.status">
-                  {{req.username}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <button mat-button>Next</button>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4">
-                <mat-form-field>
-                <input matInput placeholder="13:00"  readonly>
-            </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <mat-form-field>
-              <mat-label>Requests</mat-label>
-              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
-                <mat-option *ngFor="let req of reqs" [value]="req.status">
-                  {{req.username}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <button mat-button>Next</button>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-4">
-                <mat-form-field>
-                <input matInput placeholder="14:00"  readonly>
-            </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <mat-form-field>
-              <mat-label>Requests</mat-label>
-              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
-                <mat-option *ngFor="let req of reqs" [value]="req.status">
-                  {{req.username}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <button mat-button>Next</button>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-4">
-                <mat-form-field>
-                <input matInput placeholder="15:00"  readonly>
-            </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <mat-form-field>
-              <mat-label>Requests</mat-label>
-              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
-                <mat-option *ngFor="let req of reqs" [value]="req.status">
-                  {{req.username}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <button mat-button>Next</button>
-              </div>
-            </div> -->
             
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve16(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot17RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="07:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotOneSeven($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ17s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve17(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot18RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="08:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotOneEight($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ18s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve18(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot19RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="09:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotOneNine($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ19s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve19(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot110RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="10:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotOneTen($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ110s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve110(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot111RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="11:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotOneEleven($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ111s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve111(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot112RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="12:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotOneTwelve($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ112s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve112(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot113RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="13:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotOneThirteen($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ113s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve113(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot114RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="14:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotOneFourteen($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ114s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve114(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot115RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="15:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotOneFifteen($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ115s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve115(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
             <div>
                 <button mat-button matStepperNext>Next</button>
             </div>
     </mat-step>
     <mat-step >
             <ng-template matStepLabel>Slot two</ng-template>
-            <mat-form-field>
-                <input matInput placeholder="Address" formControlName="secondCtrl" required>
+            <form [formGroup]="slot25RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="05:00"  readonly>
             </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotTwoFive($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ25s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve25(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+            
+
+            <form [formGroup]="slot26RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="06:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotTwoSix($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ26s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve26(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot27RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="07:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotTwoSeven($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ27s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve27(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot28RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="08:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotTwoEight($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ28s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve28(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot29RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="09:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotTwoNine($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ29s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve29(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot210RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="10:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotTwoTen($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ210s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve210(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot211RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="11:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotTwoEleven($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ211s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve211(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot212RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="12:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotTwoTwelve($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ212s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve212(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot213RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="13:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotTwoThirteen($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ213s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve213(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot214RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="14:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotTwoFourteen($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ214s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve214(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot215RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="15:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotTwoFifteen($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ215s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve215(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
             <div>
                 <button mat-button matStepperPrevious>Back</button>
                 <button mat-button matStepperNext>Next</button>
             </div>
     </mat-step>
     <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        You are now done.
+        <ng-template matStepLabel>Slot Three</ng-template>
+        <form [formGroup]="slot35RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="05:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotThreeFive($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ35s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve35(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+            
+
+            <form [formGroup]="slot36RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="06:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotThreeSix($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ36s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve36(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot37RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="07:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotThreeSeven($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ37s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve37(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot38RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="08:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotThreeEight($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ38s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve38(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot39RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="09:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotThreeNine($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ39s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve39(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot310RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="10:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotThreeTen($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ310s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve310(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot311RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="11:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotThreeEleven($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ311s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve311(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot312RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="12:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotThreeTwelve($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ312s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve312(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot313RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="13:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotThreeThirteen($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ313s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve313(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot314RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="14:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotThreeFourteen($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ314s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve314(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot315RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="15:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotThreeFifteen($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ315s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve315(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
         <div>
             <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="stepper.reset()">Reset</button>
+            <button mat-button matStepperNext>Next</button>
         </div>
     </mat-step>
 
     <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        You are now done.
+        <ng-template matStepLabel>Slot Four</ng-template>
+        <form [formGroup]="slot45RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="05:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotFourFive($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ45s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve45(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+            
+
+            <form [formGroup]="slot46RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="06:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotFourSix($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ46s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve46(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot47RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="07:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotFourSeven($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ47s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve47(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot48RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="08:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotFourEight($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ48s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve48(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot49RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="09:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotFourNine($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ49s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve49(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot410RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="10:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotFourTen($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ410s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve410(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot411RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="11:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotFourEleven($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ411s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve411(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot412RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="12:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotFourTwelve($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ412s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve412(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot413RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="13:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotFourThirteen($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ413s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve413(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot414RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="14:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotFourFourteen($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ414s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve414(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot415RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="15:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotFourFifteen($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ415s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve415(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
         <div>
             <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="stepper.reset()">Reset</button>
+            <button mat-button matStepperNext>Next</button>
         </div>
     </mat-step>
     <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        You are now done.
+        <ng-template matStepLabel>Slot Five</ng-template>
+        <form [formGroup]="slot55RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="05:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotFiveFive($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ55s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve55(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+            
+
+            <form [formGroup]="slot56RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="06:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotFiveSix($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ56s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve56(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot57RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="07:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotFiveSeven($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ57s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve57(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot58RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="08:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotFiveEight($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ58s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve58(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot59RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="09:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotFiveNine($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ59s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve59(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot510RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder=":1000"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotFiveTen($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ510s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve510(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot511RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="11:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotFiveEleven($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ511s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve511(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot512RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="12:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotFiveTwelve($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ512s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve512(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot513RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="13:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotFiveThirteen($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ513s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve513(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot514RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="14:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotFiveFourteen($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ514s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve514(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
+
+            <form [formGroup]="slot515RequestFormGroup">
+
+              <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                <input matInput formControlName="time" placeholder="15:00"  readonly>
+            </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+              <mat-label>Requests</mat-label>
+              <mat-select formControlName="request" (change)=loadSlotFiveFifteen($event) [(ngModel)]="request">
+                <mat-option  *ngFor="let req of requ515s" [value]="req" >
+                  {{req.username}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+              </div>
+              <div class="col-md-4">
+                <button mat-button (click)="approve515(request)" [formControl]="disableSelect">Approve</button>
+              </div>
+            </div>
+            </form>
         <div>
             <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="stepper.reset()">Reset</button>
         </div>
     </mat-step>
 </mat-horizontal-stepper>
-                <!-- <mat-form-field>
-                  <input
-                    matInput
-                    (keyup)="applyFilter($event.target.value)"
-                    placeholder="Filter"
-                  />
-                </mat-form-field>
-
-                <div class="mat-elevation-z8"> -->
-
-
-       
-
-
-                  <!-- <table class="table">
-    <thead>
-        <tr>
-            <th>Time</th>
-            <th>SLot One</th>
-            <th>Slot Two</th>
-            <th>SLot Three</th>
-            <th>SLot Four</th>
-            <th>SLot Five</th>
-            <th>Actions</th>
-            
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td class="text-center">05:00</td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ15es" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotTwoFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ25s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotThreeFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req3 of requ35s" [value]="req3.r_id">
-                    {{req3.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotFourFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ45s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotFiveFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ55s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <button (click)="approve()">Approve</button>
-            </td>
-        </tr>
-        <tr>
-            <td class="text-center">06:00</td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ15s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotTwoFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ25s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotThreeFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req3 of requ35s" [value]="req3.r_id">
-                    {{req3.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotFourFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ45s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotFiveFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ55s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-        </tr>
-        <tr>
-            <td class="text-center">07:00</td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ15s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotTwoFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ25s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotThreeFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req3 of requ35s" [value]="req3.r_id">
-                    {{req3.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotFourFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ45s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotFiveFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ55s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-        </tr>
-        <tr>
-            <td class="text-center">08:00</td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ15s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotTwoFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ25s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotThreeFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req3 of requ35s" [value]="req3.r_id">
-                    {{req3.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotFourFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ45s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotFiveFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ55s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-        </tr>
-        <tr>
-            <td class="text-center">09:00</td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ15s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotTwoFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ25s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotThreeFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req3 of requ35s" [value]="req3.r_id">
-                    {{req3.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotFourFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ45s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotFiveFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ55s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-        </tr>
-        <tr>
-            <td class="text-center">10:00</td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ15s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotTwoFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ25s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotThreeFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req3 of requ35s" [value]="req3.r_id">
-                    {{req3.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotFourFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ45s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotFiveFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ55s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-        </tr>
-        <tr>
-            <td class="text-center">11:00</td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ15s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotTwoFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ25s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotThreeFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req3 of requ35s" [value]="req3.r_id">
-                    {{req3.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotFourFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ45s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotFiveFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ55s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-        </tr>
-        <tr>
-            <td class="text-center">12:00</td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ15s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotTwoFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ25s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotThreeFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req3 of requ35s" [value]="req3.r_id">
-                    {{req3.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotFourFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ45s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotFiveFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ55s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-        </tr>
-        <tr>
-            <td class="text-center">13:00</td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ15s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotTwoFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ25s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotThreeFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req3 of requ35s" [value]="req3.r_id">
-                    {{req3.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotFourFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ45s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotFiveFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ55s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-        </tr>
-        <tr>
-            <td class="text-center">14:00</td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ15s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotTwoFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ25s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotThreeFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req3 of requ35s" [value]="req3.r_id">
-                    {{req3.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotFourFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ45s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotFiveFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ55s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-        </tr>
-        <tr>
-            <td class="text-center">15:00</td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ15s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotTwoFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ25s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotThreeFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req3 of requ35s" [value]="req3.r_id">
-                    {{req3.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotFourFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ45s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field>
-                <mat-label>Requests</mat-label>
-                <mat-select (change)=loadSlotFiveFive($event) [(ngModel)]="slot_one_five">
-                  <mat-option *ngFor="let req of requ55s" [value]="req.r_id">
-                    {{req.username}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-        </tr>
-    </tbody>
-</table> -->
-
-
-
-
-                  <!-- <table class="table" style="width: 10%;" mat-table [dataSource]="dataSource">
-                    <ng-container matColumnDef="time">
-                      <th mat-header-cell *matHeaderCellDef>time</th>
-                      <td mat-cell *matCellDef="let element">
-                        {{ element.time }}
-                      </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="slot_one">
-                      <th mat-header-cell *matHeaderCellDef>Slot 1</th>
-                      <td mat-cell *matCellDef="let element">
-                          <mat-form-field>
-                              <mat-label>Requests</mat-label>
-                              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
-                                <mat-option *ngFor="let req of reqs" [value]="req.status">
-                                  {{req.username}}
-                                </mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                      </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="slot_two">
-                      <th mat-header-cell *matHeaderCellDef>Slot 2</th>
-                      <td mat-cell *matCellDef="let element">
-                          <mat-form-field>
-                              <mat-label>Requests</mat-label>
-                              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
-                                <mat-option *ngFor="let req of reqs" [value]="req.status">
-                                  {{req.username}}
-                                </mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                      </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="slot_three">
-                      <th mat-header-cell *matHeaderCellDef>Slot 3</th>
-                      <td mat-cell *matCellDef="let element">
-                          <mat-form-field>
-                              <mat-label>Requests</mat-label>
-                              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
-                                <mat-option *ngFor="let req of reqs" [value]="req.status">
-                                  {{req.username}}
-                                </mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                      </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="slot_four">
-                      <th mat-header-cell *matHeaderCellDef>Slot 4</th>
-                      <td mat-cell *matCellDef="let element">
-                          <mat-form-field>
-                              <mat-label>Requests</mat-label>
-                              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
-                                <mat-option *ngFor="let req of reqs" [value]="req.status">
-                                  {{req.username}}
-                                </mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                      </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="slot_five">
-                      <th mat-header-cell *matHeaderCellDef>Slot 5</th>
-                      <td mat-cell *matCellDef="let element">
-                          <mat-form-field>
-                              <mat-label>Requests</mat-label>
-                              <mat-select (change)=loadSlotOneFive($event) [(ngModel)]="req">
-                                <mat-option *ngFor="let req of reqs" [value]="req.status">
-                                  {{req.username}}
-                                </mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                      </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="action">
-                      <th mat-header-cell *matHeaderCellDef>Action</th>
-                      <td mat-cell *matCellDef="let row">
-                        <button
-                          mat-raised-button
-                          (click)="onOpen(row)"
-                          matTooltip="Book Slot"
-                          aria-label="Button that displays a tooltip when focused or hovered over"
-                          class="btn btn-primary btn-link btn-sm btn-just-icon"
-                        >
-                          <i class="material-icons">commute</i>
-                        </button>
-                      </td>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr
-                      mat-row
-                      *matRowDef="let row; columns: displayedColumns"
-                    ></tr>
-                  </table> -->
-
-                  <!-- <mat-paginator
-                    [pageSizeOptions]="[5, 10, 20]"
-                    showFirstLastButtons
-                  ></mat-paginator>
-                </div> -->
+          
               </div>
             </div>
           </div>

@@ -56,7 +56,7 @@ import { AdminDashboardComponent } from 'app/admin-dashboard/admin-dashboard.com
     SignaturePadModule,
     MatSortModule,
     MatStepperModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   declarations: [
     DashboardComponent,
