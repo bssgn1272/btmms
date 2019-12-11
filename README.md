@@ -114,4 +114,7 @@ To create Slots postman can be used
 }
 
 + Time should be a string from '05:00' to 15:00
-+ Date should be for the following day
++ Date should be for the following day 
+
+Date format
+> 2019-12-04T21:38:02.2869463+02:00
