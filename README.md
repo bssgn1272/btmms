@@ -1,2 +1,2 @@
 # btmms
-Code base for the BTMMS project
+Code base for the BTMMS project.
