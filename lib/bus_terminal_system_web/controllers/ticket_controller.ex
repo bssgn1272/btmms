@@ -69,9 +69,23 @@ defmodule BusTerminalSystemWeb.TicketController do
       {:error, result} -> { json(conn, result)}
 
       {:ok, result} ->
-        {
-          json(conn, result)
-        }
+        {:ok, payload} = Map.fetch(params,"payload")
+        if !Map.has_key?(payload,"reference_number") do
+          json(conn, ApiManager.api_error_handler(ApiManager.definition_query,ApiManager.support_query))
+        else
+          {:ok, reference_number} = Map.fetch(payload,"reference_number")
+          case RepoManager.get_ticket_by_reference_number(reference_number) do
+            nil -> ""
+            ticket ->
+            conn
+            |> json(ApiManager.api_message_custom_handler(ApiManager.definition_query,"SUCCESS",0,
+              %{
+                "reference_number" => ticket.reference_number
+              }))
+          end
+        end
+
+
     end
 
     json conn, []
@@ -83,15 +97,14 @@ defmodule BusTerminalSystemWeb.TicketController do
 
       {:ok, _result} ->
           {:ok, payload} = Map.fetch(params,"payload")
-          IO.inspect(payload)
           if !Map.has_key?(payload,"external_ref") or !Map.has_key?(payload,"route_code") do
-              json(conn, ApiManager.api_error_handler(ApiManager.definition_purchase(),"Could not complete purchase. Missing data keys. Please refer to documentation for more info"))
+              json(conn, ApiManager.api_error_handler(ApiManager.definition_purchase, ApiManager.support_purchase))
           else
 
             case validate_route(conn,payload) do
               {:error, _payload} ->
                 conn
-                |> json(ApiManager.api_error_handler(ApiManager.definition_purchase(),"INVALID ROUTE CODE"))
+                |> json(ApiManager.api_error_handler(ApiManager.definition_purchase,"INVALID ROUTE CODE"))
 
               {:ok, route} ->
 
@@ -100,7 +113,7 @@ defmodule BusTerminalSystemWeb.TicketController do
                 case validate_ext_reference(ext_reference) do
                   {:error, _reference} ->
                     conn
-                    |> json(ApiManager.api_error_handler(ApiManager.definition_purchase(),"Duplicate External Reference [#{_reference}]"))
+                    |> json(ApiManager.api_error_handler(ApiManager.definition_purchase,"Duplicate External Reference [#{_reference}]"))
 
                   {:ok, _reference} ->
                     conn
@@ -146,7 +159,7 @@ defmodule BusTerminalSystemWeb.TicketController do
 
       {:error, %Ecto.Changeset{} = _changeset} ->
         conn
-        |> json(ApiManager.api_error_handler(ApiManager.definition_purchase(),"An Error Occurred, Operation Failed. Could not Purchase Ticket"))
+        |> json(ApiManager.api_error_handler(ApiManager.definition_purchase,"An Error Occurred, Operation Failed. Could not Purchase Ticket"))
     end
   end
 
@@ -188,8 +201,14 @@ defmodule BusTerminalSystemWeb.TicketController do
     end
   end
 
-  def get_routes(conn,_params) do
+  def get_schedules(conn,_params) do
+    {:ok,agent,schedules} = RepoManager.route_mapping()
+    Agent.stop(agent)
+    json(conn, schedules)
+  end
 
+  def get_travel_routes(conn,_params) do
+    json(conn, RepoManager.list_routes_json())
   end
 
   def list_tickets(conn,_params) do

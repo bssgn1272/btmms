@@ -1,8 +1,9 @@
-defmodule BusTerminalSystem.BusManagement.BusTerminus do
+defmodule BusTerminalSystem.BusManagement.Bus do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "bus_terminus" do
+  @derive {Poison.Encoder, only: [:liscense_plate, :company, :operator_id]}
+  schema "tbl_bus" do
     field :fitness_liscence, :string
     field :liscense_plate, :string
     field :uid, :string
@@ -26,7 +27,7 @@ defmodule BusTerminalSystem.BusManagement.BusTerminus do
   @doc false
   def changeset(bus_terminus, attrs) do
     bus_terminus
-    |> cast(attrs, [:liscense_plate])
-    |> validate_required([:liscense_plate])
+    |> cast(attrs, [:liscense_plate, :company, :operator_id])
+    |> validate_required([:liscense_plate, :company, :operator_id])
   end
 end

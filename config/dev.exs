@@ -17,7 +17,7 @@ config :bus_terminal_system, BusTerminalSystem.Repo,
 # with webpack to recompile .js and .css sources.
 config :bus_terminal_system, BusTerminalSystemWeb.Endpoint,
   http: [port: 4000],
-  debug_errors: false,
+  debug_errors: true,
   code_reloader: true,
   check_origin: false,
   watchers: [

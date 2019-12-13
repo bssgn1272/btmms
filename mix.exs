@@ -7,7 +7,7 @@ defmodule BusTerminalSystem.MixProject do
       version: "0.1.0",
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      compilers: [:phoenix, :gettext, :phoenix_swagger] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
@@ -47,7 +47,8 @@ defmodule BusTerminalSystem.MixProject do
       {:poison, "~> 3.1.0"},
       {:json, "~> 1.3.0"},
       {:eqrcode, "~> 0.1.6"},
-      {:barlix, "~> 0.6.0"}
+      {:barlix, "~> 0.6.0"},
+      {:phoenix_swagger, "~> 0.8"}
     ]
   end
 

@@ -13,8 +13,11 @@ defmodule BusTerminalSystem.RepoManager do
   alias BusTerminalSystem.Station
   alias BusTerminalSystem.Gate
   alias BusTerminalSystem.TravelRoutes
+  alias BusTerminalSystem.RouteMapping
 
   alias BusTerminalSystem.TicketManagement.Ticket
+  alias BusTerminalSystem.BusManagement.Bus
+  alias BusTerminalSystem.AccountManager.User
 
   #-------- LIST REPO ------------////////////
 
@@ -25,12 +28,26 @@ defmodule BusTerminalSystem.RepoManager do
   def update_tenant(%Tenant{} = tenant, attrs), do: tenant |> Tenant.changeset(attrs) |> Repo.update()
   def delete_tenant(%Tenant{} = tenant), do: Repo.delete(tenant)
 
+  # TENANTS
+  def get_operator(id), do: Repo.get!(User, id)
+  def list_operators(), do: Repo.all(User)
+  def create_operator(attrs \\ %{}), do: %User{} |> User.changeset(attrs) |> Repo.insert()
+  def update_operator(%User{} = user, attrs), do: user |> User.changeset(attrs) |> Repo.update()
+  def delete_operator(%User{} = user), do: Repo.delete(user)
+
   # HUBS
   def get_hub(id), do: Repo.get!(Hub, id)
   def list_hubs(), do: Repo.all(Hub)
   def create_hub(attrs \\ %{}), do: %Hub{} |> Hub.changeset(attrs) |> Repo.insert()
   def update_hub(%Hub{} = hub, attrs), do: hub |> Hub.changeset(attrs) |> Repo.update()
   def delete_hub(%Hub{} = hub), do: Repo.delete(hub)
+
+  # BUS
+  def get_bus(id), do: Repo.get!(Bus, id)
+  def list_buses(), do: Repo.all(Bus)
+  def create_bus(attrs \\ %{}), do: %Bus{} |> Bus.changeset(attrs) |> Repo.insert()
+  def update_bus(%Bus{} = bus, attrs), do: bus |> Bus.changeset(attrs) |> Repo.update()
+  def delete_bus(%Bus{} = bus), do: Repo.delete(bus)
 
   # SECTIONS
   def get_section(id), do: Repo.get!(Section, id)
@@ -60,6 +77,10 @@ defmodule BusTerminalSystem.RepoManager do
   def update_ticket(%Ticket{} = ticket, attrs), do: ticket |> Hub.changeset(attrs) |> Repo.update()
   def delete_ticket(%Ticket{} = ticket), do: Repo.delete(ticket)
 
+  def get_ticket_by_reference_number(reference) do
+    Repo.get_by(Ticket, reference_number: reference)
+  end
+
   def get_ticket_by_external_reference(reference) do
     Repo.get_by(Ticket, external_ref: reference)
   end
@@ -71,8 +92,62 @@ defmodule BusTerminalSystem.RepoManager do
   def update_route(%TravelRoutes{} = ticket, attrs), do: ticket |> TravelRoutes.changeset(attrs) |> Repo.update()
   def delete_route(%TravelRoutes{} = ticket), do: Repo.delete(ticket)
 
+  def schedule_routes(attrs \\ %{}), do: %RouteMapping{} |> RouteMapping.changeset(attrs) |> Repo.insert()
+
+  def list_routes_json() do
+    {status, travel_routes} = Repo.all(TravelRoutes) |> Poison.encode()
+    {decode_status, routes_map} = JSON.decode(travel_routes)
+    %{ "travel_routes" => routes_map }
+  end
+
   def get_route_by_route_code(code) do
     Repo.get_by(TravelRoutes, route_code: code)
+  end
+
+  def route_mapping do
+
+    {:ok, agent} = Agent.start_link fn  -> [] end
+
+    {:ok, data} = Repo.all(RouteMapping) |> Poison.encode
+
+    {status,route_mapping_data} = JSON.decode(data)
+
+    route_mapping_data
+    |> Enum.with_index()
+    |> Enum.each(fn {e, index} ->
+
+       {:ok, operator_id} = Map.fetch(e,"operator_id")
+       {operator_id_int, _operator_id_string} = Integer.parse(operator_id)
+       {operator_json_status, operator_json} = get_operator(operator_id_int) |> Poison.encode
+       {operator_status, operator} = JSON.decode(operator_json)
+
+       {:ok, bus_id} = Map.fetch(e,"bus_id")
+       {bus_id_int, _bus_id_string} = Integer.parse(bus_id)
+       {bus_json_status, bus_json} = get_bus(bus_id_int) |> Poison.encode
+       {bus_status, bus} = JSON.decode(bus_json)
+
+       #IO.inspect bus
+
+       {:ok, route_id} = Map.fetch(e,"route_id")
+       {route_id_int, _route_id_string} = Integer.parse(route_id)
+       {route_json_status, route_json} = get_route(route_id_int) |> Poison.encode
+       {route_status, route} = JSON.decode(route_json)
+
+       #IO.inspect route
+
+       {:ok, fare} = Map.fetch(e,"fare")
+
+
+       Agent.update(agent, fn list -> [
+          %{
+            #"operator" => operator,
+            "route" => route,
+            "bus" => bus,
+            "fare" => fare
+          } | list ] end)
+    end)
+
+    {:ok, agent, Agent.get(agent, fn list -> list end) }
   end
 
 

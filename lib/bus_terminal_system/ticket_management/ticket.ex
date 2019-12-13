@@ -14,7 +14,10 @@ defmodule BusTerminalSystem.TicketManagement.Ticket do
     field :bus_no, :string
     field :class, :string
     field :activation_status, :string
-
+    field :first_name, :string
+    field :last_name, :string
+    field :id_type, :string
+    field :passenger_id, :string
 
     timestamps()
   end

@@ -70,8 +70,29 @@ defmodule BusTerminalSystemWeb.Router do
   scope "/api/v1", BusTerminalSystemWeb do
     pipe_through :api
 
-    post "/tickets/secured/find", TicketController, :find_ticket
-    post "/tickets/secured/purchase", TicketController, :purchase_ticket
-    get "/tickets/secured/list", TicketController, :list_tickets
+    post "/btms/tickets/secured/find", TicketController, :find_ticket
+    post "/btms/tickets/secured/purchase", TicketController, :purchase_ticket
+    get "/btms/travel/secured/destinations", TicketController, :get_schedules
+    get "/btms/travel/secured/routes", TicketController, :get_travel_routes
+    get "/btms/tickets/secured/list", TicketController, :list_tickets
   end
+
+  def swagger_info do
+    %{
+      info: %{
+        version: "1.0",
+        title: "BTMS",
+        contact: %{
+         name: "Philip Chani",
+         email: "philip@probasegroup.com"
+        }
+      },
+      "definitions": %{
+      "/pets": %{
+        }
+      }
+
+    }
+  end
+
 end

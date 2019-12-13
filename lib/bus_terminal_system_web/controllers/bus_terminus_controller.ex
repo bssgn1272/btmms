@@ -2,7 +2,7 @@ defmodule BusTerminalSystemWeb.BusTerminusController do
   use BusTerminalSystemWeb, :controller
 
   alias BusTerminalSystem.BusManagement
-  alias BusTerminalSystem.BusManagement.BusTerminus
+  alias BusTerminalSystem.BusManagement.Bus
 
   plug(
     BusTerminalSystemWeb.Plugs.RequireAuth
@@ -23,7 +23,7 @@ defmodule BusTerminalSystemWeb.BusTerminusController do
   end
 
   def new(conn, _params) do
-    changeset = BusManagement.change_bus_terminus(%BusTerminus{})
+    changeset = BusManagement.change_bus_terminus(%Bus{})
     render(conn, "new.html", changeset: changeset)
   end
 
@@ -38,33 +38,19 @@ defmodule BusTerminalSystemWeb.BusTerminusController do
         render(conn, "new.html", changeset: changeset)
     end
   end
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
   def createTerminus(conn, _params) do
-    changeset = BusManagement.change_bus_terminus(%BusTerminus{})
+    changeset = BusManagement.change_bus_terminus(%Bus{})
     render(conn, "createTerminus.html", changeset: changeset)
   end
   
   def new(conn, _params) do
-    changeset = BusManagement.change_bus_terminus(%BusTerminus{})
+    changeset = BusManagement.change_bus_terminus(%Bus{})
     render(conn, "createStation.html", changeset: changeset)
   end
 
   def new(conn, _params) do
-    changeset = BusManagement.change_bus_terminus(%BusTerminus{})
+    changeset = BusManagement.change_bus_terminus(%Bus{})
     render(conn, "createGate.html", changeset: changeset)
   end
   

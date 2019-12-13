@@ -41,7 +41,7 @@ defmodule BusTerminalSystem.ApiManager do
   end
 
   def api_success_handler(service,message) do
-    %{ "response" => %{"success" => %{ "status" => 0,"operation" => service,"operation_status" => "FAILED","message" => "#{message}"}}}
+    %{ "response" => %{"success" => %{ "status" => 0,"operation" => service,"operation_status" => "SUCCESS","message" => "#{message}"}}}
   end
 
   def api_message_handler(service,message,status_message,status_code) do
@@ -59,4 +59,9 @@ defmodule BusTerminalSystem.ApiManager do
   #----------------SERVICES--------------------------
   def definition_authentication, do: "AUTHENTICATION"
   def definition_purchase, do: "PURCHASE"
+  def support_purchase, do: "Could not complete purchase. Missing data keys. Please refer to documentation for more info"
+
+  def definition_query, do: "QUERY"
+  def support_query, do: "Could not complete Query. Missing data keys. Please refer to documentation for more info"
+
 end
