@@ -1,8 +1,6 @@
 # btmms
 Code base for the BTMMS project
 
-# Revision Required
-
 # Frontend
 
 The Frontend of this system has been developed using Angular material.
@@ -32,6 +30,12 @@ Run
 npm install
 ```
 
+To run the dev server
+```bash
+npm start
+```
+
+To build the frontend
 ```bash
 npm run-script build
 ```
@@ -53,7 +57,7 @@ cd bus_terminal_backend
 Run
 
 ```bash
-go Build
+go build
 ```
 
 port Number
@@ -110,7 +114,7 @@ To create Slots postman can be used
     "slot_four": "open",
     "slot_five": "open",
     "time":<string>,
-    "reservation_time":<date(timeStamp)>
+    "reservation_time":<date(timeStamp with time zone)>
 }
 
 + Time should be a string from '05:00' to 15:00
