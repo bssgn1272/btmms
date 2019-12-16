@@ -54,6 +54,12 @@ Go into the backend folder
 cd bus_terminal_backend
 ```
 
+Install all external Packages
+
+```bash
+go get ./...
+```
+
 Run
 
 ```bash
