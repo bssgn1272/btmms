@@ -6,7 +6,7 @@ defmodule BusTerminalSystem.BusManagement do
   import Ecto.Query, warn: false
   alias BusTerminalSystem.Repo
 
-  alias BusTerminalSystem.BusManagement.BusTerminus
+  alias BusTerminalSystem.BusManagement.Bus
 
   @doc """
   Returns the list of bus_terminus.
@@ -18,7 +18,7 @@ defmodule BusTerminalSystem.BusManagement do
 
   """
   def list_bus_terminus do
-    Repo.all(BusTerminus)
+    Repo.all(Bus)
   end
 
   @doc """
@@ -35,7 +35,7 @@ defmodule BusTerminalSystem.BusManagement do
       ** (Ecto.NoResultsError)
 
   """
-  def get_bus_terminus!(id), do: Repo.get!(BusTerminus, id)
+  def get_bus_terminus!(id), do: Repo.get!(Bus, id)
 
   @doc """
   Creates a bus_terminus.
@@ -50,8 +50,8 @@ defmodule BusTerminalSystem.BusManagement do
 
   """
   def create_bus_terminus(attrs \\ %{}) do
-    %BusTerminus{}
-    |> BusTerminus.changeset(attrs)
+    %Bus{}
+    |> Bus.changeset(attrs)
     |> Repo.insert()
   end
 
@@ -67,9 +67,9 @@ defmodule BusTerminalSystem.BusManagement do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_bus_terminus(%BusTerminus{} = bus_terminus, attrs) do
+  def update_bus_terminus(%Bus{} = bus_terminus, attrs) do
     bus_terminus
-    |> BusTerminus.changeset(attrs)
+    |> Bus.changeset(attrs)
     |> Repo.update()
   end
 
@@ -85,7 +85,7 @@ defmodule BusTerminalSystem.BusManagement do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_bus_terminus(%BusTerminus{} = bus_terminus) do
+  def delete_bus_terminus(%Bus{} = bus_terminus) do
     Repo.delete(bus_terminus)
   end
 
@@ -98,7 +98,7 @@ defmodule BusTerminalSystem.BusManagement do
       %Ecto.Changeset{source: %BusTerminus{}}
 
   """
-  def change_bus_terminus(%BusTerminus{} = bus_terminus) do
-    BusTerminus.changeset(bus_terminus, %{})
+  def change_bus_terminus(%Bus{} = bus_terminus) do
+    Bus.changeset(bus_terminus, %{})
   end
 end

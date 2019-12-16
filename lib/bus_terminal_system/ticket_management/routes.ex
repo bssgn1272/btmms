@@ -2,12 +2,14 @@ defmodule BusTerminalSystem.TravelRoutes do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @derive {Poison.Encoder, only: [:route_name, :start_route, :end_route, :route_code]}
+  @derive {Poison.Encoder, only: [:route_name, :start_route, :end_route, :route_code, :source_state]}
   schema "travel_routes" do
     field :route_name, :string
     field :start_route, :string
     field :end_route, :string
     field :route_code, :string
+    field :source_state, :string
+    field :route_uuid, :string
 
     timestamps()
   end
@@ -15,8 +17,9 @@ defmodule BusTerminalSystem.TravelRoutes do
   @doc false
   def changeset(route, attrs) do
     route
-    |> cast(attrs, [:route_name, :start_route, :end_route, :route_code])
-    |> validate_required([:route_name, :start_route, :end_route, :route_code])
+    |> cast(attrs, [:route_name, :start_route, :end_route, :route_code, :source_state, :route_uuid])
+    |> validate_required([:route_name, :start_route, :end_route, :route_code, :source_state, :route_uuid])
+    |> unique_constraint([:source_state, :route_uuid])
   end
 
 end

@@ -1,8 +1,86 @@
+<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/stats/statistics.js") %>"></script>
+<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/stats/canvas.min.js") %>"></script>
+
+
+<!-- Quick stats boxes -->
 <!-- Timeline -->
 <%= if @user.role == "ADMIN" do %>
+    <h1 style="text-align:center">DASHBOARD</h1><hr style="border-top: 1px solid orange;">
     <div class="timeline timeline-left content-group" style="margin-top: 2%;">
         <div class="timeline-container">
-                               
+                   
+            <div class="timeline-row">
+                <div class="timeline-icon">
+                    <div class="bg-primary-400">
+                        <i class="icon-table"></i>
+                    </div>
+                    <a href="#"><img src="assets/images/placeholder.jpg" alt=""></a>
+                </div>
+            
+
+                <div class="panel border-left-lg border-left-primary timeline-content">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">Statistics Dashboard</h6>
+                    </div>
+                    <hr>
+
+                <div class="panel-body">
+                    <div class="chart-container">
+                        <!-- ############ STATISTICS ############ -->
+                        <div class="row">
+
+                            <div class="col-md-6 col-lg-6 panel panel-flat">
+                               <h2>Sales Statistics</h2>
+                               <hr>
+                                <div class="col">
+                                    <div class="row-md-6 panel panel-flat">
+                                        <!-- ############## OVER-THE-COUNTER ############## -->
+                                        <div id="chartContainer1" style="height: 370px; width: 100;"></div>
+                                       
+                                        <!-- ############## OVER-THE-COUNTER ############## -->
+                                    </div>
+
+                                    <div class="row-md-6 panel panel-flat">
+                                        <!-- ############## ONLINE-TRANSACTION ############## -->
+                                        <div id="chartContainer2" style="height: 370px; width: 100%;"></div>
+                                      
+                                        <!-- ############## ONLINE-TRANSACTION ############## -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-6 panel panel-flat">
+                                <h2>Travels</h2>
+                                <hr>
+                                <div class="col">
+                                    <div class="row-md-6 panel panel-flat">
+                                        <!-- ############## MOST-USED-ROUTES ############## -->
+                                        <div id="chartContainer3" style="height: 370px; width: 100%;"></div>
+                                        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+                                        <!-- ############## MOST-USED-ROUTES ############## -->
+                                    </div>
+
+                                    <div class="row-md-6 panel panel-flat">
+                                        <!-- ############## MOST-USED-BUS-OPERATOR ############## -->
+                                        <div id="chartContainer4" style="height: 370px; width: 100%;"></div>
+                                        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+                                        <!-- ############## MOST-USED-BUS-OPERATOR ############## -->
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- ############ /STATISTICS ############ -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
             <div class="timeline-row">
                 <div class="timeline-icon">
                     <div class="bg-primary-400">
@@ -138,6 +216,34 @@
                             </div> 
 
                         </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12">
+                                <div class="w3-card-2" style="margin-bottom: 6%;">
+                                    <header class="w3-container w3-deep-purple">
+                                        <h4>Routes Module</h4>
+                                    </header>
+
+                                    <div class="container-fluid" id="marketButtons">
+
+                                        <div class="row">
+                                          
+                                            <div class="col-sm-12 col-md-12">
+                                                <p>
+                                                    <a href="<%= Routes.route_path(@conn, :index) %>">
+                                                        <button class="w3-btn-block w3-indigo w3-hover-orange">
+                                                            View Available Routes
+                                                        </button>
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+
                     </div>
                 </div>
                 </div>
@@ -163,17 +269,11 @@
                     <div class="panel border-left-lg border-left-danger invoice-grid timeline-content">
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-12">
                                     <h6 class="text-semibold no-margin-top">
-                                        <a href="<%= Routes.user_path(@conn, :table_users) %>">
-                                            List of System users
+                                        <a href="<%= Routes.user_path(@conn, :table_users) %>" class="w3-btn w3-indigo w3-hover-orange">
+                                            View System users
                                         </a>
-                                    </h6>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <h6 class="text-semibold text-right no-margin-top">
-                                        <--- Click That
                                     </h6>
                                 </div>
 
@@ -192,17 +292,11 @@
                     <div class="panel border-left-lg border-left-danger invoice-grid timeline-content">
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-12">
                                     <h6 class="text-semibold no-margin-top">
-                                        <a href="#" data-toggle="modal" data-target="#exampleModalLong">
+                                        <a href="#" class="w3-btn w3-indigo w3-hover-orange" data-toggle="modal" data-target="#exampleModalLong">
                                             Register New User
                                         </a>
-                                    </h6>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <h6 class="text-semibold text-right no-margin-top">
-                                        <--- Click That
                                     </h6>
                                 </div>
 
@@ -278,7 +372,7 @@
 <!-- Main content -->
 <div class="container-fluid">
 
-<!--################BOP COVER################--> 
+<!--################ BOP COVER ################--> 
 <%= if @user.role == "BOP" do %>    
     <div class="profile-cover">
         <div class="profile-cover-img" style="background: url('/images/backgrounds/terminus/3.jpg')"></div>
@@ -307,8 +401,25 @@
         <div class="navbar-collapse collapse" id="navbar-filter">
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a href="#activity" data-toggle="tab"><i class="icon-menu7 position-left"></i> Activity</a>
-                </li>          
+                    <a href="#BOPhome" data-toggle="tab">
+                        <i class="icon-menu7 position-left"></i> Home
+                    </a>
+                </li>  
+                <li>
+                    <a href="#BOPdocumentation" data-toggle="tab">
+                        <i class="icon-book position-left"></i> Documentation 
+                    </a>
+                </li>    
+                <li>
+                    <a href="#BOPregisterTellers" data-toggle="tab">
+                        <i class="icon-user position-left"></i> Register Tellers 
+                    </a>
+                </li>
+                <li>
+                    <a href="#BOPregisterBus" data-toggle="tab">
+                        <i class="icon-car position-left"></i> Register Buses 
+                    </a>
+                </li>     
             </ul>
 
             <div class="navbar-right">
@@ -333,11 +444,14 @@
         </div>
     </div>
     <!-- /toolbar -->
+
+
+
 <% end %>
-<!--################BOP COVER################-->
+<!--################ BOP COVER %> ################-->
 
 
-<!--################MOP COVER################--> 
+<!--################ MOP COVER ################--> 
 <%= if @user.role == "MOP" do %>    
     <div class="profile-cover">
         <div class="profile-cover-img" style="background: url('/images/backgrounds/market/2.1.jpg'); background-position: no-repeat;"></div>
@@ -377,7 +491,7 @@
                 </li>    
                 <li>
                     <a href="#registerMarketeers" data-toggle="tab">
-                        <i class="icon-calendar3 position-left"></i> Register Marketeers 
+                        <i class="icon-user position-left"></i> Register Marketeers 
                     </a>
                 </li>    
             </ul>
@@ -405,155 +519,692 @@
     </div>
     <!-- /toolbar -->
 <% end %>
-<!--################MOP COVER################-->
+<!--################ MOP COVER %> ################-->
 
 </div>
-
-
 
 
 
 <%= if @user.role == "BOP" do %>
- <!--################BOP DASHBOARD################--> 
-<div class="container-fluid">
-<!-- Timeline -->
-<div class="timeline timeline-left content-group">
-    <div class="timeline-container">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="tabbable">
+            <div class="tab-content">
 
-                                            
-        <div class="timeline-row">
-            <div class="timeline-icon">
-                <div class="bg-primary-400">
-                    <i class="icon-table"></i>
-                </div>
-                <a href="#"><img src="assets/images/placeholder.jpg" alt=""></a>
-            </div>
+                <!--############ BOP_HOME %> ###########-->
+                <div class="tab-pane fade in active" id="BOPhome">
+                <div class="container-fluid">
 
-        <div class="panel border-left-lg border-left-primary timeline-content">
-            <div class="panel-heading">
-                <h6 class="panel-title">Registered Buses</h6>
-            </div>
-            <hr>
+                <!-- Timeline -->
+                <div class="timeline timeline-left content-group">
+                    <div class="timeline-container">
 
-        <div class="panel-body">
-            <div class="chart-container">
-                <div style="overflow-x:auto;">
-                    <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>UID</th>
-                                <th>Liscense plate</th>
-                                <th>Engine Type</th>
-                                <th>Model</th>
-                                <th>Make</th>
-                                <th>Year</th>
-                                <th>Color</th>
-                                <th>State of Registration</th>
-                                <th>Vin Number</th>
-                                <th>Serial Number</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <!--
-                                TO ADD TABLE CONTENT
-                            -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        </div>
-        </div>
-    </div>
-
-        <!-- Date stamp -->
-        <div class="timeline-date text-muted">
-            <i class="icon-history position-left"></i> 
-            <span class="text-semibold"></span>
-            <a onclick="this.innerHTML=Date()">Click To Check Time</a>
-        </div>
-        <!-- /date stamp -->
-
-
-                                            
-        <div class="timeline-row">
-            <div class="timeline-icon">
-                <div class="bg-warning-400">
-                    <i class="icon-user"></i>
-                </div>
-            </div>
-
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="panel border-left-lg border-left-danger invoice-grid timeline-content">
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h6 class="text-semibold no-margin-top">
-                                    Resgistering Buses
-                                </h6>
-                                <hr>
+                                                            
+                        <div class="timeline-row">
+                            <div class="timeline-icon">
+                                <div class="bg-primary-400">
+                                    <i class="icon-table"></i>
+                                </div>
+                                <a href="#"><img src="assets/images/placeholder.jpg" alt=""></a>
                             </div>
-                            
-                            <p>
-                                Bus operators can register their new buses here, by clicking the <i>Add New Bus</i> button. 
-                            </p>                                    
+
+                        <div class="panel border-left-lg border-left-primary timeline-content">
+                            <div class="panel-heading">
+                                <h6 class="panel-title">Registered Buses</h6>
+                            </div>
+                            <hr>
+
+                        <div class="panel-body">
+                            <div class="chart-container">
+                                <div style="overflow-x:auto;">
+                                    <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>UID</th>
+                                                <th>Liscense plate</th>
+                                                <th>Engine Type</th>
+                                                <th>Model</th>
+                                                <th>Make</th>
+                                                <th>Year</th>
+                                                <th>Color</th>
+                                                <th>State of Registration</th>
+                                                <th>Vin Number</th>
+                                                <th>Serial Number</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <!--
+                                                TO ADD TABLE CONTENT
+                                            -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-                        <div class="panel-footer panel-footer-condensed">
-                            <div class="container">
-                                <span>
-                                    <%= link "Add New Bus",class: "w3-btn w3-indigo w3-hover-orange", to: Routes.bus_terminus_path(@conn, :new) %>
-                                </span>
+                        </div>
+                        </div>
+                    </div>
+
+                        <!-- Date stamp -->
+                        <div class="timeline-date text-muted">
+                            <i class="icon-history position-left"></i> 
+                            <span class="text-semibold"></span>
+                            <a onclick="this.innerHTML=Date()">Click To Check Time</a>
+                        </div>
+                        <!-- /date stamp -->
+
+<!--########## REGISTERED_TELLERS #########-->
+<div class="timeline-container">
+
+                                                            
+                        <div class="timeline-row">
+                            <div class="timeline-icon">
+                                <div class="bg-danger-400">
+                                    <i class="icon-table"></i>
+                                </div>
+                                <a href="#"><img src="assets/images/placeholder.jpg" alt=""></a>
+                            </div>
+
+                        <div class="panel border-left-lg border-left-danger timeline-content">
+                            <div class="panel-heading">
+                                <h6 class="panel-title">Registered Tellers</h6>
+                            </div>
+                            <hr>
+
+                        <div class="panel-body">
+                            <div class="chart-container">
+                                <div style="overflow-x:auto;">
+                                    <table class="table table-striped table-bordered" id="dataTableTellers">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Sex</th>
+                                                <th>DoB</th>
+                                                <th>NRC</th>
+                                                <th>SSN</th>
+                                                <th>Phone</th>
+                                                <th>Email</th>
+                                                <th>Address</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <!--
+                                                TO ADD TABLE CONTENT
+                                            -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        </div>
+                    </div>
+<!--########## REGISTERED_TELLERS %> #########-->
+
+                                                            
+                        <div class="timeline-row">
+                            <div class="timeline-icon">
+                                <div class="bg-success-400">
+                                    <i class="icon-user"></i>
+                                </div>
+                            </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="panel border-left-lg border-left-success invoice-grid timeline-content">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <h6 class="text-semibold no-margin-top">
+                                                    Resgistering Buses
+                                                </h6>
+                                                <hr>
+                                            </div>
+                                            
+                                            <p>
+                                                Bus operators can register their new buses here, by clicking the <i>Add New Bus</i> button. 
+                                            </p>                                    
+                                        </div>
+                                        <div class="panel-footer panel-footer-condensed">
+                                            <div class="container">
+                                                <span>
+                                                <a href="#BOPregisterBus" data-toggle="tab" class="w3-btn w3-indigo w3-hover-orange">
+                                                    Register Bus
+                                                </a>
+                                            </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="panel border-left-lg border-left-success invoice-grid timeline-content">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <h6 class="text-semibold no-margin-top">
+                                                    Check Available Routes
+                                                </h6>
+                                                <hr>
+                                            </div>
+
+                                            <p>
+                                                This tab allows you to view available routes, and customise routes for your buses.
+                                            </p>
+                                        </div>
+
+                                         <div class="panel-footer panel-footer-condensed">
+                                            <div class="container">
+                                                <span>
+                                                    <a href="<%= Routes.route_path(@conn, :index) %>" class="w3-btn w3-indigo w3-hover-orange">
+                                                        View Routes
+                                                    </a> 
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>                                 
+                    </div>
+                </div>
+                </div>
+<!--############ BOP_HOME %> ###########-->
+
+<!--############ BOP_DOCUMENTATION ###########-->
+                <div class="tab-pane fade" id="BOPdocumentation">
+                <div class="container-fluid">
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">Register New Teller</h6>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                                <li><a data-action="reload"></a></li>
+                                <li><a data-action="close"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="chart-container">
+                            <div class="chart has-fixed-height" id="plans">
+                                
+                                 <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h6 class="text-semibold no-margin-top">
+                                                Register a Teller
+                                            </h6>
+                                            <hr>
+                                        </div>
+                                                    
+                                        <p>
+                                            Tellers are typically the first point of interaction for customers as they want to buy a ticket from a kiosk. Tellers verify the identity of customers and process requests for tickets. They generate certified tickets according to the specifications of customers. Tellers answer questions about the bus operator services and direct customers to customer care service center for more information. They must count cash in their drawers as they begin their shift and reconcile remaining cash at the end of their shift to account accurately for the days transactions. To register a new teller click the <i>New Teller</i> button. 
+                                        </p>                                    
+                                    </div>
+                                    <div class="panel-footer panel-footer-condensed">
+                                        <div class="container-fluid">
+                                            <span>
+                                                <a href="#BOPregisterTellers" data-toggle="tab" class="w3-btn w3-indigo w3-hover-orange">
+                                                    New Teller
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div><br><br>
+
+                                    <div class="col-sm-12">
+                                        <h6 class="text-semibold no-margin-top">
+                                            View Created Tellers
+                                        </h6>
+                                        <hr>
+                                    </div>
+                                    <p>
+                                        To View the new created tellers, click the tab  dubbed Home. This will take you to a home page where they exist a Datatable which is displaying all resgitered tellers for your bus operator.
+                                    </p>
+
+
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-lg-6">
-                <div class="panel border-left-lg border-left-danger invoice-grid timeline-content">
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h6 class="text-semibold no-margin-top">
-                                    Check Available Routes
-                                </h6>
-                                <hr>
-                            </div>
-
-                            <p>
-                                You can view the available Bus Terminus and Stations here. Then you can proceed to register your buses with selected stations in their respective terminus.
-                            </p>
+   
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">Rules To Be Shared With All Tellers</h6>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                                <li><a data-action="reload"></a></li>
+                                <li><a data-action="close"></a></li>
+                            </ul>
                         </div>
+                    </div>
 
-                         <div class="panel-footer panel-footer-condensed">
-                            <div class="container">
-                                <span>
-                                    <button type="submit" class="w3-btn w3-indigo w3-hover-orange">
-                                        Available Terminus
-                                    </button> 
-                                </span>
-
-                                <span>
-                                    <button type="submit" class="w3-btn w3-indigo w3-hover-orange">
-                                        Stations in Terminus
-                                    </button> 
-                                </span>
-                            </div>
+                    <div class="panel-body">
+                        <div class="schedule">
+                            <ul>
+                                <li>Always Use a Trading Plan.</li>
+                                <li>Treat Trading Like a Business.</li>
+                                <li>Use Technology.</li>
+                                <li>Protect Your Trading Capital.</li>
+                                <li>Study the Markets.</li>
+                                <li>Risk Only What You Can Afford.</li>
+                                <li>Develop a Trading Methodology.</li>
+                                <li>Always Use a Stop Loss.</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
+
+                </div>
+                </div>
+<!--############ BOP_DOCUMENTATION %> ###########-->
+
+<!--############ BOP_TELLERS ##########-->
+<div class="tab-pane fade" id="BOPregisterTellers">
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h6 class="panel-title">Create Teller</h6>
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                    <li><a data-action="reload"></a></li>
+                    <li><a data-action="close"></a></li>
+                </ul>
             </div>
         </div>
+
+        <div class="panel-body">                                        
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <fieldset>
+                            <legend class="text-semibold"><i class="icon-reading position-left"></i> TELLER REGISTRATION</legend>
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>First Name:</label>
+                                        <input name="first_name" id="TfirstName" class="form-control" placeholder="First Name" type="text">
+                                        <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input name="vehicle[uid]" id="vehicleUid" type="hidden" class="form-control" readonly="readonly" placeholder="Auto Generated">
+                                    </div>
+
+                                    <div class="form-group">
+                                          <label>Last Name:</label>
+                                          <input name="vehicle[liscense_plate]" id="TlastName" class="form-control" placeholder="Last Name" type="text">
+                                    </div>
+
+                                    <div class="form-group">
+                                          <label>Sex:</label>
+                                          <input name="vehicle[engine_type]" id="Tsex" class="form-control" placeholder="Sex" type="text">
+                                    </div>
+
+                                     <div class="form-group">
+                                          <label>DoB:</label>
+                                          <input name="vehicle[engine_type]" id="Tdob" class="form-control" placeholder="DoB" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                          <label>NRC:</label>
+                                          <input name="vehicle[year]" id="Tnrc" class="form-control" placeholder="National Registration Card Number" type="text">
+                                    </div>
+
+                                    <div class="form-group">
+                                          <label>SSN:</label>
+                                          <input name="vehicle[color]" id="Tssn" class="form-control" placeholder="Social Security Number" type="text">
+                                    </div>
+
+                                     <div class="form-group">
+                                          <label>Email:</label>
+                                          <input name="vehicle[model]" id="Temail" class="form-control" placeholder="Email" type="text">
+                                    </div>
+
+                                     <div class="form-group">
+                                          <label>Phone:</label>
+                                          <input name="vehicle[color]" id="Tphone" class="form-control" placeholder="Mobile" type="text">
+                                    </div>
+
+                                    <div class="form-group">
+                                          <label>Address:</label>
+                                          <input name="vehicle[color]" id="Taddress" class="form-control" placeholder="Physical Address" type="text">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </fieldset>
+                </div>
+
+                <div class="col-md-6 col-sm-6">
+                     <fieldset>
+                    <legend class="text-semibold"><i class="icon-reading position-left"></i> PREVIEW</legend>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <b>FIRST NAME</b><div id="TellerFirstName"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <b>LAST NAME </b><div id="TellerLastName"></div>
+                        </div>
+
+                         <div class="col-md-4">
+                            <b>SEX </b><div id="TellerSex"></div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 30px">
+                      <div class="col-md-4">
+                            <b>DOB </b><div id="TellerDoB"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <b>NRC </b><div id="TellerNRC"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <b>SSN </b><div id="TellerSSN"></div>
+                        </div>                           
+                    </div>
+
+                    <div class="row" style="margin-top: 30px">
+                        <div class="col-md-4">
+                            <b>EMAIL</b><div id="TellerEmail"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <b>PHONE</b><div id="TellerPhone"></div>
+                        </div>
+
+                         <div class="col-md-4">
+                            <b>ADDRESS</b><div id="TellerAddress"></div>
+                        </div>
+                    </div>
+
+                    <legend class="text-semibold"><i class=""></i></legend>
+                </fieldset>
+
+                </div>
+
+                <br>
+                <div class="container pull-left">
+                    <button type="submit" id="submitVehicleButton" class="w3-btn w3-indigo w3-hover-orange">
+                        <b><i class="icon-checkmark2"></i></b> Create Teller
+                    </button>
+                </div>
+                        
+            </div>
         </div>
-                                            
     </div>
 </div>
+<!--############ BOP_TELLERS %> ##########-->
+
+<!--############ BOP_BUSES ##########-->
+<div class="tab-pane fade" id="BOPregisterBus">
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h6 class="panel-title">Register Bus</h6>
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                    <li><a data-action="reload"></a></li>
+                    <li><a data-action="close"></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel-body">                                        
+            <div class="row">
+                <div class="col-md-6">
+          <form class="form-vertical" action="<%= Routes.bus_terminus_path(@conn, :create) %>" method="post">
+
+                <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fieldset>
+                                    <legend class="text-semibold"><i class="icon-reading position-left"></i> REGISTER BUS</legend>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <select class="w3-select" name="option">
+                                                    <option value="" disabled selected>Make</option>
+                                                    <option value="1">Toyota</option>
+                                                    <option value="2">Higer</option>
+                                                    <option value="3">Marcopolo</option>
+                                                    <option value="3">Nissan</option>
+                                                    <option value="3">Hyundai</option>
+                                                </select>
+                                                <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                                            </div>
+
+                                             <div class="form-group">
+                                                <select class="w3-select" name="option">
+                                                    <option value="" disabled selected>Vehicle Class:</option>
+                                                    <option value="1">C1</option>
+                                                    <option value="2">C1E</option>
+                                                    <option value="3">C</option>
+                                                    <option value="3">CE</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <select class="w3-select" name="option">
+                                                    <option value="" disabled selected>Vehicle Capacity:</option>
+                                                    <option value="1">C1: 10 Seats</option>
+                                                    <option value="2">C1E: 15 Seats</option>
+                                                    <option value="3">C: 25 seats</option>
+                                                    <option value="3">CE: 30 seats</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <select class="w3-select" name="option">
+                                                    <option value="" disabled selected>State of Registration:</option>
+                                                    <option value="1">Lusaka</option>
+                                                    <option value="2">Livingstone</option>
+                                                    <option value="3">Copperbelt</option>
+                                                    <option value="3">Chipata</option>
+                                                    <option value="3">Muchinga</option>
+                                                </select>
+                                            </div>
+
+                                             <div class="form-group">
+                                                <select class="w3-select" name="option">
+                                                    <option value="" disabled selected>Terminus:</option>
+                                                    <option value="1">Lusaka</option>
+                                                    <option value="2">Livingstone</option>
+                                                    <option value="3">Copperbelt</option>
+                                                    <option value="3">Chipata</option>
+                                                    <option value="3">Muchinga</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input name="vehicle[uid]" id="vehicleUid" type="hidden" class="form-control" readonly="readonly" value="<%= BusTerminalSystem.Randomizer.randomizer(8)%>" placeholder="Auto Generated">
+                                            </div>
+
+                                            <div class="form-group">
+                                                  <label>Model:</label>
+                                                  <input name="vehicle[model]" id="vehicleModel" class="form-control" placeholder="Engine Type" type="text">
+                                            </div>
+
+                                            <div class="form-group">
+                                                  <label>Year:</label>
+                                                  <input name="vehicle[year]" id="vehicleYear" class="form-control" placeholder="Year" type="text">
+                                            </div>
+
+                                            <div class="form-group">
+                                                  <label>Color:</label>
+                                                  <input name="vehicle[color]" id="vehicleColor" class="form-control" placeholder="Enter Vehicle Color" type="text">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                  <label>License Plate:</label>
+                                                  <input name="vehicle[liscense_plate]" id="licensePlate" class="form-control" placeholder="Enter License Plate" type="text">
+                                            </div>
+
+                                            <div class="form-group">
+                                                  <label>Engine Type:</label>
+                                                  <input name="vehicle[engine_type]" id="engineType" class="form-control" placeholder="Enter Last Name" type="text">
+                                            </div>
+                                            
+
+                                            <div class="form-group">
+                                                  <label>VIN Number:</label>
+                                                  <input name="vehicle[vin_number]" id="vinNumber" class="form-control" placeholder="Enter VIN Number" type="text">
+                                            </div>
+
+                                            <div class="form-group">
+                                                  <label>Serial Number:</label>
+                                                  <input name="vehicle[serial_number]" id="vehicleSerialNumber" class="form-control" placeholder="Enter Serial Number" type="text">
+                                            </div>
+
+                                            <div class="form-group">
+                                                  <label>Hull Number:</label>
+                                                  <input name="vehicle[hull_number]" id="vehicleHullNUmber" class="form-control" placeholder="Enter Hull Number" type="text">
+                                            </div>
+
+                                            <div class="form-group">
+                                                  <label>Company:</label>
+                                                  <input name="vehicle[company]" id="vehicleCompany" class="form-control" placeholder="Enter Company Number" type="text">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="container-fluid">
+                                                    <p>
+                                                        <b>NB:</b>
+                                                        Please attach the white book of the vehicle and fitness certificates.
+                                                    </p>
+                                                 </div>
+                                                <input type="file" name="fileToUpload" id="fileToUpload">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="text-right">
+                            <button type="submit" id="submitVehicleButton" class="w3-btn w3-indigo w3-hover-orange w3-left">
+                                <b><i class="icon-checkmark2"></i></b>Register Bus
+                            </button>
+                            
+                            <span>
+                                <%= link "Back" , class: "w3-btn w3-indigo w3-hover-orange", type: "submit",to: Routes.user_path(@conn, :index) %>
+                            </span>
+                        </div>
+                    </div>
+            </form>
+    </div>
+
+<div class="col-md-6">
+
+    <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <fieldset>
+                        <legend class="text-semibold"><i class="icon-reading position-left"></i> PREVIEW</legend>
+                        <div class="row">
+                           <div class="col-md-4">
+                                <b>MODEL </b><div id="vehicleModelText"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <b>YEAR </b><div id="vehicleYearText"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <b>COLOR </b><div id="vehicleColorText"></div>
+                            </div>
+                        </div>
+
+                        <legend class="text-semibold"><i class=""></i></legend>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <b>LICENSE PLATE </b><div id="vehicleLicensePlateText"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <b>ENGINE TYPE </b><div id="vehicleEngineTypeText"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <b>VIN NUMBER </b><div id="vehicleVinNumberText"></div>
+                            </div>
+                        </div>
+                      
+                            <div class="row" style="margin-top: 30px">
+                                 <div class="col-md-4">
+                                    <b>SERIAL NUMBER </b><div id="vehicleSerialNumberText"></div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <b>HULL NUMBER </b><div id="vehicleHullNumberText"></div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <b>COMPANY </b><div id="vehicleCompanyText"></div>
+                                </div>
+                            </div>
+                    </fieldset>
+                </div>
+            </div>
+
+        </div>
+</div>
+                       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--############ BOP_BUSES %> ##########-->
+
+</div>
+</div>
 <% end %>
- <!--################BOP DASHBOARD################--> 
+<!--################ BOP DASHBOARD %> ################--> 
 
 <%= if @user.role == "MOP" do %>
 <% end %>
@@ -569,7 +1220,7 @@
         <div class="tabbable">
             <div class="tab-content">
 
-                <!--############ACTIVITY###########-->
+                <!--############ HOME ###########-->
                 <div class="tab-pane fade in active" id="activity">
                 <div class="container-fluid">
                 <!-- Timeline -->
@@ -672,7 +1323,7 @@
                     </div>
                 </div>
                 </div>
-                <!--############ACTIVITY###########-->
+                <!--############ HOME ###########-->
 
                 <!--############SCHEDULE###########-->
                 <div class="tab-pane fade" id="documentation">
@@ -802,7 +1453,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <input name="vehicle[uid]" id="vehicleUid" type="hidden" class="form-control" readonly="readonly" value="<%= Randomizer.randomizer(8)%>" placeholder="Auto Generated">
+                                        <input name="vehicle[uid]" id="vehicleUid" type="hidden" class="form-control" readonly="readonly" placeholder="Auto Generated">
                                     </div>
 
                                     <div class="form-group">
@@ -892,5 +1543,6 @@
  <!--################MOP DASHBOARD################--> 
 
 
+</div>
 </div>
 <% end %>

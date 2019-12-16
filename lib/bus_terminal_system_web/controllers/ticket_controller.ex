@@ -97,9 +97,10 @@ defmodule BusTerminalSystemWeb.TicketController do
 
       {:ok, _result} ->
           {:ok, payload} = Map.fetch(params,"payload")
-          if !Map.has_key?(payload,"external_ref") or !Map.has_key?(payload,"route_code") do
-              json(conn, ApiManager.api_error_handler(ApiManager.definition_purchase, ApiManager.support_purchase))
-          else
+            IO.inspect payload
+            if !Map.has_key?(payload,"external_ref") or !Map.has_key?(payload,"route_code") do
+                json(conn, ApiManager.api_error_handler(ApiManager.definition_purchase, ApiManager.support_purchase))
+            else
 
             case validate_route(conn,payload) do
               {:error, _payload} ->
@@ -113,13 +114,17 @@ defmodule BusTerminalSystemWeb.TicketController do
                 case validate_ext_reference(ext_reference) do
                   {:error, _reference} ->
                     conn
-                    |> json(ApiManager.api_error_handler(ApiManager.definition_purchase,"Duplicate External Reference [#{_reference}]"))
+                    |> json(ApiManager.api_error_handler(ApiManager.definition_purchase,"Duplicate External Reference"))
 
                   {:ok, _reference} ->
+
+                    map = Map.put(payload, "reference_number", generate_reference_number(route))
+                    map = Map.put(map, "serial_number", Randomizer.randomizer(16, :numeric))
+                    map = Map.put(map, "activation_status", "VALID")
+                    map = Map.put(map, "route", route.id)
+
                     conn
-                    |> db_insert_ticket(route,_reference ,%{reference_number: generate_reference_number(route),
-                      serial_number: Randomizer.randomizer(16, :numeric), external_ref: ext_reference,
-                      route: route.id, activation_status: "VALID"})
+                    |> db_insert_ticket(route,_reference ,map)
                 end
 
             end
@@ -138,28 +143,39 @@ defmodule BusTerminalSystemWeb.TicketController do
   end
 
   defp db_insert_ticket(conn,route ,reference, params \\ %{}) do
-    IO.inspect("DB")
+
     case RepoManager.create_ticket(params) do
-      {:ok, _ticket} ->
+      {:ok, ticket} ->
+
+        IO.inspect ticket
+
         conn
         |> json(ApiManager.api_message_custom_handler(
           "PURCHASE",
           "SUCCESS",
           0,
-          %{ "reference_number" => params.reference_number,
-            "serial_number" => params.serial_number,
-            "external_reference" => params.external_ref,
+          %{
+            "reference_number" => ticket.reference_number,
+            "serial_number" => ticket.serial_number,
+            "external_reference" => ticket.external_ref,
+            "first_name" => ticket.first_name,
+            "last_name" => ticket.last_name,
+            "other_name" => ticket.other_name,
+            "email" => ticket.email_address,
+            "id_type" => ticket.id_type,
+            "passenger_id" => ticket.passenger_id,
+            "travel_date" => ticket.travel_date,
+            "mobile_number" => ticket.mobile_number,
             "start_route" => route.start_route,
             "end_route" => route.end_route,
             "route_code" => route.route_code,
-            "price" => route.bus_fair,
             "currency" => "ZMW",
-            "qr_code" => qr_generator("test")
+            "qr_code" => qr_generator("#{ticket.reference_number}")
           }))
 
-      {:error, %Ecto.Changeset{} = _changeset} ->
-        conn
-        |> json(ApiManager.api_error_handler(ApiManager.definition_purchase,"An Error Occurred, Operation Failed. Could not Purchase Ticket"))
+        {:error, %Ecto.Changeset{} = _changeset} ->
+          conn
+          |> json(ApiManager.api_error_handler(ApiManager.definition_purchase,ApiManager.translate_error(_changeset)))
     end
   end
 

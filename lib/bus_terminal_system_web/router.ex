@@ -42,6 +42,7 @@ defmodule BusTerminalSystemWeb.Router do
     get "/Register_Bus_Teminus", BusTerminusController, :form_teminus
     get "/Create_Bus_Station", BusTerminusController, :form_station
     get "/Assign_Gate", BusTerminusController, :form_gate
+    get "/bus_approval", BusTerminusController, :bus_approval
 
     # MARKETER_CONTROLLER
     resources "/platform/secure/commercial/services/marketer/market", MarketerController
@@ -58,6 +59,10 @@ defmodule BusTerminalSystemWeb.Router do
 
     # ROUTE_CONTROLLER
     get "/routes", RouteController, :index
+    get "/customise_routes", RouteController, :customise_routes
+
+    # TELLER_CONTROLLER
+    get "/teller", TellerController, :index
   end
 
   scope "/", BusTerminalSystemWeb do

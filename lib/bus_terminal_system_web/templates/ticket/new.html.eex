@@ -27,7 +27,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <input name="vehicle[uid]" id="vehicleUid" type="hidden" class="form-control" readonly="readonly" value="<%= BusTerminalSystem.Randomizer.randomizer(8)%>" placeholder="Auto Generated">
+                                                <input name="vehicle[uid]" id="vehicleUid" type="hidden" class="form-control" readonly="readonly" placeholder="Auto Generated">
                                             </div>
 
                                             <div class="form-group">

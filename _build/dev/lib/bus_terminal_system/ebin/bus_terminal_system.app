@@ -54,6 +54,8 @@
                         'Elixir.BusTerminalSystemWeb.Router.Helpers',
                         'Elixir.BusTerminalSystemWeb.SessionController',
                         'Elixir.BusTerminalSystemWeb.SessionView',
+                        'Elixir.BusTerminalSystemWeb.TellerController',
+                        'Elixir.BusTerminalSystemWeb.TellerView',
                         'Elixir.BusTerminalSystemWeb.TicketController',
                         'Elixir.BusTerminalSystemWeb.TicketView',
                         'Elixir.BusTerminalSystemWeb.UserController',

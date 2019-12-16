@@ -21,7 +21,6 @@
       <th>Reference number</th>
       <th>First Name</th>
       <th>Last Name</th>
-      <th>Age</th>
       <th>Mobile</th>
       <th>Traveling From</th>
       <th>Traveling To</th>
@@ -37,7 +36,6 @@
       <td><%= ticket.reference_number %></td>
       <td><%= ticket.first_name %></td>
       <td><%= ticket.last_name %></td>
-      <td><%= ticket.age %></td>
       <td><%= ticket.mobile %></td>
       <td><%= ticket.traveling_from %></td>
       <td><%= ticket.traveling_to %></td>

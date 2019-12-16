@@ -4,6 +4,7 @@ $(document).ready( function () {
     $('#dataTableMarket').DataTable(); //Marktet DataTable
     $('#gates').DataTable(); //Gates DataTable
     $('#stations').DataTable(); //Stations DataTable
+    $('#dataTableTellers').DataTable(); //Tellers DataTable
 } );
 
 $('#modal_form_horizontal_user').on('show.bs.model', function(e) {
@@ -72,4 +73,51 @@ $('input#vehicleCompany').keyup(function() {
     $('#vehicleCompanyText').text($(this).val());
 });
 
+//-------------------------------------------------------------------
+
+//-------------------Teller Actions --------------------
+$('input#TfirstName').keyup(function() {
+    //perform ajax call...
+    $('#TellerFirstName').text($(this).val());
+});
+
+$('input#TlastName').keyup(function() {
+    //perform ajax call...
+    $('#TellerLastName').text($(this).val());
+});
+
+$('input#Tsex').keyup(function() {
+    //perform ajax call...
+    $('#TellerSex').text($(this).val());
+});
+
+$('input#Tdob').keyup(function() {
+    //perform ajax call...
+    $('#TellerDoB').text($(this).val());
+});
+
+$('input#Tnrc').keyup(function() {
+    //perform ajax call...
+    $('#TellerNRC').text($(this).val());
+});
+
+$('input#Tssn').keyup(function() {
+    //perform ajax call...
+    $('#TellerSSN').text($(this).val());
+});
+
+$('input#Temail').keyup(function() {
+    //perform ajax call...
+    $('#TellerEmail').text($(this).val());
+});
+
+$('input#Tphone').keyup(function() {
+    //perform ajax call...
+    $('#TellerPhone').text($(this).val());
+});
+
+$('input#Taddress').keyup(function() {
+    //perform ajax call...
+    $('#TellerAddress').text($(this).val());
+});
 //-------------------------------------------------------------------

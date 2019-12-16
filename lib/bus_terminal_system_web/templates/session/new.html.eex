@@ -88,35 +88,62 @@
 						</div>
 
 			    		<div class="form-group has-feedback has-feedback-left">
-							<input name="PassengerName" type="text" class="form-control" placeholder="Name of Passenger">
+							<input name="passenger[passenger_name]" type="text" class="form-control" placeholder="Name of Passenger">
 							<div class="form-control-feedback">
 								<i class="icon-user text-muted"></i>
 							</div>
 						</div>
 
 			    		<div class="form-group has-feedback has-feedback-left">
-			    			<input name="location" type="text" class="form-control" placeholder="Name of of Terminus">
-							<div class="form-control-feedback">
-								<i class="icon-pin text-muted"></i>
-							</div>
+			    			<select class="w3-select" name="option">
+							    <option value="" disabled selected>Name Of Terminus</option>
+							    <option value="1">Livingstone</option>
+							    <option value="2">Lusaka</option>
+							    <option value="3">Ndola</option>
+								<option value="3">Sesheke</option>
+								<option value="3">Mambo</option>
+								<option value="3">Lundazi</option>
+							</select>
 						</div>
 
 						<div class="form-group has-feedback has-feedback-left">
 							<div class="row">
-								<div class="form-control-feedback">
-									<i class="icon-road text-muted"></i>
+								<div class="col-md-6">
+									<select class="w3-select" name="option">
+										<option value="" disabled selected>From</option>
+										<option value="1">Livingstone</option>
+										<option value="2">Lusaka</option>
+										<option value="3">Ndola</option>
+										<option value="3">Sesheke</option>
+										<option value="3">Mambo</option>
+										<option value="3">Lundazi</option>
+									</select>
 								</div>
 
 								<div class="col-md-6">
-									<input name="RouteForm" type="text" class="form-control" placeholder="From">
-								</div>
-
-								<div class="col-md-6">
-									<input name="RouteTo" type="text" class="form-control" placeholder="To">
+									<select class="w3-select" name="option">
+										<option value="" disabled selected>To</option>
+										<option value="1">Livingstone</option>
+										<option value="2">Lusaka</option>
+										<option value="3">Ndola</option>
+										<option value="3">Sesheke</option>
+										<option value="3">Mambo</option>
+										<option value="3">Lundazi</option>
+									</select>
 								</div>
 							</div>
-							
-							
+						</div>
+
+						<div class="form-group has-feedback has-feedback-left">
+							<select class="w3-select" name="option">
+								<option value="" disabled selected>Name Of Bus</option>
+								<option value="1">Jordan Moters</option>
+								<option value="2">Zambia-Malawi</option>
+								<option value="3">Likili </option>
+								<option value="3">Mazhandu</option>
+								<option value="3">Power Tools</option>
+								<option value="3">TDE</option>
+							</select>
 						</div>
 
 						<div class="form-group has-feedback has-feedback-left">
@@ -129,23 +156,25 @@
 						</div>
 
 						<div class="form-group has-feedback has-feedback-left">
-							<input name="location" type="number" class="form-control" placeholder="Number of Passengers">
-							<div class="form-control-feedback">
-								<i class="icon-user text-muted"></i>
-							</div>
+							<select class="w3-select" name="option">
+								<option value="" disabled selected>Number Of Passagers</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="3">4</option>
+								<option value="3">5</option>
+								<option value="3">6</option>
+								<option value="2">7</option>
+								<option value="3">8</option>
+								<option value="3">9</option>
+								<option value="3">10</option>
+							</select>
 						</div>
 
 						<div class="form-group has-feedback has-feedback-left">
 							<input name="location" type="Date" class="form-control" placeholder="Date of Depature">
 							<div class="form-control-feedback">
 								<i class="icon-table text-muted"></i>
-							</div>
-						</div>
-
-						<div class="form-group has-feedback has-feedback-left">
-							<input name="location" type="text" class="form-control" placeholder="Name of Bus">
-							<div class="form-control-feedback">
-								<i class="icon-car text-muted"></i>
 							</div>
 						</div>
 

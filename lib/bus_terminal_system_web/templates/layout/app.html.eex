@@ -55,6 +55,9 @@
     				</a>
 
     				<ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <%= link "Dashboard", to: Routes.user_path(@conn, :index) %>
+                        </li>
     					<li>
                             <a href="<%= Routes.session_path(@conn, :logout) %>">
                                 <i class="icon-switch2"></i> Logout
@@ -97,9 +100,9 @@
 
     								<%= if @user.role == "ADMIN" do %>
                                     <li class="active">
-    								    <a href="#"><i class="icon-stack2"></i> <span>Management</span></a>
+    								    <a href="#"><i class="icon-stack2"></i> <span>DASHBOARD</span></a>
                                         <ul>
-                                            <li><%= link "Dashboard", to: Routes.user_path(@conn, :index) %></li>
+                                            <li><%= link "Manage", to: Routes.user_path(@conn, :index) %></li>
                                             <li><%= link "Routes", to: Routes.route_path(@conn, :index) %></li>
                                         </ul>
     								</li>
@@ -110,11 +113,30 @@
                                             <li><%= link "Buy Ticket", to: Routes.ticket_path(@conn, :index) %></li>
                                         </ul>
                                     </li>
+                                    <li>
+                                        <a href="#"><i class="icon-stack2"></i> <span>Teller</span></a>
+                                        <ul>
+                                            <li>
+                                                <a href="/teller">
+                                                    Management
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
     								<% end %>
 
                                     <%= if @user.role == "BOP" or @user.role == "ADMIN" do %>
+									
+                                    <li>
+                                        <a href="#"><i class="icon-stack2"></i> <span>Bus</span></a>
+                                        <ul>
+                                            <li>
+                                                <%= link "Approve Bus", to: Routes.bus_terminus_path(@conn, :bus_approval) %>
+                                            </li>
+                                        </ul>
+                                    </li>
     								<li>
-    									<a href="#"><i class="icon-stack2"></i> <span>Bus Terminus</span></a>
+    									<a href="#"><i class="icon-stack2"></i> <span>Terminus</span></a>
     									<ul>
     										<li><%= link "Management", to: Routes.bus_terminus_path(@conn, :index) %></li>
     									</ul>

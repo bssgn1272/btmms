@@ -57,13 +57,6 @@
 
 
 
-
-
-
-
-
-
-
                                     <div class="row">
                                     <div class="col-md-12">   
                                         <div class="col-md-6 panel panel-flat" style="padding: 9px">
@@ -146,19 +139,6 @@
                                 </div>
                             </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
                         </div>
                 </div>
                       
@@ -191,7 +171,7 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <input name="vehicle[uid]" id="vehicleUid" type="hidden" class="form-control" readonly="readonly" value="<%= Randomizer.randomizer(8)%>" placeholder="Auto Generated">
+                                                        <input name="vehicle[uid]" id="vehicleUid" type="hidden" class="form-control" readonly="readonly" placeholder="Auto Generated">
                                                     </div>
 
                                                     <div class="form-group">
@@ -486,12 +466,4 @@
  
       </div>
   </div>
-
-
-
-
 </div>
-
-
-
-

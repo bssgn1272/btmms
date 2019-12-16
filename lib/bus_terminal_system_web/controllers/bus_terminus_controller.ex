@@ -43,7 +43,7 @@ defmodule BusTerminalSystemWeb.BusTerminusController do
     changeset = BusManagement.change_bus_terminus(%Bus{})
     render(conn, "createTerminus.html", changeset: changeset)
   end
-  
+
   def new(conn, _params) do
     changeset = BusManagement.change_bus_terminus(%Bus{})
     render(conn, "createStation.html", changeset: changeset)
@@ -53,37 +53,6 @@ defmodule BusTerminalSystemWeb.BusTerminusController do
     changeset = BusManagement.change_bus_terminus(%Bus{})
     render(conn, "createGate.html", changeset: changeset)
   end
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 
   def show(conn, %{"id" => id}) do
     bus_terminus = BusManagement.get_bus_terminus!(id)
@@ -129,5 +98,9 @@ defmodule BusTerminalSystemWeb.BusTerminusController do
 
   def form_gate(conn, _params) do
     render(conn, "form_gate.html")
+  end
+
+  def bus_approval(conn, _params) do
+    render(conn, "bus_approval.html")
   end
 end
