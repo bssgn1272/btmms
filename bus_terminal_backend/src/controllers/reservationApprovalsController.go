@@ -10,6 +10,8 @@ import (
 	"strconv"
 )
 
+
+// Function retrieving Reservations requests Admin side
 var GetReservationsRequestsController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	data := models.GetCurrentReservation()
@@ -19,7 +21,7 @@ var GetReservationsRequestsController = http.HandlerFunc(func(w http.ResponseWri
 	u.Respond(w, resp)
 })
 
-
+// Function for Approving reservations requests
 var UpdateReservationController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
@@ -37,6 +39,8 @@ var UpdateReservationController = http.HandlerFunc(func(w http.ResponseWriter, r
 
 })
 
+
+// Function for closing slot
 var CloseReservationController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	slot :=&models.Slot{}

@@ -102,7 +102,7 @@ func (slot *Slot) Update() (map[string] interface{}) {
 }
 
 
-// upadate Slots Table
+// update Slots Table
 
 func (slot *Slot) Close() (map[string] interface{}) {
 

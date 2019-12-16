@@ -4,12 +4,12 @@ import (
 	"../models"
 	u "../utils"
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"time"
 )
 
+// Function for Creating Slots
 var CreateSlotController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	slot := &models.Slot{}
@@ -24,6 +24,8 @@ var CreateSlotController = http.HandlerFunc(func(w http.ResponseWriter, r *http.
 	u.Respond(w, resp)
 })
 
+
+// Function for retrieving Slots
 var GetSlotsController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	data := models.GetSlots()
@@ -34,6 +36,7 @@ var GetSlotsController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Re
 })
 
 
+// Function for openning slots at midnight
 func InitMidNight() {
 	t := time.Now()
 	n := time.Date(t.Year(), t.Month(), t.Day(), 25, 0, 0, 0, t.Location())
@@ -51,7 +54,6 @@ func InitMidNight() {
 		reset := slot.Update()
 
 		log.Println(reset)
-		fmt.Print("now")
 	}
 }
 

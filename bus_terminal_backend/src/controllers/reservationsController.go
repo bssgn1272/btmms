@@ -11,10 +11,10 @@ import (
 	"strconv"
 )
 
+// Function for reservation request function
 var CreateReservationController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 
-	//user := r.Context().Value("user") . (uint) //Grab the id of the user that send the request
 	reservation := &models.Reservation{}
 
 	err := json.NewDecoder(r.Body).Decode(reservation)
@@ -23,11 +23,11 @@ var CreateReservationController = http.HandlerFunc(func(w http.ResponseWriter, r
 		return
 	}
 
-	// reservation.UserId = user
 	resp := reservation.Create()
 	u.Respond(w, resp)
 })
 
+// Function for retrieving reservation requests for the day
 var GetReservationsController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	data := models.GetReservations()
@@ -37,8 +37,7 @@ var GetReservationsController = http.HandlerFunc(func(w http.ResponseWriter, r *
 	u.Respond(w, resp)
 })
 
-// Slot Requests
-
+// Function for retrieving reservations for a particular user
 var GetReservationsForController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
