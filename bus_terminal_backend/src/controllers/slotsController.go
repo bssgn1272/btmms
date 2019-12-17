@@ -39,7 +39,7 @@ var GetSlotsController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Re
 // Function for openning slots at midnight
 func InitMidNight() {
 	t := time.Now()
-	n := time.Date(t.Year(), t.Month(), t.Day(), 25, 0, 0, 0, t.Location())
+	n := time.Date(t.Year(), t.Month(), t.Day(), 8, 33, 0, 0, t.Location())
 	d := n.Sub(t)
 	if d < 0 {
 		n = n.Add(24 * time.Hour)

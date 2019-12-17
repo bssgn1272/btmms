@@ -2,7 +2,6 @@
 package main
 
 import (
-	a "./src/auth"
 	c "./src/controllers"
 	"./src/logs"
 	"github.com/gorilla/handlers"
@@ -14,7 +13,7 @@ import (
 
 func main() {
 	router := mux.NewRouter().StrictSlash(true)
-	router.Use(a.JwtAuthentication)
+	// router.Use(a.JwtAuthentication)
 	f, err := os.OpenFile("" +
 		"activity.log",
 		os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)

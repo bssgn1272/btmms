@@ -66,8 +66,11 @@ func (reservation *Reservation) Create() (map[string] interface{}) {
 // get reservation
 func GetReservation(id uint) ([]*Reservation) {
 
+	t := time.Now()
+	reservedTime := time.Date(t.Year(), t.Month(), t.Day(), 23, 59, 59, 0, t.Location())
+
 	reservations := make([]*Reservation, 0)
-	err := GetDB().Table("reservations").Where("user_id = ?", id).Find(&reservations).Error
+	err := GetDB().Table("reservations").Where("user_id = ? and reservations.reserved_time > ?", id, reservedTime).Find(&reservations).Error
 	log.Println(err)
 	if err != nil {
 		return nil

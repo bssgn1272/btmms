@@ -75,7 +75,7 @@ func (slot *Slot) Create() (map[string] interface{}) {
 func GetSlots() ([]*Slot) {
 
 	slots := make([]*Slot, 0)
-	err := GetDB().Table("slots").Find(&slots).Error
+	err := GetDB().Table("slots").Order("time asc").Find(&slots).Error
 	log.Println(err)
 	if err != nil {
 		log.Println(err)
