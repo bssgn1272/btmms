@@ -23,7 +23,6 @@ export class ViewSlotsService {
       .get(url)
       .toPromise()
       .catch(this.handleError);
-    console.log(this.currentUser.username);
   }
 
   // handler for error in URL

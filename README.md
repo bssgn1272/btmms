@@ -40,6 +40,10 @@ To build the frontend
 npm run-script build
 ```
 
+The frontend run on
+
+> localhost:4200
+
 # Backend
 
 The backend API has been developed using [Golang]()

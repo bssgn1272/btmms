@@ -15,10 +15,11 @@ export interface Slot {
 })
 export class MakeBookingComponent implements OnInit {
   slot = '';
-  status = 'p';
+  status = 'A';
   route = '';
   time = '';
   user_id = 0;
+  user = '';
   // reserved_time = '';
 
   open = false;
@@ -32,7 +33,6 @@ export class MakeBookingComponent implements OnInit {
   returnUrl: '';
   userItems: any;
   _id: any;
-  
 
   constructor(
     public dialogRef: MatDialogRef<MakeBookingComponent>,
@@ -51,6 +51,7 @@ export class MakeBookingComponent implements OnInit {
   ngOnInit() {
     this.userItems = this.getFromLocalStrorage();
     this._id = this.userItems.ID;
+    this.user = this.userItems.username;
 
     this.slot_one = this.data.row.slot_one;
 
@@ -114,11 +115,15 @@ export class MakeBookingComponent implements OnInit {
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.routes.snapshot.queryParams['returnUrl'] || '/';
+    console.log(this.data);
     console.log(this.time);
   }
 
   save() {
-    console.log(this.data.row.reservation_time);
+    console.log(this.slot);
+    this.status = 'A';
+    this.time = this.data.row.time;
+
     this.httpClient
       .post('/api/reservation/requests/create', {
         slot: this.slot,
@@ -131,7 +136,7 @@ export class MakeBookingComponent implements OnInit {
       .subscribe(
         data => {
           this.router.navigate([this.returnUrl]);
-          this._snackBar.open('Successfully Updated', null, {
+          this._snackBar.open('Successfully Created', null, {
             duration: 1000,
             horizontalPosition: 'center',
             panelClass: ['blue-snackbar'],
@@ -147,6 +152,48 @@ export class MakeBookingComponent implements OnInit {
           });
         }
       );
+
+    if (this.slot === 'slot_one') {
+      this.httpClient
+        .put('/api/slots/close', {
+          time: this.time,
+          slot_one: this.user
+        })
+        .toPromise();
+    }
+    if (this.slot === 'slot_two') {
+      this.httpClient
+        .put('/api/slots/close', {
+          time: this.time,
+          slot_two: this.user
+        })
+        .toPromise();
+    }
+    if (this.slot === 'slot_three') {
+      this.httpClient
+        .put('/api/slots/close', {
+          time: this.time,
+          slot_three: this.user
+        })
+        .toPromise();
+    }
+    if (this.slot === 'slot_four') {
+      this.httpClient
+        .put('/api/slots/close', {
+          time: this.time,
+          slot_four: this.user
+        })
+        .toPromise();
+    }
+    if (this.slot === 'slot_five') {
+      this.httpClient
+        .put('/api/slots/close', {
+          time: this.time,
+          slot_five: this.user
+        })
+        .toPromise();
+    }
+
     this.slot = '';
     this.route = '';
   }

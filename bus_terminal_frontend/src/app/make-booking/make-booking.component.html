@@ -15,19 +15,19 @@
                     <mat-label>Select Slots</mat-label>
                     <mat-select [(ngModel)]="slot">
                       <mat-option>None</mat-option>
-                      <div *ngIf="slot_one == 'open'">
+                      <div *ngIf="slot_one == 'open' && slot_one != user">
                         <mat-option value="slot_one">Slot One</mat-option>
                       </div>
-                      <div *ngIf="slot_two == 'open'">
+                      <div *ngIf="slot_two == 'open' && slot_one != user">
                         <mat-option value="slot_two">Slot Two</mat-option>
                       </div>
-                      <div *ngIf="slot_three == 'open'">
+                      <div *ngIf="slot_three == 'open' && slot_one != user">
                         <mat-option value="slot_three">Slot Three</mat-option>
                       </div>
-                      <div *ngIf="slot_four == 'open'">
+                      <div *ngIf="slot_four == 'open' && slot_one != user">
                         <mat-option value="slot_four">Slot Four</mat-option>
                       </div>
-                      <div *ngIf="slot_five == 'open'">
+                      <div *ngIf="slot_five == 'open' && slot_one != user">
                         <mat-option value="slot_five">Slot Five</mat-option>
                       </div>
                     </mat-select>
