@@ -111,6 +111,7 @@ export class RoservationRequestsComponent implements OnInit {
       })
       .subscribe(
         data => {
+          window.location.reload();
           this._snackBar.open('Successfully Updated', null, {
             duration: 1000,
             horizontalPosition: 'center',
@@ -139,6 +140,7 @@ export class RoservationRequestsComponent implements OnInit {
       })
       .subscribe(
         data => {
+          window.location.reload();
           this._snackBar.open('Successfully Updated', null, {
             duration: 1000,
             horizontalPosition: 'center',

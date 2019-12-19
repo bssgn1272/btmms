@@ -29,13 +29,24 @@ export class UserProfileComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  userItems: any;
+  user: any;
   constructor(
     private dialog: MatDialog,
     private el: ElementRef,
     private slots: OpenSlotsService
   ) {}
 
+  public getFromLocalStrorage() {
+    const users = JSON.parse(localStorage.getItem('currentUser'));
+    return users;
+  }
+
   ngOnInit() {
+
+    this.userItems = this.getFromLocalStrorage();
+    this.user = this.userItems.username;
+
     this.slots.getList().then(res => {
       this.dataSource = new MatTableDataSource(res.data);
       this.dataSource.paginator = this.paginator;

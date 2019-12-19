@@ -114,7 +114,7 @@ export class MakeBookingComponent implements OnInit {
     // this.reserved_time = this.data.row.reserved_time;
 
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.routes.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.routes.snapshot.queryParams['returnUrl'] || '/dashboard';
     console.log(this.data);
     console.log(this.time);
   }
@@ -136,6 +136,7 @@ export class MakeBookingComponent implements OnInit {
       .subscribe(
         data => {
           this.router.navigate([this.returnUrl]);
+          window.location.reload();
           this._snackBar.open('Successfully Created', null, {
             duration: 1000,
             horizontalPosition: 'center',
