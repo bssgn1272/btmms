@@ -91,15 +91,17 @@
                     <ng-container matColumnDef="action">
                       <th mat-header-cell *matHeaderCellDef>Action</th>
                       <td mat-cell *matCellDef="let row">
-                        <button
-                          mat-raised-button
-                          (click)="cancel(row)"
-                          matTooltip="Cancel Request"
-                          aria-label="Button that displays a tooltip when focused or hovered over"
-                          class="btn btn-primary btn-link btn-sm btn-just-icon"
-                        >
-                          <i class="material-icons">cancel</i>
-                        </button>
+                        <div *ngIf="row.status == 'A'">
+                          <button
+                            mat-raised-button
+                            (click)="cancel(row)"
+                            matTooltip="Cancel Request"
+                            aria-label="Button that displays a tooltip when focused or hovered over"
+                            class="btn btn-primary btn-link btn-sm btn-just-icon"
+                          >
+                            <i class="material-icons">cancel</i>
+                          </button>
+                        </div>
                       </td>
                     </ng-container>
 

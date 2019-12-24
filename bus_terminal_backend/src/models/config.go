@@ -3,10 +3,11 @@ package models
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"github.com/joho/godotenv"
+	_ "github.com/lib/pq"
 	"log"
 	"os"
-	_ "github.com/lib/pq"
 )
 
 var db *gorm.DB //database
@@ -22,14 +23,14 @@ func init() {
 	username := os.Getenv("db_user")
 	password := os.Getenv("db_pass")
 	dbName := os.Getenv("db_name")
-	dbHost := os.Getenv("db_host")
+	//dbHost := os.Getenv("db_host")
 
 
 	//Building a connection string
-	dbUri := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, username, dbName, password)
+	dbUri := fmt.Sprintf("%s:%s@tcp(127.0.0.1)/%s?charset=utf8&parseTime=True", username, password, dbName)
 	log.Println(dbUri)
 
-	conn, err := gorm.Open("postgres", dbUri)
+	conn, err := gorm.Open("mysql", dbUri)
 	if err != nil {
 		log.Println(err)
 	}
