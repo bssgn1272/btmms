@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.util.Log;
@@ -22,11 +23,16 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.innovitrix.napsamarketsales.model.MenuAdapter;
 import com.innovitrix.napsamarketsales.model.MenuData;
+import com.innovitrix.napsamarketsales.models.RoutePlannedAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 //Recyclerview
@@ -58,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     RequestQueue queue;
 
 
-    private CardView cardViewMenuSaleToBuyer, cardViewMenuBuyFromTrader,cardViewCheckBalance,cardViewChangePin;
+    private CardView cardViewMenuSaleToBuyer, cardViewMenuBuyFromTrader,cardViewCheckBalance,cardViewChangePin,cardViewBuBusTicket;
     TextView textViewBalance;
     String mobile_number;
     String stringAmount;
@@ -73,34 +79,70 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
         queue = Volley.newRequestQueue(this);
-
-        menuDataList = new ArrayList<>();
-        //Define cards
-        cardViewMenuSaleToBuyer = findViewById(R.id.cardViewMenuSaleToBuyer);
-        cardViewMenuBuyFromTrader = findViewById(R.id.cardViewMenuBuyFromTrader);
-        cardViewCheckBalance = findViewById(R.id.cardViewMenuCheckBalance);
-        cardViewChangePin = findViewById(R.id.cardViewMenuChenagePin);
-
-
-        cardViewMenuSaleToBuyer.setOnClickListener(this);
-        cardViewMenuBuyFromTrader.setOnClickListener(this);
-        cardViewCheckBalance.setOnClickListener(this);
-        cardViewChangePin.setOnClickListener(this);
-
-        textViewBalance = findViewById(R.id.tvBalance);
-
+        //textViewBalance = findViewById(R.id.tvBalance);
+        setDate();
         fetchTrader();
+        menuDataList = new ArrayList<>();
+
+//        menuDataList.add(new MenuData(1, "Make A Sale", R.drawable.ic_local_shipping_black_24dp));
+//        menuDataList.add(new MenuData(2, "Make An order",R.drawable.ic_local_shipping_black_24dp));
+//        menuDataList.add(new MenuData(3, "Seller Bus Ticket", R.drawable.ic_directions_bus_black_24dp ));
+//        menuDataList.add(new MenuData(4, "Check Balance", R.drawable.ic_account_balance_black_24dp));
+//        menuDataList.add(new MenuData(5, "View Transactions",R.drawable.ic_account_balance_black_24dp));
+//        menuDataList.add(new MenuData(6, "Change pin",R.drawable.ic_lock_open_black_24dp));
+
+        menuDataList.add(new MenuData(1, "Make A Sale", R.drawable.ic_local_shipping_black_24dp,R.drawable.circle_bakcground_sales));
+        menuDataList.add(new MenuData(2, "Make An Order",R.drawable.ic_local_shipping_black_24dp,R.drawable.circle_background_order));
+        //menuDataList.add(new MenuData(3, "Seller Bus Ticket", R.drawable.ic_directions_bus_black_24dp,R.drawable.circle_bakcground_sales ));
+//        menuDataList.add(new MenuData(5, "View Transactions",R.drawable.ic_account_balance_black_24dp,R.drawable.circle_bakcground_sales));
+//        menuDataList.add(new MenuData(6, "Change pin",R.drawable.ic_lock_open_black_24dp,R.drawable.circle_background_order));
+        menuDataList.add(new MenuData(3, "Check Balance",R.drawable.ic_attach_money_black_24dp,R.drawable.circle_background_balance));
+        menuDataList.add(new MenuData(4, "Logout", R.drawable.ic_power_settings_new_black_24dp,R.drawable.circle_bakcground_sales ));
+
+
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewMenu);
+        menuAdapter = new MenuAdapter(this,menuDataList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(menuAdapter);
+//
+//        //Define cards
+//        cardViewMenuSaleToBuyer = findViewById(R.id.cardViewMenuSaleToBuyer);
+//        cardViewMenuBuyFromTrader = findViewById(R.id.cardViewMenuBuyFromTrader);
+//        cardViewCheckBalance = findViewById(R.id.cardViewMenuCheckBalance);
+//        //cardViewChangePin = findViewById(R.id.cardViewMenuChenagePin);
+//        cardViewBuBusTicket =findViewById(R.id.cardViewBuBusTicket);
+//
+//
+//        cardViewMenuSaleToBuyer.setOnClickListener(this);
+//        cardViewMenuBuyFromTrader.setOnClickListener(this);
+//        cardViewCheckBalance.setOnClickListener(this);
+////        cardViewChangePin.setOnClickListener(this);
+//        cardViewBuBusTicket.setOnClickListener(this);
+
+
+
 
         //  fetchInformation();
         //  sendInformation();
         //  updateInformation();
+
+
+
+
     }
 
-     public void fetchTrader() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        fetchTrader();
+    }
+
+    public void fetchTrader() {
         //userObjectLength =0;
         progressDialog.show();
         mobile_number = SharedPrefManager.getInstance(MainActivity.this).getCustomer().getMobile_number();
-
+       // mobile_number =  mobile_number.substring(2);
 
          JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_CHECK_BALANCE +
                 URL_CHAR_QUESTION +
@@ -120,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
                             JSONObject currentUser = response.getJSONObject("user");
-                            userObjectLength = currentUser.length();
+                        //    userObjectLength = currentUser.length();
                             com.innovitrix.napsamarketsales.models.User mUser = new com.innovitrix.napsamarketsales.models.User(
                                     currentUser.getInt("trader_id"),
                                     currentUser.getDouble("token_balance")
@@ -133,8 +175,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                             // mUser.getFirstname();//retrieving firstname
                             //mUser.getLastname();//retrieving lastname
-                            stringAmount = String.valueOf(mUser.getBalance());
-                            textViewBalance.setText(stringAmount);
+                           // stringAmount = "K"+ String.valueOf(mUser.getBalance());
+                         //   textViewBalance.setText(stringAmount);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -147,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         //Handle Errors here
                         progressDialog.dismiss();
                         Log.d("Error.Response", error.toString());
-                        Log.d("Error.Response", error.getMessage());
+                   //     Log.d("Error.Response", error.getMessage());
                     }
                 }) {
 
@@ -336,37 +378,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        fetchTrader();
-        Intent i;
-
-        switch (view.getId()) {
-            case R.id.cardViewMenuSaleToBuyer:i = new Intent(this,MakeSell.class);startActivity(i);break;
-            case R.id.cardViewMenuBuyFromTrader:i = new Intent(this, BuyFromTrader.class);startActivity(i);break;
-            case R.id.cardViewMenuCheckBalance:
-
-          AlertDialog.Builder   builder = new AlertDialog.Builder(MainActivity.this);
-
-                // builder.setTitle("Test");
-               // builder.setIcon(R.drawable.icon);
-                builder.setMessage("Your account balance is K " +stringAmount);
+      //  fetchTrader();
 
 
-                builder.setNeutralButton("Ok",
-                        new DialogInterface.OnClickListener()
-                        {
-                            public void onClick(DialogInterface dialog, int id)
-                            {
-                            //    context.startActivity(new Intent(context, Setup.class));
-                                dialog.cancel();
-                            }
-                        });
-
-                builder.create().show();
+            }
 
 
-
-               // i = new Intent(this, CheckBalance.class);startActivity(i);break;
-            default:break;
-        }
+    public void setDate()
+    {
+        Date today = Calendar.getInstance().getTime();//getting date
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE, d MMM yyyy");//formating according to my need
+        String date = formatter.format(today);
+        TextView txtViewDate = (TextView)findViewById(R.id.textViewDate);
+        txtViewDate.setText(date);
     }
-}
+
+    }
+

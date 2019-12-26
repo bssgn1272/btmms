@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardViewRouteId"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:layout_margin="10dp"
+        android:clickable="true"
+        cardview:cardCornerRadius="10dp">
+
+
+        <LinearLayout
+            android:id="@+id/linearLayoutRoutePlanned"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView_RouteName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Bus Fare"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textView_BusFare"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Bus Fare"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textView_Company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Bus Operator"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textView_BusLicensePlate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Bus License Plate"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

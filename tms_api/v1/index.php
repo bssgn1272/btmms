@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author: Chimuka Moonde
  * @mobile No: 0973297682
@@ -6,7 +7,7 @@
  * Kindly note that this is a customized version of slim 2
  * @editor: Francis Chulu
  * @Date: 07/11/2019
- * Pointed all users table queries to traders table
+ * Pointed all users table queries to traders table, added logging class
  */
 
 //including the required files
@@ -16,13 +17,16 @@ include '../include/Utils.php';
 require_once '../include/Security.php';
 require_once '../include/DbHandler.php';
 require_once '.././libs/Slim/Slim.php';
+require_once  '../include/ApiLogger.php';
 
-\Slim\Slim::registerAutoloader();
-//Creating a slim instance
+\Slim\Slim::registerAutoloader();//Creating a slim instance
 $app = new \Slim\Slim();
+$log = new ApiLogger();
+
 //For now we expect json request for POST and PUT
 if ($_SERVER['REQUEST_METHOD'] == 'PUT' || $_SERVER['REQUEST_METHOD'] == 'POST') {
     $decodedRequest = Utils::handleRequest();
+    //$log->logInfo(APP_INFO_LOG, -1, 'index | [' . $decodedRequest['seller_mobile_number']. ']  Received request is ' . print_r($decodedRequest, TRUE));
     if (isset($decodedRequest['status']) && $decodedRequest['status'] == StatusCodes::GENERIC_ERROR) {
         echoResponse(200, $decodedRequest);
         exit();
@@ -53,12 +57,14 @@ if (ENVIRONMENT == 1) {
 
 
 $app->post('/generateKey', function () use ($app) {
+    global $decodedRequest;
 
     //check for required params
     verifyRequiredParams(array('application_name'));
 
     //reading post params
-    $application_name = $app->request->post('application_name');
+    //$application_name = $app->request->post('application_name');
+    $application_name = $decodedRequest['application_name'];
 
     $db = new DbHandler();
 
@@ -77,6 +83,7 @@ $app->get('/users', function () use ($app) {
     $db = new DbHandler();
 
     $multiple_result = true;
+
     $db->getAllTraders($trader_id, $mobile_number, $role, $multiple_result);
 
 });
@@ -89,8 +96,8 @@ $app->get('/balance', function () use ($app) {
 
     $db = new DbHandler();
 
-    $multiple_result = true;
-    $result =$db->checkTokenBalance($trader_id,$mobile_number);
+    $end_point = true;
+    $result =$db->checkTokenBalance($trader_id,$mobile_number,$end_point);
     echoResponse(200,$result);
 
 });
@@ -149,6 +156,7 @@ $app->put('/update_profile', function () use ($app) {
 });
 
 $app->post('/login', function () use ($app) {
+
     global $decodedRequest;
     //check for required params
     //Email was removed so traders will be required to use their mobile number to login
@@ -215,9 +223,6 @@ $app->post('/reset_password', function () use ($app) {
 //************************ROLES***************************//
 $app->get('/roles', function () use ($app) {
 
-    $pharmacy_id = $app->request->get('pharmacy_id');
-    $pharmacy_name = $app->request->get('pharmacy_name');
-
     $db = new DbHandler();
 
     $multiple_result = false;
@@ -225,11 +230,8 @@ $app->get('/roles', function () use ($app) {
 });
 //************************END OF ROLES***************************//
 
-//************************ROLES***************************//
+//************************PAYMENT_METHODS***************************//
 $app->get('/payment_methods', function () use ($app) {
-
-    $pharmacy_id = $app->request->get('pharmacy_id');
-    $pharmacy_name = $app->request->get('pharmacy_name');
 
     $db = new DbHandler();
 
@@ -237,192 +239,29 @@ $app->get('/payment_methods', function () use ($app) {
     $db->getAllPaymentMethods();
 
 });
-//************************END OF ROLES***************************//
+//************************END OF PAYMENT_METHODS***************************//
 
-//************************PRODUCTS CATEGORIES***************************//
-$app->get('/product_categories', function () use ($app) {
-
-    $pharmacy_id = $app->request->get('pharmacy_id');
-    $pharmacy_name = $app->request->get('pharmacy_name');
+//************************TRANSACTION TYPES METHODS***************************//
+$app->get('/transaction_types', function () use ($app) {
 
     $db = new DbHandler();
 
     $multiple_result = false;
-    $db->getAllProductCategory();
+    $db->getAllTransactionTypes();
 
 });
+//************************END OF TRANSACTION TYPES METHODS***************************//
 
-$app->post('/product_categories', function () use ($app) {
-
-    //check for required params
-    global $decodedRequest;
-    verifyRequiredParams(array('category_name'));
-
-    $category_name = $decodedRequest['category_name'];
-    $category_description = $decodedRequest['category_description'];
-
-    $db = new DbHandler();
-
-    $db->createProductsCategory($category_name, $category_description);
-
-});
-
-$app->put('/product_categories', function () use ($app) {
-
-    //check for required params
-    global $decodedRequest;
-    verifyRequiredParams(array('category_name', 'product_category_id'));
-
-    $category_name = $decodedRequest['category_name'];
-    $category_description = $decodedRequest['category_description'];
-    $product_category_id = $decodedRequest['product_category_id'];
-
-    $db = new DbHandler();
-
-    $db->updateProductCategory($category_name, $category_description, $product_category_id);
-
-});
+//************************PRODUCTS CATEGORIES***************************//
 //************************END OF PRODUCTS CATEGORIES***************************//
 
 //************************PRODUCTS***************************//
-$app->get('/products', function () use ($app) {
-
-    $pharmacy_id = $app->request->get('pharmacy_id');
-    $pharmacy_name = $app->request->get('pharmacy_name');
-
-    $db = new DbHandler();
-
-    $multiple_result = false;
-    $db->getAllProducts();
-
-});
-
-$app->post('/products', function () use ($app) {
-
-    //check for required params
-    global $decodedRequest;
-    verifyRequiredParams(array('product_category_id', 'product_name'));
-
-    $product_category_id = $decodedRequest['product_category_id'];
-    $product_name = $decodedRequest['product_name'];
-    $product_description = $decodedRequest['product_description'];
-
-    $db = new DbHandler();
-
-    $db->createProduct($product_category_id, $product_image = null, $product_name, $product_description);
-
-});
-
-$app->put('/products', function () use ($app) {
-
-    //check for required params
-    global $decodedRequest;
-    verifyRequiredParams(array('product_category_id', 'product_name', 'product_id'));
-
-    $product_category_id = $decodedRequest['product_category_id'];
-    $product_name = $decodedRequest['product_name'];
-    $product_description = $decodedRequest['product_description'];
-    $product_id = $decodedRequest['product_id'];
-
-    $db = new DbHandler();
-
-    $db->updateProduct($product_category_id, $product_image = null, $product_name, $product_description, $product_id);
-
-});
 //************************END OF PRODUCTS***************************//
 
 //************************MEASURES***************************//
-$app->get('/measures', function () use ($app) {
-
-    $pharmacy_id = $app->request->get('pharmacy_id');
-    $pharmacy_name = $app->request->get('pharmacy_name');
-
-    $db = new DbHandler();
-
-    $multiple_result = false;
-    $db->getAllMeasures();
-
-});
-
-$app->post('/measures', function () use ($app) {
-
-    //check for required params
-    global $decodedRequest;
-    verifyRequiredParams(array('unit_name'));
-
-    $unit_name = $decodedRequest['unit_name'];
-    $unit_description = $decodedRequest['unit_description'];
-
-    $db = new DbHandler();
-
-    $db->createMeasure($unit_name, $unit_description);
-
-});
-
-$app->put('/measures', function () use ($app) {
-
-    //check for required params
-    global $decodedRequest;
-    verifyRequiredParams(array('unit_name', 'unit_of_measure_id'));
-
-    $unit_name = $decodedRequest['unit_name'];
-    $unit_description = $decodedRequest['unit_description'];
-    $unit_of_measure_id = $decodedRequest['unit_of_measure_id'];
-
-    $db = new DbHandler();
-
-    $db->updateMeasure($unit_name, $unit_description, $unit_of_measure_id);
-
-});
 //************************END OF MEASURES***************************//
 
 //************************MARKETEER PRODUCTS***************************//
-$app->get('/marketeer_products', function () use ($app) {
-
-    $trader_id = $app->request->get('trader_id');
-    $pharmacy_name = $app->request->get('pharmacy_name');
-
-    $db = new DbHandler();
-
-    $multiple_result = false;
-    $db->getAllMarketeerProducts($trader_id);
-
-});
-
-$app->post('/marketeer_products', function () use ($app) {
-
-    //check for required params
-    global $decodedRequest;
-    verifyRequiredParams(array('trader_id', 'product_id'));
-
-    $trader_id = $decodedRequest['trader_id'];
-    $product_id = $decodedRequest['product_id'];
-    $unit_of_measure_id = $decodedRequest['unit_of_measure_id'];
-    $price = $decodedRequest['price'];
-
-    $db = new DbHandler();
-
-    $db->createMarketeerProduct($trader_id, $product_id, $unit_of_measure_id, $price);
-
-});
-
-$app->put('/marketeer_products', function () use ($app) {
-
-    //check for required params
-    global $decodedRequest;
-    verifyRequiredParams(array('trader_id', 'product_id', 'marketeer_products_id'));
-
-    $trader_id = $decodedRequest['trader_id'];
-    $product_id = $decodedRequest['product_id'];
-    $unit_of_measure_id = $decodedRequest['unit_of_measure_id'];
-    $price = $decodedRequest['price'];
-    $marketeer_products_id = $decodedRequest['marketeer_products_id'];
-
-    $db = new DbHandler();
-
-    $db->updateMarketeerProduct($trader_id, $product_id, $unit_of_measure_id, $price, $marketeer_products_id);
-
-});
 //************************END OF MARKETEER PRODUCTS***************************//
 
 
@@ -497,86 +336,24 @@ $app->post('/token_redemption', function () use ($app) {
 //************************END OF TOKEN REDEMPTION***************************//
 
 //************************REWARD CAMPAIGNS***************************//
-$app->get('/reward_campaigns', function () use ($app) {
-
-    $reward_campaign_id = $app->request->get('reward_campaign_id');
-    $pharmacy_name = $app->request->get('pharmacy_name');
-
-    $db = new DbHandler();
-
-    $multiple_result = false;
-    $db->getAllRewardCampaigns($reward_campaign_id);
-
-});
-
-$app->post('/reward_campaigns', function () use ($app) {
-
-    //check for required params
-    global $decodedRequest;
-    verifyRequiredParams(array('campaign_name', 'marketeer_points_required', 'buyer_points_required', 'marketeer_points_multiplier', 'buyer_points_multiplier', 'active_from', 'active_to'));
-
-    $campaign_name = $decodedRequest['campaign_name'];
-    $campaign_description = $decodedRequest['campaign_description'];
-    $marketeer_points_required = $decodedRequest['marketeer_points_required'];
-    $buyer_points_required = $decodedRequest['buyer_points_required'];
-    $marketeer_points_multiplier = $decodedRequest['marketeer_points_multiplier'];
-    $buyer_points_multiplier = $decodedRequest['buyer_points_multiplier'];
-    $active_from = $decodedRequest['active_from'];
-    $active_to = $decodedRequest['active_to'];
-
-    $db = new DbHandler();
-
-    $db->createRewardCampaign($campaign_name, $campaign_description, $marketeer_points_required, $buyer_points_required, $marketeer_points_multiplier, $buyer_points_multiplier, $active_from, $active_to);
-
-});
-
-$app->put('/reward_campaigns', function () use ($app) {
-
-    //check for required params
-    global $decodedRequest;
-    verifyRequiredParams(array('campaign_name', 'marketeer_points_required', 'buyer_points_required', 'marketeer_points_multiplier', 'buyer_points_multiplier', 'active_from', 'active_to', 'reward_campaign_id'));
-
-    $campaign_name = $decodedRequest['campaign_name'];
-    $campaign_description = $decodedRequest['campaign_description'];
-    $marketeer_points_required = $decodedRequest['marketeer_points_required'];
-    $buyer_points_required = $decodedRequest['buyer_points_required'];
-    $marketeer_points_multiplier = $decodedRequest['marketeer_points_multiplier'];
-    $buyer_points_multiplier = $decodedRequest['buyer_points_multiplier'];
-    $active_from = $decodedRequest['active_from'];
-    $active_to = $decodedRequest['active_to'];
-    $reward_campaign_id = $decodedRequest['reward_campaign_id'];
-
-    $db = new DbHandler();
-
-    $db->updateRewardCampaign($campaign_name, $campaign_description, $marketeer_points_required, $buyer_points_required, $marketeer_points_multiplier, $buyer_points_multiplier, $active_from, $active_to, $reward_campaign_id);
-
-});
 //************************END OF REWARD CAMPAIGNS***************************//
 
 //************************REDEEMED REWARDS***************************//
-$app->get('/redeemed_rewards', function () use ($app) {
-
-    $trader_id = $app->request->get('trader_id');
-    $pharmacy_name = $app->request->get('pharmacy_name');
-
-    $db = new DbHandler();
-
-    $multiple_result = false;
-    $db->getAllRedeemedRewards($trader_id);
-
-});
 //************************END OF REDEEMED REWARDS***************************//
 
 //************************TRANSACTION***************************//
 $app->get('/transactions', function () use ($app) {
 
     $cart_id = $app->request->get('cart_id');
-    $pharmacy_name = $app->request->get('pharmacy_name');
+    $seller_id = $app->request->get('seller_id');
+    $buyer_id = $app->request->get('buyer_id');
+    $seller_mobile_number = $app->request->get('seller_mobile_number');
+    $buyer_mobile_number = $app->request->get('buyer_mobile_number');
 
     $db = new DbHandler();
 
-    $multiple_result = false;
-    $db->getAllCarts($cart_id, $multiple_result);
+    $multiple_result = true;
+    $db->getAllTransactions($cart_id ,$seller_id ,$buyer_id ,$seller_mobile_number ,$buyer_mobile_number ,$multiple_result);
 
 });
 
@@ -584,6 +361,7 @@ $app->post('/transactions', function () use ($app) {
 
     //checking for required parameters
     //verifyRequiredParams(array('school_id','class_id'));
+    global $log;
 
     if (isset($_POST['transactions'])) {
 
@@ -599,18 +377,34 @@ $app->post('/transactions', function () use ($app) {
     //Decode JSON into an Array
     $transactions_json_obj = json_decode($json_object, true);
 
-    $marketeer_id = $transactions_json_obj['marketeer_id'];
+    if (true) {
+        //WRITE A MESSAGE TO A FILE IN THE SAME DIRECTORY
+        $file = __DIR__ . '/transaction_capture.txt';
+
+        $date = 'Script was executed at ' . date('d/m/Y H:i:s') . "\n" . json_encode($transactions_json_obj) . "\n" . "\n";
+
+        file_put_contents($file, $date, FILE_APPEND);
+        //END OF WRITING TO FILE
+    }
+
+    //FILE_NAME,SCRIPT_NAME,METHOD OR ENDPOINT,MESSAGE,TASK
+    $log->logInfo(APP_INFO_LOG, -1,'[Transaction Capture] | ' .json_encode($transactions_json_obj));
+
+    $transaction_type_id = $transactions_json_obj['transaction_type_id'];
+    $seller_id = isset($transactions_json_obj['seller_id']) ? $transactions_json_obj['seller_id'] : null;
+    $seller_name = isset($transactions_json_obj['seller_name']) ? $transactions_json_obj['seller_name'] : null;
+    $seller_mobile_number = isset($transactions_json_obj['seller_mobile_number']) ? $transactions_json_obj['seller_mobile_number'] : null;
     $buyer_id = isset($transactions_json_obj['buyer_id']) ? $transactions_json_obj['buyer_id'] : null;
+    $buyer_name = isset($transactions_json_obj['buyer_name']) ? $transactions_json_obj['buyer_name'] : null;
     $buyer_mobile_number = isset($transactions_json_obj['buyer_mobile_number']) ? $transactions_json_obj['buyer_mobile_number'] : null;
-    $amount_due = $transactions_json_obj['amount_due'];
-    $token_tendered = $transactions_json_obj['token_tendered'];
+    $amount = $transactions_json_obj['amount_due'];
     $device_serial = $transactions_json_obj['device_serial'];
     $transaction_date = $transactions_json_obj['transaction_date'];
-    $transaction_details = isset($transactions_json_obj['transaction_details']) ? $transactions_json_obj['transaction_details'] : null;
+    //$transaction_details = isset($transactions_json_obj['transaction_details']) ? $transactions_json_obj['transaction_details'] : null;
 
     $db = new DbHandler();
 
-    $db->createTransactionsSummaries($marketeer_id, $buyer_id, $buyer_mobile_number,$amount_due, $token_tendered, $device_serial, $transaction_date, $transaction_details);
+    $db->createTransactionsSummaries($transaction_type_id, $seller_id, $seller_name, $seller_mobile_number, $buyer_id, $buyer_name, $buyer_mobile_number, $amount, $device_serial, $transaction_date);
 
 });
 
@@ -722,7 +516,7 @@ $app->get('/routes', function () use ($app) {
 //************************ROUTES***************************//
 $app->get('/departure_times', function () use ($app) {
 
-    $route_id = $app->request->get('route_id');
+    $route_id = $app->request->get('route_code');
 
     $db = new DbHandler();
 
@@ -919,7 +713,7 @@ function authenticateAPIKEY(\Slim\Route $route)
         $db = new DbOperation();
 
         //Getting api key from database
-        $api_key = $headers['Authorization'];
+        $api_key = $headers['API_KEY'];
 
         //Validating api key from database
         if (!$db->isValidApiKey($api_key)) {

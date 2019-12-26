@@ -1,11 +1,37 @@
 package com.innovitrix.napsamarketsales.model;
 
+import android.widget.TextView;
+
+import com.innovitrix.napsamarketsales.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class MenuData {
 
-   private int MenuId;
+    private int MenuId;
     private String MenuName;
+    private int MenuImage;
+    private int MenuBackgroundImage;
 
-    private int MenuImage ;
+    public MenuData(int menuId, String menuName, int menuImage,  int menuBackgroundImage) {
+        MenuId = menuId;
+        MenuName = menuName;
+        MenuImage = menuImage;
+        MenuBackgroundImage = menuBackgroundImage;
+    }
+
+
+    public int getMenuBackgroundImage() {
+        return MenuBackgroundImage;
+    }
+
+    public void setMenuBackgroundImage(int menuBackgroundImage) {
+        MenuBackgroundImage = menuBackgroundImage;
+    }
+
 
     public int getMenuId() {
         return MenuId;
@@ -36,4 +62,6 @@ public class MenuData {
     public void setMenuImage(int menuImage) {
         MenuImage = menuImage;
     }
+
+
 }

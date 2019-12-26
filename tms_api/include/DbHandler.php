@@ -120,8 +120,6 @@ class DbHandler
         //END OF WRITING TO FILE
     }
 
-    //Method to display
-    //Echoing json response to client
     public function echoResponse($status_code, $response)
     {
         //Getting app instance
@@ -287,13 +285,14 @@ class DbHandler
         return $response;
     }
 
-    public function checkTokenBalance($trader_id = null, $mobile_number = null)
+    public function checkTokenBalance($trader_id = null, $mobile_number = null,$end_point = false)
     {
         $response = array();
 
-        $sql = 'SELECT trader_id,token_balance
+        $sql = 'SELECT trader_id,firstname,lastname,token_balance
                 FROM traders
-                WHERE trader_id = ? OR mobile_number LIKE ?';
+                WHERE trader_id = ? OR mobile_number = ?';
+        //SUBSTRING(mobile_number,3) = ?
 
         $isPrepared = $stmt = $this->conn->prepare($sql);
 
@@ -301,7 +300,7 @@ class DbHandler
             $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
         }
 
-        $mobile_number = '%' . $mobile_number . '%';
+        //$mobile_number = '%' . $mobile_number . '%';
         $isParamBound = $stmt->bind_param('is', $trader_id, $mobile_number);
         if (!$isParamBound) {
             $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
@@ -314,21 +313,41 @@ class DbHandler
             if ($stmt->num_rows > 0) {
                 //IF FOUND
 
-                $stmt->bind_result($trader_id_db, $token_balance_db);
+                $stmt->bind_result($trader_id_db,$firstname,$lastname ,$token_balance_db);
+
+                $response['error'] = false;
+                $response['user'] = array();
 
                 while ($stmt->fetch()) {
                     $tmp = array();
 
                     $tmp['trader_id'] = $trader_id_db;
+                    $tmp['name'] = $firstname .' '.$lastname;
                     $tmp['token_balance'] = $token_balance_db;
 
-                    $response = $tmp;
+                    if($end_point){
+                        $response['user'] = $tmp;
+                    }else{
+                        $response = $tmp;
+                    }
                 }
 
 
             } else {
                 //IF NOT FOUND
-                $response = null;
+                if($end_point){
+//                    $tmp = array();
+//
+//                    $tmp['trader_id'] = 0;
+//                    $tmp['name'] = null;
+//                    $tmp['token_balance'] = 0.0;
+
+                    $response['error'] = false;
+                    $response['user'] = null;
+                    $response['message'] = 'No results found';
+                }else{
+                    $response = null;
+                }
             }
 
         } else {
@@ -1121,7 +1140,142 @@ class DbHandler
     }
     //************************END OF PAYMENT METHODS***************************//
 
-//************************ENTITY***************************//
+    //************************TRANSACTION TYPES METHODS***************************//
+    public function getAllTransactionTypes()
+    {
+        $response = array();
+
+        $sql = 'SELECT transaction_type_id, name, description
+                FROM transaction_types';
+
+        $isPrepared = $stmt = $this->conn->prepare($sql);
+
+        if (!$isPrepared) {
+            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
+        }
+
+//        $isParamBound = $stmt->bind_param('i', $role_id);
+//        if (!$isParamBound) {
+//            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
+//        }
+
+
+        if ($stmt->execute()) {
+
+            $stmt->store_result();
+
+            if ($stmt->num_rows > 0) {
+                //IF FOUND
+
+                $stmt->bind_result($transaction_type_id, $name,$description);
+
+                $response['error'] = false;
+                $response['transaction_types'] = array();
+
+                while ($stmt->fetch()) {
+                    $tmp = array();
+                    $tmp['transaction_type_id'] = $transaction_type_id;
+                    $tmp['transaction_type_name'] = $name;
+                    $tmp['transaction_type_description'] = $description;
+
+                    $response['transaction_types'][] = $tmp;
+                }
+
+                $this->echoResponse(HTTP_status_200_OK, $response);
+
+            } else {
+                //IF NOT FOUND
+                $response['error'] = false;
+                $response['transaction_types'] = array();
+                $response['message'] = 'No results found';
+
+                $this->echoResponse(HTTP_status_200_OK, $response);
+            }
+
+        } else {
+            //IF QUERY FAILED TO EXECUTE
+            $response['error'] = true;
+            $response['message'] = 'Oops! An error occurred';
+            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
+
+            $this->Execute_failed_to_file($response, $sql);
+
+            $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
+        }
+
+        return null;
+    }
+    //************************END OF TRANSACTION TYPES METHODS***************************//
+
+    //************************TRANSACTION TYPES***************************//
+    public function getAllTransactionType()
+    {
+        $response = array();
+
+        $sql = 'SELECT transaction_type_id, name, description
+                FROM transaction_types
+                ';
+
+        $isPrepared = $stmt = $this->conn->prepare($sql);
+
+        if (!$isPrepared) {
+            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
+        }
+
+//        $isParamBound = $stmt->bind_param('i', $role_id);
+//        if (!$isParamBound) {
+//            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
+//        }
+
+
+        if ($stmt->execute()) {
+
+            $stmt->store_result();
+
+            if ($stmt->num_rows > 0) {
+                //IF FOUND
+
+                $stmt->bind_result($transaction_type_id, $name, $description);
+
+                $response['error'] = false;
+                $response['transaction_types'] = array();
+
+                while ($stmt->fetch()) {
+                    $tmp = array();
+                    $tmp['transaction_type_id'] = $transaction_type_id;
+                    $tmp['name'] = $name;
+                    $tmp['description'] = $description;
+
+                    $response['transaction_types'][] = $tmp;
+                }
+
+                $this->echoResponse(HTTP_status_200_OK, $response);
+
+            } else {
+                //IF NOT FOUND
+                $response['error'] = false;
+                $response['transaction_types'] = array();
+                $response['message'] = 'No results found';
+
+                $this->echoResponse(HTTP_status_200_OK, $response);
+            }
+
+        } else {
+            //IF QUERY FAILED TO EXECUTE
+            $response['error'] = true;
+            $response['message'] = 'Oops! An error occurred';
+            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
+
+            $this->Execute_failed_to_file($response, $sql);
+
+            $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
+        }
+
+        return null;
+    }
+    //************************END OF TRANSACTION TYPES***************************//
+
+    //************************ENTITY***************************//
     public function getAllTraders($trader_id = null, $mobile_number = null, $role = null, $multiple_result)
     {
 
@@ -1223,8 +1377,8 @@ class DbHandler
             } else {
                 //IF NOT FOUND
                 $response['error'] = false;
-                $response['status'] = StatusCodes::SUCCESS_CODE;
-                $response['users'] = array();
+                $response['status'] = StatusCodes::FAILURE_CODE;
+                $response['users'] = null;
                 $response['message'] = 'No results found';
 
                 $this->echoResponse(HTTP_status_200_OK, $response);
@@ -1243,771 +1397,21 @@ class DbHandler
 
         return null;
     }
-
-//************************END OF ENTITY***************************//
+    //************************END OF ENTITY***************************//
 
     //************************PRODUCTS CATEGORIES***************************//
-    public function getAllProductCategory()
-    {
-        $response = array();
-
-        $sql = 'SELECT product_category_id, category_name, category_description                                                                                       
-                FROM product_categories
-                ORDER BY category_name  ';
-
-        $isPrepared = $stmt = $this->conn->prepare($sql);
-
-        if (!$isPrepared) {
-            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-        }
-
-//        $isParamBound = $stmt->bind_param('i', $role_id);
-//        if (!$isParamBound) {
-//            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-//        }
-
-
-        if ($stmt->execute()) {
-
-            $stmt->store_result();
-
-            if ($stmt->num_rows > 0) {
-                //IF FOUND
-
-                $stmt->bind_result($product_category_id, $category_name, $category_description);
-
-                $response['error'] = false;
-                $response['product_categories'] = array();
-
-                while ($stmt->fetch()) {
-                    $tmp = array();
-                    $tmp['product_category_id'] = $product_category_id;
-                    $tmp['category_name'] = $category_name;
-                    $tmp['category_description'] = $category_description;
-
-                    $response['product_categories'][] = $tmp;
-                }
-
-                $this->echoResponse(HTTP_status_200_OK, $response);
-
-
-            } else {
-                //IF NOT FOUND
-                $response['error'] = false;
-                $response['product_categories'] = array();
-                $response['message'] = 'No results found';
-
-                $this->echoResponse(HTTP_status_200_OK, $response);
-            }
-
-        } else {
-            //IF QUERY FAILED TO EXECUTE
-            $response['error'] = true;
-            $response['message'] = 'Oops! An error occurred';
-            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-            $this->Execute_failed_to_file($response, $sql);
-
-            $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
-        }
-
-        return null;
-    }
-
-    public function createProductsCategory($category_name, $category_description)
-    {
-
-        $response = array();
-
-        if (!$this->doesProductCategoryExist($category_name)) {
-
-            $sql = 'INSERT INTO product_categories(category_name, category_description) VALUES(?,?)';
-
-            if (!($stmt = $this->conn->prepare($sql))) {
-                $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-            }
-
-            $category_name = $this->insert_word_prep($category_name);
-
-            $isParamBound = $stmt->bind_param('ss', $category_name, $category_description);
-            if (!$isParamBound) {
-                $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-            }
-
-            if ($stmt->execute()) {
-                //CREATED
-                //$new_id = $this->conn->insert_id;
-                $response['error'] = false;
-                $response['message'] = 'Product category created successfully';
-
-                $this->echoResponse(HTTP_status_201_Created, $response);
-            } else {
-                //FAILED TO CREATE
-                $response['error'] = true;
-                $response['message'] = 'Oops! An error occurred';
-                $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-                $this->Execute_failed_to_file($response, $sql);
-
-                $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
-            }
-
-            $stmt->close();
-        } else {
-            //ALREADY EXISTS
-            $response['error'] = true;
-            $response['message'] = 'Already exists';
-
-            $this->echoResponse(HTTP_status_409_Conflict, $response);
-        }
-
-        return null;
-    }
-
-    //(checking for duplicates)
-    private function doesProductCategoryExist($category_name)
-    {
-        $stmt = $this->conn->prepare('SELECT product_category_id FROM product_categories WHERE category_name = ?');
-        $stmt->bind_param('s', $category_name);
-        $stmt->execute();
-        $stmt->store_result();
-        $num_rows = $stmt->num_rows;
-        $stmt->close();
-        return $num_rows > 0;
-    }
-
-    public function updateProductCategory($category_name, $category_description, $product_category_id)
-    {
-
-        $response = array();
-
-        $sql = 'UPDATE product_categories SET  category_name = ?, category_description = ? WHERE  product_category_id = ?';
-
-        if (!($stmt = $this->conn->prepare($sql))) {
-            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-        }
-
-        $category_name = $this->insert_word_prep($category_name);
-
-        $isParamBound = $stmt->bind_param('ssi', $category_name, $category_description, $product_category_id);
-        if (!$isParamBound) {
-            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-        }
-
-        if ($stmt->execute()) {
-
-            if ($stmt->affected_rows > 0) {
-                //UPDATE SUCCESSFUL
-                $response['error'] = false;
-                $response['message'] = 'Category information updated successfully';
-
-                $this->echoResponse(HTTP_status_200_OK, $response);
-            } else {
-                //FAILED TO UPDATE
-                $response['error'] = true;
-                $response['message'] = 'Failed to update category information. Please try again!';
-
-                $this->echoResponse(HTTP_status_422_Unprocessable_Entity, $response);
-            }
-
-        } else {
-            //IF QUERY FAILED TO EXECUTE
-            $response['error'] = true;
-            $response['message'] = 'Oops! An error occurred';
-            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-            $this->Execute_failed_to_file($response, $sql);
-
-            $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
-        }
-
-        $stmt->close();
-        return null;
-    }
     //************************END OF PRODUCTS CATEGORIES***************************//
 
 
     //************************PRODUCTS***************************//
-    public function getAllProducts()
-    {
-        $response = array();
-
-        $sql = 'SELECT product_id,
-                        product_categories.product_category_id, category_name, category_description,
-                        product_image,product_name,product_description
-                FROM products
-                JOIN product_categories ON product_categories.product_category_id = products.product_category_id
-                ORDER BY category_name,product_name  ';
-
-        $isPrepared = $stmt = $this->conn->prepare($sql);
-
-        if (!$isPrepared) {
-            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-        }
-
-//        $isParamBound = $stmt->bind_param('i', $role_id);
-//        if (!$isParamBound) {
-//            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-//        }
-
-
-        if ($stmt->execute()) {
-
-            $stmt->store_result();
-
-            if ($stmt->num_rows > 0) {
-                //IF FOUND
-
-                $stmt->bind_result($product_id,
-                    $product_category_id, $category_name, $category_description,
-                    $product_image, $product_name, $product_description);
-
-                $response['error'] = false;
-                $response['products'] = array();
-
-                while ($stmt->fetch()) {
-                    $tmp = array();
-                    $tmp['product_id'] = $product_id;
-                    $tmp['product_category_id'] = $product_category_id;
-                    $tmp['category_name'] = $category_name;
-                    $tmp['category_description'] = $category_description;
-                    $tmp['product_image'] = $product_image;
-                    $tmp['product_name'] = $product_name;
-                    $tmp['product_description'] = $product_description;
-
-                    $response['products'][] = $tmp;
-                }
-
-                $this->echoResponse(HTTP_status_200_OK, $response);
-
-            } else {
-                //IF NOT FOUND
-                $response['error'] = false;
-                $response['products'] = array();
-                $response['message'] = 'No results found';
-
-                $this->echoResponse(HTTP_status_200_OK, $response);
-            }
-
-        } else {
-            //IF QUERY FAILED TO EXECUTE
-            $response['error'] = true;
-            $response['message'] = 'Oops! An error occurred';
-            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-            $this->Execute_failed_to_file($response, $sql);
-
-            $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
-        }
-
-        return null;
-    }
-
-    public function createProduct($product_category_id, $product_image = null, $product_name, $product_description)
-    {
-
-        $response = array();
-
-        if (!$this->doesProductExist($product_name)) {
-
-            $sql = 'INSERT INTO products(product_category_id, product_image, product_name, product_description) VALUES(?,?,?,?)';
-
-            if (!($stmt = $this->conn->prepare($sql))) {
-                $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-            }
-
-            $product_name = $this->insert_word_prep($product_name);
-
-            $isParamBound = $stmt->bind_param('isss', $product_category_id, $product_image, $product_name, $product_description);
-            if (!$isParamBound) {
-                $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-            }
-
-            if ($stmt->execute()) {
-                //CREATED
-                $new_id = $this->conn->insert_id;
-                $response['error'] = false;
-                $response['message'] = 'Product created successfully';
-
-                $this->echoResponse(HTTP_status_201_Created, $response);
-
-            } else {
-                //FAILED TO CREATE
-                $response['error'] = true;
-                $response['message'] = 'Oops! An error occurred';
-                $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-
-                $this->Execute_failed_to_file($response, $sql);
-
-                $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
-            }
-
-            $stmt->close();
-        } else {
-            //ALREADY EXISTS
-            $response['error'] = true;
-            $response['message'] = 'Already exists';
-
-            $this->echoResponse(HTTP_status_409_Conflict, $response);
-        }
-
-        return null;
-    }
-
-    //(checking for duplicates)
-    private function doesProductExist($product_name)
-    {
-        $stmt = $this->conn->prepare('SELECT product_id FROM products WHERE product_name = ?');
-        $stmt->bind_param('s', $product_name);
-        $stmt->execute();
-        $stmt->store_result();
-        $num_rows = $stmt->num_rows;
-        $stmt->close();
-        return $num_rows > 0;
-    }
-
-    public function updateProduct($product_category_id, $product_image = null, $product_name, $product_description, $product_id)
-    {
-
-        $response = array();
-
-        $sql = 'UPDATE products SET product_category_id = ?, product_name = ?, product_description = ? WHERE  product_id = ?';
-
-        if (!($stmt = $this->conn->prepare($sql))) {
-            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-        }
-
-        $product_name = $this->insert_word_prep($product_name);
-
-        $isParamBound = $stmt->bind_param('issi', $product_category_id, $product_name, $product_description, $product_id);
-        if (!$isParamBound) {
-            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-        }
-
-        if ($stmt->execute()) {
-
-            if ($stmt->affected_rows > 0) {
-                //UPDATE SUCCESSFUL
-                $response['error'] = false;
-                $response['message'] = 'Product information updated successfully';
-
-                $this->echoResponse(HTTP_status_200_OK, $response);
-
-            } else {
-                //FAILED TO UPDATE
-                $response['error'] = true;
-                $response['message'] = 'Failed to update product information. Please try again!';
-
-                $this->echoResponse(HTTP_status_422_Unprocessable_Entity, $response);
-            }
-
-        } else {
-            //IF QUERY FAILED TO EXECUTE
-            $response['error'] = true;
-            $response['message'] = 'Oops! An error occurred';
-            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-            $this->Execute_failed_to_file($response, $sql);
-
-            $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
-        }
-
-        $stmt->close();
-        return null;
-    }
     //************************END OF PRODUCTS***************************//
 
 
     //************************MEASURES***************************//
-    public function getAllMeasures()
-    {
-        $response = array();
-
-        $sql = 'SELECT unit_of_measure_id, unit_name, unit_description
-                FROM measures
-                ORDER BY unit_name  ';
-
-        $isPrepared = $stmt = $this->conn->prepare($sql);
-
-        if (!$isPrepared) {
-            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-        }
-
-//        $isParamBound = $stmt->bind_param('i', $role_id);
-//        if (!$isParamBound) {
-//            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-//        }
-
-
-        if ($stmt->execute()) {
-
-            $stmt->store_result();
-
-            if ($stmt->num_rows > 0) {
-                //IF FOUND
-
-                $stmt->bind_result($unit_of_measure_id, $unit_name, $unit_description);
-
-                $response['error'] = false;
-                $response['measures'] = array();
-
-                while ($stmt->fetch()) {
-                    $tmp = array();
-                    $tmp['unit_of_measure_id'] = $unit_of_measure_id;
-                    $tmp['unit_name'] = $unit_name;
-                    $tmp['unit_description'] = $unit_description;
-
-                    $response['measures'][] = $tmp;
-                }
-
-                $this->echoResponse(HTTP_status_200_OK, $response);
-            } else {
-                //IF NOT FOUND
-                $response['error'] = false;
-                $response['measures'] = array();
-                $response['message'] = 'No results found';
-
-                $this->echoResponse(HTTP_status_200_OK, $response);
-            }
-
-        } else {
-            //IF QUERY FAILED TO EXECUTE
-            $response['error'] = true;
-            $response['message'] = 'Oops! An error occurred';
-            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-            $this->Execute_failed_to_file($response, $sql);
-
-            $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
-        }
-
-        return null;
-    }
-
-    public function createMeasure($unit_name, $unit_description)
-    {
-
-        $response = array();
-
-        if (!$this->doesMeasureExist($unit_name)) {
-
-            $sql = 'INSERT INTO measures(unit_name, unit_description) VALUES(?,?)';
-
-            if (!($stmt = $this->conn->prepare($sql))) {
-                $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-            }
-
-            $isParamBound = $stmt->bind_param('ss', $unit_name, $unit_description);
-            if (!$isParamBound) {
-                $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-            }
-
-            if ($stmt->execute()) {
-                //CREATED
-                //$new_id = $this->conn->insert_id;
-                $response['error'] = false;
-                $response['message'] = 'Unit of measure created successfully';
-
-                $this->echoResponse(HTTP_status_201_Created, $response);
-            } else {
-                //FAILED TO CREATE
-                $response['error'] = true;
-                $response['message'] = 'Oops! An error occurred';
-                $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-
-                $this->Execute_failed_to_file($response, $sql);
-
-                $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
-            }
-
-            $stmt->close();
-        } else {
-            //ALREADY EXISTS
-            $response['error'] = true;
-            $response['message'] = 'Already exists';
-
-            $this->echoResponse(HTTP_status_409_Conflict, $response);
-        }
-
-        return null;
-    }
-
-    //(checking for duplicates)
-    private function doesMeasureExist($unit_name)
-    {
-        $stmt = $this->conn->prepare('SELECT unit_of_measure_id FROM measures WHERE unit_name = ? ');
-        $stmt->bind_param('s', $unit_name);
-        $stmt->execute();
-        $stmt->store_result();
-        $num_rows = $stmt->num_rows;
-        $stmt->close();
-        return $num_rows > 0;
-    }
-
-    public function updateMeasure($unit_name, $unit_description, $unit_of_measure_id)
-    {
-
-        $response = array();
-
-        $sql = 'UPDATE measures SET  unit_name = ?, unit_description = ? WHERE  unit_of_measure_id = ?';
-
-        if (!($stmt = $this->conn->prepare($sql))) {
-            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-        }
-
-        $isParamBound = $stmt->bind_param('ssi', $unit_name, $unit_description, $unit_of_measure_id);
-        if (!$isParamBound) {
-            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-        }
-
-        if ($stmt->execute()) {
-
-            if ($stmt->affected_rows > 0) {
-                //UPDATE SUCCESSFUL
-                $response['error'] = false;
-                $response['message'] = 'measure of unit information updated successfully';
-
-                $this->echoResponse(HTTP_status_200_OK, $response);
-
-            } else {
-                //FAILED TO UPDATE
-                $response['error'] = true;
-                $response['message'] = 'Failed to update measure of unit information. Please try again!';
-
-                $this->echoResponse(HTTP_status_422_Unprocessable_Entity, $response);
-            }
-
-        } else {
-            //IF QUERY FAILED TO EXECUTE
-            $response['error'] = true;
-            $response['message'] = 'Oops! An error occurred';
-            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-            $this->Execute_failed_to_file($response, $sql);
-
-            $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
-        }
-
-        $stmt->close();
-        return null;
-    }
     //************************END OF MEASURES***************************//
 
 
     //************************MARKETEER PRODUCTS***************************//
-    public function getAllMarketeerProducts($trader_id = null)
-    {
-        $response = array();
-
-        if ($trader_id != null) {
-
-            $sql = 'SELECT marketeer_products_id, marketeer_products.trader_id,firstname,lastname,
-                        products.product_category_id,category_name,marketeer_products.product_id,product_name, marketeer_products.unit_of_measure_id,unit_name, price
-                FROM marketeer_products
-                JOIN traders ON traders.trader_id = marketeer_products.trader_id
-                JOIN products ON products.product_id = marketeer_products.product_id
-                LEFT JOIN measures ON measures.unit_of_measure_id = marketeer_products.unit_of_measure_id
-                JOIN product_categories ON product_categories.product_category_id = products.product_category_id
-                WHERE marketeer_products.trader_id = ?
-                ORDER BY category_name,product_name
-                ';
-
-            $isPrepared = $stmt = $this->conn->prepare($sql);
-
-            if (!$isPrepared) {
-                $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-            }
-
-            $isParamBound = $stmt->bind_param('i', $trader_id);
-            if (!$isParamBound) {
-                $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-            }
-
-        } else {
-
-            $sql = 'SELECT marketeer_products_id, marketeer_products.trader_id,firstname,lastname,
-                        products.product_category_id,category_name,marketeer_products.product_id,product_name, marketeer_products.unit_of_measure_id,unit_name, price
-                FROM marketeer_products
-                JOIN traders ON traders.trader_id = marketeer_products.trader_id
-                JOIN products ON products.product_id = marketeer_products.product_id
-                LEFT JOIN measures ON measures.unit_of_measure_id = marketeer_products.unit_of_measure_id
-                JOIN product_categories ON product_categories.product_category_id = products.product_category_id
-                ORDER BY category_name,product_name
-                ';
-
-            $isPrepared = $stmt = $this->conn->prepare($sql);
-
-            if (!$isPrepared) {
-                $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-            }
-        }
-
-
-        if ($stmt->execute()) {
-
-            $stmt->store_result();
-
-            if ($stmt->num_rows > 0) {
-                //IF FOUND
-
-                $stmt->bind_result($marketeer_products_id, $trader_id, $firstname, $lastname,
-                    $product_category_id, $category_name, $product_id, $product_name, $unit_of_measure_id, $unit_name, $price);
-
-                $response['error'] = false;
-                $response['marketeer_products'] = array();
-
-                while ($stmt->fetch()) {
-                    $tmp = array();
-                    $tmp['marketeer_products_id'] = $marketeer_products_id;
-                    $tmp['trader_id'] = $trader_id;
-                    $tmp['firstname'] = $firstname;
-                    $tmp['lastname'] = $lastname;
-                    $tmp['product_category_id'] = $product_category_id;
-                    $tmp['category_name'] = $category_name;
-                    $tmp['product_id'] = $product_id;
-                    $tmp['product_name'] = $product_name;
-                    $tmp['unit_of_measure_id'] = $unit_of_measure_id;
-                    $tmp['unit_name'] = $unit_name;
-                    $tmp['price'] = $price;
-
-                    $response['marketeer_products'][] = $tmp;
-                }
-
-
-                $this->echoResponse(HTTP_status_200_OK, $response);
-            } else {
-                //IF NOT FOUND
-                $response['error'] = false;
-                $response['marketeer_products'] = array();
-                $response['message'] = 'No results found';
-
-                $this->echoResponse(HTTP_status_200_OK, $response);
-            }
-
-        } else {
-            //IF QUERY FAILED TO EXECUTE
-            $response['error'] = true;
-            $response['message'] = 'Oops! An error occurred';
-            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-            $this->Execute_failed_to_file($response, $sql);
-
-            $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
-        }
-
-        return null;
-    }
-
-    public function createMarketeerProduct($trader_id, $product_id, $unit_of_measure_id, $price)
-    {
-
-        $response = array();
-
-        if (!$this->doesMarketeerProductExist($trader_id, $product_id, $price)) {
-
-            $sql = 'INSERT INTO marketeer_products(trader_id, product_id, unit_of_measure_id, price) VALUES(?,?,?,?)';
-
-            if (!($stmt = $this->conn->prepare($sql))) {
-                $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-            }
-
-            $isParamBound = $stmt->bind_param('iiid', $trader_id, $product_id, $unit_of_measure_id, $price);
-            if (!$isParamBound) {
-                $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-            }
-
-            if ($stmt->execute()) {
-                //CREATED
-                //$new_id = $this->conn->insert_id;
-                $response['error'] = false;
-                $response['message'] = "Marketeer's product created successfully";
-
-                $this->echoResponse(HTTP_status_201_Created, $response);
-
-            } else {
-                //FAILED TO CREATE
-                $response['error'] = true;
-                $response['message'] = 'Oops! An error occurred';
-                $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-                $this->Execute_failed_to_file($response, $sql);
-
-                $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
-            }
-
-            $stmt->close();
-        } else {
-            //ALREADY EXISTS
-            $response['error'] = true;
-            $response['message'] = 'Already exists';
-
-            $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
-        }
-
-        return null;
-    }
-
-    //(checking for duplicates)
-    private function doesMarketeerProductExist($trader_id, $product_id, $price)
-    {
-        $stmt = $this->conn->prepare('SELECT marketeer_products_id FROM marketeer_products WHERE trader_id = ? AND product_id = ? AND price = ?');
-        $stmt->bind_param('iid', $trader_id, $product_id, $price);
-        $stmt->execute();
-        $stmt->store_result();
-        $num_rows = $stmt->num_rows;
-        $stmt->close();
-        return $num_rows > 0;
-    }
-
-    public function updateMarketeerProduct($trader_id, $product_id, $unit_of_measure_id, $price, $marketeer_products_id)
-    {
-
-        $response = array();
-
-        $sql = 'UPDATE marketeer_products SET  trader_id = ?, product_id = ?,unit_of_measure_id = ?, price = ? WHERE  marketeer_products_id = ?';
-
-        if (!($stmt = $this->conn->prepare($sql))) {
-            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-        }
-
-        $isParamBound = $stmt->bind_param('iiidi', $trader_id, $product_id, $unit_of_measure_id, $price, $marketeer_products_id);
-        if (!$isParamBound) {
-            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-        }
-
-        if ($stmt->execute()) {
-
-            if ($stmt->affected_rows > 0) {
-                //UPDATE SUCCESSFUL
-                $response['error'] = false;
-                $response['message'] = 'marketeer product information updated successfully';
-
-                $this->echoResponse(HTTP_status_200_OK, $response);
-
-            } else {
-                //FAILED TO UPDATE
-                $response['error'] = true;
-                $response['message'] = 'Failed to update marketeer product information. Please try again!';
-
-                $this->echoResponse(HTTP_status_422_Unprocessable_Entity, $response);
-            }
-
-        } else {
-            //IF QUERY FAILED TO EXECUTE
-            $response['error'] = true;
-            $response['message'] = 'Oops! An error occurred';
-            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-            $this->Execute_failed_to_file($response, $sql);
-
-            $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
-        }
-
-        $stmt->close();
-        return null;
-    }
     //************************END OF MARKETEER PRODUCTS***************************//
 
 
@@ -2214,7 +1618,7 @@ class DbHandler
                 }
 
                 $response['error'] = false;
-                $response['message'] = 'Token updated successfully';
+                $response['message'] = 'Balance updated successfully';
             } else {
                 //FAILED TO UPDATE
                 $response['error'] = true;
@@ -2578,596 +1982,57 @@ class DbHandler
 
 
     //**************************REWARD CAMPAIGNS*************************//
-    public function getAllRewardCampaigns($reward_campaign_id = null)
-    {
-        $today = date('Y-m-d');
-
-        $response = array();
-
-        if ($reward_campaign_id !== null) {
-
-            $sql = 'SELECT reward_campaign_id, campaign_name, campaign_description, marketeer_points_required,buyer_points_required,marketeer_points_multiplier, buyer_points_multiplier, active_from, active_to                                                                                       
-                FROM reward_campaigns
-                WHERE active = 1 AND reward_campaign_id = ? AND DATE(active_to) >= ?
-                ';
-
-            $isPrepared = $stmt = $this->conn->prepare($sql);
-
-            $isParamBound = $stmt->bind_param('is', $today);
-            if (!$isParamBound) {
-                $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-            }
-
-        } else {
-
-            $sql = 'SELECT reward_campaign_id, campaign_name, campaign_description, marketeer_points_required,buyer_points_required,marketeer_points_multiplier, buyer_points_multiplier, active_from, active_to                                                                                       
-                FROM reward_campaigns
-                WHERE active = 1 AND DATE(active_to) >= ?
-                ';
-
-            $isPrepared = $stmt = $this->conn->prepare($sql);
-
-            $isParamBound = $stmt->bind_param('s', $today);
-            if (!$isParamBound) {
-                $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-            }
-
-        }
-
-
-        if (!$isPrepared) {
-            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-        }
-
-
-        if ($stmt->execute()) {
-
-            $stmt->store_result();
-
-            if ($stmt->num_rows > 0) {
-                //IF FOUND
-
-                $stmt->bind_result($reward_campaign_id, $campaign_name, $campaign_description, $marketeer_points_required, $buyer_points_required, $marketeer_points_multiplier, $buyer_points_multiplier, $active_from, $active_to);
-
-                $response['error'] = false;
-                $response['reward_campaigns'] = array();
-
-                while ($stmt->fetch()) {
-                    $tmp = array();
-                    $tmp['reward_campaign_id'] = $reward_campaign_id;
-                    $tmp['campaign_name'] = $campaign_name;
-                    $tmp['campaign_description'] = $campaign_description;
-                    $tmp['marketeer_points_required'] = $marketeer_points_required;
-                    $tmp['buyer_points_required'] = $buyer_points_required;
-                    $tmp['marketeer_points_multiplier'] = $marketeer_points_multiplier;
-                    $tmp['buyer_points_multiplier'] = $buyer_points_multiplier;
-                    //$tmp['$active_from'] = $active_from;
-                    //$tmp['$active_to'] = $active_to;
-                    $tmp['active_from'] = date('d M Y', strtotime($active_from));
-                    $tmp['active_to'] = date('d M Y', strtotime($active_to));
-
-                    $time_left = strtotime($active_to) - strtotime($today);
-                    $tmp['days_left'] = round((($time_left / 24) / 60) / 60);
-
-                    $response['reward_campaigns'][] = $tmp;
-                }
-
-
-                $this->echoResponse(HTTP_status_200_OK, $response);
-
-            } else {
-                //IF NOT FOUND
-                $response['error'] = false;
-                $response['reward_campaigns'] = array();
-                $response['message'] = 'No results found';
-
-                $this->echoResponse(HTTP_status_200_OK, $response);
-            }
-
-        } else {
-            //IF QUERY FAILED TO EXECUTE
-            $response['error'] = true;
-            $response['message'] = 'Oops! An error occurred';
-            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-            $this->Execute_failed_to_file($response, $sql);
-
-            $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
-        }
-
-        return null;
-    }
-
-    public function createRewardCampaign($campaign_name, $campaign_description, $marketeer_points_required, $buyer_points_required, $marketeer_points_multiplier, $buyer_points_multiplier, $active_from, $active_to)
-    {
-
-        $response = array();
-
-        if (!$this->doesRewardCampaignExist($campaign_name)) {
-
-            $this->updateDisablePreviousCampaign();
-
-            $sql = 'INSERT INTO reward_campaigns(campaign_name, campaign_description, marketeer_points_required, buyer_points_required, marketeer_points_multiplier, buyer_points_multiplier, active_from, active_to) VALUES(?,?,?,?,?,?,?,?)';
-
-            if (!($stmt = $this->conn->prepare($sql))) {
-                $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-            }
-
-            $campaign_name = $this->insert_word_prep($campaign_name);
-            $active_from = date('Y-m-d', strtotime($active_from));
-            $active_to = date('Y-m-d', strtotime($active_to));
-
-            $isParamBound = $stmt->bind_param('ssiiiiss', $campaign_name, $campaign_description, $marketeer_points_required, $buyer_points_required, $marketeer_points_multiplier, $buyer_points_multiplier, $active_from, $active_to);
-            if (!$isParamBound) {
-                $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-            }
-
-            if ($stmt->execute()) {
-                //CREATED
-                //$new_id = $this->conn->insert_id;
-                $response['error'] = false;
-                $response['message'] = 'Reward campaign created successfully';
-
-                $this->echoResponse(HTTP_status_201_Created, $response);
-
-            } else {
-                //FAILED TO CREATE
-                $response['error'] = true;
-                $response['message'] = 'Oops! An error occurred';
-                $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-                $this->Execute_failed_to_file($response, $sql);
-
-                $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
-            }
-
-            $stmt->close();
-        } else {
-            //ALREADY EXISTS
-            $response['error'] = true;
-            $response['message'] = 'Already exists';
-
-            $this->echoResponse(HTTP_status_409_Conflict, $response);
-        }
-
-        return null;
-    }
-
-    //(checking for duplicates)
-    private function doesRewardCampaignExist($campaign_name)
-    {
-        $stmt = $this->conn->prepare('SELECT reward_campaign_id FROM reward_campaigns WHERE campaign_name = ?');
-        $stmt->bind_param('s', $campaign_name);
-        $stmt->execute();
-        $stmt->store_result();
-        $num_rows = $stmt->num_rows;
-        $stmt->close();
-        return $num_rows > 0;
-    }
-
-    public function updateRewardCampaign($campaign_name, $campaign_description, $marketeer_points_required, $buyer_points_required, $marketeer_points_multiplier, $buyer_points_multiplier, $active_from, $active_to, $reward_campaign_id)
-    {
-
-        $response = array();
-
-        $sql = 'UPDATE reward_campaigns SET  
-                       campaign_name = ?, 
-                       campaign_description = ?, 
-                       marketeer_points_required = ?, 
-                       buyer_points_required = ?, 
-                       marketeer_points_multiplier = ?, 
-                       buyer_points_multiplier = ?, 
-                       active_from = ?, 
-                       active_to = ? 
-                WHERE  reward_campaign_id = ?';
-
-        if (!($stmt = $this->conn->prepare($sql))) {
-            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-        }
-
-        $campaign_name = $this->insert_word_prep($campaign_name);
-        $active_from = date('Y-m-d', strtotime($active_from));
-        $active_to = date('Y-m-d', strtotime($active_to));
-
-        $isParamBound = $stmt->bind_param('ssiiiissi', $campaign_name, $campaign_description, $marketeer_points_required, $buyer_points_required, $marketeer_points_multiplier, $buyer_points_multiplier, $active_from, $active_to, $reward_campaign_id);
-        if (!$isParamBound) {
-            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-        }
-
-        if ($stmt->execute()) {
-
-            if ($stmt->affected_rows > 0) {
-                //UPDATE SUCCESSFUL
-                $response['error'] = false;
-                $response['message'] = 'Reward campaign information updated successfully';
-
-                $this->echoResponse(HTTP_status_200_OK, $response);
-            } else {
-                //FAILED TO UPDATE
-                $response['error'] = true;
-                $response['message'] = 'Failed to update reward campaign information. Please try again!';
-
-                $this->echoResponse(HTTP_status_422_Unprocessable_Entity, $response);
-            }
-
-        } else {
-            //IF QUERY FAILED TO EXECUTE
-            $response['error'] = true;
-            $response['message'] = 'Oops! An error occurred';
-            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-            $this->Execute_failed_to_file($response, $sql);
-
-            $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
-        }
-
-        $stmt->close();
-        return null;
-    }
-
-    public function updateDisablePreviousCampaign()
-    {
-
-        $response = array();
-
-        $sql = 'UPDATE reward_campaigns SET  active = ? WHERE  active = 1';
-
-        if (!($stmt = $this->conn->prepare($sql))) {
-            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-        }
-
-//        $isParamBound = $stmt->bind_param('ssi',  );
-//        if (!$isParamBound) {
-//            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-//        }
-
-        if ($stmt->execute()) {
-
-            $num_affected_rows = $stmt->affected_rows;
-
-            if ($num_affected_rows > 0) {
-                //UPDATE SUCCESSFUL
-                $response['error'] = false;
-                $response['message'] = 'Reward campaign status updated successfully';
-            } else {
-                //FAILED TO UPDATE
-                $response['error'] = true;
-                $response['message'] = 'Failed to update reward campaign status. Please try again!';
-            }
-
-        } else {
-            //IF QUERY FAILED TO EXECUTE
-            $response['error'] = true;
-            $response['message'] = 'Oops! An error occurred';
-            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-            $this->Execute_failed_to_file($response, $sql);
-        }
-
-        $stmt->close();
-        return $response;
-    }
     //************************END OF REWARD CAMPAIGNS***************************//
 
 
     //************************REDEEMED REWARDS***************************//
-    public function getAllRedeemedRewards($trader_id = null)
-    {
-        $response = array();
-
-        if ($trader_id !== null) {
-
-            $sql = 'SELECT redeemed_reward_id, redeemed_rewards.reward_campaign_id,campaign_name ,trader_id, points_used, status, date_earned, date_claimed, date_expiration
-                FROM redeemed_rewards
-                JOIN reward_campaigns ON reward_campaigns.reward_campaign_id = redeemed_rewards.reward_campaign_id
-                WHERE trader_id = ?
-                ORDER BY reward_campaign_id DESC ';
-
-            $isPrepared = $stmt = $this->conn->prepare($sql);
-
-            if (!$isPrepared) {
-                $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-            }
-
-            $isParamBound = $stmt->bind_param('i', $trader_id);
-            if (!$isParamBound) {
-                $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-            }
-
-        } else {
-
-            $sql = 'SELECT redeemed_reward_id, redeemed_rewards.reward_campaign_id,campaign_name ,trader_id, points_used, status, date_earned, date_claimed, date_expiration
-                FROM redeemed_rewards
-                JOIN reward_campaigns ON reward_campaigns.reward_campaign_id = redeemed_rewards.reward_campaign_id
-                ORDER BY reward_campaign_id DESC ';
-
-            $isPrepared = $stmt = $this->conn->prepare($sql);
-
-            if (!$isPrepared) {
-                $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-            }
-
-//        $isParamBound = $stmt->bind_param('i', $role_id);
-//        if (!$isParamBound) {
-//            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-//        }
-
-        }
-
-
-        if ($stmt->execute()) {
-
-            $stmt->store_result();
-
-            if ($stmt->num_rows > 0) {
-                //IF FOUND
-
-                $stmt->bind_result($redeemed_reward_id, $reward_campaign_id, $campaign_name, $trader_id, $points_used, $status, $date_earned, $date_claimed, $date_expiration, $receipt_number);
-
-                $response['error'] = false;
-                $response['redeemed_rewards'] = array();
-
-                while ($stmt->fetch()) {
-                    $tmp = array();
-                    $tmp['redeemed_reward_id'] = $redeemed_reward_id;
-                    $tmp['reward_campaign_id'] = $reward_campaign_id;
-                    $tmp['campaign_name'] = $campaign_name;
-                    $tmp['trader_id'] = $trader_id;
-                    $tmp['points_used'] = $points_used;
-                    $tmp['status'] = $status;
-                    $tmp['date_earned'] = $date_earned;
-                    $tmp['date_claimed'] = $date_claimed;
-                    $tmp['date_expiration'] = $date_expiration;
-
-                    $response['redeemed_rewards'][] = $tmp;
-                }
-
-
-                $this->echoResponse(HTTP_status_200_OK, $response);
-
-            } else {
-                //IF NOT FOUND
-                $response['error'] = false;
-                $response['redeemed_rewards'] = array();
-                $response['message'] = 'No results found';
-
-                $this->echoResponse(HTTP_status_200_OK, $response);
-            }
-
-        } else {
-            //IF QUERY FAILED TO EXECUTE
-            $response['error'] = true;
-            $response['message'] = 'Oops! An error occurred';
-            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-            $this->Execute_failed_to_file($response, $sql);
-
-            $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
-        }
-
-        return null;
-    }
-
-    public function createRedeemedRewards($reward_campaign_id, $trader_id, $reward_cost)
-    {
-
-        $response = array();
-
-        $sql = 'INSERT INTO redeemed_rewards(reward_campaign_id, trader_id, points_used, status, date_expiration) VALUES(?,?,?,?,?)';
-
-        if (!($stmt = $this->conn->prepare($sql))) {
-            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-        }
-
-        $status = 'Earned';
-        $expire = date('Y-m-d H:i:s', strtotime('+ 30 day '));
-
-        $isParamBound = $stmt->bind_param('iidss', $reward_campaign_id, $trader_id, $reward_cost, $status, $expire);
-        if (!$isParamBound) {
-            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-        }
-
-        if ($stmt->execute()) {
-            //CREATED
-            //$new_id = $this->conn->insert_id;
-            $response['error'] = false;
-            $response['message'] = 'Reward redeemed successfully, please allow customer to claim their reward';
-
-            $this->echoResponse(HTTP_status_200_OK, $response);
-
-        } else {
-            //FAILED TO CREATE
-            $response['error'] = true;
-            $response['message'] = 'Oops! An error occurred';
-            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-            $this->Execute_failed_to_file($response, $sql);
-
-            $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
-        }
-
-        $stmt->close();
-
-        return null;
-    }
-
-    public function updateClaimReward($redeemed_reward_id, $reward_campaign_id, $trader_id)
-    {
-        $today = date('Y-m-d');
-
-        $date_expiration = null;
-        //To do
-        //T + 1
-
-        $response = array();
-        $response['claims'] = array();
-
-
-        //CHECK IF THE REWARD HAS EXPIRED
-        $stmt = $this->conn->prepare('SELECT DATE(date_expiration) 
-                                            FROM redeemed_rewards 
-                                            WHERE redeemed_reward_id = ? AND reward_campaign_id = ? AND trader_id = ? AND  date_expiration IS NOT NULL');
-
-        $stmt->bind_param('iii', $redeemed_reward_id, $reward_campaign_id, $trader_id);
-
-        $stmt->execute();
-        $stmt->bind_result($date_expiration_db);
-        $stmt->store_result();
-        $stmt->fetch();
-
-        $date_expiration = $date_expiration_db;
-
-        $stmt->close();
-        //END OF CHECK
-
-
-        if ($date_expiration >= $today) {
-
-            $stmt = $this->conn->prepare("UPDATE redeemed_rewards SET 
-                                                      status = 'Claimed',
-                                                      date_expiration = null                                                
-                                                WHERE redeemed_reward_id = ? AND reward_campaign_id = ? AND trader_id = ?");
-
-            $stmt->bind_param('iii', $redeemed_reward_id, $reward_campaign_id, $trader_id);
-
-            if ($stmt->execute()) {
-
-                $stmt->close();
-
-                if ($stmt->affected_rows > 0) {
-                    //UPDATE SUCCESSFUL
-
-                    /*
-                    //PREPARE TO SEND SMS===============================================================================
-                    if ($this->getCompanyCurrentSMSCredit($val['company_id']) > 0) {
-
-                        if ($this->shouldSendRewardClaimedSMS($val['company_id']) > 0) {
-
-                            $first_name = null;
-                            $last_name = null;
-                            $customer_phone_number = null;
-
-                            $company_name = null;
-                            $company_alphanumeric = null;
-
-
-                            //FETCH CUSTOMER NUMBER
-                            $resUser = $this->getUserByEmailOrPhone($val['company_id'], $val['customer_id'], null, null);
-
-                            if ($resUser != null) {
-                                //IF FOUND
-                                $first_name = $resUser[FIRSTNAME];
-                                $last_name = $resUser[LASTNAME];
-                                $customer_phone_number = $resUser[PHONE];
-
-                            }
-                            //END OF CUSTOMER NUMBER
-
-
-                            //FETCH ALPHANUMERIC
-                            $resAlphanumeric = $this->getCompanyAlphanumeric($val['company_id']);
-
-                            if ($resAlphanumeric != null) {
-                                //IF FOUND
-                                $company_name = $resAlphanumeric[COMPANY_NAME];
-                                $company_alphanumeric = $resAlphanumeric[COMPANY_ALPHANUMERIC];
-                            }
-                            //END OF ALPHANUMERIC
-
-
-                            $message = 'Hi ' . $first_name . ' ' . $last_name . ', you have successfully claimed your reward.';
-                            if ($customer_phone_number !== null && $company_alphanumeric !== null) {
-                                if (ENVIRONMENT == 2 || ENVIRONMENT == 1) {
-                                    $tmp['sms'] = $this->sendSMS($val['company_id'], $customer_phone_number, $company_alphanumeric, $message);
-                                } else {
-                                    $tmp['sms'] = 'SMS ready to be sent';
-                                }
-                            } elseif ($company_alphanumeric === null) {
-                                $tmp['sms'] = 'Failed to send SMS; no sms alphanumeric for ' . $company_name . ' found';
-                            } elseif ($customer_phone_number == null || $customer_phone_number == '') {
-                                $tmp['customer_id'] = $val['customer_id'];
-                                $tmp['message'] = 'No phone number for ' . $first_name . ' ' . $last_name . ' found';
-                            }
-                        } else {
-                            $tmp['sms'] = REWARD_CLAIMED_SMS;
-                        }
-                    } else {
-                        $tmp['sms'] = INSUFFICIENT_CREDIT_SMS;
-                    }
-                    //PREPARE TO SEND SMS===============================================================================
-
-                    $res = $this->recordTransactionOnly($val['company_id'], $val['reward_campaign_id'], $val['store_id'], $val['customer_id'], $val['receipt_number']);
-
-                    $resUser = $this->getUserByEmailOrPhone($val['company_id'], $val['customer_id'], null, null);
-                    */
-
-                    $response['error'] = false;
-                    $response['message'] = 'Reward claimed successfully';
-
-                    $this->echoResponse(HTTP_status_200_OK, $response);
-
-                } else {
-                    //FAILED TO UPDATE
-                    $response['error'] = true;
-                    $response['message'] = 'Failed to redeem reward. Please try again!';
-
-                    $this->echoResponse(HTTP_status_422_Unprocessable_Entity, $response);
-                }
-
-            } else {
-                //IF QUERY FAILED TO EXECUTE
-                $response['error'] = true;
-                $response['message'] = 'Oops! An error occurred';
-                $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-                $stmt->close();
-
-                $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
-
-            }
-
-        } else {
-
-            $response['error'] = true;
-            $response['message'] = 'Sorry!, this reward expired on ' . $date_expiration . 'therefore can not be claimed';
-
-            $this->echoResponse(HTTP_status_403_Forbidden, $response);
-
-        }
-
-
-        return null;
-    }
     //************************END OF REDEEMED REWARDS***************************//
 
 
     //************************TRANSACTIONS***************************//
-    public function getAllCarts($cart_id = null, $multiple_result)
+    public function getAllTransactions($cart_id = null, $seller_id = null, $buyer_id = null, $seller_mobile_number = null, $buyer_mobile_number = null, $multiple_result)
     {
         $response = array();
 
-        if ($cart_id !== null) {
+        if ($cart_id !== null || $seller_id !==null || $buyer_id !==null) {
 
-            $sql = 'SELECT cart_id, marketeer_id,m.firstname,m.lastname, buyer_id,b.firstname,b.lastname, amount_due, token_tendered, device_serial, points_marketeer_earned, points_buyer_earned, transaction_date 
+            $sql = 'SELECT cart_id, seller_id,s.firstname,s.lastname,seller_mobile_number, buyer_id,b.firstname,b.lastname,buyer_mobile_number, amount, device_serial, transaction_date 
                     FROM transaction_summaries
                     JOIN traders b ON b.trader_id = transaction_summaries.buyer_id
-                    JOIN traders m ON m.trader_id = transaction_summaries.marketeer_id
-                    WHERE cart_id = ?
+                    JOIN traders s ON s.trader_id = transaction_summaries.seller_id
+                    WHERE cart_id = ? OR seller_id = ? OR buyer_id = ?
                     ';
 
             $isPrepared = $stmt = $this->conn->prepare($sql);
 
-            $isParamBound = $stmt->bind_param('i', $cart_id);
+            $isParamBound = $stmt->bind_param('iii', $cart_id,$seller_id,$buyer_id);
             if (!$isParamBound) {
                 $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
             }
 
 
-        } else {
+        }else if($seller_mobile_number !== null || $buyer_mobile_number !== null){
 
-            $sql = 'SELECT cart_id, marketeer_id,m.firstname,m.lastname, buyer_id,b.firstname,b.lastname, amount_due, token_tendered, device_serial, points_marketeer_earned, points_buyer_earned, transaction_date 
+            $sql = 'SELECT cart_id, seller_id,s.firstname,s.lastname,seller_mobile_number, buyer_id,b.firstname,b.lastname,buyer_mobile_number, amount, device_serial, transaction_date 
                     FROM transaction_summaries
                     JOIN traders b ON b.trader_id = transaction_summaries.buyer_id
-                    JOIN traders m ON m.trader_id = transaction_summaries.marketeer_id
+                    JOIN traders s ON s.trader_id = transaction_summaries.seller_id
+                    WHERE seller_mobile_number = ? OR buyer_mobile_number  = ?
+            ';
+
+            $isPrepared = $stmt = $this->conn->prepare($sql);
+
+            $isParamBound = $stmt->bind_param('ss', $seller_mobile_number,$buyer_mobile_number);
+            if (!$isParamBound) {
+                $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
+            }
+
+        } else {
+
+            $sql = 'SELECT cart_id, seller_id,s.firstname,s.lastname,seller_mobile_number, buyer_id,b.firstname,b.lastname,buyer_mobile_number, amount, device_serial, transaction_date 
+                    FROM transaction_summaries
+                    JOIN traders b ON b.trader_id = transaction_summaries.buyer_id
+                    JOIN traders s ON s.trader_id = transaction_summaries.seller_id
                     ';
 
             $isPrepared = $stmt = $this->conn->prepare($sql);
@@ -3186,7 +2051,7 @@ class DbHandler
             if ($stmt->num_rows > 0) {
                 //IF FOUND
 
-                $stmt->bind_result($cart_id, $marketeer_id, $m_firstname, $m_lastname, $buyer_id, $b_firstname, $b_lastname, $total_amount_due, $token_tendered, $device_serial, $points_marketeer_earned, $points_buyer_earned, $transaction_date);
+                $stmt->bind_result($cart_id, $seller_id,$s_firstname,$s_lastname,$seller_mobile_number, $buyer_id,$b_firstname,$b_lastname,$buyer_mobile_number, $amount_due,  $device_serial, $transaction_date);
 
                 $response['error'] = false;
                 $response['transaction_summaries'] = array();
@@ -3194,20 +2059,19 @@ class DbHandler
                 while ($stmt->fetch()) {
                     $tmp = array();
                     $tmp['cart_id'] = $cart_id;
-                    $tmp['marketeer_id'] = $marketeer_id;
-                    $tmp['m_firstname'] = $m_firstname;
-                    $tmp['m_lastname'] = $m_lastname;
+                    $tmp['seller_id'] = $seller_id;
+                    $tmp['seller_firstname'] = $s_firstname;
+                    $tmp['seller_lastname'] = $s_lastname;
+                    $tmp['seller_mobile_number'] = $seller_mobile_number;
                     $tmp['buyer_id'] = $buyer_id;
-                    $tmp['b_firstname'] = $b_firstname;
-                    $tmp['b_lastname'] = $b_lastname;
-                    $tmp['amount_due'] = $total_amount_due;
-                    $tmp['token_tendered'] = $token_tendered;
+                    $tmp['buyer_firstname'] = $b_firstname;
+                    $tmp['buyer_lastname'] = $b_lastname;
+                    $tmp['buyer_mobile_number'] = $buyer_mobile_number;
+                    $tmp['amount'] = $amount_due;
                     $tmp['device_serial'] = $device_serial;
-                    $tmp['points_marketeer_earned'] = $points_marketeer_earned;
-                    $tmp['points_buyer_earned'] = $points_buyer_earned;
                     $tmp['transaction_date'] = $transaction_date;
 
-                    $tmp['transaction_details'] = $this->getAllTransactionDetails($cart_id, false);
+                    //$tmp['transaction_details'] = $this->getAllTransactionDetails($cart_id, false);
 
                     if ($multiple_result) {
                         $response['transaction_summaries'][] = $tmp;
@@ -3345,27 +2209,24 @@ class DbHandler
         return $response;
     }
 
-    public function createTransactionsSummaries($marketeer_id, $buyer_id = null, $buyer_mobile = null, $amount_due, $token_tendered, $device_serial, $transaction_date, $transaction_details)
+    public function createTransactionsSummaries($transaction_type_id, $seller_id, $seller_name, $seller_mobile_number, $buyer_id, $buyer_name, $buyer_mobile_number, $amount, $device_serial, $transaction_date)
     {
 
         $response = array();
 
         //CHECK BUYER'S CURRENT BALANCE
-       // $res = $this->checkTokenBalance($buyer_id, $buyer_mobile);
+        $res = $this->checkTokenBalance($buyer_id, $buyer_mobile_number);
 
-       // if ($res[TOKEN_BALANCE] >= $amount_due) {
+        if ($res[TOKEN_BALANCE] >= $amount) {
 
             //LOG ATTEMPTED TRANSACTION
-            $sql = 'INSERT INTO transaction_summaries(marketeer_id, buyer_id,buyer_mobile, amount_due, token_tendered, device_serial, points_marketeer_earned, points_buyer_earned, transaction_date) VALUES(?,?,?,?,?,?,?,?,?)';
+            $sql = 'INSERT INTO transaction_summaries(transaction_type_id, seller_id, seller_name, seller_mobile_number, buyer_id, buyer_name, buyer_mobile_number, amount, device_serial, transaction_date) VALUES(?,?,?,?,?,?,?,?,?,?)';
 
             if (!($stmt = $this->conn->prepare($sql))) {
                 $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
             }
 
-            $marketeer_points = 0;
-            $buyer_points = 0;
-
-            $isParamBound = $stmt->bind_param('iisddsiis', $marketeer_id, $buyer_id, $buyer_mobile, $amount_due, $token_tendered, $device_serial, $marketeer_points, $buyer_points, $transaction_date);
+            $isParamBound = $stmt->bind_param('iississdss', $transaction_type_id, $seller_id, $seller_name, $seller_mobile_number, $buyer_id, $buyer_name, $buyer_mobile_number, $amount, $device_serial, $transaction_date);
             if (!$isParamBound) {
                 $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
             }
@@ -3375,22 +2236,22 @@ class DbHandler
                 //$cart_id = $this->conn->insert_id;
 
                 //DECREMENT BUYER'S TOKEN
-                $resBuyer = $this->decrementBuyerTokenBalance($token_tendered, $buyer_id, $buyer_mobile);
+                $resBuyer = $this->decrementBuyerTokenBalance($amount, $buyer_id, $buyer_mobile_number);
 
                 //INCREMENT MARKETEER'S TOKEN
-                $resMarketeer = $this->incrementTokenBalance($token_tendered, $marketeer_id);
+                $resMarketeer = $this->incrementTokenBalance($amount, $seller_id);
 
 
                 //$this->createTransactionsDetails($cart_id, $transaction_details);
 
 
                 $response['error'] = false;
-                $response['message'] = 'Transaction log created successfully';
+                $response['message'] = 'Transaction is being processed,you will soon receive an SMS confirmation';
                 $response['buyer'] = $resBuyer;
                 $response['trader'] = $resMarketeer;
                 $stmt->close();
 
-                $this->echoResponse(HTTP_status_201_Created, $response);
+                $this->echoResponse(HTTP_status_202_Accepted, $response);
 
             } else {
                 //FAILED TO CREATE
@@ -3405,12 +2266,12 @@ class DbHandler
             }
 
 
-        /*} else {
-            $response['error'] = false;
-            $response['message'] = 'Token value tendered is greater than available token value';
+        } else {
+            $response['error'] = true;
+            $response['message'] = 'Insufficient balance';
 
-            $this->echoResponse(HTTP_status_409_Conflict, $response);
-        }*/
+            $this->echoResponse(HTTP_status_200_OK, $response);
+        }
 
         return null;
     }
@@ -3466,14 +2327,13 @@ class DbHandler
 
         if ($res[TOKEN_BALANCE] >= $token_value) {
 
-            $sql = "UPDATE traders SET token_balance = (token_balance - ?) WHERE  trader_id = ? OR mobile_number LIKE ?";
+            $sql = "UPDATE traders SET token_balance = (token_balance - ?) WHERE  trader_id = ? OR mobile_number = ?";
 
             if (!($stmt = $this->conn->prepare($sql))) {
                 $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
             }
 
-            $buyer_number = '%' . $mobile_number . '%';
-            $isParamBound = $stmt->bind_param('dis', $token_value, $trader_id, $buyer_number);
+            $isParamBound = $stmt->bind_param('dis', $token_value, $trader_id, $mobile_number);
             if (!$isParamBound) {
                 $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
             }
@@ -3483,30 +2343,30 @@ class DbHandler
                 if ($stmt->affected_rows > 0) {
                     //UPDATE SUCCESSFUL
 
-                    $telco = substr(trim($mobile_number), 0, 3);
-
-                    $resFloat = null;
-                    switch ($telco) {
-                        case '097':
-                            $resFloat = $this->incrementFloatBalance($token_value, 1);
-                            break;
-                        case '096':
-                            $resFloat = $this->incrementFloatBalance($token_value, 2);
-                            break;
-                        case '076':
-                            $resFloat = $this->incrementFloatBalance($token_value, 2);
-                            break;
-                        case '095':
-                            $resFloat = $this->incrementFloatBalance($token_value, 3);
-                            break;
-                        default:
-                            $resFloat = "Telco not identified";
-                    }
+//                    $telco = substr(trim($mobile_number), 0, 3);
+//
+//                    $resFloat = null;
+//                    switch ($telco) {
+//                        case '097':
+//                            $resFloat = $this->incrementFloatBalance($token_value, 1);
+//                            break;
+//                        case '096':
+//                            $resFloat = $this->incrementFloatBalance($token_value, 2);
+//                            break;
+//                        case '076':
+//                            $resFloat = $this->incrementFloatBalance($token_value, 2);
+//                            break;
+//                        case '095':
+//                            $resFloat = $this->incrementFloatBalance($token_value, 3);
+//                            break;
+//                        default:
+//                            $resFloat = "Telco not identified";
+//                    }
 
 
                     $response['error'] = false;
-                    $response['message'] = 'Token updated successfully';
-                    $response['float_balance'] = $resFloat;
+                    $response['message'] = 'Balance updated successfully';
+                    //$response['float_balance'] = $resFloat;
                 } else {
                     //FAILED TO UPDATE
                     $response['error'] = true;
@@ -3526,7 +2386,8 @@ class DbHandler
 
         } else {
             $response['error'] = false;
-            $response['message'] = 'Submitted token value is greater than available token value';
+            //$response['message'] = 'Submitted token value is greater than available token value';
+            $response['message'] = 'Insufficient balance';
         }
 
 
@@ -3631,7 +2492,7 @@ class DbHandler
     {
         $response = array();
 
-        $sql = 'SELECT route_id, company_id, station_id, name, origin, destination, price
+        $sql = 'SELECT route_id, company_id, station_id, name, origin, destination
                 FROM route
                 ';
 
@@ -3652,20 +2513,17 @@ class DbHandler
             if ($stmt->num_rows > 0) {
                 //IF FOUND
 
-                $stmt->bind_result($route_id, $company_id, $station_id, $name, $origin, $destination, $price);
+                $stmt->bind_result($route_id, $company_id, $station_id, $name, $origin, $destination);
 
                 $response['error'] = false;
                 $response['routes'] = array();
 
                 while ($stmt->fetch()) {
                     $tmp = array();
-                    $tmp['route_id'] = $route_id;
-                    //$tmp['$company_id'] = $company_id;
-                    //$tmp['station_id'] = $station_id;
-                    $tmp['name'] = $name;
+                    $tmp['route_code'] = $route_id;
+                    $tmp['route_name'] = $name;
                     $tmp['origin'] = $origin;
                     $tmp['destination'] = $destination;
-                    $tmp['fare'] = $price;
 
                     $response['routes'][] = $tmp;
                 }
@@ -3699,6 +2557,8 @@ class DbHandler
     //************************SIMULATION ROUTES TIMES***************************//
     public function getAllRoutesTimes($route_id = null)
     {
+        $today = date('Y-m-d');
+
         $response = array();
 
         if ($route_id != null) {
@@ -3707,14 +2567,14 @@ class DbHandler
                 FROM routes_times
                 JOIN route ON route.route_id = routes_times.route_id
                 JOIN bus_departure_times ON bus_departure_times.bus_departure_time_id = routes_times.bus_departure_time_id
-                WHERE routes_times.route_id = ?
+                WHERE routes_times.route_id = ? AND TIME(bus_departure_time) >= ?
                 ';
 
             if (!($stmt = $this->conn->prepare($sql))) {
                 $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
             }
 
-            $isParamBound = $stmt->bind_param('i', $route_id);
+            $isParamBound = $stmt->bind_param('is', $route_id,$today);
             if (!$isParamBound) {
                 $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
             }
@@ -3725,16 +2585,17 @@ class DbHandler
                 FROM routes_times
                 JOIN route ON route.route_id = routes_times.route_id
                 JOIN bus_departure_times ON bus_departure_times.bus_departure_time_id = routes_times.bus_departure_time_id
+                WHERE TIME(bus_departure_time) >= ?
                 ';
 
             if (!($stmt = $this->conn->prepare($sql))) {
                 $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
             }
 
-//        $isParamBound = $stmt->bind_param('i', $trader_id);
-//        if (!$isParamBound) {
-//            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-//        }
+            $isParamBound = $stmt->bind_param('s', $today);
+            if (!$isParamBound) {
+                $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
+            }
         }
 
 
@@ -3752,12 +2613,12 @@ class DbHandler
 
                 while ($stmt->fetch()) {
                     $tmp = array();
-                    $tmp['route_id'] = $route_id;
+                    $tmp['route_code'] = $route_id;
                     //$tmp['$company_id'] = $company_id;
                     //$tmp['station_id'] = $station_id;
                     $tmp['origin'] = $origin;
                     $tmp['destination'] = $destination;
-                    $tmp['bus_departure_time'] = $bus_departure_time;
+                    $tmp['departure_time'] = $bus_departure_time;
                     //$tmp['fare'] = $price;
 
                     $response['departure_times'][] = $tmp;
@@ -3845,8 +2706,8 @@ class DbHandler
                     $tmp['company_id'] = $company_id;
                     //$tmp['$company_id'] = $company_id;
                     //$tmp['station_id'] = $station_id;
-                    $tmp['name'] = $name;
-                    $tmp['bus_id'] = $bus_id;
+                    $tmp['company_name'] = $name;
+                    //$tmp['bus_id'] = $bus_id;
                     $tmp['bus_reg'] = $bus_reg;
                     $tmp['available_seats'] = $total_seats;
                     //$tmp['fare'] = $price;
@@ -3878,7 +2739,6 @@ class DbHandler
 
         return null;
     }
-
     //************************END OF AVAILABLE BUS***************************//
 
     public function wallet_API($mno = 'MTNZM', $kuwaita, $msisdn, $amount, $refID = null)
@@ -4158,7 +3018,7 @@ class DbHandler
 
             $isPrepared = $stmt = $this->conn->prepare($sql);
             if (!$isPrepared) {
-                $this->Prepare_failed_to_file('Prepare failed: (' . $this->con->errno . ') ' . $this->con->error, $sql);
+                $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
             }
 
             //Generating API key
@@ -4199,7 +3059,7 @@ class DbHandler
 
     private function doesApplicationExist($application_name)
     {
-        $stmt = $this->conn->prepare('SELECT api_id FROM api_config WHERE application_name = ? ');
+        $stmt = $this->conn->prepare('SELECT api_config_id FROM api_config WHERE application_name = ? ');
         $stmt->bind_param('s', $application_name);
         $stmt->execute();
         $stmt->store_result();
@@ -4213,7 +3073,7 @@ class DbHandler
     //if the api key is there in db, it is valid key
     public function isValidApiKey($api_key)
     {
-        $stmt = $this->conn->prepare('SELECT api_id FROM api_config WHERE api_key = ?');
+        $stmt = $this->conn->prepare('SELECT api_config_id FROM api_config WHERE api_key = ?');
         $stmt->bind_param('s', $api_key);
         $stmt->execute();
         $stmt->store_result();
@@ -4242,14 +3102,16 @@ class DbHandler
 
         foreach ($recipients AS $key => $val) {
 
-            $isPrepared = $stmt = $this->conn->prepare('INSERT INTO sms_history(alphanumeric, recipient_number, cost, messageId, messageParts, status, statusCode) VALUES(?,?,?,?,?,?,?)');
+            $sql = 'INSERT INTO sms_history(alphanumeric, recipient_number, cost, messageId, messageParts, status, statusCode) VALUES(?,?,?,?,?,?,?)';
+
+            $isPrepared = $stmt = $this->conn->prepare($sql);
             if (!$isPrepared) {
-                $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error);
+                $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error,$sql);
             }
 
             $isParamBound = $stmt->bind_param('ssssisi', $from, $val['number'], $val['cost'], $val['messageId'], $val['messageParts'], $val['status'], $val['statusCode']);
             if (!$isParamBound) {
-                $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error);
+                $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error,$sql);
             }
 
 
@@ -4266,7 +3128,7 @@ class DbHandler
                 $response['message'] = 'Oops! An error occurred';
                 $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
 
-                $this->Execute_failed_to_file($response);
+                $this->Execute_failed_to_file($response,$sql);
 
                 $stmt->close();
             }

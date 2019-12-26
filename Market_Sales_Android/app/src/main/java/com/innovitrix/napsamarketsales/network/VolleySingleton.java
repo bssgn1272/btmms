@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.util.LruCache;
 
@@ -60,5 +61,6 @@ public class VolleySingleton {
     public ImageLoader getImageLoader() {
         return imageLoader;
     }
+
 
 }

@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="785d8b8c-a005-4c2a-ad72-91fc547245f1" name="Default Changelist" comment="">
+    <list default="true" id="785d8b8c-a005-4c2a-ad72-91fc547245f1" name="Default Changelist" comment="rework of transaction endpoint v2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/Config.php" beforeDir="false" afterPath="$PROJECT_DIR$/include/Config.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/DbHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/include/DbHandler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/v1/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1/transaction_capture.txt" beforeDir="false" afterPath="$PROJECT_DIR$/v1/transaction_capture.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -27,11 +33,6 @@
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="napsa_market_sales@localhost" type="feb32156:DbDataSourceImpl" />
       </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="napsa_market_sales@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-      </path>
     </expand>
     <select />
   </component>
@@ -40,41 +41,30 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/v1/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="578" column="14" selection-start-line="578" selection-start-column="14" selection-end-line="578" selection-end-column="14" />
+            <state relative-caret-position="436">
+              <caret line="252" column="51" selection-start-line="252" selection-start-column="51" selection-end-line="252" selection-end-column="51" />
               <folding>
-                <element signature="e#6#260#0#PHP" expanded="true" />
-                <element signature="e#792#956#0#PHP" />
-                <element signature="e#2066#2381#1#PHP" />
-                <element signature="e#2405#2717#1#PHP" />
-                <element signature="e#2743#3033#1#PHP" />
-                <element signature="e#3061#3908#1#PHP" />
-                <element signature="e#3941#4818#1#PHP" />
-                <element signature="e#4843#5385#1#PHP" />
-                <element signature="e#5420#5874#1#PHP" />
-                <element signature="e#5905#6213#1#PHP" />
-                <element signature="e#6247#6698#1#PHP" />
-                <element signature="e#6784#7006#1#PHP" />
-                <element signature="e#7169#7401#1#PHP" />
-                <element signature="e#7581#7814#1#PHP" />
-                <element signature="e#7852#8216#1#PHP" />
-                <element signature="e#8253#8728#1#PHP" />
-                <element signature="e#8901#9127#1#PHP" />
-                <element signature="e#9155#9638#1#PHP" />
-                <element signature="e#9665#10224#1#PHP" />
-                <element signature="e#10386#10612#1#PHP" />
-                <element signature="e#10640#10967#1#PHP" />
-                <element signature="e#10994#11429#1#PHP" />
-                <element signature="e#11611#11852#1#PHP" />
-                <element signature="e#11890#12355#1#PHP" />
-                <element signature="e#12392#12977#1#PHP" />
-                <element signature="e#13168#13407#1#PHP" />
-                <element signature="e#13444#14421#1#PHP" />
-                <element signature="e#14881#15864#1#PHP" />
-                <element signature="e#16050#16316#1#PHP" />
-                <element signature="e#16352#17394#1#PHP" />
-                <element signature="e#17429#18579#1#PHP" />
-                <element signature="e#18765#19004#1#PHP" />
+                <element signature="e#7#282#0#PHP" expanded="true" />
+                <element signature="e#1034#1198#0#PHP" />
+                <element signature="e#2308#2714#1#PHP" />
+                <element signature="e#3399#4246#1#PHP" />
+                <element signature="e#4279#5156#1#PHP" />
+                <element signature="e#5181#5728#1#PHP" />
+                <element signature="e#5758#6212#1#PHP" />
+                <element signature="e#6243#6551#1#PHP" />
+                <element signature="e#6585#7036#1#PHP" />
+                <element signature="e#7122#7231#1#PHP" />
+                <element signature="e#7394#7513#1#PHP" />
+                <element signature="e#8277#8516#1#PHP" />
+                <element signature="e#8553#9530#1#PHP" />
+                <element signature="e#9716#9954#1#PHP" />
+                <element signature="e#9990#10973#1#PHP" />
+                <element signature="e#14332#14785#1#PHP" />
+                <element signature="e#14817#15270#1#PHP" />
+                <element signature="e#15314#15457#1#PHP" />
+                <element signature="e#15481#15885#1#PHP" />
+                <element signature="e#15908#16345#1#PHP" />
+                <element signature="e#16367#16803#1#PHP" />
               </folding>
             </state>
           </provider>
@@ -83,8 +73,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/include/DbHandler.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="735">
-              <caret line="3202" column="26" selection-start-line="3202" selection-start-column="26" selection-end-line="3202" selection-end-column="26" />
+            <state relative-caret-position="253">
+              <caret line="1076" column="42" selection-start-line="1076" selection-start-column="42" selection-end-line="1076" selection-end-column="42" />
               <folding>
                 <element signature="e#6#161#0#PHP" expanded="true" />
                 <element signature="e#413#742#0#PHP" />
@@ -96,12 +86,18 @@
                 <element signature="e#2330#2788#0#PHP" />
                 <element signature="e#2794#3230#0#PHP" />
                 <element signature="e#3236#3608#0#PHP" />
-                <element signature="e#3676#4657#0#PHP" />
-                <element signature="e#4663#5348#0#PHP" />
-                <element signature="e#5354#6943#0#PHP" />
-                <element signature="e#6949#7216#0#PHP" />
-                <element signature="e#7222#8778#0#PHP" />
+                <element signature="e#38542#40605#0#PHP" />
+                <element signature="e#40859#42977#0#PHP" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/include/Config.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1311">
+              <caret line="57" column="42" selection-start-line="57" selection-start-column="42" selection-end-line="57" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -127,13 +123,23 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/include/StatusCodes.php" />
         <option value="$PROJECT_DIR$/include/Security.php" />
+        <option value="$PROJECT_DIR$/libs/logger/USSDLogger.php" />
+        <option value="$PROJECT_DIR$/composer.json" />
+        <option value="$PROJECT_DIR$/include/StatusCodes.php" />
+        <option value="$PROJECT_DIR$/include/Utils.php" />
+        <option value="$PROJECT_DIR$/libs/logger/ApiLogger.php" />
         <option value="$PROJECT_DIR$/include/Config.php" />
         <option value="$PROJECT_DIR$/v1/index.php" />
         <option value="$PROJECT_DIR$/include/DbHandler.php" />
       </list>
     </option>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/apache/log4php" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+    </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
@@ -147,6 +153,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -164,7 +171,6 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -179,6 +185,7 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\MarketSalesAPI\include" />
+      <recent name="C:\xampp\htdocs\MarketSalesAPI\libs" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -230,7 +237,32 @@
       <workItem from="1574861318539" duration="1241000" />
       <workItem from="1575047984222" duration="1712000" />
       <workItem from="1575145916326" duration="5854000" />
-      <workItem from="1575392055865" duration="3695000" />
+      <workItem from="1575392055865" duration="4243000" />
+      <workItem from="1575450851358" duration="23000" />
+      <workItem from="1575494273606" duration="3494000" />
+      <workItem from="1575581417130" duration="2793000" />
+      <workItem from="1575637722619" duration="715000" />
+      <workItem from="1575657579457" duration="597000" />
+      <workItem from="1575910017242" duration="584000" />
+      <workItem from="1575962545643" duration="21000" />
+      <workItem from="1575999749193" duration="1330000" />
+      <workItem from="1576044737836" duration="1039000" />
+      <workItem from="1576129198884" duration="2977000" />
+      <workItem from="1576158897022" duration="18000" />
+      <workItem from="1576187195703" duration="30213000" />
+      <workItem from="1576339335552" duration="1994000" />
+      <workItem from="1576474259544" duration="102000" />
+      <workItem from="1576477837237" duration="614000" />
+      <workItem from="1576586061579" duration="2518000" />
+      <workItem from="1576591577474" duration="2451000" />
+      <workItem from="1576601478277" duration="1746000" />
+      <workItem from="1576626502895" duration="1620000" />
+      <workItem from="1576698227211" duration="2525000" />
+      <workItem from="1576738874816" duration="440000" />
+      <workItem from="1576739633063" duration="183000" />
+      <workItem from="1576767755359" duration="664000" />
+      <workItem from="1576798515583" duration="1454000" />
+      <workItem from="1577252288630" duration="1725000" />
     </task>
     <task id="LOCAL-00001" summary="endpoints added">
       <created>1572711523052</created>
@@ -330,17 +362,66 @@
       <option name="project" value="LOCAL" />
       <updated>1575152731145</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="fix to GET transaction">
+      <created>1575405129665</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1575405129665</updated>
+    </task>
+    <task id="LOCAL-00016" summary="fix to GET balance">
+      <created>1575540656448</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1575540656449</updated>
+    </task>
+    <task id="LOCAL-00017" summary="attempt to fix no result">
+      <created>1575585344193</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1575585344193</updated>
+    </task>
+    <task id="LOCAL-00018" summary="attempt to fix transaction">
+      <created>1575657863461</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1575657863461</updated>
+    </task>
+    <task id="LOCAL-00019" summary="attempt to fix transactionv2">
+      <created>1576044972016</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1576044972016</updated>
+    </task>
+    <task id="LOCAL-00020" summary="rework of fix transaction">
+      <created>1576241786744</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1576241786744</updated>
+    </task>
+    <task id="LOCAL-00021" summary="rework of transaction endpoint">
+      <created>1576593739654</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1576593739654</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="165122000" />
+    <option name="totallyTimeSpent" value="227510000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.15033557" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.18389262" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -352,7 +433,32 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.21176471" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.6132353" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.22647059" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="12" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" weight="0.23825504" />
+      <window_info anchor="right" id="Palette&#9;" order="4" />
+      <window_info anchor="right" id="SciView" order="5" weight="0.3295302" />
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15167785" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.30735293" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.46470588" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
@@ -362,10 +468,60 @@
       <window_info anchor="right" id="Database" order="3" weight="0.03691275" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
       <window_info anchor="right" id="SciView" order="5" weight="0.3295302" />
-    </layout>
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="endpoints added" />
@@ -382,7 +538,14 @@
     <MESSAGE value="implemented simulation for deduction v2" />
     <MESSAGE value="added status to the response of traders" />
     <MESSAGE value="added cURL for connecting with NSANO API" />
-    <option name="LAST_COMMIT_MESSAGE" value="added cURL for connecting with NSANO API" />
+    <MESSAGE value="fix to GET transaction" />
+    <MESSAGE value="fix to GET balance" />
+    <MESSAGE value="attempt to fix no result" />
+    <MESSAGE value="attempt to fix transaction" />
+    <MESSAGE value="attempt to fix transactionv2" />
+    <MESSAGE value="rework of fix transaction" />
+    <MESSAGE value="rework of transaction endpoint" />
+    <option name="LAST_COMMIT_MESSAGE" value="rework of transaction endpoint" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/dc6c5e84-8ba4-4106-af58-c2853f0e8d77/console.sql">
@@ -398,9 +561,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/Utils.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/include/PassHash.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
@@ -409,10 +569,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/include/BaseStringHelper.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/Prepare_failed.txt" />
-    <entry file="file://$PROJECT_DIR$/include/StatusCodes.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/ec7e8e03-1c58-4410-9da4-b445838c872b/console.sql">
@@ -428,58 +584,92 @@
     <entry file="file://$PROJECT_DIR$/v1/put_transaction_capture.txt" />
     <entry file="file://$PROJECT_DIR$/v1/post_transaction_capture.txt" />
     <entry file="file://$PROJECT_DIR$/v1/get_transaction_capture.txt" />
+    <entry file="file://$PROJECT_DIR$/include/Execute_failed.txt" />
+    <entry file="file://$PROJECT_DIR$/libs/logger/USSDLogger.php" />
+    <entry file="file://$PROJECT_DIR$/vendor/composer/autoload_real.php" />
+    <entry file="file://$PROJECT_DIR$/vendor/autoload.php" />
+    <entry file="file://$PROJECT_DIR$/composer.lock" />
+    <entry file="file://$PROJECT_DIR$/composer.json" />
+    <entry file="file://$PROJECT_DIR$/vendor/apache/log4php/src/main/php/Logger.php" />
+    <entry file="file://$PROJECT_DIR$/include/log/INFO_2019-Dec-14.log" />
+    <entry file="file://$PROJECT_DIR$/include/Utils.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1150">
+          <caret line="54" column="16" selection-start-line="54" selection-start-column="16" selection-end-line="54" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/StatusCodes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/Prepare_failed.txt" />
+    <entry file="file://$PROJECT_DIR$/libs/logger/ApiLogger.php" />
+    <entry file="file://$PROJECT_DIR$/libs/apache-log4php/xml/log4php.dtd">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/v1/transaction_capture.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/ApiLogger.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/log/INFO_20191214.log" />
+    <entry file="file://$PROJECT_DIR$/include/log/INFO_20191213.log" />
+    <entry file="file://$PROJECT_DIR$/include/log/INFO_2019-Dec-17.log" />
+    <entry file="file://$PROJECT_DIR$/include/logs/INFO-2019-Dec-17.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/logs/INFO-2019-Dec-18.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/include/Config.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
+        <state relative-caret-position="1311">
+          <caret line="57" column="42" selection-start-line="57" selection-start-column="42" selection-end-line="57" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/v1/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="578" column="14" selection-start-line="578" selection-start-column="14" selection-end-line="578" selection-end-column="14" />
+        <state relative-caret-position="436">
+          <caret line="252" column="51" selection-start-line="252" selection-start-column="51" selection-end-line="252" selection-end-column="51" />
           <folding>
-            <element signature="e#6#260#0#PHP" expanded="true" />
-            <element signature="e#792#956#0#PHP" />
-            <element signature="e#2066#2381#1#PHP" />
-            <element signature="e#2405#2717#1#PHP" />
-            <element signature="e#2743#3033#1#PHP" />
-            <element signature="e#3061#3908#1#PHP" />
-            <element signature="e#3941#4818#1#PHP" />
-            <element signature="e#4843#5385#1#PHP" />
-            <element signature="e#5420#5874#1#PHP" />
-            <element signature="e#5905#6213#1#PHP" />
-            <element signature="e#6247#6698#1#PHP" />
-            <element signature="e#6784#7006#1#PHP" />
-            <element signature="e#7169#7401#1#PHP" />
-            <element signature="e#7581#7814#1#PHP" />
-            <element signature="e#7852#8216#1#PHP" />
-            <element signature="e#8253#8728#1#PHP" />
-            <element signature="e#8901#9127#1#PHP" />
-            <element signature="e#9155#9638#1#PHP" />
-            <element signature="e#9665#10224#1#PHP" />
-            <element signature="e#10386#10612#1#PHP" />
-            <element signature="e#10640#10967#1#PHP" />
-            <element signature="e#10994#11429#1#PHP" />
-            <element signature="e#11611#11852#1#PHP" />
-            <element signature="e#11890#12355#1#PHP" />
-            <element signature="e#12392#12977#1#PHP" />
-            <element signature="e#13168#13407#1#PHP" />
-            <element signature="e#13444#14421#1#PHP" />
-            <element signature="e#14881#15864#1#PHP" />
-            <element signature="e#16050#16316#1#PHP" />
-            <element signature="e#16352#17394#1#PHP" />
-            <element signature="e#17429#18579#1#PHP" />
-            <element signature="e#18765#19004#1#PHP" />
+            <element signature="e#7#282#0#PHP" expanded="true" />
+            <element signature="e#1034#1198#0#PHP" />
+            <element signature="e#2308#2714#1#PHP" />
+            <element signature="e#3399#4246#1#PHP" />
+            <element signature="e#4279#5156#1#PHP" />
+            <element signature="e#5181#5728#1#PHP" />
+            <element signature="e#5758#6212#1#PHP" />
+            <element signature="e#6243#6551#1#PHP" />
+            <element signature="e#6585#7036#1#PHP" />
+            <element signature="e#7122#7231#1#PHP" />
+            <element signature="e#7394#7513#1#PHP" />
+            <element signature="e#8277#8516#1#PHP" />
+            <element signature="e#8553#9530#1#PHP" />
+            <element signature="e#9716#9954#1#PHP" />
+            <element signature="e#9990#10973#1#PHP" />
+            <element signature="e#14332#14785#1#PHP" />
+            <element signature="e#14817#15270#1#PHP" />
+            <element signature="e#15314#15457#1#PHP" />
+            <element signature="e#15481#15885#1#PHP" />
+            <element signature="e#15908#16345#1#PHP" />
+            <element signature="e#16367#16803#1#PHP" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/include/DbHandler.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="3202" column="26" selection-start-line="3202" selection-start-column="26" selection-end-line="3202" selection-end-column="26" />
+        <state relative-caret-position="253">
+          <caret line="1076" column="42" selection-start-line="1076" selection-start-column="42" selection-end-line="1076" selection-end-column="42" />
           <folding>
             <element signature="e#6#161#0#PHP" expanded="true" />
             <element signature="e#413#742#0#PHP" />
@@ -491,11 +681,8 @@
             <element signature="e#2330#2788#0#PHP" />
             <element signature="e#2794#3230#0#PHP" />
             <element signature="e#3236#3608#0#PHP" />
-            <element signature="e#3676#4657#0#PHP" />
-            <element signature="e#4663#5348#0#PHP" />
-            <element signature="e#5354#6943#0#PHP" />
-            <element signature="e#6949#7216#0#PHP" />
-            <element signature="e#7222#8778#0#PHP" />
+            <element signature="e#38542#40605#0#PHP" />
+            <element signature="e#40859#42977#0#PHP" />
           </folding>
         </state>
       </provider>

@@ -32,9 +32,7 @@ switch (ENVIRONMENT) {
         echo 'environment has not been chosen';
 }
 
-/*
- * if you need the time to be correct according to a specific location, you can set a timezone to use
- * */
+//if you need the time to be correct according to a specific location, you can set a timezone to use
 date_default_timezone_set('Africa/Lusaka');
 
 define('USER_ID', 'user_id');
@@ -55,7 +53,7 @@ define('HTTP_status_202_Accepted', '202');
 define('HTTP_status_204_No_Content', '204');
 
 //Client error responses
-define('HTTP_status_400_Bad Request', '400');
+define('HTTP_status_400_Bad_Request', '400');
 define('HTTP_status_401_Unauthorized','401');
 define('HTTP_status_403_Forbidden','403');
 define('HTTP_status_404_Not_Found','404');
@@ -66,3 +64,12 @@ define('HTTP_status_422_Unprocessable_Entity','422');
 define('HTTP_status_500_Internal_Server_Error','500');
 define('HTTP_status_501_Not_Implemented','501');
 //END OF LIST OF HTTP STATUS CODES
+
+//API info log file path
+define("APP_INFO_LOG", __DIR__ . "/logs/INFO");
+
+//API error log file path
+define("APP_ERROR_LOG", __DIR__ . "/logs/ERROR");
+
+//API debug log file path
+define("APP_DEBUG_LOG",__DIR__ . "/logs/DEBUG");

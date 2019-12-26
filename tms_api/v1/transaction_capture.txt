@@ -1,0 +1,18 @@
+Script was executed at 17/12/2019 16:35:11
+{"transaction_type_id":1,"seller_id":"15","seller_name":"Francis Chulu","seller_mobile_number":"0973297687","buyer_id":16,"buyer_name":"Chimuka Moonde","buyer_mobile_number":"0978981572","amount_due":"2","device_serial":"SAMSUNG-J5PRO","transaction_date":"2019-12-17"}
+
+Script was executed at 18/12/2019 01:47:48
+{"transaction_type_id":1,"seller_id":"15","seller_name":"Francis Chulu","seller_mobile_number":"0973297687","buyer_id":16,"buyer_name":"Chimuka Moonde","buyer_mobile_number":"0978981572","amount_due":"2","device_serial":"SAMSUNG-J5PRO","transaction_date":"2019-12-17"}
+
+Script was executed at 18/12/2019 01:50:51
+{"transaction_type_id":1,"seller_id":"15","seller_name":"Francis Chulu","seller_mobile_number":"0973297687","buyer_id":16,"buyer_name":"Chimuka Moonde","buyer_mobile_number":"0978981572","amount_due":"2","device_serial":"SAMSUNG-J5PRO","transaction_date":"2019-12-17"}
+
+Script was executed at 25/12/2019 07:45:32
+{"transaction_type_id":1,"seller_id":"15","seller_name":"Francis Chulu","seller_mobile_number":"0973297687","buyer_id":16,"buyer_name":"Chimuka Moonde","buyer_mobile_number":"0978981572","amount_due":"2","device_serial":"SAMSUNG-J5PRO","transaction_date":"2019-12-17"}
+
+Script was executed at 25/12/2019 07:46:44
+{"transaction_type_id":1,"seller_id":"15","seller_name":"Francis Chulu","seller_mobile_number":"260973297687","buyer_id":16,"buyer_name":"Chimuka Moonde","buyer_mobile_number":"260978981572","amount_due":"2","device_serial":"SAMSUNG-J5PRO","transaction_date":"2019-12-25"}
+
+Script was executed at 25/12/2019 08:09:11
+{"transaction_type_id":1,"seller_id":"15","seller_name":"Francis Chulu","seller_mobile_number":"260973297687","buyer_id":16,"buyer_name":"Chimuka Moonde","buyer_mobile_number":"260978981572","amount_due":"2","device_serial":"SAMSUNG-J5PRO","transaction_date":"2019-12-25"}
+

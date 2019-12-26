@@ -7,6 +7,16 @@ public class User {
     private String gender;
     private String mobile_number;
     private double balance;
+    private int status;
+
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public double getBalance() {
         return balance;
@@ -29,6 +39,17 @@ public class User {
         this.gender = gender;
         this.mobile_number = mobile_number;
         this.balance = balance;
+    }
+
+    public User(int trader_id, String firstname, String lastname, String nrc, String gender, String mobile_number, double balance, int status) {
+        this.trader_id = trader_id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.nrc = nrc;
+        this.gender = gender;
+        this.mobile_number = mobile_number;
+        this.balance = balance;
+        this.status = status;
     }
 
     public User() {

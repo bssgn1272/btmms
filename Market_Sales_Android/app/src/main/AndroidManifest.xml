@@ -18,11 +18,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MakeSell"></activity>
-        <activity android:name=".CheckBalance"></activity>
+        <activity android:name=".MakeSell"  android:screenOrientation="portrait"></activity>
+        <activity android:name=".CheckBalance"  android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login">
+            android:name=".LoginActivity" android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,11 +30,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BuyFromTrader"
-            android:label="@string/title_activity_buy_from_trader"
+            android:name=".BuyFromTrader"  android:screenOrientation="portrait"
+
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".BuyBusTicketActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".BuyBusTicketActivity"  android:screenOrientation="portrait" />
+        <activity android:name=".MainActivity"  android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

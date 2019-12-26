@@ -90,7 +90,9 @@
                     android:padding="12dp"
                     android:shadowRadius="5"
                     android:text="Login"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/black"
+                    android:background="@color/colorAccent"
+                    />
 
                 <!--<TextView-->
         <!--android:id="@+id/linkSignup"-->

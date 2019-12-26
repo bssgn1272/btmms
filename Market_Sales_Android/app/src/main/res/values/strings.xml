@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NapsaMarketSales</string>
+    <string name="app_name">NAPSA Market Sales</string>
     <string-array name="FromBusStation">
         <item>Livingstone</item>
         <item>Lusaka</item>
@@ -8,7 +8,7 @@
     </string-array>
     <string name="stringSelectFromTown">From</string>
     <string name="stringSelectToTown">To</string>
-    <string name="title_activity_buy_from_trader">BuyFromTrader</string>
+    <string name="title_activity_buy_from_trader">Make An Order</string>
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>

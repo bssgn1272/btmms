@@ -37,5 +37,7 @@ public class AppConstants {
 
     public static final String KEY_ERROR = "error";
     public static final String KEY_MESSAGE = "message";
+    public static final String KEY_STATUS = "status";
+   // public static final String KEY_ROUTE_ID = "route_id";
 
 }

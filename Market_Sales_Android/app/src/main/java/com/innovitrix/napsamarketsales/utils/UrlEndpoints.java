@@ -40,6 +40,7 @@ public class UrlEndpoints {
     public static final String URL_CHAR_AMPERSAND = "&";
     public static final String URL_PARAM_USER_ID = "user_id=";
     public static final String URL_PARAM_MOBILE_NUMBER = "mobile_number=";
+    public static final String URL_PARAM_ROUTE_ID = "route_id=";
 
 
     public static final String API_KEY = "";
