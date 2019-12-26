@@ -1,188 +1,236 @@
 <h1 style="text-align:center">MANAGE TELLERS</h1><hr style="border-top: 1px solid orange;">
 
+<div class="container-fluid">
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a data-toggle="tab" href="#home">Registered Tellers</a>
+        </li>
+        <li>
+            <a data-toggle="tab" href="#menu1">Regester Teller</a>
+        </li>
+        <li>
+            <a data-toggle="tab" href="#menu2">Active Tellers <span class="badge badge-primary badge-pill">44</span></a>
+        </li>
+    </ul>
 
-            <div class="container-fluid">
-            <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#home">Manage</a></li>
-                <li><a data-toggle="tab" href="#menu1">Requests <span class="badge badge-primary badge-pill">6</span></a></li>
-                <li><a data-toggle="tab" href="#menu2">Active Tellers <span class="badge badge-primary badge-pill">44</span></a></li>
-                <li><a data-toggle="tab" href="#menu3">Inactive Tellers <span class="badge badge-primary badge-pill">13</span></a></li>
-                <li><a data-toggle="tab" href="#menu4">Declined <span class="badge badge-primary badge-pill">3</span></a></li>
-            </ul>
+<div class="tab-content">
 
-            <div class="tab-content">
 
-                        <div id="home" class="tab-pane fade in active">
+<!--########## REGISTERED_TELLERS #########-->
+<div id="home" class="tab-pane fade in active">
+    <div class="timeline-container">
+                                  
+        <div class="timeline-row">
+            <div class="panel border-left-lg border-left-danger timeline-content">
+                <div class="panel-heading">
+                    <h6 class="panel-title">Registered Tellers</h6>
+                </div>
+                <hr>
 
-                        <div>
-                        <!-- Basic datatable -->
-                        <div class="panel panel-flat" style="padding: 9px">
-                            <div class="panel-heading">
-                                <h5 class="panel-title" style="text-align:center; text-decoration: underline;">TELLERS</h5>
-                                <div class="heading-elements">
-                                    <ul class="icons-list">
-                                        <li><a data-action="collapse"></a></li>
-                                        <li><a data-action="reload"></a></li>
-                                        <li><a data-action="close"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                                <div style="overflow-x:auto;">
-                                    <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
-                                    <thead>
-                                        <tr>
-                                            <th>Teller Name</th>
-                                            <th>Teller CODE</th>
-                                            <th>Location</th>
-                                            <th>Town</th>
+                <div class="panel-body">
+                    <div class="chart-container">
+                        <div style="overflow-x:auto;">
+                            <table class="table table-striped table-bordered" id="dataTableTellers">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Sex</th>
+                                        <th>DoB</th>
+                                        <th>NRC</th>
+                                        <th>SSN</th>
+                                        <th>Phone</th>
+                                        <th>Email</th>
+                                        <th>Address</th>
                                         <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            </div>
+                                    </tr>
+                                </thead>
 
-
+                                <tbody>
+                                <!--
+                                    TO ADD TABLE CONTENT
+                                -->
+                                </tbody>
+                            </table>
                         </div>
-                      
-            <div id="menu1" class="tab-pane fade">
-                    
-                                <!-- Basic datatable -->
-                                <div class="panel panel-flat" style="padding: 9px">
-                                    <div class="panel-heading">
-                                        <h5 class="panel-title" style="text-align:center; text-decoration: underline;">PENDING APPROVAL</h5>
-                                        <div class="heading-elements">
-                                            <ul class="icons-list">
-                                                <li><a data-action="collapse"></a></li>
-                                                <li><a data-action="reload"></a></li>
-                                                <li><a data-action="close"></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                <div style="overflow-x:auto;">
-                                    <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
-                                    <thead>
-                                        <tr>
-                                            <th>Teller Name</th>
-                                            <th>Teller CODE</th>
-                                            <th>Location</th>
-                                            <th>Town</th>
-                                        <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
+</div>
+<!--########## REGISTERED_TELLERS %> #########-->   
 
-      
-                <div id="menu2" class="tab-pane fade">
 
-                   <div class="panel panel-flat" style="padding: 9px">
-                                    <div class="panel-heading">
-                                        <h5 class="panel-title" style="text-align:center; text-decoration: underline;">ACTIVE TELLERS</h5>
-                                        <div class="heading-elements">
-                                            <ul class="icons-list">
-                                                <li><a data-action="collapse"></a></li>
-                                                <li><a data-action="reload"></a></li>
-                                                <li><a data-action="close"></a></li>
-                                            </ul>
-                                        </div>
+
+<!--########## TELLER REGISTRATION #########-->                 
+<div id="menu1" class="tab-pane fade">
+        <div class="panel-body">                                        
+            <div class="row">
+                <div class="col-md-6 col-sm-6 panel panel-flat">
+                    <div class="panel-body">
+                        <legend class="text-semibold"><i class="icon-reading position-left"></i> TELLER REGISTRATION</legend>
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>First Name:</label>
+                                        <input name="first_name" id="TfirstName" class="form-control" placeholder="First Name" type="text">
+                                        <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
                                     </div>
 
-                                <div style="overflow-x:auto;">
-                                    <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
-                                    <thead>
-                                        <tr>
-                                            <th>Teller Name</th>
-                                            <th>Teller CODE</th>
-                                            <th>Location</th>
-                                            <th>Town</th>
-                                        <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                    </table>
+                                    <div class="form-group">
+                                        <input name="vehicle[uid]" id="vehicleUid" type="hidden" class="form-control" readonly="readonly" placeholder="Auto Generated">
+                                    </div>
+
+                                    <div class="form-group">
+                                          <label>Last Name:</label>
+                                          <input name="vehicle[liscense_plate]" id="TlastName" class="form-control" placeholder="Last Name" type="text">
+                                    </div>
+
+                                    <div class="form-group">
+                                          <label>Sex:</label>
+                                          <input name="vehicle[engine_type]" id="Tsex" class="form-control" placeholder="Sex" type="text">
+                                    </div>
+
+                                     <div class="form-group">
+                                          <label>DoB:</label>
+                                          <input name="vehicle[engine_type]" id="Tdob" class="form-control" placeholder="DoB" type="text">
+                                    </div>
                                 </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                          <label>NRC:</label>
+                                          <input name="vehicle[year]" id="Tnrc" class="form-control" placeholder="National Registration Card Number" type="text">
+                                    </div>
+
+                                    <div class="form-group">
+                                          <label>SSN:</label>
+                                          <input name="vehicle[color]" id="Tssn" class="form-control" placeholder="Social Security Number" type="text">
+                                    </div>
+
+                                     <div class="form-group">
+                                          <label>Email:</label>
+                                          <input name="vehicle[model]" id="Temail" class="form-control" placeholder="Email" type="text">
+                                    </div>
+
+                                     <div class="form-group">
+                                          <label>Phone:</label>
+                                          <input name="vehicle[color]" id="Tphone" class="form-control" placeholder="Mobile" type="text">
+                                    </div>
+
+                                    <div class="form-group">
+                                          <label>Address:</label>
+                                          <input name="vehicle[color]" id="Taddress" class="form-control" placeholder="Physical Address" type="text">
+                                    </div>
+                                </div>
+
                             </div>
+                    </div>
                 </div>
 
-                <div id="menu3" class="tab-pane fade">
-                
-                  <div class="panel panel-flat" style="padding: 9px">
-                                    <div class="panel-heading">
-                                        <h5 class="panel-title" style="text-align:center; text-decoration: underline;">INACTIVE TELLER ACOOUNTS</h5>
-                                        <div class="heading-elements">
-                                            <ul class="icons-list">
-                                                <li><a data-action="collapse"></a></li>
-                                                <li><a data-action="reload"></a></li>
-                                                <li><a data-action="close"></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
 
-                                <div style="overflow-x:auto;">
-                                    <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
-                                    <thead>
-                                        <tr>
-                                            <th>Teller Name</th>
-                                            <th>Teller CODE</th>
-                                            <th>Location</th>
-                                            <th>Town</th>
-                                        <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                    </table>
-                                </div>
-                            </div>
-      </div>
 
-      <div id="menu4" class="tab-pane fade"> 
-                
-                  <div class="panel panel-flat" style="padding: 9px">
-                                    <div class="panel-heading">
-                                        <h5 class="panel-title" style="text-align:center; text-decoration: underline;">DECLINED TELLER ACOOUNTS</h5>
-                                        <div class="heading-elements">
-                                            <ul class="icons-list">
-                                                <li><a data-action="collapse"></a></li>
-                                                <li><a data-action="reload"></a></li>
-                                                <li><a data-action="close"></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                <div class="col-md-6 col-sm-6 panel panel-flat">
+                <div class="panel-body">
+                    <legend class="text-semibold"><i class="icon-reading position-left"></i> PREVIEW</legend>
 
-                                <div style="overflow-x:auto;">
-                                    <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
-                                    <thead>
-                                        <tr>
-                                            <th>Teller Name</th>
-                                            <th>Teller CODE</th>
-                                            <th>Location</th>
-                                            <th>Town</th>
-                                        <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                    </table>
-                                </div>
-                            </div>
-      </div>
-  </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <b>FIRST NAME</b><div id="TellerFirstName"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <b>LAST NAME </b><div id="TellerLastName"></div>
+                        </div>
+
+                         <div class="col-md-4">
+                            <b>SEX </b><div id="TellerSex"></div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 30px">
+                      <div class="col-md-4">
+                            <b>DOB </b><div id="TellerDoB"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <b>NRC </b><div id="TellerNRC"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <b>SSN </b><div id="TellerSSN"></div>
+                        </div>                           
+                    </div>
+
+                    <div class="row" style="margin-top: 30px">
+                        <div class="col-md-4">
+                            <b>EMAIL</b><div id="TellerEmail"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <b>PHONE</b><div id="TellerPhone"></div>
+                        </div>
+
+                         <div class="col-md-4">
+                            <b>ADDRESS</b><div id="TellerAddress"></div>
+                        </div>
+                    </div>
+
+                    <legend class="text-semibold"><i class=""></i></legend>
+                </div>
+                </div>
+                <br>
+
+                <div class="container pull-left">
+                    <button type="submit" id="submitVehicleButton" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange">
+                        <b><i class="icon-checkmark2"></i></b> Create Teller
+                    </button>
+                </div>         
+            </div>
+        </div>
+</div>
+<!--########## TELLER REGISTRATION %> #########--> 
+
+
+<!--########## ACTIVE TELLERS #########-->    
+<div id="menu2" class="tab-pane fade">
+    <div class="panel panel-flat" style="padding: 9px">
+        <div class="panel-heading">
+            <h5 class="panel-title" style="text-align:center; text-decoration: underline;">
+                ACTIVE TELLERS
+            </h5>
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                    <li><a data-action="reload"></a></li>
+                    <li><a data-action="close"></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="overflow-x:auto;">
+            <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
+            <thead>
+                <tr>
+                    <th>Teller Name</th>
+                    <th>Teller CODE</th>
+                    <th>Location</th>
+                    <th>Town</th>
+                <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--########## ACTIVE TELLERS %> #########-->
 
 
 </div>
-
-
-
-
+</div>

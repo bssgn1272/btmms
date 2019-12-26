@@ -52,6 +52,8 @@ defmodule BusTerminalSystemWeb.Router do
 
     # TICKET_CONTROLLER
     resources "/platform/secure/commercial/services/ticketing/tickets", TicketController
+
+    # SESSION_CONTROLLER
     get "/", SessionController, :new
     post "/", SessionController, :login
     post "/login", SessionController, :login
@@ -63,6 +65,13 @@ defmodule BusTerminalSystemWeb.Router do
 
     # TELLER_CONTROLLER
     get "/teller", TellerController, :index
+
+    # VISA_CONTROLLER
+    get "/payment", VisaController, :index
+
+    # BOOKINGS_CONTROLLER
+    get "/bookings", BookingsController, :index
+    get "/test", BookingsController, :test
   end
 
   scope "/", BusTerminalSystemWeb do
@@ -80,6 +89,13 @@ defmodule BusTerminalSystemWeb.Router do
     get "/btms/travel/secured/destinations", TicketController, :get_schedules
     get "/btms/travel/secured/routes", TicketController, :get_travel_routes
     get "/btms/tickets/secured/list", TicketController, :list_tickets
+
+    post "/btms/market/secured/marketer_kyc", MarketApiController, :fetch_kyc
+    post "/btms/market/secured/authenticate_marketer", MarketApiController, :authenticate_marketer
+    post "/btms/market/secured/update_pin", MarketApiController, :update_pin
+    post "/btms/market/secured/reset_pin", MarketApiController, :reset_pin
+    post "/btms/market/secured/register_market", MarketApiController, :register_marketeer
+
   end
 
   def swagger_info do

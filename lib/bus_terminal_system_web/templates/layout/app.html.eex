@@ -99,26 +99,37 @@
     							<ul class="navigation navigation-main navigation-accordion">
 
     								<%= if @user.role == "ADMIN" do %>
-                                    <li class="active">
-    								    <a href="#"><i class="icon-stack2"></i> <span>DASHBOARD</span></a>
-                                        <ul>
-                                            <li><%= link "Manage", to: Routes.user_path(@conn, :index) %></li>
-                                            <li><%= link "Routes", to: Routes.route_path(@conn, :index) %></li>
-                                        </ul>
+                                    <li>
+    								    <a href="<%= Routes.user_path(@conn, :index)%>">
+
+                                            <i class="icon-home"></i> <span>Dashboard</span>
+                                        </a>
     								</li>
 
-    								<li>
-                                        <a href="#"><i class="icon-stack2"></i> <span>Ticketing</span></a>
-                                        <ul>
-                                            <li><%= link "Buy Ticket", to: Routes.ticket_path(@conn, :index) %></li>
-                                        </ul>
-                                    </li>
                                     <li>
-                                        <a href="#"><i class="icon-stack2"></i> <span>Teller</span></a>
+                                        <a href="<%= Routes.route_path(@conn, :index)%>">
+                                            <i class="icon-road"></i> <span>Routes</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="<%= Routes.bookings_path(@conn, :index)%>">
+                                            <i class="icon-ticket"></i> <span>Bookings</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="<%= Routes.bookings_path(@conn, :test)%>">
+                                            <i class="icon-ticket"></i> <span>Testing</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#"><i class="icon-user"></i> <span>Teller</span></a>
                                         <ul>
                                             <li>
                                                 <a href="/teller">
-                                                    Management
+                                                    Manage Tellers
                                                 </a>
                                             </li>
                                         </ul>
@@ -128,7 +139,7 @@
                                     <%= if @user.role == "BOP" or @user.role == "ADMIN" do %>
 									
                                     <li>
-                                        <a href="#"><i class="icon-stack2"></i> <span>Bus</span></a>
+                                        <a href="#"><i class="icon-bus"></i> <span>Bus</span></a>
                                         <ul>
                                             <li>
                                                 <%= link "Approve Bus", to: Routes.bus_terminus_path(@conn, :bus_approval) %>
@@ -136,7 +147,7 @@
                                         </ul>
                                     </li>
     								<li>
-    									<a href="#"><i class="icon-stack2"></i> <span>Terminus</span></a>
+    									<a href="#"><i class="icon-stop    "></i> <span>Terminus</span></a>
     									<ul>
     										<li><%= link "Management", to: Routes.bus_terminus_path(@conn, :index) %></li>
     									</ul>
@@ -187,9 +198,7 @@
 
     		<div class="navbar-collapse collapse">
     			<div class="navbar-text">
-                &copy; 2019. <a href="#" class="navbar-link">Bus Terminus System</a> by <a href="http://www.probasegroup.com" class="navbar-link" target="_blank">
-                    <e style="color:orange;">Pro</e><e style="color:black;">BASE</e>
-                </a>
+                    &copy; 2019 Bus Terminus System
                 </div>
 
     			<div class="navbar-right">

@@ -3,6 +3,7 @@ defmodule BusTerminalSystem.RepoManager do
   import Ecto.Query, warn: false
 
   alias BusTerminalSystem.Repo
+  alias BusTerminalSystem.Randomizer
 
   alias BusTerminalSystem.Market
   alias BusTerminalSystem.Section
@@ -34,6 +35,44 @@ defmodule BusTerminalSystem.RepoManager do
   def create_operator(attrs \\ %{}), do: %User{} |> User.changeset(attrs) |> Repo.insert()
   def update_operator(%User{} = user, attrs), do: user |> User.changeset(attrs) |> Repo.update()
   def delete_operator(%User{} = user), do: Repo.delete(user)
+
+  def create_marketer(marketer) do
+
+    pin = Randomizer.randomizer(5, :numeric)
+    uuid = "#{DateTime.utc_now.year}-#{BusTerminalSystem.Randomizer.randomizer(10,:numeric)}-#{DateTime.utc_now.month}-#{BusTerminalSystem.Randomizer.randomizer(4,:numeric)}-#{DateTime.utc_now.day}"
+
+    marketer = Map.put(marketer, "operator_role", "MARKETER")
+    marketer = Map.put(marketer, "pin", encode_pin(pin))
+    marketer = Map.put(marketer, "role", "MC")
+    marketer = Map.put(marketer, "password", Randomizer.randomizer(6, :upcase))
+    marketer = Map.put(marketer, "account_status", "INACTIVE")
+    marketer = Map.put(marketer, "uuid", uuid)
+
+    IO.inspect marketer
+
+    %User{}
+    |> User.changeset(marketer)
+    |> Repo.insert()
+  end
+
+  def find_marketer_by_mobile(mobile) do
+    Repo.get_by(User, [mobile: mobile, operator_role: "MARKETER"])
+  end
+
+  def authenticate_marketer_by_mobile(mobile,pin) do
+    Repo.get_by(User, [mobile: mobile,pin: encode_pin(pin), operator_role: "MARKETER"])
+  end
+
+  def encode_pin(pin) do
+    Base.encode16(:crypto.hash(:sha512,pin))
+  end
+
+  def update_marketer_pin(%User{} = user, attrs) do
+    user
+    |> User.changeset(attrs)
+    |> Repo.update()
+  end
+
 
   # HUBS
   def get_hub(id), do: Repo.get!(Hub, id)

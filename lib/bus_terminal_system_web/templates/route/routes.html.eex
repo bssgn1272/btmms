@@ -94,7 +94,7 @@
 								</li>
 
 								<div class="container-fluid">
-									<button class="w3-btn w3-indigo w3-hover-orange">Submit</button>
+									<button class="w3-btn w3-indigo w3-hover-orange" style="border-radius: 12px;">Submit</button>
 								</div>
 								<!-- /main -->
 							</ul>

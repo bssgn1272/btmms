@@ -1,0 +1,30 @@
+<div class="panel panel-flat" style="padding: 9px">
+    <div class="panel-heading">
+	<h5 class="panel-title" style="text-align:center; font-weight: bold; font-size: 20px;">Bookings</h5>
+    <hr>
+
+    </div>
+
+    <div style="overflow-x:auto;">
+        <table class="table table-striped table-bordered" id="bookingsDataTable">
+        <thead>
+            <tr>
+                <th>Ticket Number</th>
+                <th>Full Name</th>
+                <th>Phone</th>
+                <th>Bus</th>
+                <th>Seat</th>
+                <th>Amount</th>
+                <th>Date Booked</th>
+                <th>Depature Date</th>
+                <th>Depature Time</th>
+                <th>Lugage</th>
+                <th>Bus Operator</th>
+            <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        </table>
+    </div>
+</div>

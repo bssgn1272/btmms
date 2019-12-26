@@ -56,12 +56,12 @@
                         <br>
 
                         <div class="text-right">
-                            <button type="submit" id="submitVehicleButton" class="w3-btn w3-round w3-indigo w3-hover-purple w3-left">
+                            <button type="submit" id="submitVehicleButton" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-purple w3-left">
                                 <b><i class="icon-checkmark2"></i></b>Register Teminus
                             </button>
                             
                             <span>
-                                <%= link "Back" , class: "w3-btn w3-round w3-indigo w3-hover-purple", type: "submit",to: Routes.user_path(@conn, :index) %>
+                                <%= link "Back" , class: "w3-btn w3-indigo w3-hover-purple", style: "border-radius: 12px", type: "submit",to: Routes.user_path(@conn, :index) %>
                             </span>
                         </div>
                     </div>

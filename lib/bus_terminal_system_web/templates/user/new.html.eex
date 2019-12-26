@@ -80,7 +80,6 @@
                                                 <option value="0">Administrator</option>
                                                 <option value="1">Bus Operator</option>
                                                 <option value="2">Marketeer</option>
-                                                <option value="3">Bus Operator / Marketeer</option>
                                             </select>
 
                                     </div>

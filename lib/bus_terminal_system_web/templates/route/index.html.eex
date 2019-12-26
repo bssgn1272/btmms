@@ -151,7 +151,7 @@
                     <b>Bus Stop 6:</b> Lundazi<br>
                     <br><br>
                    
-                   <a href="<%= Routes.route_path(@conn, :customise_routes) %>" class="w3-btn w3-indigo w3-hover-orange">Customise Stations</a>
+                   <a href="<%= Routes.route_path(@conn, :customise_routes) %>" class="w3-btn w3-indigo w3-hover-orange" style="border-radius: 12px;">Customise Stations</a>
                 </div>
                 </div>
                     
@@ -159,7 +159,7 @@
                 </div>
                 
                 <div class="w3-container w3-light-grey w3-padding">
-                <button class="w3-btn w3-red w3-right" onclick="document.getElementById('id01').style.display='none'">Close</button>
+                <button class="w3-btn w3-red w3-right" onclick="document.getElementById('id01').style.display='none'" style="border-radius: 12px;">Close</button>
                 </div>
                 </div>
                 </div>

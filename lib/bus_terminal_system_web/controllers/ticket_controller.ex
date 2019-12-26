@@ -6,6 +6,7 @@ defmodule BusTerminalSystemWeb.TicketController do
   alias BusTerminalSystem.ApiManager
   alias BusTerminalSystem.RepoManager
   alias BusTerminalSystem.Randomizer
+  alias BusTerminalSystem.AccountManager
 
   def index(conn, _params) do
     tickets = TicketManagement.list_tickets()
@@ -17,15 +18,25 @@ defmodule BusTerminalSystemWeb.TicketController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"ticket" => ticket_params}) do
+  def create(conn, %{"payload" => ticket_params}) do
+
+    users = AccountManager.list_users()
+    tickets = RepoManager.list_tickets()
+
+    ticket_params = Map.put(ticket_params, "route", 1)
+
     case TicketManagement.create_ticket(ticket_params) do
       {:ok, ticket} ->
         conn
         |> put_flash(:info, "Ticket created successfully.")
-        |> redirect(to: Routes.ticket_path(conn, :show, ticket))
+        |> redirect(to: Routes.user_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+
+      IO.inspect changeset
+
+      conn
+      |> redirect(to: Routes.user_path(conn, :index))
     end
   end
 
@@ -80,7 +91,19 @@ defmodule BusTerminalSystemWeb.TicketController do
             conn
             |> json(ApiManager.api_message_custom_handler(ApiManager.definition_query,"SUCCESS",0,
               %{
-                "reference_number" => ticket.reference_number
+                "reference_number" => ticket.reference_number,
+                "serial_number" => ticket.serial_number,
+                "external_ref" => ticket.external_ref,
+                "first_name" => ticket.first_name,
+                "last_name" => ticket.last_name,
+                "other_name" => ticket.other_name,
+                "id_type" => ticket.id_type,
+                "id_number" => ticket.passenger_id,
+                "mobile_number" => ticket.mobile_number,
+                "email_address" => ticket.email_address,
+                "transaction_channel" => ticket.transaction_channel,
+                "travel_date" => ticket.travel_date,
+                "qr_code" => qr_generator("#{ticket.reference_number}")
               }))
           end
         end
@@ -148,7 +171,7 @@ defmodule BusTerminalSystemWeb.TicketController do
       {:ok, ticket} ->
 
         IO.inspect ticket
-
+        render conn, ""
         conn
         |> json(ApiManager.api_message_custom_handler(
           "PURCHASE",
@@ -183,6 +206,12 @@ defmodule BusTerminalSystemWeb.TicketController do
     dt = DateTime.utc_now
     {micro,_} = dt.microsecond
     "ZBMS-#{dt.year}#{dt.month}#{dt.day}-#{route.route_code}-#{dt.hour}#{dt.minute}#{dt.second}#{micro}"
+  end
+
+  def generate_reference_number do
+    dt = DateTime.utc_now
+    {micro,_} = dt.microsecond
+    "ZBMS-#{dt.year}#{dt.month}#{dt.day}-LSTL-#{dt.hour}#{dt.minute}#{dt.second}#{micro}"
   end
 
   def qr_generator(data) do

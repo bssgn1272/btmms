@@ -56,3 +56,5 @@
 </div>
 
 <span><%= link "New Ticket", class: "w3-btn w3-round w3-indigo w3-hover-blue", to: Routes.ticket_path(@conn, :new) %></span>
+
+

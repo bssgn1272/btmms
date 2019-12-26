@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fff9d1e1-6457-4936-bc9a-8033c16360b6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/bus_terminal_system/bus_management/route_mapping.ex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bus_terminal_system/ticket_management/routes.ex" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bus_terminal_system/ticket_management/routes.ex" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,16 +63,6 @@
         <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
         <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
       </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="bus_terminal_system_dev: database" type="162271b6:PgImplModel$Database" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
-        <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="tickets: table" type="69fad909:PgImplModel$LocalTable" />
-      </path>
     </expand>
     <select />
   </component>
@@ -127,7 +113,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="editing.templates" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -215,63 +201,36 @@
       <workItem from="1575711578202" duration="9575000" />
       <workItem from="1575872884348" duration="14824000" />
       <workItem from="1575962081903" duration="1938000" />
-      <workItem from="1575997327317" duration="1347000" />
-    </task>
-    <task id="LOCAL-00001" summary="initial commit">
-      <created>1574353660876</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1574353660876</updated>
-    </task>
-    <task id="LOCAL-00002" summary="New Database migration added column nrc">
-      <created>1574406971967</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1574406971967</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Added dashboard page">
-      <created>1574411986311</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1574411986311</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Created Bus Terminal Module">
-      <created>1574662730104</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1574662730104</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Created Bus And Market Modules">
-      <created>1574663977589</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1574663977589</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Created Created Ticketing module">
-      <created>1574669493674</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1574669493674</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Created Created Ticketing module">
-      <created>1574669576923</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1574669576923</updated>
-    </task>
-    <task id="LOCAL-00008" summary="26/11/2019 Base Commit">
-      <created>1574760791371</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1574760791371</updated>
+      <workItem from="1575997327317" duration="2225000" />
+      <workItem from="1576003308790" duration="1668000" />
+      <workItem from="1576049376784" duration="1317000" />
+      <workItem from="1576050893315" duration="7412000" />
+      <workItem from="1576134676403" duration="2434000" />
+      <workItem from="1576171806689" duration="544000" />
+      <workItem from="1576172711454" duration="6941000" />
+      <workItem from="1576223870919" duration="75000" />
+      <workItem from="1576224379091" duration="51000" />
+      <workItem from="1576230865036" duration="164000" />
+      <workItem from="1576231063962" duration="13268000" />
+      <workItem from="1576265506058" duration="24000" />
+      <workItem from="1576311601306" duration="3826000" />
+      <workItem from="1576483815097" duration="20126000" />
+      <workItem from="1576513037241" duration="2061000" />
+      <workItem from="1576571628764" duration="64000" />
+      <workItem from="1576744865376" duration="2929000" />
+      <workItem from="1576749953646" duration="602000" />
+      <workItem from="1576763620834" duration="6867000" />
+      <workItem from="1576787041240" duration="16698000" />
+      <workItem from="1576848079346" duration="11036000" />
+      <workItem from="1577090873059" duration="3334000" />
+      <workItem from="1577114964610" duration="603000" />
+      <workItem from="1577115599566" duration="1353000" />
+      <workItem from="1577170521458" duration="30000" />
+      <workItem from="1577188900531" duration="625000" />
+      <workItem from="1577196324357" duration="4185000" />
+      <workItem from="1577303029131" duration="7469000" />
+      <workItem from="1577310948245" duration="3675000" />
+      <workItem from="1577342398697" duration="4525000" />
     </task>
     <task id="LOCAL-00009" summary="gitignore files expose">
       <created>1574770467295</created>
@@ -525,7 +484,98 @@
       <option name="project" value="LOCAL" />
       <updated>1575889766163</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="Base commit 09/11/2019 v4">
+      <created>1576312414891</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1576312414891</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Base commit 09/11/2019 v5">
+      <created>1576851122113</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1576851122118</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Base commit 09/11/2019 v5">
+      <created>1576853516546</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1576853516546</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Base commit 09/11/2019 v6">
+      <created>1576853535670</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1576853535670</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Base commit 21/12/2019">
+      <created>1576920219841</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1576920219841</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Base commit 21/12/2019 v2">
+      <created>1576920472415</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1576920472416</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Base commit 21/12/2019 v3">
+      <created>1576922871816</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1576922871816</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Base commit 21/12/2019 v4">
+      <created>1576926568733</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1576926568733</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Base commit 21/12/2019 v4">
+      <created>1577093502149</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1577093502150</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Base commit 23/12/2019 v1">
+      <created>1577093521902</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1577093521902</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Base commit 23/12/2019 v2">
+      <created>1577116696701</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1577116696702</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Base commit 24/12/2019 v1">
+      <created>1577196355496</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1577196355496</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Base commit 26/12/2019 v2">
+      <created>1577358111076</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1577358111077</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -561,17 +611,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="shell startup script" />
-    <MESSAGE value="Title Change" />
-    <MESSAGE value="28/11/2019 Base Commit" />
-    <MESSAGE value="Added all users Api" />
-    <MESSAGE value="Website icon" />
-    <MESSAGE value="Base pre commit" />
-    <MESSAGE value="Cleared Timax" />
-    <MESSAGE value="Dependency Clean" />
-    <MESSAGE value="path export in script" />
-    <MESSAGE value="Docker file update" />
-    <MESSAGE value="Git update" />
     <MESSAGE value="User role implementation" />
     <MESSAGE value="base commit" />
     <MESSAGE value="base commit 02/12/2019" />
@@ -586,7 +625,18 @@
     <MESSAGE value="Base commit 09/11/2019" />
     <MESSAGE value="Base commit 09/11/2019 v2" />
     <MESSAGE value="Base commit 09/11/2019 v3" />
-    <option name="LAST_COMMIT_MESSAGE" value="Base commit 09/11/2019 v3" />
+    <MESSAGE value="Base commit 09/11/2019 v4" />
+    <MESSAGE value="Base commit 09/11/2019 v5" />
+    <MESSAGE value="Base commit 09/11/2019 v6" />
+    <MESSAGE value="Base commit 21/12/2019" />
+    <MESSAGE value="Base commit 21/12/2019 v2" />
+    <MESSAGE value="Base commit 21/12/2019 v3" />
+    <MESSAGE value="Base commit 21/12/2019 v4" />
+    <MESSAGE value="Base commit 23/12/2019 v1" />
+    <MESSAGE value="Base commit 23/12/2019 v2" />
+    <MESSAGE value="Base commit 24/12/2019 v1" />
+    <MESSAGE value="Base commit 26/12/2019 v2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Base commit 26/12/2019 v2" />
   </component>
   <component name="WindowStateProjectService">
     <state x="559" y="200" key="#Deployment" timestamp="1575360736043">
@@ -605,67 +655,89 @@
       <screen x="0" y="24" width="1920" height="1056" />
     </state>
     <state x="423" y="197" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1575464198501" />
-    <state x="427" y="49" key="CommitChangelistDialog2" timestamp="1575889765966">
-      <screen x="0" y="24" width="1920" height="1056" />
+    <state x="427" y="46" key="CommitChangelistDialog2" timestamp="1577358642042">
+      <screen x="0" y="21" width="1920" height="1059" />
     </state>
-    <state x="427" y="49" key="CommitChangelistDialog2/0.24.1920.1056@0.24.1920.1056" timestamp="1575889765966" />
-    <state x="747" y="297" key="FileChooserDialogImpl" timestamp="1575963302798">
-      <screen x="0" y="24" width="1920" height="1056" />
+    <state x="427" y="46" key="CommitChangelistDialog2/0.21.1920.1059@0.21.1920.1059" timestamp="1577358642042" />
+    <state x="427" y="49" key="CommitChangelistDialog2/0.24.1920.1056@0.24.1920.1056" timestamp="1576312452322" />
+    <state x="747" y="295" key="FileChooserDialogImpl" timestamp="1577115678828">
+      <screen x="0" y="21" width="1920" height="1059" />
     </state>
+    <state x="747" y="295" key="FileChooserDialogImpl/0.21.1920.1059@0.21.1920.1059" timestamp="1577115678828" />
     <state x="747" y="297" key="FileChooserDialogImpl/0.24.1920.1056@0.24.1920.1056" timestamp="1575963302798" />
     <state x="747" y="244" key="FileChooserDialogImpl/0.24.1920.851@0.24.1920.851" timestamp="1575890636064" />
-    <state width="263" height="541" key="HiddenNamespacesPopup" timestamp="1575878438186">
-      <screen x="0" y="24" width="1920" height="1056" />
+    <state width="263" height="543" key="HiddenNamespacesPopup" timestamp="1577343114916">
+      <screen x="0" y="21" width="1920" height="1059" />
     </state>
+    <state width="263" height="543" key="HiddenNamespacesPopup/0.21.1920.1059@0.21.1920.1059" timestamp="1577343114916" />
     <state width="263" height="541" key="HiddenNamespacesPopup/0.24.1920.1056@0.24.1920.1056" timestamp="1575878438186" />
-    <state x="191" y="102" key="MergeDialog" timestamp="1575886907024">
-      <screen x="0" y="24" width="1920" height="1056" />
+    <state x="191" y="99" width="1714" height="873" key="MergeDialog" timestamp="1577358324431">
+      <screen x="0" y="21" width="1920" height="1059" />
     </state>
+    <state x="191" y="99" width="1714" height="873" key="MergeDialog/0.21.1920.1059@0.21.1920.1059" timestamp="1577358324431" />
     <state x="191" y="102" key="MergeDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1575886907024" />
-    <state x="670" y="247" key="MultipleFileMergeDialog" timestamp="1575886957018">
-      <screen x="0" y="24" width="1920" height="1056" />
+    <state x="670" y="245" key="MultipleFileMergeDialog" timestamp="1577358324451">
+      <screen x="0" y="21" width="1920" height="1059" />
     </state>
+    <state x="670" y="245" key="MultipleFileMergeDialog/0.21.1920.1059@0.21.1920.1059" timestamp="1577358324451" />
     <state x="670" y="247" key="MultipleFileMergeDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1575886957018" />
-    <state x="683" y="104" width="1233" height="729" key="SettingsEditor" timestamp="1575367245360">
-      <screen x="0" y="24" width="1920" height="1056" />
+    <state x="431" y="123" width="1233" height="729" key="SettingsEditor" timestamp="1577115560539">
+      <screen x="0" y="21" width="1920" height="1059" />
     </state>
-    <state x="683" y="104" width="1233" height="729" key="SettingsEditor/0.24.1920.1056@0.24.1920.1056" timestamp="1575367245360" />
-    <state x="559" y="271" key="Vcs.Push.Dialog.v2" timestamp="1575889775317">
-      <screen x="0" y="24" width="1920" height="1056" />
+    <state x="431" y="123" key="SettingsEditor/0.21.1920.1059@0.21.1920.1059" timestamp="1577115560539" />
+    <state x="431" y="126" width="1233" height="729" key="SettingsEditor/0.24.1920.1056@0.24.1920.1056" timestamp="1576050869837" />
+    <state x="559" y="269" key="Vcs.Push.Dialog.v2" timestamp="1577358652787">
+      <screen x="0" y="21" width="1920" height="1059" />
     </state>
+    <state x="559" y="269" key="Vcs.Push.Dialog.v2/0.21.1920.1059@0.21.1920.1059" timestamp="1577358652787" />
     <state x="559" y="271" key="Vcs.Push.Dialog.v2/0.24.1920.1056@0.24.1920.1056" timestamp="1575889775317" />
     <state x="547" y="94" key="com.intellij.database.dbimport.ImportDialog" timestamp="1575642494535">
       <screen x="0" y="24" width="1920" height="851" />
     </state>
     <state x="547" y="94" key="com.intellij.database.dbimport.ImportDialog/0.24.1920.851@0.24.1920.851" timestamp="1575642494535" />
-    <state x="676" y="259" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1575642963702">
-      <screen x="0" y="24" width="1920" height="1056" />
+    <state x="676" y="257" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1576926517934">
+      <screen x="0" y="21" width="1920" height="1059" />
     </state>
+    <state x="676" y="257" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.21.1920.1059@0.21.1920.1059" timestamp="1576926517934" />
     <state x="676" y="259" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1575642963702" />
     <state x="676" y="213" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.24.1920.851@0.24.1920.851" timestamp="1575642795819" />
-    <state x="426" y="368" key="com.intellij.ide.util.TipDialog" timestamp="1575962082856">
-      <screen x="0" y="24" width="1920" height="1056" />
+    <state x="676" y="259" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/1920.0.1920.1080/0.24.1920.1056@0.24.1920.1056" timestamp="1576173492244" />
+    <state x="426" y="366" key="com.intellij.ide.util.TipDialog" timestamp="1577342400484">
+      <screen x="0" y="21" width="1920" height="1059" />
     </state>
-    <state x="426" y="368" key="com.intellij.ide.util.TipDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1575962082856" />
-    <state x="426" y="368" key="com.intellij.ide.util.TipDialog/1920.0.1920.1080/0.24.1920.1056@0.24.1920.1056" timestamp="1575405801203" />
+    <state x="426" y="366" key="com.intellij.ide.util.TipDialog/0.21.1920.1059/1920.0.1920.1080@0.21.1920.1059" timestamp="1576749953713" />
+    <state x="2346" y="352" key="com.intellij.ide.util.TipDialog/0.21.1920.1059/1920.0.1920.1080@1920.0.1920.1080" timestamp="1577310960180" />
+    <state x="426" y="366" key="com.intellij.ide.util.TipDialog/0.21.1920.1059@0.21.1920.1059" timestamp="1577342400484" />
+    <state x="426" y="368" key="com.intellij.ide.util.TipDialog/0.24.1920.1056/1920.0.1920.1080@0.24.1920.1056" timestamp="1576571640236" />
+    <state x="426" y="368" key="com.intellij.ide.util.TipDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1576134676591" />
+    <state x="426" y="368" key="com.intellij.ide.util.TipDialog/1920.0.1920.1080/0.24.1920.1056@0.24.1920.1056" timestamp="1576340475716" />
     <state x="617" y="157" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1575873568734">
       <screen x="0" y="24" width="1920" height="1056" />
     </state>
     <state x="617" y="157" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.24.1920.1056@0.24.1920.1056" timestamp="1575873568734" />
-    <state x="559" y="314" key="git4idea.merge.GitPullDialog" timestamp="1575886067001">
-      <screen x="0" y="24" width="1920" height="1056" />
+    <state x="559" y="312" key="git4idea.merge.GitPullDialog" timestamp="1577358156943">
+      <screen x="0" y="21" width="1920" height="1059" />
     </state>
-    <state x="559" y="314" key="git4idea.merge.GitPullDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1575886067001" />
+    <state x="559" y="312" key="git4idea.merge.GitPullDialog/0.21.1920.1059@0.21.1920.1059" timestamp="1577358156943" />
+    <state x="559" y="314" key="git4idea.merge.GitPullDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1576312472351" />
+    <state x="380" y="267" key="new project wizard" timestamp="1577115704154">
+      <screen x="0" y="21" width="1920" height="1059" />
+    </state>
+    <state x="380" y="267" key="new project wizard/0.21.1920.1059@0.21.1920.1059" timestamp="1577115704154" />
     <state x="829" y="437" key="publish.login" timestamp="1575360275731">
       <screen x="0" y="24" width="1920" height="851" />
     </state>
     <state x="829" y="437" key="publish.login/0.24.1920.851@0.24.1920.851" timestamp="1575360275731" />
-    <state x="818" y="162" width="672" height="678" key="search.everywhere.popup" timestamp="1575997353058">
-      <screen x="0" y="24" width="1920" height="1056" />
+    <state x="818" y="159" width="672" height="681" key="search.everywhere.popup" timestamp="1577358451479">
+      <screen x="0" y="21" width="1920" height="1059" />
     </state>
-    <state x="818" y="162" width="672" height="678" key="search.everywhere.popup/0.24.1920.1056@0.24.1920.1056" timestamp="1575997353058" />
-    <state x="623" y="195" width="672" height="547" key="search.everywhere.popup/0.24.1920.851@0.24.1920.851" timestamp="1575642561241" />
-    <state x="1246" y="236" width="1344" height="678" key="search.everywhere.popup/0.24.3840.1056@0.24.3840.1056" timestamp="1575663670054" />
-    <state x="623" y="236" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1080/0.24.1920.1056@0.24.1920.1056" timestamp="1575406282974" />
+    <state x="2738" y="141" width="672" height="694" key="search.everywhere.popup/0.21.1920.1059/1920.0.1920.1080@1920.0.1920.1080" timestamp="1577303913910" />
+    <state x="818" y="159" width="672" height="681" key="search.everywhere.popup/0.21.1920.1059@0.21.1920.1059" timestamp="1577358451479" />
+    <state x="818" y="132" width="672" height="550" key="search.everywhere.popup/0.21.1920.854@0.21.1920.854" timestamp="1576920598653" />
+    <state x="818" y="162" width="672" height="678" key="search.everywhere.popup/0.24.1920.1056/1920.0.1920.1080@0.24.1920.1056" timestamp="1576516524060" />
+    <state x="818" y="162" width="672" height="678" key="search.everywhere.popup/0.24.1920.1056@0.24.1920.1056" timestamp="1576314462788" />
+    <state x="623" y="195" width="672" height="547" key="search.everywhere.popup/0.24.1920.851@0.24.1920.851" timestamp="1576312752897" />
+    <state x="1246" y="236" width="1344" height="678" key="search.everywhere.popup/0.24.3840.1056@0.24.3840.1056" timestamp="1576083413910" />
+    <state x="623" y="236" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1080/0.24.1920.1056@0.24.1920.1056" timestamp="1576254982324" />
   </component>
 </project>

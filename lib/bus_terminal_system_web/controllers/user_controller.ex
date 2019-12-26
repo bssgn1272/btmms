@@ -3,6 +3,7 @@ defmodule BusTerminalSystemWeb.UserController do
 
   alias BusTerminalSystem.AccountManager
   alias BusTerminalSystem.AccountManager.User
+  alias BusTerminalSystem.RepoManager
 
   plug(
     BusTerminalSystemWeb.Plugs.RequireAuth
@@ -20,7 +21,8 @@ defmodule BusTerminalSystemWeb.UserController do
 
   def index(conn, _params) do
     users = AccountManager.list_users()
-    render(conn, "index.html", users: users)
+    tickets = RepoManager.list_tickets()
+    render(conn, "index.html", users: users, tickets: tickets)
   end
 
   def new(conn, _params) do

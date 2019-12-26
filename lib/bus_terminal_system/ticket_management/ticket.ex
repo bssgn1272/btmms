@@ -10,6 +10,7 @@ defmodule BusTerminalSystem.TicketManagement.Ticket do
     field :reference_number, :string
     field :serial_number, :string
     field :external_ref, :string
+
     field :route, :integer
     field :date, :string
     field :bus_no, :string
@@ -22,6 +23,7 @@ defmodule BusTerminalSystem.TicketManagement.Ticket do
     field :passenger_id, :string
     field :mobile_number, :string
     field :email_address, :string
+
     field :transaction_channel, :string
     field :travel_date, :string
 
