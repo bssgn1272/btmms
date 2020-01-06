@@ -4,6 +4,9 @@ defmodule BusTerminalSystemWeb.UserController do
   alias BusTerminalSystem.AccountManager
   alias BusTerminalSystem.AccountManager.User
   alias BusTerminalSystem.RepoManager
+  alias BusTerminalSystem.MarketManagement
+  alias BusTerminalSystem.MarketManagement.MarketTenant
+  alias BusTerminalSystem.ApiManager
 
   plug(
     BusTerminalSystemWeb.Plugs.RequireAuth
@@ -22,7 +25,8 @@ defmodule BusTerminalSystemWeb.UserController do
   def index(conn, _params) do
     users = AccountManager.list_users()
     tickets = RepoManager.list_tickets()
-    render(conn, "index.html", users: users, tickets: tickets)
+    buses = RepoManager.list_buses()
+    render(conn, "index.html", users: users, tickets: tickets, buses: buses)
   end
 
   def new(conn, _params) do
@@ -30,16 +34,24 @@ defmodule BusTerminalSystemWeb.UserController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, user_params) do
+  def create(conn, %{"payload" => payload} = user_params) do
     #     %{"user" => user_params}
-    case AccountManager.create_user(user_params) do
+    IO.inspect payload
+    case AccountManager.create_user(payload) do
       {:ok, user} ->
+
         conn
         |> put_flash(:info, "User created successfully.")
-        |> redirect(to: Routes.user_path(conn, :show, user))
+        |> redirect(to: Routes.user_path(conn, :new))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+
+        IO.inspect ApiManager.translate_error(changeset)
+
+        conn
+        |> put_flash(:error,"Failed To Create User")
+        |> render("new.html", changeset: changeset)
+
     end
 
     render(conn, "new.html")
@@ -91,6 +103,36 @@ defmodule BusTerminalSystemWeb.UserController do
 
   def registration_form(conn, _params) do
     render(conn, "form.html")
+  end
+
+  def register_marketeer(conn, params) do
+    case RepoManager.create_teller(params["payload"]) do
+      {:ok, user} ->
+        conn
+        |> json(
+          ApiManager.api_message_custom_handler(ApiManager.definition_query(), "SUCCESS", 0, %{
+            "username" => user.username,
+            "first_name" => user.first_name,
+            "last_name" => user.last_name,
+            "ssn" => user.ssn,
+            "nrc" => user.nrc,
+            "email" => user.email,
+            "mobile" => user.mobile,
+            "account_status" => user.account_status,
+            "uuid" => user.uuid,
+            "operator_role" => user.operator_role
+          })
+        )
+
+      {:error, %Ecto.Changeset{} = _changeset} ->
+        conn
+        |> json(
+          ApiManager.api_error_handler(
+            ApiManager.definition_accounts(),
+            ApiManager.translate_error(_changeset)
+          )
+        )
+    end
   end
 
   # ----APIs -----------------------------

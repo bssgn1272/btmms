@@ -43,11 +43,6 @@
                                     <td><%= bus_terminus.id %></td>
                                     <td><%= bus_terminus.uid %></td>
                                     <td><%= bus_terminus.liscense_plate %></td>
-                                    <td>
-                                        <span><%= link "Show", to: Routes.bus_terminus_path(@conn, :show, bus_terminus) %></span>
-                                        <span><%= link "Edit", to: Routes.bus_terminus_path(@conn, :edit, bus_terminus) %></span>
-                                        <span><%= link "Delete", to: Routes.bus_terminus_path(@conn, :delete, bus_terminus), method: :delete, data: [confirm: "Are you sure?"] %></span>
-                                    </td>
                                     </tr>
                                 <% end %>
                                 </tbody>

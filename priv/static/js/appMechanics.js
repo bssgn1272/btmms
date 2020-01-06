@@ -1,3 +1,4 @@
+//------------------- DataTables --------------------
 $(document).ready( function () {
     $('#dataTableId').DataTable(); //User DataTable
     $('#dataTableBusTerminusId').DataTable(); //Bus Terminus DataTable
@@ -6,13 +7,50 @@ $(document).ready( function () {
     $('#stations').DataTable(); //Stations DataTable
     $('#dataTableTellers').DataTable(); //Tellers DataTable
     $('#bookingsDataTable').DataTable(); //DataTable For Bookings
-    $('#TellerPastTransactions').DataTable(); //DataTable For TellerPastTransactions
+    $('#TellerPastTransactions').DataTable(); //DataTable For TellerPastTransactions 
+    $('#queryTickets').DataTable(); //DataTable For Query Tickets Teller Side
+    $('#available_routes').DataTable(); //DataTable For available_routes Teller Side
+    $('#booking_table').DataTable(); //DataTable For bookings Teller Side
+    $('#routes_table').DataTable(); //DataTable For routes Admin Side
 } );
 
 $('#modal_form_horizontal_user').on('show.bs.model', function(e) {
     window.alert("Hello, World!");
     var parameters = row;
 });
+//------------------- End DataTables --------------------
+
+//-------------------New Marketeer Registration --------------------
+$('input#stand_ID').keyup(function() {
+    //perform ajax call...
+    $('#Pstand_ID').text($(this).val());
+});
+
+$('input#first_name').keyup(function() {
+    //perform ajax call...
+    $('#Pfirst_name').text($(this).val());
+});
+
+$('input#last_name').keyup(function() {
+    //perform ajax call...
+    $('#Plast_name').text($(this).val());
+});
+
+$('input#nrc').keyup(function() {
+    //perform ajax call...
+    $('#Pnrc').text($(this).val());
+});
+
+$('input#account_number').keyup(function() {
+    //perform ajax call...
+    $('#Paccount_number').text($(this).val());
+});
+
+$('input#mobile_number').keyup(function() {
+    //perform ajax call...
+    $('#Pmobile_number').text($(this).val());
+});
+//-------------------New Marketeer Registration --------------------
 
 //-------------------New Bus Registration Actions --------------------
 $('input#vehicleMake').keyup(function() {
@@ -137,6 +175,23 @@ $('input#securityCode').keyup(function() {
 });
 //------------------------------------------------
 
+//------------------- Creating Routes ------------
+$('input#route_name').keyup(function() {
+    //perform ajax call...
+    $('#Proute_name').text($(this).val());
+});
+
+$('input#source_kilo').keyup(function() {
+    //perform ajax call...
+    $('#Psource_kilo').text($(this).val());
+});
+
+$('input#route_to').keyup(function() {
+    //perform ajax call...
+    $('#Proute_to').text($(this).val());
+});
+//------------------------------------------------
+
 
 //-------------------Payments --------------------
 $('input#CARDNUBER').keyup(function() {
@@ -251,11 +306,28 @@ $('input#seat').keyup(function() {
 //------------------------------------------------
 
 //---------------DropDowns----------------------
+//var sel = document.getElementById("Operator_Name");
+//var text = sel.options[sel.selectedIndex].text;
+//$("#Operator_Name option:selected").text();
+
+//To Pick Text From Select Options
+
+$(document).ready(function(){
+    $('#Operator_Name').on('change',function(){
+        var optionText = $("#Operator_Name option:selected").text();
+        document.getElementById("result").innerHTML = optionText;
+        //alert("Selected Option Text: "+optionText);
+    });
+});
+
+
+/*
 function GetSelectedText() {
     var x = document.getElementById("Operator_Name").value;
     document.getElementById("result").innerHTML = x;
   }
-
+  */
+  
 function GetSelectedTo() {
   var x = document.getElementById("Destination_Name").value;
   document.getElementById("To").innerHTML = x;
@@ -301,3 +373,154 @@ function GetSelectedSeat() {
 
 
 //---------------DropDowns----------------------
+
+
+//---------------DatePicker_Disabled_Prev_Dates----------------------
+document.getElementById("date").min = new Date().getFullYear() + "-" + parseInt(new Date().getMonth() + 1) +"-" + new Date().getDate();
+//---------------DatePicker_Disabled_Prev_Dates----------------------
+
+//Toggle User model
+
+function updateUser() {
+
+    let json_request = JSON.stringify({
+        payload: {
+            username: $('#model_username').val(),
+            first_name: $('#model_first_name').val(),
+            last_name: $('#model_last_name').val(),
+            nrc: $('#model_nrc').val(),
+            mobile: $('#model_phone').val(),
+            ssn: $('#model_ssn').val(),
+            account_status: $('#model_account_status').val(),
+            operator_role: $('#model_operator_role').val(),
+            email: $('#model_email').val()
+        }
+    });
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/update/user',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request,
+        success: function (response) {
+            $('#modal_form_horizontal_user').modal('hide');
+            window.location.reload();
+        }
+    })
+}
+
+function user_edit_model(id) {
+
+    let json_request = JSON.stringify({
+        payload: {
+            user_id: id
+        }
+    });
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/query/user',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request,
+        success: function (response) {
+            let data = JSON.parse(JSON.stringify(response));
+
+            $('#modal_form_horizontal_user').modal('show');
+
+            $('#model_username').val(data.response.QUERY.data.username);
+            $('#model_first_name').val(data.response.QUERY.data.first_name);
+            $('#model_last_name').val(data.response.QUERY.data.last_name);
+            $('#model_email').val(data.response.QUERY.data.email);
+            $('#model_phone').val(data.response.QUERY.data.mobile);
+            $('#model_nrc').val(data.response.QUERY.data.nrc);
+            $('#model_ssn').val(data.response.QUERY.data.ssn);
+            $('#model_account_status').val(data.response.QUERY.data.account_status);
+            $('#model_uuid').val(data.response.QUERY.data.uuid);
+            $('#model_pwd_username').val(data.response.QUERY.data.username);
+            $('#model_operator_role').val(data.response.QUERY.data.operator_role);
+            $('#model_password').val("0123456789");
+            $('#model_user_id').val(id);
+        }
+    });
+
+
+}
+
+
+function updateBus() {
+    let json_request = JSON.stringify({
+        payload: {
+
+        }
+    });
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/update/bus',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request,
+        success: function (response) {
+            window.location.reload();
+        }
+    })
+}
+
+function bus_edit_model(id){
+    let json_request = JSON.stringify({
+        payload: {
+
+        }
+    });
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/query/bus',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request,
+        success: function (response) {
+            window.location.reload();
+        }
+    })
+}
+
+function updateRoute() {
+    let json_request = JSON.stringify({
+        payload: {
+
+        }
+    });
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/update/bus',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request,
+        success: function (response) {
+            window.location.reload();
+        }
+    })
+}
+
+function route_edit_model(id){
+    let json_request = JSON.stringify({
+        payload: {
+
+        }
+    });
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/query/bus',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request,
+        success: function (response) {
+            window.location.reload();
+        }
+    })
+}

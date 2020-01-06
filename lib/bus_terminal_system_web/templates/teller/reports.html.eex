@@ -1,0 +1,92 @@
+<!--#####-- TOP_TICKET_SALES --#####-->
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-lg-5 col-md-5">
+                <div class="container-fluid">
+                    <div id="teller1" style="height: 370px; width: 100%;"></div>
+                    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+                </div>                    
+            </div>
+
+            <div class="col-lg-7 col-md-7 panel panel-flat">
+                <div class="container-fluid">
+                    <h4>REPORT</h4>
+                    <hr>
+                    <form>
+                        <div class="form-group has-feedback has-feedback-left">
+                            <select class="w3-select" name="option">
+                                <option value="" disabled selected>Area of Operation</option>
+                                <option value="1">Livingstone</option>
+                                <option value="2">Lusaka</option>
+                                <option value="3">Ndola</option>
+                                <option value="3">Sesheke</option>
+                                <option value="3">Mambo</option>
+                                <option value="3">Lundazi</option>
+                            </select>
+                        </div>            
+
+                        <div class="form-group has-feedback has-feedback-left">
+                            <select class="w3-select" name="option">
+                                <option value="" disabled selected>Name Of Terminus</option>
+                                <option value="1">Intercity Bus Terminus</option>
+                                <option value="2">City Market Bus Terminus</option>
+                                <option value="3">Lumumba Bus Terminus</option>
+                                <option value="3">Millenium Bus Terminus</option>
+                                <option value="3">Stanley Bus Terminus</option>
+                            </select>
+                        </div>
+
+                    <div class="form-group">
+                        <label for="pwd">Percentage of Ticket Sales:</label>
+                        <input type="text" class="form-control" placeholder="Percentage of ticket sales starting with the most sold">
+                    </div>
+
+                    <div class="form-group">
+                        <div class="container-fluid">
+                            <p>
+                                <b>NB:</b>
+                                Please attach excel sheet of the report
+                            </p>
+                        </div>
+                        <input type="file" name="fileToUpload" id="fileToUpload">
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="w3-btn w3-indigo w3-hover-orange">Submit</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+
+        </div><br><br> 
+    </div>
+<!--#####-- TOP_TICKET_SALES --#####-->
+
+<!--#####-- TOP_AVAILABLE OPERATORS --#######-->
+    <div class="panel panel-flat" style="padding: 9px">
+        <div class="panel-heading">
+            <h4 style="text-align: center; font-weight: bold; font-size: 18px;">
+                Bus Operators Operating In Your Area
+            </h4><hr>
+        </div>
+
+        <div style="overflow-x:auto;">
+            <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
+            <thead>
+                <tr>
+                    <th>Operator Name</th>
+                    <th>SSN</th>
+                    <th>Vehicle Capacity</th>
+                    <th>Route To Take</th>
+                    <th>Depature Date</th>
+                    <th>Depature Time</th>
+                <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            </table>
+        </div>
+    </div>
+<!--#####-- TOP_AVAILABLE OPERATORS %> --#####-->

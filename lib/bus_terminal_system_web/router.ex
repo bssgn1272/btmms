@@ -34,7 +34,7 @@ defmodule BusTerminalSystemWeb.Router do
     # USER_CONTROLLER
     resources "/platform/secure/commercial/services/users/management", UserController
     get "/platform/secure/v1/json/commercial/services/users", UserController, :all_users_json
-    get "/TableUsers", UserController, :table_users
+    get "/platform/secure/v1/commercial/services/users", UserController, :table_users
     get "/Registration_Form", UserController, :registration_form
 
     # BUSTERMINUS_CONTROLLER
@@ -61,10 +61,13 @@ defmodule BusTerminalSystemWeb.Router do
 
     # ROUTE_CONTROLLER
     get "/routes", RouteController, :index
+    post "/routes/create", RouteController, :create
     get "/customise_routes", RouteController, :customise_routes
 
     # TELLER_CONTROLLER
     get "/teller", TellerController, :index
+    get "/documentation", TellerController, :documentation
+    get "/reports", TellerController, :reports
 
     # VISA_CONTROLLER
     get "/payment", VisaController, :index
@@ -87,6 +90,7 @@ defmodule BusTerminalSystemWeb.Router do
     post "/btms/tickets/secured/find", TicketController, :find_ticket
     post "/btms/tickets/secured/purchase", TicketController, :purchase_ticket
     get "/btms/travel/secured/destinations", TicketController, :get_schedules
+    post "/btms/travel/secured/internal/destinations", TicketController, :get_schedules_internal
     get "/btms/travel/secured/routes", TicketController, :get_travel_routes
     get "/btms/tickets/secured/list", TicketController, :list_tickets
 
@@ -96,6 +100,10 @@ defmodule BusTerminalSystemWeb.Router do
     post "/btms/market/secured/reset_pin", MarketApiController, :reset_pin
     post "/btms/market/secured/register_market", MarketApiController, :register_marketeer
 
+    post "/internal/query/user", FrontendApiController, :query_user
+    post "/internal/update/user", FrontendApiController, :update_user
+    post "/internal/query/bus", FrontendApiController, :query_bus
+    post "/internal/update/bus", FrontendApiController, :update_bus
   end
 
   def swagger_info do
@@ -104,16 +112,13 @@ defmodule BusTerminalSystemWeb.Router do
         version: "1.0",
         title: "BTMS",
         contact: %{
-         name: "Philip Chani",
-         email: "philip@probasegroup.com"
+          name: "Philip Chani",
+          email: "philip@probasegroup.com"
         }
       },
-      "definitions": %{
-      "/pets": %{
-        }
+      definitions: %{
+        "/pets": %{}
       }
-
     }
   end
-
 end

@@ -23,6 +23,7 @@ defmodule BusTerminalSystemWeb.MarketerController do
   end
 
   def new(conn, _params) do
+    # changeset = MarketManagement.changeset(%MarketerManagement{}, %{})
     changeset = MarketManagement.change_marketer(%Marketer{})
     render(conn, "new.html", changeset: changeset)
   end

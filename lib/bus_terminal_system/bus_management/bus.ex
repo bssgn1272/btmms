@@ -20,6 +20,7 @@ defmodule BusTerminalSystem.BusManagement.Bus do
     field :vehicle_class, :string
     field :company, :string
     field :company_info, :string
+    field :vehicle_capacity, :string
 
     timestamps()
   end
@@ -27,7 +28,9 @@ defmodule BusTerminalSystem.BusManagement.Bus do
   @doc false
   def changeset(bus_terminus, attrs) do
     bus_terminus
-    |> cast(attrs, [:liscense_plate, :company, :operator_id])
+    |> cast(attrs, [:liscense_plate, :fitness_liscence, :uid, :engine_type, :model, :make, :year, :color,
+      :state_of_registration, :company, :operator_id, :vin_number, :serial_number, :hull_number, :vehicle_class,
+    :company_info, :vehicle_capacity])
     |> validate_required([:liscense_plate, :company, :operator_id])
   end
 end

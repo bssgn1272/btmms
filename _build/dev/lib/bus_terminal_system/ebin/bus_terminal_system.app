@@ -42,6 +42,7 @@
                         'Elixir.BusTerminalSystemWeb.Endpoint',
                         'Elixir.BusTerminalSystemWeb.ErrorHelpers',
                         'Elixir.BusTerminalSystemWeb.ErrorView',
+                        'Elixir.BusTerminalSystemWeb.FrontendApiController',
                         'Elixir.BusTerminalSystemWeb.Gettext',
                         'Elixir.BusTerminalSystemWeb.LayoutView',
                         'Elixir.BusTerminalSystemWeb.MarketApiController',

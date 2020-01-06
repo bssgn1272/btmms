@@ -20,6 +20,141 @@ defmodule BusTerminalSystem.RepoManager do
   alias BusTerminalSystem.BusManagement.Bus
   alias BusTerminalSystem.AccountManager.User
 
+
+  #--------------------------ROUTES-------------------------------------------------------------------------------------
+
+  def find_bus_by_route_code(route_code) do
+    Repo.get_by(TravelRoutes, route_code: route_code)
+  end
+
+  def find_route_by_id(id) do
+    Repo.get_by(TravelRoutes, id: id)
+  end
+
+  def update_route(%TravelRoutes{} = travel_routes, attrs) do
+    travel_routes
+    |> Bus.changeset(attrs)
+    |> Repo.update()
+  end
+
+  #--------------------------TELLER-------------------------------------------------------------------------------------
+
+  def create_teller(marketer) do
+
+    pin = Randomizer.randomizer(5, :numeric)
+    uuid = "#{DateTime.utc_now.year}-#{BusTerminalSystem.Randomizer.randomizer(10,:numeric)}-#{DateTime.utc_now.month}-#{BusTerminalSystem.Randomizer.randomizer(4,:numeric)}-#{DateTime.utc_now.day}"
+
+    marketer = Map.put(marketer, "operator_role", "TELLER")
+    marketer = Map.put(marketer, "pin", encode_pin(pin))
+    marketer = Map.put(marketer, "role", "TOP")
+    marketer = Map.put(marketer, "password", Randomizer.randomizer(6, :upcase))
+    marketer = Map.put(marketer, "account_status", "INACTIVE")
+    marketer = Map.put(marketer, "uuid", uuid)
+
+    IO.inspect marketer
+
+    %User{}
+    |> User.changeset(marketer)
+    |> Repo.insert()
+  end
+
+  #--------------------------MARKETER-----------------------------------------------------------------------------------
+
+  def create_marketer(marketer) do
+
+    pin = Randomizer.randomizer(5, :numeric)
+    uuid = "#{DateTime.utc_now.year}-#{BusTerminalSystem.Randomizer.randomizer(10,:numeric)}-#{DateTime.utc_now.month}-#{BusTerminalSystem.Randomizer.randomizer(4,:numeric)}-#{DateTime.utc_now.day}"
+
+    marketer = Map.put(marketer, "operator_role", "MARKETER")
+    marketer = Map.put(marketer, "pin", encode_pin(pin))
+    marketer = Map.put(marketer, "role", "MOP")
+    marketer = Map.put(marketer, "password", Randomizer.randomizer(6, :upcase))
+    marketer = Map.put(marketer, "account_status", "INACTIVE")
+    marketer = Map.put(marketer, "uuid", uuid)
+
+    IO.inspect marketer
+
+    %User{}
+    |> User.changeset(marketer)
+    |> Repo.insert()
+  end
+
+  def update_marketer_pin(%User{} = user, attrs) do
+    user
+    |> User.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def find_marketer_by_mobile(mobile) do
+    Repo.get_by(User, [mobile: mobile, operator_role: "MARKETER"])
+  end
+
+  def authenticate_marketer_by_mobile(mobile,pin) do
+    Repo.get_by(User, [mobile: mobile,pin: encode_pin(pin), operator_role: "MARKETER"])
+  end
+
+  #-------------------------- Bus -------------------------------------------------------------------------------------
+
+  def find_bus_by_uid(uid) do
+    Repo.get_by(Bus, uid: uid)
+  end
+
+  def find_bus_by_id(id) do
+    Repo.get_by(Bus, id: id)
+  end
+
+  def update_bus(%Bus{} = bus, attrs) do
+    bus
+    |> Bus.changeset(attrs)
+    |> Repo.update()
+  end
+
+  #-------------------------- USER -------------------------------------------------------------------------------------
+
+  def find_user_by_username(username) do
+    Repo.get_by(User, username: username)
+  end
+
+  def find_user_by_id(id) do
+    Repo.get_by(User, id: id)
+  end
+
+  def update_user(%User{} = user, attrs) do
+    user
+    |> User.changeset(attrs)
+    |> Repo.update()
+  end
+
+  #------------------------ HELPER METHODS -----------------------------------------------------------------------------
+
+  def encode_pin(pin) do
+    Base.encode16(:crypto.hash(:sha512,pin))
+  end
+
+  #------------------------ ROUTES -------------------------------------------------------------------------------------
+
+  def get_route_by_route_code(code) do
+    Repo.get_by(TravelRoutes, route_code: code)
+  end
+
+  def find_route_by_id(id) do
+    Repo.get_by(TravelRoutes, id: id)
+  end
+
+  def update_route(%TravelRoutes{} = travel_routes, attrs) do
+    travel_routes
+    |> User.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def get_route_mapping(id), do: Repo.get!(RouteMapping, id)
+  def get_route(id), do: Repo.get!(TravelRoutes, id)
+  def list_routes(), do: Repo.all(TravelRoutes)
+  def create_route(attrs \\ %{}), do: %TravelRoutes{} |> TravelRoutes.changeset(attrs) |> Repo.insert()
+  def delete_route(%TravelRoutes{} = route), do: Repo.delete(route)
+
+  #---------------------------------------------------------------------------------------------------------------------
+
   #-------- LIST REPO ------------////////////
 
   # TENANTS
@@ -35,44 +170,6 @@ defmodule BusTerminalSystem.RepoManager do
   def create_operator(attrs \\ %{}), do: %User{} |> User.changeset(attrs) |> Repo.insert()
   def update_operator(%User{} = user, attrs), do: user |> User.changeset(attrs) |> Repo.update()
   def delete_operator(%User{} = user), do: Repo.delete(user)
-
-  def create_marketer(marketer) do
-
-    pin = Randomizer.randomizer(5, :numeric)
-    uuid = "#{DateTime.utc_now.year}-#{BusTerminalSystem.Randomizer.randomizer(10,:numeric)}-#{DateTime.utc_now.month}-#{BusTerminalSystem.Randomizer.randomizer(4,:numeric)}-#{DateTime.utc_now.day}"
-
-    marketer = Map.put(marketer, "operator_role", "MARKETER")
-    marketer = Map.put(marketer, "pin", encode_pin(pin))
-    marketer = Map.put(marketer, "role", "MC")
-    marketer = Map.put(marketer, "password", Randomizer.randomizer(6, :upcase))
-    marketer = Map.put(marketer, "account_status", "INACTIVE")
-    marketer = Map.put(marketer, "uuid", uuid)
-
-    IO.inspect marketer
-
-    %User{}
-    |> User.changeset(marketer)
-    |> Repo.insert()
-  end
-
-  def find_marketer_by_mobile(mobile) do
-    Repo.get_by(User, [mobile: mobile, operator_role: "MARKETER"])
-  end
-
-  def authenticate_marketer_by_mobile(mobile,pin) do
-    Repo.get_by(User, [mobile: mobile,pin: encode_pin(pin), operator_role: "MARKETER"])
-  end
-
-  def encode_pin(pin) do
-    Base.encode16(:crypto.hash(:sha512,pin))
-  end
-
-  def update_marketer_pin(%User{} = user, attrs) do
-    user
-    |> User.changeset(attrs)
-    |> Repo.update()
-  end
-
 
   # HUBS
   def get_hub(id), do: Repo.get!(Hub, id)
@@ -125,11 +222,7 @@ defmodule BusTerminalSystem.RepoManager do
   end
 
   # ROUTES
-  def get_route(id), do: Repo.get!(TravelRoutes, id)
-  def list_routes(), do: Repo.all(TravelRoutes)
-  def create_route(attrs \\ %{}), do: %TravelRoutes{} |> TravelRoutes.changeset(attrs) |> Repo.insert()
-  def update_route(%TravelRoutes{} = ticket, attrs), do: ticket |> TravelRoutes.changeset(attrs) |> Repo.update()
-  def delete_route(%TravelRoutes{} = ticket), do: Repo.delete(ticket)
+
 
   def schedule_routes(attrs \\ %{}), do: %RouteMapping{} |> RouteMapping.changeset(attrs) |> Repo.insert()
 
@@ -137,10 +230,6 @@ defmodule BusTerminalSystem.RepoManager do
     {status, travel_routes} = Repo.all(TravelRoutes) |> Poison.encode()
     {decode_status, routes_map} = JSON.decode(travel_routes)
     %{ "travel_routes" => routes_map }
-  end
-
-  def get_route_by_route_code(code) do
-    Repo.get_by(TravelRoutes, route_code: code)
   end
 
   def route_mapping do
@@ -189,6 +278,54 @@ defmodule BusTerminalSystem.RepoManager do
     {:ok, agent, Agent.get(agent, fn list -> list end) }
   end
 
+  def route_mapping(date \\ "01/01/2019", time \\ "00:00") do
 
+    {:ok, agent} = Agent.start_link fn  -> [] end
+    query = from r in RouteMapping, where: r.date == ^date
+    {st, data} = Repo.all(query) |> Poison.encode
+    #IO.inspect Repo.get_by(RouteMapping, [date: date, time: time])
+    {status,route_mapping_data} = JSON.decode(data)
+
+    route_mapping_data
+    |> Enum.with_index()
+    |> Enum.each(fn {e, index} ->
+
+      {:ok, operator_id} = Map.fetch(e,"operator_id")
+      {operator_id_int, _operator_id_string} = Integer.parse(operator_id)
+      {operator_json_status, operator_json} = get_operator(operator_id_int) |> Poison.encode
+      {operator_status, operator} = JSON.decode(operator_json)
+
+      {:ok, bus_id} = Map.fetch(e,"bus_id")
+      {bus_id_int, _bus_id_string} = Integer.parse(bus_id)
+      {bus_json_status, bus_json} = get_bus(bus_id_int) |> Poison.encode
+      {bus_status, bus} = JSON.decode(bus_json)
+
+      #IO.inspect bus
+
+      {:ok, route_id} = Map.fetch(e,"route_id")
+      {route_id_int, _route_id_string} = Integer.parse(route_id)
+      {route_json_status, route_json} = get_route(route_id_int) |> Poison.encode
+      {route_status, route} = JSON.decode(route_json)
+
+      #IO.inspect route
+
+      {:ok, fare} = Map.fetch(e,"fare")
+      {:ok, time} = Map.fetch(e,"time")
+      {:ok, date} = Map.fetch(e,"date")
+
+
+      Agent.update(agent, fn list -> [
+                                       %{
+                                         #"operator" => operator,
+                                         "route" => route,
+                                         "bus" => bus,
+                                         "fare" => fare,
+                                         "time" => time,
+                                         "date" => date
+                                       } | list ] end)
+    end)
+
+    {:ok, agent, Agent.get(agent, fn list -> list end) }
+  end
 
 end

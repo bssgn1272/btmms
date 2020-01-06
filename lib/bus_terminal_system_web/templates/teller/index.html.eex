@@ -6,7 +6,7 @@
             <a data-toggle="tab" href="#home">Registered Tellers</a>
         </li>
         <li>
-            <a data-toggle="tab" href="#menu1">Regester Teller</a>
+            <a data-toggle="tab" href="#menu1">Register Teller</a>
         </li>
         <li>
             <a data-toggle="tab" href="#menu2">Active Tellers <span class="badge badge-primary badge-pill">44</span></a>
@@ -66,131 +66,134 @@
 
 <!--########## TELLER REGISTRATION #########-->                 
 <div id="menu1" class="tab-pane fade">
-        <div class="panel-body">                                        
-            <div class="row">
-                <div class="col-md-6 col-sm-6 panel panel-flat">
-                    <div class="panel-body">
-                        <legend class="text-semibold"><i class="icon-reading position-left"></i> TELLER REGISTRATION</legend>
+        <div class="panel-body">
 
-                            <div class="row">
+        <form>
+        <div class="row">
+              <div class="col-md-6 col-sm-6 panel panel-flat">
+                  <div class="panel-body">
+                      <legend class="text-semibold"><i class="icon-reading position-left"></i> TELLER REGISTRATION</legend>
 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>First Name:</label>
-                                        <input name="first_name" id="TfirstName" class="form-control" placeholder="First Name" type="text">
-                                        <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-                                    </div>
+                          <div class="row">
 
-                                    <div class="form-group">
-                                        <input name="vehicle[uid]" id="vehicleUid" type="hidden" class="form-control" readonly="readonly" placeholder="Auto Generated">
-                                    </div>
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <label>First Name:</label>
+                                      <input name="first_name" id="TfirstName" class="form-control" placeholder="First Name" type="text" required />
+                                      <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                                  </div>
 
-                                    <div class="form-group">
-                                          <label>Last Name:</label>
-                                          <input name="vehicle[liscense_plate]" id="TlastName" class="form-control" placeholder="Last Name" type="text">
-                                    </div>
+                                  <div class="form-group">
+                                      <input name="vehicle[uid]" id="vehicleUid" type="hidden" class="form-control" readonly="readonly" placeholder="Auto Generated">
+                                  </div>
 
-                                    <div class="form-group">
-                                          <label>Sex:</label>
-                                          <input name="vehicle[engine_type]" id="Tsex" class="form-control" placeholder="Sex" type="text">
-                                    </div>
+                                  <div class="form-group">
+                                        <label>Last Name:</label>
+                                        <input name="vehicle[liscense_plate]" id="TlastName" class="form-control" placeholder="Last Name" type="text">
+                                  </div>
 
-                                     <div class="form-group">
-                                          <label>DoB:</label>
-                                          <input name="vehicle[engine_type]" id="Tdob" class="form-control" placeholder="DoB" type="text">
-                                    </div>
-                                </div>
+                                  <div class="form-group">
+                                        <label>Sex:</label>
+                                        <input name="vehicle[engine_type]" id="Tsex" class="form-control" placeholder="Sex" type="text">
+                                  </div>
 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                          <label>NRC:</label>
-                                          <input name="vehicle[year]" id="Tnrc" class="form-control" placeholder="National Registration Card Number" type="text">
-                                    </div>
+                                   <div class="form-group">
+                                        <label>DoB:</label>
+                                        <input name="vehicle[engine_type]" id="Tdob" class="form-control" placeholder="DoB" type="text">
+                                  </div>
+                              </div>
 
-                                    <div class="form-group">
-                                          <label>SSN:</label>
-                                          <input name="vehicle[color]" id="Tssn" class="form-control" placeholder="Social Security Number" type="text">
-                                    </div>
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                        <label>NRC:</label>
+                                        <input name="vehicle[year]" id="Tnrc" class="form-control" placeholder="National Registration Card Number" type="text">
+                                  </div>
 
-                                     <div class="form-group">
-                                          <label>Email:</label>
-                                          <input name="vehicle[model]" id="Temail" class="form-control" placeholder="Email" type="text">
-                                    </div>
+                                  <div class="form-group">
+                                        <label>SSN:</label>
+                                        <input name="vehicle[color]" id="Tssn" class="form-control" placeholder="Social Security Number" type="text">
+                                  </div>
 
-                                     <div class="form-group">
-                                          <label>Phone:</label>
-                                          <input name="vehicle[color]" id="Tphone" class="form-control" placeholder="Mobile" type="text">
-                                    </div>
+                                   <div class="form-group">
+                                        <label>Email:</label>
+                                        <input name="vehicle[model]" id="Temail" class="form-control" placeholder="Email" type="text">
+                                  </div>
 
-                                    <div class="form-group">
-                                          <label>Address:</label>
-                                          <input name="vehicle[color]" id="Taddress" class="form-control" placeholder="Physical Address" type="text">
-                                    </div>
-                                </div>
+                                   <div class="form-group">
+                                        <label>Phone:</label>
+                                        <input name="vehicle[color]" id="Tphone" class="form-control" placeholder="Mobile" type="text">
+                                  </div>
 
-                            </div>
-                    </div>
-                </div>
+                                  <div class="form-group">
+                                        <label>Address:</label>
+                                        <input name="vehicle[color]" id="Taddress" class="form-control" placeholder="Physical Address" type="text">
+                                  </div>
+                              </div>
 
+                          </div>
 
+                  </div>
+              </div>
 
-                <div class="col-md-6 col-sm-6 panel panel-flat">
-                <div class="panel-body">
-                    <legend class="text-semibold"><i class="icon-reading position-left"></i> PREVIEW</legend>
+              <div class="col-md-6 col-sm-6 panel panel-flat">
+              <div class="panel-body">
+                  <legend class="text-semibold"><i class="icon-reading position-left"></i> PREVIEW</legend>
 
-                    <div class="row">
-                        <div class="col-md-4">
-                            <b>FIRST NAME</b><div id="TellerFirstName"></div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <b>LAST NAME </b><div id="TellerLastName"></div>
-                        </div>
-
-                         <div class="col-md-4">
-                            <b>SEX </b><div id="TellerSex"></div>
-                        </div>
-                    </div>
-
-                    <div class="row" style="margin-top: 30px">
+                  <div class="row">
                       <div class="col-md-4">
-                            <b>DOB </b><div id="TellerDoB"></div>
-                        </div>
+                          <b>FIRST NAME</b><div id="TellerFirstName"></div>
+                      </div>
 
-                        <div class="col-md-4">
-                            <b>NRC </b><div id="TellerNRC"></div>
-                        </div>
+                      <div class="col-md-4">
+                          <b>LAST NAME </b><div id="TellerLastName"></div>
+                      </div>
 
-                        <div class="col-md-4">
-                            <b>SSN </b><div id="TellerSSN"></div>
-                        </div>                           
-                    </div>
+                       <div class="col-md-4">
+                          <b>SEX </b><div id="TellerSex"></div>
+                      </div>
+                  </div>
 
-                    <div class="row" style="margin-top: 30px">
-                        <div class="col-md-4">
-                            <b>EMAIL</b><div id="TellerEmail"></div>
-                        </div>
+                  <div class="row" style="margin-top: 30px">
+                    <div class="col-md-4">
+                          <b>DOB </b><div id="TellerDoB"></div>
+                      </div>
 
-                        <div class="col-md-4">
-                            <b>PHONE</b><div id="TellerPhone"></div>
-                        </div>
+                      <div class="col-md-4">
+                          <b>NRC </b><div id="TellerNRC"></div>
+                      </div>
 
-                         <div class="col-md-4">
-                            <b>ADDRESS</b><div id="TellerAddress"></div>
-                        </div>
-                    </div>
+                      <div class="col-md-4">
+                          <b>SSN </b><div id="TellerSSN"></div>
+                      </div>
+                  </div>
 
-                    <legend class="text-semibold"><i class=""></i></legend>
-                </div>
-                </div>
-                <br>
+                  <div class="row" style="margin-top: 30px">
+                      <div class="col-md-4">
+                          <b>EMAIL</b><div id="TellerEmail"></div>
+                      </div>
 
-                <div class="container pull-left">
-                    <button type="submit" id="submitVehicleButton" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange">
-                        <b><i class="icon-checkmark2"></i></b> Create Teller
-                    </button>
-                </div>         
-            </div>
+                      <div class="col-md-4">
+                          <b>PHONE</b><div id="TellerPhone"></div>
+                      </div>
+
+                       <div class="col-md-4">
+                          <b>ADDRESS</b><div id="TellerAddress"></div>
+                      </div>
+                  </div>
+
+                  <legend class="text-semibold"><i class=""></i></legend>
+              </div>
+              </div>
+              <br>
+
+              <div class="container pull-left">
+                  <button type="submit" id="RegisterTellerButton" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange">
+                      <b><i class="icon-checkmark2"></i></b> Create Teller
+                  </button>
+              </div>
+          </div>
+        </form>
+
         </div>
 </div>
 <!--########## TELLER REGISTRATION %> #########--> 

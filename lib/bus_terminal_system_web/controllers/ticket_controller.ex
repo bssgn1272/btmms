@@ -252,6 +252,13 @@ defmodule BusTerminalSystemWeb.TicketController do
     json(conn, schedules)
   end
 
+  def get_schedules_internal(conn, %{"payload" => %{ "date" => date, "time" => time}} = params) do
+    IO.inspect params
+    {:ok,agent,schedules} = RepoManager.route_mapping(date, time)
+    Agent.stop(agent)
+    json(conn, schedules)
+  end
+
   def get_travel_routes(conn,_params) do
     json(conn, RepoManager.list_routes_json())
   end

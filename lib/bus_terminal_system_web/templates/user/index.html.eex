@@ -56,9 +56,6 @@
 </style>
 
 
-
-
-
 <!--############# ADMIN ################-->
 <%= if @user.role == "ADMIN" do %>
     <h1 style="text-align:center">ADMIN DASHBOARD</h1><hr style="border-top: 1px solid orange;">
@@ -131,9 +128,6 @@
                 </div>
             </div>
         </div>
-
-
-
 
 
 
@@ -350,7 +344,7 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <h6 class="text-semibold no-margin-top">
-                                        <a href="#" class="w3-btn w3-indigo w3-hover-orange" style="border-radius: 12px;" data-toggle="modal" data-target="#exampleModalLong">
+                                        <a href="#" class="w3-btn w3-indigo w3-hover-orange" style="border-radius: 12px;" data-toggle="modal" data-target="#regSystemUser">
                                             Register New System User
                                         </a>
                                     </h6>
@@ -375,531 +369,558 @@
 <!--############# ADMIN ################-->
 
 
-
 <!--########################### NAPSA SEARCH ###########################-->
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">
-            <b>Social Security Number Search</b>
-        </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <fieldset>
-                        <legend class="text-semibold"><i class="icon-reading position-left"></i> NAPSA SEARCH</legend>
-
-                        <div class="form-group">
-                            <label>SSN:</label>
-                            <input name="ssn" class="form-control" placeholder="Social Security Number" type="text">
-                            <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-                        </div>
-
-                        <div style="margin-bottom: 15px">
-                            OR SEARCH WITH
-                        </div>
-
-                        <div class="form-group">
-                            <label>NRC:</label>
-                            <input name="uuid" class="form-control" placeholder="National ID" type="text">
-                        </div>
-                    </fieldset>
-                </div>
-            </div>
-
-            <div class="text-right">
-            <%= link "Search", to: Routes.user_path(@conn, :new), style: "border-radius: 12px", class: "w3-btn w3-indigo w3-hover-orange" %>
-            </div>
+<!-- NEW MARKETEER MODAL -->
+  <div class="modal fade" id="regSystemUser" role="dialog">
+    <div class="modal-dialog">
+    
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" style="font-size: 20px; font-weight: bold;">Social Security Number Search</h4>
+          <hr>
+        </div>
+        <div class="modal-body">
+          <form action="/action_page.php">
+              <div class="form-group">
+                <label for="ssn">SSN:</label>
+                <input type="number" class="form-control" id="ssn" placeholder="Social Security Number">
+                <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+              </div>
+              <div class="form-group">
+                <label for="nrc">NRC:</label>
+                <input type="text" class="form-control" id="nrc" placeholder="National Registration Card Number">
+              </div>
+              <%= link "Search", to: Routes.user_path(@conn, :new), class: "w3-btn w3-indigo w3-hover-orange w3-round" %>
+            </form>
+        </div>
+        <hr>
+        <div class="modal-footer">
+            <button type="submit" class="w3-btn w3-red w3-round" data-dismiss="modal">Close</button>
         </div>
       </div>
+      
     </div>
   </div>
-</div>
+<!-- END -->
 <!--########################### NAPSA SEARCH ###########################-->
 
 
 
 <!-- ########################################## TELLER MODULE ########################################-->
 <%= if @user.role == "TOP" do %>
-<!--############# TELLER COVER ############-->
-<div class="profile-cover">
-    <div class="media">
-        <div class="media-left">
-            <a href="#" class="profile-thumb">
-                <img src="/images/material/avatar/2.jpg" class="img-circle" alt="">
-            </a>
-        </div>
-
-        <div class="media-body">
-            <h1 style="font-weight: 40px; font-size: 60px;">
-                <%= @user.username %> <small class="display-block">NAPSA Teller</small>
-            </h1>
+<!--
+<div class="container-fluid">
+    <div class="container">
+        <div class="pull-right">
+            <img src="<%= Routes.static_path(@conn, "/images/material/avatar/1.png") %>" class="img-circle" width="90" height="90" alt="">
+            <br><br>
+            <span style="font-weight: bold;">Name: </span>
+            <span><%= @user.username %></span>
         </div>
     </div>
 </div>
+<br><br>
+-->
 
-<div class="navbar navbar-default navbar-xs navbar-component no-border-radius-top">
-        <ul class="nav navbar-nav visible-xs-block">
-            <li class="full-width text-center">
-                <a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a>
-            </li>
-        </ul>
-
-<div class="navbar-collapse collapse" id="navbar-filter">
-        <ul class="nav navbar-nav">
-            <li class="active">
-                <a href="#TOPhome" data-toggle="tab">
-                    <i class="icon-menu7 position-left"></i> Home
-                </a>
-            </li>  
-            <li>
-                <a href="#TOPdocumentation" data-toggle="tab">
-                    <i class="icon-book position-left"></i> Documentation 
-                </a>
-            </li>    
-            <li>
-                <a href="#TOPticketSales" data-toggle="tab">
-                    <i class="icon-ticket position-left"></i> Ticket Sales 
-                </a>
-            </li>
-            <li>
-                <a href="#TOPavailableOperators" data-toggle="tab">
-                    <i class="icon-car position-left"></i> Available Bus Operators 
-                </a>
-            </li>     
-        </ul>
-</div>
-</div>
-<!--############# TELLER COVER %>############-->
-
-<!--############ TELLER_DASHBOARD ###########-->
-<div class="row">
-    <div class="col-lg-12">
-        <div class="tabbable">
-            <div class="tab-content">
-
-<!--#####-- TOP_HOME %> --#####-->
-<div class="tab-pane fade in active" id="TOPhome">
+<div class="container">
     <div class="row">
-        <div class="container-fluid">
+        <div class="col-md-3">
+            <div class="w3-card-4 w3-margin w3-white" style="width:100%;">
 
+                <header class="w3-container w3-indigo w3-center">
+                  <h3>Tickets</h3>
+                </header>
 
-        <div class="col-md-4 col-lg-4">
-            <!--#################### Ticket Form ####################-->
-                <div>
-                    <div class="panel panel-body login-form" style="width: 100%;">
-
-                        <div class="form-group has-feedback has-feedback-left">
-                            <input name="payload[travel_date]" type="date" id="date" class="form-control" onchange="GetSelectedDate()">
-                            <div class="form-control-feedback">
-                                <i class="icon-table text-muted"></i>
-                            </div>
-                        </div>
-
-                        <div class="form-group has-feedback has-feedback-left">
-                            <input name="payload[first_name]" id="First_Name" type="text" class="form-control" placeholder="First Name">
-                            <div class="form-control-feedback">
-                                <i class="icon-user text-muted"></i>
-                            </div>
-                        </div>
-
-                        <div class="form-group has-feedback has-feedback-left">
-                            <input name="payload[last_name]" id="Last_Name" type="text" class="form-control" placeholder="Last Name">
-                            <div class="form-control-feedback">
-                                <i class="icon-user text-muted"></i>
-                            </div>
-                        </div>
-
-
-                        <div class="form-group has-feedback has-feedback-left">
-                            <input name="payload[mobile_number]" id="Contact_Number" type="text" class="form-control" placeholder="Contact">
-                            <div class="form-control-feedback">
-                                <i class="icon-phone text-muted"></i>
-                            </div>
-                        </div>
-
-                        <div class="form-group has-feedback has-feedback-left">
-                            <select class="w3-select" name="option" id="id_type2" onchange="GetSelectedTime()">
-                                <option value="" disabled selected>ID Type</option>
-                                <option value="NRC">NRC</option>
-                                <option value="Passport">Passport</option>
-                                <option value="Drivers License">Drivers License</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group has-feedback has-feedback-left">
-                            <input name="payload[passenger_id]" id="ID" type="text" class="form-control" placeholder="ID Number">
-                            <div class="form-control-feedback">
-                                <i class="icon-credit-card text-muted"></i>
-                            </div>
-                        </div>
-
-                        <div class="form-group has-feedback has-feedback-left">
-                            <select class="w3-select" name="option" id="Operator_Name" onchange="GetSelectedText()">
-                                <option value="" disabled selected> Name Of Bus Operator</option>
-                                <option value="Juldan Motors">Juldan Motors</option>
-                                <option value="Zambia Malawi">Zambia Malawi</option>
-                                <option value="Euro">Euro</option>
-                                <option value="Mazhandu">Mazhandu</option>
-                                <option value="Power Tools">Power Tools</option>
-                                <option value="TDE">TDE</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group has-feedback has-feedback-left">
-                            <select class="w3-select" name="route" id="Name_Terminus" onchange="GetSelectedTerminus()">
-                                <option value="" disabled selected>Name Of Terminus</option>
-                                <option value="Livingstone Terminus" >Livingstone Terminus</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group has-feedback has-feedback-left">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group has-feedback has-feedback-left">
-                                        <select class="w3-select" name="route" id="Depature_Name" onchange="GetSelectedFrom()">
-                                            <option value="" disabled selected>From</option>
-                                            <option value="Livingstone" >Livingstone</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group has-feedback has-feedback-left">
-                                        <select class="w3-select" name="route" id="Destination_Name" onchange="GetSelectedTo()">
-                                            <option value="" disabled selected>To</option>
-                                            <option value="Chipata" >Chipata</option>
-                                            <option value="Copperbelt" >Copperbelt</option>
-                                            <option value="Lusaka" >Lusaka</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group has-feedback has-feedback-left">
-                            <select class="w3-select" name="option" id="Depature_Time" onchange="GetSelectedTime()">
-                                <option value="" disabled selected>Time of Departure</option>
-                                <option value="04:00">04:00</option>
-                                <option value="08:00">06:00</option>
-                                <option value="10:00">08:00</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group has-feedback has-feedback-left">
-                            <select class="w3-select" name="option" id="Position" onchange="GetSelectedSeat()">
-                                <option value="" disabled selected>Choose Seat</option>
-                                <option value="A1">A1</option>
-                                <option value="A2">A2</option>
-                                <option value="A3">A3</option>
-                                <option value="A4">A4</option>
-                                <option value="A5">A5</option>
-                                <option value="A6">A6</option>
-                                <option value="A7">A7</option>
-                                <option value="A8">A8</option>
-                                <option value="A9">A9</option>
-                                <option value="A10">A10</option>                                
-                            </select>
-                        
-                            <!--
-                            <a href="#" onclick="document.getElementById('seatModal').style.display='block'"  data-toggle="modal" data-target="#myModal">
-                                Pick Seat
-                            </a>
-                            -->
-                        </div>
-
-
-                           <div class="form-group">
-                                    <a href="#" class="w3-btn w3-indigo w3-hover-orange" style="border-radius: 12px;" onclick="document.getElementById('id01').style.display='block'"  data-toggle="modal" data-target="#myModal">
-                                    Online Payment
-                                    </a>
-                                    <button class="w3-btn w3-indigo w3-hover-orange" style="border-radius: 12px;" onclick="document.getElementById('ticketModal').style.display='block'" data-toggle="modal" data-target="#ticketModals">
-                                    Buy Ticket
-                                    </button>
-                                </div>
-
-                    </div>
-                </div>
-
-            <!--#################### Ticket Form ####################-->
-        </div>
-
-        <div class="col-md-8 col-lg-8">
-            <div class="panel panel-body" style="overflow-x:auto; width: 100%;">
-                <h4 style="text-align: center; font-weight: bold; font-size: 18px;">
-                    PAST TRANSACTION
-                </h4><hr>
-            <table class="table table-striped table-bordered" id="TellerPastTransactions">
-            <thead>
-                <tr style="font-size: 12px;">
-                    <th>Ticket Reference No.</th>
-                    <th>Bus Operator</th>
-                    <th>Depature Date</th>
-                    <th>Route</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <%= for ticket <- @tickets do %>
-                <tr>
-                  <td><%= ticket.reference_number %></td>
-                  <td><%= ticket.bus_no %></td>
-                  <td><%= ticket.travel_date %></td>
-                  <td><%= ticket.route %></td>
-                  <td><%= ticket.first_name %></td>
-                  <td><%= ticket.last_name %></td>
-                  <td class="text-center">
-                    <ul class="icons-list">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="icon-menu9"></i>
-                            </a>
-
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li><button style="margin-left: 10px" type="button" class="btn btn-default btn-sm" data-user-id="" data-toggle="modal" data-target="#modal_form_horizontal_user">
-                                Info <i class="icon-user position-right"></i></button></li>
-
-                                <!--<li><%= link "Edit", class: "icon-pencil", to: Routes.ticket_path(@conn, :edit, ticket) %></li> -->
-                            </ul>
-                        </li>
-                    </ul>
-                </td>
-                </tr>
-            <% end %>
-            </tbody>
-            </table>
-        </div>
-
-
-        <!--#####-- TOP_TICKET_SALES --#####-->
-        <div class="tab-pane fad" id="TOPticketSales">
-            <div class="container-fluid">
-                <div class="row">
-
-                    <div class="col-lg-5 col-md-5">
-                        <div class="container-fluid">
-                            <div id="teller1" style="height: 370px; width: 100%;"></div>
-                            <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-                        </div>                    
-                    </div>
-
-                    <div class="col-lg-7 col-md-7 panel panel-flat">
-                        <div class="container-fluid">
-                            <h4 style="text-align:center;"><b>REPORT</b></h4>
-                            <hr>
-                            <form>
-                                <div class="form-group has-feedback has-feedback-left">
-                                    <select class="w3-select" name="option">
-                                        <option value="" disabled selected>Area of Operation</option>
-                                        <option value="1">Livingstone</option>
-                                        <option value="2">Lusaka</option>
-                                        <option value="3">Ndola</option>
-                                        <option value="3">Sesheke</option>
-                                        <option value="3">Mambo</option>
-                                        <option value="3">Lundazi</option>
-                                    </select>
-                                </div>            
-
-                                <div class="form-group has-feedback has-feedback-left">
-                                    <select class="w3-select" name="option">
-                                        <option value="" disabled selected>Name Of Terminus</option>
-                                        <option value="1">Intercity Bus Terminus</option>
-                                        <option value="2">City Market Bus Terminus</option>
-                                        <option value="3">Lumumba Bus Terminus</option>
-                                        <option value="3">Millenium Bus Terminus</option>
-                                        <option value="3">Stanley Bus Terminus</option>
-                                    </select>
-                                </div>
-
-                            <div class="form-group">
-                                <label for="pwd">Percentage of Ticket Sales:</label>
-                                <input type="text" class="form-control" placeholder="Percentage of ticket sales starting with the most sold">
-                            </div>
-
-                            <div class="form-group">
-                                <div class="container-fluid">
-                                    <p>
-                                        <b>NB:</b>
-                                        Please attach excel sheet of the report
-                                    </p>
-                                </div>
-                                <input type="file" name="fileToUpload" id="fileToUpload">
-                            </div>
-
-                            <div class="form-group">
-                                <button type="submit" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange">Submit</button>
-                            </div>
-                            </form>
-                        </div>
-                    </div>
-
-                </div><br><br> 
-            </div>
-        </div>
-        <!--#####-- TOP_TICKET_SALES --#####-->
-        </div>
-
-    </div>
-    </div>
-</div>
-<!--#####-- TOP_HOME %> --#####-->
-
-<!--#####-- TOP_DOCUMENTATION --#####-->
-<div class="tab-pane fade" id="TOPdocumentation">
-    <div class="container-fluid">
-
-            <div class="panel-body panel panel-flat">
-                <div id="plans">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h6 class="text-semibold no-margin-top">
-                                Tellers
-                            </h6><hr>
-                        </div>
-                                                    
-                        <p>
-                            Tellers are typically the first point of interaction for customers as they want to buy a ticket from a kiosk. Tellers verify the identity of customers and process requests for tickets. They generate certified tickets according to the specifications of customers. Tellers answer questions about the bus operator services and direct customers to customer care service center for more information. They must count cash in their drawers as they begin their shift and reconcile remaining cash at the end of their shift to account accurately for the days transactions. These tellers will be provided by NAPSA.
-                        </p>                                    
-                    </div>                            
-                </div>
-            </div>
-
-   
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h6 class="panel-title">Rules To Be Shared With All Tellers</h6>
-            </div>
-
-            <div class="panel-body">
-                <div class="schedule">
-                    <ul>
-                        <li>Always Use a Trading Plan.</li>
-                        <li>Treat Trading Like a Business.</li>
-                        <li>Use Technology.</li>
-                        <li>Protect Your Trading Capital.</li>
-                        <li>Study the Markets.</li>
-                        <li>Risk Only What You Can Afford.</li>
-                        <li>Develop a Trading Methodology.</li>
-                        <li>Always Use a Stop Loss.</li>
-                    </ul>
+                <div class="w3-container">
+                  <p>To query tickets, & check for past tickets click the button below.</p>
+                  <p><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('query_tickets')">Query Ticket</button></p>
                 </div>
             </div>
         </div>
 
-    </div>
-</div>
-<!--#####-- TOP_DOCUMENTATION %>--#####-->
+        <div class="col-md-3">
+            <div class="w3-card-4 w3-margin w3-white" style="width:100%;">
 
-<!--#####-- TOP_TICKET_SALES --#####-->
-<div class="tab-pane fad" id="TOPticketSales">
-    <div class="container-fluid">
+                <header class="w3-container w3-indigo w3-center">
+                  <h3>Booking</h3>
+                </header>
+
+                <div class="w3-container">
+                  <p>To book for a trip, & view details about the route click the button below.</p>
+                  <p><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('bookings')">Book</button></p>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="w3-card-4 w3-margin w3-white" style="width:100%;">
+
+                <header class="w3-container w3-indigo w3-center">
+                  <h3>Routes</h3>
+                </header>
+
+                <div class="w3-container">
+                  <p>To view available routes, and destinations click the button below.</p>
+                  <p><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('routes')">Routes</button></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="w3-card-4 w3-margin w3-white" style="width:100%;">
+
+                <header class="w3-container w3-indigo w3-center">
+                  <h3>Check In</h3>
+                </header>
+
+                <div class="w3-container">
+                  <p>To check in a luggage and make payments for it, click the button below.</p>
+                  <p><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('checkin')">Checkin Luggage</button></p>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!----------- QUERY-TICKETS ------------------>
+        <div class="col-md-12 bus" id="query_tickets">
+            <div class="w3-card-4 w3-margin w3-white" style="width:100%;">
+
+                <header class="w3-container w3-indigo w3-center">
+                  <h3>Query Tickets</h3>
+                </header>
+
+                <div class="w3-container">
+                    <div class="" style="overflow-x:auto; width: 100%;">
+                            <h4 style="text-align: center; font-weight: bold; font-size: 18px;">
+                                List of Tickets
+                            </h4><hr>
+                        <table class="table table-striped table-bordered" id="queryTickets">
+                        <thead>
+                            <tr style="font-size: 12px;">
+                                <th>Ticket Reference No.</th>
+                                <th>Ticket Number</th>
+                                <th>Depature Date</th>
+                                <th>Route</th>
+                                <th>Passenger First Name</th>
+                                <th>Passenger Last Name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%= for ticket <- @tickets do %>
+                            <tr>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td class="text-center">
+                                <ul class="icons-list">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            <i class="icon-menu9"></i>
+                                        </a>
+
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li><button style="margin-left: 10px" type="button" class="btn btn-default btn-sm" data-user-id="" data-toggle="modal" data-target="#modal_form_horizontal_user">
+                                            Info <i class="icon-user position-right"></i></button></li>
+
+                                            <!--<li><%= link "Edit", class: "icon-pencil", to: Routes.ticket_path(@conn, :edit, ticket) %></li> -->
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </td>
+                            </tr>
+                        <% end %>
+                        </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!---------------------------------------->
+
+         <!------------ BOOKINGS ----------------->
         <div class="row">
+            <div class="col-md-12 bus" id="bookings">
+            <div class="w3-card-4 w3-margin w3-white w3-center" style="width:100%;">
 
-            <div class="col-lg-5 col-md-5">
-                <div class="container-fluid">
-                    <div id="teller1" style="height: 370px; width: 100%;"></div>
-                    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-                </div>                    
-            </div>
+                <header class="w3-container w3-indigo w3-center">
+                  <h3>BOOKINGS</h3>
+                </header>
 
-            <div class="col-lg-7 col-md-7 panel panel-flat">
-                <div class="container-fluid">
-                    <h4>REPORT</h4>
-                    <hr>
-                    <form>
-                        <div class="form-group has-feedback has-feedback-left">
-                            <select class="w3-select" name="option">
-                                <option value="" disabled selected>Area of Operation</option>
-                                <option value="1">Livingstone</option>
-                                <option value="2">Lusaka</option>
-                                <option value="3">Ndola</option>
-                                <option value="3">Sesheke</option>
-                                <option value="3">Mambo</option>
-                                <option value="3">Lundazi</option>
-                            </select>
-                        </div>            
-
-                        <div class="form-group has-feedback has-feedback-left">
-                            <select class="w3-select" name="option">
-                                <option value="" disabled selected>Name Of Terminus</option>
-                                <option value="1">Intercity Bus Terminus</option>
-                                <option value="2">City Market Bus Terminus</option>
-                                <option value="3">Lumumba Bus Terminus</option>
-                                <option value="3">Millenium Bus Terminus</option>
-                                <option value="3">Stanley Bus Terminus</option>
-                            </select>
+                <div class="container">
+                    <div class="row">
+                        <form class="form-inline" action="#" method="post" style="margin-top: 0.5%; margin-bottom: 5%;">
+                        <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="text">
+                                    <strong>From:</strong>
+                                </label>
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <select class="w3-select" name="option">
+                                        <option value="" disabled selected>Livingstone</option>
+                                    </select>
+                                </div>
+                              </div>
                         </div>
 
-                    <div class="form-group">
-                        <label for="pwd">Percentage of Ticket Sales:</label>
-                        <input type="text" class="form-control" placeholder="Percentage of ticket sales starting with the most sold">
-                    </div>
-
-                    <div class="form-group">
-                        <div class="container-fluid">
-                            <p>
-                                <b>NB:</b>
-                                Please attach excel sheet of the report
-                            </p>
+                        <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="text">
+                                    <strong>To:</strong>
+                                </label>
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <select class="w3-select" name="option">
+                                        <option value="" disabled selected>Destination:</option>
+                                        <option value="Chipata">Chipata</option>
+                                        <option value="Kitwe">Kitwe</option>
+                                        <option value="Lusaka">Lusaka</option>
+                                    </select>
+                                </div>
+                              </div>
                         </div>
-                        <input type="file" name="fileToUpload" id="fileToUpload">
-                    </div>
 
-                    <div class="form-group">
-                        <button type="submit" class="w3-btn w3-indigo w3-hover-orange">Submit</button>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <button type="submit" class="w3-btn w3-light-grey w3-hover-white w3-round pull-right">
+                                     <img src="<%= Routes.static_path(@conn, "/images/1.png") %>" class="img-fluid" style="width:30px;height:30px" alt="search">
+                                </button>
+                            </div>
+                        </div>
+                        </form>
                     </div>
-                    </form>
                 </div>
             </div>
 
-        </div><br><br> 
-    </div>
-</div>
-<!--#####-- TOP_TICKET_SALES --#####-->
+            <!--------- RESULTS -------------------------------------->
+            <div class="container-fluid">
+                <div class="w3-card-4 w3-margin w3-white" style="width:100%;">
+                    <header class="w3-container w3-indigo w3-center">
+                        <h3>RESULTS</h3>
+                    </header>     
+                
 
-<!--#####-- TOP_AVAILABLE OPERATORS --#######-->
-<div class="tab-pane fade" id="TOPavailableOperators">
-    <div class="panel panel-flat" style="padding: 9px">
-        <div class="panel-heading">
-            <h4 style="text-align: center; font-weight: bold; font-size: 18px;">
-                Bus Operators Operating In Your Area
-            </h4><hr>
-        </div>
+                <div class="container">
+                    <form role="form">
+                        <div class="radio">
+                          <label><input type="radio" name="optradio">Juldan Motors - Livingstone to Chipata - 06:00 Hours - K180</label>
+                        </div>
+                        <div class="radio">
+                          <label><input type="radio" name="optradio">Euro Motors - Livingstone to Kitwe - 06:00 Hours - K180</label>
+                        </div>
+                        <div class="radio">
+                          <label><input type="radio" name="optradio">Likili Motors - Livingstone to Lusaka - 06:00 Hours - K180</label>
+                        </div>
 
-        <div style="overflow-x:auto;">
-            <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
-            <thead>
-                <tr>
-                    <th>Operator Name</th>
-                    <th>SSN</th>
-                    <th>Vehicle Capacity</th>
-                    <th>Route To Take</th>
-                    <th>Depature Date</th>
-                    <th>Depature Time</th>
-                <th></th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-<!--#####-- TOP_AVAILABLE OPERATORS %> --#####-->
+                </div>
+
+                <footer class="w3-container">
+                    <button type="submit" class="w3-btn w3-indigo w3-hover-orange w3-round">
+                        Proceed
+                    </button>
+                </footer>
+                    </form>
+                <hr>
+
+                </div>
+
+            </div>
+            <!---------------------------------------------------------->
+
+            <!--------- PASSENGER KYC -------------------------------------->
+            <div class="container-fluid">
+                <div class="w3-card-4 w3-margin w3-white" style="width:100%;">
+                    <header class="w3-container w3-indigo w3-center">
+                        <h3>PASSENGER INFORMATION</h3>
+                    </header>     
+                
+
+                <div class="container">
+                    <!--####################-- NAPSA TICKET PURCHASE --####################-->
+                            <div class="col-lg-12">
+                                <div class="container-fluid">
+
+
+                                <div class="text-center" style="height: 5%">
+                                    <div class="icon-object border-slate-100 text-slate-100 w3-orange">
+                                        <img src="<%= Routes.static_path(@conn, "/images/logo/1.png") %>" width="90" height="70" alt="NapsaLogo">
+                                    </div>
+
+                                    <h5 class="content-group">To Purschase Ticket <small class="display-block">Fill Form Below</small></h5>
+                                </div>
+
+
+
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <input type="date" id="date" name="bday" min="2015-10-28" class="form-control" onchange="GetSelectedDate()">
+                                    <div class="form-control-feedback">
+                                        <i class="icon-table text-muted"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <input name="payload[mobile_number]" id="Contact_Number" type="text" class="form-control" placeholder="Passenger Cell">
+                                    <div class="form-control-feedback">
+                                        <i class="icon-phone text-muted"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <input name="payload[first_name]" id="First_Name" type="text" class="form-control" placeholder="Passenger First Name">
+                                    <div class="form-control-feedback">
+                                        <i class="icon-user text-muted"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <input name="payload[last_name]" id="Last_Name" type="text" class="form-control" placeholder="Passenger Last Name">
+                                    <div class="form-control-feedback">
+                                        <i class="icon-user text-muted"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <select class="w3-select" name="option" id="id_type2" onchange="GetSelectedTime()">
+                                        <option value="" disabled selected>ID Type</option>
+                                        <option value="NRC">NRC</option>
+                                        <option value="Passport">Passport</option>
+                                        <option value="Drivers License">Drivers License</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <input name="payload[passenger_id]" id="ID" type="text" class="form-control" placeholder="ID Number">
+                                    <div class="form-control-feedback">
+                                        <i class="icon-credit-card text-muted"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <select class="w3-select" name="option" id="Depature_Time" onchange="GetSelectedTime()">
+                                        <option value="">Time of Departure</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <a href="#" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange" onclick="document.getElementById('id01').style.display='block'"  data-toggle="modal" data-target="#myModal">
+                                    Purchase Ticket
+                            </a>
+                        </div>
+                    </div>
+
+                        </div>
+                    <!--####################-- NAPSA TICKET PURCHASE --####################-->
+                </div>
+                </div>
+
+            </div>
+            <!---------------------------------------------------------->
 
             </div>
         </div>
+        <!------------------------------------>
+
+        <!------------ ROUTES----------------->
+        <div class="col-md-12 bus" id="routes">
+            <div class="w3-card-4 w3-margin w3-white" style="width:100%;">
+
+                <header class="w3-container w3-indigo w3-center">
+                  <h3>Routes</h3>
+                </header>
+
+                <div class="w3-container">
+                    <div class="" style="overflow-x:auto; width: 100%;">
+                            <h4 style="text-align: center; font-weight: bold; font-size: 18px;">
+                                AVAILABLE ROUTES
+                            </h4><hr>
+                        <table class="table table-striped table-bordered" id="available_routes">
+                        <thead>
+                            <tr style="font-size: 12px;">
+                                <th>Bus Operator</th>
+                                <th>Route Name</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Time</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!------------------------------------->
+
+
+        <!------------ CHECKIN----------------->
+        <div class="col-md-12 bus" id="checkin">
+            <div class="w3-card-4 w3-margin w3-white" style="width:100%;">
+
+                <header class="w3-container w3-indigo w3-center">
+                  <h3>Checkin Luggage</h3>
+                </header>
+
+                <div class="container">
+                    <div class="row">
+                        <form class="form-inline" action="#" method="post" style="margin-top: 0.5%; margin-bottom: 5%;">
+                        <div class="col-md-10">
+                              <div class="form-group">
+                                <label for="ticket">
+                                    <strong>From:</strong>
+                                </label>
+                                <input type="text" class="form-control" required="required" placeholder="Enter Ticket Number">
+                              </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <button type="submit" class="w3-btn w3-light-grey w3-hover-white w3-round pull-right">
+                                     <img src="<%= Routes.static_path(@conn, "/images/1.png") %>" class="img-fluid" style="width:30px;height:30px" alt="search">
+                                </button>
+                            </div>
+                        </div>
+                        </form>
+
+                        <div class="col-md-12">
+                                <!--
+                                RESULTS FOR SEARCH QUERY
+                                -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--------- RESULTS -------------------------------------->
+            <div class="container-fluid">
+                <div class="w3-card-4 w3-margin w3-white" style="width:100%;">
+                    <header class="w3-container w3-indigo w3-center">
+                        <h3>RESULTS</h3>
+                    </header>     
+                
+
+                    <div class="container">
+                        <img src="<%= Routes.static_path(@conn, "/images/recp.webp") %>" class="img-fluid"  alt="search">
+                    </div>
+
+                    <br>
+                    <div class="container">
+                        <button type="submit" class="w3-btn w3-indigo w3-hover-orange w3-round">
+                            Add Luggage
+                        </button>
+                    </div>
+
+                    <br>
+                    <div class="container-fluid">
+                        <div class="w3-card-2">
+                            <div class="container">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    Item 1
+                                </div>
+
+                                <div class="col-md-4">
+                                    Weight: 10Kgs
+                                </div>
+
+                                <div class="col-md-4">
+                                    Price: ZMW 60
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    Item 2
+                                </div>
+
+                                <div class="col-md-4">
+                                    Weight: 10Kgs
+                                </div>
+
+                                <div class="col-md-4">
+                                    Price: ZMW 60
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    Item 3
+                                </div>
+
+                                <div class="col-md-4">
+                                    Weight: 10Kgs
+                                </div>
+
+                                <div class="col-md-4">
+                                    Price: ZMW 60
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="container">
+                        <button type="submit" class="w3-btn w3-indigo w3-hover-orange w3-round">
+                            Check In
+                        </button>
+                    </div>
+                    <br>
+
+            </div>
+            <!---------------------------------------------------------->
+        </div>
+        <!----------------------------------->
+
     </div>
+
+
 </div>
-<!--############ TELLER_DASHBOARD %> ###########-->
 <% end %>
 <!-- ########################################## END TELLER MODULE ###############################-->
 
@@ -909,6 +930,7 @@
 <!-- ########################################## BUS OPERATOR MODULE ########################################-->
 <%= if @user.role == "BOP" do %> 
 <!--################ BOP COVER ################-->    
+<!--
 <div class="profile-cover">
     <div class="media">
         <div class="media-left">
@@ -924,8 +946,11 @@
         </div>
     </div>
 </div>
-
-<!-- Toolbar -->
+-->
+<div class="header">
+    <h1 style="text-align:center; font-weight: bold; font-size: 30px;">BOP DASHBOARD</h1><hr style="border-top: 1px solid orange;">
+</div>
+<!-- Toolbar 
 <div class="navbar navbar-default navbar-xs navbar-component no-border-radius-top">
     <ul class="nav navbar-nav visible-xs-block">
         <li class="full-width text-center">
@@ -953,7 +978,7 @@
         </ul>
     </div>
 </div>
-<!-- /toolbar -->
+toolbar -->
 <!--################ BOP COVER %> ################-->
 
 <!--################ BOP DASHBOARD %> ################-->
@@ -1005,7 +1030,6 @@ TO ADD STATICS GRAPH
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>UID</th>
                                                 <th>Liscense plate</th>
                                                 <th>Engine Type</th>
                                                 <th>Model</th>
@@ -1014,15 +1038,37 @@ TO ADD STATICS GRAPH
                                                 <th>Color</th>
                                                 <th>State of Registration</th>
                                                 <th>Vin Number</th>
-                                                <th>Serial Number</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
-
                                         <tbody>
-                                            <!--
-                                                TO ADD TABLE CONTENT
-                                            -->
+                                            <%= for bus <- @buses do %>
+                                                <tr>
+                                                    <td><%= bus.id %></td>
+                                                    <td><%= bus.liscense_plate %></td>
+                                                    <td><%= bus.engine_type %></td>
+                                                    <td><%= bus.model %></td>
+                                                    <td><%= bus.make %></td>
+                                                    <td><%= bus.year %></td>
+                                                    <td><%= bus.color %></td>
+                                                    <td><%= bus.state_of_registration %></td>
+                                                    <td><%= bus.vin_number %></td>
+                                                    <td class="text-center">
+                                                        <ul class="icons-list">
+                                                            <li class="dropdown">
+                                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                                    <i class="icon-menu9"></i>
+                                                                </a>
+
+                                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                                    <li><button style="margin-left: 10px" type="button" class="btn btn-default btn-sm">
+                                                                    EDIT <i class="icon-user position-right"></i></button></li>
+                                                                                                    </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                 </tr>
+                                            <% end %>
                                         </tbody>
                                     </table>
                                 </div>
@@ -1202,109 +1248,99 @@ TO ADD STATICS GRAPH
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <select class="w3-select" name="option">
+                                                <select class="w3-select" name="payload[make]">
                                                     <option value="" disabled selected>Make</option>
-                                                    <option value="1">Toyota</option>
-                                                    <option value="2">Higer</option>
-                                                    <option value="3">Marcopolo</option>
-                                                    <option value="3">Nissan</option>
-                                                    <option value="3">Hyundai</option>
+                                                    <option value="Toyota">Toyota</option>
+                                                    <option value="Higer">Higer</option>
+                                                    <option value="Marcopolo">Marcopolo</option>
+                                                    <option value="Nissan">Nissan</option>
+                                                    <option value="Hyundai">Hyundai</option>
                                                 </select>
                                                 <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                                                <input type="hidden" name="payload[operator_id]" value="<%= @user.id %>">
                                             </div>
 
                                              <div class="form-group">
-                                                <select class="w3-select" name="option">
+                                                <select class="w3-select" name="payload[vehicle_class]">
                                                     <option value="" disabled selected>Vehicle Class:</option>
-                                                    <option value="1">C1</option>
-                                                    <option value="2">C1E</option>
-                                                    <option value="3">C</option>
-                                                    <option value="3">CE</option>
+                                                    <option value="C1">C1</option>
+                                                    <option value="C1E">C1E</option>
+                                                    <option value="C">C</option>
+                                                    <option value="CE">CE</option>
                                                 </select>
                                             </div>
 
                                             <div class="form-group">
-                                                <select class="w3-select" name="option">
+                                                <select class="w3-select" name="payload[vehicle_capacity]">
                                                     <option value="" disabled selected>Vehicle Capacity:</option>
-                                                    <option value="1">C1: 10 Seats</option>
-                                                    <option value="2">C1E: 15 Seats</option>
-                                                    <option value="3">C: 25 seats</option>
-                                                    <option value="3">CE: 30 seats</option>
+                                                    <option value="C1: 10 Seats">C1: 10 Seats</option>
+                                                    <option value="C1E: 15 Seats">C1E: 15 Seats</option>
+                                                    <option value="C: 25 seats">C: 25 seats</option>
+                                                    <option value="CE: 30 seats">CE: 30 seats</option>
                                                 </select>
                                             </div>
 
                                             <div class="form-group">
-                                                <select class="w3-select" name="option">
+                                                <select class="w3-select" name="payload[state_of_registration]">
                                                     <option value="" disabled selected>State of Registration:</option>
-                                                    <option value="1">Lusaka</option>
-                                                    <option value="2">Livingstone</option>
-                                                    <option value="3">Copperbelt</option>
-                                                    <option value="3">Chipata</option>
-                                                    <option value="3">Muchinga</option>
-                                                </select>
-                                            </div>
-
-                                             <div class="form-group">
-                                                <select class="w3-select" name="option">
-                                                    <option value="" disabled selected>Terminus:</option>
-                                                    <option value="1">Lusaka</option>
-                                                    <option value="2">Livingstone</option>
-                                                    <option value="3">Copperbelt</option>
-                                                    <option value="3">Chipata</option>
-                                                    <option value="3">Muchinga</option>
+                                                    <option value="Lusaka">Lusaka</option>
+                                                    <option value="Livingstone">Livingstone</option>
+                                                    <option value="Copperbelt">Copperbelt</option>
+                                                    <option value="Chipata">Chipata</option>
+                                                    <option value="Muchinga">Muchinga</option>
                                                 </select>
                                             </div>
 
                                             <div class="form-group">
-                                                <input name="vehicle[uid]" id="vehicleUid" type="hidden" class="form-control" readonly="readonly" value="<%= BusTerminalSystem.Randomizer.randomizer(8)%>" placeholder="Auto Generated">
+                                                <input name="payload[uid]" id="vehicleUid" type="hidden" class="form-control" readonly="readonly" value="<%= BusTerminalSystem.Randomizer.randomizer(8)%>" placeholder="Auto Generated">
                                             </div>
 
                                             <div class="form-group">
                                                   <label>Model:</label>
-                                                  <input name="vehicle[model]" id="vehicleModel" class="form-control" placeholder="Engine Type" type="text">
+                                                  <input name="payload[model]" id="vehicleModel" class="form-control" placeholder="Engine Type" type="text">
                                             </div>
 
                                             <div class="form-group">
                                                   <label>Year:</label>
-                                                  <input name="vehicle[year]" id="vehicleYear" class="form-control" placeholder="Year" type="text">
+                                                  <input name="payload[year]" id="vehicleYear" class="form-control" placeholder="Year" type="text">
                                             </div>
 
                                             <div class="form-group">
                                                   <label>Color:</label>
-                                                  <input name="vehicle[color]" id="vehicleColor" class="form-control" placeholder="Enter Vehicle Color" type="text">
+                                                  <input name="payload[color]" id="vehicleColor" class="form-control" placeholder="Enter Vehicle Color" type="text">
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                   <label>License Plate:</label>
-                                                  <input name="vehicle[liscense_plate]" id="licensePlate" class="form-control" placeholder="Enter License Plate" type="text">
+                                                  <input name="payload[liscense_plate]" id="licensePlate" class="form-control" placeholder="Enter License Plate" type="text">
                                             </div>
 
                                             <div class="form-group">
                                                   <label>Engine Type:</label>
-                                                  <input name="vehicle[engine_type]" id="engineType" class="form-control" placeholder="Enter Last Name" type="text">
+                                                  <input name="payload[engine_type]" id="engineType" class="form-control" placeholder="Enter Last Name" type="text">
                                             </div>
                                             
 
                                             <div class="form-group">
                                                   <label>VIN Number:</label>
-                                                  <input name="vehicle[vin_number]" id="vinNumber" class="form-control" placeholder="Enter VIN Number" type="text">
+                                                  <input name="payload[vin_number]" id="vinNumber" class="form-control" placeholder="Enter VIN Number" type="text">
                                             </div>
 
                                             <div class="form-group">
                                                   <label>Serial Number:</label>
-                                                  <input name="vehicle[serial_number]" id="vehicleSerialNumber" class="form-control" placeholder="Enter Serial Number" type="text">
+                                                  <input name="payload[serial_number]" id="vehicleSerialNumber" class="form-control" placeholder="Enter Serial Number" type="text">
                                             </div>
 
                                             <div class="form-group">
                                                   <label>Hull Number:</label>
-                                                  <input name="vehicle[hull_number]" id="vehicleHullNUmber" class="form-control" placeholder="Enter Hull Number" type="text">
+                                                  <input name="payload[hull_number]" id="vehicleHullNUmber" class="form-control" placeholder="Enter Hull Number" type="text">
                                             </div>
 
                                             <div class="form-group">
                                                   <label>Company:</label>
-                                                  <input name="vehicle[company]" id="vehicleCompany" class="form-control" placeholder="Enter Company Number" type="text">
+                                                  <input name="payload[company]" id="vehicleCompany" class="form-control" placeholder="Enter Company Number" type="text">
                                             </div>
 
                                             <div class="form-group">
@@ -1410,7 +1446,8 @@ TO ADD STATICS GRAPH
 
 <!-- ########################################## MOP OPERATOR MODULE ####################################-->
 <%= if @user.role == "MOP" do %>
-<!--################ MOP COVER ################-->     
+<!--################ MOP COVER ################--> 
+<!--    
 <div class="profile-cover">
     
     <div class="media">
@@ -1421,14 +1458,19 @@ TO ADD STATICS GRAPH
         </div>
 
         <div class="media-body">
-            <h1 style="font-weight: 40px; font-size: 60px;">
+            <h1 style="font-weight: bold; font-size: 60px;">
                 <%= @user.username %> <small class="display-block">Market Operator</small>
             </h1>
         </div>
     </div>
 </div>
+-->
 
-<!-- Toolbar -->
+<div class="header">
+    <h1 style="text-align:center; font-weight: bold; font-size: 30px;">MOP DASHBOARD</h1><hr style="border-top: 1px solid orange;">
+</div>
+
+<!-- Toolbar
 <div class="navbar navbar-default navbar-xs navbar-component no-border-radius-top">
     <ul class="nav navbar-nav visible-xs-block">
         <li class="full-width text-center">
@@ -1456,7 +1498,7 @@ TO ADD STATICS GRAPH
         </ul>
     </div>
 </div>
-<!-- /toolbar -->
+/toolbar -->
 <!--################ MOP COVER %> ################-->
 
 
@@ -1494,26 +1536,25 @@ TO ADD STATICS GRAPH
                                     <table class="table table-striped table-bordered" id="dataTableMarket">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
                                                 <th>Stand Id</th>
                                                 <th>First Name</th>
                                                 <th>Last Name</th>
                                                 <th>NRC Number</th>
                                                 <th>Account Number</th>
                                                 <th>Mobile Number</th>
-                                                <th></th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
                                             <!--
-                                                TO ADD TABLE CONTENT
+                                            Table-Body
                                             -->
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                        </div>  
+                        </div> 
+
                     </div>
                 </div>
             </div>
@@ -1541,21 +1582,21 @@ TO ADD STATICS GRAPH
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <h6 class="text-semibold no-margin-top">
-                                                    Register a Marketeer
+                                            Register a Marketeer
                                         </h6>
                                         <hr>
                                     </div>
                                             
                                     <p>
-                                                Market operators can register their new clients here, by clicking the <i>New Marketeer</i> button. 
+                                        Market operators can register their new clients here, by clicking the <i>New Marketeer</i> button. 
                                     </p>                                    
                                 </div>
                                 <div class="panel-footer panel-footer-condensed">
                                     <div class="container-fluid">
                                         <span>
-                                            <a href="#registerMarketeers" data-toggle="tab" style="border-radius: 12px;" class="w3-btn-block w3-indigo w3-hover-orange">
-                                                        New Marketeer
-                                            </a>
+                                            <button style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange" data-toggle="modal" data-target="#regMarketeer">
+                                                New Marketeer
+                                            </button>
                                         </span>
                                     </div>
                                 </div>
@@ -1563,11 +1604,47 @@ TO ADD STATICS GRAPH
                         </div>
                     </div>
                 </div>
+
             </div>
                                                             
         </div>
     </div>
 </div>
+
+<!-- NEW MARKETEER MODAL -->
+  <div class="modal fade" id="regMarketeer" role="dialog">
+    <div class="modal-dialog">
+    
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" style="font-size: 20px; font-weight: bold;">Social Security Number Search</h4>
+          <hr>
+        </div>
+        <div class="modal-body">
+          <form action="/action_page.php">
+              <div class="form-group">
+                <label for="ssn">SSN:</label>
+                <input type="number" class="form-control" id="ssn" placeholder="Social Security Number">
+              </div>
+              <div class="form-group">
+                <label for="nrc">NRC:</label>
+                <input type="text" class="form-control" id="nrc" placeholder="National Registration Card Number">
+              </div>
+              <button type="submit" class="w3-btn w3-indigo w3-hover-orange w3-round">Search</button>
+            </form>
+        </div>
+        <hr>
+        <div class="modal-footer">
+            <button type="submit" class="w3-btn w3-red w3-round" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+<!-- END -->
+
+
 <!--############ MOP_HOME ##############-->
 
 <!--############ MOP_DOCUMENTATION #############-->
@@ -1664,48 +1741,47 @@ TO ADD STATICS GRAPH
 <div class="tab-pane fade" id="registerMarketeers">
     <div class="panel-body">                                        
             <div class="row">
+                <form>
 
                 <div class="col-lg-6 col-md-6">
                     <div class="container-fluid panel panel-flat">
-                        <br><br>
+                        <br>
                         <legend class="text-semibold"><i class="icon-reading position-left"></i> MARKETER REGISTRATION</legend>
+                        <hr>
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Stand ID:</label>
-                                    <input name="standID" id="vehicleMake" class="form-control" placeholder="Stand ID" type="text">
+                                    <input name="standID" id="stand_ID" class="form-control" placeholder="Stand ID" type="text" required="required">
                                     <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
                                 </div>
 
                                 <div class="form-group">
-                                    <input name="vehicle[uid]" id="vehicleUid" type="hidden" class="form-control" readonly="readonly" placeholder="Auto Generated">
-                                </div>
-
-                                <div class="form-group">
                                     <label>First Name:</label>
-                                    <input name="vehicle[liscense_plate]" id="licensePlate" class="form-control" placeholder="First Name" type="text">
+                                    <input name="first_name" id="first_name" class="form-control" placeholder="First Name" type="text" required="required">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Last Name:</label>
-                                    <input name="vehicle[engine_type]" id="engineType" class="form-control" placeholder="Last Name" type="text">
+                                    <input name="last_name" id="last_name" class="form-control" placeholder="Last Name" type="text" required="required">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>NRC Number:</label>
-                                    <input name="vehicle[model]" id="vehicleModel" class="form-control" placeholder="NRC Number" type="text">
+                                    <input name="nrc" id="nrc" class="form-control" placeholder="NRC Number" type="text" required="required">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Account Number:</label>
-                                    <input name="vehicle[year]" id="vehicleYear" class="form-control" placeholder="Account Number" type="text">
+                                    <input name="account_number" id="account_number" class="form-control" placeholder="Account Number" type="text" required="required">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Mobile:</label>
-                                    <input name="vehicle[color]" id="vehicleColor" class="form-control" placeholder="Mobile" type="text">
+                                    <input name="mobile_number" id="mobile_number" class="form-control" placeholder="Mobile" type="text" required="required">
                                 </div>
                             </div>
 
@@ -1717,34 +1793,35 @@ TO ADD STATICS GRAPH
 
                 <div class="col-lg-6 col-md-6">
                     <div class="container-fluid panel panel-flat">
-                    <br><br>
+                    <br>
                     <legend class="text-semibold"><i class="icon-reading position-left"></i> PREVIEW</legend>
+                    <hr>
 
                     <div class="row">
                         <div class="col-md-4">
-                            <b>STAND ID </b><div id="vehicleMakeText"></div>
+                            <b>STAND ID </b><div id="Pstand_ID"></div>
                         </div>
 
                         <div class="col-md-4">
-                            <b>FIRST NAME </b><div id="vehicleLicensePlateText"></div>
+                            <b>FIRST NAME </b><div id="Pfirst_name"></div>
                         </div>
 
                          <div class="col-md-4">
-                            <b>LAST NAME </b><div id="vehicleEngineTypeText"></div>
+                            <b>LAST NAME </b><div id="Plast_name"></div>
                         </div>
                     </div>
 
                     <div class="row" style="margin-top: 30px">
                       <div class="col-md-4">
-                            <b>NRC NUMBER </b><div id="vehicleModelText"></div>
+                            <b>NRC NUMBER </b><div id="Pnrc"></div>
                         </div>
 
                         <div class="col-md-4">
-                            <b>ACCOUNT NUMBER </b><div id="vehicleYearText"></div>
+                            <b>ACCOUNT NUMBER </b><div id="Paccount_number"></div>
                         </div>
 
                         <div class="col-md-4">
-                            <b>MOBILE NUMBER </b><div id="vehicleColorText"></div>
+                            <b>MOBILE NUMBER </b><div id="Pmobile_number"></div>
                         </div>                           
                     </div>
 
@@ -1758,7 +1835,8 @@ TO ADD STATICS GRAPH
                     <button type="submit" id="submitVehicleButton" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange">
                         <b><i class="icon-checkmark2"></i></b>Register Marketer
                     </button>
-                </div>        
+                </div>
+                </form>        
             </div>
     </div>
 </div>
@@ -1797,7 +1875,7 @@ TO ADD STATICS GRAPH
                 <div class="media-body">
 
 
-                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <link href="<%= Routes.static_path(@conn, "/css/payment.css") %>" rel="stylesheet" type="text/css">
 
 <ul class="nav nav-tabs">
@@ -2662,19 +2740,34 @@ TO ADD STATICS GRAPH
                               <input type="hidden" id="last_name_input" name="payload[last_name]" >
                               <input type="hidden" id="passenger_id_input" name="payload[passenger_id]" value="1" >
                               <input type="hidden" id="mobile_number_input" name="payload[mobile_number]">
-                              <input type="hidden" id="travel_date_input" name="payload[travel_date]" value="27/12/2019">
+                              <input type="hidden" id="travel_date_input" name="payload[travel_date]" value="03/01/2020">
 
-                              <button type="submit" href="javascript:window.print()" class="w3-btn w3-indigo w3-hover-orange" style="border-radius: 12px;">
-                               Buy
-                              </button>
-                            </form>
+                            <div class="form-group">  
+                                <button type="submit" href="javascript:window.print()" class="w3-btn w3-indigo w3-hover-orange" style="border-radius: 12px;">
+                                   Buy
+                                </button>
 
-                            <a href="http://localhost:4000/platform/secure/commercial/services/users/management" class="w3-btn w3-indigo w3-hover-orange" style="border-radius: 12px;">
-                                Cancel Payment
-                            </a>
-                            <br><br>
-                          
+
+                                <a href="http://localhost:4000/platform/secure/commercial/services/users/management" class="w3-btn w3-indigo w3-hover-orange" style="border-radius: 12px;">
+                                    Cancel Payment
+                                </a>
+                            </div>
+                            </form>                          
                     </div>
                 </div>
         </div>
 <!-- ########## /PICKING_SEAT_MODAL ######### -->
+
+<!-- ########## /TELLER DASHBOARD ######### -->
+<script>
+openCity("dueToToday")
+function openCity(cityName) {
+    var i;
+    var x = document.getElementsByClassName("bus");
+    for (i = 0; i < x.length; i++) {
+       x[i].style.display = "none";
+    }
+    document.getElementById(cityName).style.display = "block";
+}
+</script>
+<!-- ########## /TELLER DASHBOARD ######### -->

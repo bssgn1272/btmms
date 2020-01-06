@@ -4,6 +4,8 @@ defmodule BusTerminalSystemWeb.MarketApiController do
   alias BusTerminalSystem.RepoManager
   alias BusTerminalSystem.ApiManager
 
+
+
   def fetch_kyc(conn, params) do
     ApiManager.auth(conn,params)
 
@@ -14,8 +16,6 @@ defmodule BusTerminalSystemWeb.MarketApiController do
         case key |> RepoManager.find_marketer_by_mobile do
           nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
           user ->
-
-            IO.inspect user
 
             conn
             |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_query,"SUCCESS",0,
@@ -187,9 +187,9 @@ defmodule BusTerminalSystemWeb.MarketApiController do
             "operator_role" => user.operator_role
           }))
 
-      {:error, %Ecto.Changeset{} = _changeset} ->
+      {:error, %Ecto.Changeset{} = changeset} ->
         conn
-        |> json(ApiManager.api_error_handler(ApiManager.definition_accounts(),ApiManager.translate_error(_changeset)))
+        |> json(ApiManager.api_error_handler(ApiManager.definition_accounts(),ApiManager.translate_error(changeset)))
     end
   end
 

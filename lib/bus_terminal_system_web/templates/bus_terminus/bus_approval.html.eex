@@ -39,16 +39,24 @@
                                         <th></th>
                                         </tr>
                                     </thead>
+
                                     <tbody>
+                                        <%= for bus_terminus <- @bus_terminus do %>
+                                    <tr>
+                                    <td><%= bus_terminus.id %></td>
+                                    <td><%= bus_terminus.uid %></td>
+                                    <td><%= bus_terminus.liscense_plate %></td>
+                                    </tr>
+                                <% end %>
                                     </tbody>
+
                                     </table>
                                 </div>
                             </div>
                             </div>
+                        </div>                           
 
 
-                        </div>
-                      
             <div id="menu1" class="tab-pane fade">
                     
                                 <!-- Basic datatable -->
