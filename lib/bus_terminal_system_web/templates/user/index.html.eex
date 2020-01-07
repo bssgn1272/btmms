@@ -423,74 +423,144 @@
 <br><br>
 -->
 
+
+
+        <style>
+            #rcorners1 {
+            border-radius: 15px;
+            border: 2px solid #DCDCDC;
+            }
+            #heed {
+            border-radius: 10px;
+            border: 1px solid #FFA500;
+            }
+        </style>
+
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <div class="w3-card-4 w3-margin w3-white" style="width:100%;">
+            <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
-                <header class="w3-container w3-indigo w3-center">
+                <header class="w3-container w3-indigo w3-center" id="heed">
                   <h3>Tickets</h3>
                 </header>
 
-                <div class="w3-container">
+                <div class="w3-container"><br>
                   <p>To query tickets, & check for past tickets click the button below.</p>
-                  <p><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('query_tickets')">Query Ticket</button></p>
+                  <p style="width:50%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('query_tickets')">Query Ticket</button></p>
                 </div>
             </div>
         </div>
 
         <div class="col-md-3">
-            <div class="w3-card-4 w3-margin w3-white" style="width:100%;">
+            <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
-                <header class="w3-container w3-indigo w3-center">
-                  <h3>Booking</h3>
+                <header class="w3-container w3-indigo w3-center" id="heed">
+                  <h3>Booking </h3>
                 </header>
 
-                <div class="w3-container">
+                <div class="w3-container rounded"><br>
                   <p>To book for a trip, & view details about the route click the button below.</p>
-                  <p><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('bookings')">Book</button></p>
+                  <p style="width:50%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('bookings')">Book</button></p>
                 </div>
 
-
+                
 
             </div>
         </div>
 
         <div class="col-md-3">
-            <div class="w3-card-4 w3-margin w3-white" style="width:100%;">
+            <div class="w3-card-4 w3-margin w3-white" style="width:100%; 18rem;" id="rcorners1">
 
-                <header class="w3-container w3-indigo w3-center">
+                <header class="w3-container w3-indigo w3-center" id="heed">
                   <h3>Routes</h3>
                 </header>
 
-                <div class="w3-container">
+                <div class="w3-container"><br>
                   <p>To view available routes, and destinations click the button below.</p>
-                  <p><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('routes')">Routes</button></p>
+                  <p style="width:50%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('routes')">Routes</button></p>
                 </div>
             </div>
         </div>
 
         <div class="col-md-3">
-            <div class="w3-card-4 w3-margin w3-white" style="width:100%;">
+            <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
-                <header class="w3-container w3-indigo w3-center">
+                <header class="w3-container w3-indigo w3-center" id="heed">
                   <h3>Check In</h3>
                 </header>
 
-                <div class="w3-container">
+                <div class="w3-container"><br>
                   <p>To check in a luggage and make payments for it, click the button below.</p>
-                  <p><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('checkin')">Checkin Luggage</button></p>
+                  <p style="width:65%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('checkin')">Checkin Luggage</button></p>
                 </div>
             </div>
         </div>
 
+        <div class="col-md-12 bus" id="dueToToday">
+            <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
+                <header class="w3-container w3-indigo w3-center" id="heed">
+                  <h3>Tickects Due Today</h3>
+                </header>
+
+                <div class="w3-container">
+                    <div class="" style="overflow-x:auto; width: 100%;" >
+                            <h4 style="text-align: center; font-weight: bold; font-size: 18px;">
+                                TODAYS TRANSACTION
+                            </h4><hr>
+                        <table class="table table-striped table-bordered" id="TellerPastTransactions">
+                        <thead>
+                            <tr style="font-size: 12px;">
+                                <th>Ticket Reference No.</th>
+                                <th>Bus Operator</th>
+                                <th>Depature Date</th>
+                                <th>Route</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                            <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%= for ticket <- @tickets do %>
+                            <tr>
+                              <td><%= ticket.reference_number %></td>
+                              <td><%= ticket.bus_no %></td>
+                              <td><%= ticket.travel_date %></td>
+                              <td><%= ticket.route %></td>
+                              <td><%= ticket.first_name %></td>
+                              <td><%= ticket.last_name %></td>
+                              <td class="text-center">
+                                <ul class="icons-list">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            <i class="icon-menu9"></i>
+                                        </a>
+
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li><button style="margin-left: 10px" type="button" class="btn btn-default btn-sm" data-user-id="" data-toggle="modal" data-target="#modal_form_horizontal_user">
+                                            Info <i class="icon-user position-right"></i></button></li>
+
+                                            <!--<li><%= link "Edit", class: "icon-pencil", to: Routes.ticket_path(@conn, :edit, ticket) %></li> -->
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </td>
+                            </tr>
+                        <% end %>
+                        </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
         <!----------- QUERY-TICKETS ------------------>
         <div class="col-md-12 bus" id="query_tickets">
-            <div class="w3-card-4 w3-margin w3-white" style="width:100%;">
+            <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
-                <header class="w3-container w3-indigo w3-center">
+                <header class="w3-container w3-indigo w3-center" id="heed">
                   <h3>Query Tickets</h3>
                 </header>
 
@@ -550,16 +620,16 @@
          <!------------ BOOKINGS ----------------->
         <div class="row">
             <div class="col-md-12 bus" id="bookings">
-            <div class="w3-card-4 w3-margin w3-white w3-center" style="width:100%;">
+            <div class="w3-card-4 w3-margin w3-white w3-center" style="width:100%;" id="rcorners1">
 
-                <header class="w3-container w3-indigo w3-center">
+                <header class="w3-container w3-indigo w3-center" id="heed">
                   <h3>BOOKINGS</h3>
                 </header>
 
                 <div class="container">
                     <div class="row">
-                        <form class="form-inline" action="#" method="post" style="margin-top: 0.5%; margin-bottom: 5%;">
-                        <div class="col-md-4">
+                        <div class="form-inline" action="#" method="post" style="margin-top: 0.5%; margin-bottom: 5%;">
+                        <div class="col-md-4"><br>
                               <div class="form-group">
                                 <label for="text">
                                     <strong>From:</strong>
@@ -572,17 +642,15 @@
                               </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-4"><br>
                               <div class="form-group">
                                 <label for="text">
                                     <strong>To:</strong>
                                 </label>
                                 <div class="form-group has-feedback has-feedback-left">
-                                    <select class="w3-select" name="option">
+                                    <select class="w3-select" id="destination_option_select" name="destination_option_select">
                                         <option value="" disabled selected>Destination:</option>
-                                        <option value="Chipata">Chipata</option>
-                                        <option value="Kitwe">Kitwe</option>
-                                        <option value="Lusaka">Lusaka</option>
+
                                     </select>
                                 </div>
                               </div>
@@ -590,18 +658,18 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <button type="submit" class="w3-btn w3-light-grey w3-hover-white w3-round pull-right">
+                                <button type="submit" onClick="toggle_route_search()" class="w3-btn w3-light-grey w3-hover-white w3-round pull-right">
                                      <img src="<%= Routes.static_path(@conn, "/images/1.png") %>" class="img-fluid" style="width:30px;height:30px" alt="search">
                                 </button>
                             </div>
                         </div>
-                        </form>
+                       </div>
                     </div>
                 </div>
             </div>
 
             <!--------- RESULTS -------------------------------------->
-            <div class="container-fluid">
+            <div id="results_view" class="container-fluid">
                 <div class="w3-card-4 w3-margin w3-white" style="width:100%;">
                     <header class="w3-container w3-indigo w3-center">
                         <h3>RESULTS</h3>
@@ -609,24 +677,21 @@
                 
 
                 <div class="container">
-                    <form role="form">
+                    <form role="form" id="trips_form">
                         <div class="radio">
-                          <label><input type="radio" name="optradio">Juldan Motors - Livingstone to Chipata - 06:00 Hours - K180</label>
+                          <label><input type="radio" id="optradio" name="optradio">Juldan Motors - Livingstone to Chipata - 06:00 Hours - K180</label>
                         </div>
                         <div class="radio">
-                          <label><input type="radio" name="optradio">Euro Motors - Livingstone to Kitwe - 06:00 Hours - K180</label>
+                          <label><input type="radio" id="optradio" name="optradio">Euro Motors - Livingstone to Kitwe - 06:00 Hours - K180</label>
                         </div>
                         <div class="radio">
-                          <label><input type="radio" name="optradio">Likili Motors - Livingstone to Lusaka - 06:00 Hours - K180</label>
+                          <label><input type="radio" id="optradio" name="optradio">Likili Motors - Livingstone to Lusaka - 06:00 Hours - K180</label>
                         </div>
+                        </form>
 
                 </div>
 
-                <footer class="w3-container">
-                    <button type="submit" class="w3-btn w3-indigo w3-hover-orange w3-round">
-                        Proceed
-                    </button>
-                </footer>
+
                     </form>
                 <hr>
 
@@ -636,7 +701,7 @@
             <!---------------------------------------------------------->
 
             <!--------- PASSENGER KYC -------------------------------------->
-            <div class="container-fluid">
+            <div id="passenger_view" class="container-fluid">
                 <div class="w3-card-4 w3-margin w3-white" style="width:100%;">
                     <header class="w3-container w3-indigo w3-center">
                         <h3>PASSENGER INFORMATION</h3>
@@ -658,15 +723,31 @@
                                 </div>
 
 
-
-
-
+                        <form method="post" action="<%= Routes.ticket_path(@conn, :create) %>">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div hidden="hidden" class="col-md-6">
                                 <div class="form-group has-feedback has-feedback-left">
                                     <input type="date" id="date" name="bday" min="2015-10-28" class="form-control" onchange="GetSelectedDate()">
                                     <div class="form-control-feedback">
                                         <i class="icon-table text-muted"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <input name="payload[first_name]" id="First_Name" type="text" class="form-control" placeholder="Passenger First Name">
+                                    <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                                    <input type="hidden" name="payload[reference_number]" value="<%= BusTerminalSystem.Randomizer.randomizer(16)%>">
+                                    <input type="hidden" name="payload[external_ref]" value="<%= BusTerminalSystem.Randomizer.randomizer(16)%>">
+                                    <input type="hidden" name="payload[serial_number]" value="<%= BusTerminalSystem.Randomizer.randomizer(16)%>">
+                                    <input type="hidden" name="payload[activation_status]" value="VALID">
+                                    <input type="hidden" name="payload[id_type]" value="NRC">
+                                    <input type="hidden" name="payload[transaction_channel]" value="TELLER">
+                                    <input type="hidden" name="payload[travel_date]" value="01/01/2020">
+                                    <div class="form-control-feedback">
+                                        <i class="icon-user text-muted"></i>
                                     </div>
                                 </div>
                             </div>
@@ -680,17 +761,9 @@
                                 </div>
                             </div>
                         </div>
-                    
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group has-feedback has-feedback-left">
-                                    <input name="payload[first_name]" id="First_Name" type="text" class="form-control" placeholder="Passenger First Name">
-                                    <div class="form-control-feedback">
-                                        <i class="icon-user text-muted"></i>
-                                    </div>
-                                </div>
-                            </div>
+
+
 
                             <div class="col-md-6">
                                 <div class="form-group has-feedback has-feedback-left">
@@ -702,49 +775,56 @@
                             </div>
                         </div>
 
-
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group has-feedback has-feedback-left">
-                                    <select class="w3-select" name="option" id="id_type2" onchange="GetSelectedTime()">
-                                        <option value="" disabled selected>ID Type</option>
-                                        <option value="NRC">NRC</option>
-                                        <option value="Passport">Passport</option>
-                                        <option value="Drivers License">Drivers License</option>
-                                    </select>
-                                </div>
-                            </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group has-feedback has-feedback-left">
+                                            <select class="w3-select" name="option" id="id_type2" onchange="GetSelectedTime()">
+                                                <option value="" disabled selected>ID Type</option>
+                                                <option value="NRC">NRC</option>
+                                                <option value="Passport">Passport</option>
+                                                <option value="Drivers License">Drivers License</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group has-feedback has-feedback-left">
-                                    <input name="payload[passenger_id]" id="ID" type="text" class="form-control" placeholder="ID Number">
-                                    <div class="form-control-feedback">
-                                        <i class="icon-credit-card text-muted"></i>
+                                    <div class="col-md-6">
+                                        <div class="form-group has-feedback has-feedback-left">
+                                            <input name="payload[passenger_id]" id="ID" type="text" class="form-control" placeholder="ID Number">
+                                            <div class="form-control-feedback">
+                                                <i class="icon-credit-card text-muted"></i>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group has-feedback has-feedback-left">
-                                    <select class="w3-select" name="option" id="Depature_Time" onchange="GetSelectedTime()">
-                                        <option value="">Time of Departure</option>
-                                    </select>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group has-feedback has-feedback-left">
+                                            <select class="w3-select" name="option" id="Depature_Time" onchange="GetSelectedTime()">
+                                                <option value="">Time of Departure</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <a href="#" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange" onclick="document.getElementById('id01').style.display='block'"  data-toggle="modal" data-target="#myModal">
-                                    Purchase Ticket
-                            </a>
-                        </div>
-                    </div>
+                                <div class="form-group">
+                                    <button type="submit" id="submit_ticket" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange w3-left">
+                                        <b><i class="icon-checkmark2"></i></b>Purchase Ticket
+                                    </button>
+                                </div>
 
-                        </div>
+                        </form>
+
+
+
+
+
+
                     <!--####################-- NAPSA TICKET PURCHASE --####################-->
                 </div>
+
+                    </div>
+                    </div>
                 </div>
 
             </div>
@@ -756,9 +836,9 @@
 
         <!------------ ROUTES----------------->
         <div class="col-md-12 bus" id="routes">
-            <div class="w3-card-4 w3-margin w3-white" style="width:100%;">
+            <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
-                <header class="w3-container w3-indigo w3-center">
+                <header class="w3-container w3-indigo w3-center" id="heed">
                   <h3>Routes</h3>
                 </header>
 
@@ -778,16 +858,7 @@
                                 <th>Date</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
+                        <tbody></tbody>
                         </table>
                     </div>
                 </div>
@@ -799,9 +870,9 @@
 
         <!------------ CHECKIN----------------->
         <div class="col-md-12 bus" id="checkin">
-            <div class="w3-card-4 w3-margin w3-white" style="width:100%;">
+            <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
-                <header class="w3-container w3-indigo w3-center">
+                <header class="w3-container w3-indigo w3-center" id="heed">
                   <h3>Checkin Luggage</h3>
                 </header>
 
@@ -838,13 +909,13 @@
 
             <!--------- RESULTS -------------------------------------->
             <div class="container-fluid">
-                <div class="w3-card-4 w3-margin w3-white" style="width:100%;">
-                    <header class="w3-container w3-indigo w3-center">
+                <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
+                    <header class="w3-container w3-indigo w3-center" id="heed">
                         <h3>RESULTS</h3>
                     </header>     
                 
 
-                    <div class="container">
+                    <div class="container"><br>
                         <img src="<%= Routes.static_path(@conn, "/images/recp.webp") %>" class="img-fluid"  alt="search">
                     </div>
 
@@ -2767,6 +2838,24 @@ function openCity(cityName) {
     for (i = 0; i < x.length; i++) {
        x[i].style.display = "none";
     }
+    $.ajax({
+            method: 'get',
+            url: '/api/v1/btms/travel/secured/routes',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (response) {
+
+                    let data = JSON.parse(JSON.stringify(response));
+                    var list = distinct_destination(data.travel_routes);
+
+                    options = list;
+                    $('#destination_option_select').empty();
+                    $.each(options, function(i, p) {
+                        $('#destination_option_select').append($('<option></option>').val(p).html(p));
+                    });
+            }
+    })
+
     document.getElementById(cityName).style.display = "block";
 }
 </script>

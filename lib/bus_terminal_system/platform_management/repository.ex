@@ -232,6 +232,12 @@ defmodule BusTerminalSystem.RepoManager do
     %{ "travel_routes" => routes_map }
   end
 
+  def route_search(start_route,end_route) do
+    #query = from r in TravelRoutes, where: r.start_route == ^start_route and r.end_route == ^end_route
+    {:ok, agent} = Agent.start_link fn  -> [] end
+
+  end
+
   def route_mapping do
 
     {:ok, agent} = Agent.start_link fn  -> [] end
@@ -323,6 +329,62 @@ defmodule BusTerminalSystem.RepoManager do
                                          "time" => time,
                                          "date" => date
                                        } | list ] end)
+    end)
+
+    {:ok, agent, Agent.get(agent, fn list -> list end) }
+  end
+
+  def route_mapping_by_location(date \\ "01/01/2019", start_route \\ "Livingstone", end_route) do
+
+    {:ok, agent} = Agent.start_link fn  -> [] end
+    query = from r in RouteMapping, where: r.date == ^date
+    {st, data} = Repo.all(query) |> Poison.encode
+    #IO.inspect Repo.get_by(RouteMapping, [date: date, time: time])
+    {status,route_mapping_data} = JSON.decode(data)
+
+    route_mapping_data
+    |> Enum.with_index()
+    |> Enum.each(fn {e, index} ->
+
+      {:ok, operator_id} = Map.fetch(e,"operator_id")
+      {operator_id_int, _operator_id_string} = Integer.parse(operator_id)
+      {operator_json_status, operator_json} = get_operator(operator_id_int) |> Poison.encode
+      {operator_status, operator} = JSON.decode(operator_json)
+
+      {:ok, bus_id} = Map.fetch(e,"bus_id")
+      {bus_id_int, _bus_id_string} = Integer.parse(bus_id)
+      {bus_json_status, bus_json} = get_bus(bus_id_int) |> Poison.encode
+      {bus_status, bus} = JSON.decode(bus_json)
+
+      #IO.inspect bus
+
+      {:ok, route_id} = Map.fetch(e,"route_id")
+      {route_id_int, _route_id_string} = Integer.parse(route_id)
+      {route_json_status, route_json} = get_route(route_id_int) |> Poison.encode
+      {route_status, route} = JSON.decode(route_json)
+
+      queried_route = get_route(route_id_int)
+
+      #IO.inspect route
+
+      {:ok, fare} = Map.fetch(e,"fare")
+      {:ok, time} = Map.fetch(e,"time")
+      {:ok, date} = Map.fetch(e,"date")
+
+      IO.inspect "start route #{queried_route.start_route} : end route #{queried_route.end_route}"
+      if queried_route.start_route == start_route and queried_route.end_route == end_route do
+        Agent.update(agent, fn list -> [
+         %{
+           #"operator" => operator,
+           "route" => route,
+           "bus" => bus,
+           "fare" => fare,
+           "time" => time,
+           "date" => date
+         } | list ] end)
+      end
+
+
     end)
 
     {:ok, agent, Agent.get(agent, fn list -> list end) }

@@ -175,6 +175,18 @@ $('input#securityCode').keyup(function() {
 });
 //------------------------------------------------
 
+//------------------- Scheduling -----------------
+function GetSelectedDate() {
+  var x = document.getElementById("s_date").value;
+  document.getElementById("Ps_date").innerHTML = x;
+}
+
+$('input#fare').keyup(function() {
+    //perform ajax call...
+    $('#Pfare').text($(this).val());
+});
+//------------------------------------------------
+
 //------------------- Creating Routes ------------
 $('input#route_name').keyup(function() {
     //perform ajax call...
@@ -378,6 +390,82 @@ function GetSelectedSeat() {
 //---------------DatePicker_Disabled_Prev_Dates----------------------
 document.getElementById("date").min = new Date().getFullYear() + "-" + parseInt(new Date().getMonth() + 1) +"-" + new Date().getDate();
 //---------------DatePicker_Disabled_Prev_Dates----------------------
+
+$('#results_view').hide();
+$('#passenger_view').hide();
+
+
+function ticket_purchase(value){
+
+    console.log(value);
+    $('#passenger_view').show();
+}
+
+function distinct_destination(json_array){
+    let lookup = {};
+    let items = json_array;
+    let result = [];
+
+    for (let item, i = 0; item = items[i++];) {
+        let name = item.end_route;
+
+        if (!(name in lookup)) {
+            lookup[name] = 1;
+            result.push(name);
+        }
+    }
+
+    return result
+}
+
+function toggle_route_search(){
+
+    let json_request = JSON.stringify({
+        payload: {
+            date: "03/01/2020",
+            start_route: "Livingstone",
+            end_route: $('#destination_option_select').val()
+        }
+    });
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/btms/travel/secured/internal/locations/destinations',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request,
+        success: function (response) {
+            let data_object = JSON.parse(JSON.stringify(response));
+            console.log(data_object);
+            if (data_object.length < 1){
+                $('#passenger_view').hide();
+                $("#results_view").hide();
+            } else {
+                let trips_html = '';
+
+                $.each(response, function (k,v) {
+                    let single_object = JSON.parse(JSON.stringify(v));
+
+                    let value = single_object.bus.company + " - " + single_object.route.start_route + " to "
+                        + single_object.route.end_route + " - "  +  single_object.time + " - K" + single_object.fare;
+                    value = value.toString();
+
+                    trips_html += '<div class="radio"><label><input type="radio" onclick="ticket_purchase(this.value)" value="'+value+'" name="opt_radio" />';
+                    trips_html += "\n" + value ;
+                    trips_html += '</label></div';
+                    trips_html += "\n";
+                });
+
+                $('#trips_form').html(trips_html);
+
+                $("#results_view").show();
+            }
+
+
+        }
+    })
+}
+
 
 //Toggle User model
 

@@ -74,7 +74,7 @@ defmodule BusTerminalSystemWeb.Router do
 
     # BOOKINGS_CONTROLLER
     get "/bookings", BookingsController, :index
-    get "/test", BookingsController, :test
+    get "/scheduling", BookingsController, :schedule
   end
 
   scope "/", BusTerminalSystemWeb do
@@ -91,6 +91,7 @@ defmodule BusTerminalSystemWeb.Router do
     post "/btms/tickets/secured/purchase", TicketController, :purchase_ticket
     get "/btms/travel/secured/destinations", TicketController, :get_schedules
     post "/btms/travel/secured/internal/destinations", TicketController, :get_schedules_internal
+    post "/btms/travel/secured/internal/locations/destinations", TicketController, :get_schedules_buses
     get "/btms/travel/secured/routes", TicketController, :get_travel_routes
     get "/btms/tickets/secured/list", TicketController, :list_tickets
 

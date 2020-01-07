@@ -13,6 +13,7 @@
                             <th>Source State</th>
                             <th>From</th>
                             <th>To</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -22,6 +23,22 @@
                           <td><%= route.source_state %></td>
                           <td><%= route.start_route %></td>
                           <td><%= route.end_route %></td>
+                          <td>
+                            <div class="dropdown">
+                              <button class="w3-btn-block w3-light-grey btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Action
+                                <span class="glyphicon glyphicon-menu-down"></span>
+                              </button>
+                                  <div class="dropdown-menu pull-center" aria-labelledby="dropdownMenuButton">
+                                        <a href="" class="w3-btn w3-indigo w3-hover-orange w3-round dropdown-item">
+                                            Delete
+                                        </a>
+                                        <a href="#" class="w3-btn w3-indigo w3-hover-orange w3-round dropdown-item" data-toggle="modal" data-target="#editModal">
+                                            Edit
+                                        </a>
+                                  </div>
+                            </div>
+                          </td>
                         </tr>
                       <% end %>
                     </tbody>
@@ -125,3 +142,26 @@
 	</div>
 </div>
 <!------------------------------------------------------------------------------------->
+
+
+
+<!-- Modal -->
+<div id="editModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+  <!-- Modal -->

@@ -118,13 +118,11 @@
                                         </a>
                                     </li>
 
-                                    <!--
                                     <li>
-                                        <a href="<%= Routes.bookings_path(@conn, :test)%>">
-                                            <i class="icon-ticket"></i> <span>Testing</span>
+                                        <a href="<%= Routes.bookings_path(@conn, :schedule)%>">
+                                            <i class="icon-watch"></i> <span>Scheduling</span>
                                         </a>
                                     </li>
-                                    -->
 
                                     <li>
                                         <a href="#"><i class="icon-user"></i> <span>Teller</span></a>
