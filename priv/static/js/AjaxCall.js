@@ -107,6 +107,7 @@ $("#date").change(function () {
                 //$('#Depature_Name').html(destination_from_html);
                 $('#Destination_Name').html(destination_to_html);
 
+
                 // let optionValues = [];
                 // $('#Destination_Name option').each(function(){
                 //     if($.inArray(this.value, optionValues) > -1){

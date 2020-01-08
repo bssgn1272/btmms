@@ -5,6 +5,13 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   alias BusTerminalSystem.ApiManager
 
   #---------------------------------------USER--------------------------------------------------------------------------
+
+  def list_bus_operators(conn, _params) do
+    operators = RepoManager.list_bus_operators()
+    conn
+    |> json(operators)
+  end
+
   def query_user(conn, params) do
 
     user_id = params["payload"]["user_id"]
@@ -79,6 +86,10 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     end
   end
 
+  def list_users(conn,_params) do
+
+  end
+
   #---------------------------------------BUS---------------------------------------------------------------------------
   def query_bus(conn, params) do
 
@@ -110,6 +121,24 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
                 "fitness_license" => bus.fitness_liscence,
                 "vehicle_capacity" => bus.vehicle_capacity
               }))
+          _value ->
+            IO.inspect _value
+            json conn, ["hello"]
+        end
+    end
+  end
+
+  def query_list_buses(conn, params) do
+
+    bus_id = params["payload"]["bus_id"]
+    case bus_id do
+      nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
+      _ ->
+        case bus_id |> RepoManager.list_buses do
+          nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
+          buses ->
+            conn
+            |> json(buses)
           _value ->
             IO.inspect _value
             json conn, ["hello"]
@@ -165,4 +194,10 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   end
 
   #---------------------------------------Routes---------------------------------------------------------------------------
+
+  def list_travel_routes(conn, _params) do
+    operators = RepoManager.list_bus_routes()
+    conn
+    |> json(operators)
+  end
 end

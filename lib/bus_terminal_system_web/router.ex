@@ -44,6 +44,8 @@ defmodule BusTerminalSystemWeb.Router do
     get "/Assign_Gate", BusTerminusController, :form_gate
     get "/bus_approval", BusTerminusController, :bus_approval
 
+
+
     # MARKETER_CONTROLLER
     resources "/platform/secure/commercial/services/marketer/market", MarketerController
     get("/Registering_Market", MarketerController, :form_market)
@@ -75,6 +77,7 @@ defmodule BusTerminalSystemWeb.Router do
     # BOOKINGS_CONTROLLER
     get "/bookings", BookingsController, :index
     get "/scheduling", BookingsController, :schedule
+    post "/create_mapping", BookingsController, :create_schedule
   end
 
   scope "/", BusTerminalSystemWeb do
@@ -101,6 +104,9 @@ defmodule BusTerminalSystemWeb.Router do
     post "/btms/market/secured/reset_pin", MarketApiController, :reset_pin
     post "/btms/market/secured/register_market", MarketApiController, :register_marketeer
 
+    post "/internal/list/bus", FrontendApiController, :query_list_buses
+    get "/internal/list/bus_routes", FrontendApiController, :list_travel_routes
+    get "/internal/list/bus_operators", FrontendApiController, :list_bus_operators
     post "/internal/query/user", FrontendApiController, :query_user
     post "/internal/update/user", FrontendApiController, :update_user
     post "/internal/query/bus", FrontendApiController, :query_bus

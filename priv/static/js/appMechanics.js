@@ -467,6 +467,98 @@ function toggle_route_search(){
 }
 
 
+function get_buses () {
+
+    $.ajax({
+        method: 'get',
+        url: '/api/v1/internal/list/bus_operators',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (response) {
+            let user_object = JSON.parse(JSON.stringify(response));
+
+            let bus_operator_html = '';
+            let operator_id = "";
+
+            $.each(response, function (k, v) {
+                let o = JSON.parse(JSON.stringify(v));
+                bus_operator_html += '<option value="'+o.id+'" >';
+                bus_operator_html += o.company;
+                bus_operator_html += '</option>';
+
+                operator_id = o.id.toString()
+            });
+
+            get_route_codes();
+            //find_buses_by_id(operator_id);
+
+            $('#scheduling_operator_id').html(bus_operator_html);
+        }
+    });
+}
+
+function find_buses_by_id(id) {
+    get_buses();
+    let json_request = JSON.stringify({
+        payload: {
+            bus_id: id
+        }
+    });
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/list/bus',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request,
+        success: function (response) {
+            let operator_buses = '';
+
+
+
+            $.each(response, function (k, v) {
+                let o = JSON.parse(JSON.stringify(v));
+                operator_buses += '<option value="'+o.id+'">';
+                operator_buses += o.liscense_plate;
+                operator_buses += '</option>';
+
+            });
+
+            $('#scheduling_operator_buses').html(operator_buses);
+        }
+    });
+}
+
+function get_route_codes () {
+    $.ajax({
+        method: 'get',
+        url: '/api/v1/internal/list/bus_routes',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (response) {
+            let user_object = JSON.parse(JSON.stringify(response));
+            console.log(response);
+
+            let bus_operator_html = '';
+
+            $.each(response, function (k, v) {
+                let o = JSON.parse(JSON.stringify(v));
+                bus_operator_html += '<option value="'+o.id+'">';
+                bus_operator_html += o.start_route + " -> " + o.end_route;
+                bus_operator_html += '</option>';
+            });
+
+            $('#scheduling_route_codes').html(bus_operator_html);
+        }
+    });
+}
+
+
+
+
+
+
+
 //Toggle User model
 
 function updateUser() {

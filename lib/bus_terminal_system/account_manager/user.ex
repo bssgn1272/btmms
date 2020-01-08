@@ -3,19 +3,7 @@ defmodule BusTerminalSystem.AccountManager.User do
   import Ecto.Changeset
   # alias Argon2
 
-  @derive {Poison.Encoder,
-           only: [
-             :username,
-             :first_name,
-             :last_name,
-             :ssn,
-             :nrc,
-             :email,
-             :mobile,
-             :account_status,
-             :operator_role,
-             :role
-           ]}
+  @derive {Poison.Encoder,only: [:id, :username,:first_name,:last_name,:ssn,:nrc,:email,:mobile,:account_status,:operator_role,:role,:company]}
   schema "users" do
     field :password, :string
     field :username, :string
@@ -32,6 +20,7 @@ defmodule BusTerminalSystem.AccountManager.User do
     field :operator_role, :string
     field :pin, :string
     field :tmp_pin, :string
+    field :company, :string
 
     timestamps()
   end
@@ -54,7 +43,8 @@ defmodule BusTerminalSystem.AccountManager.User do
       :account_status,
       :operator_role,
       :pin,
-      :tmp_pin
+      :tmp_pin,
+      :company
     ])
     |> validate_required([
       :username,

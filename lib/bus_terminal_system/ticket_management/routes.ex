@@ -2,7 +2,7 @@ defmodule BusTerminalSystem.TravelRoutes do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @derive {Poison.Encoder, only: [:route_name, :start_route, :end_route, :route_code, :source_state]}
+  @derive {Poison.Encoder, only: [:id, :route_name, :start_route, :end_route, :route_code, :source_state]}
   schema "travel_routes" do
     field :route_name, :string
     field :start_route, :string

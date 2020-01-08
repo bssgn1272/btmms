@@ -99,6 +99,13 @@ defmodule BusTerminalSystem.RepoManager do
     Repo.get_by(Bus, uid: uid)
   end
 
+  def list_buses(operator_id) do
+    query = from r in Bus, where: r.operator_id == ^operator_id
+    {status, buses} = Repo.all(query) |> Poison.encode
+    {decode_status, bus_list} = JSON.decode(buses)
+    bus_list
+  end
+
   def find_bus_by_id(id) do
     Repo.get_by(Bus, id: id)
   end
@@ -110,6 +117,13 @@ defmodule BusTerminalSystem.RepoManager do
   end
 
   #-------------------------- USER -------------------------------------------------------------------------------------
+
+  def list_bus_operators do
+    query = from r in User, where: r.role == ^"BOP"
+    {status, operators} = Repo.all(query) |> Poison.encode
+    {decode_status, bus_operators} = JSON.decode(operators)
+    bus_operators
+  end
 
   def find_user_by_username(username) do
     Repo.get_by(User, username: username)
@@ -147,9 +161,18 @@ defmodule BusTerminalSystem.RepoManager do
     |> Repo.update()
   end
 
+  def create_mapping(attrs \\ %{}), do: %RouteMapping{} |> RouteMapping.changeset(attrs) |> Repo.insert()
+
+  def list_bus_routes do
+    {status, routes} = Repo.all(TravelRoutes) |> Poison.encode
+    {decode_status, bus_routes} = JSON.decode(routes)
+    bus_routes
+  end
+
   def get_route_mapping(id), do: Repo.get!(RouteMapping, id)
   def get_route(id), do: Repo.get!(TravelRoutes, id)
   def list_routes(), do: Repo.all(TravelRoutes)
+  def list_schedules(), do: Repo.all(RouteMapping)
   def create_route(attrs \\ %{}), do: %TravelRoutes{} |> TravelRoutes.changeset(attrs) |> Repo.insert()
   def delete_route(%TravelRoutes{} = route), do: Repo.delete(route)
 
@@ -164,7 +187,7 @@ defmodule BusTerminalSystem.RepoManager do
   def update_tenant(%Tenant{} = tenant, attrs), do: tenant |> Tenant.changeset(attrs) |> Repo.update()
   def delete_tenant(%Tenant{} = tenant), do: Repo.delete(tenant)
 
-  # TENANTS
+  # OPERATORS
   def get_operator(id), do: Repo.get!(User, id)
   def list_operators(), do: Repo.all(User)
   def create_operator(attrs \\ %{}), do: %User{} |> User.changeset(attrs) |> Repo.insert()
