@@ -178,6 +178,7 @@ $('input#securityCode').keyup(function() {
 //------------------- Scheduling -----------------
 function GetSelectedDate() {
   var x = document.getElementById("s_date").value;
+  console.log("Date: " + x);
   document.getElementById("Ps_date").innerHTML = x;
 }
 
@@ -355,9 +356,13 @@ function GetSelectedFrom() {
   document.getElementById("From").innerHTML = x;
 }
 
+
 function GetSelectedDate() {
-  var x = document.getElementById("date").value;
-  document.getElementById("dateOfDepature").innerHTML = x;
+    $('#s_date').datepicker({dateFormat: "dd/MM/YYYY"});
+  //document.getElementById("dateOfDepature").innerHTML = x;
+    y = x.split("-");
+    x = y[2] + "/" + y[1] + "/" + y[0];
+
 }
 
 function GetSelectedSeat() {
@@ -397,8 +402,13 @@ $('#passenger_view').hide();
 
 function ticket_purchase(value){
 
-    console.log(value);
+    console.log(value.split(/-/g));
     $('#passenger_view').show();
+    let rd = value.split(/-/g);
+
+    let info = "OPERATOR: " + rd[0] + "\t START: " + rd[1] + "\t END: " + rd[2] + "\t DEPARTURE: " + rd[3] + "\t PRICE: K" + rd[4];
+
+    $('#route_information').val(info);
 }
 
 function distinct_destination(json_array){
@@ -418,15 +428,56 @@ function distinct_destination(json_array){
     return result
 }
 
-function toggle_route_search(){
+function request_data(){
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
 
-    let json_request = JSON.stringify({
+    today = dd + "/" + mm + "/" + yyyy;
+
+    return JSON.stringify({
         payload: {
-            date: "03/01/2020",
+            date: today,
             start_route: "Livingstone",
             end_route: $('#destination_option_select').val()
         }
     });
+}
+
+let t = [
+    {
+        bus: {
+            company: "Probase"
+        },
+        route: {
+            start_route: "Livingstone",
+            end_route: "Lusaka"
+        },
+        time: "08:00",
+        fare: "K180"
+    }
+];
+
+
+$('#routes_dataTable').DataTable();
+function toggle_route_search(){
+
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+
+    today = dd + "/" + mm + "/" + yyyy;
+
+    let json_request = JSON.stringify({
+        payload: {
+            date: today,
+            start_route: "Livingstone",
+            end_route: $('#destination_option_select').val()
+        }
+    });
+    let json_data = {};
 
     $.ajax({
         method: 'post',
@@ -436,34 +487,44 @@ function toggle_route_search(){
         data: json_request,
         success: function (response) {
             let data_object = JSON.parse(JSON.stringify(response));
+            json_data = data_object;
             console.log(data_object);
             if (data_object.length < 1){
                 $('#passenger_view').hide();
                 $("#results_view").hide();
+                alert("No Routes Found");
             } else {
+
                 let trips_html = '';
 
                 $.each(response, function (k,v) {
                     let single_object = JSON.parse(JSON.stringify(v));
 
-                    let value = single_object.bus.company + " - " + single_object.route.start_route + " to "
-                        + single_object.route.end_route + " - "  +  single_object.time + " - K" + single_object.fare;
+                    let value = single_object.bus.company + "-" + single_object.route.start_route + "-"
+                        + single_object.route.end_route + "-"  +  single_object.time + "-" + single_object.fare;
                     value = value.toString();
 
-                    trips_html += '<div class="radio"><label><input type="radio" onclick="ticket_purchase(this.value)" value="'+value+'" name="opt_radio" />';
-                    trips_html += "\n" + value ;
-                    trips_html += '</label></div';
-                    trips_html += "\n";
+                    //trips_html += '<div class="radio"><label><input type="radio" onclick="ticket_purchase(this.value)" value="'+value+'" name="opt_radio" />';
+                    //trips_html += "\n" + value ;
+                    //trips_html += '</label></div';
+                    //trips_html += "\n";
+
+                    trips_html += '<tr>' + '<th scope="row"><input type="radio" onclick="ticket_purchase(this.value)" value="'+value+'" name="opt_radio"></th>'+
+                        '<td>' + single_object.bus.company +'</td>' + '<td>' + single_object.route.start_route + " -> "+
+                        single_object.route.end_route +'</td>' + '<td>' + single_object.time +'</td>' + '<td>' + single_object.fare
+                        +'</td>' + '</tr>';
                 });
 
+                $("#results_view").show();
+                $('#trips_form').empty();
                 $('#trips_form').html(trips_html);
 
-                $("#results_view").show();
+
             }
 
 
         }
-    })
+    });
 }
 
 
@@ -703,4 +764,18 @@ function route_edit_model(id){
             window.location.reload();
         }
     })
+}
+$('#user_company_name').hide();
+function user_type_selection(role){
+    switch (role) {
+        case "BOP":
+            $('#user_company_name').show();
+            $('#user_first_name').hide();
+            $('#user_last_name').hide();
+            break;
+        default:
+            $('#user_company_name').hide();
+            $('#user_first_name').show();
+            $('#user_last_name').show();
+    }
 }

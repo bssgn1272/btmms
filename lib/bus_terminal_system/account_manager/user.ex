@@ -48,8 +48,6 @@ defmodule BusTerminalSystem.AccountManager.User do
     ])
     |> validate_required([
       :username,
-      :first_name,
-      :last_name,
       :nrc,
       :mobile,
       :ssn,
