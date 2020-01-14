@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 
-
-
 {
 	mix deps.get
 }
 
 {
-	mix ecto.migrate	
+	mix ecto.migrate
 }
 
 

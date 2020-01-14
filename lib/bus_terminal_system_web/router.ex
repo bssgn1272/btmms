@@ -44,13 +44,22 @@ defmodule BusTerminalSystemWeb.Router do
     get "/Assign_Gate", BusTerminusController, :form_gate
     get "/bus_approval", BusTerminusController, :bus_approval
 
-
-
-    # MARKETER_CONTROLLER
+    # MARKETER_CONTROLLER_______________________________________________________________________________________
     resources "/platform/secure/commercial/services/marketer/market", MarketerController
-    get("/Registering_Market", MarketerController, :form_market)
-    get("/Creating_Section", MarketerController, :form_section)
-    get("/Allocating_shop", MarketerController, :form_shop)
+
+    get(
+      "/platform/secure/commercial/services/marketer/market/registering_market",
+      MarketerController,
+      :form_market
+    )
+
+    get "/creating_section", MarketerController, :form_section
+
+    get "/allocating_shop", MarketerController, :form_shop
+
+    get "/stand_allocation", MarketerController, :standallocation
+
+    # ______________________________________________________________________________________________________________    
 
     # TICKET_CONTROLLER
     resources "/platform/secure/commercial/services/ticketing/tickets", TicketController
@@ -86,6 +95,11 @@ defmodule BusTerminalSystemWeb.Router do
     get "/protected", PageController, :protected
   end
 
+  scope "/dev" do
+    pipe_through [:browser]
+    forward "/mailbox", Plug.Swoosh.MailboxPreview, [base_path: "/dev/mailbox"]
+  end
+
   # Other scopes may use custom stacks.
   scope "/api/v1", BusTerminalSystemWeb do
     pipe_through :api
@@ -94,7 +108,11 @@ defmodule BusTerminalSystemWeb.Router do
     post "/btms/tickets/secured/purchase", TicketController, :purchase_ticket
     get "/btms/travel/secured/destinations", TicketController, :get_schedules
     post "/btms/travel/secured/internal/destinations", TicketController, :get_schedules_internal
-    post "/btms/travel/secured/internal/locations/destinations", TicketController, :get_schedules_buses
+
+    post "/btms/travel/secured/internal/locations/destinations",
+         TicketController,
+         :get_schedules_buses
+
     get "/btms/travel/secured/routes", TicketController, :get_travel_routes
     get "/btms/tickets/secured/list", TicketController, :list_tickets
 

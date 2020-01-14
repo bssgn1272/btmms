@@ -175,10 +175,26 @@ $('input#securityCode').keyup(function() {
 });
 //------------------------------------------------
 
+//------------------- Allocating Stands ----------
+$('input#stand_section').keyup(function() {
+    //perform ajax call...
+    $('#Pstand_section').text($(this).val());
+});
+
+$('input#stand_name').keyup(function() {
+    //perform ajax call...
+    $('#Pstand_name').text($(this).val());
+});
+
+$('input#stand_code').keyup(function() {
+    //perform ajax call...
+    $('#Pstand_code').text($(this).val());
+});
+//------------------------------------------------
+
 //------------------- Scheduling -----------------
+  var x = document.getElementById("s_date").date;
 function GetSelectedDate() {
-  var x = document.getElementById("s_date").value;
-  console.log("Date: " + x);
   document.getElementById("Ps_date").innerHTML = x;
 }
 
@@ -355,7 +371,6 @@ function GetSelectedFrom() {
   var x = document.getElementById("Depature_Name").value;
   document.getElementById("From").innerHTML = x;
 }
-
 
 function GetSelectedDate() {
     $('#s_date').datepicker({dateFormat: "dd/MM/YYYY"});

@@ -7,6 +7,7 @@ defmodule BusTerminalSystemWeb.UserController do
   alias BusTerminalSystem.MarketManagement
   alias BusTerminalSystem.MarketManagement.MarketTenant
   alias BusTerminalSystem.ApiManager
+  alias BusTerminalSystem.EmailSender
 
   plug(
     BusTerminalSystemWeb.Plugs.RequireAuth
@@ -35,11 +36,20 @@ defmodule BusTerminalSystemWeb.UserController do
   end
 
   def create(conn, %{"payload" => payload} = user_params) do
-    #     %{"user" => user_params}
     IO.inspect payload
+
+    {s,first_name} = Map.fetch(payload,"first_name")
+    {s,password} = Map.fetch(payload,"password")
+    {s,username} = Map.fetch(payload,"username")
+    {s,email} = Map.fetch(payload,"email")
+
+    message = " Hello #{first_name}, \n Your BTMS ACCOUNT CREDENTIALS ARE LISTED BELOW \n \n
+                \t Username: #{username} \n
+                \t Password: #{password} \n"
+
     case AccountManager.create_user(payload) do
       {:ok, user} ->
-
+      {status,pid} = EmailSender.composer_text(email,"User Account Credentials",message)
         conn
         |> put_flash(:info, "User created successfully.")
         |> redirect(to: Routes.user_path(conn, :new))

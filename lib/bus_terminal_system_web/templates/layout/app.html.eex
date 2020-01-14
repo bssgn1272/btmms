@@ -163,6 +163,7 @@
                                         <a href="#"><i class="icon-stack2"></i> <span>Market Operations</span></a>
                                         <ul>
                                             <li><%= link "Management", to: Routes.marketer_path(@conn, :index) %></li>
+                                            <li><%= link "Stand Allocation", to: Routes.marketer_path(@conn, :standallocation) %></li>
                                         </ul>
                                     </li>
                                     <% end %>
@@ -356,7 +357,6 @@
                             </div>
                         </div>
                         <!-- /main navigation -->
-
                     </div>
                 </div>
                 <% end %>

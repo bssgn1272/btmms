@@ -85,4 +85,8 @@ defmodule BusTerminalSystemWeb.MarketerController do
   def form_shop(conn, _params) do
     render(conn, "form_shop.html")
   end
+
+  def standallocation(conn, _params) do
+    render(conn, "stand_allocation.html")
+  end
 end

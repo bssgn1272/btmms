@@ -17,6 +17,7 @@
                             <th>Fare</th>
                             <th>Date</th>
                             <th>Time</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,6 +31,19 @@
                         <td> <%= trip.fare %> </td>
                         <td> <%= trip.date %> </td>
                         <td> <%= trip.time %> </td>
+                        <td class="text-center">
+							<ul class="icons-list">
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+										<i class="icon-menu9"></i>
+									</a>
+
+									<ul class="dropdown-menu dropdown-menu-right">
+										<li><a href="#" data-toggle="modal" data-target="#edit"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Edit</a></li>
+									</ul>
+								</li>
+							</ul>
+						</td>
                       </tr>
 
                       <% end %>
@@ -187,23 +201,109 @@
 
 
 
-<!-- Modal -->
-<div id="editModal" class="modal fade" role="dialog">
+<!-------------------------- Edit Modal ------------------------------------------------------------------------------------------------------------>
+<div id="edit" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header w3-indigo">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
+        <h4 class="modal-title">Edit Schedule KYC</h4>
       </div>
-      <div class="modal-body">
-        <p>Some text in the modal.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
+     
+      	<div class="modal-body">
+        	<form class="form-vertical" action="<%= Routes.bookings_path(@conn, :create_schedule) %>" method="post">
+		                <div class="row">
+		                    <div class="col-md-12">
+		                        
+		                      <div class="panel-heading" style="margin: -5% 5%;">
+								<legend class="text-semibold"><i class="icon-watch position-left"></i> Editing SECHEDULES</legend>
+								<div class="heading-elements">
+									<ul class="icons-list">
+				                		<li><a data-action="collapse"></a></li>
+				                		<li><a data-action="reload"></a></li>
+				                	</ul>
+			                	</div>
+		                	</div>
+		                     <hr>
 
+		                            <div class="row">
+		                                <div class="col-md-4">
+		                                    <div class="form-group">
+				                                <label for="text">
+				                                    <strong>Operator:</strong>
+				                                </label>
+				                                <div class="form-group has-feedback has-feedback-left" >
+				                                    <select class="w3-select" id="scheduling_operator_id" onclick="find_buses_by_id(this.value)" name="payload[operator_id]">
+
+				                                    </select>
+				                                </div>
+				                              </div>
+
+		                                    <div class="form-group">
+		                                        <label>Date:</label>
+		                                        <input type="date" id="s_date" class="form-control" onchange="GetSelectedDate()" placeholder="Date" name="payload[date]" required="required">
+		                                    </div>
+		                                </div>
+
+		                                <div class="col-md-4">
+		                                    <div class="form-group">
+		                                        <div class="form-group">
+				                                <label for="text">
+				                                    <strong>Route Code:</strong>
+				                                </label>
+				                                <div class="form-group has-feedback has-feedback-left">
+				                                    <select class="w3-select" name="payload[route_id]" id="scheduling_route_codes">
+				                                        <option value="" disabled selected>Route Code</option>
+				                                    </select>
+				                                </div>
+				                              </div>
+		                                    </div>
+
+
+		                                    <div class="form-group">
+		                                        <label>Time:</label>
+		                                        <input id="time" class="form-control" name="payload[time]" placeholder="Time" type="time" required="required">
+		                                        <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token() %>">
+		                                    </div>
+		                                </div>
+
+		                                <div class="col-md-4">
+		                                	 <div class="form-group">
+				                                <label for="text">
+				                                    <strong>Buses:</strong>
+				                                </label>
+				                                <div class="form-group has-feedback has-feedback-left">
+				                                    <select class="w3-select" name="payload[bus_id]" id="scheduling_operator_buses">
+				                                        <option value="" disabled selected>Buses:</option>
+				                                    </select>
+				                                </div>
+				                              </div>
+		                                    
+
+		                                    <div class="form-group">
+		                                        <label>Fare:</label>
+		                                        <input id="fare" class="form-control" placeholder="Fare" name="payload[fare]" type="text" required="required">
+		                                    </div>
+		                                </div>
+		                            </div>     
+		                    </div>
+		                </div>
+		                        <br>
+
+		                        <div class="text-right">
+		                            <button type="submit" id="submitVehicleButton" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange w3-left">
+		                                <b><i class="icon-checkmark2"></i></b>Edit
+		                            </button>                  
+		                        </div>
+		                    
+		    </form>
+      	</div>
+      <hr>
+		      	<div class="modal-footer">
+		        	<button type="button" class="w3-btn w3-grey w3-round" data-dismiss="modal">Close</button>
+		      	</div>
+    </div>
   </div>
-  <!-- Modal -->
+  <!------------------------------------------------------------------------------------------------------------------------------------------------------->

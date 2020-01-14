@@ -23,21 +23,18 @@
                           <td><%= route.source_state %></td>
                           <td><%= route.start_route %></td>
                           <td><%= route.end_route %></td>
-                          <td>
-                            <div class="dropdown">
-                              <button class="w3-btn-block w3-light-grey btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Action
-                                <span class="glyphicon glyphicon-menu-down"></span>
-                              </button>
-                                  <div class="dropdown-menu pull-center" aria-labelledby="dropdownMenuButton">
-                                        <a href="" class="w3-btn w3-indigo w3-hover-orange w3-round dropdown-item">
-                                            Delete
-                                        </a>
-                                        <a href="#" class="w3-btn w3-indigo w3-hover-orange w3-round dropdown-item" data-toggle="modal" data-target="#editModal">
-                                            Edit
-                                        </a>
-                                  </div>
-                            </div>
+                          <td class="text-center">
+                            <ul class="icons-list">
+                              <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                  <i class="icon-menu9"></i>
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                  <li><a href="#" data-toggle="modal" data-target="#edit"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Edit</a></li>
+                                </ul>
+                              </li>
+                            </ul>
                           </td>
                         </tr>
                       <% end %>
@@ -144,24 +141,69 @@
 <!------------------------------------------------------------------------------------->
 
 
-
-<!-- Modal -->
-<div id="editModal" class="modal fade" role="dialog">
+<!-------------------------- Edit Modal ------------------------------------------------------------------------------------------------------------>
+<div id="edit" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header w3-indigo">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
+        <h4 class="modal-title">Edit Route KYC</h4>
       </div>
+     
       <div class="modal-body">
-        <p>Some text in the modal.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
+          <form class="form-vertical" action="<%= Routes.route_path(@conn, :create) %>" method="post">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <legend class="text-semibold"><i class="icon-road position-left"></i> CREATING ROUTES</legend>
+                            <hr>
 
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Route Name:</label>
+                                            <input id="route_name" name="payload[route_name]" class="form-control" placeholder="Route Name" type="text" required="required">
+                                            <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                                            <input type="hidden" name="payload[route_uuid]" value="<%= BusTerminalSystem.Randomizer.randomizer(16,:all) %>">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Source State:</label>
+                                            <input id="source_kilo" name="payload[source_state]" class="form-control" placeholder="Source State" type="text" required="required">
+                                        </div>
+
+                                        <div class="form-group">
+                                                <label>Route Code:</label>
+                                                <input id="route_code" name="payload[route_code]" class="form-control" placeholder="Route Code" type="text" required="required">
+                                            </div>
+
+                                        <div class="form-group">
+                                            <label>From:</label>
+                                            <input id="route_from" name="payload[start_route]" value="Livingstone" class="form-control" type="text" disabled>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>To:</label>
+                                            <input id="route_to" name="payload[end_route]" class="form-control" placeholder="To" type="text" required="required">
+                                        </div>
+                                    </div>
+                                </div>     
+                        </div>
+                    </div>
+                            <br>
+
+                            <div class="text-right">
+                                <button type="submit" id="submitVehicleButton" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange w3-left">
+                                    <b><i class="icon-checkmark2"></i></b>Create Route
+                                </button>                  
+                            </div>
+                </form>
+      </div>
+      <hr>
+            <div class="modal-footer">
+              <button type="button" class="w3-btn w3-grey w3-round" data-dismiss="modal">Close</button>
+            </div>
+    </div>
   </div>
-  <!-- Modal -->
+  <!------------------------------------------------------------------------------------------------------------------------------------------------------->
