@@ -1,0 +1,221 @@
+*{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);
+}
+
+/* Navigation Bar*/
+nav{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 12vh;
+  background-color:  #002e5b;
+  font-family: 'Poppins', sans-serif;
+}
+
+/*PA Systems Navigation Bar text*/
+.logo{
+  color: #f29e0f;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 25px;
+
+}
+
+
+/*Logo Image*/
+.logo img{
+    position:absolute;
+    top: 10px;
+    left:10px;
+    width:60px;
+    height:60px;
+    overflow:hidden;
+}
+
+/*Navigation Bar Links*/
+.nav-links{
+  display: flex;
+  justify-content: space-around;
+  width: 30%;
+}
+
+/*Navigation Bar a tags display*/
+.nav-links a{
+ color: #f29e0f;
+ text-decoration: none;
+ letter-spacing: 3px;
+ font-weight: bold;
+ font-size: 14px;
+ padding: 0 20px;
+}
+
+/*Navigation Bar Links position*/
+.nav-links li{
+  list-style: none;
+  height: 5px;
+}
+
+
+/*Main page wrapper*/
+.content {
+  border: 1px solid black;
+  padding-top: 0px;
+  padding-right:65px;
+  padding-bottom: 100px;
+  padding-left: 80px;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Main page h2*/
+.content h2 {
+  text-align:center;
+  margin: 0;
+  padding: 10px 0;
+  font-size: 22px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 45px;
+}
+
+/*Main page paragraph*/
+.content p{
+  font-family: 'Poppins', sans-serif;
+}
+
+/*Profile Page wrapper*/
+.profile-content {
+  padding-top: 0px;
+  padding-right:65px;
+  padding-bottom: 100px;
+  padding-left: 80px;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Profile Page text display*/
+.profile-content > p table td, .profile-content > div table td {
+  padding: 20px;
+  font-family: 'Poppins', sans-serif;
+
+}
+
+/*Profile top paragraph*/
+.profile-content p {
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  padding-top: 30px;
+  font-size: 25px;
+}
+
+/*Profile details header*/
+.profile-content > p table td:first-child, .profile-content > div table td:first-child {
+  font-weight: bold;
+  color: #;
+  padding-right: 15px;
+}
+
+/*Login Form Styling*/
+.login {
+  	width: 400px;
+  	background-color: #ffffff;
+  	box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
+  	margin: 100px auto;
+}
+
+/*Login Form h1*/
+.login h1 {
+  	text-align: center;
+    font-family: 'Poppins', sans-serif;
+  	color: #5b6574;
+  	font-size: 40px;
+  	padding: 20px 0 20px 0;
+  	border-bottom: 1px solid #dee0e4;
+}
+
+/*Login Form*/
+.login form {
+  	display: flex;
+  	flex-wrap: wrap;
+  	justify-content: center;
+  	padding-top: 20px;
+}
+
+/*Login Form label*/
+.login form label {
+  	display: flex;
+    font-family: 'Poppins', sans-serif;
+  	justify-content: center;
+  	align-items: center;
+  	width: 50px;
+  	height: 50px;
+  	background-color: #3274d6;
+  	color: #ffffff;
+}
+
+/*Login Form input*/
+.login form input[type="password"], .login form input[type="text"] {
+  	width: 310px;
+  	height: 50px;
+  	border: 1px solid #dee0e4;
+  	margin-bottom: 20px;
+  	padding: 0 15px;
+}
+
+/*Login Form submit*/
+.login form input[type="submit"] {
+  	width: 100%;
+  	padding: 15px;
+ 	margin-top: 20px;
+  	background-color: #3274d6;
+  	border: 0;
+  	cursor: pointer;
+  	font-weight: bold;
+  	color: #ffffff;
+  	transition: background-color 0.2s;
+}
+
+/*Login Form submit hover*/
+.login form input[type="submit"]:hover {
+	background-color: #2868c7;
+  	transition: background-color 0.2s;
+}
+
+
+/*Footer*/
+.footer {
+   position: fixed;
+   height: 60px;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-image: linear-gradient(45deg, #8baaaa 0%, #ae8b9c 100%);
+   color: black;
+   text-align: center;
+   font-family: 'Poppins', sans-serif;
+
+  }
+
+/*Footer paragraph*/
+  .footer p{
+    font-family: 'Poppins', sans-serif;
+    padding: 20px 0 20px 0;
+    font-size: 17px;
+  }
+
+/*about page header*/
+.about h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 45px;
+  text-align: center;
+  padding: 30px 0 1px 0;
+}
+
+.about p {
+font-family: 'Poppins', sans-serif;
+font-size: 30px;
+padding: 30px 400px 0 400px;
+}
