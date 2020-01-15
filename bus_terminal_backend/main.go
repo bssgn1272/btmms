@@ -65,6 +65,10 @@ func main() {
 	router.Handle("/api/time", c.CreateTimeController).Methods("POST")
 	router.Handle("/api/time", c.GetTimesController).Methods("GET")
 
+	// Destination with Time Routes
+	router.Handle("/api/destination/time", c.CreateDestinationDayTimesController).Methods("POST")
+	router.Handle("/api/destination/time", c.GetDestinationDayTimesController).Methods("GET")
+
 
 
 

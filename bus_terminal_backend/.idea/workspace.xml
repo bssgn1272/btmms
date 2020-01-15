@@ -5,18 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8fde5a15-3397-459b-a421-2712d1adbea6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/controllers/daysController.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/destinationController.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/timeController.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/days.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/destinations.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/time.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../PA-system &amp; Luggage Management/Access_control" beforeDir="false" afterPath="$PROJECT_DIR$/../PA-system &amp; Luggage Management/Access_control" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/activity.log" beforeDir="false" afterPath="$PROJECT_DIR$/activity.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/reservations.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/reservations.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,11 +32,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/models/destinations.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="572">
-              <caret line="64" selection-start-line="64" selection-end-line="64" />
+            <state relative-caret-position="204">
+              <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="9" />
               <folding>
                 <element signature="e#16#27#0" expanded="true" />
               </folding>
@@ -55,11 +44,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/models/reservations.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="87" column="19" lean-forward="true" selection-start-line="87" selection-start-column="4" selection-end-line="88" selection-end-column="88" />
+            <state relative-caret-position="164">
+              <caret line="117" column="39" selection-start-line="117" selection-start-column="33" selection-end-line="117" selection-end-column="39" />
               <folding>
                 <element signature="e#16#109#0" expanded="true" />
               </folding>
@@ -70,8 +59,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/models/days.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1190">
-              <caret line="70" column="9" selection-end-line="78" />
+            <state relative-caret-position="187">
+              <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="8" />
               <folding>
                 <element signature="e#16#29#0" expanded="true" />
               </folding>
@@ -82,8 +71,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/models/time.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="45" column="16" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="16" />
+            <state relative-caret-position="170">
+              <caret line="10" column="5" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="9" />
               <folding>
                 <element signature="e#16#101#0" expanded="true" />
               </folding>
@@ -92,10 +81,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/controllers/reservationApprovalsController.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="338">
+              <caret line="42" column="28" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/models/destination_day_time.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
+            <state relative-caret-position="255">
+              <caret line="42" column="39" selection-start-line="42" selection-start-column="39" selection-end-line="42" selection-end-column="39" />
               <folding>
                 <element signature="e#16#96#0" expanded="true" />
               </folding>
@@ -116,22 +114,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/controllers/daysController.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="27" column="31" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
-              <folding>
-                <element signature="e#21#93#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="64" column="70" selection-start-line="64" selection-start-column="70" selection-end-line="64" selection-end-column="70" />
+            <state relative-caret-position="389">
+              <caret line="69" column="23" selection-start-line="69" selection-start-column="23" selection-end-line="69" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -139,8 +125,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/models/config.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="406">
-              <caret line="53" column="44" selection-start-line="53" selection-start-column="44" selection-end-line="53" selection-end-column="44" />
+            <state relative-caret-position="304">
+              <caret line="55" column="58" selection-start-line="55" selection-start-column="58" selection-end-line="55" selection-end-column="58" />
             </state>
           </provider>
         </entry>
@@ -148,8 +134,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/controllers/destinationController.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="23" column="24" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
+            <state relative-caret-position="362">
+              <caret line="64" column="2" selection-start-line="64" selection-start-column="2" selection-end-line="64" selection-end-column="2" />
               <folding>
                 <element signature="e#21#32#0" expanded="true" />
               </folding>
@@ -169,8 +155,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>upd</find>
-      <find>GetCurrentReservation</find>
       <find>Close</find>
       <find>Close()</find>
       <find>CloseReservationController</find>
@@ -196,9 +180,11 @@
       <find>GetReservation</find>
       <find>/api/reservation/get/</find>
       <find>false</find>
-      <find>town *Town</find>
+      <find>GetTowns</find>
       <find>reservation</find>
+      <find>town *Town</find>
       <find>day</find>
+      <find>Result</find>
     </findStrings>
     <replaceStrings>
       <replace>Reservation</replace>
@@ -217,8 +203,8 @@
       <replace>GetDB().Table(&quot;reservations&quot;).Select(&quot;reservations.*, reservations.id, users.username&quot;).Joins(&quot;left join users on users.id=reservations.user_id&quot;).</replace>
       <replace>.</replace>
       <replace>currentRequestPath</replace>
-      <replace>day *Day</replace>
       <replace>town</replace>
+      <replace>day *Day</replace>
       <replace>time</replace>
     </replaceStrings>
   </component>
@@ -245,16 +231,16 @@
         <option value="$PROJECT_DIR$/src/models/users.go" />
         <option value="$PROJECT_DIR$/src/models/slots.go" />
         <option value="$PROJECT_DIR$/src/models/reservations.go" />
-        <option value="$PROJECT_DIR$/src/controllers/destinationController.go" />
         <option value="$PROJECT_DIR$/src/models/days.go" />
         <option value="$PROJECT_DIR$/src/models/towns.go" />
         <option value="$PROJECT_DIR$/src/controllers/timeController.go" />
         <option value="$PROJECT_DIR$/src/controllers/daysController.go" />
-        <option value="$PROJECT_DIR$/main.go" />
-        <option value="$PROJECT_DIR$/src/models/config.go" />
         <option value="$PROJECT_DIR$/src/models/time.go" />
-        <option value="$PROJECT_DIR$/src/models/destination_day_time.go" />
+        <option value="$PROJECT_DIR$/src/models/config.go" />
         <option value="$PROJECT_DIR$/src/models/destinations.go" />
+        <option value="$PROJECT_DIR$/src/controllers/destinationController.go" />
+        <option value="$PROJECT_DIR$/main.go" />
+        <option value="$PROJECT_DIR$/src/models/destination_day_time.go" />
       </list>
     </option>
   </component>
@@ -339,9 +325,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="916" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49936143" visible="true" weight="0.16902314" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49936143" visible="true" weight="0.16902314" />
       <window_info id="Structure" order="1" sideWeight="0.5008726" side_tool="true" weight="0.16709511" />
       <window_info id="Favorites" order="2" sideWeight="0.50063854" side_tool="true" weight="0.16709511" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -354,7 +339,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.26819924" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.26819924" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.32950193" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.32950193" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -473,13 +458,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/controllers/reservationApprovalsController.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="42" column="28" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/models/slots.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-560">
@@ -524,16 +502,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/controllers/destinationController.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="23" column="24" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
-          <folding>
-            <element signature="e#21#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/controllers/timeController.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-19">
@@ -544,44 +512,71 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="64" column="70" selection-start-line="64" selection-start-column="70" selection-end-line="64" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/models/config.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="53" column="44" selection-start-line="53" selection-start-column="44" selection-end-line="53" selection-end-column="44" />
+        <state relative-caret-position="304">
+          <caret line="55" column="58" selection-start-line="55" selection-start-column="58" selection-end-line="55" selection-end-column="58" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/time.go">
+    <entry file="file://$PROJECT_DIR$/src/controllers/reservationApprovalsController.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="45" column="16" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="16" />
+        <state relative-caret-position="338">
+          <caret line="42" column="28" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/destinationController.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="64" column="2" selection-start-line="64" selection-start-column="2" selection-end-line="64" selection-end-column="2" />
           <folding>
-            <element signature="e#16#101#0" expanded="true" />
+            <element signature="e#21#32#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="69" column="23" selection-start-line="69" selection-start-column="23" selection-end-line="69" selection-end-column="40" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/models/days.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1190">
-          <caret line="70" column="9" selection-end-line="78" />
+        <state relative-caret-position="187">
+          <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="8" />
           <folding>
             <element signature="e#16#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/destinations.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="9" />
+          <folding>
+            <element signature="e#16#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/time.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="5" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="9" />
+          <folding>
+            <element signature="e#16#101#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/models/destination_day_time.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
+        <state relative-caret-position="255">
+          <caret line="42" column="39" selection-start-line="42" selection-start-column="39" selection-end-line="42" selection-end-column="39" />
           <folding>
             <element signature="e#16#96#0" expanded="true" />
           </folding>
@@ -590,20 +585,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/models/reservations.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="87" column="19" lean-forward="true" selection-start-line="87" selection-start-column="4" selection-end-line="88" selection-end-column="88" />
+        <state relative-caret-position="164">
+          <caret line="117" column="39" selection-start-line="117" selection-start-column="33" selection-end-line="117" selection-end-column="39" />
           <folding>
             <element signature="e#16#109#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/destinations.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="64" selection-start-line="64" selection-end-line="64" />
-          <folding>
-            <element signature="e#16#27#0" expanded="true" />
           </folding>
         </state>
       </provider>

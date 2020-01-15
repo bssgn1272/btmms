@@ -44,6 +44,7 @@ func init() {
 	db.Debug().AutoMigrate(&Town{})
 	db.Debug().AutoMigrate(&Day{})
 	db.Debug().AutoMigrate(&Time{})
+	db.Debug().AutoMigrate(&DestinationDayTime{})
 
 	// Track Migrations
 	log.Println(db.Debug().AutoMigrate(&User{}))
@@ -52,6 +53,7 @@ func init() {
 	log.Println(db.Debug().AutoMigrate(&Town{}))
 	log.Println(db.Debug().AutoMigrate(&Day{}))
 	log.Println(db.Debug().AutoMigrate(&Time{}))
+	log.Println(db.Debug().AutoMigrate(&DestinationDayTime{}))
 
 }
 

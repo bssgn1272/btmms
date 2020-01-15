@@ -62,3 +62,16 @@ func (town *Town) Create() (map[string] interface{}) {
 	return resp
 }
 
+// get towns
+func GetTowns() ([]*Town) {
+
+	towns := make([]*Town, 0)
+	err := GetDB().Table("towns").Find(&towns).Error
+	log.Println(err)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+
+	return towns
+}

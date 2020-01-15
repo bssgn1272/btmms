@@ -16,6 +16,15 @@ type DestinationDayTime struct {
 }
 
 
+// join reservation and reservation struct
+type Join struct {
+	DestinationDayTime
+	Day
+	Town
+	Time
+}
+
+
 // create DestinationDayTime
 func (destinationDayTime *DestinationDayTime) Create() (map[string] interface{}) {
 
@@ -29,17 +38,18 @@ func (destinationDayTime *DestinationDayTime) Create() (map[string] interface{})
 }
 
 // get DestinationDayTime
-func GetDestinationDayTimes() ([]*Day) {
+func GetDestinationDayTimes() ([]*Join) {
 
-	days := make([]*Day, 0)
-	err := GetDB().Table("days").Find(&days).Error
+	destinationDayTimes := make([]*Join, 0)
+	err := GetDB().Table("destination_day_times").Select("towns.town_name, days.day, times.time_of_day").Joins("JOIN towns ON destination_day_times.destination_id = towns.id").Joins("JOIN days ON destination_day_times.day_id = days.id").Joins("JOIN times ON destination_day_times.time_id = times.id").Find(&destinationDayTimes).Error
+
 	log.Println(err)
 	if err != nil {
 		log.Println(err)
 		return nil
 	}
 
-	return days
+	return destinationDayTimes
 }
 
 
