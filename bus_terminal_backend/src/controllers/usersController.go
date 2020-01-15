@@ -57,7 +57,7 @@ var AuthenticateUserController = http.HandlerFunc(func(w http.ResponseWriter, r 
 	if err != nil {
 		log.Println(check.Username)
 		w.WriteHeader(http.StatusUnauthorized)
-		json.NewEncoder(w).Encode(res)
+		_ = json.NewEncoder(w).Encode(res)
 		return
 	}
 

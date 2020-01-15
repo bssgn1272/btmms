@@ -4,6 +4,8 @@ import (
 	u "../../src/utils"
 	"github.com/jinzhu/gorm"
 	"log"
+	"net/url"
+	"regexp"
 	"time"
 )
 
@@ -25,33 +27,50 @@ type Result struct {
 	User
 }
 
+
+// Variables for regular expressions
+var(
+	regexpSlot = regexp.MustCompile("^[^0-9]+$")
+	regexpRoute = regexp.MustCompile("^[^0-9]+$")
+)
+
 /*
  This struct function validate the required parameters sent through the http request body
 returns message and true if the requirement is met
 */
-func (reservation *Reservation) Validate() (map[string] interface{}, bool) {
+func (reservation *Reservation) Validate() url.Values {
+
+	errs := url.Values{}
+
 
 	if reservation.Slot == "" {
-		log.Println(u.Message(false, "Reservation slot should be on the payload"))
-		return u.Message(false, "Reservation slot should be on the payload"), false
+		errs.Add("slot", "Slot should be on the payload!")
 	}
 
 	if reservation.Route == "" {
-		log.Println(u.Message(false, "Route should be on the payload"))
-		return u.Message(false, "Route should be on the payload"), false
+		errs.Add("slot_two", "Route should be on the payload!")
 	}
 
-	//All the required parameters are present
-	log.Println(u.Message(true, "success"))
-	return u.Message(true, "success"), true
+
+	if !regexpSlot.Match([]byte(reservation.Slot)) {
+		errs.Add("slot", "The slot field should be valid!")
+	}
+	if !regexpRoute.Match([]byte(reservation.Route)) {
+		errs.Add("route", "The route field should be valid!")
+	}
+
+	log.Println(errs)
+
+	return errs
 }
 
 
 // create reservation
 func (reservation *Reservation) Create() (map[string] interface{}) {
 
-	if resp, ok := reservation.Validate(); !ok {
-		return resp
+	if validErrs := reservation.Validate(); len(validErrs) > 0 {
+		err := map[string]interface{}{"validationError": validErrs}
+		return err
 	}
 
 	GetDB().Create(reservation)

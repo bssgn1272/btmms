@@ -4,6 +4,8 @@ import (
 	u "../../src/utils"
 	"github.com/jinzhu/gorm"
 	"log"
+	"net/url"
+	"regexp"
 	"time"
 )
 
@@ -19,48 +21,80 @@ type Slot struct {
 	ReservationTime time.Time `json:"reservation_time"`
 }
 
+// Variables for regular expressions
+var(
+	regexpSlotOne = regexp.MustCompile("^[^0-9]+$")
+	regexpSlotTwo = regexp.MustCompile("^[^0-9]+$")
+	regexpSlotThree = regexp.MustCompile("^[^0-9]+$")
+	regexpSlotFour = regexp.MustCompile("^[^0-9]+$")
+	regexpSlotFive = regexp.MustCompile("^[^0-9]+$")
+)
+
 /*
  This struct function validate the required parameters sent through the http request body
 returns message and true if the requirement is met
 */
-func (slot *Slot) Validate() (map[string] interface{}, bool) {
+func (slot *Slot) Validate()  url.Values {
+
+
+	errs := url.Values{}
+
 
 	if slot.SlotOne == "" {
-		log.Println(u.Message(false, "Slot One should be on the payload"))
-		return u.Message(false, "Slot One should be on the payload"), false
+		errs.Add("slot_one", "Slot One should be on the payload!")
 	}
 
 	if slot.SlotTwo == "" {
-		log.Println(u.Message(false, "Slot Two should be on the payload"))
-		return u.Message(false, "Slot One should be on the payload"), false
+		errs.Add("slot_two", "Slot Two should be on the payload!")
 	}
 
 	if slot.SlotThree == "" {
-		log.Println(u.Message(false, "Slot Three should be on the payload"))
-		return u.Message(false, "Slot Three should be on the payload"), false
+		errs.Add("slot_three", "Slot Three should be on the payload!")
 	}
 
 	if slot.SlotFour == "" {
-		log.Println(u.Message(false, "Slot Four should be on the payload"))
-		return u.Message(false, "Slot Four should be on the payload"), false
+		errs.Add("slot_four", "Slot Four should be on the payload!")
 	}
 
 	if slot.SlotFive == "" {
-		log.Println(u.Message(false, "Slot Five should be on the payload"))
-		return u.Message(false, "Slot One Five be on the payload"), false
+		errs.Add("slot_five", "Slot Five should be on the payload!")
 	}
 
-	//All the required parameters are present
-	log.Println(u.Message(true, "success"))
-	return u.Message(true, "success"), true
+	if slot.Time == "" {
+		errs.Add("slot_one", "Time should be on the payload!")
+	}
+
+
+
+	if !regexpSlotOne.Match([]byte(slot.SlotOne)) {
+		errs.Add("slot_one", "The slot one field should be valid!")
+	}
+	if !regexpSlotTwo.Match([]byte(slot.SlotTwo)) {
+		errs.Add("slot_two", "The slot two field should be valid!")
+	}
+	if !regexpSlotThree.Match([]byte(slot.SlotThree)) {
+		errs.Add("slot_three", "The slot three field should be valid!")
+	}
+	if !regexpSlotFour.Match([]byte(slot.SlotFour)) {
+		errs.Add("slot_four", "The slot four field should be valid!")
+	}
+
+	if !regexpSlotFive.Match([]byte(slot.SlotFive)) {
+		errs.Add("slot_five", "The slot five field should be valid!")
+	}
+
+	log.Println(errs)
+
+	return errs
 }
 
 
 // create slots
 func (slot *Slot) Create() (map[string] interface{}) {
 
-	if resp, ok := slot.Validate(); !ok {
-		return resp
+	if validErrs := slot.Validate(); len(validErrs) > 0 {
+		err := map[string]interface{}{"validationError": validErrs}
+		return err
 	}
 
 	GetDB().Create(slot)

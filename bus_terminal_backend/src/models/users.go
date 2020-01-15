@@ -6,8 +6,9 @@ import (
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
 	"log"
+	"net/url"
 	"os"
-	"strings"
+	"regexp"
 )
 
 /*
@@ -29,44 +30,77 @@ type User struct {
 	Token string `json:"token"`
 }
 
-//Validate incoming user details...
-func (account *User) Validate() (map[string] interface{}, bool) {
+// Variables for regular expressions
 
-	if !strings.Contains(account.Email, "@") {
-		log.Println(u.Message(false, "Email is required"))
-		return u.Message(false, "Email is required"), false
+var (
+	regexpUsername = regexp.MustCompile("^[^0-9]+$")
+	regexpRole = regexp.MustCompile("^[^0-9]+$")
+	regexpEmail = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+	regexpPhone = regexp.MustCompile(`^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$`)
+	regexpPassword = regexp.MustCompile("^[^0-9]+$")
+)
+
+//Validate incoming user details...
+func (account *User) Validate() url.Values  {
+
+	errs := url.Values{}
+
+
+	if account.Username == "" {
+		errs.Add("username", "The username field is required!")
+	}
+
+
+	if account.Password == "" {
+		errs.Add("password", "The password field is required!")
 	}
 
 	if len(account.Password) < 6 {
-		log.Println(u.Message(false, "Password is required"))
-		return u.Message(false, "Password is required"), false
+		errs.Add("title", "The password must be 6 or more chars!")
 	}
 
-	//Email must be unique
+
 	temp := &User{}
 
-	//check for errors and duplicate emails
 	err := GetDB().Table("users").Where("username = ?", account.Username).First(temp).Error
 
 	log.Println(err)
 
 	if err != nil && err != gorm.ErrRecordNotFound {
-		log.Println(u.Message(false, "Connection error. Please retry"))
-		return u.Message(false, "Connection error. Please retry"), false
+		errs.Add("connection", "Connection error. Please retry")
 	}
 	if temp.Username != "" {
-		log.Println(u.Message(false, "Username address already in use by another user."))
-		return u.Message(false, "Username already in use by another user."), false
+		errs.Add("duplicate", "Username already in use by another user.")
 	}
 
-	return u.Message(false, "Requirement passed"), true
+	if !regexpUsername.Match([]byte(account.Username)) {
+		errs.Add("user_name", "The username field should be valid!")
+	}
+
+	if !regexpRole.Match([]byte(account.Role)) {
+		errs.Add("user_name", "The username field should be valid!")
+	}
+	if !regexpEmail.Match([]byte(account.Email)) {
+		errs.Add("email", "The email field should be valid!")
+	}
+	if !regexpPhone.Match([]byte(account.Phone)) {
+		errs.Add("phone", "The phone number field should be valid!")
+	}
+	if !regexpPassword.Match([]byte(account.Username)) {
+		errs.Add("user_name", "The username field should be valid!")
+	}
+
+	log.Println(errs)
+
+	return errs
 }
 
 // create user function
 func (account *User) Create() (map[string] interface{}) {
 
-	if resp, ok := account.Validate(); !ok {
-		return resp
+	if validErrs := account.Validate(); len(validErrs) > 0 {
+		err := map[string]interface{}{"validationError": validErrs}
+		return err
 	}
 
 	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(account.Password), bcrypt.DefaultCost)

@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="754a82ba-c302-47db-ad3d-b294fc4919ac" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/napsa_t2.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../bus_terminal_backend/.env" beforeDir="false" afterPath="$PROJECT_DIR$/../../bus_terminal_backend/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../bus_terminal_backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../bus_terminal_backend/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../bus_terminal_backend/activity.log" beforeDir="false" afterPath="$PROJECT_DIR$/../../bus_terminal_backend/activity.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../bus_terminal_backend/src/models/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/../../bus_terminal_backend/src/models/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../bus_terminal_frontend/src/app/user-profile/dialog-content-example-dialog.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../bus_terminal_frontend/src/app/view-my-slots/view-my-slots.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../bus_terminal_frontend/src/app/view-my-slots/view-my-slots.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Access_control" beforeDir="false" afterPath="$PROJECT_DIR$/../Access_control" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -62,7 +52,7 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="770">
+              <first_editor relative-caret-position="699">
                 <caret line="109" lean-forward="true" selection-start-line="109" selection-end-line="109" />
               </first_editor>
               <second_editor />
@@ -112,6 +102,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -123,13 +114,12 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Documents/projects/hobbiton_fms/hobbiton_fms" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -157,17 +147,17 @@
       <updated>1577084312034</updated>
       <workItem from="1577084313792" duration="932000" />
       <workItem from="1577090281300" duration="795000" />
+      <workItem from="1577794481694" duration="62000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1727000" />
+    <option name="totallyTimeSpent" value="1789000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="916" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25321338" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25642672" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -213,12 +203,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/insert.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logout.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/profile.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -226,10 +210,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/insert.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logout.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="770">
+          <first_editor relative-caret-position="699">
             <caret line="109" lean-forward="true" selection-start-line="109" selection-end-line="109" />
           </first_editor>
           <second_editor />

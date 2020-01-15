@@ -331,7 +331,7 @@ $dbname = "napsa";
 
 to the appropriate values
 3) ensure that the config.php files is updated and is pointing to the correct log directory
-4)open a we webbrowser and navigate to WEB_URL/Luggage_management/ where WEB_URL is the url used to access the webserver
+4)open a we web browser and navigate to WEB_URL/Luggage_management/ where WEB_URL is the url used to access the webserver
 "
 
  
