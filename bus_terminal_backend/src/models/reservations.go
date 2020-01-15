@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-//a struct to rep reservation model
+//a struct for reservation model
 type Reservation struct {
 	gorm.Model
 	RID   uint  `gorm:"AUTO_INCREMENT;column:r_id;" json:"r_id"`
@@ -21,7 +21,7 @@ type Reservation struct {
 	ReservedTime time.Time ` json:"reserved_time"`
 }
 
-// join struct
+// join reservation and reservation struct
 type Result struct {
 	Reservation
 	User

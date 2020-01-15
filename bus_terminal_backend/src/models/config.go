@@ -41,11 +41,17 @@ func init() {
 	db.Debug().AutoMigrate(&User{})
 	db.Debug().AutoMigrate(&Reservation{})
 	db.Debug().AutoMigrate(&Slot{})
+	db.Debug().AutoMigrate(&Town{})
+	db.Debug().AutoMigrate(&Day{})
+	db.Debug().AutoMigrate(&Time{})
 
 	// Track Migrations
 	log.Println(db.Debug().AutoMigrate(&User{}))
 	log.Println(db.Debug().AutoMigrate(&Reservation{}))
 	log.Println(db.Debug().AutoMigrate(&Slot{}))
+	log.Println(db.Debug().AutoMigrate(&Town{}))
+	log.Println(db.Debug().AutoMigrate(&Day{}))
+	log.Println(db.Debug().AutoMigrate(&Time{}))
 
 }
 

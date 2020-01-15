@@ -53,6 +53,20 @@ func main() {
 	router.Handle("/api/slots/close", c.CloseReservationController).Methods("PUT")
 
 
+	// Destination Routes
+	router.Handle("/api/town", c.CreateTownController).Methods("POST")
+	router.Handle("/api/town", c.GetTownsController).Methods("GET")
+
+	// Days Routes
+	router.Handle("/api/day", c.CreateDayController).Methods("POST")
+	router.Handle("/api/day", c.GetDaysController).Methods("GET")
+
+	// Time Routes
+	router.Handle("/api/time", c.CreateTimeController).Methods("POST")
+	router.Handle("/api/time", c.GetTimesController).Methods("GET")
+
+
+
 
 	if err := http.ListenAndServe("0.0.0.0:7080", logs.LogRequest("",handlers.LoggingHandler(os.Stdout, router))); err != nil {
 		panic(err)
