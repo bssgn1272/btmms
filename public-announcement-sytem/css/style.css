@@ -5,62 +5,8 @@
 }
 
 body {
-  background-color: white;
+ background-color: white;
 }
-
-/* Navigation Bar*/
-nav{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  min-height: 12vh;
-  background-color:  #002e5b;
-  font-family: 'Poppins', sans-serif;
-}
-
-/*PA Systems Navigation Bar text*/
-.logo{
-  color: #f29e0f;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  font-size: 25px;
-
-}
-
-
-/*Logo Image*/
-.logo img{
-    position:absolute;
-    top: 10px;
-    left:10px;
-    width:60px;
-    height:60px;
-    overflow:hidden;
-}
-
-/*Navigation Bar Links*/
-.nav-links{
-  display: flex;
-  justify-content: space-around;
-  width: 30%;
-}
-
-/*Navigation Bar a tags display*/
-.nav-links a{
- color: #f29e0f;
- text-decoration: none;
- letter-spacing: 3px;
- font-weight: bold;
- font-size: 14px;
- padding: 0 20px;
-}
-
-/*Navigation Bar Links position*/
-.nav-links li{
-  list-style: none;
-  height: 5px;
-}
-
 
 /*Main page wrapper*/
 .content {
@@ -218,4 +164,12 @@ nav{
 font-family: 'Poppins', sans-serif;
 font-size: 30px;
 padding: 30px 400px 0 400px;
+}
+
+
+a.button {
+    border: 1px solid #808080;
+    background: #a0a0a0;
+    display: inline-block;
+    padding: 5px;
 }
