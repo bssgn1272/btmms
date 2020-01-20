@@ -16,7 +16,9 @@ export class DestinationDayComponent implements OnInit {
   public towns: [];
   public days: [];
   public times: [];
-  public town_id = 0;
+  public town_id = null;
+  public time_id = null;
+  public day_id = null;
 
   // Destination formGroup
   destinationForm: FormGroup;
@@ -28,11 +30,11 @@ export class DestinationDayComponent implements OnInit {
     private _snackBar: MatSnackBar
   ) {
     // Destination form Builder
-    this.destinationForm = this._formBuilder.group({
-      town_id: ['', Validators.required],
-      day_id: ['', Validators.required],
-      time_id: ['', Validators.required]
-    });
+    // this.destinationForm = this._formBuilder.group({
+    //   town_id: ['', Validators.required],
+    //   day_id: ['', Validators.required],
+    //   time_id: ['', Validators.required]
+    // });
   }
 
   async ngOnInit() {
@@ -57,9 +59,9 @@ export class DestinationDayComponent implements OnInit {
 
   // fetch times
   loadTime() {
-     this.destinationTime.getTimes().then(res => {
-       this.times = res.data;
-     });
+    this.destinationTime.getTimes().then(res => {
+      this.times = res.data;
+    });
   }
 
   // convenience getter for easy access to form fields
@@ -67,16 +69,12 @@ export class DestinationDayComponent implements OnInit {
     return this.destinationForm.controls;
   }
 
-
   save() {
-
-    console.log(this.f.town_id.value);
-    console.log(this.town_id);
     this.httpClient
       .post('/api/destination/time', {
-        destination_id: this.f.town_id.value,
-        day_id: this.f.day_id.value,
-        time_id: this.f.time_id.value
+        destination_id: this.town_id.ID,
+        day_id: this.day_id.ID,
+        time_id: this.time_id.ID
       })
       .subscribe(
         data => {
@@ -87,6 +85,7 @@ export class DestinationDayComponent implements OnInit {
             panelClass: ['blue-snackbar'],
             verticalPosition: 'top'
           });
+          window.location.reload();
           this.dialogRef.close();
         },
         error => {

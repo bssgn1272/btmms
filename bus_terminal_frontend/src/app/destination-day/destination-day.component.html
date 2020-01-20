@@ -9,14 +9,14 @@
         <div class="col-md-12">
           <div class="card-body">
             <mat-dialog-content>
-              <form [formGroup]="destinationForm">
+              <!-- <form [formGroup]="destinationForm"> -->
                   <div class="row">
                     <div class="col-md-6">
                 <div class="example-container">
                   <mat-form-field>
                     <mat-label>Town</mat-label>
-                    <mat-select formControlName="town_id" (change)=loadTown($event)>
-                      <mat-option *ngFor="let town of towns" value="{{town.id}}">{{town.town_name}}</mat-option>
+                    <mat-select name="town_id" [(ngModel)]="town_id" (change)=loadTown($event) convert-to-number>
+                      <mat-option *ngFor="let town of towns" [value]="town">{{town.town_name}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -25,8 +25,8 @@
                 <div class="example-container">
                   <mat-form-field>
                     <mat-label>Day</mat-label>
-                    <mat-select formControlName="day_id" (change)=loadDay($event)>
-                      <mat-option *ngFor="let day of days" value="{{day.id}}">{{day.day}}</mat-option>
+                    <mat-select name="day_id" [(ngModel)]="day_id" (change)=loadDay($event) convert-to-number>
+                      <mat-option *ngFor="let day of days" [value]="day">{{day.day}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -37,14 +37,14 @@
                 <div class="example-container">
                   <mat-form-field>
                     <mat-label>Time</mat-label>
-                    <mat-select formControlName="time_id" (change)=loadTime($event)>
-                      <mat-option *ngFor="let time of times" value="{{time.id}}">{{time.time_of_day}}</mat-option>
+                    <mat-select name="time_id" [(ngModel)]="time_id" (change)=loadTime($event) convert-to-number>
+                      <mat-option *ngFor="let time of times" [value]="time">{{time.time_of_day}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
               </div>
                 </div>
-                </form>
+                <!-- </form> -->
             </mat-dialog-content>
 
             <mat-dialog-actions>
