@@ -4,14 +4,13 @@ import (
 	u "../../src/utils"
 	"github.com/jinzhu/gorm"
 	"log"
-	"time"
 )
 
 // a struct for Time model
 type Time struct {
 	gorm.Model
 
-	TimeOfDay time.Time `json:"time_of_day"`
+	TimeOfDay string `json:"time_of_day"`
 }
 
 

@@ -32,21 +32,22 @@
                       </div>
                     </mat-select>
                   </mat-form-field>
-                  <!-- <mat-form-field class="example-full-width">
-                    <mat-label>Choose Slot</mat-label>
-                    <mat-select multiple>
-                      <mat-option *ngFor="let ba of slot" [value]="ba.value">
-                        {{ ba.viewValue }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field> -->
                 </div>
               </div>
               
               <div class="row">
                 <div class="col-md-12">
                   <mat-form-field class="example-full-width">
-                    <input matInput [(ngModel)]="route" placeholder="Bus Route" type="text" />
+                    <mat-label>Group</mat-label>
+                      <mat-select (change)=loadDestinations($event) [(ngModel)]="route">
+                        <div *ngFor="let destination of destinations">
+                          <div *ngIf="destination.time_of_day == time">
+                            <mat-option  [value]="destination.town_name">
+                              {{destination.town_name}}
+                            </mat-option>
+                          </div>
+                         </div>
+                   </mat-select>
                   </mat-form-field>
                 </div>
                 <!-- <div class="col-md-6">

@@ -4,6 +4,7 @@ import (
 	u "../../src/utils"
 	"github.com/jinzhu/gorm"
 	"log"
+	"time"
 )
 
 // a struct for Days model
@@ -24,7 +25,6 @@ type Join struct {
 	Time
 }
 
-
 // create DestinationDayTime
 func (destinationDayTime *DestinationDayTime) Create() (map[string] interface{}) {
 
@@ -41,7 +41,10 @@ func (destinationDayTime *DestinationDayTime) Create() (map[string] interface{})
 func GetDestinationDayTimes() ([]*Join) {
 
 	destinationDayTimes := make([]*Join, 0)
-	err := GetDB().Table("destination_day_times").Select("towns.town_name, days.day, times.time_of_day").Joins("JOIN towns ON destination_day_times.destination_id = towns.id").Joins("JOIN days ON destination_day_times.day_id = days.id").Joins("JOIN times ON destination_day_times.time_id = times.id").Find(&destinationDayTimes).Error
+	day := time.Now().AddDate(0,0,1,).Weekday()
+	nextDay := day.String()
+	log.Println(day)
+	err := GetDB().Table("destination_day_times").Select("towns.town_name, days.day, times.time_of_day").Joins("JOIN towns ON destination_day_times.destination_id = towns.id").Joins("JOIN days ON destination_day_times.day_id = days.id").Joins("JOIN times ON destination_day_times.time_id = times.id").Where("days.day = ?", nextDay).Find(&destinationDayTimes).Error
 
 	log.Println(err)
 	if err != nil {
@@ -51,5 +54,6 @@ func GetDestinationDayTimes() ([]*Join) {
 
 	return destinationDayTimes
 }
+
 
 

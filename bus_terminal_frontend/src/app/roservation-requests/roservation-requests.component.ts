@@ -4,7 +4,6 @@ import { ReservationRequestsService } from './reservation-requests.service';
 import { HttpClient } from '@angular/common/http';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { reject } from 'q';
 
 @Component({
   selector: 'app-roservation-requests',
@@ -38,10 +37,8 @@ export class RoservationRequestsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private el: ElementRef,
     private requests: ReservationRequestsService,
     private httpClient: HttpClient,
-    private route: ActivatedRoute,
     private router: Router,
     private _snackBar: MatSnackBar,
     public _location: Location
@@ -110,7 +107,7 @@ export class RoservationRequestsComponent implements OnInit {
         status: this.status
       })
       .subscribe(
-        data => {
+        () => {
           window.location.reload();
           this._snackBar.open('Successfully Updated', null, {
             duration: 1000,
@@ -119,7 +116,7 @@ export class RoservationRequestsComponent implements OnInit {
             verticalPosition: 'top'
           });
         },
-        error => {
+        () => {
           this._snackBar.open('Failed', null, {
             duration: 2000,
             horizontalPosition: 'center',
@@ -139,7 +136,7 @@ export class RoservationRequestsComponent implements OnInit {
         status: this.status
       })
       .subscribe(
-        data => {
+        () => {
           window.location.reload();
           this._snackBar.open('Successfully Updated', null, {
             duration: 1000,
@@ -148,7 +145,7 @@ export class RoservationRequestsComponent implements OnInit {
             verticalPosition: 'top'
           });
         },
-        error => {
+        () => {
           this._snackBar.open('Failed', null, {
             duration: 2000,
             horizontalPosition: 'center',

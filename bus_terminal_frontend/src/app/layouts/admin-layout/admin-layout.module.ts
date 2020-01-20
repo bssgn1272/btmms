@@ -24,7 +24,9 @@ import {
   MatSortModule,
   MatSnackBarModule,
   MatMenuModule,
-  MatStepperModule
+  MatStepperModule,
+  MatTabsModule,
+  MatIconModule
 } from '@angular/material';
 import { MakeBookingComponent } from 'app/make-booking/make-booking.component';
 import { ViewMySlotsComponent } from 'app/view-my-slots/view-my-slots.component';
@@ -33,7 +35,8 @@ import { ApproveReservationComponent } from 'app/approve-reservation/approve-res
 import { AlertsComponent } from 'app/alert/alerts.component';
 import { AlertsService } from 'app/alert/alerts.service';
 import { NavbarComponent } from 'app/components/navbar/navbar.component';
-// import { AdminDashboardComponent } from 'app/admin-dashboard/admin-dashboard.component';
+import { SettingsComponent } from 'app/settings/settings.component';
+import { DestinationDayComponent } from 'app/destination-day/destination-day.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -57,6 +60,8 @@ import { NavbarComponent } from 'app/components/navbar/navbar.component';
     MatSortModule,
     MatStepperModule,
     HttpClientModule,
+    MatTabsModule,
+    MatIconModule
   ],
   declarations: [
     DashboardComponent,
@@ -67,7 +72,8 @@ import { NavbarComponent } from 'app/components/navbar/navbar.component';
     RoservationRequestsComponent,
     ApproveReservationComponent,
     AlertsComponent,
-    // AdminDashboardComponent
+    SettingsComponent,
+    DestinationDayComponent
   ],
   providers: [AlertsService]
 })

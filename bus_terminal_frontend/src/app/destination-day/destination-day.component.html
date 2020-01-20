@@ -1,0 +1,65 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card card-plain">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Make Booking</h4>
+      </div>
+      <p></p>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-body">
+            <mat-dialog-content>
+              <form [formGroup]="destinationForm">
+                  <div class="row">
+                    <div class="col-md-6">
+                <div class="example-container">
+                  <mat-form-field>
+                    <mat-label>Town</mat-label>
+                    <mat-select formControlName="town_id" (change)=loadTown($event)>
+                      <mat-option *ngFor="let town of towns" value="{{town.id}}">{{town.town_name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="example-container">
+                  <mat-form-field>
+                    <mat-label>Day</mat-label>
+                    <mat-select formControlName="day_id" (change)=loadDay($event)>
+                      <mat-option *ngFor="let day of days" value="{{day.id}}">{{day.day}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                <div class="example-container">
+                  <mat-form-field>
+                    <mat-label>Time</mat-label>
+                    <mat-select formControlName="time_id" (change)=loadTime($event)>
+                      <mat-option *ngFor="let time of times" value="{{time.id}}">{{time.time_of_day}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+                </div>
+                </form>
+            </mat-dialog-content>
+
+            <mat-dialog-actions>
+              <button class="mat-raised-button" (click)="close()">Close</button>
+              <button
+                mat-raised-button
+                class="btn btn-primary"
+                (click)="save()"
+              >
+                Make Booking
+              </button>
+            </mat-dialog-actions>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

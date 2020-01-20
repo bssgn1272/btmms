@@ -2,10 +2,16 @@ import { Component, OnInit, Optional, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MakeBookingService } from './make-booking.service';
 
 export interface Slot {
   value: string;
   viewValue: string;
+}
+
+export interface Destination {
+  town_name: string;
+  time_of_day: string;
 }
 
 @Component({
@@ -33,6 +39,7 @@ export class MakeBookingComponent implements OnInit {
   returnUrl: '';
   userItems: any;
   _id: any;
+  public destinations: [];
 
   constructor(
     public dialogRef: MatDialogRef<MakeBookingComponent>,
@@ -40,7 +47,8 @@ export class MakeBookingComponent implements OnInit {
     private httpClient: HttpClient,
     private routes: ActivatedRoute,
     private router: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private makeBookingService: MakeBookingService
   ) {}
 
   public getFromLocalStrorage() {
@@ -48,7 +56,7 @@ export class MakeBookingComponent implements OnInit {
     return users;
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.userItems = this.getFromLocalStrorage();
     this._id = this.userItems.ID;
     this.user = this.userItems.username;
@@ -113,10 +121,20 @@ export class MakeBookingComponent implements OnInit {
     this.time = this.data.row.time;
     // this.reserved_time = this.data.row.reserved_time;
 
+    // destinations
+    await this.loadDestinations();
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.routes.snapshot.queryParams['returnUrl'] || '/dashboard';
+    this.returnUrl =
+      this.routes.snapshot.queryParams['returnUrl'] || '/dashboard';
     console.log(this.data);
     console.log(this.time);
+  }
+
+  // fetch groups
+  async loadDestinations() {
+    this.makeBookingService.getList().then(res => {
+      this.destinations = res.data;
+    });
   }
 
   save() {
