@@ -1,6 +1,12 @@
+<style>
+         .panel{
+             border-radius: 25px;
+             border:1px solid orange;
+         }
+         </style>
 <div class="panel panel-flat" style="padding: 9px">
     <div class="panel-heading">
-	<h5 class="panel-title" style="text-align:center; font-weight: bold; font-size: 20px;">Bookings</h5>
+	<h5 class="panel-title" style="text-align:center; font-weight: bold; font-size: 20px; color:blue; text-decoration:underline;"><strong>Bookings</strong></h5>
     <hr>
 
     </div>

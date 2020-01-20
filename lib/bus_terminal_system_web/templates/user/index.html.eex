@@ -58,7 +58,7 @@
 
 <!--############# ADMIN ################-->
 <%= if @user.role == "ADMIN" do %>
-    <h1 style="text-align:center">ADMIN DASHBOARD</h1><hr style="border-top: 1px solid orange;">
+    <h1 style="text-align:center; color:blue; text-decoration:underline;"><strong>ADMIN DASHBOARD</strong></h1><hr style="border-top: 1px solid orange;">
     <div class="timeline timeline-left content-group" style="margin-top: 2%;">
         <div class="timeline-container">
 
@@ -73,7 +73,7 @@
 
                 <div class="panel border-left-lg border-left-primary timeline-content">
                     <div class="panel-heading">
-                        <h6 class="panel-title">Statistics Dashboard</h6>
+                        <h6 class="panel-title" style="text-decoration:underline; text-align:center; color:blue;">Statistics Dashboard</h6>
                     </div>
                     <hr>
 
@@ -83,7 +83,7 @@
                         <div class="row">
 
                             <div class="col-md-6 col-lg-6 panel panel-flat">
-                               <h2>Sales Statistics</h2>
+                               <h2 style="text-decoration:underline; color:blue; text-align:center;">Sales Statistics</h2>
                                <hr>
                                 <div class="col">
                                     <div class="row-md-6 panel panel-flat">
@@ -103,7 +103,7 @@
                             </div>
 
                             <div class="col-md-6 col-lg-6 panel panel-flat">
-                                <h2>Travels</h2>
+                                <h2 style="text-decoration:underline; color:blue; text-align:center;">Travels</h2>
                                 <hr>
                                 <div class="col">
                                     <div class="row-md-6 panel panel-flat">
@@ -129,6 +129,22 @@
             </div>
         </div>
 
+        <style>
+        .w3-card-2{
+            border-radius: 25px;
+            border:1px solid orange;
+            width: auto;
+            height: auto;
+        }
+        .w3-deep-purple{
+            border-radius: 25px;
+            border:1px solid orange;
+        }
+        .panel{
+            border-radius: 25px;
+            border:1px solid orange;
+        }
+        </style>
 
 
             <div class="timeline-row">
@@ -141,7 +157,7 @@
 
                 <div class="panel border-left-lg border-left-primary timeline-content">
                     <div class="panel-heading">
-                        <h6 class="panel-title">Admin Dashboard</h6>
+                        <h6 class="panel-title" style="text-decoration:underline; color:blue; text-align:center;"> <strong>Admin Dashboard</strong></h6>
                     </div>
                     <hr>
 
@@ -151,7 +167,7 @@
                             <div class="col-sm-4 col-md-4">
                                 <div class="w3-card-2" style="margin-bottom: 6%;">
                                     <header class="w3-container w3-deep-purple">
-                                        <h4>Booking Module</h4>
+                                        <h4 style="text-align:center;">Booking Module</h4>
                                     </header>
 
                                     <div class="container-fluid" id="marketButtons">
@@ -178,7 +194,7 @@
                             <div class="col-sm-4 col-md-4">
                                 <div class="w3-card-2" style="margin-bottom: 6%;">
                                     <header class="w3-container w3-deep-purple">
-                                        <h4>Bus Teminus Module</h4>
+                                        <h4 style="text-align:center;">Bus Teminus Module</h4>
                                     </header>
 
                                         <div class="container-fluid" id="marketButtons">
@@ -222,7 +238,7 @@
                             <div class="col-sm-4 col-md-4">
                                 <div class="w3-card-2" style="margin-bottom: 6%;">
                                     <header class="w3-container w3-deep-purple">
-                                        <h4>Marketing Module</h4>
+                                        <h4 style="text-align:center;">Marketing Module</h4>
                                     </header>
 
                                     <div class="container-fluid" id="marketButtons">
@@ -271,7 +287,7 @@
                             <div class="col-sm-12 col-md-12">
                                 <div class="w3-card-2" style="margin-bottom: 6%;">
                                     <header class="w3-container w3-deep-purple">
-                                        <h4>Routes Module</h4>
+                                        <h4 style="text-align:center;">Routes Module</h4>
                                     </header>
 
                                     <div class="container-fluid" id="marketButtons">
@@ -506,7 +522,7 @@
 
                 <div class="w3-container">
                     <div class="" style="overflow-x:auto; width: 100%;" >
-                            <h4 style="text-align: center; font-weight: bold; font-size: 18px;">
+                            <h4 style="text-align: center; color:blue; text-decoration:underline; font-weight: bold; font-size: 18px;">
                                 TODAYS TRANSACTION
                             </h4><hr>
                         <table class="table table-striped table-bordered" id="TellerPastTransactions">
@@ -566,7 +582,7 @@
 
                 <div class="w3-container">
                     <div class="" style="overflow-x:auto; width: 100%;">
-                            <h4 style="text-align: center; font-weight: bold; font-size: 18px;">
+                            <h4 style="text-align: center; color:blue; text-decoration:underline; font-weight: bold; font-size: 18px;">
                                 List of Tickets
                             </h4><hr>
                         <table class="table table-striped table-bordered" id="queryTickets">
@@ -618,6 +634,7 @@
         <!---------------------------------------->
 
          <!------------ BOOKINGS ----------------->
+         
         <div class="row">
             <div class="col-md-12 bus" id="bookings">
             <div class="w3-card-4 w3-margin w3-white w3-center" style="width:100%;" id="rcorners1">
@@ -681,7 +698,7 @@
                     <div class="col-lg-11 mt-4 stretched_card">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card_title" style="text-align:center;">Search Results</h4>
+                                <h4 class="card_title" style="text-align:center; color:blue; text-decoration:underline;">Search Results</h4>
                                 <div class="single-table">
                                     <div class="table-responsive">
                                         <table id="routes_dataTable"  class="table table-striped table-bordered" >
@@ -853,7 +870,7 @@
 
                 <div class="w3-container">
                     <div class="" style="overflow-x:auto; width: 100%;">
-                            <h4 style="text-align: center; font-weight: bold; font-size: 18px;">
+                            <h4 style="text-align: center; color:blue; text-decoration:underline; font-weight: bold; font-size: 18px;">
                                 AVAILABLE ROUTES
                             </h4><hr>
                         <table class="table table-striped table-bordered" id="available_routes">
@@ -1027,7 +1044,7 @@
 </div>
 -->
 <div class="header">
-    <h1 style="text-align:center; font-weight: bold; font-size: 30px;">BOP DASHBOARD</h1><hr style="border-top: 1px solid orange;">
+    <h1 style="text-align:center; color:blue; text-decoration:underline ; font-weight: bold; font-size: 30px;"><span class="icon-car"></span> BOP DASHBOARD</h1><hr style="border-top: 1px solid orange;">
 </div>
 <!-- Toolbar
 <div class="navbar navbar-default navbar-xs navbar-component no-border-radius-top">
@@ -1096,16 +1113,21 @@ TO ADD STATICS GRAPH
                             <i class="icon-table"></i>
                         </div>
                     </div>
-
+                    <style>
+                    .panel {
+                        border-radius: 25px;
+                        border:1px solid orange;
+                        }
+                    </style>
                     <div class="panel border-left-lg border-left-primary timeline-content">
                         <div class="panel-heading">
-                            <h6 class="panel-title">Registered Buses</h6>
-                        </div><hr>
+                            <h6 class="panel-title" style="color:blue; text-align:center; text-decoration:underline ;">Registered Buses</h6>
+                        </div><hr style="color:orange;">
 
                         <div class="panel-body">
                             <div class="chart-container">
                                 <div style="overflow-x:auto;">
-                                    <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
+                                    <table  class="table table-striped table-bordered" id="dataTableBusTerminusId">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
@@ -1180,10 +1202,10 @@ TO ADD STATICS GRAPH
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <h6 class="text-semibold no-margin-top">
+                                        <h6 class="text-semibold no-margin-top" style="color:blue; text-align:center; text-decoration:underline ;">
                                             Resgistering Buses
                                         </h6>
-                                        <hr>
+                                        <hr style="color:orange;">
                                     </div>
 
                                     <p>
@@ -1208,10 +1230,10 @@ TO ADD STATICS GRAPH
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <h6 class="text-semibold no-margin-top">
+                                        <h6 class="text-semibold no-margin-top" style="color:blue; text-align:center; text-decoration:underline ;">
                                             Check Available Routes
                                         </h6>
-                                        <hr>
+                                        <hr style="color:orange;">
                                     </div>
 
                                     <p>
@@ -1239,6 +1261,17 @@ TO ADD STATICS GRAPH
 <!--############ BOP_HOME %> ###########-->
 
 <!--############ BOP_DOCUMENTATION ###########-->
+
+<style>
+                                
+    .card {
+        padding: 20px;
+        width: auto;
+        height: auto;
+        border:1px solid orange;
+        border-radius: 25px;
+        }
+</style>
 <div class="tab-pane fade" id="BOPdocumentation">
     <div class="container-fluid">
         <div class="panel panel-flat">
@@ -1259,28 +1292,37 @@ TO ADD STATICS GRAPH
                          <div class="panel-body">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <h6 class="text-semibold no-margin-top">
-                                        Tellers
+                                    <h6 class="text-semibold no-margin-top" style="border:2px solid; color:blue; border-radius: 25px; background-color:blue; text-align:center;">
+                                        <strong style="color:white; ">Tellers</strong><br>
                                     </h6>
                                     <hr>
                                 </div>
 
                                 <p>
+                                
+                                <div class="card">
                                     Tellers are typically the first point of interaction for customers as they want to buy a ticket from a kiosk. Tellers verify the identity of customers and process requests for tickets. They generate certified tickets according to the specifications of customers. Tellers answer questions about the bus operator services and direct customers to customer care service center for more information. They must count cash in their drawers as they begin their shift and reconcile remaining cash at the end of their shift to account accurately for the days transactions. These tellers will be provided by NAPSA.
+<<<<<<< HEAD
+                                </div>
+                                </p>                                   
+                            </div>                            
+=======
                                 </p>
                             </div>
+>>>>>>> 878e4097b141c19d3537ec6bbb79742a412afbe8
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
+   
+=======
 
 
+>>>>>>> 878e4097b141c19d3537ec6bbb79742a412afbe8
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h6 class="panel-title">
-                    Rules To Be Shared With All Tellers
-                </h6>
                 <div class="heading-elements">
                     <ul class="icons-list">
                         <li><a data-action="collapse"></a></li>
@@ -1292,16 +1334,29 @@ TO ADD STATICS GRAPH
 
             <div class="panel-body">
                 <div class="schedule">
-                    <ul>
-                        <li>Always Use a Trading Plan.</li>
-                        <li>Treat Trading Like a Business.</li>
-                        <li>Use Technology.</li>
-                        <li>Protect Your Trading Capital.</li>
-                        <li>Study the Markets.</li>
-                        <li>Risk Only What You Can Afford.</li>
-                        <li>Develop a Trading Methodology.</li>
-                        <li>Always Use a Stop Loss.</li>
-                    </ul>
+                <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h6 class="text-semibold no-margin-top" style="border:2px solid; color:blue; border-radius: 25px; background-color:blue; text-align:center;">
+                                        <strong style="color:white;">Rules To Be Shared With All Tellers</strong><br>
+                                    </h6>
+                                </div>
+                    <div class="card">
+                    <p>
+                        <ul>
+                            <li>Always Use a Trading Plan.</li>
+                            <li>Treat Trading Like a Business.</li>
+                            <li>Use Technology.</li>
+                            <li>Protect Your Trading Capital.</li>
+                            <li>Study the Markets.</li>
+                            <li>Risk Only What You Can Afford.</li>
+                            <li>Develop a Trading Methodology.</li>
+                            <li>Always Use a Stop Loss.</li>
+                        </ul>
+                    </p>
+                    </div>
+                </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -1322,7 +1377,7 @@ TO ADD STATICS GRAPH
                         <div class="row">
                             <div class="col-md-12">
                                 <fieldset>
-                                    <legend class="text-semibold"><i class="icon-reading position-left"></i> REGISTER BUS</legend>
+                                    <legend class="text-semibold" style="text-align:center; color:blue; text-decoration:underline ;"><i class="icon-reading position-left"></i> REGISTER BUS</legend>
 
                                     <div class="row">
                                         <div class="col-md-6">
@@ -1458,7 +1513,7 @@ TO ADD STATICS GRAPH
                         <div class="row">
                             <div class="col-md-12">
                                 <fieldset>
-                                    <legend class="text-semibold"><i class="icon-reading position-left"></i> PREVIEW</legend>
+                                    <legend class="text-semibold" style="text-align:center; color:blue; text-decoration:underline ;"><i class="icon-reading position-left"></i> PREVIEW</legend>
                                         <div class="row">
                                            <div class="col-md-4">
                                                 <b>MODEL </b><div id="vehicleModelText"></div>
@@ -1546,7 +1601,7 @@ TO ADD STATICS GRAPH
 -->
 
 <div class="header">
-    <h1 style="text-align:center; font-weight: bold; font-size: 30px;">MOP DASHBOARD</h1><hr style="border-top: 1px solid orange;">
+    <h1 style="text-align:center;text-decoration:underline; font-weight: bold; font-size: 30px; color:blue;">MOP DASHBOARD</h1><hr style="border-top: 1px solid orange;">
 </div>
 
 <!-- Toolbar
@@ -1590,7 +1645,12 @@ TO ADD STATICS GRAPH
 <!--############ MOP_HOME ##############-->
 <div class="tab-pane fade in active" id="activity">
     <div class="container-fluid">
-
+                <style>
+                .panel {
+                    border-radius: 25px;
+                    border:1px solid orange;
+                    }
+                </style>
         <!-- Timeline -->
         <div class="timeline timeline-left content-group">
             <div class="timeline-container">
@@ -1605,7 +1665,7 @@ TO ADD STATICS GRAPH
 
                     <div class="panel border-left-lg border-left-primary timeline-content">
                         <div class="panel-heading">
-                            <h6 class="panel-title">Registered Marketeers</h6>
+                            <h6 class="panel-title" style="color:blue; text-align:center; color:blue; text-decoration:underline;">Registered Marketeers</h6>
                         </div>
                         <hr>
 
@@ -1645,8 +1705,12 @@ TO ADD STATICS GRAPH
                 <a onclick="this.innerHTML=Date()">Click To Check Time</a>
             </div>
             <!-- /date stamp -->
+<<<<<<< HEAD
+                                        
+=======
 
 
+>>>>>>> 878e4097b141c19d3537ec6bbb79742a412afbe8
             <div class="timeline-row">
                 <div class="timeline-icon">
                     <div class="bg-warning-400">
@@ -1660,15 +1724,20 @@ TO ADD STATICS GRAPH
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <h6 class="text-semibold no-margin-top">
+                                        <h6 class="text-semibold no-margin-top" style="color:blue; text-align:center; text-decoration:underline;">
                                             Register a Marketeer
                                         </h6>
                                         <hr>
                                     </div>
 
                                     <p>
+<<<<<<< HEAD
+                                            Market operators can register their new clients here, by clicking the <i>New Marketeer</i> button. 
+                                    </p>                                    
+=======
                                         Market operators can register their new clients here, by clicking the <i>New Marketeer</i> button.
                                     </p>
+>>>>>>> 878e4097b141c19d3537ec6bbb79742a412afbe8
                                 </div>
                                 <div class="panel-footer panel-footer-condensed">
                                     <div class="container-fluid">
@@ -1727,11 +1796,20 @@ TO ADD STATICS GRAPH
 <!--############ MOP_HOME ##############-->
 
 <!--############ MOP_DOCUMENTATION #############-->
+
+<style>                        
+    .card {
+        padding: 20px;
+        width: auto;
+        height: auto;
+        border:1px solid orange;
+        border-radius: 25px;
+        }
+</style>
 <div class="tab-pane fade" id="documentation">
     <div class="container-fluid">
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h6 class="panel-title">Register New User</h6>
                 <div class="heading-elements">
                     <ul class="icons-list">
                         <li><a data-action="collapse"></a></li>
@@ -1748,15 +1826,22 @@ TO ADD STATICS GRAPH
 
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <h6 class="text-semibold no-margin-top">
-                                        Register a Marketeer
+                                    <h6 class="text-semibold no-margin-top" style="border:2px solid; color:blue; border-radius: 25px; background-color:blue; text-align:center;">
+                                       <strong style="color:white; "> Register a Marketeer</strong>
                                     </h6>
                                     <hr>
                                 </div>
 
                                 <p>
+<<<<<<< HEAD
+                                    <div class="card">
+                                        Market operators are individuals or firms that manage the market were marketeers are assured of a smooth flow of business. These individuals or firms are responsible for tax collection from the the traders operating in that particular market. Market opeartors are required to deem-fit weather someone has the capability of operating in a particular market, if they are, the operator will be required to assign a shop in a specific section of the market. To register a new marketeer click the <i>New Marketeer</i> button. 
+                                    </div>
+                                </p>                                    
+=======
                                     Market operators are individuals or firms that manage the market were marketeers are assured of a smooth flow of business. These individuals or firms are responsible for tax collection from the the traders operating in that particular market. Market opeartors are required to deem-fit weather someone has the capability of operating in a particular market, if they are, the operator will be required to assign a shop in a specific section of the market. To register a new marketeer click the <i>New Marketeer</i> button.
                                 </p>
+>>>>>>> 878e4097b141c19d3537ec6bbb79742a412afbe8
                             </div>
 
                             <div class="panel-footer panel-footer-condensed">
@@ -1767,16 +1852,17 @@ TO ADD STATICS GRAPH
                                         </a>
                                     </span>
                                 </div>
-                            </div><br><br>
+                            </div><br>
 
                             <div class="col-sm-12">
-                                <h6 class="text-semibold no-margin-top">
-                                    View Created Traders
+                                <h6 class="text-semibold no-margin-top" style="border:2px solid; color:blue; border-radius: 25px; background-color:blue; text-align:center;">
+                                  <strong style="color:white;">  View Created Traders</strong>
                                 </h6>
-                                <hr>
                             </div>
                             <p>
-                                To View the new created marketeers, click the tab  dubbed Home. This will take you to a home page where they exist a Datatable which is displaying all resgitered traders of a particular market.
+                                <div class="card">
+                                    To View the new created marketeers, click the tab  dubbed Home. This will take you to a home page where they exist a Datatable which is displaying all resgitered traders of a particular market.
+                                </div>
                             </p>
                         </div>
                     </div>
@@ -1787,7 +1873,7 @@ TO ADD STATICS GRAPH
 
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h6 class="panel-title">Rules To Be Shared With All Traders</h6>
+               
                 <div class="heading-elements">
                     <ul class="icons-list">
                         <li><a data-action="collapse"></a></li>
@@ -1799,16 +1885,28 @@ TO ADD STATICS GRAPH
 
             <div class="panel-body">
                 <div class="schedule">
-                    <ul>
-                        <li>Always Use a Trading Plan.</li>
-                        <li>Treat Trading Like a Business.</li>
-                        <li>Use Technology.</li>
-                        <li>Protect Your Trading Capital.</li>
-                        <li>Study the Markets.</li>
-                        <li>Risk Only What You Can Afford.</li>
-                        <li>Develop a Trading Methodology.</li>
-                        <li>Always Use a Stop Loss.</li>
-                    </ul>
+                <div class="row">
+                                <div class="col-sm-12">
+                                     <h6 class="panel-title" style="border:2px solid; color:blue; border-radius: 25px; background-color:blue; text-align:center;">
+                                     <strong style="color:white;">Rules To Be Shared With All Traders</strong>
+                                     </h6>
+                                    <hr>
+                                </div>
+                    <div class="card">
+                        <p>
+                            <ul>
+                                <li>Always Use a Trading Plan.</li>
+                                <li>Treat Trading Like a Business.</li>
+                                <li>Use Technology.</li>
+                                <li>Protect Your Trading Capital.</li>
+                                <li>Study the Markets.</li>
+                                <li>Risk Only What You Can Afford.</li>
+                                <li>Develop a Trading Methodology.</li>
+                                <li>Always Use a Stop Loss.</li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -1825,7 +1923,7 @@ TO ADD STATICS GRAPH
                 <div class="col-lg-6 col-md-6">
                     <div class="container-fluid panel panel-flat">
                         <br>
-                        <legend class="text-semibold"><i class="icon-reading position-left"></i> MARKETER REGISTRATION</legend>
+                        <legend class="text-semibold" style="color:blue; text-decoration:underline; text-align:center;"><i class="icon-reading position-left"></i> MARKETER REGISTRATION</legend>
                         <hr>
 
                         <div class="row">
@@ -1873,7 +1971,7 @@ TO ADD STATICS GRAPH
                 <div class="col-lg-6 col-md-6">
                     <div class="container-fluid panel panel-flat">
                     <br>
-                    <legend class="text-semibold"><i class="icon-reading position-left"></i> PREVIEW</legend>
+                    <legend class="text-semibold" style="text-decoration:underline; color:blue; text-align:center;"><i class="icon-reading position-left"></i> PREVIEW</legend>
                     <hr>
 
                     <div class="row">

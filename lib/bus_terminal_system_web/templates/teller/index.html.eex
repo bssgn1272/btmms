@@ -1,5 +1,10 @@
-<h1 style="text-align:center">MANAGE TELLERS</h1><hr style="border-top: 1px solid orange;">
-
+<h1 style="text-align:center; color:blue; text-decoration:underline;"><strong>Manage Tellers</strong></h1><hr style="border-top: 1px solid orange;">
+<style>
+         .panel{
+             border-radius: 25px;
+             border:1px solid orange;
+         }
+         </style>
 <div class="container-fluid">
     <ul class="nav nav-tabs">
         <li class="active">
@@ -20,7 +25,7 @@
         <div class="timeline-row">
             <div class="panel border-left-lg border-left-danger timeline-content">
                 <div class="panel-heading">
-                    <h6 class="panel-title">Registered Tellers</h6>
+                    <h6 class="panel-title" style="color:blue; text-align:center; text-decoration:underline;">Registered Tellers</h6>
                 </div>
                 <hr>
 
@@ -92,7 +97,7 @@
 
                 <form>
                   <div class="panel-body">
-                      <legend class="text-semibold"><i class="icon-reading position-left"></i> TELLER REGISTRATION</legend>
+                      <legend class="text-semibold" style="color:blue; text-align:center; text-decoration:underline;"><i class="icon-reading position-left"></i> TELLER REGISTRATION</legend>
 
                           <div class="row">
                               <div class="col-md-6">
@@ -167,7 +172,7 @@
                 <div class="panel-body">
                   <div class="container-fluid">
 
-                    <legend class="text-semibold"><i class="icon-reading position-left"></i> PREVIEW</legend>
+                    <legend class="text-semibold" style="color:blue; text-align:center; text-decoration:underline;"><i class="icon-reading position-left"></i> PREVIEW</legend>
 
                     <div class="row">
                         <div class="col-md-4">

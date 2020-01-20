@@ -1,4 +1,10 @@
 <!--#####-- TOP_TICKET_SALES --#####-->
+<style>
+         .panel{
+             border-radius: 25px;
+             border:1px solid orange;
+         }
+         </style>
     <div class="container-fluid">
         <div class="row">
 
@@ -11,7 +17,7 @@
 
             <div class="col-lg-7 col-md-7 panel panel-flat">
                 <div class="container-fluid">
-                    <h4>REPORT</h4>
+                    <h4 style="text-align:center; color:blue; text-decoration:underline;">REPORT</h4>
                     <hr>
                     <form>
                         <div class="form-group has-feedback has-feedback-left">
@@ -66,7 +72,7 @@
 <!--#####-- TOP_AVAILABLE OPERATORS --#######-->
     <div class="panel panel-flat" style="padding: 9px">
         <div class="panel-heading">
-            <h4 style="text-align: center; font-weight: bold; font-size: 18px;">
+            <h4 style="text-align: center; color:blue; text-decoration:underline; font-weight: bold; font-size: 18px;">
                 Bus Operators Operating In Your Area
             </h4><hr>
         </div>

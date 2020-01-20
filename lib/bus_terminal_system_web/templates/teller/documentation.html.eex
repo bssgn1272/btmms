@@ -1,12 +1,17 @@
 <!--#####-- TOP_DOCUMENTATION --#####-->
     <div class="container-fluid">
-
+<style>
+         .panel{
+             border-radius: 25px;
+             border:1px solid orange;
+         }
+         </style>
             <div class="panel-body panel panel-flat">
                 <div id="plans">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h6 class="text-semibold no-margin-top">
-                                Tellers
+                            <h6 class="text-semibold no-margin-top" style="border:2px solid; color:blue; border-radius: 25px; background-color:blue; text-align:center;">
+                                <strong style="color:white;">Tellers</strong>
                             </h6><hr>
                         </div>
                                                     
@@ -20,7 +25,8 @@
    
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h6 class="panel-title">Rules To Be Shared With All Tellers</h6>
+                <h6 class="panel-title" style="border:2px solid; color:blue; border-radius: 25px; background-color:blue; text-align:center;">
+                <strong style="color:white">Rules To Be Shared With All Tellers</strong></h6>
             </div>
 
             <div class="panel-body">

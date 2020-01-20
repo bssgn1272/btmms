@@ -1,5 +1,10 @@
-<h1 style="text-align:center">Scheduling</h1><hr style="border-top: 1px solid orange;">
-
+<h1 style="text-align:center; color:blue; text-decoration:underline;"><strong>Scheduling</strong></h1><hr style="border-top: 1px solid orange;">
+<style>
+         .w3-card-2{
+             border-radius: 25px;
+			 border:1px solid orange;
+         }
+         </style>
 <!--------------- ROUTES_TABLE ----------------------------------------------------->
 <div class="container">
 	<div class="w3-card-2 w3-white" style="width: 100%;">
@@ -57,7 +62,12 @@
     </div>
 </div><br>
 <!------------------------------------------------------------------------------------->
-
+		<style>
+		.panel{
+					border-radius: 25px;
+					border:1px solid orange;
+				}
+         </style>
 <!------------------ ROUTES_FORM ------------------------------------------------------>
 <div class="container">
 	<div class="row">
@@ -70,7 +80,7 @@
 		                    <div class="col-md-12">
 		                        
 		                      <div class="panel-heading" style="margin: -5% 5%;">
-								<legend class="text-semibold"><i class="icon-watch position-left"></i> SETTING SECHEDULES</legend>
+								<legend class="text-semibold" style="text-align:center; color:blue; text-decoration:underline;"><i class="icon-watch position-left"></i> SETTING SECHEDULES</legend>
 								<div class="heading-elements">
 									<ul class="icons-list">
 				                		<li><a data-action="collapse"></a></li>
@@ -160,7 +170,7 @@
     <div class="panel-body">
             <div class="row">
                 <div class="col-md-12">
-                        <legend class="text-semibold"><i class="icon-watch position-left"></i> PREVIEW</legend>
+                        <legend class="text-semibold" style="text-align:center; color:blue; text-decoration:underline;"><i class="icon-watch position-left"></i> PREVIEW</legend>
                         <hr>
                         <div class="row">
                             <div class="col-md-4">

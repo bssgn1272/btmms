@@ -1,6 +1,12 @@
-<h1 style="text-align:center">Routes</h1><hr style="border-top: 1px solid orange;">
+<h1 style="text-align:center; color:blue; text-decorations:underline; text-decoration:underline;"> <strong>Routes</strong></h1><hr style="border-top: 1px solid orange;">
 
 <!--------------- ROUTES_TABLE ----------------------------------------------------->
+<style>
+         .w3-card-2{
+             border-radius: 25px;
+             border:1px solid orange;
+         }
+         </style>
 <div class="container">
 	<div class="w3-card-2 w3-white" style="width: 100%;">
 		<div class="w3-container">
@@ -48,6 +54,12 @@
 <!------------------------------------------------------------------------------------->
 
 <!------------------ ROUTES_FORM ------------------------------------------------------>
+<style>
+         .panel{
+             border-radius: 25px;
+             border:1px solid orange;
+         }
+         </style>
 <div class="container">
 	<div class="row">
 		<div class="col-md-6">
@@ -57,7 +69,7 @@
 
 		                <div class="row">
 		                    <div class="col-md-12">
-		                        <legend class="text-semibold"><i class="icon-road position-left"></i> CREATING ROUTES</legend>
+		                        <legend class="text-semibold" style="color:blue; text-align:center; text-decoration:underline;"><i class="icon-road position-left"></i> CREATING ROUTES</legend>
 		                        <hr>
 
 		                            <div class="row">
@@ -110,7 +122,7 @@
     <div class="panel-body">
             <div class="row">
                 <div class="col-md-12">
-                        <legend class="text-semibold"><i class="icon-road position-left"></i> PREVIEW</legend>
+                        <legend class="text-semibold" style="color:blue; text-align:center; text-decoration:underline;"><i class="icon-road position-left"></i> PREVIEW</legend>
                         <hr>
                         <div class="row">
                             <div class="col-md-3">

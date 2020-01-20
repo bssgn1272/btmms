@@ -102,30 +102,30 @@
                                     <li>
     								    <a href="<%= Routes.user_path(@conn, :index)%>">
 
-                                            <i class="icon-home"></i> <span>Dashboard</span>
+                                            <i style="color:orange;" class="icon-home"></i> <span>Dashboard</span>
                                         </a>
     								</li>
 
                                     <li>
                                         <a href="<%= Routes.route_path(@conn, :index)%>">
-                                            <i class="icon-road"></i> <span>Routes</span>
+                                            <i style="color:orange;" class="icon-road"></i> <span>Routes</span>
                                         </a>
                                     </li>
 
                                     <li>
                                         <a href="<%= Routes.bookings_path(@conn, :index)%>">
-                                            <i class="icon-ticket"></i> <span>Bookings</span>
+                                            <i style="color:orange;" class="icon-ticket"></i> <span>Bookings</span>
                                         </a>
                                     </li>
 
                                     <li>
                                         <a href="<%= Routes.bookings_path(@conn, :schedule)%>">
-                                            <i class="icon-watch"></i> <span>Scheduling</span>
+                                            <i style="color:orange;" class="icon-watch"></i> <span>Scheduling</span>
                                         </a>
                                     </li>
 
                                     <li>
-                                        <a href="#"><i class="icon-user"></i> <span>Teller</span></a>
+                                        <a href="#"><i style="color:orange;" class="icon-user"></i> <span>Teller</span></a>
                                         <ul>
                                             <li>
                                                 <a href="/teller">
@@ -139,7 +139,7 @@
                                     <%= if @user.role == "BOP" or @user.role == "ADMIN" do %>
                                    									
                                     <li>
-                                        <a href="#"><i class="icon-bus"></i> <span>Bus</span></a>
+                                        <a href="#"><i style="color:orange;" class="icon-bus"></i> <span>Bus</span></a>
                                         <ul>
                                             <li>
                                                 <%= link "Approve Bus", to: Routes.bus_terminus_path(@conn, :bus_approval) %>
@@ -151,7 +151,7 @@
 
 
     								<li>
-    									<a href="#"><i class="icon-stop    "></i> <span>Terminus</span></a>
+    									<a href="#"><i style="color:orange;" class="icon-stop    "></i> <span>Terminus</span></a>
     									<ul>
     										<li><%= link "Management", to: Routes.bus_terminus_path(@conn, :index) %></li>
     									</ul>
@@ -160,7 +160,7 @@
 
     								<%= if @user.role == "MOP" or @user.role == "ADMIN" do %>
     								<li>
-                                        <a href="#"><i class="icon-stack2"></i> <span>Market Operations</span></a>
+                                        <a href="#"><i style="color:orange;" class="icon-stack2"></i> <span>Market Operations</span></a>
                                         <ul>
                                             <li><%= link "Management", to: Routes.marketer_path(@conn, :index) %></li>
                                             <li><%= link "Stand Allocation", to: Routes.marketer_path(@conn, :standallocation) %></li>
@@ -204,19 +204,19 @@
                                     <li>
                                         <a href="<%= Routes.user_path(@conn, :index)%>">
 
-                                            <i class="icon-home"></i> <span>Dashboard</span>
+                                            <i style="color:orange;" class="icon-home"></i> <span>Dashboard</span>
                                         </a>
                                     </li>
 
                                     <li>
                                         <a href="#documentation" data-toggle="tab">
-                                            <i class="icon-book position-left"></i> Documentation 
+                                            <i style="color:orange;" class="icon-book position-left"></i> Documentation 
                                         </a>
                                     </li>
 
                                     <li>
                                         <a href="#registerMarketeers" data-toggle="tab">
-                                            <i class="icon-user position-left"></i> Register Marketeers 
+                                            <i style="color:orange;" class="icon-user position-left"></i> Register Marketeers 
                                         </a>
                                     </li>
                                     <li><br></li>
@@ -259,27 +259,25 @@
                                 </div>
 
                             </div>
-
                             <div class="category-content no-padding">
                                 <ul class="navigation navigation-main navigation-accordion">
 
                                     <%= if @user.role == "BOP" do %>
                                     <li>
                                         <a href="<%= Routes.user_path(@conn, :index)%>">
-
-                                            <i class="icon-home"></i> <span>Dashboard</span>
+                                            <i style="color:orange;" class="icon-home"></i> <span >Dashboard</span>
                                         </a>
                                     </li>
 
                                     <li>
                                         <a href="#BOPdocumentation" data-toggle="tab">
-                                            <i class="icon-book position-left"></i> Documentation 
+                                            <i style="color:orange;" class="icon-book position-left"></i> Documentation 
                                         </a>
                                     </li>
 
                                     <li>
                                         <a href="#BOPregisterBus" data-toggle="tab">
-                                            <i class="icon-car position-left"></i> Register Buses 
+                                            <i style="color:orange;" class="icon-car position-left"></i> Register Buses 
                                         </a>
                                     </li>
                                     <li><br></li>
@@ -327,6 +325,7 @@
 
                                     <%= if @user.role == "TOP" do %>
                                     <li>
+                                    
                                         <%= link "Dashboard", to: Routes.user_path(@conn, :index) %>
                                     </li>
 
