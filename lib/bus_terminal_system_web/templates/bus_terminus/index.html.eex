@@ -28,23 +28,33 @@
                             </div>
 
                             <div style="overflow-x:auto;">
-                                <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
+                                <table class="table table-striped table-bordered" id="busTerminusDT">
                                 <thead>
                                     <tr>
                                         <th>Terminal Name</th>
                                         <th>Location</th>
                                         <th>Town</th>
-                                    <th></th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <%= for bus_terminus <- @bus_terminus do %>
-                                    <tr>
-                                    <td><%= bus_terminus.id %></td>
-                                    <td><%= bus_terminus.uid %></td>
-                                    <td><%= bus_terminus.liscense_plate %></td>
-                                    </tr>
-                                <% end %>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-center">
+                                        <ul class="icons-list">
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                    <i class="icon-menu9"></i>
+                                                </a>
+
+                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li><a href="#" data-toggle="modal" data-target="#edit"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Edit</a></li>
+                                                    <li><a href="#"><img src="https://img.icons8.com/material/24/000000/cancel--v1.png"> Deactivate</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </td>
                                 </tbody>
                                 </table>
                                 </div>
@@ -462,3 +472,31 @@
       </div>
   </div>
 </div>
+
+
+
+
+
+
+
+<!-------------------------- Edit Modal ------------------------------------------------------------------------------------------------------------>
+<div id="edit" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header w3-indigo">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Terminus KYC</h4>
+      </div>
+     
+        <div class="modal-body">
+
+        </div>
+      <hr>
+        <div class="modal-footer">
+            <button type="button" class="w3-btn w3-grey w3-round" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+  </div>
+  <!------------------------------------------------------------------------------------------------------------------------------------------------------->

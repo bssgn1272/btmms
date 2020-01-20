@@ -11,6 +11,7 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/barlix" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/base64url" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/certifi" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/circuits_uart" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/combine" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/comeonin" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/connection" />
@@ -149,5 +150,6 @@
     <orderEntry type="library" name="eiconv" level="project" />
     <orderEntry type="library" name="httpotion" level="project" />
     <orderEntry type="library" name="ibrowse" level="project" />
+    <orderEntry type="library" name="circuits_uart" level="project" />
   </component>
 </module>

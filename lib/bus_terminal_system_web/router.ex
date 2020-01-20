@@ -59,7 +59,7 @@ defmodule BusTerminalSystemWeb.Router do
 
     get "/stand_allocation", MarketerController, :standallocation
 
-    # ______________________________________________________________________________________________________________    
+    # ______________________________________________________________________________________________________________
 
     # TICKET_CONTROLLER
     resources "/platform/secure/commercial/services/ticketing/tickets", TicketController
@@ -108,6 +108,7 @@ defmodule BusTerminalSystemWeb.Router do
     post "/btms/tickets/secured/purchase", TicketController, :purchase_ticket
     get "/btms/travel/secured/destinations", TicketController, :get_schedules
     post "/btms/travel/secured/internal/destinations", TicketController, :get_schedules_internal
+    get "/btms/tickets/secured/internal/get_luggage_weight", TicketController, :get_luggage_weight
 
     post "/btms/travel/secured/internal/locations/destinations",
          TicketController,
@@ -129,6 +130,12 @@ defmodule BusTerminalSystemWeb.Router do
     post "/internal/update/user", FrontendApiController, :update_user
     post "/internal/query/bus", FrontendApiController, :query_bus
     post "/internal/update/bus", FrontendApiController, :update_bus
+    post "/internal/tickets/find", TicketController, :find_ticket_internal
+    get "/internal/scale/query", FrontendApiController, :get_scale_query
+    post "/internal/get_luggage_tarrif", FrontendApiController, :get_luggage_tarrif
+    post "/internal/get_luggage_by_ticket_id", FrontendApiController, :get_luggage_by_ticket
+    post "/internal/add_luggage", FrontendApiController, :add_luggage
+    post "/internal/checkin", FrontendApiController, :checkin_passenger
   end
 
   def swagger_info do

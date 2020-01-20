@@ -3,6 +3,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
   alias BusTerminalSystem.RepoManager
   alias BusTerminalSystem.ApiManager
+  alias BusTerminalSystem.ScaleQuery
 
   #---------------------------------------USER--------------------------------------------------------------------------
 
@@ -193,11 +194,35 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     end
   end
 
-  #---------------------------------------Routes---------------------------------------------------------------------------
+  #---------------------------------------Routes------------------------------------------------------------------------
 
   def list_travel_routes(conn, _params) do
     operators = RepoManager.list_bus_routes()
     conn
     |> json(operators)
   end
+
+  #---------------------------------------Scale-------------------------------------------------------------------------
+  def get_scale_query(conn, _params) do
+    conn |> json(ScaleQuery.query_scale)
+  end
+
+  #---------------------------------------Luggage-------------------------------------------------------------------------
+
+  def get_luggage_tarrif(conn,%{ "tarrif_id" => id} = params) do
+      conn |> json( RepoManager.get_luggage_tarrif(id))
+  end
+
+  def get_luggage_by_ticket(conn, %{ "ticket_id" => ticket_id } = params) do
+    conn |> json(RepoManager.get_luggage_by_ticket_id(ticket_id))
+  end
+
+  def add_luggage(conn, params) do
+    conn |> json(RepoManager.create_luggage(params))
+  end
+
+  def checkin_passenger(conn,%{"ticket_id" => ticket_id} = params) do
+    conn |> json(RepoManager.checkin(ticket_id))
+  end
+  
 end

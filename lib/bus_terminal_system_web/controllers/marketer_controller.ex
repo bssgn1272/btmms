@@ -18,8 +18,9 @@ defmodule BusTerminalSystemWeb.MarketerController do
   )
 
   def index(conn, _params) do
-    marketers = MarketManagement.list_marketers()
-    render(conn, "index.html", marketers: marketers)
+    # marketers = MarketManagement.list_marketers()
+    # render(conn, "index.html", marketers: marketers)
+    render(conn, "index.html")
   end
 
   def new(conn, _params) do

@@ -1,17 +1,24 @@
 //------------------- DataTables --------------------
 $(document).ready( function () {
     $('#dataTableId').DataTable(); //User DataTable
+    $('#ManageBus').DataTable(); //Bus Terminus DataTable
+    $('#busTerminusDT').DataTable(); //Bus Terminus DataTable
     $('#dataTableBusTerminusId').DataTable(); //Bus Terminus DataTable
     $('#dataTableMarket').DataTable(); //Marktet DataTable
     $('#gates').DataTable(); //Gates DataTable
     $('#stations').DataTable(); //Stations DataTable
     $('#dataTableTellers').DataTable(); //Tellers DataTable
     $('#bookingsDataTable').DataTable(); //DataTable For Bookings
-    $('#TellerPastTransactions').DataTable(); //DataTable For TellerPastTransactions 
+    $('#TellerPastTransactions').DataTable(); //DataTable For TellerPastTransactions
     $('#queryTickets').DataTable(); //DataTable For Query Tickets Teller Side
     $('#available_routes').DataTable(); //DataTable For available_routes Teller Side
     $('#booking_table').DataTable(); //DataTable For bookings Teller Side
     $('#routes_table').DataTable(); //DataTable For routes Admin Side
+
+    $('#results_view').hide();
+    $('#passenger_view').hide();
+
+    $('#checkin_results_view').hide();
 } );
 
 $('#modal_form_horizontal_user').on('show.bs.model', function(e) {
@@ -356,7 +363,7 @@ function GetSelectedText() {
     document.getElementById("result").innerHTML = x;
   }
   */
-  
+
 function GetSelectedTo() {
   var x = document.getElementById("Destination_Name").value;
   document.getElementById("To").innerHTML = x;
@@ -391,14 +398,14 @@ function GetSelectedSeat() {
     function GetSelectedValue(){
                 var e = document.getElementById("Operator_Name");
                 var result = e.options[e.selectedIndex].value;
-                
+
                 document.getElementById("result").innerHTML = result;
             }
 
             function GetSelectedText(){
                 var e = document.getElementById("Operator_Name");
                 var result = e.options[e.selectedIndex].text;
-                
+
                 document.getElementById("result").onload=function() {GetSelectedText()};
             }
             */
@@ -411,8 +418,8 @@ function GetSelectedSeat() {
 document.getElementById("date").min = new Date().getFullYear() + "-" + parseInt(new Date().getMonth() + 1) +"-" + new Date().getDate();
 //---------------DatePicker_Disabled_Prev_Dates----------------------
 
-$('#results_view').hide();
-$('#passenger_view').hide();
+
+
 
 
 function ticket_purchase(value){
@@ -629,12 +636,6 @@ function get_route_codes () {
     });
 }
 
-
-
-
-
-
-
 //Toggle User model
 
 function updateUser() {
@@ -704,7 +705,6 @@ function user_edit_model(id) {
 
 }
 
-
 function updateBus() {
     let json_request = JSON.stringify({
         payload: {
@@ -762,6 +762,8 @@ function updateRoute() {
     })
 }
 
+
+
 function route_edit_model(id){
     let json_request = JSON.stringify({
         payload: {
@@ -780,6 +782,7 @@ function route_edit_model(id){
         }
     })
 }
+
 $('#user_company_name').hide();
 function user_type_selection(role){
     switch (role) {
@@ -793,4 +796,203 @@ function user_type_selection(role){
             $('#user_first_name').show();
             $('#user_last_name').show();
     }
+}
+
+function checkinAction(){
+
+    var ticketID = $("#checkin_ticket_id_1").val();
+    console.log(ticketID);
+
+    if (ticketID == "") {
+        alert("Please add Ticket ID")
+    } else {
+        let json_request = JSON.stringify({
+            payload: {
+                ticket_id: parseInt(ticketID)
+            }
+        });
+
+        $.ajax({
+            method: 'post',
+            url: '/api/v1/internal/tickets/find',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: json_request,
+            success: function (response) {
+
+                if (JSON.stringify(response) == "[]") {
+                    $('#checkin_results_view').hide();
+                    alert("No Ticket found for ticket " + ticketID);
+                }else{
+                    let data = JSON.parse(JSON.stringify(response));
+                    console.log(data);
+                    if(data.response.QUERY.data.activation_status == 'VALID'){
+                        $("#checkin_ticket_id").html(data.response.QUERY.data.ticket_id);
+                        $("#checkin_ticket_ref_number").html(data.response.QUERY.data.reference_number);
+                        $("#checkin_ticket_serial_number").html(data.response.QUERY.data.serial_number);
+                        $("#checkin_ticket_travel_date").html(data.response.QUERY.data.travel_date);
+                        $("#checkin_ticket_name").html(data.response.QUERY.data.first_name + " " + data.response.QUERY.data.last_name);
+                        $("#checkin_ticket_passenger_id").html(data.response.QUERY.data.id_number);
+                        $("#checkin_ticket_cell").html(data.response.QUERY.data.mobile_number);
+
+                        $('#checkin_results_view').show();
+                    } else{
+                        $('#checkin_results_view').hide();
+                        alert("Ticket status: " + data.response.QUERY.data.activation_status)
+                    }
+
+
+                }
+            }
+        })
+    }
+
+
+}
+
+function get_tarrif() {
+
+    let json_request = JSON.stringify({
+        tarrif_id: 1
+    });
+
+    var weight;
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/get_luggage_tarrif',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request,
+        success: function (response) {
+            let data = JSON.parse(JSON.stringify(response));
+            weight = data.cost_per_kilo;
+            console.log("weight 1:" + weight);
+            return weight;
+        }
+    });
+}
+
+function commaSeperate(x) {
+    var nf = new Intl.NumberFormat();
+    return nf.format(x);
+}
+
+function get_weight() {
+    let weight = "";
+    $.ajax({
+        method: 'get',
+        url: '/api/v1/internal/scale/query',
+        contentType: 'application/text',
+        success: function (response) {
+            weight = response;
+            $("#scale_weight_3").html(weight);
+            $("#luggage_weight_2").html(weight);
+            $("#luggage_ticket").html($("#checkin_ticket_id").html());
+
+            let json_request = JSON.stringify({
+                tarrif_id: 1
+            });
+
+            var weight2;
+            $.ajax({
+                method: 'post',
+                url: '/api/v1/internal/get_luggage_tarrif',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: json_request,
+                success: function (response) {
+                    let data = JSON.parse(JSON.stringify(response));
+                    weight2 = data.cost_per_kilo;
+                    console.log("weight 1:" + weight);
+                    var cost = (weight2 * parseFloat(weight)).toFixed(2);
+                    $("#luggage_total_cost").html(commaSeperate(cost) );
+                }
+            });
+
+        }
+    });
+}
+
+function add_luggage_button() {
+
+    //let w = $("#scale_weight").html();
+    let lw = $("#scale_weight_3").html();
+    let ltc = $("#luggage_total_cost").html();
+    let dsc = $("#luggage_description").val();
+    let ticket_interface_id2 = $("#checkin_ticket_id").html();
+
+    let luggage_request = JSON.stringify({
+        ticket_id: parseInt(ticket_interface_id2),
+        description: dsc,
+        weight: parseFloat(lw),
+        cost: ltc
+    });
+
+    console.log("LV" + luggage_request);
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/add_luggage',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: luggage_request,
+        success: function (data_response) {
+            let data2 = JSON.parse(JSON.stringify(data_response));
+            console.log("add data" + data2);
+
+            var ticket_interface_id = $("#checkin_ticket_id").html();
+            let json_request = JSON.stringify({
+                ticket_id: parseInt(ticket_interface_id)
+            });
+
+            $.ajax({
+                method: 'post',
+                url: '/api/v1/internal/get_luggage_by_ticket_id',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: json_request,
+                success: function (response2) {
+                    let data = JSON.parse(JSON.stringify(response2));
+                    console.log(data);
+
+                    let luggage_html_table = "<tr><th>Description</th><th>Ticket ID</th><th>Weight</th><th>Cost</th></tr>";
+
+                    $.each(response2, function (k, v){
+                        var obj = JSON.parse(JSON.stringify(v));
+                        luggage_html_table += "<tr><td>"+obj.description+"</td><td>"+obj.ticket_id+"</td><td>"+obj.weight+"</td><td>"+obj.cost+"</td></tr>";
+                    });
+
+                    $("#luggage_table_list").html(luggage_html_table);
+
+                }
+            });
+            }
+        });
+
+
+}
+
+function addLuggageFunction() {
+    $("#addLuggageModel").modal("show");
+}
+
+function checkInButton() {
+    let ticket_id = $("#checkin_ticket_id").html();
+
+    let checkin_request = JSON.stringify({
+        ticket_id: parseInt(ticket_id),
+    });
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/checkin',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: checkin_request,
+        success: function (data_response) {
+            $('#checkin_results_view').hide();
+            alert("Passenger Checked In")
+        }
+    });
+
 }

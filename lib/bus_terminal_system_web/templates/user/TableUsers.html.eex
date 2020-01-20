@@ -20,10 +20,12 @@
                   <th>Username</th>
                   <th>First Name</th>
                   <th>Last Name</th>
+                  <th>Role</th>
                   <th>SSN</th>
                   <th>NID</th>
                   <th>Email</th>
                   <th>Mobile</th>
+                  <th>Account Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -34,10 +36,12 @@
                   <td><%= user.username %></td>
                   <td><%= user.first_name %></td>
                   <td><%= user.last_name %></td>
+                  <td><%= user.role %></td>
                   <td><%= user.ssn %></td>
                   <td><%= user.nrc %></td>
                   <td><%= user.email %></td>
                   <td><%= user.mobile %></td>
+                  <td><%= user.account_status %></td>
                   <td class="text-center">
                     <ul class="icons-list">
                         <li class="dropdown">
@@ -159,6 +163,11 @@
                               </div>
                           </div>
 
+                          <div class="row">
+                            <div class="col-2">
+
+                            </div>
+                          </div>
                          <div class="text-right">
                              <button onclick="updateUser()" class="btn btn-primary">UPDATE <i class="icon-arrow-right14 position-right"></i></button>
                          </div>
@@ -209,6 +218,10 @@
                                      <input type="password" placeholder="Repeat new password" class="form-control">
                                  </div>
                              </div>
+                         </div>
+
+                         <div class="text-left">
+                             <button type="submit" style="border-radius: 12px;" class="btn btn-primary">Deactivate Account<i class="icon-arrow-right14 position-right"></i></button>
                          </div>
 
                          <div class="text-right">

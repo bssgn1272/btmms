@@ -19,7 +19,42 @@ defmodule BusTerminalSystem.RepoManager do
   alias BusTerminalSystem.TicketManagement.Ticket
   alias BusTerminalSystem.BusManagement.Bus
   alias BusTerminalSystem.AccountManager.User
+  alias BusTerminalSystem.Luggage
+  alias BusTerminalSystem.LuggageTarrif
 
+  #--------------------------Luggage---------------------------------------------------------------
+
+  def checkin(id) do
+    ticket = Repo.get_by(Ticket, id: id)
+    {status, ticket} = update_ticket(ticket,%{ "activation_status" => "CHECKED_IN"})
+    {status, json_result } = ticket |> Poison.encode
+    {status, result} = json_result |> JSON.decode()
+    result
+  end
+
+  def get_luggage_tarrif(id) do
+  {status_s, tarrif_json} = Repo.get_by(LuggageTarrif,id: id) |> Poison.encode
+  {status, tarrif_map} = JSON.decode(tarrif_json)
+  tarrif_map
+  end
+
+  def get_luggage_by_ticket_id(ticket_id) do
+    query = from r in Luggage, where: r.ticket_id == ^ticket_id
+    {status_s, luggage_json} = Repo.all(query) |> Poison.encode
+    {status, luggage} = JSON.decode(luggage_json)
+    luggage
+  end
+
+  def create_luggage(luggage) do
+    {status, luggage_json} = %Luggage{}
+    |> Luggage.changeset(luggage)
+    |> Repo.insert()
+    |> Poison.encode()
+
+    {sts, luggage_a} = JSON.encode(luggage_json)
+    luggage
+
+  end
 
   #--------------------------ROUTES-------------------------------------------------------------------------------------
 
@@ -223,7 +258,7 @@ defmodule BusTerminalSystem.RepoManager do
   def delete_hub(%Market{} = market), do: Repo.delete(market)
 
   # TICKETING
-  def get_ticket(id), do: Repo.get!(Ticket, id)
+  def get_ticket(id), do: Repo.get(Ticket, id)
   def list_tickets(), do: Repo.all(Ticket)
 
   def list_tickets_json() do
@@ -233,7 +268,7 @@ defmodule BusTerminalSystem.RepoManager do
   end
 
   def create_ticket(attrs \\ %{}), do: %Ticket{} |> Ticket.changeset(attrs) |> Repo.insert()
-  def update_ticket(%Ticket{} = ticket, attrs), do: ticket |> Hub.changeset(attrs) |> Repo.update()
+  def update_ticket(%Ticket{} = ticket, attrs), do: ticket |> Ticket.changeset(attrs) |> Repo.update()
   def delete_ticket(%Ticket{} = ticket), do: Repo.delete(ticket)
 
   def get_ticket_by_reference_number(reference) do
