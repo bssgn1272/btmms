@@ -101,15 +101,19 @@ class SharedUtils {
         return $payload;
     }
 
-    public static function buildPushTransactionRequest($trader_id, $amount, $mobile_number) {
+    public static function buildPushTransactionRequest($trader_id, $amount,$seller_mobile,$seller_names, $mobile_number, $transaction_type_id,$buyer_id,$buyer_names) {
         # Packet
         $payload = [
-            'marketeer_id' => $trader_id,
+            'transaction_type_id' => $transaction_type_id,
+            'seller_id' => $trader_id,
+            'seller_mobile_number' => $seller_mobile,
+            'seller_name' => $seller_names,
             'transaction_date' => date('Y-m-d'),
             'device_serial' => "1111111",
-            'token_tendered' => $amount,
             'amount_due' => $amount,
             'buyer_mobile_number' => $mobile_number,
+            'buyer_id' => $buyer_id,
+            'buyer_name' => $buyer_names,
         ];
         return $payload;
     }

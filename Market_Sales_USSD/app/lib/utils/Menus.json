@@ -1,5 +1,5 @@
 {
-    "MAIN": "Welcome to Market Sales {Marketeer}\n1.Buy Bus Ticket\n2.Make A Sale\n3.Order Goods\n4.Check Balance\n5.Login",
+    "MAIN": "Welcome to Market Sales {Marketeer}\n1.Seller Bus Ticket\n2.Make A Sale\n3.Order Goods\n4.Check Balance\n5.Login",
     "NOT_REGISTERED": "Mobile number {msisdn} is not registered as a trader. Please register as a trader!",
     "TRADER_BLOCKED": "Your account is blocked. Please see the Market Administrator!",
     "TRADER_BLOCKED1": "This traders account is blocked. They need to see the Market Administrator!",

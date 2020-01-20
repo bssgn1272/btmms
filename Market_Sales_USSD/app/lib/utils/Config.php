@@ -71,7 +71,8 @@ class Config {
      * Market sales endpoint url
      * @var type string
      */
-    CONST API_URL = "http://localhost/tms_api/v1/";
+    //CONST API_URL = "http://localhost/tms_api/v1/";
+    CONST API_URL = "http://18.188.249.56/MarketSalesAPI/v1/";
 
     /**
      * Curl calls connection timeout in seconds
@@ -116,9 +117,17 @@ class Config {
      * MOMO Pin length
      */
     CONST MOMO_PIN_LEN = 4;
+
     /**
      * Country code
      */
     CONST country_code = 26;
+
+    /**
+     * Transaction types
+     */
+    CONST MAKE_SALE = 1;
+    CONST ORDER = 2;
+    CONST TICKET_PURCHASE = 3;
 
 }

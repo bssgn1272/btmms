@@ -69,3 +69,5 @@ Stack trace:
 [09-Dec-2019 22:44:56 Africa/Lusaka] PHP Notice:  Array to string conversion in /var/www/html/Market_Sales_USSD/app/lib/utils/SharedUtils.php on line 50
 [09-Dec-2019 22:44:59 Africa/Lusaka] PHP Notice:  Array to string conversion in /var/www/html/Market_Sales_USSD/app/lib/utils/SharedUtils.php on line 50
 [11-Dec-2019 09:15:30 Africa/Lusaka] PHP Notice:  Undefined index: token_balance in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 261
+[12-Dec-2019 12:15:36 Africa/Lusaka] PHP Notice:  Undefined index: token_balance in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 264
+[20-Jan-2020 15:53:25 Africa/Lusaka] PHP Notice:  Undefined index: token_balance in /var/www/html/Market_Sales_USSD/app/src/Core.php on line 264

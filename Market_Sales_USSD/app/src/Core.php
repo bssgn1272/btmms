@@ -261,7 +261,7 @@ class Core {
                 $_SESSION['menu-selection'] = "CHECK_BALANCE";
                 $payload = SharedUtils::buildAPIRequest($_SESSION['trader_details']['trader_id'], "", "", "", "", "", $this->msisdn, "", "");
                 $result = SharedUtils::httpGet("balance", $payload, $this->msisdn, $this->log);
-                $_SESSION['balance'] = $result['token_balance'];
+                $_SESSION['balance'] = $result['user']['token_balance'];
                 $this->body = SharedUtils::strReplace("{balance}", $_SESSION['balance'], $this->menus['CHECK_BALANCE']);
                 $this->gw_response = $this->get_response_array();
                 break;
@@ -416,11 +416,19 @@ class Core {
         switch ($this->body) {
             case "1":
                 //Lets push the transaction to the api
-                $payload = SharedUtils::buildPushTransactionRequest($_SESSION['trader_details']['trader_id'], $_SESSION['Sale_amount'], $_SESSION['buyer_msisdn']);
+                $payload = SharedUtils::buildPushTransactionRequest($_SESSION['trader_details']['trader_id'], $_SESSION['Sale_amount'], $this->msisdn, $_SESSION['names'], $_SESSION['buyer_msisdn'], Config::MAKE_SALE, "", "");
+                //($trader_id, $amount,$seller_mobile,$seller_names, $mobile_number, $transaction_type_id,$buyer_id,$buyer_names) 
                 $result = SharedUtils::httpPostJson("transactions", $payload, $this->msisdn, $this->log);
-                $_SESSION['menu-selection'] = "TRX_PROCESSING";
-                $this->body = $this->menus['TRX_PROCESSING'];
-                $this->gw_response = $this->get_response_array();
+                if ($result['error'] == FALSE) {
+                    $_SESSION['menu-selection'] = "TRX_PROCESSING";
+                    $this->body = $this->menus['TRX_PROCESSING'];
+                    $this->gw_response = $this->get_response_array();
+                } else {
+                    $_SESSION['menu-selection'] = "";
+                    $this->end_of_session = TRUE;
+                    $this->body = "Error occured while processing request. Please try again";
+                    $this->gw_response = $this->get_response_array();
+                }
                 break;
             case "#":
                 $_SESSION['menu-selection'] = "";
@@ -523,11 +531,22 @@ class Core {
             case "1":
                 //TODO: Post the transaction to the API for processing
                 //Lets push the transaction to the api
-                $payload = SharedUtils::buildPushTransactionRequest($_SESSION['seller_details']['trader_id'], $_SESSION['Sale_amount'], $this->msisdn);
+                $buyer_names = $_SESSION['trader_details']['firstname'] . " " . $_SESSION['trader_details']['lastname'];
+                //$payload = SharedUtils::buildPushTransactionRequest($_SESSION['seller_details']['trader_id'], $_SESSION['Sale_amount'], $this->msisdn);
+                $payload = SharedUtils::buildPushTransactionRequest($_SESSION['seller_details']['trader_id'], $_SESSION['Sale_amount'], $_SESSION['seller_mobile'], $_SESSION['seller_names'], $this->msisdn, Config::ORDER, $_SESSION['trader_details']['trader_id'], $buyer_names);
+
+                //($trader_id, $amount,$seller_mobile,$seller_names, $mobile_number, $transaction_type_id,$buyer_id,$buyer_names) 
                 $result = SharedUtils::httpPostJson("transactions", $payload, $this->msisdn, $this->log);
-                $_SESSION['menu-selection'] = "TRX_PROCESSING";
-                $this->body = $this->menus['TRX_PROCESSING'];
-                $this->gw_response = $this->get_response_array();
+                if ($result['error'] == FALSE) {
+                    $_SESSION['menu-selection'] = "TRX_PROCESSING";
+                    $this->body = $this->menus['TRX_PROCESSING'];
+                    $this->gw_response = $this->get_response_array();
+                } else {
+                    $_SESSION['menu-selection'] = "";
+                    $this->end_of_session = TRUE;
+                    $this->body = "Error occured while processing request. Please try again";
+                    $this->gw_response = $this->get_response_array();
+                }
                 break;
             case "#":
                 $_SESSION['menu-selection'] = "";
