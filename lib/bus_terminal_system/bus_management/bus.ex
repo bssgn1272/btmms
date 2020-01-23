@@ -2,7 +2,7 @@ defmodule BusTerminalSystem.BusManagement.Bus do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @derive {Poison.Encoder, only: [:id, :liscense_plate, :company, :operator_id]}
+  @derive {Poison.Encoder, only: [:id, :liscense_plate, :company, :operator_id, :vehicle_capacity]}
   schema "tbl_bus" do
     field :fitness_liscence, :string
     field :liscense_plate, :string

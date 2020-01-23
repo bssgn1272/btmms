@@ -50,31 +50,50 @@ defmodule BusTerminalSystemWeb.MarketApiController do
         "pin can not be blank"
       ]))
     else
-      case mobile |> RepoManager.authenticate_marketer_by_mobile(pin) do
-       nil  ->
-         conn
-         |> json(ApiManager.api_error_handler(ApiManager.definition_authentication(),%{
-          "message" => "AUTHENTICATION FAILED",
-          "mobile" => mobile,
-          "pin" => "[HIDDEN]"
-         }))
-       user ->
-         conn
-         |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_authentication,"SUCCESS",0,
-           %{
-             "message" => "AUTHENTICATION SUCCESS",
-             "username" => user.username,
-             "first_name" => user.first_name,
-             "last_name" => user.last_name,
-             "ssn" => user.ssn,
-             "nrc" => user.nrc,
-             "email" => user.email,
-             "mobile" => user.mobile,
-             "account_status" => user.account_status,
-             "uuid" => user.uuid,
-             "operator_role" => user.operator_role
-           }))
+
+      if pin |> String.length != 5 or mobile |> String.length != 12 do
+
+        if pin |> String.length != 5 do
+          json(conn,ApiManager.api_error_handler(conn,ApiManager.definition_query,[
+            "Pin Length invalid, required length 5 "
+          ]))
+        end
+
+        if mobile |> String.length != 12 do
+          json(conn,ApiManager.api_error_handler(conn,ApiManager.definition_query,[
+            "Mobile Number length invalid, required length 12 e.g 260*** "
+          ]))
+        end
+
+      else
+        case mobile |> RepoManager.authenticate_marketer_by_mobile(pin) do
+          nil  ->
+            conn
+            |> json(ApiManager.api_error_handler(ApiManager.definition_authentication(),%{
+              "message" => "AUTHENTICATION FAILED INVALID ACCOUNT OR PASSWORD",
+              "mobile" => mobile,
+              "pin" => "[HIDDEN]"
+            }))
+          user ->
+            conn
+            |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_authentication,"SUCCESS",0,
+              %{
+                "message" => "AUTHENTICATION SUCCESS",
+                "username" => user.username,
+                "first_name" => user.first_name,
+                "last_name" => user.last_name,
+                "ssn" => user.ssn,
+                "nrc" => user.nrc,
+                "email" => user.email,
+                "mobile" => user.mobile,
+                "account_status" => user.account_status,
+                "uuid" => user.uuid,
+                "operator_role" => user.operator_role
+              }))
+        end
       end
+
+
     end
   end
 
@@ -167,30 +186,53 @@ defmodule BusTerminalSystemWeb.MarketApiController do
 
   end
 
-  def register_marketeer(conn, params) do
+  def register_marketeer(conn,%{"payload" => user_payload} = params) do
     ApiManager.auth(conn,params)
 
-    case RepoManager.create_marketer(params["payload"]) do
-      {:ok, user} ->
-        conn
-        |> json(ApiManager.api_message_custom_handler(ApiManager.definition_query,"SUCCESS",0,
-          %{
-            "username" => user.username,
-            "first_name" => user.first_name,
-            "last_name" => user.last_name,
-            "ssn" => user.ssn,
-            "nrc" => user.nrc,
-            "email" => user.email,
-            "mobile" => user.mobile,
-            "account_status" => user.account_status,
-            "uuid" => user.uuid,
-            "operator_role" => user.operator_role
-          }))
+    mobile = params["payload"]["mobile"]
 
-      {:error, %Ecto.Changeset{} = changeset} ->
-        conn
-        |> json(ApiManager.api_error_handler(ApiManager.definition_accounts(),ApiManager.translate_error(changeset)))
+    if mobile == nil do
+      json(conn,ApiManager.api_error_handler(conn,ApiManager.definition_query,[
+        "mobile can not be blank",
+        "pin can not be blank"
+      ]))
+    else
+      if mobile |> String.length != 12 do
+
+        if mobile |> String.length != 12 do
+          json(conn,ApiManager.api_error_handler(conn,ApiManager.definition_query,[
+            "Mobile Number length invalid, required length 12 e.g 260*** "
+          ]))
+        end
+
+      else
+
+
+        case RepoManager.create_marketer(user_payload) do
+          {:ok, user} ->
+            conn
+            |> json(ApiManager.api_message_custom_handler(ApiManager.definition_query,"SUCCESS",0,
+              %{
+                "username" => user.username,
+                "first_name" => user.first_name,
+                "last_name" => user.last_name,
+                "ssn" => user.ssn,
+                "nrc" => user.nrc,
+                "email" => user.email,
+                "mobile" => user.mobile,
+                "account_status" => user.account_status,
+                "uuid" => user.uuid,
+                "operator_role" => user.operator_role
+              }))
+
+          {:error, %Ecto.Changeset{} = changeset} ->
+            conn
+            |> json(ApiManager.api_error_handler(ApiManager.definition_accounts(),ApiManager.translate_error(changeset)))
+        end
+      end
     end
+
+
   end
 
 end

@@ -127,7 +127,7 @@ defmodule BusTerminalSystemWeb.TicketController do
       {:ok, _result} ->
           {:ok, payload} = Map.fetch(params,"payload")
             IO.inspect payload
-            if !Map.has_key?(payload,"external_ref") or !Map.has_key?(payload,"route_code") do
+            if !Map.has_key?(payload,"external_ref") or !Map.has_key?(payload,"route_code") or !Map.has_key?(payload,"bus_schedule_id") do
                 json(conn, ApiManager.api_error_handler(ApiManager.definition_purchase, ApiManager.support_purchase))
             else
 
@@ -201,6 +201,7 @@ defmodule BusTerminalSystemWeb.TicketController do
             "start_route" => route.start_route,
             "end_route" => route.end_route,
             "route_code" => route.route_code,
+            "bus_schedule_id" => ticket.bus_schedule_id,
             "currency" => "ZMW",
             "qr_code" => qr_generator("#{ticket.reference_number}")
           }))
@@ -263,9 +264,15 @@ defmodule BusTerminalSystemWeb.TicketController do
 
   def get_schedules_internal(conn, %{"payload" => %{ "date" => date, "time" => time}} = params) do
     IO.inspect params
-    {:ok,agent,schedules} = RepoManager.route_mapping(date, time)
-    Agent.stop(agent)
-    json(conn, schedules)
+    case RepoManager.route_mapping(date, time) do
+      {:ok,agent,schedules} ->
+        Agent.stop(agent)
+        json(conn, schedules)
+
+      _ ->
+        json(conn, [])
+    end
+
   end
 
   def get_schedules_buses(conn, %{"payload" => %{ "date" => date, "start_route" => start_route, "end_route" => end_route}} = params) do
@@ -275,11 +282,18 @@ defmodule BusTerminalSystemWeb.TicketController do
     json(conn, schedules)
   end
 
-  def get_schedules_buses_2(%{"payload" => %{ "date" => date, "start_route" => start_route, "end_route" => end_route}} = params) do
+  def get_schedules_buses_by_date(conn, %{"payload" => %{ "start_date" => start_date, "end_date" => end_date, "start_route" => start_route, "end_route" => end_route}} = params) do
+    IO.inspect params
+    {:ok,agent,schedules} = RepoManager.route_mapping_by_date(Date.from_iso8601!(start_date),Date.from_iso8601!(end_date), start_route,end_route)
+    Agent.stop(agent)
+    json(conn, schedules)
+  end
+
+  def get_schedules_by_location(conn,%{"payload" => %{ "date" => date, "start_route" => start_route, "end_route" => end_route}} = params) do
     IO.inspect params
     {:ok,agent,schedules} = RepoManager.route_mapping_by_location(date, start_route,end_route)
     Agent.stop(agent)
-    schedules
+    json(conn,schedules)
   end
 
   def get_travel_routes(conn,_params) do

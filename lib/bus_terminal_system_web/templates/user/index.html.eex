@@ -479,9 +479,6 @@
                   <p>To book for a trip, & view details about the route click the button below.</p>
                   <p style="width:50%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('bookings')">Book</button></p>
                 </div>
-
-
-
             </div>
         </div>
 
@@ -1407,10 +1404,10 @@ TO ADD STATICS GRAPH
                                             <div class="form-group">
                                                 <select class="w3-select" name="payload[vehicle_capacity]">
                                                     <option value="" disabled selected>Vehicle Capacity:</option>
-                                                    <option value="C1: 10 Seats">C1: 10 Seats</option>
-                                                    <option value="C1E: 15 Seats">C1E: 15 Seats</option>
-                                                    <option value="C: 25 seats">C: 25 seats</option>
-                                                    <option value="CE: 30 seats">CE: 30 seats</option>
+                                                    <option value="10">C1: 10 Seats</option>
+                                                    <option value="15">C1E: 15 Seats</option>
+                                                    <option value="25">C: 25 seats</option>
+                                                    <option value="30">CE: 30 seats</option>
                                                 </select>
                                             </div>
 

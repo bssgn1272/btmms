@@ -52,7 +52,9 @@ defmodule BusTerminalSystem.MixProject do
       {:swoosh, "~> 0.24"},
       {:gen_smtp, "~> 0.13"},
       {:httpoison, "~> 1.6"},
-      {:circuits_uart, "~> 1.4"}
+      {:circuits_uart, "~> 1.4"},
+      {:redix, ">= 0.10.4"},
+      {:timex, "~> 3.5"}
     ]
   end
 

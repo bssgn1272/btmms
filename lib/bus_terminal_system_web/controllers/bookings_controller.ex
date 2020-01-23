@@ -21,9 +21,12 @@ defmodule BusTerminalSystemWeb.BookingsController do
     tickets = RepoManager.list_tickets()
     route_mapping = RepoManager.list_schedules()
 
+    IO.inspect mapping_params
+
     {status,date} = Map.fetch(mapping_params,"date")
     [year, month, day] = Regex.split(~r/-/,date)
     date = "#{day}/#{month}/#{year}"
+    IO.inspect "Date: #{date}"
 
     mapping_params = Map.put(mapping_params,"date",date)
 

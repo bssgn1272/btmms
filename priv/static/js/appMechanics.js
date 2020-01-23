@@ -667,6 +667,40 @@ function updateUser() {
     })
 }
 
+function updateAccountStatus(state) {
+
+    let status = "ACTIVE";
+    switch (state) {
+        case 1:
+            status = "ACTIVE";
+            break;
+        case 2:
+            status = "DEACTIVATE";
+            break;
+        default:
+            status = "DEACTIVATE";
+    }
+
+    let json_request = JSON.stringify({
+        payload: {
+            username: $('#model_username').val(),
+            activation_status: status
+        }
+    });
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/update/user',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request,
+        success: function (response) {
+            $('#modal_form_horizontal_user').modal('hide');
+            window.location.reload();
+        }
+    })
+}
+
 function user_edit_model(id) {
 
     let json_request = JSON.stringify({

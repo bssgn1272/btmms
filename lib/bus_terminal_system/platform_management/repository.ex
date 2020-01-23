@@ -22,6 +22,9 @@ defmodule BusTerminalSystem.RepoManager do
   alias BusTerminalSystem.Luggage
   alias BusTerminalSystem.LuggageTarrif
 
+  alias BusTerminalSystem.Utility
+  alias BusTerminalSystem.NapsaSmsGetway
+
   #--------------------------Luggage---------------------------------------------------------------
 
   def checkin(id) do
@@ -98,6 +101,10 @@ defmodule BusTerminalSystem.RepoManager do
   def create_marketer(marketer) do
 
     pin = Randomizer.randomizer(5, :numeric)
+    {:ok, mobile} = Map.fetch(marketer,"mobile")
+    sms_message = "Hello, Your Marketeer PIN: #{pin}"
+    NapsaSmsGetway.send_sms(mobile,sms_message)
+
     uuid = "#{DateTime.utc_now.year}-#{BusTerminalSystem.Randomizer.randomizer(10,:numeric)}-#{DateTime.utc_now.month}-#{BusTerminalSystem.Randomizer.randomizer(4,:numeric)}-#{DateTime.utc_now.day}"
 
     marketer = Map.put(marketer, "operator_role", "MARKETER")
@@ -106,6 +113,9 @@ defmodule BusTerminalSystem.RepoManager do
     marketer = Map.put(marketer, "password", Randomizer.randomizer(6, :upcase))
     marketer = Map.put(marketer, "account_status", "INACTIVE")
     marketer = Map.put(marketer, "uuid", uuid)
+    marketer = Map.put(marketer,"username","-")
+    marketer = Map.put(marketer,"ssn","-")
+    marketer = Map.put(marketer,"nrc","-")
 
     IO.inspect marketer
 
@@ -125,7 +135,9 @@ defmodule BusTerminalSystem.RepoManager do
   end
 
   def authenticate_marketer_by_mobile(mobile,pin) do
-    Repo.get_by(User, [mobile: mobile,pin: encode_pin(pin), operator_role: "MARKETER"])
+    user = Repo.get_by(User, [mobile: mobile,pin: encode_pin(pin), operator_role: "MARKETER"])
+    IO.inspect user
+    user
   end
 
   #-------------------------- Bus -------------------------------------------------------------------------------------
@@ -365,7 +377,7 @@ defmodule BusTerminalSystem.RepoManager do
       {bus_status, bus} = JSON.decode(bus_json)
 
       #IO.inspect bus
-
+      IO.inspect e
       {:ok, route_id} = Map.fetch(e,"route_id")
       {route_id_int, _route_id_string} = Integer.parse(route_id)
       {route_json_status, route_json} = get_route(route_id_int) |> Poison.encode
@@ -392,10 +404,79 @@ defmodule BusTerminalSystem.RepoManager do
     {:ok, agent, Agent.get(agent, fn list -> list end) }
   end
 
-  def route_mapping_by_location(date \\ "01/01/2019", start_route \\ "Livingstone", end_route) do
+  def schedule_ticket_count(schedule_id), do: Repo.one(from r in Ticket,select: count("*"), where: r.bus_schedule_id == ^schedule_id)
 
+  defp available_seats(capacity, ticket_count) do
+    Utility.string_to_int(capacity) - ticket_count
+  end
+
+  def route_mapping_by_location(date \\ "01/01/2019", start_route \\ "Livingstone", end_route) do
+    IO.inspect "DATE: #{date}"
     {:ok, agent} = Agent.start_link fn  -> [] end
     query = from r in RouteMapping, where: r.date == ^date
+    {st, data} = Repo.all(query) |> Poison.encode
+    IO.inspect data
+    {status,route_mapping_data} = JSON.decode(data)
+
+    route_mapping_data
+    |> Enum.with_index()
+    |> Enum.each(fn {e, index} ->
+
+      {:ok, operator_id} = Map.fetch(e,"operator_id")
+      {operator_id_int, _operator_id_string} = Integer.parse(operator_id)
+      {operator_json_status, operator_json} = get_operator(operator_id_int) |> Poison.encode
+      {operator_status, operator} = JSON.decode(operator_json)
+
+      {:ok, bus_id} = Map.fetch(e,"bus_id")
+      {bus_id_int, _bus_id_string} = Integer.parse(bus_id)
+      {bus_json_status, bus_json} = get_bus(bus_id_int) |> Poison.encode
+      {bus_status, bus} = JSON.decode(bus_json)
+
+      IO.inspect "BUS:"
+      {:ok, capacity} = Map.fetch(bus,"vehicle_capacity")
+      IO.inspect Utility.string_to_int(capacity)
+
+      {:ok, route_id} = Map.fetch(e,"route_id")
+      {route_id_int, _route_id_string} = Integer.parse(route_id)
+      {route_json_status, route_json} = get_route(route_id_int) |> Poison.encode
+      {route_status, route} = JSON.decode(route_json)
+
+      queried_route = get_route(route_id_int)
+
+      #IO.inspect route
+
+      {:ok, route_uid} = Map.fetch(e,"route_uid")
+      {:ok, fare} = Map.fetch(e,"fare")
+      {:ok, time} = Map.fetch(e,"time")
+      {:ok, date} = Map.fetch(e,"date")
+
+      IO.inspect "start route #{queried_route.start_route} : end route #{queried_route.end_route}"
+      if queried_route.start_route == start_route and queried_route.end_route == end_route do
+        Agent.update(agent, fn list -> [
+         %{
+           "available_seats" => available_seats(capacity,schedule_ticket_count(Utility.int_to_string(route_uid))),
+           "bus_schedule_id" => route_uid,
+           "route" => route,
+           "bus" => bus,
+           "fare" => fare,
+           "departure_time" => time,
+           "departure_date" => date
+         } | list ] end)
+      end
+
+
+    end)
+
+    {:ok, agent, Agent.get(agent, fn list -> list end) }
+  end
+
+  def route_mapping_by_date(start_date \\ ~D[2020-01-11],end_date \\ ~D[2020-12-11], start_route \\ "Livingstone", end_route \\ "Lusaka") do
+
+    {:ok, agent} = Agent.start_link fn  -> [] end
+
+    query = from r in RouteMapping, where: fragment("?::date", r.inserted_at) >= ^start_date and
+                                           fragment("?::date", r.inserted_at) <= ^end_date
+
     {st, data} = Repo.all(query) |> Poison.encode
     #IO.inspect Repo.get_by(RouteMapping, [date: date, time: time])
     {status,route_mapping_data} = JSON.decode(data)
@@ -428,12 +509,14 @@ defmodule BusTerminalSystem.RepoManager do
       {:ok, fare} = Map.fetch(e,"fare")
       {:ok, time} = Map.fetch(e,"time")
       {:ok, date} = Map.fetch(e,"date")
+      {:ok, route_uid} = Map.fetch(e,"route_uid")
 
       IO.inspect "start route #{queried_route.start_route} : end route #{queried_route.end_route}"
       if queried_route.start_route == start_route and queried_route.end_route == end_route do
         Agent.update(agent, fn list -> [
          %{
            #"operator" => operator,
+           "route_id" => route_uid,
            "route" => route,
            "bus" => bus,
            "fare" => fare,
