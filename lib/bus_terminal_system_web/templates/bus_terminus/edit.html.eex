@@ -1,5 +1,0 @@
-<h1>Edit Bus terminus</h1>
-
-<%= render "form.html", Map.put(assigns, :action, Routes.bus_terminus_path(@conn, :update, @bus_terminus)) %>
-
-<span><%= link "Back", to: Routes.bus_terminus_path(@conn, :index) %></span>
