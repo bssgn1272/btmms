@@ -10,6 +10,7 @@ use Mix.Config
 config :bus_terminal_system,
   ecto_repos: [BusTerminalSystem.Repo]
 
+
 # Configures the endpoint
 config :bus_terminal_system, BusTerminalSystemWeb.Endpoint,
   url: [host: "localhost"],
@@ -29,6 +30,17 @@ config :bus_terminal_system, :phoenix_swagger,
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
+
+config :bus_terminal_system, BusTerminalSystem.Mailer,
+       adapter: Swoosh.Adapters.SMTP,
+       relay: "smtp.mailgun.org",
+       username: "support@report.probasegroup.com",
+       password: "pbs_support",
+       auth: :always,
+       ssl: true,
+       port: 465,
+       retries: 2,
+       no_mx_lookups: false
 
 # Guardian config
 config :bus_terminal_system, BusTerminalSystemWeb.Guardian,

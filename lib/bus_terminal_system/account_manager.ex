@@ -5,25 +5,24 @@ defmodule BusTerminalSystem.AccountManager do
 
   import Ecto.Query, warn: false
   alias BusTerminalSystem.Repo
-
   alias BusTerminalSystem.AccountManager.User
-  #alias BusTerminalSystem.Auth
-  #alias Argon2
+  # alias BusTerminalSystem.Auth
+  # alias Argon2
 
-#  def authenticate_user(username, plain_text_password) do
-#    query = from u in User, where: u.username == ^username
-#    case Repo.one(query) do
-#      nil ->
-#        Argon2.no_user_verify()
-#        {:error, :invalid_credentials}
-#      user ->
-#        if Argon2.verify_pass(plain_text_password,user.password) do
-#          {:ok, user}
-#        else
-#          {:error, :invalid_credentials}
-#        end
-#    end
-#  end
+  #  def authenticate_user(username, plain_text_password) do
+  #    query = from u in User, where: u.username == ^username
+  #    case Repo.one(query) do
+  #      nil ->
+  #        Argon2.no_user_verify()
+  #        {:error, :invalid_credentials}
+  #      user ->
+  #        if Argon2.verify_pass(plain_text_password,user.password) do
+  #          {:ok, user}
+  #        else
+  #          {:error, :invalid_credentials}
+  #        end
+  #    end
+  #  end
 
   @doc """
   Returns the list of users.
@@ -47,7 +46,7 @@ defmodule BusTerminalSystem.AccountManager do
   def users do
     User
     |> select([c], c)
-    |> Repo.all
+    |> Repo.all()
   end
 
   @doc """
@@ -68,7 +67,7 @@ defmodule BusTerminalSystem.AccountManager do
   def verify_uuid!(uuid), do: Repo.get!(User, uuid)
 
   def get_user_limited_properties(id) do
-      Repo.get_by(User, id: id)
+    Repo.get_by(User, id: id)
   end
 
   def get_user_by_username(username) do
@@ -76,6 +75,7 @@ defmodule BusTerminalSystem.AccountManager do
   end
 
   def get_user!(id), do: Repo.get!(User, id)
+
   @doc """
   Creates a user.
 

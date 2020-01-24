@@ -1,5 +1,10 @@
-<h1 style="text-align:center">LISTING BUS TERMINUS</h1><hr style="border-top: 1px solid orange;">
-
+<h1 style="text-align:center; color:blue; text-decoration:underline;"><strong>Listing Bus Terminus</strong></h1><hr style="border-top: 1px solid orange;">
+<style>
+         .panel{
+             border-radius: 25px;
+             border:1px solid orange;
+         }
+         </style>
 
             <div class="container-fluid">
             <ul class="nav nav-tabs">
@@ -17,7 +22,7 @@
                         <!-- Basic datatable -->
                         <div class="panel panel-flat" style="padding: 9px">
                             <div class="panel-heading">
-                                <h5 class="panel-title" style="text-align:center; text-decoration: underline;">TERMINALS</h5>
+                                <h5 class="panel-title" style="text-align:center; text-decoration: underline; color:blue;">TERMINALS</h5>
                                 <div class="heading-elements">
                                     <ul class="icons-list">
                                         <li><a data-action="collapse"></a></li>
@@ -28,28 +33,33 @@
                             </div>
 
                             <div style="overflow-x:auto;">
-                                <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
+                                <table class="table table-striped table-bordered" id="busTerminusDT">
                                 <thead>
                                     <tr>
                                         <th>Terminal Name</th>
                                         <th>Location</th>
                                         <th>Town</th>
-                                    <th></th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <%= for bus_terminus <- @bus_terminus do %>
-                                    <tr>
-                                    <td><%= bus_terminus.id %></td>
-                                    <td><%= bus_terminus.uid %></td>
-                                    <td><%= bus_terminus.liscense_plate %></td>
-                                    <td>
-                                        <span><%= link "Show", to: Routes.bus_terminus_path(@conn, :show, bus_terminus) %></span>
-                                        <span><%= link "Edit", to: Routes.bus_terminus_path(@conn, :edit, bus_terminus) %></span>
-                                        <span><%= link "Delete", to: Routes.bus_terminus_path(@conn, :delete, bus_terminus), method: :delete, data: [confirm: "Are you sure?"] %></span>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-center">
+                                        <ul class="icons-list">
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                    <i class="icon-menu9"></i>
+                                                </a>
+
+                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li><a href="#" data-toggle="modal" data-target="#edit"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Edit</a></li>
+                                                    <li><a href="#"><img src="https://img.icons8.com/material/24/000000/cancel--v1.png"> Deactivate</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
                                     </td>
-                                    </tr>
-                                <% end %>
                                 </tbody>
                                 </table>
                                 </div>
@@ -61,7 +71,7 @@
                                     <div class="col-md-12">   
                                         <div class="col-md-6 panel panel-flat" style="padding: 9px">
                                             <div class="panel-heading">
-                                                <h5 class="panel-title" style="text-align:center; text-decoration: underline;">STATIONS</h5>
+                                                <h5 class="panel-title" style="text-align:center; text-decoration: underline; color:blue;">STATIONS</h5>
                                                 <div class="heading-elements">
                                                     <ul class="icons-list">
                                                         <li><a data-action="collapse"></a></li>
@@ -100,7 +110,7 @@
                                         <div class="col-md-6">
                                         <div class="panel panel-flat" style="padding: 9px">
                                         <div class="panel-heading">
-                                            <h5 class="panel-title" style="text-align:center; text-decoration: underline;">GATES</h5>
+                                            <h5 class="panel-title" style="text-align:center; text-decoration: underline; color:blue;">GATES</h5>
                                             <div class="heading-elements">
                                                 <ul class="icons-list">
                                                     <li><a data-action="collapse"></a></li>
@@ -143,7 +153,7 @@
                 </div>
                       
             <div id="menu1" class="tab-pane fade">
-            <h3 style="text-align:center;">Add A New Terminus</h3>
+            <h3 style="text-align:center; text-decoration: underline; color:blue;">Add A New Terminus</h3>
             <div class="col-md-6">
                 <form class="form-vertical" action="<%= Routes.bus_terminus_path(@conn, :create) %>" method="post">
                         <div class="panel panel-flat">
@@ -162,7 +172,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <fieldset>
-                                            <legend class="text-semibold"><i class="icon-bus position-left"></i> Create Terminus</legend>
+                                            <legend class="text-semibold" style="text-align:center; text-decoration: underline; color:blue;"><i class="icon-bus position-left"></i> Create Terminus</legend>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -218,7 +228,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <fieldset>
-                                    <legend class="text-semibold"><i class="icon-reading position-left"></i> PREVIEW</legend>
+                                    <legend class="text-semibold" style="text-align:center; text-decoration: underline; color:blue;"><i class="icon-reading position-left"></i> PREVIEW</legend>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <b>TERMINUS NAME </b><div id="vehicleModelText"></div>
@@ -247,7 +257,7 @@
                 </div>
                 <div id="menu2" class="tab-pane fade">
 
-                <h3 style="text-align:center;">Add A New Station</h3>
+                <h3 style="text-align:center; text-decoration: underline; color:blue;">Add A New Station</h3>
                 <div class="col-md-6">
                     <form class="form-vertical" action="<%= Routes.bus_terminus_path(@conn, :create) %>" method="post">
                             <div class="panel panel-flat">
@@ -266,7 +276,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <fieldset>
-                                                <legend class="text-semibold"><i class="icon-bus position-left"></i> Create Station</legend>
+                                                <legend class="text-semibold" style="text-align:center; text-decoration: underline; color:blue;"><i class="icon-bus position-left"></i> Create Station</legend>
 
                                                 <div class="row">
                                                     <div class="col-md-6">
@@ -328,7 +338,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <fieldset>
-                                    <legend class="text-semibold"><i class="icon-reading position-left"></i> PREVIEW</legend>
+                                    <legend class="text-semibold" style="text-align:center; text-decoration: underline; color:blue;"><i class="icon-reading position-left"></i> PREVIEW</legend>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <b>Name of Station </b><div id="vehicleMakeText"></div>
@@ -358,7 +368,7 @@
 
                 <div id="menu3" class="tab-pane fade">
                 
-                <h3 style="text-align:center;">Add A New Gate</h3>
+                <h3 style="text-align:center; text-decoration: underline; color:blue;">Add A New Gate</h3>
                 <div class="col-md-6">
                     <form class="form-vertical" action="<%= Routes.bus_terminus_path(@conn, :create) %>" method="post">
                             <div class="panel panel-flat">
@@ -377,7 +387,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <fieldset>
-                                                <legend class="text-semibold"><i class="icon-bus position-left"></i> Create Gate</legend>
+                                                <legend class="text-semibold" style="text-align:center; text-decoration: underline; color:blue;"><i class="icon-bus position-left"></i> Create Gate</legend>
 
                                                 <div class="row">
                                                     <div class="col-md-6">
@@ -439,7 +449,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <fieldset>
-                                    <legend class="text-semibold"><i class="icon-reading position-left"></i> PREVIEW</legend>
+                                    <legend class="text-semibold" style="text-align:center; text-decoration: underline; color:blue;"><i class="icon-reading position-left"></i> PREVIEW</legend>
                                     <div class="row">
                                         <div class="col-md-6">
                                                 <b>GATE NAME </b><div id="vehicleVinNumberText"></div>
@@ -467,3 +477,31 @@
       </div>
   </div>
 </div>
+
+
+
+
+
+
+
+<!-------------------------- Edit Modal ------------------------------------------------------------------------------------------------------------>
+<div id="edit" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header w3-indigo">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Terminus KYC</h4>
+      </div>
+     
+        <div class="modal-body">
+
+        </div>
+      <hr>
+        <div class="modal-footer">
+            <button type="button" class="w3-btn w3-grey w3-round" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+  </div>
+  <!------------------------------------------------------------------------------------------------------------------------------------------------------->

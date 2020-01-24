@@ -48,7 +48,13 @@ defmodule BusTerminalSystem.MixProject do
       {:json, "~> 1.3.0"},
       {:eqrcode, "~> 0.1.6"},
       {:barlix, "~> 0.6.0"},
-      {:phoenix_swagger, "~> 0.8"}
+      {:phoenix_swagger, "~> 0.8"},
+      {:swoosh, "~> 0.24"},
+      {:gen_smtp, "~> 0.13"},
+      {:httpoison, "~> 1.6"},
+      {:circuits_uart, "~> 1.4"},
+      {:redix, ">= 0.10.4"},
+      {:timex, "~> 3.5"}
     ]
   end
 

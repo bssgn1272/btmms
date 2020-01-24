@@ -4,7 +4,7 @@ defmodule BusTerminalSystem.TicketManagement.Ticket do
 
   alias BusTerminalSystem.TravelRoutes
 
-  @derive {Poison.Encoder, only: [:reference_number, :serial_number, :external_ref, :inserted_at, :bus_no, :class, :activation_status,
+  @derive {Poison.Encoder, only: [:reference_number, :serial_number, :external_ref, :inserted_at, :bus_no, :class, :activation_status,:bus_schedule_id,
                              :first_name, :last_name, :other_name, :id_type, :passenger_id, :mobile_number, :email_address, :transaction_channel]}
   schema "tickets" do
     field :reference_number, :string
@@ -24,6 +24,7 @@ defmodule BusTerminalSystem.TicketManagement.Ticket do
     field :mobile_number, :string
     field :email_address, :string
 
+    field :bus_schedule_id, :string
     field :transaction_channel, :string
     field :travel_date, :string
 
@@ -34,11 +35,11 @@ defmodule BusTerminalSystem.TicketManagement.Ticket do
   def changeset(ticket, attrs) do
 
     ticket
-    |> cast(attrs, [:reference_number, :external_ref, :serial_number, :route, :activation_status, :first_name,
+    |> cast(attrs, [:reference_number, :external_ref, :serial_number, :route, :activation_status, :first_name, :bus_schedule_id,
       :last_name, :other_name, :id_type, :passenger_id, :mobile_number, :email_address, :transaction_channel, :travel_date])
 
     |> validate_required([:reference_number, :external_ref, :serial_number, :route, :activation_status, :first_name,
-      :last_name, :id_type, :passenger_id, :mobile_number, :transaction_channel, :travel_date])
+      :last_name, :id_type, :passenger_id, :mobile_number, :transaction_channel, :travel_date, :bus_schedule_id])
     |> validate_format(:email_address, ~r/@/)
   end
 end
