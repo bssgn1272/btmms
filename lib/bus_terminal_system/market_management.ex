@@ -5,8 +5,7 @@ defmodule BusTerminalSystem.MarketManagement do
 
   import Ecto.Query, warn: false
   alias BusTerminalSystem.Repo
-  alias BusTerminalSystem.MarketManagement
-  # alias BusTerminalSystem.MarketManagement.MarketTenant
+
   alias BusTerminalSystem.MarketManagement.Marketer
 
   @doc """
@@ -50,8 +49,7 @@ defmodule BusTerminalSystem.MarketManagement do
       {:error, %Ecto.Changeset{}}
 
   """
-
-  def create_marketer(struct, attrs \\ %{}) do
+  def create_marketer(attrs \\ %{}) do
     %Marketer{}
     |> Marketer.changeset(attrs)
     |> Repo.insert()

@@ -1,102 +1,148 @@
-<!--############ MOP_REGISTRATION ##############-->
-    <div class="panel-body">                                        
-            <div class="row">
-                <form class="form-vertical" action="<%= Routes.marketer_path(@conn, :create) %>" method="post">
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<h1>Register Marketer</h1>
 
-                <div class="col-lg-6 col-md-6">
-                    <div class="container-fluid panel panel-flat">
-                        <br>
-                        <legend class="text-semibold"><i class="icon-reading position-left"></i> MARKETER REGISTRATION</legend>
-                        <hr>
+<div class="col-md-6">
+    <form class="form-vertical" action="<%= Routes.marketer_path(@conn, :create) %>" method="post">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title"></h5>
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a data-action="collapse"></a></li>
+                        <li><a data-action="reload"></a></li>
+                        <li><a data-action="close"></a></li>
+                    </ul>
+                </div>
+            </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Stand ID:</label>
-                                    <input name="standID" id="stand_ID" class="form-control" placeholder="Stand ID" type="text" required="required">
-                                    <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <fieldset>
+                            <legend class="text-semibold"><i class="icon-reading position-left"></i> MARKETER REGISTRATION</legend>
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Stand ID:</label>
+                                        <input name="standID" id="vehicleMake" class="form-control" placeholder="Stand ID" type="text">
+                                        <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input name="vehicle[uid]" id="vehicleUid" type="hidden" class="form-control" readonly="readonly" value="<%= BusTerminalSystem.Randomizer.randomizer(8)%>" placeholder="Auto Generated">
+                                    </div>
+
+                                    <div class="form-group">
+                                          <label>First Name:</label>
+                                          <input name="vehicle[liscense_plate]" id="licensePlate" class="form-control" placeholder="First Name" type="text">
+                                    </div>
+
+                                    <div class="form-group">
+                                          <label>Last Name:</label>
+                                          <input name="vehicle[engine_type]" id="engineType" class="form-control" placeholder="Last Name" type="text">
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label>First Name:</label>
-                                    <input name="first_name" id="first_name" class="form-control" placeholder="First Name" type="text" required="required">
+                                <div class="col-md-6">
+                                   <div class="form-group">
+                                          <label>NRC Number:</label>
+                                          <input name="vehicle[model]" id="vehicleModel" class="form-control" placeholder="NRC Number" type="text">
+                                    </div>
+
+                                    <div class="form-group">
+                                          <label>Account Number:</label>
+                                          <input name="vehicle[year]" id="vehicleYear" class="form-control" placeholder="Account Number" type="text">
+                                    </div>
+
+                                    <div class="form-group">
+                                          <label>Mobile:</label>
+                                          <input name="vehicle[color]" id="vehicleColor" class="form-control" placeholder="Mobile" type="text">
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label>Last Name:</label>
-                                    <input name="last_name" id="last_name" class="form-control" placeholder="Last Name" type="text" required="required">
-                                </div>
                             </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>NRC Number:</label>
-                                    <input name="nrc" id="nrc" class="form-control" placeholder="NRC Number" type="text" required="required">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Account Number:</label>
-                                    <input name="account_number" id="account_number" class="form-control" placeholder="Account Number" type="text" required="required">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Mobile:</label>
-                                    <input name="mobile_number" id="mobile_number" class="form-control" placeholder="Mobile" type="text" required="required">
-                                </div>
-                            </div>
-
-                        </div>
-                        <br><br>
+                        </fieldset>
                     </div>
                 </div>
 
+                <br>
+                <div class="text-right">
+                    <button type="submit" id="submitVehicleButton" class="w3-btn w3-indigo w3-hover-orange">
+                    	<b><i class="icon-checkmark2"></i></b>Register Marketer
+                    </button>
+               
+                    <span>
+                    	<%= link "Back" , class: "w3-btn w3-indigo w3-hover-orange", type: "submit",to: Routes.user_path(@conn, :index) %>
+                    </span>
+                </div>
 
-                <div class="col-lg-6 col-md-6">
-                    <div class="container-fluid panel panel-flat">
-                    <br>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="col-md-6">
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h5 class="panel-title"></h5>
+            <div class="heading-elements">
+            </div>
+        </div>
+
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <fieldset>
                     <legend class="text-semibold"><i class="icon-reading position-left"></i> PREVIEW</legend>
-                    <hr>
 
                     <div class="row">
                         <div class="col-md-4">
-                            <b>STAND ID </b><div id="Pstand_ID"></div>
+                            <b>STAND ID </b><div id="vehicleMakeText"></div>
                         </div>
 
                         <div class="col-md-4">
-                            <b>FIRST NAME </b><div id="Pfirst_name"></div>
+                            <b>FIRST NAME </b><div id="vehicleLicensePlateText"></div>
                         </div>
 
                          <div class="col-md-4">
-                            <b>LAST NAME </b><div id="Plast_name"></div>
+                            <b>LAST NAME </b><div id="vehicleEngineTypeText"></div>
                         </div>
                     </div>
 
                     <div class="row" style="margin-top: 30px">
                       <div class="col-md-4">
-                            <b>NRC NUMBER </b><div id="Pnrc"></div>
+                            <b>NRC NUMBER </b><div id="vehicleModelText"></div>
                         </div>
 
                         <div class="col-md-4">
-                            <b>ACCOUNT NUMBER </b><div id="Paccount_number"></div>
+                            <b>ACCOUNT NUMBER </b><div id="vehicleYearText"></div>
                         </div>
 
                         <div class="col-md-4">
-                            <b>MOBILE NUMBER </b><div id="Pmobile_number"></div>
+                            <b>MOBILE NUMBER </b><div id="vehicleColorText"></div>
                         </div>                           
                     </div>
 
                     <legend class="text-semibold"><i class=""></i></legend>
-                    <br><br>
-                    </div>
-                </div>
-
-                <br>
-                <div class="container pull-left">
-                    <button type="submit" id="submitVehicleButton" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange">
-                        <b><i class="icon-checkmark2"></i></b>Register Marketer
-                    </button>
-                </div>
-                </form>      
+                </fieldset>
             </div>
+        </div>
+
     </div>
-<!--############ MOP_REGISTRATION ##############-->
+    </div>
+</div>
+
+
+<!--<%= #render "form.html", Map.put(assigns, :action, Routes.marketer_path(@conn, :create)) %>
+
+<span><%= link "Back", to: Routes.marketer_path(@conn, :index) %></span>
+-->
+
+		</div>
+	</div>
+</div>

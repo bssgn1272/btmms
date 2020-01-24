@@ -2,13 +2,8 @@ defmodule BusTerminalSystem.MarketManagement.Marketer do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "marketer" do
-    field :stand_id, :string
-    field :first_name, :string
-    field :last_name, :string
-    field :nrc_number, :string
-    field :account_number, :integer
-    field :mobile_number, :integer
+  schema "marketers" do
+    field :stand_uid, :string
 
     timestamps()
   end
@@ -16,21 +11,7 @@ defmodule BusTerminalSystem.MarketManagement.Marketer do
   @doc false
   def changeset(marketer, attrs) do
     marketer
-    |> cast(attrs, [
-      :stand_id,
-      :first_name,
-      :last_name,
-      :nrc_number,
-      :account_number,
-      :mobile_number
-    ])
-    |> validate_required([
-      :stand_id,
-      :first_name,
-      :last_name,
-      :nrc_number,
-      :account_number,
-      :mobile_number
-    ])
+    |> cast(attrs, [:stand_uid])
+    |> validate_required([:stand_uid])
   end
 end

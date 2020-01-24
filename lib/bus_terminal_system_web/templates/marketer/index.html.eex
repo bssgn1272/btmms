@@ -1,10 +1,5 @@
- <h1 style="text-align:center; text-decoration: underline; color:blue;"><strong>Marketer</strong></h1><hr style="border-top: 1px solid orange;">
-<style>
-         .panel{
-             border-radius: 25px;
-             border:1px solid orange;
-         }
-         </style>
+<h1 style="text-align:center">MARKETER</h1><hr style="border-top: 1px solid orange;">
+
 
             <div class="container-fluid">
             <ul class="nav nav-tabs">
@@ -22,7 +17,7 @@
                         <!-- Basic datatable -->
                         <div class="panel panel-flat" style="padding: 9px">
                             <div class="panel-heading">
-                                <h5 class="panel-title" style="text-align:center; text-decoration: underline; color:blue;">MARKETS</h5>
+                                <h5 class="panel-title" style="text-align:center; text-decoration: underline;">MARKETS</h5>
                                 <div class="heading-elements">
                                     <ul class="icons-list">
                                         <li><a data-action="collapse"></a></li>
@@ -59,12 +54,18 @@
 
 
 
+
+
+
+
+
+
                                     <div class="row">
                                     <div class="col-md-12">  
 
                                         <div class="col-md-6 panel panel-flat" style="padding: 9px">
                                             <div class="panel-heading">
-                                                <h5 class="panel-title" style="text-align:center; text-decoration: underline; color:blue;">SECTIONS</h5>
+                                                <h5 class="panel-title" style="text-align:center; text-decoration: underline;">SECTIONS</h5>
                                                 <div class="heading-elements">
                                                     <ul class="icons-list">
                                                         <li><a data-action="collapse"></a></li>
@@ -96,7 +97,7 @@
                                         <div class="col-md-6">
                                         <div class="panel panel-flat" style="padding: 9px">
                                         <div class="panel-heading">
-                                            <h5 class="panel-title" style="text-align:center; text-decoration: underline; color:blue;">SHOPS</h5>
+                                            <h5 class="panel-title" style="text-align:center; text-decoration: underline;">SHOPS</h5>
                                             <div class="heading-elements">
                                                 <ul class="icons-list">
                                                     <li><a data-action="collapse"></a></li>
@@ -125,11 +126,24 @@
                                 </div>
                             </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
                         </div>
                 </div>
                       
             <div id="menu1" class="tab-pane fade">
-            <h3 style="text-align:center; text-decoration: underline; color:blue;">Add A New Market</h3>
+            <h3 style="text-align:center;">Add A New Market</h3>
             <div class="col-md-6">
                <form class="form-vertical" action="<%= Routes.marketer_path(@conn, :create) %>" method="post">
                 <div class="panel panel-flat">
@@ -148,7 +162,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <fieldset>
-                                    <legend class="text-semibold" style="text-align:center; text-decoration: underline; color:blue;"><i class="icon-reading position-left"></i> REGISTERING MARKET</legend>
+                                    <legend class="text-semibold"><i class="icon-reading position-left"></i> REGISTERING MARKET</legend>
 
                                     <div class="row">
                                         <div class="col-md-6">
@@ -215,7 +229,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <fieldset>
-                        <legend class="text-semibold" style="text-align:center; text-decoration: underline; color:blue;"><i class="icon-reading position-left"></i> PREVIEW</legend>
+                        <legend class="text-semibold"><i class="icon-reading position-left"></i> PREVIEW</legend>
                         <div class="row">
                             <div class="col-md-6">
                                 <b>MARKET NAME </b><div id="vehicleMakeText"></div>
@@ -248,7 +262,7 @@
                 </div>
                 <div id="menu2" class="tab-pane fade">
 
-                <h3 style="text-align:center; text-decoration: underline; color:blue;">Add A New Section</h3>
+                <h3 style="text-align:center;">Add A New Section</h3>
                 <div class="col-md-6">
                     <form class="form-vertical" action="<%= Routes.marketer_path(@conn, :create) %>" method="post">
                     <div class="panel panel-flat">
@@ -267,7 +281,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <fieldset>
-                                        <legend class="text-semibold" style="text-align:center; text-decoration: underline; color:blue;"><i class="icon-reading position-left"></i> CREATING SECTION</legend>
+                                        <legend class="text-semibold"><i class="icon-reading position-left"></i> CREATING SECTION</legend>
 
                                         <div class="row">
                                             <div class="col-md-6">
@@ -338,7 +352,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <fieldset>
-                        <legend class="text-semibold" style="text-align:center; text-decoration: underline; color:blue;"><i class="icon-reading position-left"></i> PREVIEW</legend>
+                        <legend class="text-semibold"><i class="icon-reading position-left"></i> PREVIEW</legend>
                         <div class="row">
                             <div class="col-md-4">
                                 <b>SECTION NAME </b><div id="vehicleMakeText"></div>
@@ -366,7 +380,7 @@
 
                 <div id="menu3" class="tab-pane fade">
                 
-                <h3 style="text-align:center; text-decoration: underline; color:blue;">Add A New Shop</h3>
+                <h3 style="text-align:center;">Add A New Shop</h3>
                 <div class="col-md-6">
                     <form class="form-vertical" action="<%= Routes.marketer_path(@conn, :create) %>" method="post">
                 <div class="panel panel-flat">
@@ -385,7 +399,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <fieldset>
-                                    <legend class="text-semibold" style="text-align:center; text-decoration: underline; color:blue;"><i class="icon-reading position-left"></i> ALLOCATING SHOP</legend>
+                                    <legend class="text-semibold"><i class="icon-reading position-left"></i> ALLOCATING SHOP</legend>
 
                                     <div class="row">
                                         <div class="col-md-6">
@@ -446,7 +460,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <fieldset>
-                        <legend class="text-semibold" style="text-align:center; text-decoration: underline; color:blue;"><i class="icon-reading position-left"></i> PREVIEW</legend>
+                        <legend class="text-semibold"><i class="icon-reading position-left"></i> PREVIEW</legend>
                         <div class="row">
                             <div class="col-md-12">
                                 <b>SHOP CODE </b><div id="vehicleMake"></div>

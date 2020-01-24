@@ -1,146 +1,183 @@
-<h1 style="text-align:center; color:blue; text-decoration:underline;"><strong>Manage Bus</strong></h1><hr style="border-top: 1px solid orange;">
+<h1 style="text-align:center">MANAGE BUS</h1><hr style="border-top: 1px solid orange;">
 
-<style>
-         .panel{
-             border-radius: 25px;
-             border:1px solid orange;
-         }
-         </style>
-        <div class="container-fluid">
+
+            <div class="container-fluid">
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#home">Manage</a></li>
                 <li><a data-toggle="tab" href="#menu1">Requests <span class="badge badge-primary badge-pill">6</span></a></li>
+                <li><a data-toggle="tab" href="#menu2">Active busses <span class="badge badge-primary badge-pill">44</span></a></li>
+                <li><a data-toggle="tab" href="#menu3">Inactive busses <span class="badge badge-primary badge-pill">13</span></a></li>
+                <li><a data-toggle="tab" href="#menu4">Declined <span class="badge badge-primary badge-pill">3</span></a></li>
             </ul>
 
             <div class="tab-content">
 
-                <div id="home" class="tab-pane fade in active">
-                    <div class="panel panel-flat" style="padding: 9px">
-                        <div class="panel-heading">
-                            <h5 class="panel-title" style="text-align:center; font-weight: bold; color:blue; text-decoration:underline;">BUSSES</h5>
-                            <div class="heading-elements">
-                                <ul class="icons-list">
-                                    <li><a data-action="collapse"></a></li>
-                                    <li><a data-action="reload"></a></li>
-                                    <li><a data-action="close"></a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        <div id="home" class="tab-pane fade in active">
 
-                        <div style="overflow-x:auto;">
-                            <table class="table table-striped table-bordered" id="ManageBus">
-                            <thead>
-                                <tr>
-                                    <th>Bus Name</th>
-                                    <th>Bus Number Plate</th>
-                                    <th>BOP</th>
-                                    <th>Town</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td class="text-center">
+                        <div>
+                        <!-- Basic datatable -->
+                        <div class="panel panel-flat" style="padding: 9px">
+                            <div class="panel-heading">
+                                <h5 class="panel-title" style="text-align:center; text-decoration: underline;">BUSSES</h5>
+                                <div class="heading-elements">
                                     <ul class="icons-list">
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                <i class="icon-menu9"></i>
-                                            </a>
-
-                                            <ul class="dropdown-menu dropdown-menu-right">
-                                                <li><a href="#" data-toggle="modal" data-target="#edit"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Edit</a></li>
-                                                <li><a href="#"><img src="https://img.icons8.com/material/24/000000/cancel--v1.png"> Deactivate</a></li>
-                                            </ul>
-                                        </li>
+                                        <li><a data-action="collapse"></a></li>
+                                        <li><a data-action="reload"></a></li>
+                                        <li><a data-action="close"></a></li>
                                     </ul>
-                                </td>
-                            </tbody>
-
-                            </table>
-                        </div>
-                    </div>
-                </div>                           
-
-
-                <div id="menu1" class="tab-pane fade">
-                    <div class="panel panel-flat" style="padding: 9px">
-                        <div class="panel-heading">
-                            <h5 class="panel-title" style="text-align:center; font-weight: bold; color:blue; text-decoration:underline;">PENDING APPROVAL</h5>
-                            <div class="heading-elements">
-                                <ul class="icons-list">
-                                    <li><a data-action="collapse"></a></li>
-                                    <li><a data-action="reload"></a></li>
-                                    <li><a data-action="close"></a></li>
-                                </ul>
+                                </div>
                             </div>
+
+                                <div style="overflow-x:auto;">
+                                    <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
+                                    <thead>
+                                        <tr>
+                                            <th>Bus Name</th>
+                                            <th>Bus Number Plate</th>
+                                            <th>BOP</th>
+                                            <th>Town</th>
+                                        <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            </div>
+
+
                         </div>
+                      
+            <div id="menu1" class="tab-pane fade">
+                    
+                                <!-- Basic datatable -->
+                                <div class="panel panel-flat" style="padding: 9px">
+                                    <div class="panel-heading">
+                                        <h5 class="panel-title" style="text-align:center; text-decoration: underline;">PENDING APPROVAL</h5>
+                                        <div class="heading-elements">
+                                            <ul class="icons-list">
+                                                <li><a data-action="collapse"></a></li>
+                                                <li><a data-action="reload"></a></li>
+                                                <li><a data-action="close"></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-                        <div style="overflow-x:auto;">
-                            <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
-                                <thead>
-                                    <tr>
-                                        <th>Bus Name</th>
-                                        <th>Bus Number Plate</th>
-                                        <th>BOP</th>
-                                        <th>Town</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="text-center">
-                                        <ul class="icons-list">
-                                            <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                    <i class="icon-menu9"></i>
-                                                </a>
-
-                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li><a href="#" data-toggle="modal" data-target="#edit"><i class="icon-check"></i> Approve</a></li>
-                                                    <li><a href="#" data-toggle="modal" data-target="#edit"><i class="icon-cross"></i> Decline</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                                <div style="overflow-x:auto;">
+                                    <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
+                                    <thead>
+                                        <tr>
+                                            <th>Bus Name</th>
+                                            <th>Bus Number Plate</th>
+                                            <th>BOP</th>
+                                            <th>Town</th>
+                                        <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
             </div>
-        </div>
 
+      
+                <div id="menu2" class="tab-pane fade">
 
+                   <div class="panel panel-flat" style="padding: 9px">
+                                    <div class="panel-heading">
+                                        <h5 class="panel-title" style="text-align:center; text-decoration: underline;">ACTIVE TELLERS</h5>
+                                        <div class="heading-elements">
+                                            <ul class="icons-list">
+                                                <li><a data-action="collapse"></a></li>
+                                                <li><a data-action="reload"></a></li>
+                                                <li><a data-action="close"></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-
-<!-------------------------- Edit Modal ------------------------------------------------------------------------------------------------------------>
-<div id="edit" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header w3-indigo">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Edit KYC</h4>
-      </div>
-     
-      <div class="modal-body">
-           <!--
-            INFORMATION TO BE ADDED
-            -->
-      </div>
-      <hr>
-                <div class="modal-footer">
-                    <button type="button" class="w3-btn w3-grey w3-round" data-dismiss="modal">Close</button>
+                                <div style="overflow-x:auto;">
+                                    <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
+                                    <thead>
+                                        <tr>
+                                            <th>Bus Name</th>
+                                            <th>Bus Number Plate</th>
+                                            <th>BOP</th>
+                                            <th>Town</th>
+                                        <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
                 </div>
-    </div>
+
+                <div id="menu3" class="tab-pane fade">
+                
+                  <div class="panel panel-flat" style="padding: 9px">
+                                    <div class="panel-heading">
+                                        <h5 class="panel-title" style="text-align:center; text-decoration: underline;">INACTIVE TELLER ACOOUNTS</h5>
+                                        <div class="heading-elements">
+                                            <ul class="icons-list">
+                                                <li><a data-action="collapse"></a></li>
+                                                <li><a data-action="reload"></a></li>
+                                                <li><a data-action="close"></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                <div style="overflow-x:auto;">
+                                    <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
+                                    <thead>
+                                        <tr>
+                                            <th>Bus Name</th>
+                                            <th>Bus Number Plate</th>
+                                            <th>BOP</th>
+                                            <th>Town</th>
+                                        <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
+      </div>
+
+      <div id="menu4" class="tab-pane fade">
+                
+                  <div class="panel panel-flat" style="padding: 9px">
+                                    <div class="panel-heading">
+                                        <h5 class="panel-title" style="text-align:center; text-decoration: underline;">DECLINED TELLER ACOOUNTS</h5>
+                                        <div class="heading-elements">
+                                            <ul class="icons-list">
+                                                <li><a data-action="collapse"></a></li>
+                                                <li><a data-action="reload"></a></li>
+                                                <li><a data-action="close"></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                <div style="overflow-x:auto;">
+                                    <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
+                                    <thead>
+                                        <tr>
+                                            <th>Bus Name</th>
+                                            <th>Bus Number Plate</th>
+                                            <th>BOP</th>
+                                            <th>Town</th>
+                                        <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
+      </div>
   </div>
-  <!------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+</div>

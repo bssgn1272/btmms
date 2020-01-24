@@ -1,17 +1,15 @@
-<h1 style="text-align:center; color:blue; text-decoration:underline;"><strong>Manage Tellers</strong></h1><hr style="border-top: 1px solid orange;">
-<style>
-         .panel{
-             border-radius: 25px;
-             border:1px solid orange;
-         }
-         </style>
+<h1 style="text-align:center">MANAGE TELLERS</h1><hr style="border-top: 1px solid orange;">
+
 <div class="container-fluid">
     <ul class="nav nav-tabs">
         <li class="active">
             <a data-toggle="tab" href="#home">Registered Tellers</a>
         </li>
         <li>
-            <a data-toggle="tab" href="#menu1">Register Teller</a>
+            <a data-toggle="tab" href="#menu1">Regester Teller</a>
+        </li>
+        <li>
+            <a data-toggle="tab" href="#menu2">Active Tellers <span class="badge badge-primary badge-pill">44</span></a>
         </li>
     </ul>
 
@@ -25,7 +23,7 @@
         <div class="timeline-row">
             <div class="panel border-left-lg border-left-danger timeline-content">
                 <div class="panel-heading">
-                    <h6 class="panel-title" style="color:blue; text-align:center; text-decoration:underline;">Registered Tellers</h6>
+                    <h6 class="panel-title">Registered Tellers</h6>
                 </div>
                 <hr>
 
@@ -45,35 +43,14 @@
                                         <th>Phone</th>
                                         <th>Email</th>
                                         <th>Address</th>
-                                        <th>Action</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td class="text-center">
-                                    <ul class="icons-list">
-                                      <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                          <i class="icon-menu9"></i>
-                                        </a>
-
-                                        <ul class="dropdown-menu dropdown-menu-right">
-                                          <li><a href="#" data-toggle="modal" data-target="#edit"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Edit</a></li>
-                                          <li><a href="#"><img src="https://img.icons8.com/material/24/000000/cancel--v1.png"> Deactivate</a></li>
-                                        </ul>
-                                      </li>
-                                    </ul>
-                                  </td>
+                                <!--
+                                    TO ADD TABLE CONTENT
+                                -->
                                 </tbody>
                             </table>
                         </div>
@@ -89,90 +66,77 @@
 
 <!--########## TELLER REGISTRATION #########-->                 
 <div id="menu1" class="tab-pane fade">
-        <div class="panel-body">
+        <div class="panel-body">                                        
+            <div class="row">
+                <div class="col-md-6 col-sm-6 panel panel-flat">
+                    <div class="panel-body">
+                        <legend class="text-semibold"><i class="icon-reading position-left"></i> TELLER REGISTRATION</legend>
 
-        <div class="row">
-              <div class="col-md-6 col-sm-6">
-                <div class="panel panel-flat">
+                            <div class="row">
 
-                <form>
-                  <div class="panel-body">
-                      <legend class="text-semibold" style="color:blue; text-align:center; text-decoration:underline;"><i class="icon-reading position-left"></i> TELLER REGISTRATION</legend>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>First Name:</label>
+                                        <input name="first_name" id="TfirstName" class="form-control" placeholder="First Name" type="text">
+                                        <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                                    </div>
 
-                          <div class="row">
-                              <div class="col-md-6">
-                                  <div class="form-group">
-                                      <label>First Name:</label>
-                                      <input name="first_name" id="TfirstName" class="form-control" placeholder="First Name" type="text" required />
-                                      <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-                                  </div>
+                                    <div class="form-group">
+                                        <input name="vehicle[uid]" id="vehicleUid" type="hidden" class="form-control" readonly="readonly" placeholder="Auto Generated">
+                                    </div>
 
-                                  <div class="form-group">
-                                      <input name="vehicle[uid]" id="vehicleUid" type="hidden" class="form-control" readonly="readonly" placeholder="Auto Generated">
-                                  </div>
+                                    <div class="form-group">
+                                          <label>Last Name:</label>
+                                          <input name="vehicle[liscense_plate]" id="TlastName" class="form-control" placeholder="Last Name" type="text">
+                                    </div>
 
-                                  <div class="form-group">
-                                        <label>Last Name:</label>
-                                        <input name="vehicle[liscense_plate]" id="TlastName" class="form-control" placeholder="Last Name" type="text">
-                                  </div>
+                                    <div class="form-group">
+                                          <label>Sex:</label>
+                                          <input name="vehicle[engine_type]" id="Tsex" class="form-control" placeholder="Sex" type="text">
+                                    </div>
 
-                                  <div class="form-group">
-                                        <label>Sex:</label>
-                                        <input name="vehicle[engine_type]" id="Tsex" class="form-control" placeholder="Sex" type="text">
-                                  </div>
+                                     <div class="form-group">
+                                          <label>DoB:</label>
+                                          <input name="vehicle[engine_type]" id="Tdob" class="form-control" placeholder="DoB" type="text">
+                                    </div>
+                                </div>
 
-                                   <div class="form-group">
-                                        <label>DoB:</label>
-                                        <input name="vehicle[engine_type]" id="Tdob" class="form-control" placeholder="DoB" type="text">
-                                  </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                          <label>NRC:</label>
+                                          <input name="vehicle[year]" id="Tnrc" class="form-control" placeholder="National Registration Card Number" type="text">
+                                    </div>
 
-                                  <div class="form-group">
-                                        <label>NRC:</label>
-                                        <input name="vehicle[year]" id="Tnrc" class="form-control" placeholder="National Registration Card Number" type="text">
-                                  </div>
-                              </div>
+                                    <div class="form-group">
+                                          <label>SSN:</label>
+                                          <input name="vehicle[color]" id="Tssn" class="form-control" placeholder="Social Security Number" type="text">
+                                    </div>
 
-                              <div class="col-md-6">
-                                  <div class="form-group">
-                                        <label>SSN:</label>
-                                        <input name="vehicle[color]" id="Tssn" class="form-control" placeholder="Social Security Number" type="text">
-                                  </div>
+                                     <div class="form-group">
+                                          <label>Email:</label>
+                                          <input name="vehicle[model]" id="Temail" class="form-control" placeholder="Email" type="text">
+                                    </div>
 
-                                   <div class="form-group">
-                                        <label>Email:</label>
-                                        <input name="vehicle[model]" id="Temail" class="form-control" placeholder="Email" type="text">
-                                  </div>
+                                     <div class="form-group">
+                                          <label>Phone:</label>
+                                          <input name="vehicle[color]" id="Tphone" class="form-control" placeholder="Mobile" type="text">
+                                    </div>
 
-                                   <div class="form-group">
-                                        <label>Phone:</label>
-                                        <input name="vehicle[color]" id="Tphone" class="form-control" placeholder="Mobile" type="text">
-                                  </div>
+                                    <div class="form-group">
+                                          <label>Address:</label>
+                                          <input name="vehicle[color]" id="Taddress" class="form-control" placeholder="Physical Address" type="text">
+                                    </div>
+                                </div>
 
-                                  <div class="form-group">
-                                        <label>Address:</label>
-                                        <input name="vehicle[color]" id="Taddress" class="form-control" placeholder="Physical Address" type="text">
-                                  </div>
+                            </div>
+                    </div>
+                </div>
 
-                                  <div class="form-group">
-                                      <button type="submit" id="RegisterTellerButton" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange">
-                                          <b><i class="icon-checkmark2"></i></b> Create Teller
-                                      </button>
-                                  </div>
-                              </div>
 
-                          </div>
-                  </div>
-                </form>
-              </div>
-              </div>
-      
 
-              <div class="col-md-6 col-sm-6">
-                <div class="panel panel-flat">
+                <div class="col-md-6 col-sm-6 panel panel-flat">
                 <div class="panel-body">
-                  <div class="container-fluid">
-
-                    <legend class="text-semibold" style="color:blue; text-align:center; text-decoration:underline;"><i class="icon-reading position-left"></i> PREVIEW</legend>
+                    <legend class="text-semibold"><i class="icon-reading position-left"></i> PREVIEW</legend>
 
                     <div class="row">
                         <div class="col-md-4">
@@ -199,7 +163,7 @@
 
                         <div class="col-md-4">
                             <b>SSN </b><div id="TellerSSN"></div>
-                        </div>
+                        </div>                           
                     </div>
 
                     <div class="row" style="margin-top: 30px">
@@ -217,108 +181,56 @@
                     </div>
 
                     <legend class="text-semibold"><i class=""></i></legend>
-                  </div>
                 </div>
-              </div>
+                </div>
+                <br>
 
-
-
-
-              </div>
-              <br>
-          </div>
-       
-
+                <div class="container pull-left">
+                    <button type="submit" id="submitVehicleButton" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange">
+                        <b><i class="icon-checkmark2"></i></b> Create Teller
+                    </button>
+                </div>         
+            </div>
         </div>
 </div>
 <!--########## TELLER REGISTRATION %> #########--> 
-</div>
-</div>
 
 
-<!-------------------------- Edit Modal ------------------------------------------------------------------------------------------------------------>
-<div id="edit" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header w3-indigo">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Edit Teller KYC</h4>
-      </div>
-     
-      <div class="modal-body">
-        <form class="form-vertical" action="#" method="post">
-            <div class="row">
-
-                              <div class="col-md-6">
-                                  <div class="form-group">
-                                      <label>First Name:</label>
-                                      <input name="first_name" id="TfirstName" class="form-control" placeholder="First Name" type="text" required />
-                                      <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-                                  </div>
-
-                                  <div class="form-group">
-                                      <input name="vehicle[uid]" id="vehicleUid" type="hidden" class="form-control" readonly="readonly" placeholder="Auto Generated">
-                                  </div>
-
-                                  <div class="form-group">
-                                        <label>Last Name:</label>
-                                        <input name="vehicle[liscense_plate]" id="TlastName" class="form-control" placeholder="Last Name" type="text">
-                                  </div>
-
-                                  <div class="form-group">
-                                        <label>Sex:</label>
-                                        <input name="vehicle[engine_type]" id="Tsex" class="form-control" placeholder="Sex" type="text">
-                                  </div>
-
-                                   <div class="form-group">
-                                        <label>DoB:</label>
-                                        <input name="vehicle[engine_type]" id="Tdob" class="form-control" placeholder="DoB" type="text">
-                                  </div>
-
-                                  <div class="form-group">
-                                        <label>NRC:</label>
-                                        <input name="vehicle[year]" id="Tnrc" class="form-control" placeholder="National Registration Card Number" type="text">
-                                  </div>
-                              </div>
-
-                              <div class="col-md-6">
-                                  <div class="form-group">
-                                        <label>SSN:</label>
-                                        <input name="vehicle[color]" id="Tssn" class="form-control" placeholder="Social Security Number" type="text">
-                                  </div>
-
-                                   <div class="form-group">
-                                        <label>Email:</label>
-                                        <input name="vehicle[model]" id="Temail" class="form-control" placeholder="Email" type="text">
-                                  </div>
-
-                                   <div class="form-group">
-                                        <label>Phone:</label>
-                                        <input name="vehicle[color]" id="Tphone" class="form-control" placeholder="Mobile" type="text">
-                                  </div>
-
-                                  <div class="form-group">
-                                        <label>Address:</label>
-                                        <input name="vehicle[color]" id="Taddress" class="form-control" placeholder="Physical Address" type="text">
-                                  </div>
-
-                                  <div class="text-right">
-                                      <button type="submit" class="w3-btn w3-indigo w3-hover-orange w3-left w3-round">
-                                          <b><i class="icon-checkmark2"></i></b>Edit
-                                      </button>                  
-                                  </div>
-                              </div>
-
-                          </div>
-
-        </form>
-      </div>
-      <hr>
-            <div class="modal-footer">
-              <button type="button" class="w3-btn w3-grey w3-round" data-dismiss="modal">Close</button>
+<!--########## ACTIVE TELLERS #########-->    
+<div id="menu2" class="tab-pane fade">
+    <div class="panel panel-flat" style="padding: 9px">
+        <div class="panel-heading">
+            <h5 class="panel-title" style="text-align:center; text-decoration: underline;">
+                ACTIVE TELLERS
+            </h5>
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                    <li><a data-action="reload"></a></li>
+                    <li><a data-action="close"></a></li>
+                </ul>
             </div>
+        </div>
+
+        <div style="overflow-x:auto;">
+            <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
+            <thead>
+                <tr>
+                    <th>Teller Name</th>
+                    <th>Teller CODE</th>
+                    <th>Location</th>
+                    <th>Town</th>
+                <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            </table>
+        </div>
     </div>
-  </div>
-  <!------------------------------------------------------------------------------------------------------------------------------------------------------->
+</div>
+<!--########## ACTIVE TELLERS %> #########-->
+
+
+</div>
+</div>

@@ -1,9 +1,6 @@
 <div class="row">
   <div class="col-md-2">
-  </div>
-
-   <%= get_flash(@conn, :error) %>
-   <%= get_flash(@conn, :info) %>
+  </div>         
 
   <div class="col-md-8">
          <form class="form-vertical" action="<%= Routes.user_path(@conn, :create) %>" method="post" style="width:100%; margin-top:5%;">
@@ -25,72 +22,66 @@
                                 <fieldset>
                                     <legend class="text-semibold"><i class="icon-reading position-left"></i> NEW USER</legend>
 
-
-                                    <div class="form-group">
-                                        <label class="control-label">User Role:</label>
-                                            <select name="payload[role]" onclick="user_type_selection(this.value)" class="form-control" >
-                                                <option value="4">Unassigned Operator</option>
-                                                <option value="ADMIN">Administrator</option>
-                                                <option value="BOP">Bus Operator</option>
-                                                <option value="MOP">Marketeer</option>
-                                                <option value="TOP">Teller</option>
-                                            </select>
-
-                                    </div>
-
                                     <div class="form-group">
                                         <label>Enter Username:</label>
-                                        <input name="payload[username]" class="form-control" required placeholder="Enter Username" type="text">
+                                        <input name="username" class="form-control" placeholder="Enter Username" type="text">
                                         <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-                                        <input type="hidden" name="payload[pin]" value="<%= BusTerminalSystem.RepoManager.encode_pin(BusTerminalSystem.Randomizer.randomizer(5,:numeric))%>">
-                                        <input type="hidden" name="payload[account_status]" value="ACTIVE">
-                                        <input type="hidden" name="payload[operator_role]" value="UNDEFINED">
-                                        <input type="hidden" name="payload[ssn]" value="-">
                                     </div>
 
                                     <div class="form-group">
-                                        <input name="payload[password]" type="hidden" class="form-control" readonly="readonly" value="<%= BusTerminalSystem.Randomizer.randomizer(8)%>" placeholder="Auto Generated">
+                                        <input name="password" type="hidden" class="form-control" readonly="readonly" value="<%= BusTerminalSystem.Randomizer.randomizer(8)%>" placeholder="Auto Generated">
                                     </div>
 
-                                    <div class="form-group" id="user_company_name" >
-                                          <label>Company Name:</label>
-                                          <input name="payload[company]" class="form-control" placeholder="Enter Company Name" type="text">
-                                    </div>
-
-                                    <div class="form-group" id="user_first_name" >
+                                    <div class="form-group">
                                           <label>First Name:</label>
-                                          <input name="payload[first_name]"  class="form-control" placeholder="Enter First Name" type="text">
+                                          <input name="first_name" class="form-control" placeholder="Enter First Name" type="text">
                                     </div>
 
-                                    <div class="form-group" id="user_last_name" >
+                                    <div class="form-group">
                                           <label>Last Name:</label>
-                                          <input name="payload[last_name]" class="form-control" placeholder="Enter Last Name" type="text">
-                                    </div>
-
-                                    <div class="form-group" id="user_last_name" >
-                                          <label>Bank Account Number:</label>
-                                          <input name="payload[account_number]"  required class="form-control" placeholder="Bank Account NUmber" type="text">
+                                          <input name="last_name" class="form-control" placeholder="Enter Last Name" type="text">
                                     </div>
 
                                     <div class="form-group">
                                           <label>NRC:</label>
-                                          <input name="payload[nrc]" class="form-control" required placeholder="Enter Nrc Number" type="text">
+                                          <input name="nrc" class="form-control" placeholder="Enter Nrc Number" type="text">
                                     </div>
 
                                     <div class="form-group">
-                                          <input  name="payload[uuid]" class="form-control" readonly="readonly"
+                                          <input  name="uuid" class="form-control" readonly="readonly"
                                            value="<%=DateTime.utc_now.year%>-<%=BusTerminalSystem.Randomizer.randomizer(10,:numeric)%>-<%=DateTime.utc_now.month %>-<%= BusTerminalSystem.Randomizer.randomizer(4,:numeric) %>-<%=DateTime.utc_now.day%>"
                                            placeholder="Unique User ID" type="hidden" />
                                     </div>
 
                                     <div class="form-group">
                                           <label>Email:</label>
-                                          <input name="payload[email]" required class="form-control" placeholder="Enter Email Address" type="email">
+                                          <input name="email" class="form-control" placeholder="Enter Email Address" type="email">
                                     </div>
 
                                     <div class="form-group">
                                           <label>Mobile:</label>
-                                          <input name="payload[mobile]" required class="form-control" placeholder="Enter Mobile Number" type="phone">
+                                          <input name="mobile" class="form-control" placeholder="Enter Mobile Number" type="phone">
+                                    </div>
+
+                                    <div class="form-group">
+                                          <label>Tel:</label>
+                                          <input name="tel" class="form-control" placeholder="Enter Telephone NUmber" type="phone">
+                                    </div>
+
+                                    <div class="form-group">
+                                          <label>Role:</label>
+                                          <input name="tel" class="form-control" placeholder="Enter Telephone NUmber" type="phone">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label">User Role:</label>
+                                            <select name="role" class="form-control">
+                                                <option value="4">Unassigned Operator</option>
+                                                <option value="0">Administrator</option>
+                                                <option value="1">Bus Operator</option>
+                                                <option value="2">Marketeer</option>
+                                            </select>
+
                                     </div>
 
                                 </fieldset>

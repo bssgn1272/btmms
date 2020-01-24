@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+<div class="w3-container">
+  <h2>Card Content</h2>
+  <p>Add containers inside the card to create different sections:</p>
+
+  <div class="w3-card-4 w3-white" style="width:100%;">
+    <header class="w3-container w3-white">
+    <img src="<%= Routes.static_path(@conn, "/images/1.jpg") %>" class="img-fluid" style="width:100px  ;height:50px" alt="NapsaLogo">
+      <h4 class="pull-right" style="font-weight: bold;">
+        Ref No.
+      </h4>
+    </header><hr>
+
+    <div class="w3-container">
+      <div class="row" style="padding: 12px;">
+        <div class="col-md-4">
+          <form class="form-horizontal" action="/action_page.php">
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="email">Date:</label>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="pwd">Time:</label>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="pwd">From:</label>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="pwd">To:</label>
+            </div>
+          </form>
+        </div>
+
+        <div class="col-md-4">
+            <form class="form-horizontal" action="/action_page.php">
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="email">Passenger Name:</label>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="pwd">Ticket Number:</label>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="pwd">Ref No.</label>
+            </div>        
+          </form>        
+            <img src="<%= Routes.static_path(@conn, "/images/1.2.jpg") %>" class="img-fluid" style="width:300px;height:100px" alt="NapsaLogo">
+        </div>
+
+        <div class="col-md-4">
+            <h3 style="font-weight: bold;">Juldan Motors</h3>
+            
+            Contact us
+                Intercity Bus Terminal
+
+                24 Hours Bookings, Queries & Luggage Enquiries
+
+                Complaints after 17:00Hrs
+
+                +260 955 776315 / +260 976 449563
+
+                Operating Hours Offices:
+
+                Stations: 05:00 hrs - 20:00hrs
+
+                Freedomway Station
+
+                Roy (Station Supervisor)
+
+                +260 977 863127
+            <br><br>
+            <div class="container">
+                Scan Code To Visit Our Website<br>
+                <img src="<%= Routes.static_path(@conn, "/images/1.1.png") %>" class="img-fluid" style="width:100px;height:100px" alt="NapsaLogo">
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="w3-container w3-black">
+      <h5>Boarding Pass</h5>
+    </footer>
+  </div>
+</div>
+
+</body>
+</html>
+

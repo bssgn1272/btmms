@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="fff9d1e1-6457-4936-bc9a-8033c16360b6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="CLEAR_OUTPUT_DIRECTORY" value="false" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="@localhost" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="bus_terminal_system_dev: database" type="162271b6:PgImplModel$Database" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="bus_terminal_system_dev: database" type="162271b6:PgImplModel$Database" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="bus_terminal_system_dev: database" type="162271b6:PgImplModel$Database" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="bus_terminal_system_dev: database" type="162271b6:PgImplModel$Database" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
+        <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1USoAp1IlwSklsdJq7dLu9p27Sj" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="postgresql" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1575308572443" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../BTS/Napsa repo/btmms" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/bus_terminal_system_web/views" />
+      <recent name="$PROJECT_DIR$/lib/bus_terminal_system_web/templates" />
+      <recent name="$PROJECT_DIR$/priv/static/js" />
+      <recent name="$PROJECT_DIR$/priv/static/images" />
+      <recent name="$PROJECT_DIR$/priv/static/css" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/priv/static/js/datatables/js" />
+      <recent name="$PROJECT_DIR$/priv/static/images" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="sourceFilePath" value="Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.Dockerfile" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fff9d1e1-6457-4936-bc9a-8033c16360b6" name="Default Changelist" comment="" />
+      <created>1574252760401</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1574252760401</updated>
+      <workItem from="1574252765104" duration="9281000" />
+      <workItem from="1574322644105" duration="4152000" />
+      <workItem from="1574327361948" duration="21899000" />
+      <workItem from="1574353338189" duration="15000" />
+      <workItem from="1574353365372" duration="8211000" />
+      <workItem from="1574498414800" duration="12266000" />
+      <workItem from="1574626255543" duration="795000" />
+      <workItem from="1574660498055" duration="23600000" />
+      <workItem from="1574750245220" duration="120000" />
+      <workItem from="1574760380954" duration="9268000" />
+      <workItem from="1574838911842" duration="7261000" />
+      <workItem from="1574861016410" duration="3345000" />
+      <workItem from="1574924457532" duration="1838000" />
+      <workItem from="1574932417003" duration="16224000" />
+      <workItem from="1574974576145" duration="54000" />
+      <workItem from="1575018828326" duration="3744000" />
+      <workItem from="1575102141082" duration="12179000" />
+      <workItem from="1575228262448" duration="98000" />
+      <workItem from="1575273406638" duration="2511000" />
+      <workItem from="1575287207678" duration="14398000" />
+      <workItem from="1575357482453" duration="1549000" />
+      <workItem from="1575359240190" duration="15750000" />
+      <workItem from="1575405757892" duration="2740000" />
+      <workItem from="1575445431946" duration="600000" />
+      <workItem from="1575446058279" duration="615000" />
+      <workItem from="1575449763058" duration="14998000" />
+      <workItem from="1575529060431" duration="606000" />
+      <workItem from="1575533045977" duration="6375000" />
+      <workItem from="1575540051826" duration="11778000" />
+      <workItem from="1575611776189" duration="10526000" />
+      <workItem from="1575623545079" duration="2742000" />
+      <workItem from="1575631876204" duration="17996000" />
+      <workItem from="1575710879954" duration="216000" />
+      <workItem from="1575711578202" duration="9575000" />
+      <workItem from="1575872884348" duration="14824000" />
+      <workItem from="1575962081903" duration="1938000" />
+      <workItem from="1575997327317" duration="2225000" />
+      <workItem from="1576003308790" duration="1668000" />
+      <workItem from="1576049376784" duration="1317000" />
+      <workItem from="1576050893315" duration="7412000" />
+      <workItem from="1576134676403" duration="2434000" />
+      <workItem from="1576171806689" duration="544000" />
+      <workItem from="1576172711454" duration="6941000" />
+      <workItem from="1576223870919" duration="75000" />
+      <workItem from="1576224379091" duration="51000" />
+      <workItem from="1576230865036" duration="164000" />
+      <workItem from="1576231063962" duration="13268000" />
+      <workItem from="1576265506058" duration="24000" />
+      <workItem from="1576311601306" duration="3826000" />
+      <workItem from="1576483815097" duration="20126000" />
+      <workItem from="1576513037241" duration="2061000" />
+      <workItem from="1576571628764" duration="64000" />
+      <workItem from="1576744865376" duration="2929000" />
+      <workItem from="1576749953646" duration="602000" />
+      <workItem from="1576763620834" duration="6867000" />
+      <workItem from="1576787041240" duration="16698000" />
+      <workItem from="1576848079346" duration="11036000" />
+      <workItem from="1577090873059" duration="3334000" />
+      <workItem from="1577114964610" duration="603000" />
+      <workItem from="1577115599566" duration="1353000" />
+      <workItem from="1577170521458" duration="30000" />
+      <workItem from="1577188900531" duration="625000" />
+      <workItem from="1577196324357" duration="4185000" />
+      <workItem from="1577303029131" duration="7469000" />
+      <workItem from="1577310948245" duration="3675000" />
+      <workItem from="1577342398697" duration="4525000" />
+    </task>
+    <task id="LOCAL-00009" summary="gitignore files expose">
+      <created>1574770467295</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1574770467295</updated>
+    </task>
+    <task id="LOCAL-00010" summary="gitignore files expose _">
+      <created>1574770657250</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1574770657250</updated>
+    </task>
+    <task id="LOCAL-00011" summary="shell startup script">
+      <created>1574845047396</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1574845047396</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Title Change">
+      <created>1574846344685</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1574846344685</updated>
+    </task>
+    <task id="LOCAL-00013" summary="28/11/2019 Base Commit">
+      <created>1574925603745</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1574925603745</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Added all users Api">
+      <created>1574934674398</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1574934674399</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Added all users Api">
+      <created>1574937591339</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1574937591339</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Website icon">
+      <created>1574945905497</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1574945905497</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Base pre commit">
+      <created>1574951375245</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1574951375245</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Base pre commit">
+      <created>1574951872442</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1574951872442</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Cleared Timax">
+      <created>1574954028050</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1574954028050</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Dependency Clean">
+      <created>1574954188682</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1574954188682</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Dependency Clean">
+      <created>1574954197672</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1574954197672</updated>
+    </task>
+    <task id="LOCAL-00022" summary="path export in script">
+      <created>1574956018671</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1574956018671</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Docker file update">
+      <created>1575110800433</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1575110800433</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Git update">
+      <created>1575110943942</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1575110943942</updated>
+    </task>
+    <task id="LOCAL-00025" summary="User role implementation">
+      <created>1575113398961</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1575113398961</updated>
+    </task>
+    <task id="LOCAL-00026" summary="base commit">
+      <created>1575113471887</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1575113471887</updated>
+    </task>
+    <task id="LOCAL-00027" summary="base commit 02/12/2019">
+      <created>1575273505627</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1575273505627</updated>
+    </task>
+    <task id="LOCAL-00028" summary="base commit 02/12/2019 2">
+      <created>1575273757892</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1575273757892</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Base commit">
+      <created>1575307104547</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1575307104547</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Station Schema">
+      <created>1575367354748</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1575367354748</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Terminus Schema complete">
+      <created>1575367637787</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1575367637787</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Base Commit">
+      <created>1575455482718</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1575455482718</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Ticketing APIs">
+      <created>1575457069409</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1575457069409</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Base commit">
+      <created>1575536394808</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1575536394808</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Base commit">
+      <created>1575536414580</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1575536414580</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Base commit">
+      <created>1575552552311</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1575552552311</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Base commit">
+      <created>1575552564440</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1575552564440</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Create API impl">
+      <created>1575557052927</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1575557052927</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Create API impl">
+      <created>1575557060096</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1575557060096</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Stable commit">
+      <created>1575557252055</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1575557252055</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Base commit 09/11/2019">
+      <created>1575875006277</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1575875006277</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Base commit 09/11/2019 v2">
+      <created>1575886029753</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1575886029753</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Base commit 09/11/2019 v2">
+      <created>1575886049659</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1575886049659</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Base commit 09/11/2019 v3">
+      <created>1575889766163</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1575889766163</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Base commit 09/11/2019 v4">
+      <created>1576312414891</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1576312414891</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Base commit 09/11/2019 v5">
+      <created>1576851122113</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1576851122118</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Base commit 09/11/2019 v5">
+      <created>1576853516546</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1576853516546</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Base commit 09/11/2019 v6">
+      <created>1576853535670</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1576853535670</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Base commit 21/12/2019">
+      <created>1576920219841</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1576920219841</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Base commit 21/12/2019 v2">
+      <created>1576920472415</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1576920472416</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Base commit 21/12/2019 v3">
+      <created>1576922871816</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1576922871816</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Base commit 21/12/2019 v4">
+      <created>1576926568733</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1576926568733</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Base commit 21/12/2019 v4">
+      <created>1577093502149</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1577093502150</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Base commit 23/12/2019 v1">
+      <created>1577093521902</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1577093521902</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Base commit 23/12/2019 v2">
+      <created>1577116696701</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1577116696702</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Base commit 24/12/2019 v1">
+      <created>1577196355496</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1577196355496</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Base commit 26/12/2019 v2">
+      <created>1577358111076</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1577358111077</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="User role implementation" />
+    <MESSAGE value="base commit" />
+    <MESSAGE value="base commit 02/12/2019" />
+    <MESSAGE value="base commit 02/12/2019 2" />
+    <MESSAGE value="Station Schema" />
+    <MESSAGE value="Terminus Schema complete" />
+    <MESSAGE value="Base Commit" />
+    <MESSAGE value="Ticketing APIs" />
+    <MESSAGE value="Base commit" />
+    <MESSAGE value="Create API impl" />
+    <MESSAGE value="Stable commit" />
+    <MESSAGE value="Base commit 09/11/2019" />
+    <MESSAGE value="Base commit 09/11/2019 v2" />
+    <MESSAGE value="Base commit 09/11/2019 v3" />
+    <MESSAGE value="Base commit 09/11/2019 v4" />
+    <MESSAGE value="Base commit 09/11/2019 v5" />
+    <MESSAGE value="Base commit 09/11/2019 v6" />
+    <MESSAGE value="Base commit 21/12/2019" />
+    <MESSAGE value="Base commit 21/12/2019 v2" />
+    <MESSAGE value="Base commit 21/12/2019 v3" />
+    <MESSAGE value="Base commit 21/12/2019 v4" />
+    <MESSAGE value="Base commit 23/12/2019 v1" />
+    <MESSAGE value="Base commit 23/12/2019 v2" />
+    <MESSAGE value="Base commit 24/12/2019 v1" />
+    <MESSAGE value="Base commit 26/12/2019 v2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Base commit 26/12/2019 v2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="559" y="200" key="#Deployment" timestamp="1575360736043">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="559" y="200" key="#Deployment/0.24.1920.1056@0.24.1920.1056" timestamp="1575360736043" />
+    <state x="633" y="80" key="#Dockerfile" timestamp="1575360825346">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="633" y="80" key="#Dockerfile/0.24.1920.1056@0.24.1920.1056" timestamp="1575360825346" />
+    <state x="559" y="200" key="#New_Docker_Connection" timestamp="1575360861610">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="559" y="200" key="#New_Docker_Connection/0.24.1920.1056@0.24.1920.1056" timestamp="1575360861610" />
+    <state x="423" y="197" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1575464198501">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="423" y="197" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1575464198501" />
+    <state x="427" y="46" key="CommitChangelistDialog2" timestamp="1577358642042">
+      <screen x="0" y="21" width="1920" height="1059" />
+    </state>
+    <state x="427" y="46" key="CommitChangelistDialog2/0.21.1920.1059@0.21.1920.1059" timestamp="1577358642042" />
+    <state x="427" y="49" key="CommitChangelistDialog2/0.24.1920.1056@0.24.1920.1056" timestamp="1576312452322" />
+    <state x="747" y="295" key="FileChooserDialogImpl" timestamp="1577115678828">
+      <screen x="0" y="21" width="1920" height="1059" />
+    </state>
+    <state x="747" y="295" key="FileChooserDialogImpl/0.21.1920.1059@0.21.1920.1059" timestamp="1577115678828" />
+    <state x="747" y="297" key="FileChooserDialogImpl/0.24.1920.1056@0.24.1920.1056" timestamp="1575963302798" />
+    <state x="747" y="244" key="FileChooserDialogImpl/0.24.1920.851@0.24.1920.851" timestamp="1575890636064" />
+    <state width="263" height="543" key="HiddenNamespacesPopup" timestamp="1577343114916">
+      <screen x="0" y="21" width="1920" height="1059" />
+    </state>
+    <state width="263" height="543" key="HiddenNamespacesPopup/0.21.1920.1059@0.21.1920.1059" timestamp="1577343114916" />
+    <state width="263" height="541" key="HiddenNamespacesPopup/0.24.1920.1056@0.24.1920.1056" timestamp="1575878438186" />
+    <state x="191" y="99" width="1714" height="873" key="MergeDialog" timestamp="1577358324431">
+      <screen x="0" y="21" width="1920" height="1059" />
+    </state>
+    <state x="191" y="99" width="1714" height="873" key="MergeDialog/0.21.1920.1059@0.21.1920.1059" timestamp="1577358324431" />
+    <state x="191" y="102" key="MergeDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1575886907024" />
+    <state x="670" y="245" key="MultipleFileMergeDialog" timestamp="1577358324451">
+      <screen x="0" y="21" width="1920" height="1059" />
+    </state>
+    <state x="670" y="245" key="MultipleFileMergeDialog/0.21.1920.1059@0.21.1920.1059" timestamp="1577358324451" />
+    <state x="670" y="247" key="MultipleFileMergeDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1575886957018" />
+    <state x="431" y="123" width="1233" height="729" key="SettingsEditor" timestamp="1577115560539">
+      <screen x="0" y="21" width="1920" height="1059" />
+    </state>
+    <state x="431" y="123" key="SettingsEditor/0.21.1920.1059@0.21.1920.1059" timestamp="1577115560539" />
+    <state x="431" y="126" width="1233" height="729" key="SettingsEditor/0.24.1920.1056@0.24.1920.1056" timestamp="1576050869837" />
+    <state x="559" y="269" key="Vcs.Push.Dialog.v2" timestamp="1577358652787">
+      <screen x="0" y="21" width="1920" height="1059" />
+    </state>
+    <state x="559" y="269" key="Vcs.Push.Dialog.v2/0.21.1920.1059@0.21.1920.1059" timestamp="1577358652787" />
+    <state x="559" y="271" key="Vcs.Push.Dialog.v2/0.24.1920.1056@0.24.1920.1056" timestamp="1575889775317" />
+    <state x="547" y="94" key="com.intellij.database.dbimport.ImportDialog" timestamp="1575642494535">
+      <screen x="0" y="24" width="1920" height="851" />
+    </state>
+    <state x="547" y="94" key="com.intellij.database.dbimport.ImportDialog/0.24.1920.851@0.24.1920.851" timestamp="1575642494535" />
+    <state x="676" y="257" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1576926517934">
+      <screen x="0" y="21" width="1920" height="1059" />
+    </state>
+    <state x="676" y="257" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.21.1920.1059@0.21.1920.1059" timestamp="1576926517934" />
+    <state x="676" y="259" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1575642963702" />
+    <state x="676" y="213" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.24.1920.851@0.24.1920.851" timestamp="1575642795819" />
+    <state x="676" y="259" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/1920.0.1920.1080/0.24.1920.1056@0.24.1920.1056" timestamp="1576173492244" />
+    <state x="426" y="366" key="com.intellij.ide.util.TipDialog" timestamp="1577342400484">
+      <screen x="0" y="21" width="1920" height="1059" />
+    </state>
+    <state x="426" y="366" key="com.intellij.ide.util.TipDialog/0.21.1920.1059/1920.0.1920.1080@0.21.1920.1059" timestamp="1576749953713" />
+    <state x="2346" y="352" key="com.intellij.ide.util.TipDialog/0.21.1920.1059/1920.0.1920.1080@1920.0.1920.1080" timestamp="1577310960180" />
+    <state x="426" y="366" key="com.intellij.ide.util.TipDialog/0.21.1920.1059@0.21.1920.1059" timestamp="1577342400484" />
+    <state x="426" y="368" key="com.intellij.ide.util.TipDialog/0.24.1920.1056/1920.0.1920.1080@0.24.1920.1056" timestamp="1576571640236" />
+    <state x="426" y="368" key="com.intellij.ide.util.TipDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1576134676591" />
+    <state x="426" y="368" key="com.intellij.ide.util.TipDialog/1920.0.1920.1080/0.24.1920.1056@0.24.1920.1056" timestamp="1576340475716" />
+    <state x="617" y="157" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1575873568734">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="617" y="157" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.24.1920.1056@0.24.1920.1056" timestamp="1575873568734" />
+    <state x="559" y="312" key="git4idea.merge.GitPullDialog" timestamp="1577358156943">
+      <screen x="0" y="21" width="1920" height="1059" />
+    </state>
+    <state x="559" y="312" key="git4idea.merge.GitPullDialog/0.21.1920.1059@0.21.1920.1059" timestamp="1577358156943" />
+    <state x="559" y="314" key="git4idea.merge.GitPullDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1576312472351" />
+    <state x="380" y="267" key="new project wizard" timestamp="1577115704154">
+      <screen x="0" y="21" width="1920" height="1059" />
+    </state>
+    <state x="380" y="267" key="new project wizard/0.21.1920.1059@0.21.1920.1059" timestamp="1577115704154" />
+    <state x="829" y="437" key="publish.login" timestamp="1575360275731">
+      <screen x="0" y="24" width="1920" height="851" />
+    </state>
+    <state x="829" y="437" key="publish.login/0.24.1920.851@0.24.1920.851" timestamp="1575360275731" />
+    <state x="818" y="159" width="672" height="681" key="search.everywhere.popup" timestamp="1577358451479">
+      <screen x="0" y="21" width="1920" height="1059" />
+    </state>
+    <state x="2738" y="141" width="672" height="694" key="search.everywhere.popup/0.21.1920.1059/1920.0.1920.1080@1920.0.1920.1080" timestamp="1577303913910" />
+    <state x="818" y="159" width="672" height="681" key="search.everywhere.popup/0.21.1920.1059@0.21.1920.1059" timestamp="1577358451479" />
+    <state x="818" y="132" width="672" height="550" key="search.everywhere.popup/0.21.1920.854@0.21.1920.854" timestamp="1576920598653" />
+    <state x="818" y="162" width="672" height="678" key="search.everywhere.popup/0.24.1920.1056/1920.0.1920.1080@0.24.1920.1056" timestamp="1576516524060" />
+    <state x="818" y="162" width="672" height="678" key="search.everywhere.popup/0.24.1920.1056@0.24.1920.1056" timestamp="1576314462788" />
+    <state x="623" y="195" width="672" height="547" key="search.everywhere.popup/0.24.1920.851@0.24.1920.851" timestamp="1576312752897" />
+    <state x="1246" y="236" width="1344" height="678" key="search.everywhere.popup/0.24.3840.1056@0.24.3840.1056" timestamp="1576083413910" />
+    <state x="623" y="236" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1080/0.24.1920.1056@0.24.1920.1056" timestamp="1576254982324" />
+  </component>
+</project>

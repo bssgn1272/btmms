@@ -27,17 +27,14 @@ defmodule BusTerminalSystemWeb.BusTerminusController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"payload" => bus_terminus_params}) do
-    buses = BusManagement.list_bus_terminus()
-    IO.inspect bus_terminus_params
+  def create(conn, %{"vehicle" => bus_terminus_params}) do
     case BusManagement.create_bus_terminus(bus_terminus_params) do
       {:ok, bus_terminus} ->
         conn
         |> put_flash(:info, "Bus terminus created successfully.")
-        |> redirect(to: Routes.bus_terminus_path(conn, :index, buses))
+        |> redirect(to: Routes.bus_terminus_path(conn, :show, bus_terminus))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-      IO.inspect changeset
         render(conn, "new.html", changeset: changeset)
     end
   end
@@ -104,7 +101,6 @@ defmodule BusTerminalSystemWeb.BusTerminusController do
   end
 
   def bus_approval(conn, _params) do
-    bus_terminus = BusManagement.list_bus_terminus()
-    render(conn, "bus_approval.html", bus_terminus: bus_terminus)
+    render(conn, "bus_approval.html")
   end
 end

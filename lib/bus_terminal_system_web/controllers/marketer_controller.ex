@@ -18,13 +18,11 @@ defmodule BusTerminalSystemWeb.MarketerController do
   )
 
   def index(conn, _params) do
-    # marketers = MarketManagement.list_marketers()
-    # render(conn, "index.html", marketers: marketers)
-    render(conn, "index.html")
+    marketers = MarketManagement.list_marketers()
+    render(conn, "index.html", marketers: marketers)
   end
 
   def new(conn, _params) do
-    # changeset = MarketManagement.changeset(%MarketerManagement{}, %{})
     changeset = MarketManagement.change_marketer(%Marketer{})
     render(conn, "new.html", changeset: changeset)
   end
@@ -85,9 +83,5 @@ defmodule BusTerminalSystemWeb.MarketerController do
 
   def form_shop(conn, _params) do
     render(conn, "form_shop.html")
-  end
-
-  def standallocation(conn, _params) do
-    render(conn, "stand_allocation.html")
   end
 end
