@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title() %></title>
+    <!-- Global stylesheets -->
+    <link rel="shortcut icon" href="<%= Routes.static_path(@conn, "/images/icon.png") %>">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    <link href="<%= Routes.static_path(@conn, "/css/material/icons/icomoon/styles.css") %>" rel="stylesheet" type="text/css">
+    <link href="<%= Routes.static_path(@conn, "/css/material/bootstrap.css") %>" rel="stylesheet" type="text/css">
+    <link href="<%= Routes.static_path(@conn, "/css/material/core.css") %>" rel="stylesheet" type="text/css">
+    <link href="<%= Routes.static_path(@conn, "/css/material/components.css") %>" rel="stylesheet" type="text/css">
+    <link href="<%= Routes.static_path(@conn, "/css/material/colors.css") %>" rel="stylesheet" type="text/css">
+    <link href="<%= Routes.static_path(@conn, "/js/datatables/css/jquery.datatables.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%= Routes.static_path(@conn, "/css/custom.css") %>" rel="stylesheet" type="text/css">
+    <link href="<%= Routes.static_path(@conn, "/css/w3.css") %>" rel="stylesheet" type="text/css" />
+    <!-- /global stylesheets -->
+  </head>
+
+
+  <body class="navbar-bottom">
+
+    <!-- Main navbar -->
+    <div class="navbar navbar-inverse bg-indigo navbar-fixed-top">
+    	<div class="navbar-header">
+    		<a class="navbar-brand" href="#">
+                <img src="<%= Routes.static_path(@conn, "/images/logo/2.png") %>" class="img-fluid" style="width:150px;height:30px" alt="NapsaLogo">
+            </a>
+             
+    		<ul class="nav navbar-nav visible-xs-block">
+    			<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+                <%= if @user.role == "ADMIN" do %>
+    			<li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
+                <% end %>
+    		</ul>
+            
+    	</div>
+
+    	<div class="navbar-collapse collapse" id="navbar-mobile">
+
+            <%= if @user.role == "ADMIN" do %>
+    		<ul class="nav navbar-nav">
+    			 <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
+    		</ul>
+            <% end %>
+
+    		<ul class="nav navbar-nav navbar-right">
+    			<li class="dropdown dropdown-user">
+    				<a class="dropdown-toggle" data-toggle="dropdown">
+    					<img src="<%= Routes.static_path(@conn, "/images/material/avatar/1.png") %>" alt="">
+    					<span><%= @user.username %></span>
+    					<i class="caret"></i>
+    				</a>
+
+    				<ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <%= link "Dashboard", to: Routes.user_path(@conn, :index) %>
+                        </li>
+    					<li>
+                            <a href="<%= Routes.session_path(@conn, :logout) %>">
+                                <i class="icon-switch2"></i> Logout
+                            </a>
+                        </li>
+    				</ul>
+    			</li>
+    		</ul>
+    	</div>
+    </div>
+    <!-- /main navbar -->
+    
+    <br><br><br>
+    	<!-- Page container -->
+    	<div class="page-container">
+
+    		<!-- Page content -->
+    		<div class="page-content">
+
+                <!-- ############# ADMIN SIDE-BAR ########### -->
+                <%= if @user.role == "ADMIN" do %>
+    			<div class="sidebar sidebar-main sidebar-default">
+    				<div class="sidebar-content">
+
+    					<!-- Main navigation -->
+    					<div class="sidebar-category sidebar-category-visible">
+    						<div class="sidebar-user-material">
+    							<div class="category-content">
+    								<div class="sidebar-user-material-content">
+    									<img src="<%= Routes.static_path(@conn, "/images/material/avatar/1.png") %>" class="img-circle" width="90" height="90" alt="">
+    									<h6 style="color:rgb(0,0,0);"> <%= @user.username %> </h6>
+    									<span class="text-size-small" style="color:rgb(0,0,0);">Lusaka, Zambia.</span>
+    								</div>
+    							</div>
+
+    						</div>
+
+    						<div class="category-content no-padding">
+    							<ul class="navigation navigation-main navigation-accordion">
+
+    								<%= if @user.role == "ADMIN" do %>
+                                    <li>
+    								    <a href="<%= Routes.user_path(@conn, :index)%>">
+
+                                            <i style="color:orange;" class="icon-home"></i> <span>Dashboard</span>
+                                        </a>
+    								</li>
+
+                                    <li>
+                                        <a href="<%= Routes.route_path(@conn, :index)%>">
+                                            <i style="color:orange;" class="icon-road"></i> <span>Routes</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="<%= Routes.bookings_path(@conn, :index)%>">
+                                            <i style="color:orange;" class="icon-ticket"></i> <span>Bookings</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="<%= Routes.bookings_path(@conn, :schedule)%>">
+                                            <i style="color:orange;" class="icon-watch"></i> <span>Scheduling</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#"><i style="color:orange;" class="icon-user"></i> <span>Teller</span></a>
+                                        <ul>
+                                            <li>
+                                                <a href="/teller">
+                                                    Manage Tellers
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+    								<% end %>
+
+                                    <%= if @user.role == "BOP" or @user.role == "ADMIN" do %>
+                                   									
+                                    <li>
+                                        <a href="#"><i style="color:orange;" class="icon-bus"></i> <span>Bus</span></a>
+                                        <ul>
+                                            <li>
+                                                <%= link "Approve Bus", to: Routes.bus_terminus_path(@conn, :bus_approval) %>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+
+
+
+    								<li>
+    									<a href="#"><i style="color:orange;" class="icon-stop    "></i> <span>Terminus</span></a>
+    									<ul>
+    										<li><%= link "Management", to: Routes.bus_terminus_path(@conn, :index) %></li>
+    									</ul>
+    								</li>
+    								<% end %>
+
+    								<%= if @user.role == "MOP" or @user.role == "ADMIN" do %>
+    								<li>
+                                        <a href="#"><i style="color:orange;" class="icon-stack2"></i> <span>Market Operations</span></a>
+                                        <ul>
+                                            <li><%= link "Management", to: Routes.marketer_path(@conn, :index) %></li>
+                                            <li><%= link "Stand Allocation", to: Routes.marketer_path(@conn, :standallocation) %></li>
+                                        </ul>
+                                    </li>
+                                    <% end %>
+    								<!-- /main -->
+    							</ul>
+    						</div>
+    					</div>
+    					<!-- /main navigation -->
+
+    				</div>
+    			</div>
+                <!-- ############ END ADMIN-SIDE-BAR ######### -->
+                <% end %>
+
+
+                <!-- ############# MOP SIDE-BAR ########### -->
+                <%= if @user.role == "MOP" do %>
+                <div class="sidebar sidebar-main sidebar-default">
+                    <div class="sidebar-content">
+
+                        <!-- Main navigation -->
+                        <div class="sidebar-category sidebar-category-visible">
+                            <div class="sidebar-user-material">
+                                <div class="category-content">
+                                    <div class="sidebar-user-material-content">
+                                        <img src="<%= Routes.static_path(@conn, "/images/material/avatar/4.png") %>" class="img-circle" width="90" height="90" alt="Farmer Avatar">
+                                        <h6 style="color:rgb(0,0,0);"> <%= @user.username %> </h6>
+                                        <span class="text-size-small" style="color:rgb(0,0,0);">Lusaka, Zambia.</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="category-content no-padding">
+                                <ul class="navigation navigation-main navigation-accordion">
+
+                                    <%= if @user.role == "MOP" do %>
+                                    <li>
+                                        <a href="<%= Routes.user_path(@conn, :index)%>">
+
+                                            <i style="color:orange;" class="icon-home"></i> <span>Dashboard</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#documentation" data-toggle="tab">
+                                            <i style="color:orange;" class="icon-book position-left"></i> Documentation 
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#registerMarketeers" data-toggle="tab">
+                                            <i style="color:orange;" class="icon-user position-left"></i> Register Marketeers 
+                                        </a>
+                                    </li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <% end %>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /main navigation -->
+
+                    </div>
+                </div>
+                <% end %>
+                <!-- ############ END MOP-SIDE-BAR ######### -->
+
+
+
+                <!-- ############# BOP SIDE-BAR ########### -->
+                <%= if @user.role == "BOP" do %>
+                <div class="sidebar sidebar-main sidebar-default">
+                    <div class="sidebar-content">
+
+                        <!-- Main navigation -->
+                        <div class="sidebar-category sidebar-category-visible">
+                            <div class="sidebar-user-material">
+                                <div class="category-content">
+                                    <div class="sidebar-user-material-content">
+                                        <img src="<%= Routes.static_path(@conn, "/images/material/avatar/3.png") %>" class="img-circle" width="90" height="90" alt="Farmer Avatar">
+                                        <h6 style="color:rgb(0,0,0);"> <%= @user.username %> </h6>
+                                        <span class="text-size-small" style="color:rgb(0,0,0);">Lusaka, Zambia.</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="category-content no-padding">
+                                <ul class="navigation navigation-main navigation-accordion">
+
+                                    <%= if @user.role == "BOP" do %>
+                                    <li>
+                                        <a href="<%= Routes.user_path(@conn, :index)%>">
+                                            <i style="color:orange;" class="icon-home"></i> <span >Dashboard</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#BOPdocumentation" data-toggle="tab">
+                                            <i style="color:orange;" class="icon-book position-left"></i> Documentation 
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#BOPregisterBus" data-toggle="tab">
+                                            <i style="color:orange;" class="icon-car position-left"></i> Register Buses 
+                                        </a>
+                                    </li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <% end %>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /main navigation -->
+
+                    </div>
+                </div>
+                <% end %>
+                <!-- ############ END BOP-SIDE-BAR ######### -->
+
+
+                <!-- ############# TOP SIDE-BAR ########### -->
+                <%= if @user.role == "TOP" do %>
+                <div class="sidebar sidebar-main sidebar-default">
+                    <div class="sidebar-content">
+
+                        <!-- Main navigation -->
+                        <div class="sidebar-category sidebar-category-visible">
+                            <div class="sidebar-user-material">
+                                <div class="category-content">
+                                    <div class="sidebar-user-material-content">
+                                        <img src="<%= Routes.static_path(@conn, "/images/material/avatar/3.png") %>" class="img-circle" width="90" height="90" alt="Farmer Avatar">
+                                        <h6 style="color:rgb(0,0,0);"> <%= @user.username %> </h6>
+                                        <span class="text-size-small" style="color:rgb(0,0,0);">Lusaka, Zambia.</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="category-content no-padding">
+                                <ul class="navigation navigation-main navigation-accordion">
+
+                                    <%= if @user.role == "TOP" do %>
+                                    <li>
+                                    
+                                        <%= link "Dashboard", to: Routes.user_path(@conn, :index) %>
+                                    </li>
+
+                                    <li>
+                                        <%= link "Documentation", to: Routes.teller_path(@conn, :documentation) %>
+                                    </li>
+                                    <li>
+                                        <%= link "Reports", to: Routes.teller_path(@conn, :reports) %>
+                                    </li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+                                    <li><br></li>
+
+                                    <% end %>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /main navigation -->
+                    </div>
+                </div>
+                <% end %>
+                <!-- ############ END TOP-SIDE-BAR ######### -->
+
+
+
+
+
+    			  <main role="main" id="renderApp" class="container-fluid">
+                      <%= render @view_module, @view_template, assigns %>
+                  </main>
+
+    		</div>
+    		<!-- /page content -->
+    	</div>
+        
+    	<!-- /page container -->
+
+
+    	<!-- Footer -->
+    	<div class="navbar w3-indigo navbar-fixed-bottom footer">
+            <div class="container">
+    		<ul class="nav navbar-nav visible-xs-block">
+    			<li>
+                    <a class="text-center collapsed" data-toggle="collapse" data-target="#footer">
+                        <i class="icon-circle-up2"></i>
+                    </a>
+                </li>
+    		</ul>
+
+    		<div class="navbar-collapse collapse">
+    			<div class="navbar-text">
+                    &copy; 2019 Bus Terminus System
+                </div>
+
+    			<div class="navbar-right">
+    				<ul class="nav navbar-nav">
+    					<li><a href="#">About</a></li>
+    					<li><a href="#">Terms</a></li>
+    					<li><a href="#">Contact</a></li>
+    				</ul>
+    			</div>
+    		</div>
+        </div>
+    	</div>
+    	<!-- /footer -->
+
+    <!-- Core JS files -->
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/loaders/pace.min.js") %>"></script>
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/jquery.min.js") %>"></script>
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/core/libraries/bootstrap.min.js") %>"></script>
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/loaders/blockui.min.js") %>"></script>
+    <!-- /core JS files -->
+
+    <!-- Theme JS files -->
+    	<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/visualization/d3/d3.min.js") %>"></script>
+    	<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/visualization/d3/d3_tooltip.js") %>"></script>
+    	<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/forms/styling/switchery.min.js") %>"></script>
+    	<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/forms/styling/uniform.min.js") %>"></script>
+    	<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/forms/selects/bootstrap_multiselect.js") %>"></script>
+    	<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/ui/moment/moment.min.js") %>"></script>
+    	<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/pickers/daterangepicker.js") %>"></script>
+
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/notifications/bootbox.min.js") %>"></script>
+	    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/notifications/sweet_alert.min.js") %>"></script>
+	    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/notifications/notify.js") %>"></script>
+	    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/pages/components_modals.js") %>"></script>
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/forms/selects/select2.min.js") %>"></script>
+
+    	<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/core/app.js") %>"></script>
+    	<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/pages/dashboard.js") %>"></script>
+
+    	<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/ui/ripple.min.js") %>"></script>
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/datatables/js/jquery.datatables.js") %>"></script>
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/appMechanics.js") %>"></script>
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/AjaxCall.js") %>"></script>
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+
+    	<!-- /theme JS files -->
+  </body>
+</html>
+

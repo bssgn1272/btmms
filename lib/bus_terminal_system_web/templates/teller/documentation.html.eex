@@ -1,0 +1,49 @@
+<!--#####-- TOP_DOCUMENTATION --#####-->
+    <div class="container-fluid">
+<style>
+         .panel{
+             border-radius: 25px;
+             border:1px solid orange;
+         }
+         </style>
+            <div class="panel-body panel panel-flat">
+                <div id="plans">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h6 class="text-semibold no-margin-top" style="border:2px solid; color:blue; border-radius: 25px; background-color:blue; text-align:center;">
+                                <strong style="color:white;">Tellers</strong>
+                            </h6><hr>
+                        </div>
+                                                    
+                        <p>
+                            Tellers are typically the first point of interaction for customers as they want to buy a ticket from a kiosk. Tellers verify the identity of customers and process requests for tickets. They generate certified tickets according to the specifications of customers. Tellers answer questions about the bus operator services and direct customers to customer care service center for more information. They must count cash in their drawers as they begin their shift and reconcile remaining cash at the end of their shift to account accurately for the days transactions. These tellers will be provided by NAPSA.
+                        </p>                                    
+                    </div>                            
+                </div>
+            </div>
+
+   
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h6 class="panel-title" style="border:2px solid; color:blue; border-radius: 25px; background-color:blue; text-align:center;">
+                <strong style="color:white">Rules To Be Shared With All Tellers</strong></h6>
+            </div>
+
+            <div class="panel-body">
+                <div class="schedule">
+                    <ul>
+                        <li>Always Use a Trading Plan.</li>
+                        <li>Treat Trading Like a Business.</li>
+                        <li>Use Technology.</li>
+                        <li>Protect Your Trading Capital.</li>
+                        <li>Study the Markets.</li>
+                        <li>Risk Only What You Can Afford.</li>
+                        <li>Develop a Trading Methodology.</li>
+                        <li>Always Use a Stop Loss.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+<!--#####-- TOP_DOCUMENTATION %>--#####-->

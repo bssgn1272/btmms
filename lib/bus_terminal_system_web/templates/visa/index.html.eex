@@ -1,0 +1,397 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link href="<%= Routes.static_path(@conn, "/css/payment.css") %>" rel="stylesheet" type="text/css">
+
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab">Billing</a></li>
+    <li><a href="#tab2" data-toggle="tab">PAYMENT TYPE</a></li>
+  <li><a href="#tab3" data-toggle="tab">REVIEW</a></li>
+    <li><a href="#tab4" data-toggle="tab">Receipt</a></li>
+</ul>
+
+<div class="tab-content">
+        <!--start of billing-->
+        <div class="tab-pane active" id="tab1">
+                <div class="row" id="billingInfo">
+                    <div class="col-xsm-6 col-md-6 col-lg-6">
+                        <div class="w3-card w3-white">
+                            <div class="container-fluid">
+                            <h2 style="text-align:center;">Billing Information</h2><hr style="border-top: 2px solid orange;">
+                        <div class="error-messages" name="" style="display:none;"></div>
+                            <form name="theform">
+                                <div class="form-group ss-item-required">
+                                    <label for="name"><strong>First Name:</strong></label>
+                                    <input type="text" id="FNAME" name="name" class="form-control" onKeyup="checkform()" placeholder="First Name">
+                                </div>
+                                    
+                                <div class="form-group">
+                                    <label for="Lname"><strong>Last Name:</strong></label>
+                                    <input type="text" id="LNAME" name="Lname" class="form-control" onKeyup="checkform()" placeholder="Last Name" >
+                                </div>
+                                    
+                                <div class="form-group">
+                                    <label for="address"><strong>Address:</strong></label>
+                                    <input type="text" id="ADDRESS" name="address" class="form-control" onKeyup="checkform()" placeholder="Address" required>
+                                </div>
+                                    
+                                <div class="form-group">
+                                    <label for="city"><strong>Town/City:</strong></label>
+                                    <input type="text" id="TOWN" name="city" class="form-control" onKeyup="checkform()" placeholder="Town/City" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email"><strong>Email:</strong></label>
+                                    <input type="email" id="EMAIL" name="email" class="form-control" onKeyup="checkform()" placeholder="Eamil" required>
+                                </div>
+                                <button id="submitbutton" type="submit" class="btn btn-primary btnNext w3-hover-orange" disabled="disabled" value="Submit"> Next </button>
+                                <br><br>
+                            </form>
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                        <div class="col-xsm-6 col-md-6 col-lg-6">
+                            <div class="w3-card w3-white">
+                            <div class="container-fluid">
+                                <h6><strong>Payment:</strong></h6>
+                                <div id="SecurityCODE"></div>
+                                <h6><strong>Cost:</strong> K350.00</h6>
+                                <div id="SecurityCODE"></div>
+                            </div>
+                            </div><br>
+
+                            <div class="container w3-left" style="text-align:right;">
+                                <em>Powered By</em><br> 
+                                <a href="http://www.probasegroup.com/">
+                                    <img src="<%= Routes.static_path(@conn, "/images/logo/4.png") %>" width="100" height="70" alt="ProBASELogo">
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+        </div>
+        <!-- end of billing -->
+
+
+
+        <!-- start of payment type -->
+        <div class="tab-pane" id="tab2">
+                    
+                        <div class="tab-pane" id="tab2">
+                            <div class="w3-card-4 w3-card w3-white"> 
+                                <div class="container">
+                                    <h2 style="text-align:center;">Choose Payment Method</h2><hr style="border-top: 2px solid orange;">
+                            
+                                    <div class="row w3-center">
+                                        <div class="col-xsm-4 col-md-4 col-lg-4">
+                                            <label class="w3-btn w3-sand w3-hover w3-round-xlarge  w3-jumbo">
+                                                <input type="radio" value="visa">
+                                                <img src="<%= Routes.static_path(@conn, "/images/payments/Mastercardvisa.png") %>" width="100" height="70" alt="CreditCardd">
+                                            </label>                       
+                                        </div>
+                                        <div class="col-xsm-4 col-md-4 col-lg-4">
+                                            <label class="w3-btn w3-sand w3-hover w3-round-xlarge  w3-jumbo">
+                                                <input type="radio" name="cat" class="styled" value="airtel" /> 
+                                                <img src="<%= Routes.static_path(@conn, "/images/payments/Airtel.png") %>" width="100" height="70" alt="AirtelMoney">
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="col-xsm-4 col-md-4 col-lg-4">
+                                                <label class="w3-btn w3-yellow w3-hover w3-round-xlarge w3-jumbo">
+                                                    <input type="radio" name="cat" class="styled" value="mtn" />
+                                                    <img src="<%= Routes.static_path(@conn, "/images/payments/MTN.png") %>" width="100" height="70" alt="MTNMoney">
+                                                </label>
+                                        </div>
+                                    </div>
+
+                                    <br><br>              
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                            
+                                <br>
+                                    <div class="w3-card w3-white">
+                                        <div class="container-fluid">
+                                        
+                                                <div class='area' id="visa">
+                                                    <br>
+                                                    <div class="col-xsm-6 col-md-6 col-lg-6">
+                                                        <div class="w3-card w3-white">
+                                                            <div class="container-fluid">
+                                                            <h2 style="text-align:center;">Bank Acount Details</h2><hr style="border-top: 2px solid orange;"></h2>
+
+                                                                <form name="theBankform">
+                                                                    <label class="radio-inline"><input type="Checkbox" name="optradio">Visa</label>
+                                                                    <label class="radio-inline"><input type="Checkbox" onKeyup="checkBankform()" name="optradio">Mastercards</label>
+                                                                
+                                                                    <div class="form-group">
+                                                                        <label for="cardNumber">Card Number:</label>
+                                                                        <input type="number" id="cardNumber"name="cardNumber" onKeyup="checkBankform()" class="form-control" placeholder="xxxx xxxx xxxx xxxx" required="required">
+                                                                    </div>
+                                                                        
+                                                                    <div class="form-group">
+                                                                        <label for="Expirydate"><strong>Expiry Date:</strong></label>
+                                                                        <input type="date" name="Expirydate" onKeyup="checkBankform()" class="form-control" required="required">
+                                                                    </div>
+                                                                        
+                                                                    <div class="form-group">
+                                                                        <label for="address"><strong>Security Code:</strong></label>
+                                                                        <p>
+                                                                            This code is a three or four digit number printed on the back or front of credit cards.
+                                                                        </p>
+                                                                        <input type="number" id="securityCode" onKeyup="checkBankform()" name="secCode" maxlength="4" class="form-control" placeholder="xxx" required="required">
+                                                                    </div>
+                                                                    <div class="container-fluid">
+                                                                        <button id="Bsubmitbutton" type="submit" class="btn btn-primary btnNext w3-hover-orange" disabled="disabled" value="Submit"> Next </button>
+                                                                        <a class="btn btn-primary btnPrevious w3-hover-orange" >Previous</a>
+                                                                    </div><br>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xsm-6 col-md-6 col-lg-6">
+                                                            <div class="w3-card w3-white">
+                                                                <div class="container-fluid">
+                                                                    <h2 style="text-align:center;">Review</h2><hr style="border-top: 2px solid orange;"></h2>
+                                                                    <h6>Subtotal (1 item)	<i style="padding-left: 10em;">K350.00</i></h6>
+                                                                    <h6>Shipping	<i style="padding-left: 13em;">Free</i></h6>
+                                                                    <hr>
+                                                                    <h6><strong>Payment:</strong> Bus Terminus Transport Fare</h6>
+                                                                    <h6><strong>Cost:</strong> K350.00</h6>
+                                                                    <h6>
+                                                                        <strong>Card Number:</strong>
+                                                                        <div id="CardNUMBER"></div>
+                                                                    </h6>
+                                                                    <h6>
+                                                                        <strong>Security Code:</strong>
+                                                                        <div id="SecurityCODE"></div>
+                                                                    </h6>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    
+                                                        
+                                                </div>
+
+                                                <div class='area' id="airtel">
+                                                <br>
+                                                <div class="col-xsm-6 col-md-6 col-lg-6">
+                                                        <div class="w3-card w3-white">
+                                                            <div class="container-fluid">
+                                                            <div style="text-align:center;">
+                                                            <img src="<%= Routes.static_path(@conn, "/images/payments/Airtel.png") %>" width="100" height="70" alt="AirtelMoney" >
+                                                            </div>
+                                                                <h2 style="text-align:center;">Airtel Money Details</h2><hr style="border-top: 2px solid orange;"></h2>
+                                                                    <form name="theAirtelform">   
+                                                                        <div class="form-group">
+                                                                            <label for="cardNumber">Phone Number:</label>
+                                                                            <input type="number"  id="cardNumber"name="cardNumber" class="form-control" onKeyup="checkAirtelform()" placeholder="26097" required="required">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="address"><strong>Comfirmation Code:</strong></label>
+                                                                            <p>
+                                                                                A comfirmation code has been sent. Please check your phone.
+                                                                            </p>
+                                                                            <input type="number" id="securityCode" name="secCode" maxlength="4" onKeyup="checkAirtelform()" class="form-control" placeholder="xxxx" required="required">
+                                                                        </div>
+                                                                        <div class="container-fluid">
+                                                                            <button id="Asubmitbutton" type="submit" class="btn btn-primary btnNext w3-hover-orange" disabled="disabled" value="Submit"> Next </button>
+                                                                            <a class="btn btn-primary btnPrevious w3-hover-orange" >Previous</a>
+                                                                        </div><br>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xsm-6 col-md-6 col-lg-6">
+                                                        <div class="w3-card w3-white">
+                                                            <div class="container-fluid">
+                                                            <div style="text-align:center;">
+                                                            <img src="<%= Routes.static_path(@conn, "/images/payments/Airtel.png") %>" width="100" height="70" alt="AirtelMoney" >
+                                                            </div>
+                                                                <h2 style="text-align:center;">Review</h2><hr style="border-top: 2px solid orange;"></h2>
+                                                                <h6>Subtotal (1 item)	<i style="padding-left: 10em;">K350.00</i></h6>
+                                                                <h6>Shipping	<i style="padding-left: 13em;">Free</i></h6>
+                                                                <hr>
+                                                                <h6><strong>Payment:</strong> Bus Terminus Transport Fare</h6>
+                                                                <h6><strong>Cost:</strong> K350.00</h6>
+                                                                <h6>
+                                                                    <strong>Card Number:</strong>
+                                                                    <div id="CardNUMBER"></div>
+                                                                </h6>
+                                                                <h6>
+                                                                    <strong>Security Code:</strong>
+                                                                    <div id="SecurityCODE"></div>
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                            
+                                                </div>
+
+                                            <div class='area' id="mtn">
+                                                <br>
+                                                     <div class="col-xsm-6 col-md-6 col-lg-6">
+                                                        <div class="w3-card w3-white">
+                                                            <div class="container-fluid">
+                                                                <div style="text-align:center;">
+                                                                <img src="<%= Routes.static_path(@conn, "/images/payments/MTN.png") %>" width="100" height="70" alt="MTNMoney">
+                                                                </div>
+                                                                <h2 style="text-align:center;">MTN Money Details</h2><hr style="border-top: 2px solid orange;"></h2>
+
+                                                                <form name="theMtnform">
+                                                                    <div class="form-group">
+                                                                        <label for="cardNumber">Card Number:</label>
+                                                                        <input type="number" id="cardNumber"name="cardNumber" onKeyup="checkMtnform()" class="form-control" placeholder="26096" required="required">
+                                                                    </div>
+                                                                        
+                                                                    <div class="form-group">
+                                                                        <label for="address"><strong>Comfirmation Code:</strong></label>
+                                                                        <p>
+                                                                            A comfirmation code has been sent. Please check your phone.
+                                                                        </p>
+                                                                        <input type="number" id="securityCode" name="secCode" onKeyup="checkMtnform()" maxlength="4" class="form-control" placeholder="xxx" required="required">
+                                                                    </div>
+                                                                    <div class="container-fluid">
+                                                                            <button id="Msubmitbutton" type="submit" class="btn btn-primary btnNext w3-hover-orange" disabled="disabled" value="Submit"> Next </button>
+                                                                            <a class="btn btn-primary btnPrevious w3-hover-orange" >Previous</a>
+                                                                    </div><br>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xsm-6 col-md-6 col-lg-6">
+                                                        <div class="w3-card w3-white">
+                                                            <div class="container-fluid">
+                                                            <div style="text-align:center;">
+                                                                <img src="<%= Routes.static_path(@conn, "/images/payments/MTN.png") %>" width="100" height="70" alt="MTNMoney">
+                                                                </div>
+                                                                <h2 style="text-align:center;">Review</h2><hr style="border-top: 2px solid orange;"></h2>
+                                                                <h6>Subtotal (1 item)	<i style="padding-left: 10em;">K350.00</i></h6>
+                                                                <h6>Shipping	<i style="padding-left: 13em;">Free</i></h6>
+                                                                <hr>
+                                                                <h6><strong>Payment:</strong> Bus Terminus Transport Fare</h6>
+                                                                <h6><strong>Cost:</strong> K350.00</h6>
+                                                                <h6>
+                                                                    <strong>Card Number:</strong>
+                                                                    <div id="CardNUMBER"></div>
+                                                                </h6>
+                                                                <h6>
+                                                                    <strong>Security Code:</strong>
+                                                                    <div id="SecurityCODE"></div>
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        
+                                    </div>
+
+                                    
+
+                   
+            
+        </div>
+        <!-- end of payment type -->
+
+
+
+        <!-- start of review -->
+        <div class="tab-pane" id="tab3">
+                        <div class="col-xsm-12 col-md-12 col-lg-12">
+                            <div class="w3-card w3-white">
+                                <div class="row">
+                                        <div class="col-md-12">
+                                        <h2 style="text-align:center;">REVIEW PAYMENT DETAILS</h2><hr style="border-top: 2px solid orange;"></h2>
+                                            <fieldset>
+                                                <legend class="text-semibold"><i class="icon-reading position-left"></i></legend>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                            <b>FIRST NAME </b><div id="fname"></div>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <b>LAST NAME </b><div id="lname"></div>
+                                                        </div>
+                                                </div>
+                                                <div class="row" style="margin-top: 30px">
+                                                        <div class="col-md-6">
+                                                            <b>ADDRESS </b><div id="address"></div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <b>TOWN </b><div id="town"></div>
+                                                        </div>
+                                                </div>
+                                                <div class="row" style="margin-top: 30px">
+                                                        <div class="col-md-6">
+                                                            <b>EMAIL </b><div id="email"></div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <b>COUNTRY </b><div id="country"></div>
+                                                        </div>
+                                                </div>
+                                                <div class="row" style="margin-top: 30px">
+                                                        <div class="col-md-6">
+                                                            <b>PAYMENT METHOD </b><div id="vehicleCompanyText"></div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <b>PHONE NUMBER </b><div id="vehicleCompanyText"></div>
+                                                        </div>
+                                                </div>
+                                                <div class="row" style="margin-top: 30px">
+                                                        <div class="col-md-6">
+                                                            <b>DATE </b><div id="vehicleCompanyText"></div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <b>SELECTED STATION </b><div id="vehicleCompanyText"></div>
+                                                        </div>
+                                                </div>
+
+                                                <legend class="text-semibold"><i class=""></i></legend>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="container-fluid">
+                                        <a class="btn btn-primary btnPrevious w3-hover-orange" >Previous</a>
+                                        <a class="btn btn-success btnNext external-link w3-hover-orange" type="submit">Buy Ticket</a>
+                                    </div>
+                                    <br><br>
+                                </div>
+                            </div>
+        </div>
+        <!-- end of review -->
+
+
+
+        <!--start of recept -->
+        <div class="tab-pane" id="tab4">
+            <h2 style="text-align:center;">Print Out Recept</h2><hr style="border-top: 2px solid orange;"></h2>
+            <div class="container-fluid" style="text-align:center;">
+            <img src="<%= Routes.static_path(@conn, "/images/payments/recp.webp") %>" alt="recept">
+            </div>
+            <br>
+            <div style="text-align:center;">
+            <a class="btn btn-primary btnPrevious w3-hover-orange pull-center" >Print Receipt</a>
+            </div>
+        </div>
+        <!-- end of recept -->
+</div>
+
+
+<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/payment.js") %>"></script>
+
+
+
+
+

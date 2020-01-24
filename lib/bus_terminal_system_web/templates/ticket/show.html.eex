@@ -1,0 +1,13 @@
+<h1>Show Ticket</h1>
+
+<ul>
+
+  <li>
+    <strong>Reference number:</strong>
+    <%= @ticket.reference_number %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.ticket_path(@conn, :edit, @ticket) %></span>
+<span><%= link "Back", to: Routes.ticket_path(@conn, :index) %></span>

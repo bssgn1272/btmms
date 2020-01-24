@@ -1,0 +1,117 @@
+<style> 
+#search {
+	width: 100%;
+  	border: 2px solid #ccc;
+  	border-radius: 4px;
+  	font-size: 12px;
+  	background-color: white;
+  	background: url("/images/1.png");
+  	background-position: 10px 10px; 
+  	background-repeat: no-repeat;
+  	padding: 12px 20px 12px 40px;
+
+}
+</style>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-4 col-lg-4">
+
+<!-- Main sidebar -->
+			<div class="sidebar sidebar-main sidebar-default">
+				<div class="sidebar-content">
+
+					<!-- Main navigation -->
+					<div class="sidebar-category sidebar-category-visible">
+						<div class="category-content no-padding">
+						<form>
+							<ul class="navigation navigation-main navigation-accordion">
+
+								<!--####### PICKING ROUTES ########-->
+								<div class="container-fluid">	
+									<div style="text-align: center;">
+									<i class="icon-car"></i>
+									<i class="icon-bus"></i>
+									<i class="icon-train"></i>
+									<i class="icon-user"></i>
+									</div>
+
+									<li>
+										<div class="container-fluid">
+											<form>
+											  <input class="w3-input" type="text" placeholder="Choose starting point">
+											</form>
+										</div>
+									</li>
+									<li>
+										<div class="container-fluid">
+											<form>
+											 <input class="w3-input" type="text" placeholder="Choose destination">
+											</form>
+										</div>
+									</li>
+									<br><br><br><br>
+								</div>
+
+								<li class="navigation-divider"></li>
+								<!--####### PICKING ROUTES ########-->
+								<li>
+									<a href="#"><i class="icon-bus"></i> <span>Available Buses</span></a>
+									<ul>
+										<li><a href="#">ABE 1234</a></li>
+										<li><a href="#">BKH 098</a></li>
+										<li><a href="#">BAE 234</a></li>
+										<li><a href="#">HKL 485</a></li>
+										<li><a href="#">BUH 234</a></li>
+										<li><a href="#">BEF 745</a></li>
+									</ul>
+								</li>
+
+								<li>
+									<a href="#"><i class="icon-droplet2"></i> <span>Available Terminus</span></a>
+									<ul>
+										<li><a href="#">Central Province</a></li>
+										<li><a href="#">Copperbelt Province</a></li>
+										<li><a href="#">Eastern Province</a></li>
+										<li><a href="#">Luapula Province</a></li>
+										<li><a href="#">Lusaka Province</a></li>
+										<li><a href="#">Muchinga Province</a></li>
+										<li><a href="#">North-Western Province</a></li>
+										<li><a href="#">Southern Province</a></li>
+										<li><a href="#">Western Province</a></li>
+									</ul>
+								</li>
+
+								<li>
+									<a href="#"><i class="icon-width"></i> <span>Route Management</span></a>
+									<ul>
+										<li>
+											<a href="https://www.google.com/maps/@-15.4242532,28.2877316,15z">
+												Set Stations
+											</a>
+										</li>
+									</ul>
+								</li>
+
+								<div class="container-fluid">
+									<button class="w3-btn w3-indigo w3-hover-orange" style="border-radius: 12px;">Submit</button>
+								</div>
+								<!-- /main -->
+							</ul>
+						</form>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="col-md-8 col-lg-8">
+			<div class="container-fluid">
+				<img src="<%= Routes.static_path(@conn, "/images/routes/2.gif") %>" class="img-responsive" style="width:100%; height: 100%;">
+			</div>
+		</div>
+	</div>
+</div>
