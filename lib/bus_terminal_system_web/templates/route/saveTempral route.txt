@@ -1,0 +1,165 @@
+<div class="container">
+	<h2 style="text-align:center;">
+		Available Routes
+	</h2>
+
+	<div class="row">
+		<div class="col-md-3 col-lg-3">
+			<a href="#" onclick="document.getElementById('id01').style.display='block'"  data-toggle="modal" data-target="#myModal">
+			<div class="w3-card-12 w3-margin" style="width:50%">
+				<img src="<%= Routes.static_path(@conn, "/images/place/1.png") %>" class="img-fluid" style="width:100%">
+				<footer class="w3-container w3-grey">
+					<div class="w3-container w3-center">
+						<p>Central Province</p>
+					</div>
+				</footer>
+			</div>
+			</a>
+		</div>
+
+		<div class="col-md-3 col-lg-3">
+			<a href="#" onclick="document.getElementById('id01').style.display='block'"  data-toggle="modal" data-target="#myModal">
+			<div class="w3-card-12 w3-margin" style="width:50%">
+				<img src="<%= Routes.static_path(@conn, "/images/place/1.png") %>" class="img-fluid" style="width:100%">
+				<footer class="w3-container w3-grey">
+					<div class="w3-container w3-center">
+						<p>Copperbelt Province</p>
+					</div>
+				</footer>
+			</div>
+			</a>
+		</div>
+
+		<div class="col-md-3 col-lg-3">
+			<a href="#" onclick="document.getElementById('id01').style.display='block'"  data-toggle="modal" data-target="#myModal">
+			<div class="w3-card-12 w3-margin" style="width:50%">
+				<img src="<%= Routes.static_path(@conn, "/images/place/1.png") %>" class="img-fluid" style="width:100%">
+				<footer class="w3-container w3-grey">
+					<div class="w3-container w3-center">
+						<p>Eastern Province</p>
+					</div>
+				</footer>
+			</div>
+			</a>
+		</div>
+
+		<div class="col-md-3 col-lg-3">
+			<a href="#" onclick="document.getElementById('id01').style.display='block'"  data-toggle="modal" data-target="#myModal">
+			<div class="w3-card-12 w3-margin" style="width:50%">
+				<img src="<%= Routes.static_path(@conn, "/images/place/1.png") %>" class="img-fluid" style="width:100%">
+				<footer class="w3-container w3-grey">
+					<div class="w3-container w3-center">
+						<p>Luapula Province</p>
+					</div>
+				</footer>
+			</div>
+			</a>
+		</div>
+	</div>
+	<br><br>
+
+	<div class="row">
+		<div class="col-md-3 col-lg-3">
+			<a href="#" onclick="document.getElementById('id01').style.display='block'"  data-toggle="modal" data-target="#myModal">
+			<div class="w3-card-12 w3-margin" style="width:50%">
+				<img src="<%= Routes.static_path(@conn, "/images/place/1.png") %>" class="img-fluid" style="width:100%">
+				<footer class="w3-container w3-grey">
+					<div class="w3-container w3-center">
+						<p>Lusaka Province</p>
+					</div>
+				</footer>
+			</div>
+			</a>
+		</div>
+
+		<div class="col-md-3 col-lg-3">
+			<a href="#" onclick="document.getElementById('id01').style.display='block'"  data-toggle="modal" data-target="#myModal">
+			<div class="w3-card-12 w3-margin" style="width:50%">
+				<img src="<%= Routes.static_path(@conn, "/images/place/1.png") %>" class="img-fluid" style="width:100%">
+				<footer class="w3-container w3-grey">
+					<div class="w3-container w3-center">
+						<p>Muchinga Province</p>
+					</div>
+				</footer>
+			</div>
+			</a>
+		</div>
+
+		<div class="col-md-3 col-lg-3">
+			<a href="#" onclick="document.getElementById('id01').style.display='block'"  data-toggle="modal" data-target="#myModal">
+			<div class="w3-card-12 w3-margin" style="width:50%">
+				<img src="<%= Routes.static_path(@conn, "/images/place/1.png") %>" class="img-fluid" style="width:100%">
+				<footer class="w3-container w3-grey">
+					<div class="w3-container w3-center">
+						<p>North-Western Province</p>
+					</div>
+				</footer>
+			</div>
+			</a>
+		</div>
+
+		<div class="col-md-3 col-lg-3">
+			<a href="#" onclick="document.getElementById('id01').style.display='block'"  data-toggle="modal" data-target="#myModal">
+			<div class="w3-card-12 w3-margin" style="width:50%">
+				<img src="<%= Routes.static_path(@conn, "/images/place/1.png") %>" class="img-fluid" style="width:100%">
+				<footer class="w3-container w3-grey">
+					<div class="w3-container w3-center">
+						<p>Southern Province</p>
+					</div>
+				</footer>
+			</div>
+			</a>
+		</div>
+	</div>
+	
+</div>
+
+
+<!-- ########## MODAL ######### -->
+        <!-- Modal -->
+        <div id="id01" class="w3-modal">
+                <div class="w3-modal-content w3-card-4 w3-animate-zoom">
+                  <header class="w3-container w3-light-grey"> 
+                   <span onclick="document.getElementById('id01').style.display='none'" 
+                   class="w3-closebtn w3-padding-top">×</span>
+                   <h3 style="color:rgb(102, 0, 102); text-align: center;">
+                   	Lusaka to Eastern Province
+                   </h3>
+                  </header>
+                <div class="container-fluid">
+                <div class="row">
+                <div class="col-md-7">
+                <div class="media">
+                <div class="media-right"> 
+                	<a href="{{asset('images/electronics/1.jpg')}}">
+                		<img src="<%= Routes.static_path(@conn, "/images/routes/1.gif") %>" class="img-responsive" style="width:100%; height: 100%;">
+                	</a> 
+            	</div>
+                </div>
+                </div>
+                    
+                <div class="col-md-5">
+                <div class="media-body">
+                 <br>
+                <h4 class="media-heading">Bus Stops</h4>
+                    <b>Bus Stop 1:</b> Chongwe<br />
+                    <b>Bus Stop 2:</b> Rufunsa<br/>
+                    <b>Bus Stop 3:</b> Sinda Chassa<br>
+                    <b>Bus Stop 4:</b> Katete<br>
+                    <b>Bus Stop 5:</b> Chipata<br>
+                    <b>Bus Stop 6:</b> Lundazi<br>
+                    <br><br>
+                   
+                   <a href="<%= Routes.route_path(@conn, :customise_routes) %>" class="w3-btn w3-indigo w3-hover-orange" style="border-radius: 12px;">Customise Stations</a>
+                </div>
+                </div>
+                    
+                </div>
+                </div>
+                
+                <div class="w3-container w3-light-grey w3-padding">
+                <button class="w3-btn w3-red w3-right" onclick="document.getElementById('id01').style.display='none'" style="border-radius: 12px;">Close</button>
+                </div>
+                </div>
+                </div>
+        <!-- ########## /MODAL ######### -->

@@ -7,6 +7,7 @@ defmodule BusTerminalSystemWeb.TicketController do
   alias BusTerminalSystem.RepoManager
   alias BusTerminalSystem.Randomizer
   alias BusTerminalSystem.AccountManager
+  alias BusTerminalSystem.NapsaSmsGetway
 
   def index(conn, _params) do
     tickets = TicketManagement.list_tickets()
@@ -27,6 +28,10 @@ defmodule BusTerminalSystemWeb.TicketController do
 
     case TicketManagement.create_ticket(ticket_params) do
       {:ok, ticket} ->
+
+        sms_message = "Hello #{ticket.first_name} #{ticket.last_name}, \n Ticket Purchase was successful \n TICKET ID: #{ticket.id}"
+        NapsaSmsGetway.send_sms(ticket.mobile_number,sms_message)
+
         conn
         |> put_flash(:info, "Ticket created successfully.")
         |> redirect(to: Routes.user_path(conn, :index))
@@ -81,16 +86,17 @@ defmodule BusTerminalSystemWeb.TicketController do
 
       {:ok, result} ->
         {:ok, payload} = Map.fetch(params,"payload")
-        if !Map.has_key?(payload,"reference_number") do
+        if !Map.has_key?(payload,"ticket_id") do
           json(conn, ApiManager.api_error_handler(ApiManager.definition_query,ApiManager.support_query))
         else
-          {:ok, reference_number} = Map.fetch(payload,"reference_number")
-          case RepoManager.get_ticket_by_reference_number(reference_number) do
+          {:ok, ticket_id} = Map.fetch(payload,"ticket_id")
+          case RepoManager.get_ticket(ticket_id) do
             nil -> ""
             ticket ->
             conn
             |> json(ApiManager.api_message_custom_handler(ApiManager.definition_query,"SUCCESS",0,
               %{
+                "activation_status" => ticket.activation_status,
                 "reference_number" => ticket.reference_number,
                 "serial_number" => ticket.serial_number,
                 "external_ref" => ticket.external_ref,
@@ -121,7 +127,7 @@ defmodule BusTerminalSystemWeb.TicketController do
       {:ok, _result} ->
           {:ok, payload} = Map.fetch(params,"payload")
             IO.inspect payload
-            if !Map.has_key?(payload,"external_ref") or !Map.has_key?(payload,"route_code") do
+            if !Map.has_key?(payload,"external_ref") or !Map.has_key?(payload,"route_code") or !Map.has_key?(payload,"bus_schedule_id") do
                 json(conn, ApiManager.api_error_handler(ApiManager.definition_purchase, ApiManager.support_purchase))
             else
 
@@ -170,14 +176,17 @@ defmodule BusTerminalSystemWeb.TicketController do
     case RepoManager.create_ticket(params) do
       {:ok, ticket} ->
 
-        IO.inspect ticket
-        render conn, ""
+        sms_message = "Hello #{ticket.first_name} #{ticket.last_name}, \n Ticket Purchase was successful \n TICKET ID: #{ticket.id}"
+        NapsaSmsGetway.send_sms(ticket.mobile_number,sms_message)
+
         conn
         |> json(ApiManager.api_message_custom_handler(
           "PURCHASE",
           "SUCCESS",
           0,
           %{
+            "activation_status" => ticket.activation_status,
+            "ticket_id" => ticket.id,
             "reference_number" => ticket.reference_number,
             "serial_number" => ticket.serial_number,
             "external_reference" => ticket.external_ref,
@@ -192,6 +201,7 @@ defmodule BusTerminalSystemWeb.TicketController do
             "start_route" => route.start_route,
             "end_route" => route.end_route,
             "route_code" => route.route_code,
+            "bus_schedule_id" => ticket.bus_schedule_id,
             "currency" => "ZMW",
             "qr_code" => qr_generator("#{ticket.reference_number}")
           }))
@@ -252,12 +262,87 @@ defmodule BusTerminalSystemWeb.TicketController do
     json(conn, schedules)
   end
 
+  def get_schedules_internal(conn, %{"payload" => %{ "date" => date, "time" => time}} = params) do
+    IO.inspect params
+    case RepoManager.route_mapping(date, time) do
+      {:ok,agent,schedules} ->
+        Agent.stop(agent)
+        json(conn, schedules)
+
+      _ ->
+        json(conn, [])
+    end
+
+  end
+
+  def get_schedules_buses(conn, %{"payload" => %{ "date" => date, "start_route" => start_route, "end_route" => end_route}} = params) do
+    IO.inspect params
+    {:ok,agent,schedules} = RepoManager.route_mapping_by_location(date, start_route,end_route)
+    Agent.stop(agent)
+    json(conn, schedules)
+  end
+
+  def get_schedules_buses_by_date(conn, %{"payload" => %{ "start_date" => start_date, "end_date" => end_date, "start_route" => start_route, "end_route" => end_route}} = params) do
+    IO.inspect params
+    {:ok,agent,schedules} = RepoManager.route_mapping_by_date(Date.from_iso8601!(start_date),Date.from_iso8601!(end_date), start_route,end_route)
+    Agent.stop(agent)
+    json(conn, schedules)
+  end
+
+  def get_schedules_by_location(conn,%{"payload" => %{ "date" => date, "start_route" => start_route, "end_route" => end_route}} = params) do
+    IO.inspect params
+    {:ok,agent,schedules} = RepoManager.route_mapping_by_location(date, start_route,end_route)
+    Agent.stop(agent)
+    json(conn,schedules)
+  end
+
   def get_travel_routes(conn,_params) do
     json(conn, RepoManager.list_routes_json())
   end
 
+  def get_luggage_weight(conn,_params) do
+    json conn, %{"weight" => BusTerminalSystem.BinaryConverter.usb}
+  end
+
   def list_tickets(conn,_params) do
     json(conn, RepoManager.list_tickets_json())
+  end
+
+  def find_ticket_internal(conn, params) do
+    {:ok, payload} = Map.fetch(params,"payload")
+    if !Map.has_key?(payload,"ticket_id") do
+      json(conn, ApiManager.api_error_handler(ApiManager.definition_query,ApiManager.support_query))
+    else
+      {:ok, ticket_id} = Map.fetch(payload,"ticket_id")
+      case RepoManager.get_ticket(ticket_id) do
+        nil -> json(conn,[])
+        ticket ->
+        conn
+        |> json(ApiManager.api_message_custom_handler(ApiManager.definition_query,"SUCCESS",0,
+          %{
+            "activation_status" => ticket.activation_status,
+            "ticket_id" => ticket.id,
+            "reference_number" => ticket.reference_number,
+            "serial_number" => ticket.serial_number,
+            "external_ref" => ticket.external_ref,
+            "first_name" => ticket.first_name,
+            "last_name" => ticket.last_name,
+            "other_name" => ticket.other_name,
+            "id_type" => ticket.id_type,
+            "id_number" => ticket.passenger_id,
+            "mobile_number" => ticket.mobile_number,
+            "email_address" => ticket.email_address,
+            "transaction_channel" => ticket.transaction_channel,
+            "travel_date" => ticket.travel_date,
+            "qr_code" => qr_generator("#{ticket.reference_number}")
+          }))
+          _ -> json(conn,[])
+      end
+    end
+  end
+
+  def add_luggage(conn, _params) do
+
   end
 
 end

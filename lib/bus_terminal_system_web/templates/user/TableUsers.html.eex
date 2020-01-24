@@ -20,12 +20,12 @@
                   <th>Username</th>
                   <th>First Name</th>
                   <th>Last Name</th>
+                  <th>Role</th>
                   <th>SSN</th>
                   <th>NID</th>
                   <th>Email</th>
                   <th>Mobile</th>
-                  <th>Tel:</th>
-                  <th>UUID</th>
+                  <th>Account Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -36,12 +36,12 @@
                   <td><%= user.username %></td>
                   <td><%= user.first_name %></td>
                   <td><%= user.last_name %></td>
+                  <td><%= user.role %></td>
                   <td><%= user.ssn %></td>
                   <td><%= user.nrc %></td>
                   <td><%= user.email %></td>
                   <td><%= user.mobile %></td>
-                  <td><%= user.tel %></td>
-                  <td><%= user.uuid %></td>
+                  <td><%= user.account_status %></td>
                   <td class="text-center">
                     <ul class="icons-list">
                         <li class="dropdown">
@@ -50,7 +50,7 @@
                             </a>
 
                             <ul class="dropdown-menu dropdown-menu-right">
-                                <li><button style="margin-left: 10px" type="button" class="btn btn-default btn-sm" data-user-id="" data-toggle="modal" data-target="#modal_form_horizontal_user">
+                                <li><button style="margin-left: 10px" type="button" class="btn btn-default btn-sm" onclick="user_edit_model(<%=user.id%>)">
                                 Info <i class="icon-user position-right"></i></button></li>
 
                                 <!--<li><%= link "Edit", class: "icon-pencil", to: Routes.user_path(@conn, :edit, user) %></li> -->
@@ -72,7 +72,7 @@
  <div id="modal_form_horizontal_user" class="modal fade">
      <div class="modal-dialog modal-lg">
          <div class="modal-content">
-             <div class="modal-header bg-info">
+             <div class="modal-header bg-primary">
                  <button type="button" class="close" data-dismiss="modal">&times;</button>
                  <h5 class="modal-title">User Information</h5>
              </div>
@@ -82,102 +82,94 @@
                  <div class="panel-heading">
                      <h6 class="panel-title"></h6>
                      <div class="heading-elements">
-                         <ul class="icons-list">
-                             <li><a data-action="collapse"></a></li>
-                             <li><a data-action="reload"></a></li>
-                             <li><a data-action="close"></a></li>
-                         </ul>
+
                      </div>
                  </div>
 
                  <div class="panel-body">
-                     <form id="infoForm" action="#">
+                     <form id="infoForm">
                          <div class="form-group">
                              <div class="row">
                                  <div class="col-md-4">
                                      <label>Username</label>
-                                     <input type="text" name="username" value="<%=  %>" class="form-control">
+                                     <input type="text" readonly="readonly" id="model_username" value="" class="form-control">
+                                     <input type="text" hidden="hidden" readonly="readonly" id="model_user_id" value="" class="form-control">
                                  </div>
                                  <div class="col-md-4">
                                      <label>First Name</label>
-                                     <input type="text" value="<%=  %>" class="form-control">
+                                     <input type="text" id="model_first_name" value="" class="form-control">
                                  </div>
 
                                  <div class="col-md-4">
                                      <label>Last Name</label>
-                                     <input type="text" value="<%=  %>" class="form-control">
+                                     <input type="text" id="model_last_name" value="" class="form-control">
                                  </div>
                              </div>
                          </div>
 
-                         <div class="form-group">
-                             <div class="row">
-                                 <div class="col-md-6">
-                                     <label>Address line 1</label>
-                                     <input type="text" value="Ring street 12" class="form-control">
-                                 </div>
-                                 <div class="col-md-6">
-                                     <label>Address line 2</label>
-                                     <input type="text" value="building D, flat #67" class="form-control">
-                                 </div>
-                             </div>
-                         </div>
-
-                         <div class="form-group">
-                             <div class="row">
-                                 <div class="col-md-4">
-                                     <label>City</label>
-                                     <input type="text" value="Munich" class="form-control">
-                                 </div>
-                                 <div class="col-md-4">
-                                     <label>State/Province</label>
-                                     <input type="text" value="Bayern" class="form-control">
-                                 </div>
-                                 <div class="col-md-4">
-                                     <label>ZIP code</label>
-                                     <input type="text" value="1031" class="form-control">
-                                 </div>
-                             </div>
-                         </div>
 
                          <div class="form-group">
                              <div class="row">
                                  <div class="col-md-6">
                                      <label>Email</label>
-                                     <input type="text" readonly="readonly" value="eugene@kopyov.com" class="form-control">
+                                     <input type="text" id="model_email" value="" class="form-control">
                                  </div>
+
                                  <div class="col-md-6">
-                                     <label>Your country</label>
-                                     <select class="select">
-                                         <option value="germany" selected="selected">Germany</option>
-                                         <option value="france">France</option>
-                                         <option value="spain">Spain</option>
-                                         <option value="netherlands">Netherlands</option>
-                                         <option value="other">...</option>
-                                         <option value="uk">United Kingdom</option>
-                                     </select>
-                                 </div>
+                                      <label>Phone</label>
+                                      <input type="text" id="model_phone" value="" class="form-control">
+                                  </div>
+
                              </div>
                          </div>
 
                          <div class="form-group">
-                             <div class="row">
-                                 <div class="col-md-6">
-                                     <label>Phone #</label>
-                                     <input type="text" value="+99-99-9999-9999" class="form-control">
-                                     <span class="help-block">+99-99-9999-9999</span>
-                                 </div>
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <label>NRC</label>
+                                      <input type="text" id="model_nrc" value="" class="form-control">
+                                  </div>
 
-                                 <div class="col-md-6">
-                                     <label class="display-block">Upload profile image</label>
-                                     <input type="file" class="file-styled">
-                                     <span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>
-                                 </div>
-                             </div>
-                         </div>
+                                  <div class="col-md-6">
+                                       <label>ssn</label>
+                                       <input type="text" id="model_ssn" value="" class="form-control">
+                                   </div>
 
+                              </div>
+                          </div>
+
+                          <div class="form-group">
+                               <div class="row">
+                                   <div class="col-md-6">
+                                       <label>ACCOUNT STATUS</label>
+                                       <input type="text" readonly="readonly" id="model_account_status" value="" class="form-control">
+                                   </div>
+
+                                   <div class="col-md-6">
+                                        <label>UUID</label>
+                                        <input type="text" readonly="readonly" id="model_uuid" value="" class="form-control">
+                                    </div>
+
+                               </div>
+                           </div>
+
+                           <div class="form-group">
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <label>Operator Role</label>
+                                      <input type="text" readonly="readonly" id="model_operator_role" value="" class="form-control">
+                                  </div>
+
+                              </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-2">
+
+                            </div>
+                          </div>
                          <div class="text-right">
-                             <button type="submit" class="btn btn-primary">Save <i class="icon-arrow-right14 position-right"></i></button>
+                             <button onclick="updateUser()" class="btn btn-primary">UPDATE <i class="icon-arrow-right14 position-right"></i></button>
                          </div>
                      </form>
                  </div>
@@ -204,12 +196,12 @@
                              <div class="row">
                                  <div class="col-md-6">
                                      <label>Username</label>
-                                     <input type="text" value="Kopyov" readonly="readonly" class="form-control">
+                                     <input type="text" value="" id="model_pwd_username" readonly="readonly" class="form-control">
                                  </div>
 
                                  <div class="col-md-6">
                                      <label>Current password</label>
-                                     <input type="password" value="password" readonly="readonly" class="form-control">
+                                     <input type="password" id="model_password" value="" readonly="readonly" class="form-control">
                                  </div>
                              </div>
                          </div>
@@ -228,76 +220,16 @@
                              </div>
                          </div>
 
-                         <div class="form-group">
-                             <div class="row">
-                                 <div class="col-md-6">
-                                     <label>Profile visibility</label>
-
-                                     <div class="radio">
-                                         <label>
-                                             <input type="radio" name="visibility" class="styled" checked="checked">
-                                             Visible to everyone
-                                         </label>
-                                     </div>
-
-                                     <div class="radio">
-                                         <label>
-                                             <input type="radio" name="visibility" class="styled">
-                                             Visible to friends only
-                                         </label>
-                                     </div>
-
-                                     <div class="radio">
-                                         <label>
-                                             <input type="radio" name="visibility" class="styled">
-                                             Visible to my connections only
-                                         </label>
-                                     </div>
-
-                                     <div class="radio">
-                                         <label>
-                                             <input type="radio" name="visibility" class="styled">
-                                             Visible to my colleagues only
-                                         </label>
-                                     </div>
-                                 </div>
-
-                                 <div class="col-md-6">
-                                     <label>Notifications</label>
-
-                                     <div class="checkbox">
-                                         <label>
-                                             <input type="checkbox" class="styled" checked="checked">
-                                             Password expiration notification
-                                         </label>
-                                     </div>
-
-                                     <div class="checkbox">
-                                         <label>
-                                             <input type="checkbox" class="styled" checked="checked">
-                                             New message notification
-                                         </label>
-                                     </div>
-
-                                     <div class="checkbox">
-                                         <label>
-                                             <input type="checkbox" class="styled" checked="checked">
-                                             New task notification
-                                         </label>
-                                     </div>
-
-                                     <div class="checkbox">
-                                         <label>
-                                             <input type="checkbox" class="styled">
-                                             New contact request notification
-                                         </label>
-                                     </div>
-                                 </div>
-                             </div>
+                         <div class="text-left">
+                             <button type="submit" onclick="updateAccountStatus(1)" id="user_deactivate_account" style="border-radius: 12px;" class="btn btn-primary">Deactivate Account<i class="icon-arrow-right14 position-right"></i></button>
                          </div>
 
+                         <div class="text-left">
+                              <button type="submit" onclick="updateAccountStatus(2)" id="user_deactivate_account" style="border-radius: 12px;" class="btn btn-primary">Activate Account<i class="icon-arrow-right14 position-right"></i></button>
+                          </div>
+
                          <div class="text-right">
-                             <button type="submit" style="border-radius: 12px;" class="btn btn-primary">Save <i class="icon-arrow-right14 position-right"></i></button>
+                             <button type="submit" style="border-radius: 12px;" class="btn btn-primary">Reset <i class="icon-arrow-right14 position-right"></i></button>
                          </div>
                      </form>
                  </div>

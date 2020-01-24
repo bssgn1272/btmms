@@ -47,7 +47,6 @@
         td {text-align: center;}
         th {color: maroon; text-decoration-line: underline;}
 </style>
-
 <!-- Core JS files -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/bootstrap.js") %>"></script>
@@ -61,8 +60,15 @@
 <!-- Theme JS files -->
 <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/core/app.js") %>"></script>
 <script type="text/javascript" src="assets/js/plugins/ui/ripple.min.js"></script>
+<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/appMechanics.js") %>"></script>
+<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/AjaxCall.js") %>"></script>
+
+<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/appMechanics.js") %>"></script>
+<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/AjaxCall.js") %>"></script>
 <!-- /theme JS files -->
 </head>
+
+
 
 <body class="navbar-bottom login-container" id="backgroundLog">
 
@@ -104,7 +110,7 @@
 			   				<div class="col-lg-6">
 			   					<div class="container-fluid pull-center">
 									 <h1 style="font-size: 20px;text-align: center;">
-									 	NEWS & ANNOUNCEMENTS
+									 	RECOMMENDED TOURIST DESTINATIONS
 									 </h1>
 								</div>
 
@@ -189,107 +195,181 @@
 									<h5 class="content-group">To Purschase Ticket <small class="display-block">Fill Form Below</small></h5>
 								</div>
 
-					    		<div class="form-group has-feedback has-feedback-left">
-									<input name="passenger[passenger_name]" type="text" class="form-control" placeholder="Name of Passenger">
-									<div class="form-control-feedback">
-										<i class="icon-user text-muted"></i>
-									</div>
-								</div>
 
-					    		<div class="form-group has-feedback has-feedback-left">
-					    			<select class="w3-select" name="option">
-									    <option value="" disabled selected>Name Of Terminus</option>
-									    <option value="1">Intercity Bus Terminus</option>
-									    <option value="2">City Market Bus Terminus</option>
-									    <option value="3">Lumumba Bus Terminus</option>
-										<option value="3">Millenium Bus Terminus</option>
-										<option value="3">Stanley Bus Terminus</option>
-									</select>
-								</div>
 
-								<div class="form-group has-feedback has-feedback-left">
-									<div class="row">
-										<div class="col-md-6">
-											<select class="w3-select" name="option">
-												<option value="" disabled selected>From</option>
-												<option value="1">Livingstone</option>
-												<option value="2">Lusaka</option>
-												<option value="3">Ndola</option>
-												<option value="3">Sesheke</option>
-												<option value="3">Mambo</option>
-												<option value="3">Lundazi</option>
-											</select>
-										</div>
 
-										<div class="col-md-6">
-											<select class="w3-select" name="option">
-												<option value="" disabled selected>To</option>
-												<option value="1">Livingstone</option>
-												<option value="2">Lusaka</option>
-												<option value="3">Ndola</option>
-												<option value="3">Sesheke</option>
-												<option value="3">Mambo</option>
-												<option value="3">Lundazi</option>
-											</select>
-										</div>
-									</div>
-								</div>
 
-								<div class="form-group has-feedback has-feedback-left">
-									<select class="w3-select" name="option">
-										<option value="" disabled selected>Name Of Bus</option>
-										<option value="1">Jordan Moters</option>
-										<option value="2">Zambia-Malawi</option>
-										<option value="3">Likili </option>
-										<option value="3">Mazhandu</option>
-										<option value="3">Power Tools</option>
-										<option value="3">TDE</option>
-									</select>
-								</div>
+						<div class="row">
+							<div class="col-md-6">
+							    <div class="form-group has-feedback has-feedback-left">
+		                            <input type="date" id="date" name="bday" min="2015-10-28" class="form-control" onchange="GetSelectedDate()">
+		                            <div class="form-control-feedback">
+		                                <i class="icon-table text-muted"></i>
+		                            </div>
+		                        </div>
+	                    	</div>
 
-								<div class="form-group has-feedback has-feedback-left">
-									<select class="w3-select" name="option">
-									    <option value="" disabled selected>Time of Departure</option>
-									    <option value="1">06:00</option>
-									    <option value="2">10:00</option>
-									    <option value="3">14:00</option>
-									</select>
-								</div>
+	                    	<div class="col-md-6">
+		                        <div class="form-group has-feedback has-feedback-left">
+		                            <input name="payload[mobile_number]" id="Contact_Number" type="text" class="form-control" placeholder="Passenger Cell">
+		                            <div class="form-control-feedback">
+		                                <i class="icon-phone text-muted"></i>
+		                            </div>
+		                        </div>
+	                    	</div>
+                    	</div>
+                    
 
-								<div class="form-group has-feedback has-feedback-left">
-									<select class="w3-select" name="option">
-										<option value="" disabled selected>Number Of Passagers</option>
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="3">4</option>
-										<option value="3">5</option>
-										<option value="3">6</option>
-										<option value="2">7</option>
-										<option value="3">8</option>
-										<option value="3">9</option>
-										<option value="3">10</option>
-									</select>
-								</div>
+                    	<div class="row">
+                    		<div class="col-md-6">
+		                        <div class="form-group has-feedback has-feedback-left">
+		                            <input name="payload[first_name]" id="First_Name" type="text" class="form-control" placeholder="Passenger First Name">
+		                            <div class="form-control-feedback">
+		                                <i class="icon-user text-muted"></i>
+		                            </div>
+		                        </div>
+                    		</div>
 
-								<div class="form-group has-feedback has-feedback-left">
-									<input name="location" type="Date" id="date" data-provide="datepicker" min="9/10/2019" class="form-control" placeholder="Date of Depature">
-									<div class="form-control-feedback">
-										<i class="icon-table text-muted"></i>
-									</div>
-								</div>
+                    		<div class="col-md-6">
+		                        <div class="form-group has-feedback has-feedback-left">
+		                            <input name="payload[last_name]" id="Last_Name" type="text" class="form-control" placeholder="Passenger Last Name">
+		                            <div class="form-control-feedback">
+		                                <i class="icon-user text-muted"></i>
+		                            </div>
+		                        </div>
+                    		</div>
+                    	</div>
 
-								<div class="form-group has-feedback has-feedback-left">
-									<a href="#" onclick="document.getElementById('seatModal').style.display='block'"  data-toggle="modal" data-target="#myModal">
-										Pick Seat
-									</a>
-								</div>
+
+                        <div class="row">
+	                        <div class="col-md-6">
+		                        <div class="form-group has-feedback has-feedback-left">
+		                            <select class="w3-select" name="option" id="id_type2" onchange="GetSelectedTime()">
+		                                <option value="" disabled selected>ID Type</option>
+		                                <option value="NRC">NRC</option>
+		                                <option value="Passport">Passport</option>
+		                                <option value="Drivers License">Drivers License</option>
+		                            </select>
+		                        </div>
+	                    	</div>
+
+	                    	<div class="col-md-6">
+		                        <div class="form-group has-feedback has-feedback-left">
+		                            <input name="payload[passenger_id]" id="ID" type="text" class="form-control" placeholder="ID Number">
+		                            <div class="form-control-feedback">
+		                                <i class="icon-credit-card text-muted"></i>
+		                            </div>
+		                        </div>
+	                    	</div>
+                    	</div>
+
+
+
+                    	<div class="row">
+                    		<div class="col-md-6">
+		                        <div class="form-group has-feedback has-feedback-left">
+		                            <select class="w3-select" name="option" id="Operator_Name" onchange="GetSelectedText()">
+		                                <option value="" disabled selected> Name Of Bus Operator</option>
+		                                <option value="0">Euro</option>
+		                                <option value="1">Juldan Motors</option>
+		                                <option value="2">Mazhandu</option>
+		                                <option value="3">Power Tools</option>
+		                            </select>
+		                        </div>
+                    		</div>
+
+                    		<div class="col-md-6">
+		                        <div class="form-group has-feedback has-feedback-left">
+		                            <select class="w3-select" name="route" id="Name_Terminus" onchange="GetSelectedTerminus()">
+		                                <option value="" disabled selected>Name Of Terminus</option>
+		                                <option value="Livingstone Terminus" >Livingstone Terminus</option>
+		                            </select>
+		                        </div>
+                    		</div>
+                    	</div>
+
+                        <div class="form-group has-feedback has-feedback-left">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group has-feedback has-feedback-left">
+                                        <select class="w3-select" name="route" id="Depature_Name" onchange="GetSelectedFrom()">
+                                            <option value="" disabled selected>From</option>
+                                            <option value="Livingstone" >Livingstone</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group has-feedback has-feedback-left">
+                                        <select class="w3-select" name="route" id="Destination_Name" onchange="GetSelectedTo()">
+                                            <option value="" disabled selected>To</option>
+                                            <option value="Chipata" >Chipata</option>
+                                            <option value="Copperbelt" >Copperbelt</option>
+                                            <option value="Lusaka" >Lusaka</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                        	<div class="col-md-6">
+		                        <div class="form-group has-feedback has-feedback-left">
+		                            <select class="w3-select" name="option" id="Depature_Time" onchange="GetSelectedTime()">
+		                                <option value="">Time of Departure</option>
+		                            </select>
+		                        </div>
+                    		</div>
+
+                    		<div class="col-md-6">
+		                        <div class="form-group has-feedback has-feedback-left">
+		                            <select class="w3-select" name="option" id="Position" onchange="GetSelectedSeat()">
+		                                <option value="" disabled selected>Choose Seat</option>
+		                                <option value="A1">A1</option>
+		                                <option value="A2">A2</option>
+		                                <option value="A3">A3</option>
+		                                <option value="A4">A4</option>
+		                                <option value="A5">A5</option>
+		                                <option value="A6">A6</option>
+		                                <option value="A7">A7</option>
+		                                <option value="A8">A8</option>
+		                                <option value="A9">A9</option>
+		                                <option value="A10">A10</option>                                
+		                            </select>
+		                        
+		                            <!--
+		                            <a href="#" onclick="document.getElementById('seatModal').style.display='block'"  data-toggle="modal" data-target="#myModal">
+		                                Pick Seat
+		                            </a>
+		                            -->
+		                        </div>
+		                    		</div>
+                    	</div>
 
 								<div class="form-group">
 									<a href="#" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange" onclick="document.getElementById('id01').style.display='block'"  data-toggle="modal" data-target="#myModal">
-									BUY TICKET
+									Purchase Ticket
 									</a>
 								</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 			   				</div>
 			   				<!--####################-- NAPSA STAFF ANNOUNCEMENTS --####################-->
 			   			</div>

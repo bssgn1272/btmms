@@ -34,7 +34,7 @@ defmodule BusTerminalSystemWeb.Router do
     # USER_CONTROLLER
     resources "/platform/secure/commercial/services/users/management", UserController
     get "/platform/secure/v1/json/commercial/services/users", UserController, :all_users_json
-    get "/TableUsers", UserController, :table_users
+    get "/platform/secure/v1/commercial/services/users", UserController, :table_users
     get "/Registration_Form", UserController, :registration_form
 
     # BUSTERMINUS_CONTROLLER
@@ -44,11 +44,22 @@ defmodule BusTerminalSystemWeb.Router do
     get "/Assign_Gate", BusTerminusController, :form_gate
     get "/bus_approval", BusTerminusController, :bus_approval
 
-    # MARKETER_CONTROLLER
+    # MARKETER_CONTROLLER_______________________________________________________________________________________
     resources "/platform/secure/commercial/services/marketer/market", MarketerController
-    get("/Registering_Market", MarketerController, :form_market)
-    get("/Creating_Section", MarketerController, :form_section)
-    get("/Allocating_shop", MarketerController, :form_shop)
+
+    get(
+      "/platform/secure/commercial/services/marketer/market/registering_market",
+      MarketerController,
+      :form_market
+    )
+
+    get "/creating_section", MarketerController, :form_section
+
+    get "/allocating_shop", MarketerController, :form_shop
+
+    get "/stand_allocation", MarketerController, :standallocation
+
+    # ______________________________________________________________________________________________________________
 
     # TICKET_CONTROLLER
     resources "/platform/secure/commercial/services/ticketing/tickets", TicketController
@@ -61,23 +72,32 @@ defmodule BusTerminalSystemWeb.Router do
 
     # ROUTE_CONTROLLER
     get "/routes", RouteController, :index
+    post "/routes/create", RouteController, :create
     get "/customise_routes", RouteController, :customise_routes
 
     # TELLER_CONTROLLER
     get "/teller", TellerController, :index
+    get "/documentation", TellerController, :documentation
+    get "/reports", TellerController, :reports
 
     # VISA_CONTROLLER
     get "/payment", VisaController, :index
 
     # BOOKINGS_CONTROLLER
     get "/bookings", BookingsController, :index
-    get "/test", BookingsController, :test
+    get "/scheduling", BookingsController, :schedule
+    post "/create_mapping", BookingsController, :create_schedule
   end
 
   scope "/", BusTerminalSystemWeb do
     pipe_through [:browser, :auth, :ensure_auth]
 
     get "/protected", PageController, :protected
+  end
+
+  scope "/dev" do
+    pipe_through [:browser]
+    forward "/mailbox", Plug.Swoosh.MailboxPreview, [base_path: "/dev/mailbox"]
   end
 
   # Other scopes may use custom stacks.
@@ -87,6 +107,13 @@ defmodule BusTerminalSystemWeb.Router do
     post "/btms/tickets/secured/find", TicketController, :find_ticket
     post "/btms/tickets/secured/purchase", TicketController, :purchase_ticket
     get "/btms/travel/secured/destinations", TicketController, :get_schedules
+    post "/btms/travel/secured/internal/destinations", TicketController, :get_schedules_internal
+    get "/btms/tickets/secured/internal/get_luggage_weight", TicketController, :get_luggage_weight
+
+    post "/btms/travel/secured/internal/locations/destinations",
+         TicketController,
+         :get_schedules_buses
+
     get "/btms/travel/secured/routes", TicketController, :get_travel_routes
     get "/btms/tickets/secured/list", TicketController, :list_tickets
 
@@ -96,6 +123,19 @@ defmodule BusTerminalSystemWeb.Router do
     post "/btms/market/secured/reset_pin", MarketApiController, :reset_pin
     post "/btms/market/secured/register_market", MarketApiController, :register_marketeer
 
+    post "/internal/list/bus", FrontendApiController, :query_list_buses
+    get "/internal/list/bus_routes", FrontendApiController, :list_travel_routes
+    get "/internal/list/bus_operators", FrontendApiController, :list_bus_operators
+    post "/internal/query/user", FrontendApiController, :query_user
+    post "/internal/update/user", FrontendApiController, :update_user
+    post "/internal/query/bus", FrontendApiController, :query_bus
+    post "/internal/update/bus", FrontendApiController, :update_bus
+    post "/internal/tickets/find", TicketController, :find_ticket_internal
+    get "/internal/scale/query", FrontendApiController, :get_scale_query
+    post "/internal/get_luggage_tarrif", FrontendApiController, :get_luggage_tarrif
+    post "/internal/get_luggage_by_ticket_id", FrontendApiController, :get_luggage_by_ticket
+    post "/internal/add_luggage", FrontendApiController, :add_luggage
+    post "/internal/checkin", FrontendApiController, :checkin_passenger
   end
 
   def swagger_info do
@@ -104,16 +144,13 @@ defmodule BusTerminalSystemWeb.Router do
         version: "1.0",
         title: "BTMS",
         contact: %{
-         name: "Philip Chani",
-         email: "philip@probasegroup.com"
+          name: "Philip Chani",
+          email: "philip@probasegroup.com"
         }
       },
-      "definitions": %{
-      "/pets": %{
-        }
+      definitions: %{
+        "/pets": %{}
       }
-
     }
   end
-
 end
