@@ -30,6 +30,18 @@
                       <div class="ripple-container"></div>
                     </a>
                   </li>
+
+                  <li class="nav-item">
+                    <a
+                      mat-button
+                      class="nav-link"
+                      href="#interval"
+                      data-toggle="tab"
+                    >
+                      <i mat-icon class="material-icons">calender_today</i>Slot Interval Settings
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -193,6 +205,115 @@
                       </mat-tab>
                     </mat-tab-group>
               </div>
+
+              <div class="tab-pane" id="interval">
+                 <div class="row">
+                  <div class="col-md-6">
+                    <button
+                      mat-raised-button
+                      (click)="onOpenTimeDialog()"
+                      matTooltip="Book Slot"
+                      aria-label="Button that displays a tooltip when focused or hovered over"
+                      class="btn btn-primary btn-link btn-sm btn-just-icon"
+                    >
+                      <i class="fa fa-plus mat-icon"></i>
+                    </button>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <input
+                        matInput
+                        (keyup)="applyFilter($event.target.value)"
+                        placeholder="Filter"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="mat-elevation-z8">
+                      <table class="table" mat-table [dataSource]="slotDataSource">
+                        <!-- time Column -->
+                        <ng-container matColumnDef="time">
+                          <th mat-header-cell *matHeaderCellDef>time</th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.time }}
+                          </td>
+                        </ng-container>
+
+                        <!-- slot1 Column -->
+                        <ng-container matColumnDef="slot_one">
+                          <th mat-header-cell *matHeaderCellDef>Slot One</th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.slot_one }}
+                          </td>
+                        </ng-container>
+
+                        <!-- slot2 Column -->
+                        <ng-container matColumnDef="slot_two">
+                          <th mat-header-cell *matHeaderCellDef>Slot Two</th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.slot_two }}
+                          </td>
+                        </ng-container>
+
+                        <!-- slot3 Column -->
+                        <ng-container matColumnDef="slot_three">
+                          <th mat-header-cell *matHeaderCellDef>Slot Three</th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.slot_three }}
+                          </td>
+                        </ng-container>
+
+                        <!-- slot4 Column -->
+                        <ng-container matColumnDef="slot_four">
+                          <th mat-header-cell *matHeaderCellDef>Slot Four</th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.slot_four }}
+                          </td>
+                        </ng-container>
+
+                        <!-- slot5 Column -->
+                        <ng-container matColumnDef="slot_five">
+                          <th mat-header-cell *matHeaderCellDef>Slot Five</th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.slot_five }}
+                          </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="action">
+                          <th mat-header-cell *matHeaderCellDef>Action</th>
+                          <td mat-cell *matCellDef="let row">
+                            <button
+                              mat-raised-button
+                              (click)="onOpenUpdateDialog(row)"
+                              matTooltip="Update Slot"
+                              aria-label="Button that displays a tooltip when focused or hovered over"
+                              class="btn btn-primary btn-link btn-sm btn-just-icon"
+                            >
+                              <i class="material-icons">commute</i>
+                            </button>
+                          </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedSlotsColumns"></tr>
+                        <tr
+                          mat-row
+                          *matRowDef="let row; columns: displayedSlotsColumns"
+                        ></tr>
+                      </table>
+
+                      <mat-paginator
+                        #SlotPaginator
+                        [pageSizeOptions]="[5, 10, 20]"
+                        showFirstLastButtons
+                      ></mat-paginator>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>

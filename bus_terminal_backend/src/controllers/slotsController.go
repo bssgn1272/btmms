@@ -4,8 +4,10 @@ import (
 	"../models"
 	u "../utils"
 	"encoding/json"
+	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -57,3 +59,20 @@ func InitMidNight() {
 	}
 }
 
+// Function for Creating Slots
+var UpdateSlotController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+	params := mux.Vars(r)
+	id, _ := strconv.Atoi(params["id"])
+
+	slot := &models.Slot{}
+
+	err := json.NewDecoder(r.Body).Decode(slot)
+	if err != nil {
+		u.Respond(w, u.Message(false, "Error while decoding request body"))
+		return
+	}
+
+	resp := slot.UpdateSlotTInterval(uint(id))
+	u.Respond(w, resp)
+})

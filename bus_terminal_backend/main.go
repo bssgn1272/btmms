@@ -45,6 +45,7 @@ func main() {
 	// Slots routes
 	router.Handle("/api/slots/create", c.CreateSlotController).Methods("POST")
 	router.Handle("/api/slots/get", c.GetSlotsController).Methods("GET")
+	router.Handle("/api/slots/update/{id}", c.UpdateSlotController).Methods("PUT")
 
 
 	// Reservations Approval routes

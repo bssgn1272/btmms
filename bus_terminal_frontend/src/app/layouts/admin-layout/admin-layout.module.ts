@@ -37,6 +37,8 @@ import { AlertsService } from 'app/alert/alerts.service';
 import { NavbarComponent } from 'app/components/navbar/navbar.component';
 import { SettingsComponent } from 'app/settings/settings.component';
 import { DestinationDayComponent } from 'app/destination-day/destination-day.component';
+import { SlotTimeComponent } from 'app/slot-time/slot-time.component';
+import { UpdateSlotTimeComponent } from '../../update-slot-time/update-slot-time.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -73,7 +75,9 @@ import { DestinationDayComponent } from 'app/destination-day/destination-day.com
     ApproveReservationComponent,
     AlertsComponent,
     SettingsComponent,
-    DestinationDayComponent
+    DestinationDayComponent,
+    SlotTimeComponent,
+    UpdateSlotTimeComponent
   ],
   providers: [AlertsService]
 })

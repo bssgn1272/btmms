@@ -5,6 +5,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DestinationDayComponent } from '../destination-day/destination-day.component';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SlotInteravlService } from './slot-interval.service';
+import { SlotTimeComponent } from '../slot-time/slot-time.component';
+import { UpdateSlotTimeComponent } from '../update-slot-time/update-slot-time.component';
 
 @Component({
   selector: 'app-settings',
@@ -35,6 +38,21 @@ export class SettingsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   days: [];
 
+  // slot interval
+  displayedSlotsColumns: string[] = [
+    'time',
+    'slot_one',
+    'slot_two',
+    'slot_three',
+    'slot_four',
+    'slot_five',
+    'action'
+  ];
+  slotDataSource = new MatTableDataSource([]);
+
+  @ViewChild('SlotPaginator') slotPaginator: MatPaginator;
+  @ViewChild('SlotSort') slotSort: MatSort;
+
   constructor(
     private settings: SettingsService,
     private _formBuilder: FormBuilder,
@@ -42,7 +60,8 @@ export class SettingsComponent implements OnInit {
     private httpClient: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private slots: SlotInteravlService
   ) {
     // Destination Time form Builder
     this.destinationForm = this._formBuilder.group({
@@ -74,12 +93,24 @@ export class SettingsComponent implements OnInit {
       this.dataSource.sort = this.sort;
     });
 
+    // fetch slot data
+    this.slots.getList().then(res => {
+      this.slotDataSource = new MatTableDataSource(res.data);
+      this.slotDataSource.paginator = this.paginator;
+      this.slotDataSource.sort = this.sort;
+    });
+
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  // filter slots
+  applySlotFilter(filterValue: string) {
+    this.slotDataSource.filter = filterValue.trim().toLowerCase();
   }
 
   // create destination time
@@ -100,7 +131,7 @@ export class SettingsComponent implements OnInit {
     return this.dayForm.controls;
   }
 
-   get f_time() {
+  get f_time() {
     return this.timeForm.controls;
   }
 
@@ -186,5 +217,26 @@ export class SettingsComponent implements OnInit {
           });
         }
       );
+  }
+
+  // Slot time Dialog
+  onOpenTimeDialog() {
+    const dialogConfig = new MatDialogConfig();
+    // dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '60%';
+    this.dialog.open(SlotTimeComponent, dialogConfig);
+  }
+
+  onOpenUpdateDialog(row): void {
+    const dialogConfig = new MatDialogConfig();
+    // dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '60%';
+    dialogConfig.data = {row}
+    this.dialog.open(UpdateSlotTimeComponent, dialogConfig);
+    this.dialog.afterAllClosed.subscribe(result => {
+      row = result;
+    })
   }
 }

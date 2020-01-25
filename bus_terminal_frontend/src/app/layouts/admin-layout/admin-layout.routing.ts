@@ -12,6 +12,8 @@ import { RoservationRequestsComponent } from 'app/roservation-requests/roservati
 import { AuthGuard } from 'app/guard/auth.guard';
 import { SettingsComponent } from '../../settings/settings.component';
 import { DestinationDayComponent } from '../../destination-day/destination-day.component';
+import { SlotTimeComponent } from '../../slot-time/slot-time.component';
+import { UpdateSlotTimeComponent } from '../../update-slot-time/update-slot-time.component';
 
 export const AdminLayoutRoutes: Routes = [
          { path: 'user-profile', component: DashboardComponent },
@@ -47,6 +49,16 @@ export const AdminLayoutRoutes: Routes = [
          {
            path: 'destination-time',
            component: DestinationDayComponent,
+           canActivate: [AuthGuard]
+         },
+         {
+           path: 'slot-time',
+           component: SlotTimeComponent,
+           canActivate: [AuthGuard]
+         },
+         {
+           path: 'update-slot',
+           component: UpdateSlotTimeComponent,
            canActivate: [AuthGuard]
          }
        ];

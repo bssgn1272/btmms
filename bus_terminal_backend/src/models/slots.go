@@ -136,6 +136,19 @@ func (slot *Slot) Update() (map[string] interface{}) {
 }
 
 
+// upadate Slots Table
+
+func (slot *Slot) UpdateSlotTInterval(id uint) (map[string] interface{}) {
+
+	db.Model(&slot).Where("id = ?", slot.ID).Updates(Slot{Time:slot.Time})
+
+	resp := u.Message(true, "success")
+	resp["slot"] = slot
+	log.Println(resp)
+	return resp
+}
+
+
 // update Slots Table
 
 func (slot *Slot) Close() (map[string] interface{}) {

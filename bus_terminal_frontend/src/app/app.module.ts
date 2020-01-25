@@ -38,7 +38,7 @@ import { JwtInterceptor, ErrorInterceptor } from './interceptor';
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
-    AlertComponent,
+    AlertComponent
   ],
   providers: [
     AuthService,
