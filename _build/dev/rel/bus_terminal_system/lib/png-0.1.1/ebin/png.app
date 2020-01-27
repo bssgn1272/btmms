@@ -1,0 +1,10 @@
+{application,png,
+             [{description,"A pure Erlang library for creating PNG images. It can currently create 8 and 16 bit RGB, RGB with alpha, indexed, grayscale and grayscale with alpha images."},
+              {vsn,"0.1.1"},
+              {contributors,["Yuce Tekol"]},
+              {licenses,["MIT"]},
+              {links,[{"Github","https://github.com/yuce/png"}]},
+              {registered,[]},
+              {applications,[kernel,stdlib]},
+              {env,[]},
+              {modules,[png]}]}.

@@ -96,7 +96,7 @@ defmodule BusTerminalSystem.RepoManager do
     |> Repo.insert()
   end
 
-  #--------------------------MARKETER-----------------------------------------------------------------------------------
+  #--#------------------------MARKETER-----------------------------------------------------------------------------------
 
   def create_marketer(marketer) do
 
@@ -111,7 +111,7 @@ defmodule BusTerminalSystem.RepoManager do
     marketer = Map.put(marketer, "pin", encode_pin(pin))
     marketer = Map.put(marketer, "role", "MOP")
     marketer = Map.put(marketer, "password", Randomizer.randomizer(6, :upcase))
-    marketer = Map.put(marketer, "account_status", "INACTIVE")
+    marketer = Map.put(marketer, "account_status", "OTP")
     marketer = Map.put(marketer, "uuid", uuid)
     marketer = Map.put(marketer,"username","-")
     marketer = Map.put(marketer,"ssn","-")
