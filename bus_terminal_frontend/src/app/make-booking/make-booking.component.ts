@@ -154,7 +154,7 @@ export class MakeBookingComponent implements OnInit {
       .subscribe(
         data => {
           this.router.navigate([this.returnUrl]);
-          window.location.reload();
+          // window.location.reload();
           this._snackBar.open('Successfully Created', null, {
             duration: 1000,
             horizontalPosition: 'center',

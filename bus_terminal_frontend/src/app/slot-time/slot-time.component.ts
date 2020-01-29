@@ -3,6 +3,7 @@ import { MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-slot-time',
@@ -13,6 +14,7 @@ export class SlotTimeComponent implements OnInit {
   // Time formGroup
   timeForm: FormGroup;
   today = new Date();
+  tomorrow = new Date();
   constructor(
     public dialogRef: MatDialogRef<SlotTimeComponent>,
     private _formBuilder: FormBuilder,
@@ -27,7 +29,11 @@ export class SlotTimeComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    moment(this.tomorrow.setDate(this.today.getDate() + 1)
+    );
+    console.log(this.tomorrow);
+  }
 
   get f_time() {
     return this.timeForm.controls;
@@ -44,7 +50,7 @@ export class SlotTimeComponent implements OnInit {
         slot_three: 'open',
         slot_four: 'open',
         slot_five: 'open',
-        reservation_time: this.today
+        reservation_time: this.tomorrow
       })
       .subscribe(
         data => {
