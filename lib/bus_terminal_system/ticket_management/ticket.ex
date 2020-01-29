@@ -39,7 +39,7 @@ defmodule BusTerminalSystem.TicketManagement.Ticket do
       :last_name, :other_name, :id_type, :passenger_id, :mobile_number, :email_address, :transaction_channel, :travel_date])
 
     |> validate_required([:reference_number, :external_ref, :serial_number, :route, :activation_status, :first_name,
-      :last_name, :id_type, :passenger_id, :mobile_number, :transaction_channel, :travel_date, :bus_schedule_id])
+      :last_name, :id_type, :passenger_id, :mobile_number, :transaction_channel, :travel_date])
     |> validate_format(:email_address, ~r/@/)
   end
 end

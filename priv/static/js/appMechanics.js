@@ -523,7 +523,7 @@ function toggle_route_search(){
                     let single_object = JSON.parse(JSON.stringify(v));
 
                     let value = single_object.bus.company + "-" + single_object.route.start_route + "-"
-                        + single_object.route.end_route + "-"  +  single_object.time + "-" + single_object.fare;
+                        + single_object.route.end_route + "-"  +  single_object.departure_time + "-" + single_object.fare;
                     value = value.toString();
 
                     //trips_html += '<div class="radio"><label><input type="radio" onclick="ticket_purchase(this.value)" value="'+value+'" name="opt_radio" />';
@@ -533,7 +533,7 @@ function toggle_route_search(){
 
                     trips_html += '<tr>' + '<th scope="row"><input type="radio" onclick="ticket_purchase(this.value)" value="'+value+'" name="opt_radio"></th>'+
                         '<td>' + single_object.bus.company +'</td>' + '<td>' + single_object.route.start_route + " -> "+
-                        single_object.route.end_route +'</td>' + '<td>' + single_object.time +'</td>' + '<td>' + single_object.fare
+                        single_object.route.end_route +'</td>' + '<td>' + single_object.departure_time +'</td>' + '<td>' + single_object.fare
                         +'</td>' + '</tr>';
                 });
 
@@ -669,7 +669,7 @@ function updateUser() {
 
 function updateAccountStatus(state) {
 
-    let status = "ACTIVE";
+    let status;
     switch (state) {
         case 1:
             status = "ACTIVE";
@@ -681,10 +681,11 @@ function updateAccountStatus(state) {
             status = "DEACTIVATE";
     }
 
+    console.log(status);
     let json_request = JSON.stringify({
         payload: {
             username: $('#model_username').val(),
-            activation_status: status
+            account_status: status
         }
     });
 

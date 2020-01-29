@@ -77,7 +77,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
                       "account_status" => user.account_status,
                       "uuid" => user.uuid,
                       "operator_role" => user.operator_role,
-                      "activation_status" => user.activation_status
+                      "account_status" => user.account_status
                     }))
                 {:error, %Ecto.Changeset{} = changeset} ->
                   conn

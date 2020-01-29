@@ -8,6 +8,7 @@ defmodule BusTerminalSystemWeb.UserController do
   alias BusTerminalSystem.MarketManagement.MarketTenant
   alias BusTerminalSystem.ApiManager
   alias BusTerminalSystem.EmailSender
+  alias BusTerminalSystem.NapsaSmsGetway
 
   plug(
     BusTerminalSystemWeb.Plugs.RequireAuth
@@ -42,14 +43,15 @@ defmodule BusTerminalSystemWeb.UserController do
     {s,password} = Map.fetch(payload,"password")
     {s,username} = Map.fetch(payload,"username")
     {s,email} = Map.fetch(payload,"email")
+    {s,mobile_number} = Map.fetch(payload,"mobile")
 
-    message = " Hello #{first_name}, \n Your BTMS ACCOUNT CREDENTIALS ARE LISTED BELOW \n \n
-                \t Username: #{username} \n
-                \t Password: #{password} \n"
+    message = " Hello #{first_name}, \n Your BTMS TELLER ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{password}"
 
     case AccountManager.create_user(payload) do
       {:ok, user} ->
-      {status,pid} = EmailSender.composer_text(email,"User Account Credentials",message)
+
+        NapsaSmsGetway.send_sms(mobile_number,message)
+
         conn
         |> put_flash(:info, "User created successfully.")
         |> redirect(to: Routes.user_path(conn, :new))

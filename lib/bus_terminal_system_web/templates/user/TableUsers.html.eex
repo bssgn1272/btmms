@@ -220,12 +220,12 @@
                              </div>
                          </div>
 
-                         <div class="text-left">
-                             <button type="submit" onclick="updateAccountStatus(1)" id="user_deactivate_account" style="border-radius: 12px;" class="btn btn-primary">Deactivate Account<i class="icon-arrow-right14 position-right"></i></button>
+                         <div class="text-left" style="margin-bottom: 10px">
+                             <button type="submit" onclick="updateAccountStatus(2)" id="user_deactivate_account" style="border-radius: 12px;" class="btn btn-primary">Deactivate Account<i class="icon-arrow-right14 position-right"></i></button>
                          </div>
 
                          <div class="text-left">
-                              <button type="submit" onclick="updateAccountStatus(2)" id="user_deactivate_account" style="border-radius: 12px;" class="btn btn-primary">Activate Account<i class="icon-arrow-right14 position-right"></i></button>
+                              <button type="submit" onclick="updateAccountStatus(1)" id="user_deactivate_account" style="border-radius: 12px;" class="btn btn-primary">Activate Account<i class="icon-arrow-right14 position-right"></i></button>
                           </div>
 
                          <div class="text-right">
