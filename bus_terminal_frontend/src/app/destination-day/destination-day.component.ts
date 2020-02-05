@@ -19,28 +19,34 @@ export class DestinationDayComponent implements OnInit {
   public town_id = null;
   public time_id = null;
   public day_id = null;
+  submitted = false;
 
   // Destination formGroup
   destinationForm: FormGroup;
+  returnUrl: any;
   constructor(
     private _formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<DestinationDayComponent>,
     private httpClient: HttpClient,
+    private routes: ActivatedRoute,
+    private router: Router,
     private destinationTime: DestinationDayService,
     private _snackBar: MatSnackBar
   ) {
     // Destination form Builder
-    // this.destinationForm = this._formBuilder.group({
-    //   town_id: ['', Validators.required],
-    //   day_id: ['', Validators.required],
-    //   time_id: ['', Validators.required]
-    // });
+    this.destinationForm = this._formBuilder.group({
+      town_id: ['', Validators.required],
+      day_id: ['', Validators.required],
+      time_id: ['', Validators.required]
+    });
   }
 
   async ngOnInit() {
     this.loadTown();
     this.loadDay();
     this.loadTime();
+    this.returnUrl =
+      this.routes.snapshot.queryParams['returnUrl'] || '/settings';
   }
 
   // fetch towns
@@ -70,14 +76,23 @@ export class DestinationDayComponent implements OnInit {
   }
 
   save() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.destinationForm.invalid) {
+      return;
+    }
+     console.log(this.f.town_id.value.ID);
+
     this.httpClient
       .post('/api/destination/time', {
-        destination_id: this.town_id.ID,
-        day_id: this.day_id.ID,
-        time_id: this.time_id.ID
+        destination_id: this.f.town_id.value.ID, // this.town_id.ID,
+        day_id: this.f.day_id.value.ID,
+        time_id: this.f.time_id.value.ID
       })
       .subscribe(
         data => {
+          this.router.navigate([this.returnUrl]);
           // window.location.reload();
           this._snackBar.open('Successfully Created', null, {
             duration: 1000,
@@ -85,7 +100,7 @@ export class DestinationDayComponent implements OnInit {
             panelClass: ['blue-snackbar'],
             verticalPosition: 'top'
           });
-          window.location.reload();
+          // window.location.reload();
           this.dialogRef.close();
         },
         error => {

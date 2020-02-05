@@ -14,18 +14,6 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  // login(username, password) {
-  //   // return this.http.post<any>(this.url, user);
-  // }
-
-  // loggedin() {
-  //   return !!localStorage.getItem('token');
-  // }
-
-  // getToken() {
-  //   return localStorage.getItem('token');
-  // }
-
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem('currentUser'))

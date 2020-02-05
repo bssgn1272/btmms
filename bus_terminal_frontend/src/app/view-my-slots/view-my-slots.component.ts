@@ -32,6 +32,7 @@ export class ViewMySlotsComponent implements OnInit {
   displayedColumns: string[] = [
     'time',
     'slot',
+    'route',
     'status',
     'reserved_time',
     'action'
@@ -76,7 +77,7 @@ export class ViewMySlotsComponent implements OnInit {
 
   cancel(row) {
     this.slot = row.slot;
-    this.id = row.r_id;
+    this.id = row.ID;
     this.status = 'C';
     this.time = row.time;
     if (this.slot === 'slot_one') {
@@ -115,13 +116,14 @@ export class ViewMySlotsComponent implements OnInit {
         })
         .toPromise();
     }
+    console.log(this.id);
     this.httpClient
       .put('/api/approve/reservations/requests/' + this.id, {
         status: this.status
       })
       .subscribe(
         data => {
-          window.location.reload();
+          // window.location.reload();
           this._snackBar.open('Successfully Updated', null, {
             duration: 1000,
             horizontalPosition: 'center',

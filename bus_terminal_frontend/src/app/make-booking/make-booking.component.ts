@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MakeBookingService } from './make-booking.service';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 export interface Slot {
   value: string;
@@ -20,9 +21,11 @@ export interface Destination {
   styleUrls: ['./make-booking.component.scss']
 })
 export class MakeBookingComponent implements OnInit {
-  slot = '';
+  // Booking formGroup
+  bookingForm: FormGroup;
+  // slot = '';
   status = 'A';
-  route = '';
+  // route = '';
   time = '';
   user_id = 0;
   user = '';
@@ -40,6 +43,7 @@ export class MakeBookingComponent implements OnInit {
   userItems: any;
   _id: any;
   public destinations: [];
+  submitted = false;
 
   constructor(
     public dialogRef: MatDialogRef<MakeBookingComponent>,
@@ -48,8 +52,19 @@ export class MakeBookingComponent implements OnInit {
     private routes: ActivatedRoute,
     private router: Router,
     private _snackBar: MatSnackBar,
-    private makeBookingService: MakeBookingService
-  ) {}
+    private makeBookingService: MakeBookingService,
+    private _formBuilder: FormBuilder
+  ) {
+     this.bookingForm = this._formBuilder.group({
+       slot: ['', Validators.required],
+       route: ['', Validators.required]
+     });
+  }
+
+  /* Handle form errors in Angular 8 */
+  public errorHandling = (control: string, error: string) => {
+    return this.bookingForm.controls[control].hasError(error);
+  };
 
   public getFromLocalStrorage() {
     const users = JSON.parse(localStorage.getItem('currentUser'));
@@ -137,16 +152,27 @@ export class MakeBookingComponent implements OnInit {
     });
   }
 
+  get f() {
+    return this.bookingForm.controls;
+  }
+
   save() {
-    console.log(this.slot);
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.bookingForm.invalid) {
+      return;
+    }
+    console.log(this.f.route.value);
+
     this.status = 'A';
     this.time = this.data.row.time;
 
     this.httpClient
       .post('/api/reservation/requests/create', {
-        slot: this.slot,
+        slot: this.f.slot.value,
         status: this.status,
-        route: this.route,
+        route: this.f.route.value,
         user_id: this._id,
         time: this.data.row.time,
         reserved_time: this.data.row.reservation_time
@@ -155,6 +181,7 @@ export class MakeBookingComponent implements OnInit {
         data => {
           this.router.navigate([this.returnUrl]);
           // window.location.reload();
+          location.reload(true);
           this._snackBar.open('Successfully Created', null, {
             duration: 1000,
             horizontalPosition: 'center',
@@ -172,7 +199,7 @@ export class MakeBookingComponent implements OnInit {
         }
       );
 
-    if (this.slot === 'slot_one') {
+    if (this.f.slot.value === 'slot_one') {
       this.httpClient
         .put('/api/slots/close', {
           time: this.time,
@@ -180,7 +207,7 @@ export class MakeBookingComponent implements OnInit {
         })
         .toPromise();
     }
-    if (this.slot === 'slot_two') {
+    if (this.f.slot.value === 'slot_two') {
       this.httpClient
         .put('/api/slots/close', {
           time: this.time,
@@ -188,7 +215,7 @@ export class MakeBookingComponent implements OnInit {
         })
         .toPromise();
     }
-    if (this.slot === 'slot_three') {
+    if (this.f.slot.value === 'slot_three') {
       this.httpClient
         .put('/api/slots/close', {
           time: this.time,
@@ -196,7 +223,7 @@ export class MakeBookingComponent implements OnInit {
         })
         .toPromise();
     }
-    if (this.slot === 'slot_four') {
+    if (this.f.slot.value === 'slot_four') {
       this.httpClient
         .put('/api/slots/close', {
           time: this.time,
@@ -204,7 +231,7 @@ export class MakeBookingComponent implements OnInit {
         })
         .toPromise();
     }
-    if (this.slot === 'slot_five') {
+    if (this.f.slot.value === 'slot_five') {
       this.httpClient
         .put('/api/slots/close', {
           time: this.time,
@@ -213,8 +240,9 @@ export class MakeBookingComponent implements OnInit {
         .toPromise();
     }
 
-    this.slot = '';
-    this.route = '';
+    // this.slot = '';
+    // this.route = '';
+    this.dialogRef.close();
   }
 
   close() {

@@ -8,7 +8,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="card-body">
-            <form [formGroup]="timeForm">
+            <form [formGroup]="timeForm" novalidate>
             <mat-dialog-content>
               <div class="row">
                 <div class="col-md-12">
@@ -16,7 +16,21 @@
                         <div class="col-md-12">
                     <div class="example-container">
                       <mat-form-field class="example-full-width">
-                        <input matInput type="time" formControlName="time" placeholder="Time">
+                        <input matInput 
+                          type="time" 
+                          formControlName="time" 
+                          placeholder="Time"
+                          [ngClass]="{ 'is-invalid': submitted &amp;&amp;f_time.time.errors }"
+                          required
+                        >
+                        <div
+                          *ngIf="submitted &amp;&amp; f_time.time.errors"
+                          class="text-danger"
+                        >
+                        <div *ngIf="f_time.time.errors.required">
+                          Time is required
+                        </div>
+                    </div>
                       </mat-form-field>
                     </div>
                   </div>

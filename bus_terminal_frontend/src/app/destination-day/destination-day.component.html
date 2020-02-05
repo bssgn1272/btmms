@@ -9,15 +9,29 @@
         <div class="col-md-12">
           <div class="card-body">
             <mat-dialog-content>
-              <!-- <form [formGroup]="destinationForm"> -->
+              <form [formGroup]="destinationForm" novalidate>
                   <div class="row">
                     <div class="col-md-6">
                 <div class="example-container">
                   <mat-form-field>
                     <mat-label>Town</mat-label>
-                    <mat-select name="town_id" [(ngModel)]="town_id" (change)=loadTown($event) convert-to-number>
+                    <mat-select
+                       (change)=loadTown($event)
+                       formControlName="town_id"
+                       [ngClass]="{ 'is-invalid': submitted &amp;&amp; f.town_id.errors }"
+                        required
+                        convert-to-number
+                    >
                       <mat-option *ngFor="let town of towns" [value]="town">{{town.town_name}}</mat-option>
                     </mat-select>
+                    <div
+                      *ngIf="submitted &amp;&amp; f.town_id.errors"
+                      class="text-danger"
+                    >
+                    <div *ngIf="f.town_id.errors.required">
+                      Route is required
+                    </div>
+                    </div>
                   </mat-form-field>
                 </div>
               </div>
@@ -25,9 +39,23 @@
                 <div class="example-container">
                   <mat-form-field>
                     <mat-label>Day</mat-label>
-                    <mat-select name="day_id" [(ngModel)]="day_id" (change)=loadDay($event) convert-to-number>
+                    <mat-select
+                       (change)=loadDay($event)
+                       formControlName="day_id"
+                       [ngClass]="{ 'is-invalid': submitted &amp;&amp; f.day_id.errors }"
+                        required
+                        convert-to-number
+                    >
                       <mat-option *ngFor="let day of days" [value]="day">{{day.day}}</mat-option>
                     </mat-select>
+                    <div
+                      *ngIf="submitted &amp;&amp; f.day_id.errors"
+                      class="text-danger"
+                    >
+                      <div *ngIf="f.day_id.errors.required">
+                        Day is required
+                      </div>
+                    </div>
                   </mat-form-field>
                 </div>
               </div>
@@ -37,14 +65,28 @@
                 <div class="example-container">
                   <mat-form-field>
                     <mat-label>Time</mat-label>
-                    <mat-select name="time_id" [(ngModel)]="time_id" (change)=loadTime($event) convert-to-number>
+                    <mat-select
+                       (change)=loadTime($event)
+                        formControlName="time_id"
+                       [ngClass]="{ 'is-invalid': submitted &amp;&amp; f.time_id.errors }"
+                        required
+                        convert-to-number
+                    >
                       <mat-option *ngFor="let time of times" [value]="time">{{time.time_of_day}}</mat-option>
                     </mat-select>
+                    <div
+                      *ngIf="submitted &amp;&amp; f.time_id.errors"
+                      class="text-danger"
+                    >
+                      <div *ngIf="f.time_id.errors.required">
+                        Day is required
+                      </div>
+                    </div>
                   </mat-form-field>
                 </div>
               </div>
                 </div>
-                <!-- </form> -->
+                </form>
             </mat-dialog-content>
 
             <mat-dialog-actions>

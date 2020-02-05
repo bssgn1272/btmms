@@ -15,6 +15,7 @@ export class SlotTimeComponent implements OnInit {
   timeForm: FormGroup;
   today = new Date();
   tomorrow = new Date();
+  submitted = false;
   constructor(
     public dialogRef: MatDialogRef<SlotTimeComponent>,
     private _formBuilder: FormBuilder,
@@ -30,8 +31,7 @@ export class SlotTimeComponent implements OnInit {
   }
 
   ngOnInit() {
-    moment(this.tomorrow.setDate(this.today.getDate() + 1)
-    );
+    moment(this.tomorrow.setDate(this.today.getDate() + 1));
     console.log(this.tomorrow);
   }
 
@@ -40,7 +40,12 @@ export class SlotTimeComponent implements OnInit {
   }
 
   save() {
-    console.log(this.f_time);
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.timeForm.invalid) {
+      return;
+    }
 
     this.httpClient
       .post('/api/slots/create', {
@@ -54,7 +59,7 @@ export class SlotTimeComponent implements OnInit {
       })
       .subscribe(
         data => {
-          window.location.reload();
+          // window.location.reload();
           this._snackBar.open('Successfully Created', null, {
             duration: 1000,
             horizontalPosition: 'center',
@@ -71,6 +76,7 @@ export class SlotTimeComponent implements OnInit {
           });
         }
       );
+    this.dialogRef.close();
   }
 
   close() {

@@ -58,7 +58,7 @@ export class RoservationRequestsComponent implements OnInit {
 
   approve(row) {
     this.slot = row.slot;
-    this.id = row.r_id;
+    this.id = row.ID;
     this.status = 'A';
     this.time = row.time;
     this.user = row.username;
@@ -108,7 +108,7 @@ export class RoservationRequestsComponent implements OnInit {
       })
       .subscribe(
         () => {
-          window.location.reload();
+          // window.location.reload();
           this._snackBar.open('Successfully Updated', null, {
             duration: 1000,
             horizontalPosition: 'center',
@@ -137,7 +137,7 @@ export class RoservationRequestsComponent implements OnInit {
       })
       .subscribe(
         () => {
-          window.location.reload();
+          // window.location.reload();
           this._snackBar.open('Successfully Updated', null, {
             duration: 1000,
             horizontalPosition: 'center',

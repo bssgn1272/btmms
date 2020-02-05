@@ -12,7 +12,7 @@ import (
 )
 
 // Function for reservation request function
-var CreateReservationController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+var CreateReservationController http.HandlerFunc = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 
 	reservation := &models.Reservation{}
@@ -20,11 +20,12 @@ var CreateReservationController = http.HandlerFunc(func(w http.ResponseWriter, r
 	err := json.NewDecoder(r.Body).Decode(reservation)
 	if err != nil {
 		u.Respond(w, u.Message(false, "Error while decoding request body"))
+		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
 	resp := reservation.Create()
-	u.Respond(w, resp)
+	_ = json.NewEncoder(w).Encode(resp)
 })
 
 // Function for retrieving reservation requests for the day

@@ -4,7 +4,6 @@ import { Routes } from '@angular/router';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { DispatchComponent } from '../../components/dispatch-details/dispatch-details.component';
-import { TypographyComponent } from '../../typography/typography.component';
 import { MakeBookingComponent } from 'app/make-booking/make-booking.component';
 import { ViewMySlotsComponent } from 'app/view-my-slots/view-my-slots.component';
 import { Role } from 'app/models/role';
@@ -22,7 +21,6 @@ export const AdminLayoutRoutes: Routes = [
            component: UserProfileComponent,
            canActivate: [AuthGuard]
          },
-         { path: 'reports', component: TypographyComponent },
          {
            path: 'make-booking',
            component: MakeBookingComponent,

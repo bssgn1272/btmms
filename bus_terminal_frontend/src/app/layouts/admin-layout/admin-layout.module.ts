@@ -6,7 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
-import { TypographyComponent } from '../../typography/typography.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
 
 import {
@@ -68,7 +67,6 @@ import { UpdateSlotTimeComponent } from '../../update-slot-time/update-slot-time
   declarations: [
     DashboardComponent,
     UserProfileComponent,
-    TypographyComponent,
     MakeBookingComponent,
     ViewMySlotsComponent,
     RoservationRequestsComponent,

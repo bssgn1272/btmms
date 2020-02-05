@@ -145,7 +145,20 @@
                                 <div class="col-md-12">
                             <div class="example-container">
                               <mat-form-field class="example-full-width">
-                                <input matInput formControlName="town_name" placeholder="Town Name">
+                                <input matInput
+                                 formControlName="town_name"
+                                  placeholder="Town Name"
+                                  [ngClass]="{ 'is-invalid': submitted &amp;&amp; f_town.town_name.errors }"
+                                  required
+                                >
+                                <div
+                                  *ngIf="submitted &amp;&amp; f_town.town_name.errors"
+                                  class="text-danger"
+                                >
+                                  <div *ngIf="f_town.town_name.errors.required">
+                                    Route is required
+                                  </div>
+                                </div>
                               </mat-form-field>
                             </div>
                           </div>
@@ -162,12 +175,25 @@
                       <mat-tab label="Days Setting">
                         <p></p>
                         <p></p>
-                        <form [formGroup]="dayForm">
+                        <form [formGroup]="dayForm" novalidate>
                               <div class="row">
                                 <div class="col-md-12">
                             <div class="example-container">
                               <mat-form-field class="example-full-width">
-                                <input matInput formControlName="day" placeholder="Day">
+                                <input matInput
+                                 formControlName="day"
+                                  placeholder="Day"
+                                  [ngClass]="{ 'is-invalid': submitted &amp;&amp; f_day.day.errors }"
+                                  required
+                                >
+                                <div
+                                  *ngIf="submitted &amp;&amp; f_day.day.errors"
+                                  class="text-danger"
+                                >
+                                  <div *ngIf="f_day.day.errors.required">
+                                    Day is required
+                                  </div>
+                                </div>
                               </mat-form-field>
                             </div>
                           </div>
@@ -189,7 +215,20 @@
                                 <div class="col-md-12">
                             <div class="example-container">
                               <mat-form-field class="example-full-width">
-                                <input matInput type="time" formControlName="time_of_day" placeholder="Time">
+                                <input matInput type="time"
+                                 formControlName="time_of_day"
+                                  placeholder="Time"
+                                  [ngClass]="{ 'is-invalid': submitted &amp;&amp; f_time.time_of_day.errors }"
+                                  required
+                                >
+                                <div
+                                  *ngIf="submitted &amp;&amp; f_time.time_of_day.errors"
+                                  class="text-danger"
+                                >
+                                  <div *ngIf="f_time.time_of_day.errors.required">
+                                    Time is required
+                                  </div>
+                                </div>
                               </mat-form-field>
                             </div>
                           </div>

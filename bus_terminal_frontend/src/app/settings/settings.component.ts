@@ -30,6 +30,8 @@ export class SettingsComponent implements OnInit {
   // Time formGroup
   timeForm: FormGroup;
 
+  submitted = false;
+
   // Destinations Time
   displayedColumns: string[] = ['destination', 'day', 'time'];
   dataSource = new MatTableDataSource([]);
@@ -101,7 +103,8 @@ export class SettingsComponent implements OnInit {
     });
 
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl =
+      this.route.snapshot.queryParams['returnUrl'] || '/settings';
   }
 
   applyFilter(filterValue: string) {
@@ -137,6 +140,12 @@ export class SettingsComponent implements OnInit {
 
   // create town
   onSaveTown() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.townForm.invalid) {
+      return;
+    }
     this.httpClient
       .post('/api/town', {
         town_name: this.f_town.town_name.value
@@ -165,6 +174,12 @@ export class SettingsComponent implements OnInit {
 
   // create day
   onSaveDay() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.dayForm.invalid) {
+      return;
+    }
     this.httpClient
       .post('/api/day', {
         day: this.f_day.day.value
@@ -193,6 +208,12 @@ export class SettingsComponent implements OnInit {
 
   // create time
   onSaveTime() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.timeForm.invalid) {
+      return;
+    }
     this.httpClient
       .post('/api/time', {
         time_of_day: this.f_time.time_of_day.value
@@ -200,7 +221,7 @@ export class SettingsComponent implements OnInit {
       .subscribe(
         data => {
           this.router.navigate([this.returnUrl]);
-          window.location.reload();
+          location.reload(true);
           this._snackBar.open('Successfully Created', null, {
             duration: 1000,
             horizontalPosition: 'center',
@@ -233,10 +254,10 @@ export class SettingsComponent implements OnInit {
     // dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '60%';
-    dialogConfig.data = {row}
+    dialogConfig.data = { row };
     this.dialog.open(UpdateSlotTimeComponent, dialogConfig);
     this.dialog.afterAllClosed.subscribe(result => {
       row = result;
-    })
+    });
   }
 }
