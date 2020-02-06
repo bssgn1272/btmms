@@ -4,6 +4,7 @@ import { MatDialogRef, MatSnackBar } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { DestinationDayService } from './destination-day.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -31,7 +32,8 @@ export class DestinationDayComponent implements OnInit {
     private routes: ActivatedRoute,
     private router: Router,
     private destinationTime: DestinationDayService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private _location: Location
   ) {
     // Destination form Builder
     this.destinationForm = this._formBuilder.group({
@@ -82,7 +84,7 @@ export class DestinationDayComponent implements OnInit {
     if (this.destinationForm.invalid) {
       return;
     }
-     console.log(this.f.town_id.value.ID);
+    console.log(this.f.town_id.value.ID);
 
     this.httpClient
       .post('/api/destination/time', {
@@ -92,8 +94,7 @@ export class DestinationDayComponent implements OnInit {
       })
       .subscribe(
         data => {
-          this.router.navigate([this.returnUrl]);
-          // window.location.reload();
+          this._location.back();
           this._snackBar.open('Successfully Created', null, {
             duration: 1000,
             horizontalPosition: 'center',
@@ -111,7 +112,7 @@ export class DestinationDayComponent implements OnInit {
             verticalPosition: 'top'
           });
         }
-      );
+    );
   }
 
   close() {

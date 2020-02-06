@@ -3,6 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+// tslint:disable-next-line: quotemark
+import { Location } from "@angular/common";
 
 @Component({
   selector: 'app-update-slot-time',
@@ -20,49 +22,50 @@ export class UpdateSlotTimeComponent implements OnInit {
     private httpClient: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private _location: Location
   ) {
-     // Time form Builder
+    // Time form Builder
     this.timeForm = this._formBuilder.group({
       time: ['', Validators.required]
     });
   }
 
   ngOnInit() {
-    this.time_of_day = this.data.row.time
+    this.time_of_day = this.data.row.time;
   }
 
   update() {
-     this.httpClient
-       .put('/api/slots/update/' + this.data.row.ID, {
-         time: this.time_of_day
-      //    slot_one: this.data.row.slot_one,
-      //    slot_two: this.data.row.slot_two,
-      //    slot_three: this.data.row.three,
-      //    slot_four: this.data.row.slot_four,
-      //    slot_five: this.data.row.slot_five,
-      //    reservation_time: this.data.row.reservation_time,
-       })
-       .subscribe(
-         data => {
-           window.location.reload();
-           this._snackBar.open('Successfully Created', null, {
-             duration: 1000,
-             horizontalPosition: 'center',
-             panelClass: ['blue-snackbar'],
-             verticalPosition: 'top'
-           });
-         },
-         error => {
-           this._snackBar.open('Failed', null, {
-             duration: 2000,
-             horizontalPosition: 'center',
-             panelClass: ['background-red'],
-             verticalPosition: 'top'
-           });
-         }
-       );
-   }
+    this.httpClient
+      .put('/api/slots/update/' + this.data.row.ID, {
+        time: this.time_of_day
+        //    slot_one: this.data.row.slot_one,
+        //    slot_two: this.data.row.slot_two,
+        //    slot_three: this.data.row.three,
+        //    slot_four: this.data.row.slot_four,
+        //    slot_five: this.data.row.slot_five,
+        //    reservation_time: this.data.row.reservation_time,
+      })
+      .subscribe(
+        data => {
+          this._location.back();
+          this._snackBar.open('Successfully Created', null, {
+            duration: 1000,
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top'
+          });
+        },
+        error => {
+          this._snackBar.open('Failed', null, {
+            duration: 2000,
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top'
+          });
+        }
+      );
+  }
 
   close() {
     this.dialogRef.close();

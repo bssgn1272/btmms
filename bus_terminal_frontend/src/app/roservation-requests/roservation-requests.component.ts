@@ -108,7 +108,7 @@ export class RoservationRequestsComponent implements OnInit {
       })
       .subscribe(
         () => {
-          // window.location.reload();
+          this._location.back();
           this._snackBar.open('Successfully Updated', null, {
             duration: 1000,
             horizontalPosition: 'center',

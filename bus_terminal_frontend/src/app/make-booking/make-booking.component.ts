@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MakeBookingService } from './make-booking.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Location } from '@angular/common';
 
 export interface Slot {
   value: string;
@@ -53,12 +54,13 @@ export class MakeBookingComponent implements OnInit {
     private router: Router,
     private _snackBar: MatSnackBar,
     private makeBookingService: MakeBookingService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private _location: Location
   ) {
-     this.bookingForm = this._formBuilder.group({
-       slot: ['', Validators.required],
-       route: ['', Validators.required]
-     });
+    this.bookingForm = this._formBuilder.group({
+      slot: ['', Validators.required],
+      route: ['', Validators.required]
+    });
   }
 
   /* Handle form errors in Angular 8 */
@@ -179,9 +181,7 @@ export class MakeBookingComponent implements OnInit {
       })
       .subscribe(
         data => {
-          this.router.navigate([this.returnUrl]);
-          // window.location.reload();
-          location.reload(true);
+          this._location.back();
           this._snackBar.open('Successfully Created', null, {
             duration: 1000,
             horizontalPosition: 'center',

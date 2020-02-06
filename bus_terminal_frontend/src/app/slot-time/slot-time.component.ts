@@ -4,6 +4,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-slot-time',
@@ -22,7 +23,8 @@ export class SlotTimeComponent implements OnInit {
     private httpClient: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private _location: Location
   ) {
     // Time form Builder
     this.timeForm = this._formBuilder.group({
@@ -59,7 +61,7 @@ export class SlotTimeComponent implements OnInit {
       })
       .subscribe(
         data => {
-          // window.location.reload();
+          this._location.back();
           this._snackBar.open('Successfully Created', null, {
             duration: 1000,
             horizontalPosition: 'center',

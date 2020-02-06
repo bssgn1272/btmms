@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ViewSlotsService } from './view-slots.service';
 import { AuthService } from 'app/login/auth.service';
+import { Location } from '@angular/common';
 
 
 
@@ -50,7 +51,8 @@ export class ViewMySlotsComponent implements OnInit {
     private router: Router,
     private _snackBar: MatSnackBar,
     private viewSlots: ViewSlotsService,
-    private authenticationService: AuthService
+    private authenticationService: AuthService,
+    private _location: Location
   ) {}
 
   public getFromLocalStrorage() {
@@ -123,7 +125,7 @@ export class ViewMySlotsComponent implements OnInit {
       })
       .subscribe(
         data => {
-          // window.location.reload();
+          this._location.back();
           this._snackBar.open('Successfully Updated', null, {
             duration: 1000,
             horizontalPosition: 'center',

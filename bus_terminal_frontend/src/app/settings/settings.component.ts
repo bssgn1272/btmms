@@ -152,8 +152,6 @@ export class SettingsComponent implements OnInit {
       })
       .subscribe(
         data => {
-          this.router.navigate([this.returnUrl]);
-          window.location.reload();
           this._snackBar.open('Successfully Created', null, {
             duration: 1000,
             horizontalPosition: 'center',
@@ -186,8 +184,6 @@ export class SettingsComponent implements OnInit {
       })
       .subscribe(
         data => {
-          this.router.navigate([this.returnUrl]);
-          window.location.reload();
           this._snackBar.open('Successfully Created', null, {
             duration: 1000,
             horizontalPosition: 'center',
@@ -220,8 +216,6 @@ export class SettingsComponent implements OnInit {
       })
       .subscribe(
         data => {
-          this.router.navigate([this.returnUrl]);
-          location.reload(true);
           this._snackBar.open('Successfully Created', null, {
             duration: 1000,
             horizontalPosition: 'center',
