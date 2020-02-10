@@ -157,6 +157,7 @@ func (slot *Slot) Close() (map[string] interface{}) {
 
 	db.Model(&slot).Where("time = ?", slot.Time).Updates(Slot{SlotOne:slot.SlotOne, SlotTwo:slot.SlotTwo,SlotThree:slot.SlotThree,SlotFour:slot.SlotFour, SlotFive:slot.SlotFive})
 
+	log.Println(slot.Time)
 	resp := u.Message(true, "success")
 	resp["slot"] = slot
 	log.Println(resp)

@@ -7,6 +7,7 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
+import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
 
 import {
   MatButtonModule,
@@ -38,6 +39,7 @@ import { SettingsComponent } from 'app/settings/settings.component';
 import { DestinationDayComponent } from 'app/destination-day/destination-day.component';
 import { SlotTimeComponent } from 'app/slot-time/slot-time.component';
 import { UpdateSlotTimeComponent } from '../../update-slot-time/update-slot-time.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -62,7 +64,7 @@ import { UpdateSlotTimeComponent } from '../../update-slot-time/update-slot-time
     MatStepperModule,
     HttpClientModule,
     MatTabsModule,
-    MatIconModule
+    MatIconModule,
   ],
   declarations: [
     DashboardComponent,
@@ -75,7 +77,7 @@ import { UpdateSlotTimeComponent } from '../../update-slot-time/update-slot-time
     SettingsComponent,
     DestinationDayComponent,
     SlotTimeComponent,
-    UpdateSlotTimeComponent
+    UpdateSlotTimeComponent,
   ],
   providers: [AlertsService]
 })
