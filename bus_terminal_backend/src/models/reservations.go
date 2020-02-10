@@ -12,7 +12,7 @@ import (
 //a struct for reservation model
 type Reservation struct {
 	gorm.Model
-	RID   uint  `gorm:"AUTO_INCREMENT;column:r_id;" json:"r_id"`
+	ID   uint  `gorm:"AUTO_INCREMENT;column:id;" json:"id"`
 	Slot string `json:"slot"`
 	Status string `gorm:"default:'p'" json:"status"`
 	Route string `json:"route"`

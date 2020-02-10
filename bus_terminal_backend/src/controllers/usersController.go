@@ -79,6 +79,9 @@ var AuthenticateUserController = http.HandlerFunc(func(w http.ResponseWriter, r 
 	tokenString, _ := token.SignedString([]byte(os.Getenv("token_password")))
 	check.Token = tokenString //Store the token in the response
 
+	//_ = json.NewEncoder(w).Encode(check)
+
 	_ = json.NewEncoder(w).Encode(check)
+
 })
 

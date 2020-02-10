@@ -143,7 +143,6 @@ export class MakeBookingComponent implements OnInit {
     // get return url from route parameters or default to '/'
     this.returnUrl =
       this.routes.snapshot.queryParams['returnUrl'] || '/dashboard';
-    console.log(this.data);
     console.log(this.time);
   }
 

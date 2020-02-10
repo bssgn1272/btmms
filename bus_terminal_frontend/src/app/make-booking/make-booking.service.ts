@@ -15,7 +15,9 @@ export class MakeBookingService {
       .get(url)
       .toPromise()
       .catch(this.handleError);
+    console.log(this.url);
   }
+
   // handler for error in URL
   private handleError(error: any): Promise<any> {
     return Promise.reject(error.message || error);

@@ -35,6 +35,7 @@ export class RoservationRequestsComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  slot_status: any;
 
   constructor(
     private requests: ReservationRequestsService,
@@ -128,16 +129,22 @@ export class RoservationRequestsComponent implements OnInit {
     console.log(row);
   }
   reject(row) {
-    this.slot = row.username;
-    this.id = row.r_id;
+    this.slot = row.slot;
+    this.slot_status = row.username;
+    console.log(this.slot);
+    this.id = row.id;
     this.status = 'R';
+
     this.httpClient
       .put('/api/approve/reservations/requests/' + this.id, {
         status: this.status
       })
       .subscribe(
         () => {
-          // window.location.reload();
+                window.location.reload();
+                this.router.navigateByUrl('/veiw-resavations-requests', { skipLocationChange: true }).then(() => {
+            this.router.navigate([decodeURI(this._location.path())]);
+          })
           this._snackBar.open('Successfully Updated', null, {
             duration: 1000,
             horizontalPosition: 'center',
@@ -154,9 +161,47 @@ export class RoservationRequestsComponent implements OnInit {
           });
         }
     );
-    this.router.navigateByUrl('/veiw-resavations-requests', { skipLocationChange: true }).then(() => {
-      this.router.navigate([decodeURI(this._location.path())]);
-    })
+
+    // if (this.slot === 'slot_one' && this.slot_status !== 'open') {
+      this.httpClient
+        .put('/api/slots/close', {
+          time: this.time,
+          slot_one: 'open'
+        })
+        .toPromise();
+    // } else if (this.slot === 'slot_two' && this.slot_status !== 'open') {
+    //   this.httpClient
+    //     .put('/api/slots/close', {
+    //       time: this.time,
+    //       slot_two: this.slot_two
+    //     })
+    //     .toPromise();
+    // } else if (this.slot === 'slot_three' && this.slot_status !== 'open') {
+    //   this.httpClient
+    //     .put('/api/slots/close', {
+    //       time: this.time,
+    //       slot_three: this.slot_three
+    //     })
+    //     .toPromise();
+    // } else if (this.slot === 'slot_four' && this.slot_status !== 'open') {
+    //   this.httpClient
+    //     .put('/api/slots/close', {
+    //       time: this.time,
+    //       slot_four: this.slot_four
+    //     })
+    //     .toPromise();
+    // } else if (this.slot === 'slot_five' && this.slot_status !== 'open') {
+    //   this.httpClient
+    //     .put('/api/slots/close', {
+    //       time: this.time,
+    //       slot_five: this.slot_five
+    //     })
+    //     .toPromise();
+    // }
+
+    // this.router.navigateByUrl('/veiw-resavations-requests', { skipLocationChange: true }).then(() => {
+    //   this.router.navigate([decodeURI(this._location.path())]);
+    // })
     console.log(row);
   }
 }

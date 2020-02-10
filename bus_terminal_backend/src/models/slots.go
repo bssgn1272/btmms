@@ -21,6 +21,7 @@ type Slot struct {
 	ReservationTime time.Time `json:"reservation_time"`
 }
 
+
 // Variables for regular expressions
 var(
 	regexpSlotOne = regexp.MustCompile("^[^0-9]+$")
