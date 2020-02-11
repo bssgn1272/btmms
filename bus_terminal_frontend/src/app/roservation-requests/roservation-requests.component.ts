@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Location, DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { OpenSlotsService } from './slot.service';
 
 @Component({
   selector: 'app-roservation-requests',
@@ -53,12 +54,27 @@ export class RoservationRequestsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   slot_status: any;
 
+  // slots
+  displayedSlotColumns: string[] = [
+    'time',
+    'slot_one',
+    'slot_two',
+    'slot_three',
+    'slot_four',
+    'slot_five'
+  ];
+  dataSourceSlot = new MatTableDataSource([]);
+
+  @ViewChild('slotPaginator') slotPaginator: MatPaginator;
+  @ViewChild('slotSort') slotSort: MatSort;
+
   constructor(
     private requests: ReservationRequestsService,
     private httpClient: HttpClient,
     private router: Router,
     private _snackBar: MatSnackBar,
-    public _location: Location
+    public _location: Location,
+    private slots: OpenSlotsService
   ) {
     this.pipe = new DatePipe('en');
     this.dataSource.filterPredicate = (data, filter) => {
@@ -78,6 +94,13 @@ export class RoservationRequestsComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
+
+    // Slots
+    this.slots.getList().then(res => {
+      this.dataSourceSlot = new MatTableDataSource(res.data);
+      this.dataSourceSlot.paginator = this.slotPaginator;
+      this.dataSourceSlot.sort = this.slotSort;
+    });
   }
 
   inlineRangeChange($event) {
@@ -86,6 +109,10 @@ export class RoservationRequestsComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  applySlotFilter(filterValue: string) {
+    this.dataSourceSlot.filter = filterValue.trim().toLowerCase();
   }
 
   applyDateFilter() {
@@ -146,7 +173,7 @@ export class RoservationRequestsComponent implements OnInit {
       })
       .subscribe(
         () => {
-          this._location.back();
+          window.location.reload()
           this._snackBar.open('Successfully Updated', null, {
             duration: 1000,
             horizontalPosition: 'center',
@@ -169,7 +196,7 @@ export class RoservationRequestsComponent implements OnInit {
   reject(row) {
     this.slot = row.slot;
     this.slot_status = row.username;
-    this.time = row.time
+    this.time = row.time;
     console.log(this.slot);
     this.id = row.id;
     this.status = 'R';
@@ -216,7 +243,6 @@ export class RoservationRequestsComponent implements OnInit {
       })
       .subscribe(
         () => {
-          // window.location.reload();
           this._location.back();
           // this.router
           //   .navigateByUrl('/veiw-resavations-requests', {
