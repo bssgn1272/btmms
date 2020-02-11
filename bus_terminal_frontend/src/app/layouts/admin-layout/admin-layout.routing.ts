@@ -13,6 +13,8 @@ import { SettingsComponent } from '../../settings/settings.component';
 import { DestinationDayComponent } from '../../destination-day/destination-day.component';
 import { SlotTimeComponent } from '../../slot-time/slot-time.component';
 import { UpdateSlotTimeComponent } from '../../update-slot-time/update-slot-time.component';
+import { RejectComponent } from '../../reject/reject.component';
+import { CancelReservationComponent } from '../../cancel-reservation/cancel-reservation.component';
 
 export const AdminLayoutRoutes: Routes = [
          { path: 'user-profile', component: DashboardComponent },
@@ -57,6 +59,16 @@ export const AdminLayoutRoutes: Routes = [
          {
            path: 'update-slot',
            component: UpdateSlotTimeComponent,
+           canActivate: [AuthGuard]
+         },
+         {
+           path: 'reject',
+           component: RejectComponent,
+           canActivate: [AuthGuard]
+         },
+         {
+           path: 'cancel',
+           component: CancelReservationComponent,
            canActivate: [AuthGuard]
          }
        ];

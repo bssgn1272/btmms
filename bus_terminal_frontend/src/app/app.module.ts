@@ -18,7 +18,6 @@ import { AuthService } from './login/auth.service';
 import { AuthGuard } from './guard/auth.guard';
 import { JwtInterceptor, ErrorInterceptor } from './interceptor';
 
-
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -38,7 +37,7 @@ import { JwtInterceptor, ErrorInterceptor } from './interceptor';
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
-    AlertComponent,
+    AlertComponent
   ],
   providers: [
     AuthService,

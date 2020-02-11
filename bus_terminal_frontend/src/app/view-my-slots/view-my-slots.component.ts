@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ViewSlotsService } from './view-slots.service';
 import { AuthService } from 'app/login/auth.service';
 import { Location } from '@angular/common';
+import { CancelReservationComponent } from '../cancel-reservation/cancel-reservation.component';
 
 
 
@@ -52,7 +53,8 @@ export class ViewMySlotsComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private viewSlots: ViewSlotsService,
     private authenticationService: AuthService,
-    private _location: Location
+    private _location: Location,
+    private dialog: MatDialog
   ) {}
 
   public getFromLocalStrorage() {
@@ -77,71 +79,17 @@ export class ViewMySlotsComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  cancel(row) {
-    this.slot = row.slot;
-    this.id = row.ID;
-    this.status = 'C';
-    this.time = row.time;
-    if (this.slot === 'slot_one') {
-      this.httpClient
-        .put('/api/slots/close', {
-          time: this.time,
-          slot_one: this.slot_one
-        })
-        .toPromise();
-    } else if (this.slot === 'slot_two') {
-      this.httpClient
-        .put('/api/slots/close', {
-          time: this.time,
-          slot_two: this.slot_two
-        })
-        .toPromise();
-    } else if (this.slot === 'slot_three') {
-      this.httpClient
-        .put('/api/slots/close', {
-          time: this.time,
-          slot_three: this.slot_three
-        })
-        .toPromise();
-    } else if (this.slot === 'slot_four') {
-      this.httpClient
-        .put('/api/slots/close', {
-          time: this.time,
-          slot_four: this.slot_four
-        })
-        .toPromise();
-    } else if (this.slot === 'slot_five') {
-      this.httpClient
-        .put('/api/slots/close', {
-          time: this.time,
-          slot_five: this.slot_five
-        })
-        .toPromise();
-    }
-    console.log(this.id);
-    this.httpClient
-      .put('/api/approve/reservations/requests/' + this.id, {
-        status: this.status
-      })
-      .subscribe(
-        data => {
-          this._location.back();
-          this._snackBar.open('Successfully Updated', null, {
-            duration: 1000,
-            horizontalPosition: 'center',
-            panelClass: ['blue-snackbar'],
-            verticalPosition: 'top'
-          });
-        },
-        error => {
-          this._snackBar.open('Failed', null, {
-            duration: 2000,
-            horizontalPosition: 'center',
-            panelClass: ['background-red'],
-            verticalPosition: 'top'
-          });
-        }
-      );
+  // add Open Dialog
+  onOpenCancelDialog(row): void {
+    const dialogRef = this.dialog.open(CancelReservationComponent, {
+      width: '60%',
+      // height: "850",
+      data: { row }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      row = result;
+    });
+    console.log('Row clicked: ', row);
   }
 }
 

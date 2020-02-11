@@ -26,12 +26,13 @@ import {
   MatMenuModule,
   MatStepperModule,
   MatTabsModule,
-  MatIconModule
+  MatIconModule,
+  MAT_DIALOG_DATA,
+  MatDialogRef
 } from '@angular/material';
 import { MakeBookingComponent } from 'app/make-booking/make-booking.component';
 import { ViewMySlotsComponent } from 'app/view-my-slots/view-my-slots.component';
 import { RoservationRequestsComponent } from 'app/roservation-requests/roservation-requests.component';
-import { ApproveReservationComponent } from 'app/approve-reservation/approve-reservation.component';
 import { AlertsComponent } from 'app/alert/alerts.component';
 import { AlertsService } from 'app/alert/alerts.service';
 import { NavbarComponent } from 'app/components/navbar/navbar.component';
@@ -39,6 +40,8 @@ import { SettingsComponent } from 'app/settings/settings.component';
 import { DestinationDayComponent } from 'app/destination-day/destination-day.component';
 import { SlotTimeComponent } from 'app/slot-time/slot-time.component';
 import { UpdateSlotTimeComponent } from '../../update-slot-time/update-slot-time.component';
+import { RejectComponent } from '../../reject/reject.component';
+import { CancelReservationComponent } from '../../cancel-reservation/cancel-reservation.component';
 
 @NgModule({
   imports: [
@@ -64,7 +67,7 @@ import { UpdateSlotTimeComponent } from '../../update-slot-time/update-slot-time
     MatStepperModule,
     HttpClientModule,
     MatTabsModule,
-    MatIconModule,
+    MatIconModule
   ],
   declarations: [
     DashboardComponent,
@@ -72,13 +75,18 @@ import { UpdateSlotTimeComponent } from '../../update-slot-time/update-slot-time
     MakeBookingComponent,
     ViewMySlotsComponent,
     RoservationRequestsComponent,
-    ApproveReservationComponent,
     AlertsComponent,
     SettingsComponent,
     DestinationDayComponent,
     SlotTimeComponent,
     UpdateSlotTimeComponent,
+    RejectComponent,
+    CancelReservationComponent
   ],
-  providers: [AlertsService]
+  providers: [
+    AlertsService,
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatDialogRef, useValue: {} }
+  ]
 })
 export class AdminLayoutModule {}

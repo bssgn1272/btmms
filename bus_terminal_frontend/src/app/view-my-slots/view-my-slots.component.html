@@ -94,7 +94,7 @@
                         <div *ngIf="row.status == 'A'">
                           <button
                             mat-raised-button
-                            (click)="cancel(row)"
+                            (click)="onOpenCancelDialog(row)"
                             matTooltip="Cancel Request"
                             aria-label="Button that displays a tooltip when focused or hovered over"
                             class="btn btn-primary btn-link btn-sm btn-just-icon"
