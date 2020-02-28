@@ -100,11 +100,23 @@ defmodule BusTerminalSystemWeb.Router do
     forward "/mailbox", Plug.Swoosh.MailboxPreview, [base_path: "/dev/mailbox"]
   end
 
+  scope "/" do
+    pipe_through :api
+
+    forward "/graphiql", Absinthe.Plug.GraphiQL,
+            schema: BusTerminalSystemWeb.Schema
+
+    forward "/", Absinthe.Plug,
+            schema: BusTerminalSystemWeb.Schema
+  end
   # Other scopes may use custom stacks.
   scope "/api/v1", BusTerminalSystemWeb do
     pipe_through :api
 
+
+
     post "/btms/tickets/secured/find", TicketController, :find_ticket
+    post "/btms/tickets/secured/find/serial", TicketController, :find_ticket_serial
     post "/btms/tickets/secured/purchase", TicketController, :purchase_ticket
     get "/btms/travel/secured/destinations", TicketController, :get_schedules
     post "/btms/travel/secured/internal/destinations", TicketController, :get_schedules_internal

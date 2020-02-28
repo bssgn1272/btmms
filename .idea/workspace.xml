@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="172432d1-e09a-411c-b32c-33cb91a8b1ea" name="Default Changelist" comment="" />
+    <list default="true" id="fff9d1e1-6457-4936-bc9a-8033c16360b6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/absinthe.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/absinthe_plug.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/dataloader.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/bus_terminal_system/request_mokup.ex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/bus_terminal_system_web/graphql/resolvers/content.ex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/bus_terminal_system_web/graphql/schema/content_types.ex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/bus_terminal_system_web/graphql/schema/schema.ex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation.md" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bus_terminal_system.iml" beforeDir="false" afterPath="$PROJECT_DIR$/bus_terminal_system.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bus_terminal_system/platform_management/repository.ex" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bus_terminal_system/platform_management/repository.ex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bus_terminal_system/ticket_management/ticket.ex" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bus_terminal_system/ticket_management/ticket.ex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bus_terminal_system_web/controllers/frontend_api_controller.ex" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bus_terminal_system_web/controllers/frontend_api_controller.ex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bus_terminal_system_web/controllers/marketer_api_controller.ex" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bus_terminal_system_web/controllers/marketer_api_controller.ex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bus_terminal_system_web/controllers/ticket_controller.ex" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bus_terminal_system_web/controllers/ticket_controller.ex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bus_terminal_system_web/controllers/user_controller.ex" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bus_terminal_system_web/controllers/user_controller.ex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bus_terminal_system_web/router.ex" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bus_terminal_system_web/router.ex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bus_terminal_system_web/templates/user/TableUsers.html.eex" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bus_terminal_system_web/templates/user/TableUsers.html.eex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bus_terminal_system_web/templates/user/index.html.eex" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bus_terminal_system_web/templates/user/index.html.eex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bus_terminal_system_web/templates/user/new.html.eex" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bus_terminal_system_web/templates/user/new.html.eex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mix.exs" beforeDir="false" afterPath="$PROJECT_DIR$/mix.exs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mix.lock" beforeDir="false" afterPath="$PROJECT_DIR$/mix.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/priv/static/js/appMechanics.js" beforeDir="false" afterPath="$PROJECT_DIR$/priv/static/js/appMechanics.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,29 +34,139 @@
   <component name="CompilerWorkspaceConfiguration">
     <option name="CLEAR_OUTPUT_DIRECTORY" value="false" />
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="scale_drivers_config" />
-      </map>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
     </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="@localhost" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="bus_terminal_system_dev: database" type="162271b6:PgImplModel$Database" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="bus_terminal_system_dev: database" type="162271b6:PgImplModel$Database" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="bus_terminal_system_dev: database" type="162271b6:PgImplModel$Database" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="bus_terminal_system_dev: database" type="162271b6:PgImplModel$Database" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
+        <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1WnjXcJlG9xzirkCW5c7PWjCdOc" />
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1USoAp1IlwSklsdJq7dLu9p27Sj" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="postgresql&#10;cassandra" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1575308572443" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/bus_terminal_system" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/bus_terminal_system" />
+      <recent name="$PROJECT_DIR$/lib/bus_terminal_system_web/views" />
+      <recent name="$PROJECT_DIR$/lib/bus_terminal_system_web/templates" />
+      <recent name="$PROJECT_DIR$/priv/static/js" />
+      <recent name="$PROJECT_DIR$/priv/static/images" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/bus_terminal_system_web/graphql/schema" />
+      <recent name="$PROJECT_DIR$/lib/bus_terminal_system/mailing/gmail" />
+      <recent name="$PROJECT_DIR$/priv/static/js/material/plugins/notifications" />
+      <recent name="$PROJECT_DIR$/priv/static/js/datatables/js" />
+      <recent name="$PROJECT_DIR$/priv/static/images" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="sourceFilePath" value="Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.Dockerfile" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -51,16 +185,700 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="172432d1-e09a-411c-b32c-33cb91a8b1ea" name="Default Changelist" comment="" />
-      <created>1579792293372</created>
+      <changelist id="fff9d1e1-6457-4936-bc9a-8033c16360b6" name="Default Changelist" comment="" />
+      <created>1574252760401</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1579792293372</updated>
-      <workItem from="1579792304044" duration="286000" />
+      <updated>1574252760401</updated>
+      <workItem from="1574252765104" duration="9281000" />
+      <workItem from="1574322644105" duration="4152000" />
+      <workItem from="1574327361948" duration="21899000" />
+      <workItem from="1574353338189" duration="15000" />
+      <workItem from="1574353365372" duration="8211000" />
+      <workItem from="1574498414800" duration="12266000" />
+      <workItem from="1574626255543" duration="795000" />
+      <workItem from="1574660498055" duration="23600000" />
+      <workItem from="1574750245220" duration="120000" />
+      <workItem from="1574760380954" duration="9268000" />
+      <workItem from="1574838911842" duration="7261000" />
+      <workItem from="1574861016410" duration="3345000" />
+      <workItem from="1574924457532" duration="1838000" />
+      <workItem from="1574932417003" duration="16224000" />
+      <workItem from="1574974576145" duration="54000" />
+      <workItem from="1575018828326" duration="3744000" />
+      <workItem from="1575102141082" duration="12179000" />
+      <workItem from="1575228262448" duration="98000" />
+      <workItem from="1575273406638" duration="2511000" />
+      <workItem from="1575287207678" duration="14398000" />
+      <workItem from="1575357482453" duration="1549000" />
+      <workItem from="1575359240190" duration="15750000" />
+      <workItem from="1575405757892" duration="2740000" />
+      <workItem from="1575445431946" duration="600000" />
+      <workItem from="1575446058279" duration="615000" />
+      <workItem from="1575449763058" duration="14998000" />
+      <workItem from="1575529060431" duration="606000" />
+      <workItem from="1575533045977" duration="6375000" />
+      <workItem from="1575540051826" duration="11778000" />
+      <workItem from="1575611776189" duration="10526000" />
+      <workItem from="1575623545079" duration="2742000" />
+      <workItem from="1575631876204" duration="17996000" />
+      <workItem from="1575710879954" duration="216000" />
+      <workItem from="1575711578202" duration="9575000" />
+      <workItem from="1575872884348" duration="14824000" />
+      <workItem from="1575962081903" duration="1938000" />
+      <workItem from="1575997327317" duration="2225000" />
+      <workItem from="1576003308790" duration="1668000" />
+      <workItem from="1576049376784" duration="1317000" />
+      <workItem from="1576050893315" duration="7412000" />
+      <workItem from="1576134676403" duration="2434000" />
+      <workItem from="1576171806689" duration="544000" />
+      <workItem from="1576172711454" duration="6941000" />
+      <workItem from="1576223870919" duration="75000" />
+      <workItem from="1576224379091" duration="51000" />
+      <workItem from="1576230865036" duration="164000" />
+      <workItem from="1576231063962" duration="13268000" />
+      <workItem from="1576265506058" duration="24000" />
+      <workItem from="1576311601306" duration="3826000" />
+      <workItem from="1576483815097" duration="20126000" />
+      <workItem from="1576513037241" duration="2061000" />
+      <workItem from="1576571628764" duration="64000" />
+      <workItem from="1576744865376" duration="2929000" />
+      <workItem from="1576749953646" duration="602000" />
+      <workItem from="1576763620834" duration="6867000" />
+      <workItem from="1576787041240" duration="16698000" />
+      <workItem from="1576848079346" duration="11036000" />
+      <workItem from="1577090873059" duration="3334000" />
+      <workItem from="1577114964610" duration="603000" />
+      <workItem from="1577115599566" duration="1353000" />
+      <workItem from="1577170521458" duration="30000" />
+      <workItem from="1577188900531" duration="625000" />
+      <workItem from="1577196324357" duration="4185000" />
+      <workItem from="1577303029131" duration="7469000" />
+      <workItem from="1577310948245" duration="3675000" />
+      <workItem from="1577342398697" duration="12710000" />
+      <workItem from="1577431538358" duration="5395000" />
+      <workItem from="1577461656074" duration="391000" />
+      <workItem from="1577472377738" duration="1290000" />
+      <workItem from="1577996294442" duration="21018000" />
+      <workItem from="1578125702281" duration="30000" />
+      <workItem from="1578125766862" duration="199000" />
+      <workItem from="1578126269148" duration="14870000" />
+      <workItem from="1578141199608" duration="1783000" />
+      <workItem from="1578143031801" duration="2120000" />
+      <workItem from="1578209661605" duration="1548000" />
+      <workItem from="1578211436636" duration="6734000" />
+      <workItem from="1578239914403" duration="425000" />
+      <workItem from="1578303032565" duration="1530000" />
+      <workItem from="1578315547043" duration="9170000" />
+      <workItem from="1578387514811" duration="20764000" />
+      <workItem from="1578418399278" duration="7957000" />
+      <workItem from="1578469039675" duration="25417000" />
+      <workItem from="1578557627684" duration="15014000" />
+      <workItem from="1578586138071" duration="1930000" />
+      <workItem from="1578644045378" duration="3597000" />
+      <workItem from="1578864180872" duration="36000" />
+      <workItem from="1578867015823" duration="1162000" />
+      <workItem from="1578909386985" duration="5277000" />
+      <workItem from="1578992428196" duration="4529000" />
+      <workItem from="1579075900745" duration="3243000" />
+      <workItem from="1579096613867" duration="1787000" />
+      <workItem from="1579098498941" duration="1807000" />
+      <workItem from="1579100451097" duration="1779000" />
+      <workItem from="1579102301518" duration="1791000" />
+      <workItem from="1579104123205" duration="2012000" />
+      <workItem from="1579158902327" duration="1157000" />
+      <workItem from="1579171774050" duration="707000" />
+      <workItem from="1579182264393" duration="713000" />
+      <workItem from="1579186483617" duration="703000" />
+      <workItem from="1579197056796" duration="1780000" />
+      <workItem from="1579198893853" duration="1772000" />
+      <workItem from="1579205788478" duration="1708000" />
+      <workItem from="1579207615651" duration="1773000" />
+      <workItem from="1579209430464" duration="1791000" />
+      <workItem from="1579211265981" duration="1769000" />
+      <workItem from="1579213083690" duration="1170000" />
+      <workItem from="1579245363864" duration="1859000" />
+      <workItem from="1579247294294" duration="1757000" />
+      <workItem from="1579249126004" duration="1769000" />
+      <workItem from="1579250975363" duration="1784000" />
+      <workItem from="1579252809405" duration="2328000" />
+      <workItem from="1579255645044" duration="2046000" />
+      <workItem from="1579258553866" duration="4956000" />
+      <workItem from="1579279463284" duration="1209000" />
+      <workItem from="1579345035584" duration="49000" />
+      <workItem from="1579503804484" duration="6640000" />
+      <workItem from="1579593720778" duration="21000" />
+      <workItem from="1579594513415" duration="42000" />
+      <workItem from="1579613326074" duration="1090000" />
+      <workItem from="1579615470090" duration="830000" />
+      <workItem from="1579620415899" duration="1891000" />
+      <workItem from="1579624476061" duration="1233000" />
+      <workItem from="1579674575177" duration="1541000" />
+      <workItem from="1579687497872" duration="2224000" />
+      <workItem from="1579694415931" duration="8474000" />
+      <workItem from="1579761109481" duration="9350000" />
+      <workItem from="1579782004030" duration="9410000" />
+      <workItem from="1579976615932" duration="2508000" />
+      <workItem from="1580032250799" duration="54000" />
+      <workItem from="1580129913028" duration="1282000" />
+      <workItem from="1580139204474" duration="2153000" />
+      <workItem from="1580202489473" duration="530000" />
+      <workItem from="1580203139079" duration="1807000" />
+      <workItem from="1580208540503" duration="18000" />
+      <workItem from="1580213779132" duration="9308000" />
+      <workItem from="1580293307354" duration="5817000" />
+      <workItem from="1580326020821" duration="599000" />
+      <workItem from="1580375640262" duration="65000" />
+      <workItem from="1581699476719" duration="1886000" />
+      <workItem from="1581933610647" duration="123000" />
+      <workItem from="1581949170775" duration="359000" />
+      <workItem from="1582101205376" duration="27065000" />
+      <workItem from="1582367688131" duration="158000" />
+      <workItem from="1582797887372" duration="6613000" />
+      <workItem from="1582880179977" duration="439000" />
     </task>
+    <task id="LOCAL-00046" summary="Base commit 09/11/2019 v5">
+      <created>1576851122113</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1576851122118</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Base commit 09/11/2019 v5">
+      <created>1576853516546</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1576853516546</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Base commit 09/11/2019 v6">
+      <created>1576853535670</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1576853535670</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Base commit 21/12/2019">
+      <created>1576920219841</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1576920219841</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Base commit 21/12/2019 v2">
+      <created>1576920472415</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1576920472416</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Base commit 21/12/2019 v3">
+      <created>1576922871816</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1576922871816</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Base commit 21/12/2019 v4">
+      <created>1576926568733</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1576926568733</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Base commit 21/12/2019 v4">
+      <created>1577093502149</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1577093502150</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Base commit 23/12/2019 v1">
+      <created>1577093521902</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1577093521902</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Base commit 23/12/2019 v2">
+      <created>1577116696701</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1577116696702</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Base commit 24/12/2019 v1">
+      <created>1577196355496</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1577196355496</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Base commit 26/12/2019 v2">
+      <created>1577358111076</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1577358111077</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Base commit 26/12/2019 v3">
+      <created>1577358642190</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1577358642190</updated>
+    </task>
+    <task id="LOCAL-00059" summary="Base commit 26/12/2019 v4">
+      <created>1577365950836</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1577365950836</updated>
+    </task>
+    <task id="LOCAL-00060" summary="Base commit 26/12/2019 v5">
+      <created>1577366420298</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1577366420298</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Base commit 2/01/2020 v1">
+      <created>1577996399864</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1577996399865</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Base commit 2/01/2020 v1">
+      <created>1577996430707</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1577996430707</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Base commit 3/01/2020 v1">
+      <created>1578043282400</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1578043282400</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Base commit 3/01/2020 v1">
+      <created>1578043289552</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1578043289552</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Base commit 3/01/2020 v2">
+      <created>1578045497624</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1578045497624</updated>
+    </task>
+    <task id="LOCAL-00066" summary="Base commit 3/01/2020 v3">
+      <created>1578046107905</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1578046107905</updated>
+    </task>
+    <task id="LOCAL-00067" summary="Base commit 3/01/2020 v4">
+      <created>1578053637748</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1578053637748</updated>
+    </task>
+    <task id="LOCAL-00068" summary="Base commit 3/01/2020 v5">
+      <created>1578056296138</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1578056296138</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Base commit 4/01/2020 v1">
+      <created>1578139674666</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1578139674666</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Base commit 4/01/2020 v2">
+      <created>1578140160554</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1578140160554</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Base commit 4/01/2020 v2">
+      <created>1578140198327</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1578140198327</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Base commit 4/01/2020 v3">
+      <created>1578140348349</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1578140348349</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Base commit 5/01/2020 v1">
+      <created>1578223833963</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1578223833964</updated>
+    </task>
+    <task id="LOCAL-00074" summary="Base commit 6/01/2020 v1">
+      <created>1578315596240</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1578315596241</updated>
+    </task>
+    <task id="LOCAL-00075" summary="Base commit 6/01/2020 v2">
+      <created>1578318051889</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1578318051889</updated>
+    </task>
+    <task id="LOCAL-00076" summary="Base commit 6/01/2020 v3">
+      <created>1578322069624</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1578322069624</updated>
+    </task>
+    <task id="LOCAL-00077" summary="Base commit 6/01/2020 v4">
+      <created>1578407864548</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1578407864549</updated>
+    </task>
+    <task id="LOCAL-00078" summary="Base commit 6/01/2020 v5">
+      <created>1578408655129</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1578408655129</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Base commit 8/01/2020 v1">
+      <created>1578486811418</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1578486811418</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Base commit 8/01/2020 v1">
+      <created>1578486818791</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1578486818791</updated>
+    </task>
+    <task id="LOCAL-00081" summary="Base commit 8/01/2020 v2">
+      <created>1578486915523</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1578486915523</updated>
+    </task>
+    <task id="LOCAL-00082" summary="Base commit 8/01/2020 v3">
+      <created>1578489688018</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1578489688018</updated>
+    </task>
+    <task id="LOCAL-00083" summary="Base commit 8/01/2020 v4">
+      <created>1578490929752</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1578490929752</updated>
+    </task>
+    <task id="LOCAL-00084" summary="Base commit 8/01/2020 v5">
+      <created>1578491447279</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1578491447279</updated>
+    </task>
+    <task id="LOCAL-00085" summary="Base commit 9/01/2020 v1">
+      <created>1578560199038</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1578560199039</updated>
+    </task>
+    <task id="LOCAL-00086" summary="Base commit 9/01/2020 v2">
+      <created>1578584091943</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1578584091943</updated>
+    </task>
+    <task id="LOCAL-00087" summary="Base commit 10/01/2020 v1">
+      <created>1578644126679</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1578644126681</updated>
+    </task>
+    <task id="LOCAL-00088" summary="Base commit 14/01/2020 v2">
+      <created>1578993199784</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1578993199784</updated>
+    </task>
+    <task id="LOCAL-00089" summary="Base commit 14/01/2020 v3">
+      <created>1578995913084</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1578995913084</updated>
+    </task>
+    <task id="LOCAL-00090" summary="Base commit 16/01/2020 v1">
+      <created>1579186559277</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1579186559278</updated>
+    </task>
+    <task id="LOCAL-00091" summary="Base commit 16/01/2020 v2">
+      <created>1579197080684</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1579197080686</updated>
+    </task>
+    <task id="LOCAL-00092" summary="Base commit 18/01/2020 v1">
+      <created>1579503846857</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1579503846857</updated>
+    </task>
+    <task id="LOCAL-00093" summary="Base commit 27/01/2020 v1">
+      <created>1580140147788</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1580140147788</updated>
+    </task>
+    <task id="LOCAL-00094" summary="Added Account Status options for marketeer operations">
+      <created>1580140249979</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1580140249979</updated>
+    </task>
+    <option name="localTasksCounter" value="95" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Base commit 3/01/2020 v5" />
+    <MESSAGE value="Base commit 4/01/2020 v1" />
+    <MESSAGE value="Base commit 4/01/2020 v2" />
+    <MESSAGE value="Base commit 4/01/2020 v3" />
+    <MESSAGE value="Base commit 5/01/2020 v1" />
+    <MESSAGE value="Base commit 6/01/2020 v1" />
+    <MESSAGE value="Base commit 6/01/2020 v2" />
+    <MESSAGE value="Base commit 6/01/2020 v3" />
+    <MESSAGE value="Base commit 6/01/2020 v4" />
+    <MESSAGE value="Base commit 6/01/2020 v5" />
+    <MESSAGE value="Base commit 8/01/2020 v1" />
+    <MESSAGE value="Base commit 8/01/2020 v2" />
+    <MESSAGE value="Base commit 8/01/2020 v3" />
+    <MESSAGE value="Base commit 8/01/2020 v4" />
+    <MESSAGE value="Base commit 8/01/2020 v5" />
+    <MESSAGE value="Base commit 9/01/2020 v1" />
+    <MESSAGE value="Base commit 9/01/2020 v2" />
+    <MESSAGE value="Base commit 10/01/2020 v1" />
+    <MESSAGE value="Base commit 14/01/2020 v2" />
+    <MESSAGE value="Base commit 14/01/2020 v3" />
+    <MESSAGE value="Base commit 16/01/2020 v1" />
+    <MESSAGE value="Base commit 16/01/2020 v2" />
+    <MESSAGE value="Base commit 18/01/2020 v1" />
+    <MESSAGE value="Base commit 27/01/2020 v1" />
+    <MESSAGE value="Added Account Status options for marketeer operations" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Account Status options for marketeer operations" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="559" y="200" key="#Deployment" timestamp="1575360736043">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="559" y="200" key="#Deployment/0.24.1920.1056@0.24.1920.1056" timestamp="1575360736043" />
+    <state x="633" y="80" key="#Dockerfile" timestamp="1575360825346">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="633" y="80" key="#Dockerfile/0.24.1920.1056@0.24.1920.1056" timestamp="1575360825346" />
+    <state x="559" y="200" key="#New_Docker_Connection" timestamp="1575360861610">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="559" y="200" key="#New_Docker_Connection/0.24.1920.1056@0.24.1920.1056" timestamp="1575360861610" />
+    <state x="423" y="194" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578303751648">
+      <screen x="0" y="21" width="1920" height="1059" />
+    </state>
+    <state x="423" y="194" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.21.1920.1059@0.21.1920.1059" timestamp="1578303751648" />
+    <state x="423" y="197" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1575464198501" />
+    <state x="427" y="49" width="940" height="995" key="CommitChangelistDialog2" timestamp="1580140249792">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="427" y="50" key="CommitChangelistDialog2/0.21.1920.1059/1920.0.1920.1080@0.21.1920.1059" timestamp="1578223833632" />
+    <state x="2347" y="30" width="940" height="969" key="CommitChangelistDialog2/0.21.1920.1059/1920.0.1920.1080@1920.0.1920.1080" timestamp="1577996430489" />
+    <state x="427" y="21" key="CommitChangelistDialog2/0.21.1920.1059@0.21.1920.1059" timestamp="1578995918308" />
+    <state x="427" y="21" key="CommitChangelistDialog2/0.21.1920.854@0.21.1920.854" timestamp="1578995912901" />
+    <state x="427" y="49" key="CommitChangelistDialog2/0.24.1920.1056@0.24.1920.1056" timestamp="1580140249792" />
+    <state x="2347" y="31" width="940" height="995" key="CommitChangelistDialog2/1920.0.1920.1080/0.21.1920.1059@1920.0.1920.1080" timestamp="1579197079984" />
+    <state x="2667" y="279" width="426" height="483" key="FileChooserDialogImpl" timestamp="1580032308934">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2667" y="279" key="FileChooserDialogImpl/0.21.1920.1059/1920.0.1920.1080@1920.0.1920.1080" timestamp="1577998447836" />
+    <state x="747" y="295" key="FileChooserDialogImpl/0.21.1920.1059@0.21.1920.1059" timestamp="1577115678828" />
+    <state x="2667" y="279" key="FileChooserDialogImpl/0.24.1920.1056/1920.0.1920.1080@1920.0.1920.1080" timestamp="1580032308934" />
+    <state x="747" y="297" key="FileChooserDialogImpl/0.24.1920.1056@0.24.1920.1056" timestamp="1575963302798" />
+    <state x="747" y="244" key="FileChooserDialogImpl/0.24.1920.851@0.24.1920.851" timestamp="1575890636064" />
+    <state x="747" y="297" width="426" height="483" key="FileChooserDialogImpl/1920.0.1920.1080/0.24.1920.1056@0.24.1920.1056" timestamp="1579277584563" />
+    <state width="263" height="543" key="HiddenNamespacesPopup" timestamp="1577343114916">
+      <screen x="0" y="21" width="1920" height="1059" />
+    </state>
+    <state width="263" height="543" key="HiddenNamespacesPopup/0.21.1920.1059@0.21.1920.1059" timestamp="1577343114916" />
+    <state width="263" height="541" key="HiddenNamespacesPopup/0.24.1920.1056@0.24.1920.1056" timestamp="1575878438186" />
+    <state x="191" y="99" width="1714" height="873" key="MergeDialog" timestamp="1578993311196">
+      <screen x="0" y="21" width="1920" height="1059" />
+    </state>
+    <state x="191" y="99" width="1714" height="873" key="MergeDialog/0.21.1920.1059@0.21.1920.1059" timestamp="1578993311196" />
+    <state x="191" y="102" key="MergeDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1575886907024" />
+    <state x="670" y="245" key="MultipleFileMergeDialog" timestamp="1578993311214">
+      <screen x="0" y="21" width="1920" height="1059" />
+    </state>
+    <state x="2590" y="228" key="MultipleFileMergeDialog/0.21.1920.1059/1920.0.1920.1080@1920.0.1920.1080" timestamp="1577996462989" />
+    <state x="670" y="245" key="MultipleFileMergeDialog/0.21.1920.1059@0.21.1920.1059" timestamp="1578993311214" />
+    <state x="670" y="247" key="MultipleFileMergeDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1575886957018" />
+    <state x="431" y="123" width="1233" height="729" key="SettingsEditor" timestamp="1577115560539">
+      <screen x="0" y="21" width="1920" height="1059" />
+    </state>
+    <state x="431" y="123" key="SettingsEditor/0.21.1920.1059@0.21.1920.1059" timestamp="1577115560539" />
+    <state x="431" y="126" width="1233" height="729" key="SettingsEditor/0.24.1920.1056@0.24.1920.1056" timestamp="1576050869837" />
+    <state x="559" y="271" key="Vcs.Push.Dialog.v2" timestamp="1580140258741">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="559" y="269" key="Vcs.Push.Dialog.v2/0.21.1920.1059/1920.0.1920.1080@0.21.1920.1059" timestamp="1578043298473" />
+    <state x="559" y="269" key="Vcs.Push.Dialog.v2/0.21.1920.1059@0.21.1920.1059" timestamp="1578995929581" />
+    <state x="559" y="271" key="Vcs.Push.Dialog.v2/0.24.1920.1056@0.24.1920.1056" timestamp="1580140258741" />
+    <state x="2479" y="253" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.21.1920.1059@1920.0.1920.1080" timestamp="1579186569593" />
+    <state x="547" y="94" key="com.intellij.database.dbimport.ImportDialog" timestamp="1575642494535">
+      <screen x="0" y="24" width="1920" height="851" />
+    </state>
+    <state x="547" y="94" key="com.intellij.database.dbimport.ImportDialog/0.24.1920.851@0.24.1920.851" timestamp="1575642494535" />
+    <state x="676" y="259" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1579785681911">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="676" y="257" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.21.1920.1059@0.21.1920.1059" timestamp="1576926517934" />
+    <state x="676" y="259" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1579785681911" />
+    <state x="676" y="213" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.24.1920.851@0.24.1920.851" timestamp="1575642795819" />
+    <state x="676" y="259" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/1920.0.1920.1080/0.24.1920.1056@0.24.1920.1056" timestamp="1576173492244" />
+    <state x="839" y="430" key="com.intellij.database.view.ui.DbObjectDialog" timestamp="1577436449277">
+      <screen x="0" y="21" width="1920" height="1059" />
+    </state>
+    <state x="839" y="430" key="com.intellij.database.view.ui.DbObjectDialog/0.21.1920.1059@0.21.1920.1059" timestamp="1577436449277" />
+    <state x="426" y="368" width="653" height="395" key="com.intellij.ide.util.TipDialog" timestamp="1581933787586">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="426" y="366" key="com.intellij.ide.util.TipDialog/0.21.1920.1059/1920.0.1920.1080@0.21.1920.1059" timestamp="1578864182519" />
+    <state x="2346" y="352" width="653" height="340" key="com.intellij.ide.util.TipDialog/0.21.1920.1059/1920.0.1920.1080@1920.0.1920.1080" timestamp="1578867016511" />
+    <state x="426" y="366" key="com.intellij.ide.util.TipDialog/0.21.1920.1059@0.21.1920.1059" timestamp="1579158903394" />
+    <state x="426" y="299" key="com.intellij.ide.util.TipDialog/0.21.1920.854@0.21.1920.854" timestamp="1578992428291" />
+    <state x="426" y="368" key="com.intellij.ide.util.TipDialog/0.24.1920.1056/1920.0.1920.1080@0.24.1920.1056" timestamp="1580327080686" />
+    <state x="2346" y="352" key="com.intellij.ide.util.TipDialog/0.24.1920.1056/1920.0.1920.1080@1920.0.1920.1080" timestamp="1580032258022" />
+    <state x="426" y="368" key="com.intellij.ide.util.TipDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1581933787586" />
+    <state x="426" y="366" key="com.intellij.ide.util.TipDialog/1920.0.1920.1080/0.21.1920.1059@0.21.1920.1059" timestamp="1579258570431" />
+    <state x="2346" y="352" width="653" height="395" key="com.intellij.ide.util.TipDialog/1920.0.1920.1080/0.21.1920.1059@1920.0.1920.1080" timestamp="1579255648340" />
+    <state x="426" y="368" key="com.intellij.ide.util.TipDialog/1920.0.1920.1080/0.24.1920.1056@0.24.1920.1056" timestamp="1579345055476" />
+    <state x="617" y="157" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1575873568734">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="617" y="157" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.24.1920.1056@0.24.1920.1056" timestamp="1575873568734" />
+    <state x="559" y="314" key="git4idea.merge.GitPullDialog" timestamp="1579511794188">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="559" y="312" key="git4idea.merge.GitPullDialog/0.21.1920.1059/1920.0.1920.1080@0.21.1920.1059" timestamp="1578223843360" />
+    <state x="2479" y="297" key="git4idea.merge.GitPullDialog/0.21.1920.1059/1920.0.1920.1080@1920.0.1920.1080" timestamp="1577996445078" />
+    <state x="559" y="312" key="git4idea.merge.GitPullDialog/0.21.1920.1059@0.21.1920.1059" timestamp="1578993221848" />
+    <state x="559" y="314" key="git4idea.merge.GitPullDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1579511794188" />
+    <state x="2479" y="297" key="git4idea.merge.GitPullDialog/1920.0.1920.1080/0.21.1920.1059@1920.0.1920.1080" timestamp="1579197107460" />
+    <state x="380" y="267" key="new project wizard" timestamp="1577115704154">
+      <screen x="0" y="21" width="1920" height="1059" />
+    </state>
+    <state x="380" y="267" key="new project wizard/0.21.1920.1059@0.21.1920.1059" timestamp="1577115704154" />
+    <state x="829" y="437" key="publish.login" timestamp="1575360275731">
+      <screen x="0" y="24" width="1920" height="851" />
+    </state>
+    <state x="829" y="437" key="publish.login/0.24.1920.851@0.24.1920.851" timestamp="1575360275731" />
+    <state x="2543" y="246" key="run.anything.popup" timestamp="1579245214744">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2543" y="246" key="run.anything.popup/1920.0.1920.1080/0.21.1920.1059@1920.0.1920.1080" timestamp="1579245214744" />
+    <state x="2738" y="141" width="672" height="694" key="search.everywhere.popup" timestamp="1582800563961">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="818" y="159" width="672" height="681" key="search.everywhere.popup/0.21.1920.1059/1920.0.1920.1080@0.21.1920.1059" timestamp="1578216547225" />
+    <state x="2738" y="141" width="672" height="694" key="search.everywhere.popup/0.21.1920.1059/1920.0.1920.1080@1920.0.1920.1080" timestamp="1578867300908" />
+    <state x="818" y="159" width="672" height="681" key="search.everywhere.popup/0.21.1920.1059@0.21.1920.1059" timestamp="1579076459475" />
+    <state x="818" y="132" width="672" height="550" key="search.everywhere.popup/0.21.1920.854@0.21.1920.854" timestamp="1578579936875" />
+    <state x="1636" y="159" width="1344" height="681" key="search.everywhere.popup/0.21.3840.1059@0.21.3840.1059" timestamp="1579097039928" />
+    <state x="818" y="162" width="672" height="678" key="search.everywhere.popup/0.24.1920.1056/1920.0.1920.1080@0.24.1920.1056" timestamp="1576516524060" />
+    <state x="2738" y="141" width="672" height="694" key="search.everywhere.popup/0.24.1920.1056/1920.0.1920.1080@1920.0.1920.1080" timestamp="1582800563961" />
+    <state x="818" y="162" width="672" height="678" key="search.everywhere.popup/0.24.1920.1056@0.24.1920.1056" timestamp="1582262247108" />
+    <state x="623" y="195" width="672" height="547" key="search.everywhere.popup/0.24.1920.851@0.24.1920.851" timestamp="1576312752897" />
+    <state x="1246" y="236" width="1344" height="678" key="search.everywhere.popup/0.24.3840.1056@0.24.3840.1056" timestamp="1580281995272" />
+    <state x="818" y="159" width="672" height="682" key="search.everywhere.popup/1920.0.1920.1080/0.21.1920.1059@0.21.1920.1059" timestamp="1579263744937" />
+    <state x="2738" y="141" width="672" height="695" key="search.everywhere.popup/1920.0.1920.1080/0.21.1920.1059@1920.0.1920.1080" timestamp="1579261516959" />
+    <state x="623" y="236" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1080/0.24.1920.1056@0.24.1920.1056" timestamp="1576254982324" />
+    <state x="689" y="461" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1579698950441">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="689" y="461" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1579698950441" />
+    <state x="2609" y="447" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/1920.0.1920.1080/0.21.1920.1059@1920.0.1920.1080" timestamp="1579208610653" />
   </component>
 </project>

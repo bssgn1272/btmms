@@ -54,7 +54,9 @@ defmodule BusTerminalSystem.MixProject do
       {:httpoison, "~> 1.6"},
       {:circuits_uart, "~> 1.4"},
       {:redix, ">= 0.10.4"},
-      {:timex, "~> 3.5"}
+      {:timex, "~> 3.5"},
+      {:absinthe, "~> 1.4"},
+      {:absinthe_plug, "~> 1.4"}
     ]
   end
 

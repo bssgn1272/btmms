@@ -7,6 +7,8 @@
       <sourceFolder url="file://$MODULE_DIR$/lib" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/absinthe" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/absinthe_plug" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/argon2_elixir" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/barlix" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/base64url" />
@@ -156,5 +158,17 @@
     <orderEntry type="library" name="castore" level="project" />
     <orderEntry type="library" name="propcheck" level="project" />
     <orderEntry type="library" name="timex" level="project" />
+    <orderEntry type="library" name="cowlib" level="project" />
+    <orderEntry type="library" name="ranch" level="project" />
+    <orderEntry type="library" name="idna" level="project" />
+    <orderEntry type="library" name="mimerl" level="project" />
+    <orderEntry type="library" name="certifi" level="project" />
+    <orderEntry type="library" name="metrics" level="project" />
+    <orderEntry type="library" name="ssl_verify_fun" level="project" />
+    <orderEntry type="library" name="unicode_util_compat" level="project" />
+    <orderEntry type="library" name="parse_trans" level="project" />
+    <orderEntry type="library" name="absinthe" level="project" />
+    <orderEntry type="library" name="dataloader" level="project" />
+    <orderEntry type="library" name="absinthe_plug" level="project" />
   </component>
 </module>

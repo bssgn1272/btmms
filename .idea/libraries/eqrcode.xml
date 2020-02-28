@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="eqrcode" type="mix">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/eqrcode/ebin" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/deps/eqrcode/lib" />
+    </SOURCES>
+  </library>
+</component>

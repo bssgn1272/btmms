@@ -115,7 +115,7 @@ defmodule BusTerminalSystemWeb.MarketApiController do
           case mobile |> RepoManager.find_marketer_by_mobile do
             nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
             user ->
-              case RepoManager.update_marketer_pin(user,%{"account_status" => "ACTIVE","pin" => pin |> RepoManager.encode_pin}) do
+              case RepoManager.update_marketer_pin(user,%{"account_status" => "ACTIVE","pin" => pin |> RepoManager.encode_pin},pin) do
                 {:ok, user} ->
                   conn
                   |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_authentication,"SUCCESS",0,
@@ -159,7 +159,7 @@ defmodule BusTerminalSystemWeb.MarketApiController do
           case mobile |> RepoManager.find_marketer_by_mobile do
             nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
             user ->
-              case RepoManager.update_marketer_pin(user,%{"account_status" => "OTP","pin" => pin |> RepoManager.encode_pin}) do
+              case RepoManager.update_marketer_pin(user,%{"account_status" => "OTP","pin" => pin |> RepoManager.encode_pin},pin) do
                 {:ok, user} ->
                   conn
                   |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_authentication,"SUCCESS",0,

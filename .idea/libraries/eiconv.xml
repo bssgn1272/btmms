@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="eiconv" type="mix">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/deps/eiconv/src" />
+      <root url="file://$PROJECT_DIR$/deps/eiconv/priv" />
+      <root url="file://$PROJECT_DIR$/deps/eiconv/c_src" />
+    </SOURCES>
+  </library>
+</component>

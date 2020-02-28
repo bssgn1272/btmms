@@ -913,13 +913,17 @@ function commaSeperate(x) {
 }
 
 function get_weight() {
+    //
     let weight = "";
     $.ajax({
         method: 'get',
         url: '/api/v1/internal/scale/query',
-        contentType: 'application/text',
+        contentType: 'application/json',
         success: function (response) {
             weight = response;
+
+            console.log("Response:" + response);
+
             $("#scale_weight_3").html(weight);
             $("#luggage_weight_2").html(weight);
             $("#luggage_ticket").html($("#checkin_ticket_id").html());

@@ -1,5 +1,11 @@
 # **Build Documentation**
 
+##### _**BUILD DATE:** 24/02/2020_
+
+- Integrated with Eye-d systems Gates
+- Performed Demo in Livingstone and showcased system
+- Created Demo App for boarded clients ticket authentication
+
 ##### _**BUILD DATE:** 22/01/2020_
 
 · Scheduled Route EndPoint, Should accept start_route, end_route and date_of_travel

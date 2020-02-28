@@ -764,9 +764,9 @@
                                 <div class="form-group has-feedback has-feedback-left">
                                     <input name="payload[first_name]" id="First_Name" type="text" class="form-control" placeholder="Passenger First Name">
                                     <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-                                    <input type="hidden" name="payload[reference_number]" value="<%= BusTerminalSystem.Randomizer.randomizer(16)%>">
+                                    <input type="hidden" name="payload[reference_number]" value="<%= BusTerminalSystemWeb.TicketController.generate_reference_number(0)%>">
                                     <input type="hidden" name="payload[external_ref]" value="<%= BusTerminalSystem.Randomizer.randomizer(16)%>">
-                                    <input type="hidden" name="payload[serial_number]" value="<%= BusTerminalSystem.Randomizer.randomizer(16)%>">
+                                    <input type="hidden" name="payload[serial_number]" value="<%= BusTerminalSystem.Randomizer.randomizer(7,:numeric)%>">
                                     <input type="hidden" name="payload[activation_status]" value="VALID">
                                     <input type="hidden" name="payload[id_type]" value="NRC">
                                     <input type="hidden" name="payload[transaction_channel]" value="TELLER">

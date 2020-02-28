@@ -124,7 +124,10 @@ defmodule BusTerminalSystem.RepoManager do
     |> Repo.insert()
   end
 
-  def update_marketer_pin(%User{} = user, attrs) do
+  def update_marketer_pin(%User{} = user, attrs,pin) do
+    sms_message = "OTP: #{pin}"
+    NapsaSmsGetway.send_sms(user.mobile,sms_message)
+
     user
     |> User.changeset(attrs)
     |> Repo.update()
@@ -271,6 +274,9 @@ defmodule BusTerminalSystem.RepoManager do
 
   # TICKETING
   def get_ticket(id), do: Repo.get(Ticket, id)
+  def get_ticket_serial(serial_number) do
+    Repo.get_by(Ticket, [serial_number: serial_number])
+  end
   def list_tickets(), do: Repo.all(Ticket)
 
   def list_tickets_json() do

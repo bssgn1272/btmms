@@ -8,6 +8,7 @@ defmodule BusTerminalSystemWeb.TicketController do
   alias BusTerminalSystem.Randomizer
   alias BusTerminalSystem.AccountManager
   alias BusTerminalSystem.NapsaSmsGetway
+  alias BusTerminalSystem.APIRequestMockup
 
   def index(conn, _params) do
     tickets = TicketManagement.list_tickets()
@@ -120,6 +121,46 @@ defmodule BusTerminalSystemWeb.TicketController do
     json conn, []
   end
 
+  def find_ticket_serial(conn, params) do
+    case ApiManager.authentication_mod(params) do
+      {:error, result} -> { json(conn, result)}
+
+      {:ok, result} ->
+        {:ok, payload} = Map.fetch(params,"payload")
+        if !Map.has_key?(payload,"serial_number") do
+          json(conn, ApiManager.api_error_handler(ApiManager.definition_query,ApiManager.support_query))
+        else
+          {:ok, ticket_id} = Map.fetch(payload,"serial_number")
+          case RepoManager.get_ticket_serial(ticket_id) do
+            nil -> ""
+            ticket ->
+              conn
+              |> json(ApiManager.api_message_custom_handler(ApiManager.definition_query,"SUCCESS",0,
+                %{
+                  "activation_status" => ticket.activation_status,
+                  "reference_number" => ticket.reference_number,
+                  "serial_number" => ticket.serial_number,
+                  "external_ref" => ticket.external_ref,
+                  "first_name" => ticket.first_name,
+                  "last_name" => ticket.last_name,
+                  "other_name" => ticket.other_name,
+                  "id_type" => ticket.id_type,
+                  "id_number" => ticket.passenger_id,
+                  "mobile_number" => ticket.mobile_number,
+                  "email_address" => ticket.email_address,
+                  "transaction_channel" => ticket.transaction_channel,
+                  "travel_date" => ticket.travel_date,
+                  "qr_code" => qr_generator("#{ticket.reference_number}")
+                }))
+          end
+        end
+
+
+    end
+
+    json conn, []
+  end
+
   def purchase_ticket(conn,params) do
     case ApiManager.authentication_mod(params) do
       {:error, result} -> { json(conn, result)}
@@ -146,11 +187,15 @@ defmodule BusTerminalSystemWeb.TicketController do
                     |> json(ApiManager.api_error_handler(ApiManager.definition_purchase,"Duplicate External Reference"))
 
                   {:ok, _reference} ->
-
+                    serial_number = Randomizer.randomizer(7, :numeric)
                     map = Map.put(payload, "reference_number", generate_reference_number(route))
-                    map = Map.put(map, "serial_number", Randomizer.randomizer(16, :numeric))
+                    map = Map.put(map, "serial_number", serial_number)
                     map = Map.put(map, "activation_status", "VALID")
                     map = Map.put(map, "route", route.id)
+
+                    #serial_number = Integer.to_string(serial_number)
+                    IO.inspect(serial_number)
+                    APIRequestMockup.send(serial_number)
 
                     conn
                     |> db_insert_ticket(route,_reference ,map)
@@ -203,7 +248,7 @@ defmodule BusTerminalSystemWeb.TicketController do
             "route_code" => route.route_code,
             "bus_schedule_id" => ticket.bus_schedule_id,
             "currency" => "ZMW",
-            "qr_code" => qr_generator("#{ticket.reference_number}")
+            "qr_code" => qr_generator("#{ticket.serial_number}")
           }))
 
         {:error, %Ecto.Changeset{} = _changeset} ->
@@ -212,10 +257,10 @@ defmodule BusTerminalSystemWeb.TicketController do
     end
   end
 
-  defp generate_reference_number(route) do
+  def generate_reference_number(route) do
     dt = DateTime.utc_now
     {micro,_} = dt.microsecond
-    "ZBMS-#{dt.year}#{dt.month}#{dt.day}-#{route.route_code}-#{dt.hour}#{dt.minute}#{dt.second}#{micro}"
+    "ZBMS-#{dt.year}#{dt.month}#{dt.day}-#{dt.hour}#{dt.minute}#{dt.second}#{micro}"
   end
 
   def generate_reference_number do

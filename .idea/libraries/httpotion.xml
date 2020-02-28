@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="httpotion" type="mix">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/deps/httpotion/lib" />
+    </SOURCES>
+  </library>
+</component>
