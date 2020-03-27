@@ -36,33 +36,42 @@
                     </mat-form-field>
                   </div>
                   <div class="col-md-6">
+                    
                     <!-- <form class="date-block" [formGroup]="filterForm">
-                      <div class="date-block__list">
-                        <mat-form-field>
-                          <input matInput 
-                            [matDatepicker]="fromDate" 
-                            placeholder="From Date" 
-                            formControlName="fromDate">
-                          <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
-                          <mat-datepicker #fromDate></mat-datepicker>
-                        </mat-form-field>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="date-block__list">
+                            <mat-form-field>
+                              <input matInput 
+                                [matDatepicker]="fromDate" 
+                                placeholder="From Date" 
+                                formControlName="fromDate">
+                              <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+                              <mat-datepicker #fromDate></mat-datepicker>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="date-block__list">
+                              <mat-form-field>
+                                <input matInput 
+                                  [matDatepicker]="toDate" 
+                                  placeholder="To Date" 
+                                  formControlName="toDate">
+                                <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+                                <mat-datepicker #toDate></mat-datepicker>
+                              </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                          <button mat-button color="primary" class="primary" (click)="getDateRange(filterForm.value)">Submit</button>
+                        </div>
                       </div>
-                        <div class="date-block__list">
-                        <mat-form-field>
-                          <input matInput 
-                            [matDatepicker]="toDate" 
-                            placeholder="To Date" 
-                            formControlName="toDate">
-                          <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
-                          <mat-datepicker #toDate></mat-datepicker>
-                        </mat-form-field>
-                      </div>
-                      <button mat-button color="primary" class="primary" (click)="getDateRange(filterForm.value)">Submit</button>
                     </form> -->
                   </div>
                 </div>
                 <div class="mat-elevation-z8">
-                  <table class="table" mat-table [dataSource]="dataSource" matSort>
+                  <table class="table" #dataTable mat-table [dataSource]="dataSource" matSort>
                     <!-- username Column -->
                     <ng-container matColumnDef="username">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header>Bus Operator</th>

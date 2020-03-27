@@ -1,0 +1,110 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,200);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css);
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Raleway', sans-serif;
+}
+body {
+ /* background-image: url('http://images-cdn.moviepilot.com/image/upload/c_fill,h_794,w_1912/t_mp_quality/hulkbuster-armor-this-is-how-avengers-age-of-ultron-s-hulkbuster-scene-ll-go-jpeg-301706.jpg');*/
+  background-position: cover;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.overlay {
+  z-index: 1;
+  opacity: 0.5;
+  background-color: #f6f6f6 ;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.leftcontent {
+  background-color: #fff;
+  z-index: 2;
+  height: calc(100% - 0px);
+  width: calc(100% - 360px);
+  margin-top: 0px;
+  margin-left: 0px;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.ltitle {
+  color: #fff;
+  font-size: 36px;
+  font-weight: 200;
+}
+
+.lcontent {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 200;
+}
+
+.sidebar {
+  background-color: #fff;
+  width: 350px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  padding-top: 60px;
+}
+
+.rtitle {
+  color: #333;
+  font-size: 26px;
+  font-weight: 200;
+  padding-left: 30px;
+}
+
+.textinput {
+  margin-left: 35px;
+  height: 40px;
+  border-width: 0;
+  border-style: solid;
+  border-color: #000072;
+  border-left-width: 5px;
+  background-color: #f6f6f6;
+  width: 270px;
+  padding-left: 10px;
+  outline: 0;
+}
+
+.textinput:focus {
+  background-color: #f4f4f4;
+}
+
+.submit {
+  background-color: #fbaa1d;
+  height: 50px;
+  width: 50px;
+  border-style: solid;
+  border-width: 0;
+  border-radius: 100px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  color: #fff;
+  outline: 0;
+  cursor: pointer;
+}
+.form-title {
+  width: 100%;
+  display: block;
+  font-family: Poppins-Regular;
+  font-size: 30px;
+  color: #333333;
+  line-height: 1.2;
+  text-align: center;
+  padding-bottom: 48px;
+}

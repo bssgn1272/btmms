@@ -4,14 +4,22 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 // import { IGroup } from './group';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class ReservationRequestsService {
-  private url = '/api/reservations/requests';
+  private url = "/api/reservations/requests";
 
   constructor(private http: HttpClient) {}
 
   async getList(): Promise<any> {
+    const url = `${this.url}`;
+    return await this.http
+      .get(url)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  async getRangeList(): Promise<any> {
     const url = `${this.url}`;
     return await this.http
       .get(url)

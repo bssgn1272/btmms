@@ -7,6 +7,7 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
+import { DateRangePickerModule } from "@syncfusion/ej2-angular-calendars";
 import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
 
 import {
@@ -67,7 +68,8 @@ import { CancelReservationComponent } from '../../cancel-reservation/cancel-rese
     MatStepperModule,
     HttpClientModule,
     MatTabsModule,
-    MatIconModule
+    MatIconModule,
+    DateRangePickerModule
   ],
   declarations: [
     DashboardComponent,

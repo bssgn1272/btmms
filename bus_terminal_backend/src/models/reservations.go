@@ -112,6 +112,21 @@ func GetReservations() ([]*Reservation) {
 }
 
 
+// get reservations
+func GetReservationsHistory(fromDate time.Time, toDate time.Time) ([]*Result) {
+
+	result := make([]*Result, 0)
+	err := GetDB().Table("reservations").Select("reservations.*, reservations.id, users.username").Joins("left join users on users.id=reservations.user_id").Where("reservations.reserved_time >= ? or reservations.reserved_time <= ?", fromDate, toDate).Find(&result).Error
+	log.Println(err)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+
+	return result
+}
+
+
 
 // get reservations for a particular day
 
