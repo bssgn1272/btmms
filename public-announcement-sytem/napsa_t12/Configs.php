@@ -6,10 +6,10 @@ class Configs{
 
 
 
- const servername = "127.0.0.1";
- const username = "application";
+ const servername = "localhost";
+ const username = "root";
  const password = "password";
- const dbname = "napsa_t2";
+ const dbname = "napsa";
 
 }
 
