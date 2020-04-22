@@ -80,14 +80,14 @@
                        bay_name,
                        status_message
                   FROM
-                      Departures AS b
-                  INNER JOIN Company AS c
+                      ed_departures AS b
+                  INNER JOIN ed_company AS c
                            ON b.company_id = c.company_id
-                  INNER JOIN Route AS r
+                  INNER JOIN ed_route AS r
                            ON b.route_id = r.route_id
-                  INNER JOIN Bay as k
+                  INNER JOIN ed_bay as k
                            ON b.bay_id = k.bay_id
-                  INNER JOIN Status as s
+                  INNER JOIN ed_status as s
                            ON b.status_id = s.status_id
                          ORDER BY time";
 
@@ -135,7 +135,7 @@
         <table class="table br-primary">
           <thead style="  font-size: 20px;">
             <tr class="table-light">
-              <th> MESSAGES</th>
+              <th>ANNOUNCEMENTS</th>
             </tr>
           </thead>
         </table>
@@ -150,7 +150,7 @@
 
       <!-- Footer -->
       <div class="footer">
-      <marquee clas="bottomscroll " > Welcome ! Kindly find your bus and head to the designated waiting area . Enjoy your trip .<?php echo date('l jS \of F Y ');?></marquee>
+      <marquee   > Welcome ! Kindly find your bus and head to the designated waiting area . Enjoy your trip .<?php echo date('l jS \of F Y ');?></marquee>
       </div>
 
   </body>

@@ -19,10 +19,16 @@ require 'Configs.php';
     <link rel="stylesheet" href="css/scroll.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
-    <meta http-equiv="refresh" content="45; url=http://localhost/pa/reservations.php">
+    <link href="css/ticker-style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script> 
+    <script src="includes/jquery.ticker.js" type="text/javascript"></script>
+    <script src="includes/site.js" type="text/javascript"></script>
+    <script scr="includes/feed.js" type="text/javascript"></script>
+    <!-- <meta http-equiv="refresh" content="45; url=http://localhost/pa/reservations.php"> -->
     <!--   Title -->
     <title>Public Announcement System</title>
   </head>
+  
   <body>
 
     <!-- Main Page content -->
@@ -77,14 +83,14 @@ require 'Configs.php';
 									       bay_name,
 									       status_message
 						       FROM
-						            Arrivals AS b
-						      INNER JOIN Company AS c
+						            ed_arrivals AS b
+						      INNER JOIN ed_company AS c
 						               ON b.company_id = c.company_id
-                  INNER JOIN Route AS r
+                  INNER JOIN ed_route AS r
 					                 ON b.route_id = r.route_id
-						      INNER JOIN Bay as k
+						      INNER JOIN ed_bay as k
 						               ON b.bay_id = k.bay_id
-						      INNER JOIN Status as s
+						      INNER JOIN ed_status as s
 						               ON b.status_id = s.status_id
 											     ORDER BY time";
 
@@ -115,7 +121,7 @@ require 'Configs.php';
             <thead style="  font-size: 20px;">
               <tr class="table-light">
                 <th> 
-                   MESSAGES
+                   ANNOUNCEMENTS
                 </th>
               </tr>
             </thead>
@@ -123,7 +129,7 @@ require 'Configs.php';
           <!-- RSS Feed  -->
           <div >
             <span>
-              <?php include'messages.php';?>
+            Welcome ! Kindly find your bus and head to the designated waiting area . Enjoy your trip 
             </span>
           </div>
         </div>
@@ -132,7 +138,16 @@ require 'Configs.php';
 
         <!-- Footer -->
         <div class="footer">
-          <marquee clas="bottomscroll " > Welcome ! Kindly find your bus and head to the designated waiting area . Enjoy your trip .<?php echo date('l jS \of F Y ');?></marquee>
+        <ul id="js-news" class="js-hidden">
+    <li class="news-item">Coronavirus: Why some racial groups are more vulnerable1</li>
+    <li class="news-item">Coronavirus: Why some racial groups are more vulnerable2</li>
+    <li class="news-item">Coronavirus: Why some racial groups are more vulnerable3</li>
+    <li class="news-item">Coronavirus: Why some racial groups are more vulnerable4</li>
+    <li class="news-item">Coronavirus: Why some racial groups are more vulnerable5</li>
+    <li class="news-item">Coronavirus: Why some racial groups are more vulnerable6</li>
+    <li class="news-item">Coronavirus: Why some racial groups are more vulnerable7</li>
+  </ul>
         </div>
+
   </body>
 </html>

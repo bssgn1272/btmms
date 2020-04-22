@@ -215,5 +215,14 @@ color: white;
 direction: left;
 scrollamount:6;
 loop:infinite;
-font-family: 'Orbitron', sans-serif;
+/*font-family: 'Orbitron', sans-serif;*/
 }
+/*
+ul.horizontal-list {
+  min-width: 696px;
+  list-style: none;
+  padding-top: 20px;
+  }
+  ul.horizontal-list li {
+    display: inline;
+  }*/

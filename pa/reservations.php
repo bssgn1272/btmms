@@ -68,7 +68,7 @@
 
           // INNER JOIN query to pull data from parent and child tables
 
-          $sql = "SELECT * FROM reservations
+          $sql = "SELECT * FROM ed_reservations
                      WHERE  status = 'A'
                        ORDER BY time";
 
@@ -97,7 +97,7 @@
       <table class="table br-primary">
         <thead style="  font-size: 20px;">
           <tr class="table-light">
-            <th> MESSAGES</th>
+            <th> ANNOUNCEMENTS</th>
           </tr>
         </thead>
       </table>
@@ -112,7 +112,7 @@
     <br>
     <!-- Footer -->
       <div class="footer">
-        <marquee clas="bottomscroll " > Welcome ! Kindly find your bus and head to the designated waiting area . Enjoy your trip .<?php echo date('l jS \of F Y ');?></marquee>
+        <marquee   > Welcome ! Kindly find your bus and head to the designated waiting area . Enjoy your trip .<?php echo date('l jS \of F Y ');?></marquee>
       </div>
   </body>
 </html>
