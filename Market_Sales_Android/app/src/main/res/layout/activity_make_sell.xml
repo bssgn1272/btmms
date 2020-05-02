@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
         android:focusable="true"
         android:focusableInTouchMode="true"
@@ -18,12 +18,7 @@
         android:paddingTop="56dp"
         android:paddingRight="25dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Make A Sale Here"
-            android:textStyle="bold" />
+
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -37,6 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Amount"
+
             android:inputType="number" />
 
         </android.support.design.widget.TextInputLayout>
@@ -82,7 +78,7 @@
 
         <Button
             android:id="@+id/buttonPay"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="24dp"
@@ -93,67 +89,7 @@
             android:shadowRadius="5"
             android:text="Pay" />
 
-        <Button
-            android:id="@+id/btnBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="24dp"
-            android:clickable="true"
-            android:enabled="true"
-            android:padding="5dp"
-            android:shadowRadius="5"
-            android:text="Back"
 
-
-            />
-
-        <!--<TextView-->
-        <!--android:id="@+id/linkSignup"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="24dp"-->
-        <!--android:gravity="center"-->
-        <!--android:text="No account yet? Create one"-->
-        <!--android:textSize="16dp" />-->
-        <!--
-           <TextView
-               android:id="@+id/linkCardSignIn"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_marginTop="8dp"
-               android:layout_marginBottom="8dp"
-               android:clickable="true"
-               android:text="You have a card ?\nLogin Here"
-               android:textAlignment="center"
-               android:textStyle="bold"
-               android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
-
-           <TextView
-               android:id="@+id/linkSignup"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_marginTop="8dp"
-               android:layout_marginBottom="8dp"
-               android:clickable="true"
-               android:text="Dont' have an account or card ?\nRegister Here"
-               android:textAlignment="center"
-               android:textStyle="bold"
-               android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
-
-           <TextView
-               android:id="@+id/linkPasswordReset"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_marginTop="8dp"
-               android:layout_marginBottom="8dp"
-               android:clickable="true"
-               android:text="Forgot your password ?\nReset Here"
-               android:textAlignment="center"
-               android:textStyle="bold"
-               android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
-   -->
 
     </LinearLayout>
 

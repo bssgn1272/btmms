@@ -15,8 +15,7 @@ import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_GENDER;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_LASTNAME;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_MOBILE;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_NRC;
-
-
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_TRADER_ID;
 
 
 public class SharedPrefManager {
@@ -49,10 +48,10 @@ public class SharedPrefManager {
     public void storeCurrentUser(User user) {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREF_NAME_SESSION, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(KEY_CUSTOMER_ID, user.getTrader_id());
-//        editor.putString(KEY_FIRSTNAME, customer.getFirst_name());
-//        editor.putString(KEY_LASTNAME, customer.getLast_name());
-//        editor.putString(KEY_EMAIL, customer.getEmail());
+        editor.putString(KEY_TRADER_ID, user.getTrader_id());
+//        editor.putString(KEY_FIRSTNAME, user.getFirstname());
+//        editor.putString(KEY_LASTNAME, user.getLastname());
+//        editor.putString(KEY_EMAIL, user.getEmail());
           editor.putString(KEY_MOBILE, user.getMobile_number());
 //        editor.putString(KEY_DOB, customer.getDate_of_birth());
 //        editor.putString(KEY_PASSWORD, customer.getPassword());
@@ -62,7 +61,7 @@ public class SharedPrefManager {
     //this method will checker whether user is already logged in or not
     public boolean isLoggedIn() {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREF_NAME_SESSION, Context.MODE_PRIVATE);
-        return sharedPreferences.getInt(KEY_CUSTOMER_ID, 0) != 0;
+        return sharedPreferences.getInt(KEY_TRADER_ID, 0) != 0;
     }
 
 //    public int getCustomerID(){
@@ -71,16 +70,16 @@ public class SharedPrefManager {
 //    }
 
     //this method will give the logged in user
-    public User getCustomer() {
+    public User getUser() {
 
         //int trader_id, String firstname, String lastname, String nrc, String gender, String mobile_number
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREF_NAME_SESSION, Context.MODE_PRIVATE);
         return new User(
-                sharedPreferences.getInt(KEY_CUSTOMER_ID, -1),
-                sharedPreferences.getString(KEY_FIRSTNAME, null),
-                sharedPreferences.getString(KEY_LASTNAME, null),
-                sharedPreferences.getString(KEY_NRC, null),
-                sharedPreferences.getString(KEY_GENDER, null),
+                sharedPreferences.getString(KEY_TRADER_ID, null),
+//                sharedPreferences.getString(KEY_FIRSTNAME, null),
+//                sharedPreferences.getString(KEY_LASTNAME, null),
+//                sharedPreferences.getString(KEY_NRC, null),
+               // sharedPreferences.getString(KEY_GENDER, null),
                 sharedPreferences.getString(KEY_MOBILE, null)
         );
     }

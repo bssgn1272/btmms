@@ -20,4 +20,17 @@
     <string name="login_failed">"Login failed"</string>
     <string name="mobile_no">Mobile no.:</string>
     <string name="title_activity_home">Home</string>
+    <string name="string_input_filter">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="new_password">New Password</string>
+    <string name="save">Save</string>
+    <string name="back">Back</string>
+    <string name="change_pin">Change Pin</string>
+    <string name="current_password">Current Password</string>
+    <string name="title_activity_test">test</string>
+    <string name="error_timeout">Network Timeout</string>
+    <string name="error_auth_failure">You have provided invalid information</string>
+    <string name="error_server">The server is not reachable</string>
+    <string name="error_network">No network connection</string>
+    <string name="error_parser">Cast to type not allowed</string>
 </resources>

@@ -17,7 +17,7 @@ class MarketCharges extends \yii\db\ActiveRecord {
      * {@inheritdoc}
      */
     public static function tableName() {
-        return 'market_charges';
+        return 'unza_transaction_charges';
     }
 
     /**
@@ -25,10 +25,10 @@ class MarketCharges extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['name', 'amount'], 'required'],
+            [['name', 'value'], 'required'],
             ['status', 'integer'],
             ['name', 'unique', 'message' => 'Market Charge already exists!'],
-            [['name', 'amount'], 'string', 'max' => 255],
+            [['name', 'value', 'charge_type', 'charge_frequency'], 'string', 'max' => 255],
         ];
     }
 
@@ -40,7 +40,9 @@ class MarketCharges extends \yii\db\ActiveRecord {
             'id' => 'ID',
             'name' => 'Name',
             'status' => 'Status',
-            'amount' => 'Amount',
+            'value' => 'Value',
+            'charge_type' => 'Charge type',
+            //'charge_frequency' => 'Charge Frequency',
         ];
     }
 

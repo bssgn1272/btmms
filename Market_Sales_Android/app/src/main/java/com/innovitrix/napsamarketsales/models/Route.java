@@ -1,28 +1,29 @@
 package com.innovitrix.napsamarketsales.models;
 
-import io.realm.RealmObject;
-
-public class Route extends RealmObject {
-
+public class Route {
 
     private int route_id;
-    private String name;
-    private String origin;
-    private String destination;
-    private double fare;
+    private String route_code;
+    private String route_name;
+    private String source_state;
+    private String start_route;
+    private String end_route;
 
     public Route() {
 
     }
-
-    public Route(int route_id, String name, String origin, String destination, double fare) {
+    public Route(int route_id, String route_code, String route_name, String source_state, String start_route, String end_route) {
         this.route_id = route_id;
-        this.name = name;
-        this.origin = origin;
-        this.destination = destination;
-        this.fare = fare;
+        this.route_code = route_code;
+        this.route_name = route_name;
+        this.source_state = source_state;
+        this.start_route = start_route;
+        this.end_route = end_route;
     }
+    public Route( String end_route) {
 
+        this.end_route = end_route;
+    }
     public int getRoute_id() {
         return route_id;
     }
@@ -31,35 +32,43 @@ public class Route extends RealmObject {
         this.route_id = route_id;
     }
 
-    public String getName() {
-        return name;
+    public String getRoute_code() {
+        return route_code;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRoute_code(String route_code) {
+        this.route_code = route_code;
     }
 
-    public String getOrigin() {
-        return origin;
+    public String getRoute_name() {
+        return route_name;
     }
 
-    public void setOrigin(String origin) {
-        this.origin = origin;
+    public void setRoute_name(String route_name) {
+        this.route_name = route_name;
     }
 
-    public String getDestination() {
-        return destination;
+    public String getSource_state() {
+        return source_state;
     }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
+    public void setSource_state(String source_state) {
+        this.source_state = source_state;
     }
 
-    public double getFare() {
-        return fare;
+    public String getStart_route() {
+        return start_route;
     }
 
-    public void setFare(double fare) {
-        this.fare = fare;
+    public void setStart_route(String start_route) {
+        this.start_route = start_route;
+    }
+
+    public String getEnd_route() {
+        return end_route;
+    }
+
+    public void setEnd_route(String end_route) {
+        this.end_route = end_route;
     }
 }

@@ -29,7 +29,7 @@ class Sales extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'transaction_summaries';
+        return 'unza_transaction_summaries';
     }
 
     /**

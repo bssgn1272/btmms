@@ -21,7 +21,7 @@ class Permissions extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'permissions';
+        return 'unza_permissions';
     }
 
     /**

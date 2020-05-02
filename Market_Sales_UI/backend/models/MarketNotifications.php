@@ -21,7 +21,7 @@ class MarketNotifications extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'market_notifications';
+        return 'unza_market_notifications';
     }
 
     /**

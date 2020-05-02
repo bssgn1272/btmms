@@ -42,9 +42,10 @@ class SetPasswordForm extends Model {
      */
     public function rules() {
         return [
+            ['password', 'string', 'min' => 8, 'message' => "password must have 8 characters minimum"],
+            ['password', 'match', 'pattern' => '/^.*(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/', 'message' => 'Password must contain atleast a lower & upper case character, a special case and a digit'],
             ['password', 'required'],
-            ['password', 'string', 'min' => 6],
-            ['confirm_password', 'string', 'min' => 6],
+            ['confirm_password', 'string', 'min' => 8],
             ['confirm_password', 'required'],
             ['confirm_password', 'compare', 'compareAttribute' => 'password', 'message' => "Passwords do not match!"]
         ];

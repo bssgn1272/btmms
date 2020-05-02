@@ -27,7 +27,7 @@ $this->registerJs("
 $this->beginPage()
 ?>
 <!doctype html>
-<html lang="en" class="fixed">
+<html lang="en" class="fixed sidebar-left-collapsed">
     <head>
         <?= Html::csrfMetaTags() ?>
         <!-- Basic -->
@@ -130,10 +130,13 @@ $this->beginPage()
                                     <!-------------------------------TRADERS MANAGEMENT STARTS----------------------->
                                     <?php
                                     if (User::userIsAllowedTo("Manage traders") || User::userIsAllowedTo("View traders") ||
-                                            User::userIsAllowedTo("View Trader sales")) {//||
+                                            User::userIsAllowedTo("View Trader sales")|| 
+                                            User::userIsAllowedTo("View market charge payments")|| 
+                                            User::userIsAllowedTo("View Market Charge collections")) {//||
                                         // User::userIsAllowedTo("Manage product categories") || User::userIsAllowedTo("View product categories")) {
-                                        if (Yii::$app->controller->id == "traders" ||
-                                                Yii::$app->controller->id == "sales"
+                                        if (Yii::$app->controller->id == "market-charge-collections" ||
+                                                Yii::$app->controller->id == "transactions"||
+                                                Yii::$app->controller->id == "market-charge-payments"
                                         ) {
                                             echo ' <li class="nav-parent nav-expanded nav-active">';
                                         } else {
@@ -142,30 +145,42 @@ $this->beginPage()
                                         ?>
                                         <a>
                                             <i class="fa fa-usd" aria-hidden="true"></i>
-                                            <span>Trader Management</span>
+                                            <span>Transactions</span>
                                         </a>
                                         <ul class="nav nav-children">
                                             <?php
-                                            if (User::userIsAllowedTo("Manage traders") || User::userIsAllowedTo("View traders")) {
-                                                if (Yii::$app->controller->id == "traders" &&
+                                            if (User::userIsAllowedTo("View market charge payments")) {
+                                                if (Yii::$app->controller->id == "market-charge-payments" &&
                                                         (Yii::$app->controller->action->id == "index" ||
                                                         Yii::$app->controller->action->id == "view" ||
                                                         Yii::$app->controller->action->id == "create" ||
                                                         Yii::$app->controller->action->id == "update")) {
-                                                    echo '<li class="nav-active">' . Html::a('Traders', ['traders/index'], []) . '</li>';
+                                                    echo '<li class="nav-active">' . Html::a('Market Payments', ['market-charge-payments/index'], []) . '</li>';
                                                 } else {
-                                                    echo '<li>' . Html::a('Traders', ['traders/index'], []) . '</li>';
+                                                    echo '<li>' . Html::a('Market Payments', ['market-charge-payments/index'], []) . '</li>';
                                                 }
                                             }
-                                            if (User::userIsAllowedTo("View Trader sales")) {
-                                                if (Yii::$app->controller->id == "sales" &&
+                                            if (User::userIsAllowedTo("Manage Market Charge collections") || User::userIsAllowedTo("View Market Charge collections")) {
+                                                if (Yii::$app->controller->id == "market-charge-collections" &&
                                                         (Yii::$app->controller->action->id == "index" ||
                                                         Yii::$app->controller->action->id == "view" ||
                                                         Yii::$app->controller->action->id == "create" ||
                                                         Yii::$app->controller->action->id == "update")) {
-                                                    echo '<li class="nav-active">' . Html::a('Sales', ['sales/index'], []) . '</li>';
+                                                    echo '<li class="nav-active">' . Html::a('Market Collections', ['market-charge-collections/index'], []) . '</li>';
                                                 } else {
-                                                    echo '<li>' . Html::a('Sales', ['sales/index'], []) . '</li>';
+                                                    echo '<li>' . Html::a('Market Collections', ['market-charge-collections/index'], []) . '</li>';
+                                                }
+                                            }
+
+                                            if (User::userIsAllowedTo("View Trader sales")) {
+                                                if (Yii::$app->controller->id == "transactions" &&
+                                                        (Yii::$app->controller->action->id == "index" ||
+                                                        Yii::$app->controller->action->id == "view" ||
+                                                        Yii::$app->controller->action->id == "create" ||
+                                                        Yii::$app->controller->action->id == "update")) {
+                                                    echo '<li class="nav-active">' . Html::a('Market Sales', ['transactions/index'], []) . '</li>';
+                                                } else {
+                                                    echo '<li>' . Html::a('Market Sales', ['transactions/index'], []) . '</li>';
                                                 }
                                             }
                                             /*
@@ -326,10 +341,11 @@ $this->beginPage()
                                     <!-------------------------------USER MANAGEMENT ENDS----------------------->
                                     <!-------------------------------CONFIGS STARTS----------------------->
                                     <?php
-                                    if (User::userIsAllowedTo("Manage market charges") || User::userIsAllowedTo("View market charges") ||
-                                            User::userIsAllowedTo("Manage market nofications") || User::userIsAllowedTo("View market notifications")) {
-                                        if (Yii::$app->controller->id == "market-charges" ||
-                                                // Yii::$app->controller->id == "roles" ||
+                                    if (User::userIsAllowedTo("Manage collection accounts") || User::userIsAllowedTo("View collection accounts") ||
+                                            User::userIsAllowedTo("Manage market nofications") || User::userIsAllowedTo("View market notifications") ||
+                                            User::userIsAllowedTo("Manage transaction charges") || User::userIsAllowedTo("View transaction charges")) {
+                                        if (Yii::$app->controller->id == "collection-accounts" ||
+                                                Yii::$app->controller->id == "transaction-charges" ||
                                                 //Yii::$app->controller->id == "permissions" ||
                                                 Yii::$app->controller->id == "market-notifications"
                                         ) {
@@ -344,17 +360,29 @@ $this->beginPage()
                                         </a>
                                         <ul class="nav nav-children">
                                             <?php
-                                            if (User::userIsAllowedTo("Manage market charges") || User::userIsAllowedTo("View market charges")) {
-                                                if (Yii::$app->controller->id == "market-charges" &&
+                                            if (User::userIsAllowedTo("Manage transaction charges") || User::userIsAllowedTo("View transaction charges")) {
+                                                if (Yii::$app->controller->id == "transaction-charges" &&
                                                         (Yii::$app->controller->action->id == "index" ||
                                                         Yii::$app->controller->action->id == "view" ||
                                                         Yii::$app->controller->action->id == "create" ||
                                                         Yii::$app->controller->action->id == "update")) {
-                                                    echo '<li class="nav-active">' . Html::a('Market Charges', ['market-charges/index'], []) . '</li>';
+                                                    echo '<li class="nav-active">' . Html::a('Transaction Charges', ['transaction-charges/index'], []) . '</li>';
                                                 } else {
-                                                    echo '<li>' . Html::a('Market Charges', ['market-charges/index'], []) . '</li>';
+                                                    echo '<li>' . Html::a('Transaction Charges', ['transaction-charges/index'], []) . '</li>';
                                                 }
                                             }
+                                            if (User::userIsAllowedTo("Manage collection accounts") || User::userIsAllowedTo("View collection accounts")) {
+                                                if (Yii::$app->controller->id == "collection-accounts" &&
+                                                        (Yii::$app->controller->action->id == "index" ||
+                                                        Yii::$app->controller->action->id == "view" ||
+                                                        Yii::$app->controller->action->id == "create" ||
+                                                        Yii::$app->controller->action->id == "update")) {
+                                                    echo '<li class="nav-active">' . Html::a('Collection Accounts', ['collection-accounts/index'], []) . '</li>';
+                                                } else {
+                                                    echo '<li>' . Html::a('Collection Accounts', ['collection-accounts/index'], []) . '</li>';
+                                                }
+                                            }
+
                                             if (User::userIsAllowedTo("Manage market nofications") || User::userIsAllowedTo("View market notifications")) {
                                                 if (Yii::$app->controller->id == "market-notifications" &&
                                                         (Yii::$app->controller->action->id == "index" ||

@@ -20,7 +20,7 @@ class PermissionsToRoles extends \yii\db\ActiveRecord {
      * {@inheritdoc}
      */
     public static function tableName() {
-        return 'permission_to_roles';
+        return 'unza_permission_to_roles';
     }
 
     /**

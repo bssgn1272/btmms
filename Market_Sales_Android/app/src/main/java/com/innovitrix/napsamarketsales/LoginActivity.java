@@ -42,6 +42,7 @@ import com.innovitrix.napsamarketsales.network.VolleySingleton;
 //import com.innovitrix.napsamarketsales.;
 //import com.innovitrix.reards.models.Customer;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -51,11 +52,19 @@ import java.util.Map;
 
 
 import static com.innovitrix.napsamarketsales.network.NetworkMonitor.checkNetworkConnection;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_FIRSTNAME;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_LASTNAME;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_MESSAGE;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_MOBILE;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_PASSWORD;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_STATUS;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_TRADER_ID;
+import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_AUTHENTICATE_MARKETER;
+import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_CHAR_AMPERSAND;
 import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_CHAR_QUESTION;
-import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_LOGIN;
+import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_MARKETER_KYC;
 import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_PARAM_MOBILE_NUMBER;
+import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_PARAM_PIN;
 import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_USERS;
 
 /*import static com.innovitrix.reards.network.NetworkMonitor.checkNetworkConnection;
@@ -75,13 +84,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView textRegisterLink, textPassRestLink,textCardSingInLink;
 
     ProgressBar progressBar;
-
+    ProgressDialog progressDialog;
     public String TAG_FIREBASE = "Firebase";
     private String TAG = LoginActivity.class.getSimpleName();
 
     String androidDeviceId, deviceSerial, deviceName, serialNumber;
 
-    ProgressDialog progressDialog;
+    String email_or_mobile;
+   String password;
 
     int mobile_number_char;
     String blockCharacterSet = "123456789";
@@ -92,10 +102,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //initializing views
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
-        //editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
 
         buttonLogin = findViewById(R.id.buttonLogin);
         buttonLogin.setOnClickListener(this);
@@ -108,8 +118,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //textRegisterLink = (TextView) findViewById(R.id.linkSignup);
         //textRegisterLink.setOnClickListener(this);
 
-        //textPassRestLink = (TextView) findViewById(R.id.linkPasswordReset);
-        //textPassRestLink.setOnClickListener(this);
+        textPassRestLink = (TextView) findViewById(R.id.linkPasswordReset);
+        textPassRestLink.setOnClickListener(this);
        editTextEmail.addTextChangedListener(new LoginActivity.PhoneNumberTextWatcher());
        editTextEmail.setFilters(new InputFilter[]{new LoginActivity.PhoneNumberFilter(), new InputFilter.LengthFilter(10)});
 
@@ -126,19 +136,36 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
 
+        editTextEmail.requestFocus();
         if (!checkNetworkConnection(LoginActivity.this)) {
 
-        //    DialogBox.mLovelyStandardDialog(LoginActivity.this, R.string.error_timeout);
+           //DialogBox.mLovelyStandardDialog(LoginActivity.this, R.string..error_timeout);
 
         }
+        textPassRestLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this,ResetPin.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
     private void userLogin() {
 
+        email_or_mobile = editTextEmail.getText().toString().trim();
+        password = editTextPassword.getText().toString().trim();
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+    }
+
+
+    //Live
+    private void userLogin_Live() {
+
         //getting values from edit texts
-        final String email_or_mobile = editTextEmail.getText().toString().trim();
-       // final String password = editTextPassword.getText().toString().trim();
+       email_or_mobile = editTextEmail.getText().toString().trim();
+         password = editTextPassword.getText().toString().trim();
 
 
         //validating inputs
@@ -153,101 +180,249 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-//        if (TextUtils.isEmpty(password)) {
-//            editTextPassword.setError("Please enter your password");
-//            editTextPassword.requestFocus();
-//            return;
-//        }
+       if (TextUtils.isEmpty(password)) {
+            editTextPassword.setError("Please enter your password");
+            editTextPassword.requestFocus();
+            return;
+        }
 
 
         progressBar.setVisibility(View.VISIBLE);
 
-        //creating a string request
+        ///prepare your JSONObject which you want to send in your web service request
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_USERS +
-                URL_CHAR_QUESTION +
-                URL_PARAM_MOBILE_NUMBER +  "26"+email_or_mobile
-                //URL_CHAR_AMPERSAND +
-                //URL_PARAM_USER_ID + 1
-                ,null,
+        JSONObject jsonAuthObject = new JSONObject();
+        try {
+            jsonAuthObject.put("username","admin");
+            jsonAuthObject.put("service_token","JJ8DJ7S66DMA5");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        //PAYLOAD
+        JSONObject jsonPayloadObject = new JSONObject();
+        try {
+            jsonPayloadObject.put("mobile","26" +email_or_mobile);
+            jsonPayloadObject.put("pin", password);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        ///prepare your JSONObject which you want to send in your web service request
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("auth",jsonAuthObject);
+            jsonObject.put("payload",jsonPayloadObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        // prepare the Request
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL_AUTHENTICATE_MARKETER, jsonObject,
                 new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
+                    @Override
+                    public void onResponse(JSONObject response) {
 
-                progressBar.setVisibility(View.GONE);
+                        //Do stuff here
+                        // display response
+
+                        Log.d("Response", response.toString());
+                        progressBar.setVisibility(View.GONE);
 
                         try {
                             //converting response to json object
                             JSONObject obj = new JSONObject(String.valueOf(response));
-                            //Check if the object if the object is null.
-                            if (!obj.isNull("users")){
-                            //    Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+
+
+                            //Check if the object has the key.
+                           if(obj.getJSONObject("response").has("AUTHENTICATION")){
+
+
+                                //    Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
 
                                 //getting the user from the response
+                               // DialogBox.mLovelyStandardDialog(LoginActivity.this,obj.getJSONObject("response").getJSONObject("AUTHENTICATION").getJSONObject("data").getString(KEY_MESSAGE));
 
-                                JSONObject currentUser = obj.getJSONObject("users");
+                                JSONObject currentUser = obj.getJSONObject("response").getJSONObject("AUTHENTICATION").getJSONObject("data");
                                 //creating a new user object
                                 com.innovitrix.napsamarketsales.models.User mUser = new com.innovitrix.napsamarketsales.models.User(
-                                        currentUser.getInt("trader_id"),
-                                        currentUser.getString("firstname"),
-                                        currentUser.getString("lastname"),
-                                        currentUser.getString("nrc"),
-                                        currentUser.getString("gender"),
-                                        currentUser.getString("mobile_number")
+                                        currentUser.getString("uuid"),
+//                                        currentUser.getString("first_name"),
+//                                        currentUser.getString("last_name"),
+//                                        currentUser.getString("nrc"),
+                                        currentUser.getString("mobile")
+
                                 );
 
-                                //storing the user in shared preferences
+                                  //storing the user in shared preferences
                                 //SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
                                 SharedPrefManager.getInstance(getApplicationContext()).storeCurrentUser(mUser);
-                                //starting profile activity
-                                finish();
-                                //   startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                                //starting main activity
 
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                               String ot =  obj.getJSONObject("response").getJSONObject("AUTHENTICATION").getJSONObject("data").getString("account_status");
+                               if (ot.equals("OTP")) {
+                                   //getting the user from the response
+                                   Intent intent = new Intent(getApplicationContext(), ChangePin.class);
+                                   intent.putExtra(KEY_PASSWORD, password);
+                                   intent.putExtra(KEY_MOBILE, "26" + email_or_mobile);//TODO change
+                                   startActivity(intent);
+                               }
+                               else
+                                   {
+                                   startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                               }
+                           }
+                           else
+                                {
 
+                                 // DialogBox.mLovelyStandardDialog(LoginActivity.this,obj.getJSONObject("response").getJSONObject("error").getJSONObject("message").getString(KEY_MESSAGE));
+                                  progressBar.setVisibility(View.GONE);
+                                    fetchTrader();
+                             }
+                        } catch (JSONException e) {
+                          DialogBox.mLovelyStandardDialog(LoginActivity.this,e.getMessage());
+                            //progressBar.setVisibility(View.GONE);
+
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error.Response", error.toString());
+         //       Log.d("Error.Response", error.getMessage());
+             //   startActivity(new Intent(LoginActivity.this, MainActivity.class)); //TODO Change when the API server is reachable
+
+                DialogBox.mLovelyStandardDialog(LoginActivity.this,   "Server unreachable");
+                progressBar.setVisibility(View.GONE);
+                // Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                // params.put("username", trader_id);
+                //params.put("email", firstname);
+                // params.put("password", lastname);
+                params.put("mobile_number", email_or_mobile );
+                return params;
+            }
+        };
+
+        //  VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    public void fetchTrader() {
+
+        //    progressDialog.show();
+
+
+        JSONObject jsonAuthObject = new JSONObject();
+        try {
+            jsonAuthObject.put("username", "admin");
+            jsonAuthObject.put("service_token", "JJ8DJ7S66DMA5");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        //PAYLOAD
+        JSONObject jsonPayloadObject = new JSONObject();
+        try {
+            jsonPayloadObject.put("mobile", "26" +email_or_mobile);
+            //  jsonPayloadObject.put("pin", password);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        ///prepare your JSONObject which you want to send in your web service request
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("auth", jsonAuthObject);
+            jsonObject.put("payload", jsonPayloadObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        // prepare the Request
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL_MARKETER_KYC, jsonObject,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        //Do stuff here
+                        // display response
+
+                        Log.d("Response", response.toString());
+                        progressBar.setVisibility(View.GONE);
+
+                        try {
+                            //converting response to json object
+                            JSONObject obj = new JSONObject(String.valueOf(response));
+
+
+                            //Check if the object has the key.
+                            if (obj.getJSONObject("response").has("QUERY"))
+                                                        {
+                                String ot =  obj.getJSONObject("response").getJSONObject("QUERY").getJSONObject("data").getString("account_status");
+                                if (ot.equals("OTP")) {
+                                    //getting the user from the response
+                                    Intent intent = new Intent(getApplicationContext(), ChangePin.class);
+                                    intent.putExtra(KEY_PASSWORD, password);
+                                    intent.putExtra(KEY_MOBILE, "26" + email_or_mobile);//TODO change
+                                    startActivity(intent);
+                                }
+                                else
+                                {
+                                    DialogBox.mLovelyStandardDialog(LoginActivity.this, "Wrong mobile number or pin!");
+
+                                }
                             } else {
 
-                                    DialogBox.mLovelyStandardDialog(LoginActivity.this, response.getString(KEY_MESSAGE));
-                                    // startActivity(new Intent( BuyFromTrader.this,MainActivity.class));
-
+                                    DialogBox.mLovelyStandardDialog(LoginActivity.this, "Wrong mobile number or pin!");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
-                        DialogBox.mLovelyStandardDialog(LoginActivity.this,error.getMessage());
-
-                       // Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show()
+                        //Handle Errors here
+                        progressDialog.dismiss();
+                        Log.d("Error.Response", error.toString());
+                        //Log.d("Error.Response", error.getMessage());
+                        DialogBox.mLovelyStandardDialog(LoginActivity.this,"Server unreachable.");
+                        // startActivity(new Intent( BuyFromTrader.this,MainActivity.class));
                     }
                 }) {
             @Override
-
-
-
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-               // params.put("username", trader_id);
+                // params.put("username", trader_id);
                 //params.put("email", firstname);
-               // params.put("password", lastname);
-                params.put("mobile_number", email_or_mobile );
-               return params;
+                // params.put("password", lastname);
+                params.put("mobile_number",email_or_mobile);
+                return params;
             }
         };
 
-      //  VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
+        //  VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
 
     }
-
-
-
-
 
 
     @Override
@@ -264,7 +439,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
            // startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
         } else if (view == textPassRestLink) {
             finish();
-          //  startActivity(new Intent(getApplicationContext(), PasswordResetRequestActivity.class));
+           startActivity(new Intent(getApplicationContext(), ResetPin.class));
         }
     }
     public class PhoneNumberTextWatcher implements TextWatcher {

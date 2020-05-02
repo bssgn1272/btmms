@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="100"
+    >
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardViewMarketStand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        cardview:cardCornerRadius="2dp"
+        android:foreground="?android:attr/selectableItemBackground">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100"
+            android:gravity="center_vertical">
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+               />
+
+            <TextView
+                android:id="@+id/textView_Market_Stand_Number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="30"
+                android:gravity="left"
+                android:text="Stand No.  : "
+                android:paddingLeft="10dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_weight="4"/>
+
+            <TextView
+                android:id="@+id/textView_Market_Stand_Price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="30"
+                android:gravity="left"
+                android:text="Price : ZMW "
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_weight="4"/>
+
+            <TextView
+                android:id="@+id/textView_Market_Stand_Message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="40"
+                android:gravity="center_horizontal"
+
+                android:text="Select To Pay"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

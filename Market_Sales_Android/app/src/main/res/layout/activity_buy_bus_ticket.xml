@@ -5,28 +5,112 @@
     android:id="@+id/activity_buy_bus_ticket"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop = "@dimen/activity_top_margin"
-    android:paddingBottom = "@dimen/activity_bottom_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_top_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_bottom_margin"
     tools:context=".BuyBusTicketActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <SearchView
-            android:id="@+id/searchview_route"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:queryHint="Search Here"
-            android:iconifiedByDefault="false"
-            android:layout_alignParentTop="true"
-            />
+            android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-        android:id="@+id/recylerview_route"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Buy Bus Ticket"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/start_route"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:padding="5dp"
+                android:spinnerMode="dropdown" />
+
+            <Spinner
+                android:id="@+id/end_route"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:padding="5dp"
+                android:spinnerMode="dropdown" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="When do you want to travel?"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/groupradio"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp">
+
+                <!-- In RadioGroup create the 1 Radio Button-->
+                <!-- like this we will add some more Radio Button-->
+
+
+                <RadioButton
+                    android:id="@+id/radio_today"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Today"
+                    android:textSize="18dp" />
+
+                <RadioButton
+                    android:id="@+id/radio_tomorrow"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tomorrow"
+                    android:textSize="18dp" />
+            </RadioGroup>
+
+
+            <Button
+                android:id="@+id/buttonPay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:clickable="true"
+                android:enabled="true"
+                android:padding="12dp"
+                android:shadowRadius="5"
+                android:text="Submit" />
+
+        <!--    <SearchView
+                android:id="@+id/searchview_route"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:iconifiedByDefault="false"
+                android:queryHint="Search Here" />
+-->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recylerview_route"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

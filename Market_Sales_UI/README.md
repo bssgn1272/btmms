@@ -73,7 +73,7 @@ its configured as the home directory in the app itself otherwise you face issues
         Above command intializes the app. The app will ask you whether you want to setup the app as Production 
         or Development environment. Choose [1] Production if you are deploying in production otherwise select 
         [0] Development if you developing on your local machine.
- - We have deliberately disabled the ognoring of certain files by git so that we do not have to reconfigure the app 
+ - We have deliberately disabled the ignoring of certain files by git so that we do not have to reconfigure the app 
    everytime we clone from github hence the initialization will ask you to overwrite certain files, just Select no for
    all requests.
 3. Once the initialization is done, run below command to download app dependancies

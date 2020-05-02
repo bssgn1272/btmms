@@ -62,14 +62,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'label' => 'Marketeer number',
                     'readonly' => true,
                     'format' => 'raw',
-					'value'=>function($model){
-						$mobile="";
-						$trader=backend\models\Traders::findOne(['trader_id'=>$model->marketeer_id]);
-						if(!empty($trader)){
-							$mobile=$trader->mobile_number;
-						}
-						return $mobile;
-					},
+                    'value' => function($model) {
+                        $mobile = "";
+                        $trader = backend\models\Traders::findOne(['trader_id' => $model->marketeer_id]);
+                        if (!empty($trader)) {
+                            $mobile = $trader->mobile_number;
+                        }
+                        return $mobile;
+                    },
                     'options' => ['style' => 'font-size:12px;width:230px;'],
                     'attribute' => 'marketeer_id',
                     'filterType' => GridView::FILTER_SELECT2,
@@ -101,23 +101,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 'date_created',
                 //'date_modified',
                 ['class' => ActionColumn::className(), 'template' => '{view}',
-                            'buttons' => [
-                               
-                                'view' => function ($url, $model) {
-                                        return Html::a(
-                                                        '<span class="fa fa-eye"></span>', ['view', 'id' => $model->cart_id], [
-                                                    'title' => 'View',
-                                                    'data-toggle' => 'tooltip',
-                                                    'data-placement' => 'top',
-                                                    'data-pjax' => '0',
-                                                    'style' => "padding:5px;",
-                                                    'class' => 'bt btn-lg'
-                                                        ]
-                                        );
-                                    
-                                },
-                            ]
-                        ],
+                    'buttons' => [
+                        'view' => function ($url, $model) {
+                            return Html::a(
+                                            '<span class="fa fa-eye"></span>', ['view', 'id' => $model->cart_id], [
+                                        'title' => 'View',
+                                        'data-toggle' => 'tooltip',
+                                        'data-placement' => 'top',
+                                        'data-pjax' => '0',
+                                        'style' => "padding:5px;",
+                                        'class' => 'bt btn-lg'
+                                            ]
+                            );
+                        },
+                    ]
+                ],
             ],
         ]);
         ?>

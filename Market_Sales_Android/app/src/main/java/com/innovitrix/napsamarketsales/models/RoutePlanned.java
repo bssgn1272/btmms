@@ -1,26 +1,42 @@
 package com.innovitrix.napsamarketsales.models;
 
 public class RoutePlanned {
+    private int available_seats;
     private String company;
-    private String bus_license_plate;
+    private String license_plate;
     private int operator_id;
-    private double bus_fare;
+    private int vehicle_capacity;
+    private int bus_schedule_id;
+    private String  departure_date;
+    private String departure_time;
+    private double fare;
     private String route_code;
     private String route_name;
-    private String start_route;
-    private String end_route;
+
 
     public RoutePlanned() {
     }
-    public RoutePlanned(String company, String bus_license_plate, int operator_id, double bus_fare, String route_code, String route_name, String start_route, String end_route) {
+
+    public RoutePlanned(int available_seats, String company, String license_plate, int operator_id, int vehicle_capacity, int bus_schedule_id, String departure_date, String departure_time, double fare, String route_code, String route_name) {
+        this.available_seats = available_seats;
         this.company = company;
-        this.bus_license_plate = bus_license_plate;
+        this.license_plate = license_plate;
         this.operator_id = operator_id;
-        this.bus_fare = bus_fare;
+        this.vehicle_capacity = vehicle_capacity;
+        this.bus_schedule_id = bus_schedule_id;
+        this.departure_date = departure_date;
+        this.departure_time = departure_time;
+        this.fare = fare;
         this.route_code = route_code;
         this.route_name = route_name;
-        this.start_route = start_route;
-        this.end_route = end_route;
+    }
+
+    public int getAvailable_seats() {
+        return available_seats;
+    }
+
+    public void setAvailable_seats(int available_seats) {
+        this.available_seats = available_seats;
     }
 
     public String getCompany() {
@@ -31,12 +47,12 @@ public class RoutePlanned {
         this.company = company;
     }
 
-    public String getBus_license_plate() {
-        return bus_license_plate;
+    public String getLicense_plate() {
+        return license_plate;
     }
 
-    public void setBus_license_plate(String bus_license_plate) {
-        this.bus_license_plate = bus_license_plate;
+    public void setLicense_plate(String license_plate) {
+        this.license_plate = license_plate;
     }
 
     public int getOperator_id() {
@@ -47,12 +63,44 @@ public class RoutePlanned {
         this.operator_id = operator_id;
     }
 
-    public double getBus_fare() {
-        return bus_fare;
+    public int getVehicle_capacity() {
+        return vehicle_capacity;
     }
 
-    public void setBus_fare(double bus_fare) {
-        this.bus_fare = bus_fare;
+    public void setVehicle_capacity(int vehicle_capacity) {
+        this.vehicle_capacity = vehicle_capacity;
+    }
+
+    public int getBus_schedule_id() {
+        return bus_schedule_id;
+    }
+
+    public void setBus_schedule_id(int bus_schedule_id) {
+        this.bus_schedule_id = bus_schedule_id;
+    }
+
+    public String getDeparture_date() {
+        return departure_date;
+    }
+
+    public void setDeparture_date(String departure_date) {
+        this.departure_date = departure_date;
+    }
+
+    public String getDeparture_time() {
+        return departure_time;
+    }
+
+    public void setDeparture_time(String departure_time) {
+        this.departure_time = departure_time;
+    }
+
+    public double getFare() {
+        return fare;
+    }
+
+    public void setFare(double fare) {
+        this.fare = fare;
     }
 
     public String getRoute_code() {
@@ -69,22 +117,6 @@ public class RoutePlanned {
 
     public void setRoute_name(String route_name) {
         this.route_name = route_name;
-    }
-
-    public String getStart_route() {
-        return start_route;
-    }
-
-    public void setStart_route(String start_route) {
-        this.start_route = start_route;
-    }
-
-    public String getEnd_route() {
-        return end_route;
-    }
-
-    public void setEnd_route(String end_route) {
-        this.end_route = end_route;
     }
 }
 

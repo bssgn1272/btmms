@@ -11,8 +11,16 @@
     <color name="darkblue">#23283a</color>
     <color name="testcolorblue">#152b38</color>
     <color name="pink">#fe104d</color>
+    <color name="borderColor">#0274be</color>
 
     <color name="black_overlay">#66000000</color>
+    <color name="napsablueinside">#0000E6</color>
+    <color name="napsayellow">#FFB536</color>
+    <color name="napsablue">#4E5249</color>
+
+    <color name="lightYellow">#ffffb3</color>
+    <color name="mediumYellow">#ffdf80</color>
+    <color name="darkYellow">#ffd24d</color>
 
 
 <!--COLORS-->

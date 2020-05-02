@@ -8,12 +8,11 @@ use yii\grid\ActionColumn;
 use yii\widgets\ActiveForm;
 use yii\widgets\Pjax;
 
-
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\MarketChargesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Market Charges';
+$this->title = 'Transaction Charges';
 $this->params['breadcrumbs'][] = $this->title;
 $read_only = TRUE;
 ?>
@@ -45,19 +44,49 @@ $read_only = TRUE;
                 [
                     'class' => EditableColumn::className(),
                     'enableSorting' => true,
-                    'label' => 'Amount',
+                    'label' => 'Value',
                     'readonly' => $read_only,
                     'format' => 'raw',
-                    'attribute' => 'amount',
+                    'attribute' => 'value',
                     'value' => function($model) {
-                        $str = "K" . $model->amount;
-                        if (substr($model->amount, 0, 1) === "K" || substr($model->amount, 0, 1) === "k") {
-                            $str = $model->amount;
-                        }
+                        $str = $model->value;
+                        /* if (substr($model->value, 0, 1) === "K" || substr($model->value, 0, 1) === "k") {
+                          $str = $model->value;
+                          } */
                         return $str;
                     },
                     'refreshGrid' => true,
                 ],
+                [
+                    'class' => EditableColumn::className(),
+                    'enableSorting' => true,
+                    'editableOptions' => [
+                        'asPopover' => false,
+                        'options' => ['class' => 'form-control', 'prompt' => 'Select Status...'],
+                        'inputType' => Editable::INPUT_DROPDOWN_LIST,
+                        'data' => ['Percentage' => 'Percentage', 'Amount' => 'Amount'],
+                    ],
+                    'label' => 'Charge Type',
+                    'readonly' => $read_only,
+                    'format' => 'raw',
+                    'attribute' => 'charge_type',
+                    'refreshGrid' => true,
+                ],
+                /* [
+                  'class' => EditableColumn::className(),
+                  'enableSorting' => true,
+                  'editableOptions' => [
+                  'asPopover' => false,
+                  'options' => ['class' => 'form-control', 'prompt' => 'Select Status...'],
+                  'inputType' => Editable::INPUT_DROPDOWN_LIST,
+                  'data' => ['Transactional'=>'Transactional','daily' => 'daily','weekly' => 'weekly',  'monthly'=> 'monthly'],
+                  ],
+                  'label' => 'Charge Frequency',
+                  'readonly' => $read_only,
+                  'format' => 'raw',
+                  'attribute' => 'charge_frequency',
+                  'refreshGrid' => true,
+                  ], */
                 [
                     //  'class' => EditableColumn::className(),
                     'attribute' => 'status',
@@ -84,6 +113,25 @@ $read_only = TRUE;
                     'format' => 'raw',
                     'refreshGrid' => true,
                 ],
+                ['class' => ActionColumn::className(),
+                    'template' => '{view}',
+                    'buttons' => [
+                        'view' => function ($url, $model) {
+                            if (backend\models\User::userIsAllowedTo('View transaction charges')) {
+                                return Html::a(
+                                                '<span class="fa fa-eye"></span>', ['view', 'id' => $model->id], [
+                                            'title' => 'Update',
+                                            'data-toggle' => 'tooltip',
+                                            'data-placement' => 'top',
+                                            'data-pjax' => '0',
+                                            'style' => "padding:5px;",
+                                            'class' => 'bt btn-lg'
+                                                ]
+                                );
+                            }
+                        },
+                    ]
+                ]
             ],
         ]);
         ?>
@@ -101,27 +149,38 @@ $read_only = TRUE;
                     </h2>
                 </header>
                 <div class="modal-body">
-                    <p class="alert alert-success">Add Market charge. Fields marked in <i style="color:red;">RED</i> are required</p>
-                    <?php
-                    $form = ActiveForm::begin([
-                                'action' => 'create',
-                                'fieldConfig' => [
-                                    'options' => [
-                                    ],
-                                ],
-                    ]);
-                    ?>
+                    <p class="alert alert-success">Add Transaction charge. Fields marked in <i style="color:red;">RED</i> are required</p>
+<?php
+$form = ActiveForm::begin([
+            'action' => 'create',
+            'fieldConfig' => [
+                'options' => [
+                ],
+            ],
+        ]);
+?>
                     <?=
                     $form->field($model, 'name', ['enableAjaxValidation' => true])->textInput(['maxlength' => true, 'placeholder' => 'Charge name', 'class' => 'form-control', 'required' => false]);
                     ?>
                     <?=
-                    $form->field($model, 'amount')->textInput(['maxlength' => true, 'placeholder' => 'Amount', 'class' => 'form-control', 'required' => false]);
+                    $form->field($model, 'value')->textInput(['maxlength' => true, 'placeholder' => 'Amount', 'class' => 'form-control', 'required' => false]);
                     ?>
+                    <?=
+                    $form->field($model, 'charge_type', ['enableAjaxValidation' => true])->dropDownList(
+                            [
+                        'Percentage' => 'Percentage', 'Amount' => 'Amount'
+                            ]
+                            , ['prompt' => 'Select Charge type', 'maxlength' => true, 'required' => true]);
+                    ?>
+                    <?php /* echo $form->field($model, 'charge_frequency', ['enableAjaxValidation' => true])->dropDownList(
+                      ['Transactional'=>'Transactional','daily' => 'daily','weekly' => 'weekly',  'monthly'=> 'monthly']
+                      , ['prompt' => 'Select Charge frequency', 'maxlength' => true, 'required' => true]);
+                     */ ?>
                 </div>
                 <footer class="panel-footer">
                     <div class="row">
                         <div class="col-md-12">
-                            <?= Html::submitButton('Add Charge', ['class' => 'btn btn-warning btn-sm']) ?>
+<?= Html::submitButton('Add Charge', ['class' => 'btn btn-warning btn-sm']) ?>
 <?php ActiveForm::end(); ?>
                         </div>
                     </div>

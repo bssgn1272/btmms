@@ -22,7 +22,7 @@ class Image extends \yii\db\ActiveRecord {
      * {@inheritdoc}
      */
     public static function tableName() {
-        return 'image';
+        return 'unza_image';
     }
 
     /**

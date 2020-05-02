@@ -338,8 +338,20 @@ $app->post('/token_redemption', function () use ($app) {
 //************************REWARD CAMPAIGNS***************************//
 //************************END OF REWARD CAMPAIGNS***************************//
 
-//************************REDEEMED REWARDS***************************//
-//************************END OF REDEEMED REWARDS***************************//
+//************************MARKET FEES***************************//
+$app->get('/market_fee', function () use ($app) {
+
+    //verifyRequiredParams(array('seller_mobile_number'));
+
+    $seller_mobile_number = $app->request->get('seller_mobile_number');
+    //$buyer_mobile_number = $app->request->get('buyer_mobile_number');
+
+    $db = new DbHandler();
+
+    $db->getAllPendingMarketCharges($seller_mobile_number );
+
+});
+//************************END OF MARKET FEES***************************//
 
 //************************TRANSACTION***************************//
 $app->get('/transactions', function () use ($app) {
@@ -354,6 +366,21 @@ $app->get('/transactions', function () use ($app) {
 
     $multiple_result = true;
     $db->getAllTransactions($cart_id ,$seller_id ,$buyer_id ,$seller_mobile_number ,$buyer_mobile_number ,$multiple_result);
+
+});
+
+$app->get('/summary_transactions', function () use ($app) {
+
+    $cart_id = $app->request->get('cart_id');
+    $seller_id = $app->request->get('seller_id');
+    $period = $app->request->get('period');
+    $seller_mobile_number = $app->request->get('seller_mobile_number');
+    $buyer_mobile_number = $app->request->get('buyer_mobile_number');
+
+    $db = new DbHandler();
+
+    $multiple_result = true;
+    $db->getAllTransactionsSummary($period ,$seller_mobile_number);
 
 });
 
@@ -392,19 +419,30 @@ $app->post('/transactions', function () use ($app) {
 
     $transaction_type_id = $transactions_json_obj['transaction_type_id'];
     $seller_id = isset($transactions_json_obj['seller_id']) ? $transactions_json_obj['seller_id'] : null;
-    $seller_name = isset($transactions_json_obj['seller_name']) ? $transactions_json_obj['seller_name'] : null;
+    $seller_firstname = isset($transactions_json_obj['seller_firstname']) ? $transactions_json_obj['seller_firstname'] : null;
+    $seller_lastname = isset($transactions_json_obj['seller_lastname']) ? $transactions_json_obj['seller_lastname'] : null;
     $seller_mobile_number = isset($transactions_json_obj['seller_mobile_number']) ? $transactions_json_obj['seller_mobile_number'] : null;
     $buyer_id = isset($transactions_json_obj['buyer_id']) ? $transactions_json_obj['buyer_id'] : null;
-    $buyer_name = isset($transactions_json_obj['buyer_name']) ? $transactions_json_obj['buyer_name'] : null;
+    $buyer_firstname = isset($transactions_json_obj['buyer_firstname']) ? $transactions_json_obj['buyer_firstname'] : null;
+    $buyer_lastname = isset($transactions_json_obj['buyer_lastname']) ? $transactions_json_obj['buyer_lastname'] : null;
     $buyer_mobile_number = isset($transactions_json_obj['buyer_mobile_number']) ? $transactions_json_obj['buyer_mobile_number'] : null;
+    $buyer_email = isset($transactions_json_obj['buyer_email']) ? $transactions_json_obj['buyer_email'] : null;
     $amount = $transactions_json_obj['amount_due'];
     $device_serial = $transactions_json_obj['device_serial'];
     $transaction_date = $transactions_json_obj['transaction_date'];
+
+    $route_code = isset($transactions_json_obj['route_code']) ? $transactions_json_obj['route_code'] : null;
+    $transaction_channel = isset($transactions_json_obj['transaction_channel']) ? $transactions_json_obj['transaction_channel'] : null;
+    $id_type = isset($transactions_json_obj['id_type']) ? $transactions_json_obj['id_type'] : null;
+    $passenger_id = isset($transactions_json_obj['passenger_id']) ? $transactions_json_obj['passenger_id'] : null;
+    $travel_date = isset($transactions_json_obj['travel_date']) ? $transactions_json_obj['travel_date'] : null;
+    $travel_time = isset($transactions_json_obj['travel_time']) ? $transactions_json_obj['travel_time'] : null;
+    $bus_schedule_id = isset($transactions_json_obj['bus_schedule_id']) ? $transactions_json_obj['bus_schedule_id'] : null;
     //$transaction_details = isset($transactions_json_obj['transaction_details']) ? $transactions_json_obj['transaction_details'] : null;
 
     $db = new DbHandler();
 
-    $db->createTransactionsSummaries($transaction_type_id, $seller_id, $seller_name, $seller_mobile_number, $buyer_id, $buyer_name, $buyer_mobile_number, $amount, $device_serial, $transaction_date);
+    $db->createTransactionsSummaries($transaction_type_id,$route_code,$transaction_channel,$id_type,$passenger_id,$bus_schedule_id,$travel_date,$travel_time, $seller_id, $seller_firstname,$seller_lastname, $seller_mobile_number, $buyer_id,  $buyer_firstname,$buyer_lastname,$buyer_mobile_number, $buyer_email,$amount, $device_serial, $transaction_date);
 
 });
 
@@ -537,7 +575,7 @@ $app->post('/debit_callback', function () use ($app) {
     $json_object = json_decode(file_get_contents('php://input'), true);
 
     //WRITE A MESSAGE TO A FILE IN THE SAME DIRECTORY
-    $file = __DIR__ . '/debit_callback_capture.txt';
+    $file = __DIR__ . '/3-debit_callback_capture.txt';
 
     $date = 'Script was executed at ' . date('d/m/Y H:i:s') . "\n" . json_encode($json_object) . "\n" . "\n";
 
@@ -546,13 +584,16 @@ $app->post('/debit_callback', function () use ($app) {
 
     $db = new DbHandler();
 
-    $json_object = json_decode(file_get_contents('php://input'), true);
+    $debt_callback_response = file_get_contents('php://input');
+    $json_object = json_decode($debt_callback_response, true);
+
     $msg = isset($json_object['msg']) ? $json_object['msg']: null;
     $reference = isset($json_object['reference']) ? $json_object['reference']: null;
     $code = isset($json_object['code']) ? $json_object['code']: null;
     $system_code = isset($json_object['system_code']) ? $json_object['system_code']: null;
     $transactionID = isset($json_object['transactionID']) ? $json_object['transactionID']: null;
 
+    $db->updateTransactionDebitCallbackLog($reference,$debt_callback_response);
     $db->updateTransactionDebitCallbackDetails($msg,$reference,$code,$system_code,$transactionID);
 
     //echoResponse(201, $json_object);
@@ -589,6 +630,15 @@ $app->post('/SMS', function () use ($app) {
 });
 
 
+$app->get('/marketeer_kyc', function () use ($app) {
+
+    $db = new DbHandler();
+
+    $result = $db->fetchMarketeerKYC();
+
+    echoResponse(200, $result);
+
+});
 
 $app->get('/test', function () use ($app) {
 
@@ -634,57 +684,7 @@ $app->put('/test', function () use ($app) {
 });
 //************************END OF TRANSACTION***************************//
 
-//************************ROUTES***************************//
-$app->get('/routes', function () use ($app) {
 
-    $route_id = $app->request->get('route_id');
-
-    $db = new DbHandler();
-
-    $multiple_result = false;
-    $db->getAllRoutes();
-
-});
-//************************END OF ROUTES***************************//
-
-//************************ROUTES***************************//
-$app->get('/departure_times', function () use ($app) {
-
-    $route_id = $app->request->get('route_code');
-
-    $db = new DbHandler();
-
-    $multiple_result = false;
-    $db->getAllRoutesTimes($route_id);
-
-});
-//************************END OF ROUTES***************************//
-
-//************************ DEPARTURE TIMES***************************//
-$app->get('/departure_times', function () use ($app) {
-
-    $route_id = $app->request->get('route_id');
-
-    $db = new DbHandler();
-
-    $multiple_result = false;
-    $db->getAllRoutesTimes($route_id);
-
-});
-//************************END OF DEPARTURE TIMES***************************//
-
-//************************AVAILABLE BUS***************************//
-$app->get('/available_buses', function () use ($app) {
-
-    $route_id = $app->request->get('route_id');
-
-    $db = new DbHandler();
-
-    $multiple_result = false;
-    $db->getAllAvailableBuses($route_id);
-
-});
-//************************END OF AVAILABLE BUS***************************//
 
 //METHODS ARE RECURRING CALLED DEPENDING ON REQUIRED USAGE
 //BEGINNING OF FUNCTIONS---------------------------------------------------------------------------------------------------

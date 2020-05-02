@@ -18,11 +18,18 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MakeSell"  android:screenOrientation="portrait"></activity>
-        <activity android:name=".CheckBalance"  android:screenOrientation="portrait"></activity>
+        <activity android:name=".PayMarketFees"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
-            android:name=".LoginActivity" android:screenOrientation="portrait"
-            >
+            android:name=".CheckBalance"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".StartActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,11 +37,50 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BuyFromTrader"  android:screenOrientation="portrait"
-
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".BuyBusTicketActivity"  android:screenOrientation="portrait" />
-        <activity android:name=".MainActivity"  android:screenOrientation="portrait"/>
+            android:name=".ResetPin"
+            android:parentActivityName=".LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FindTrader"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ChangePin"
+            android:parentActivityName=".LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BusBuyTicketBuyerDetails"
+            android:parentActivityName=".BusSearch"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BusSchedule"
+            android:parentActivityName=".BusSearch"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BusSearch"
+            android:parentActivityName=".StartActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BuyTicket"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MakeSell"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginActivity"
+            android:parentActivityName=".StartActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BuyFromTrader"
+            android:parentActivityName=".FindTrader"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BuyBusTicketActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

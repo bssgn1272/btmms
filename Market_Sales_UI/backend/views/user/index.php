@@ -41,7 +41,11 @@ $read_only = TRUE;
                             'format' => 'raw',
                             'value' => function ($model) {
                                 $image = Image::findOne(['user_id' => $model->user_id]);
-                                return Html::img('@web/uploads/profile/' . $image->file, ['class' => 'img-circle', 'width' => "40px", 'height' => "auto"]);
+                                if (!empty($image)) {
+                                    return Html::img('@web/uploads/profile/' . $image->file, ['class' => 'img-circle', 'width' => "40px", 'height' => "auto"]);
+                                } else {
+                                    return "";
+                                }
                             },
                         ],
                         [

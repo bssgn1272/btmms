@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:paddingLeft="25dp"
+        android:paddingTop="56dp"
+        android:paddingRight="25dp">
+
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:textColorHint="@color/colorAccent"
+            >
+
+            <EditText
+                android:id="@+id/editText_Trader_Mobile_Number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter your mobile number"
+                android:inputType="text"
+
+                android:importantForAutofill="no" />
+
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+
+            android:textColorHint="@color/colorAccent"
+            >
+
+            <EditText
+                android:id="@+id/editText_Trader_NRC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter your NRC"
+                android:inputType="text"
+                android:importantForAutofill="no" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/buttonSubmitRP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:clickable="true"
+            android:enabled="true"
+            android:padding="10dp"
+            android:shadowRadius="10"
+            android:text="Reset Pin"
+
+            android:focusable="true" />
+
+
+
+    </LinearLayout>
+</ScrollView>

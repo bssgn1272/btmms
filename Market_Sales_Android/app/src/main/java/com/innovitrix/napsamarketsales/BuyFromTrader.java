@@ -26,6 +26,7 @@ import android.support.constraint.ConstraintLayout;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -38,20 +39,28 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.android.volley.toolbox.Volley;
 import com.innovitrix.napsamarketsales.dialog.DialogBox;
 
+import static android.text.InputType.TYPE_NULL;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_FIRSTNAME;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_LASTNAME;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_MESSAGE;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_MOBILE;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_NRC;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_TRADER_ID;
 import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_CHAR_QUESTION;
+import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_MARKETER_KYC;
 import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_PARAM_MOBILE_NUMBER;
 import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_TRANSACTIONS;
 import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_USERS;
 
-import android.widget.Toast;
 
 public class BuyFromTrader extends AppCompatActivity {
     @TargetApi(Build.VERSION_CODES.O)
@@ -63,11 +72,8 @@ public class BuyFromTrader extends AppCompatActivity {
     Button btnBack;
     Button btnPay;
     Button btnCancel;
-    EditText etSupplierMobileNo;
-    TextView textViewFirstName;
-    TextView textViewLastName;
-    TextView textViewMobileNumber;
-    EditText etAmount;
+    EditText editText_Seller_First_Name,editText_Seller_Last_Name,editText_Seller_Mobile_Number, editText_Amount;
+
 
     int mobile_number_char;
     String blockCharacterSet = "123456789";
@@ -76,11 +82,13 @@ public class BuyFromTrader extends AppCompatActivity {
     String mBuyer_Mobile;
     String stringTrader_id;
 
-    int seller_id;
-    String seller_name;
+    String seller_id;
+    String seller_first_name;
+    String seller_last_name;
     String seller_mobile_number;
-    int buyer_id;
-    String  buyer_name;
+    String buyer_id;
+    String  buyer_first_name;
+    String  buyer_last_name;
     String buyer_mobile_number;
     Double amount_due;
     String device_serial;
@@ -92,135 +100,61 @@ public class BuyFromTrader extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy_from_trader);
-
+       getSupportActionBar().setSubtitle("Make an order");
+       // setDate();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         progressDialog = new ProgressDialog(BuyFromTrader.this);
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
         queue = Volley.newRequestQueue(this);
 
-        layoutSupplier = findViewById(R.id.layoutSupplier);
-        layoutSupplierFind = findViewById(R.id.layoutSupplierFind);
-        btnFindSupplier = findViewById(R.id.btnFindSupplier);
-        btnFindSupplier.setEnabled(true);
-        btnBack = findViewById(R.id.btnBack);
-        btnBack.setEnabled(true);
-        btnPay = findViewById(R.id.btnPay);
-        btnCancel = findViewById(R.id.btnCancel);
-        btnPay.setEnabled(true);
-        btnCancel.setEnabled(true);
-        etSupplierMobileNo = findViewById(R.id.etSupplierMobileNo);
-        etSupplierMobileNo.addTextChangedListener(new PhoneNumberTextWatcher());
-        etSupplierMobileNo.setFilters(new InputFilter[]{new PhoneNumberFilter(), new InputFilter.LengthFilter(12)});
-        textViewFirstName = findViewById(R.id.textViewFirstName);
-        textViewLastName = findViewById(R.id.textViewLastName);
-        textViewMobileNumber = findViewById(R.id.textViewMobileNumber);
-        etAmount = findViewById(R.id.editTextAmt);
-        buyer_id=  SharedPrefManager.getInstance(BuyFromTrader.this).getCustomer().getTrader_id();
-        buyer_mobile_number = SharedPrefManager.getInstance(BuyFromTrader.this).getCustomer().getMobile_number();
-        buyer_name = SharedPrefManager.getInstance(BuyFromTrader.this).getCustomer().getFirstname() + " "+  SharedPrefManager.getInstance(BuyFromTrader.this).getCustomer().getLastname();
+        editText_Seller_First_Name = (EditText) findViewById(R.id.editTextSellerFirstName);
+        editText_Seller_Last_Name = (EditText) findViewById(R.id.editTextSellerLastName);
+        editText_Seller_Mobile_Number = (EditText) findViewById(R.id.editTextSellerMobileNumber);
+        editText_Amount = (EditText) findViewById(R.id.editTextAmount);
 
-        // etAmount.setFilters(new InputFilter[] { new AmountFilter(), new InputFilter.LengthFilter(12) });
-        layoutSupplier.setVisibility(View.GONE);
+        buyer_id=  SharedPrefManager.getInstance(BuyFromTrader.this).getUser().getTrader_id();
+        buyer_mobile_number = SharedPrefManager.getInstance(BuyFromTrader.this).getUser().getMobile_number();
+        buyer_first_name = SharedPrefManager.getInstance(BuyFromTrader.this).getUser().getFirstname();
+        buyer_last_name = SharedPrefManager.getInstance(BuyFromTrader.this).getUser().getLastname();
+
+        seller_first_name = getIntent().getStringExtra(KEY_FIRSTNAME);
+        seller_last_name = getIntent().getStringExtra(KEY_LASTNAME);
+        seller_id=  getIntent().getStringExtra(KEY_TRADER_ID);
+        seller_mobile_number = getIntent().getStringExtra(KEY_MOBILE);
+
+        editText_Amount.requestFocus();
+
+        disableEditText();
+
+        btnPay = findViewById(R.id.btnPay);
+
+        btnPay.setEnabled(true);
+
         mobile_number_char = 0;
         userObjectLength = 0;
 
-        // fetchTrader();
-        btnFindSupplier.setOnClickListener(new View.OnClickListener() {
-                                               @Override
-                                               public void onClick(View view) {
 
-                                                   textViewFirstName.setText("");
-                                                   textViewLastName.setText("");
-                                                   textViewMobileNumber.setText("");
-                                                   buyer_id=  SharedPrefManager.getInstance(BuyFromTrader.this).getCustomer().getTrader_id();
-                                                   buyer_mobile_number = SharedPrefManager.getInstance(BuyFromTrader.this).getCustomer().getMobile_number();
-                                                   buyer_name = SharedPrefManager.getInstance(BuyFromTrader.this).getCustomer().getFirstname() + " "+  SharedPrefManager.getInstance(BuyFromTrader.this).getCustomer().getLastname();
-
-
-                                                   seller_mobile_number= "26"+etSupplierMobileNo.getText().toString();
-
-                                                   seller_mobile_number = seller_mobile_number.replace("-", "");
-
-                                                   if (mobile_number_char == 10) {
-
-
-                                                       if (buyer_mobile_number.equals(seller_mobile_number)) {
-                                                           //seller_mobile_number ="";
-                                                           AlertDialog.Builder builder = new AlertDialog.Builder(BuyFromTrader.this);
-
-                                                           builder.setMessage("You can not order from yourself. Change the number?");
-                                                           builder.setPositiveButton("Yes",
-                                                                   new DialogInterface.OnClickListener() {
-                                                                       public void onClick(DialogInterface dialog, int id) {
-                                                                           dialog.cancel();
-                                                                       }
-                                                                   });
-
-                                                           builder.setNegativeButton("No",
-                                                                   new DialogInterface.OnClickListener() {
-                                                                       public void onClick(DialogInterface dialog, int id) {
-                                                                           dialog.cancel();
-                                                                           finish();
-
-                                                                       }
-                                                                   });
-
-                                                           builder.create().show();
-                                                       } else {
-                                                           fetchTrader();
-                                                       }
-                                                   } else {
-                                                       AlertDialog.Builder builder = new AlertDialog.Builder(BuyFromTrader.this);
-
-                                                       builder.setMessage("Enter a 10 digit mobile number (e.g 0xxxxxxxxx).");
-
-
-                                                       builder.setNeutralButton("Ok",
-                                                               new DialogInterface.OnClickListener() {
-                                                                   public void onClick(DialogInterface dialog, int id) {
-                                                                       dialog.cancel();
-                                                                   }
-                                                               });
-
-                                                       builder.create().show();
-
-                                                   }
-                                               }
-                                           }
-        );
-
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                layoutSupplier.setVisibility(View.GONE);
-                layoutSupplierFind.setVisibility(View.VISIBLE);
-                seller_mobile_number ="";
-                etSupplierMobileNo.setText("");
-                buyer_mobile_number = "";
-            }
-        });
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                device_serial = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+
+
+                amount_due = Double.valueOf(editText_Amount.getText().toString());
+
+                if (amount_due==0) {
+                    editText_Amount.setError("Please  enter valid amount");
+                    editText_Amount.requestFocus();
+                    return;
+                }
                 AlertDialog.Builder builder = new AlertDialog.Builder(BuyFromTrader.this);
-                builder.setMessage("Confirm sale?");
+                builder.setMessage("Confirm order?");
                 builder.setPositiveButton("Yes",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                device_serial = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-                                amount_due = Double.valueOf(etAmount.getText().toString());
-                                sendInformation(1, seller_id, seller_name,seller_mobile_number, buyer_id, buyer_name,   buyer_mobile_number, device_serial,amount_due);
-                                etSupplierMobileNo.setText("");
-                                textViewFirstName.setText("");
-                                textViewLastName.setText("");
-                                textViewMobileNumber.setText("");
-                                etAmount.setText("");
+                                  sendInformation(2, seller_id, seller_first_name,seller_last_name,seller_mobile_number, buyer_id, buyer_first_name, buyer_last_name,    buyer_mobile_number, device_serial,amount_due);
+
                             }
                         });
 
@@ -236,108 +170,44 @@ public class BuyFromTrader extends AppCompatActivity {
         });
     }
 
-    public void fetchTrader() {
+public void disableEditText()
+{
 
-    //    progressDialog.show();
+    editText_Seller_First_Name.setFocusable(false);
+    editText_Seller_Last_Name.setFocusable(false);
+    editText_Seller_Mobile_Number.setFocusable(false);
 
-        // prepare the Request
-       // progressBar.setVisibility(View.VISIBLE);
+    editText_Seller_First_Name.setFocusableInTouchMode(false);
+    editText_Seller_Last_Name.setFocusableInTouchMode(false);
+    editText_Seller_Mobile_Number.setFocusableInTouchMode(false);
 
-        //creating a string request
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_USERS +
-                URL_CHAR_QUESTION +
-                URL_PARAM_MOBILE_NUMBER +seller_mobile_number
-                //URL_CHAR_AMPERSAND +
-                //URL_PARAM_USER_ID + 1
-                , null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        //   progressBar.setVisibility(View.GONE);
-
-                        try {
-                            //converting response to json object
-                            JSONObject obj = new JSONObject(String.valueOf(response));
-                            //Check if the object if the object is null.
-                             if (!obj.isNull("users")){
-
-                                //getting the user from the response
-
-                                JSONObject currentUser = obj.getJSONObject("users");
-                                //creating a new user object
-                                mUser = new com.innovitrix.napsamarketsales.models.User(
-                                        currentUser.getInt("trader_id"),
-                                        currentUser.getString("firstname"),
-                                        currentUser.getString("lastname"),
-                                        currentUser.getString("nrc"),
-                                        currentUser.getString("gender"),
-                                        currentUser.getString("mobile_number"),
-                                        currentUser.getInt("status")
-                               );
-
-                                //storing the user in shared preferences
-                                //SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
-                            //    SharedPrefManager.getInstance(getApplicationContext()).storeCurrentUser(mUser);
-                                //starting profile activity
-                                //  finish();
-                                mUser.getFirstname();//retrieving firstname
-                                mUser.getLastname();//retrieving lastname
-                                //   trader_id = mUser.getStatus().getTrader_id();
-
-                                textViewFirstName.setText(mUser.getFirstname());
-                                textViewLastName.setText(mUser.getLastname());
-                                textViewMobileNumber.setText(mUser.getMobile_number());
-                                stringTrader_id = String.valueOf(mUser.getTrader_id());
-                                layoutSupplier.setVisibility(View.VISIBLE);
-                                layoutSupplierFind.setVisibility(View.GONE);
-                                //   DialogBox.mLovelyStandardDialog(BuyFromTrader.this, response.getString(KEY_MESSAGE));
+//    editText_Seller_First_Name.setInputType(TYPE_NULL);
+//    editText_Seller_Last_Name.setInputType(TYPE_NULL);
+//    editText_Seller_Mobile_Number.setInputType(TYPE_NULL);
 
 
-                        } else {
+    editText_Seller_First_Name.setText(seller_first_name);
+    editText_Seller_Last_Name.setText(seller_last_name);
+    editText_Seller_Mobile_Number.setText(seller_mobile_number);
 
-                                DialogBox.mLovelyStandardDialog(BuyFromTrader.this, response.getString(KEY_MESSAGE));
-                                layoutSupplier.setVisibility(View.GONE);
-                                layoutSupplierFind.setVisibility(View.VISIBLE);
-                           }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+    editText_Amount.requestFocus();
+}
 
-                    }
-                    },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
-                          //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show()
-                            //Handle Errors here
-                            progressDialog.dismiss();
-                            Log.d("Error.Response", error.toString());
-                            Log.d("Error.Response", error.getMessage());
-                            DialogBox.mLovelyStandardDialog(BuyFromTrader.this, error.toString());
-                            // startActivity(new Intent( BuyFromTrader.this,MainActivity.class));
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                // params.put("username", trader_id);
-                //params.put("email", firstname);
-                // params.put("password", lastname);
-                params.put("mobile_number", buyer_mobile_number );
-                return params;
-            }
-        };
-
-        //  VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(jsonObjectRequest);
-
-    }
-
-    public void sendInformation(int transaction_type_id,int seller_id, String seller_name,String seller_mobile_number, int buyer_id,String buyer_name,  String buyer_mobile_number, String device_serial, double amount_due){
+    public void sendInformation
+            (
+                    int transaction_type_id,
+                    String seller_id,
+                    String seller_first_name,
+                    String seller_last_name,
+                    String seller_mobile_number,
+                    String buyer_id,
+                    String buyer_first_name,
+                    String buyer_last_name,
+                    String buyer_mobile_number,
+                    String device_serial,
+                    double amount_due
+            )
+    {
 
         progressDialog.show();
 
@@ -346,17 +216,24 @@ public class BuyFromTrader extends AppCompatActivity {
         JSONObject jsonObject = new JSONObject();
         try {
 
-                jsonObject.put( "transaction_type_id",transaction_type_id);
-                jsonObject.put("seller_id", seller_id);
-                jsonObject.put("seller_name",seller_name);
-                jsonObject.put("seller_mobile_number",seller_mobile_number);
-                jsonObject.put("buyer_id",buyer_id);
-                jsonObject.put("buyer_name",buyer_name);
-                jsonObject.put("buyer_mobile_number",buyer_mobile_number);
-                jsonObject.put("amount_due", amount_due);
-                jsonObject.put("device_serial",device_serial);
-                jsonObject.put("transaction_date", Calendar.getInstance().getTime());
-
+            jsonObject.put( "transaction_type_id",transaction_type_id);
+            jsonObject.put("seller_id", seller_id);
+            jsonObject.put("seller_firstname",seller_first_name);
+            jsonObject.put("seller_lastname",seller_last_name);
+            jsonObject.put("seller_mobile_number",seller_mobile_number);
+            jsonObject.put("buyer_id",buyer_id);
+            jsonObject.put("buyer_firstname",buyer_first_name);
+            jsonObject.put("buyer_lastname",buyer_last_name);
+            jsonObject.put("buyer_mobile_number",buyer_mobile_number);
+            jsonObject.put("buyer_email", null);
+            jsonObject.put("amount_due", amount_due);
+            jsonObject.put("device_serial",device_serial);
+            jsonObject.put("transaction_date", Calendar.getInstance().getTime());
+            jsonObject.put( "route_code",null);
+            jsonObject.put( "transaction_channel","API");
+            jsonObject.put( "id_type",null);
+            jsonObject.put( "passenger_id",null);
+            jsonObject.put( "travel_date",null);
             /// Log.d("Error.Response", jsonObject.toString());
         } catch (JSONException e) {
             e.printStackTrace();
@@ -375,10 +252,15 @@ public class BuyFromTrader extends AppCompatActivity {
 
                         try {
 
-                            DialogBox.mLovelyStandardDialog(BuyFromTrader.this, response.getString(KEY_MESSAGE));
-                            layoutSupplier.setVisibility(View.GONE);
-                            layoutSupplierFind.setVisibility(View.VISIBLE);
-                           //  startActivity(new Intent( BuyFromTrader.this,MainActivity.class));
+                            Toast.makeText(getApplicationContext(),response.getString(KEY_MESSAGE), Toast.LENGTH_SHORT).show();
+
+                           // DialogBox.mLovelyStandardDialog(BuyFromTrader.this, response.getString(KEY_MESSAGE)); //response.getString(KEY_MESSAGE)
+                            editText_Seller_First_Name.setText("");
+                            editText_Seller_Last_Name.setText("");
+                            editText_Seller_Mobile_Number.setText("");
+                            editText_Amount.setText("");
+                            startActivity(new Intent(BuyFromTrader.this, FindTrader.class));
+                            //  startActivity(new Intent( BuyFromTrader.this,MainActivity.class));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -399,9 +281,6 @@ public class BuyFromTrader extends AppCompatActivity {
                     DialogBox.mLovelyStandardDialog(BuyFromTrader.this, error.toString());
 
                     // startActivity(new Intent( BuyFromTrader.this,MainActivity.class));
-
-
-
             }
         }) {
 
@@ -419,124 +298,5 @@ public class BuyFromTrader extends AppCompatActivity {
         // add it to the RequestQueue
         queue.add(jsonObjectRequest);
     }
-
-
-    public class PhoneNumberTextWatcher implements TextWatcher {
-
-        private boolean isFormatting;
-        private boolean deletingHyphen;
-        private int hyphenStart;
-        private boolean deletingBackward;
-
-        @Override
-        public void afterTextChanged(Editable text) {
-            if (isFormatting)
-                return;
-
-            isFormatting = true;
-
-            // If deleting hyphen, also delete character before or after it
-            if (deletingHyphen && hyphenStart > 0) {
-                if (deletingBackward) {
-                    if (hyphenStart - 1 < text.length()) {
-                        text.delete(hyphenStart - 1, hyphenStart);
-                    }
-                } else if (hyphenStart < text.length()) {
-                    text.delete(hyphenStart, hyphenStart + 1);
-                }
-            }
-            if (text.length() == 4 || text.length() == 8) {
-                text.append('-');
-            }
-
-            isFormatting = false;
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            if (isFormatting)
-                return;
-
-            // Make sure user is deleting one char, without a selection
-            final int selStart = Selection.getSelectionStart(s);
-            final int selEnd = Selection.getSelectionEnd(s);
-            if (s.length() > 1 // Can delete another character
-                    && count == 1 // Deleting only one character
-                    && after == 0 // Deleting
-                    && s.charAt(start) == '-' // a hyphen
-                    && selStart == selEnd) { // no selection
-                deletingHyphen = true;
-                hyphenStart = start;
-                // Check if the user is deleting forward or backward
-                if (selStart == start + 1) {
-                    deletingBackward = true;
-                } else {
-                    deletingBackward = false;
-                }
-            } else {
-                deletingHyphen = false;
-            }
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            mobile_number_char = etSupplierMobileNo.getText().toString().length();
-            if (etSupplierMobileNo.getText().toString().length() == 0)
-                blockCharacterSet = "123456789";
-
-            else
-                blockCharacterSet = "";
-            if (etSupplierMobileNo.getText().toString().length() == 1)
-                blockCharacterSet = "123456780";
-        }
-    }
-
-    public class PhoneNumberFilter extends NumberKeyListener {
-
-        @Override
-        public int getInputType() {
-            return InputType.TYPE_CLASS_PHONE;
-        }
-
-        @Override
-        protected char[] getAcceptedChars() {
-            return new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-'};
-        }
-
-        @Override
-        public CharSequence filter(CharSequence source, int start, int end,
-                                   Spanned dest, int dstart, int dend) {
-
-            try {
-                // Don't let phone numbers start with 1
-
-
-                if (source != null && blockCharacterSet.contains("" + source.charAt(0)))
-                    return "";
-
-
-                //if (dstart == 0 && source.equals("1"))
-                //   return "";
-
-                if (end > start) {
-                    String destTxt = dest.toString();
-                    String resultingTxt = destTxt.substring(0, dstart) + source.subSequence(start, end) + destTxt.substring(dend);
-
-                    // Phone number must match xxx-xxx-xxxx
-                    if (!resultingTxt.matches("^\\d{0,1}(\\d{1,1}(\\d{1,1}(\\d{1,1}(\\d{1,1}(\\d{1,1}(\\d{1,1}(\\d{1,1}(\\d{1,1}(\\d{1,1}?)?)?)?)?)?)?)?)?)?")) {
-                        //   if (!resultingTxt.matches("^\\d{1,1}(\\d{1,1}(\\d{1,1}(\\-(\\d{1,1}(\\d{1,1}(\\d{1,1}(\\-(\\d{1,1}(\\d{1,1}(\\d{1,1}(\\d{1,1}?)?)?)?)?)?)?)?)?)?)?)?")) {
-
-                        return "";
-                    }
-                }
-                return null;
-            } catch (StringIndexOutOfBoundsException e) {
-
-            }
-            return null;
-        }
-    }
-
 
 }

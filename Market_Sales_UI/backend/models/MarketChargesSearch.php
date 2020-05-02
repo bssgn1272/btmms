@@ -9,24 +9,22 @@ use backend\models\MarketCharges;
 /**
  * MarketChargesSearch represents the model behind the search form of `backend\models\MarketCharges`.
  */
-class MarketChargesSearch extends MarketCharges
-{
+class MarketChargesSearch extends MarketCharges {
+
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id'], 'integer'],
-            [['name', 'amount'], 'safe'],
+            [['name', 'value', 'charge_type', 'charge_frequency'], 'safe'],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -38,8 +36,7 @@ class MarketChargesSearch extends MarketCharges
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = MarketCharges::find();
 
         // add conditions that should always apply here
@@ -62,8 +59,11 @@ class MarketChargesSearch extends MarketCharges
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'amount', $this->amount]);
+                ->andFilterWhere(['like', 'charge_type', $this->name])
+                ->andFilterWhere(['like', 'charge_frequency', $this->name])
+                ->andFilterWhere(['like', 'value', $this->value]);
 
         return $dataProvider;
     }
+
 }

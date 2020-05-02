@@ -38,7 +38,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,7 +64,7 @@ public class MakeSell extends AppCompatActivity {
     RequestQueue queue;
 
     Button btnPay;
-    Button btnBack;
+
     String blockCharacterSet = "123456789";
     EditText textMobileno;
     EditText etAmount;
@@ -75,11 +77,13 @@ public class MakeSell extends AppCompatActivity {
     Double dblAmount;
 
 
-    int seller_id;
-    String seller_name;
+    String seller_id;
+    String seller_first_name;
+    String seller_last_name;
     String seller_mobile_number;
-    int buyer_id;
-    String  buyer_name;
+    String buyer_id;
+    String  buyer_first_name;
+    String  buyer_last_name;
     String buyer_mobile_number;
     Double amount_due;
     String device_serial;
@@ -90,7 +94,9 @@ public class MakeSell extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_sell);
-
+        getSupportActionBar().setSubtitle("Make a sale");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //setDate();
         progressDialog = new ProgressDialog(MakeSell.this);
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
@@ -99,8 +105,7 @@ public class MakeSell extends AppCompatActivity {
 
         btnPay = findViewById(R.id.buttonPay);
         btnPay.setEnabled(true);
-        btnBack = findViewById(R.id.btnBack);
-        btnBack.setEnabled(true);
+
         textMobileno = findViewById(R.id.textMobileNo);
         textMobileno.addTextChangedListener(new PhoneNumberTextWatcher());
         textMobileno.setFilters(new InputFilter[]{new PhoneNumberFilter(), new InputFilter.LengthFilter(10)});
@@ -112,29 +117,43 @@ public class MakeSell extends AppCompatActivity {
         // etAmount.setFilters(new InputFilter[] { new AmountFilter(), new InputFilter.LengthFilter(12) });
 
 
-        seller_id=  SharedPrefManager.getInstance(MakeSell.this).getCustomer().getTrader_id();
-        seller_mobile_number = SharedPrefManager.getInstance(MakeSell.this).getCustomer().getMobile_number();
-        seller_name = SharedPrefManager.getInstance(MakeSell.this).getCustomer().getFirstname() + " "+  SharedPrefManager.getInstance(MakeSell.this).getCustomer().getLastname();
-
+        seller_id=  SharedPrefManager.getInstance(MakeSell.this).getUser().getTrader_id();
+        seller_mobile_number = SharedPrefManager.getInstance(MakeSell.this).getUser().getMobile_number();
+        seller_first_name= SharedPrefManager.getInstance(MakeSell.this).getUser().getFirstname();
+        seller_last_name = SharedPrefManager.getInstance(MakeSell.this).getUser().getLastname();
 
         mobile_number_char = 0;
 
-        // = SharedPrefManager.getInstance(getApplicationContext()).getCustomer().getTrader_id();
-       // trader_id = 16;
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
-                buyer_mobile_number = "26" + textMobileno.getText().toString();
 
+                String string_buyer_mobile_number =  textMobileno.getText().toString();
+                String string_amount = etAmount.getText().toString();
+
+
+                if (TextUtils.isEmpty(string_buyer_mobile_number)) {
+                    textMobileno.setError("Please enter a mobile number.");
+                    textMobileno.requestFocus();
+                    return;
+                }
+                if (TextUtils.isEmpty(string_amount)) {
+                    etAmount.setError("Please enter an amount.");
+                    etAmount.requestFocus();
+                    return;
+                }
+                buyer_mobile_number = "26" + string_buyer_mobile_number;
                 buyer_mobile_number = buyer_mobile_number.replace("-", "");
+                amount_due = Double.valueOf(string_amount);
+
+                if (amount_due==0) {
+                   etAmount.setError("Please enter valid amount");
+                    etAmount.requestFocus();
+                    return;
+                }
 
                 if (mobile_number_char == 10) {
 
@@ -170,8 +189,7 @@ public class MakeSell extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int id) {
 
                                         device_serial = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-                                        amount_due = Double.valueOf(etAmount.getText().toString());
-                                        sendInformation(1, seller_id, seller_name,seller_mobile_number, buyer_id, buyer_name,   buyer_mobile_number, device_serial,amount_due);
+                                         sendInformation(1, seller_id, seller_first_name,seller_last_name,seller_mobile_number, buyer_id, buyer_first_name, buyer_last_name,    buyer_mobile_number, device_serial,amount_due);
                                         textMobileno.setText("");
                                         etAmount.setText("");
 //
@@ -190,9 +208,28 @@ public class MakeSell extends AppCompatActivity {
                         builder.create().show();
                     }
                 }
+                else
+                {
+                    textMobileno.setError("Enter a 10 digit mobile number.");
+                    textMobileno.requestFocus();
+                }
             }});}
 
-    public void sendInformation(int transaction_type_id,int seller_id, String seller_name,String seller_mobile_number, int buyer_id,String buyer_name,  String buyer_mobile_number, String device_serial, double amount_due){
+    public void sendInformation
+            (
+            int transaction_type_id,
+            String seller_id,
+            String seller_first_name,
+            String seller_last_name,
+            String seller_mobile_number,
+            String buyer_id,
+            String buyer_first_name,
+            String buyer_last_name,
+            String buyer_mobile_number,
+            String device_serial,
+            double amount_due
+            )
+    {
 
         progressDialog.show();
 
@@ -203,15 +240,22 @@ public class MakeSell extends AppCompatActivity {
 
             jsonObject.put( "transaction_type_id",transaction_type_id);
             jsonObject.put("seller_id", seller_id);
-            jsonObject.put("seller_name",seller_name);
+            jsonObject.put("seller_firstname",seller_first_name);
+            jsonObject.put("seller_lastname",seller_last_name);
             jsonObject.put("seller_mobile_number",seller_mobile_number);
             jsonObject.put("buyer_id",buyer_id);
-            jsonObject.put("buyer_name",buyer_name);
+            jsonObject.put("buyer_firstname",buyer_first_name);
+            jsonObject.put("buyer_lastname",buyer_last_name);
             jsonObject.put("buyer_mobile_number",buyer_mobile_number);
+            jsonObject.put("buyer_email", null);
             jsonObject.put("amount_due", amount_due);
             jsonObject.put("device_serial",device_serial);
             jsonObject.put("transaction_date", Calendar.getInstance().getTime());
-
+            jsonObject.put( "route_code",null);
+            jsonObject.put( "transaction_channel","API");
+            jsonObject.put( "id_type",null);
+            jsonObject.put( "passenger_id",null);
+            jsonObject.put( "travel_date",null);
             /// Log.d("Error.Response", jsonObject.toString());
         } catch (JSONException e) {
             e.printStackTrace();
@@ -222,22 +266,18 @@ public class MakeSell extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
                         //Do stuff here
                         // display response
                         progressDialog.dismiss();
                         Log.d("Response", response.toString());
-
                         try {
-
+                            etAmount.requestFocus();
                             DialogBox.mLovelyStandardDialog(MakeSell.this, response.getString(KEY_MESSAGE));
-
                             //startActivity(new Intent( MakeSell.this,MainActivity.class));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
                 }, new Response.ErrorListener() {
 
@@ -354,7 +394,14 @@ public class MakeSell extends AppCompatActivity {
 //        queue.add(jsonObjectRequest);
 //    }
 
-
+//    public void setDate()
+//    {
+//        Date today = Calendar.getInstance().getTime();//getting date
+//        SimpleDateFormat formatter = new SimpleDateFormat("EEE, d MMM yyyy");//formating according to my need
+//        String date = formatter.format(today);
+//        TextView txtViewDate = (TextView)findViewById(R.id.textViewDate);
+//        txtViewDate.setText(date);
+//    }
     public class PhoneNumberTextWatcher implements TextWatcher {
 
         private boolean isFormatting;
@@ -422,7 +469,7 @@ public class MakeSell extends AppCompatActivity {
             else
                 blockCharacterSet = "";
             if (textMobileno.getText().toString().length() == 1)
-                blockCharacterSet = "123456780";
+                blockCharacterSet = "0";
         }
     }
 

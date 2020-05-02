@@ -2,16 +2,11 @@ package com.innovitrix.napsamarketsales;
 
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Build;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.InputFilter;
-import android.text.Spanned;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -21,9 +16,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.innovitrix.napsamarketsales.model.MenuAdapter;
-import com.innovitrix.napsamarketsales.model.MenuData;
-import com.innovitrix.napsamarketsales.models.RoutePlannedAdapter;
+import com.innovitrix.napsamarketsales.models.MenuAdapter;
+import com.innovitrix.napsamarketsales.models.MenuData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,13 +26,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 //Recyclerview
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -50,7 +41,6 @@ import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_CHECK_BALAN
 import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_ENDPOINT_TEST;
 import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_PARAM_MOBILE_NUMBER;
 import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_PARAM_USER_ID;
-import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_USERS;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -81,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         queue = Volley.newRequestQueue(this);
         //textViewBalance = findViewById(R.id.tvBalance);
         setDate();
-        fetchTrader();
+       // fetchTrader();
         menuDataList = new ArrayList<>();
 
 //        menuDataList.add(new MenuData(1, "Make A Sale", R.drawable.ic_local_shipping_black_24dp));
@@ -93,11 +83,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         menuDataList.add(new MenuData(1, "Make A Sale", R.drawable.ic_local_shipping_black_24dp,R.drawable.circle_bakcground_sales));
         menuDataList.add(new MenuData(2, "Make An Order",R.drawable.ic_local_shipping_black_24dp,R.drawable.circle_background_order));
-        //menuDataList.add(new MenuData(3, "Seller Bus Ticket", R.drawable.ic_directions_bus_black_24dp,R.drawable.circle_bakcground_sales ));
+        menuDataList.add(new MenuData(3, "Pay Market Fees", R.drawable.ic_directions_bus_black_24dp,R.drawable.circle_background_bus));
 //        menuDataList.add(new MenuData(5, "View Transactions",R.drawable.ic_account_balance_black_24dp,R.drawable.circle_bakcground_sales));
-//        menuDataList.add(new MenuData(6, "Change pin",R.drawable.ic_lock_open_black_24dp,R.drawable.circle_background_order));
-        menuDataList.add(new MenuData(3, "Check Balance",R.drawable.ic_attach_money_black_24dp,R.drawable.circle_background_balance));
-        menuDataList.add(new MenuData(4, "Logout", R.drawable.ic_power_settings_new_black_24dp,R.drawable.circle_bakcground_sales ));
+        menuDataList.add(new MenuData(4, "Check Sales",R.drawable.ic_attach_money_black_24dp,R.drawable.circle_background_balance));
+        menuDataList.add(new MenuData(5, "Change pin",R.drawable.ic_lock_open_black_24dp,R.drawable.circle_background_pin));
+
+        menuDataList.add(new MenuData(6, "Logout", R.drawable.ic_power_settings_new_black_24dp,R.drawable.circle_background_logout ));
 
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewMenu);
@@ -135,13 +126,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
 
-        fetchTrader();
+       // fetchTrader();
     }
 
     public void fetchTrader() {
         //userObjectLength =0;
         progressDialog.show();
-        mobile_number = SharedPrefManager.getInstance(MainActivity.this).getCustomer().getMobile_number();
+        mobile_number = SharedPrefManager.getInstance(MainActivity.this).getUser().getMobile_number();
        // mobile_number =  mobile_number.substring(2);
 
          JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_CHECK_BALANCE +
@@ -164,8 +155,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             JSONObject currentUser = response.getJSONObject("user");
                         //    userObjectLength = currentUser.length();
                             com.innovitrix.napsamarketsales.models.User mUser = new com.innovitrix.napsamarketsales.models.User(
-                                    currentUser.getInt("trader_id"),
-                                    currentUser.getDouble("token_balance")
+                            currentUser.getString("trader_id"),
+                            currentUser.getDouble("token_balance")
 
                             );
 

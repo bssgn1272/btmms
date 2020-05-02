@@ -37,10 +37,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="form-group field-passwordresetrequestform-email">
                     <label for="passwordresetrequestfrom-email" class="control-label">Email</label>
                     <div class="input-group input-group-icon">
-                <?= $form->field($model, 'email')->textInput(['autofocus' => true])->label(false) ?>
+                <?= $form->field($model, 'email',['enableAjaxValidation' => true])->textInput(['autofocus' => true])->label(false) ?>
                         <span class="input-group-addon">
                             <span class="icon icon-md">
-                                <i class="fa fa-at"></i>
+                                <i class="fa fa-envelope"></i>
                             </span>
                         </span>
                     </div>

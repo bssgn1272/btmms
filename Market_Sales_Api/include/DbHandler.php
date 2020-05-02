@@ -13,23 +13,25 @@
  */
 require_once __DIR__ . '/Security.php';
 require_once __DIR__ . '/DbConnect.php';
+require_once __DIR__ . '/DbConnectLog.php';
 
 class DbHandler
 {
     private $conn;
+    private $conn_log;
     private $security;
 
     function __construct()
     {
-
         $this->security = new Security();
 
         //Creating a DbConnect object to connect to the database
         $db = new DbConnect();
+        $db_log = new DbConnectLog();
 
-        //Initializing our connection link of this class
-        //by calling the method connect of DbConnect class
+        //Initializing our connection link of this class by calling the method connect of DbConnect class
         $this->conn = $db->connect();
+        $this->conn_log = $db_log->connect();
     }
 
 
@@ -228,140 +230,6 @@ class DbHandler
         }
         return $pin;
     }
-
-    public function getCompanyAlphanumeric($company_id)
-    {
-        $response = array();
-
-        $sql = 'SELECT name,alphanumeric
-                FROM company
-                WHERE id = ? ';
-
-        $isPrepared = $stmt = $this->conn->prepare($sql);
-
-        if (!$isPrepared) {
-            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-        }
-
-        $isParamBound = $stmt->bind_param('i', $company_id);
-        if (!$isParamBound) {
-            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-        }
-
-        if ($stmt->execute()) {
-
-            $stmt->store_result();
-
-            if ($stmt->num_rows > 0) {
-                //IF FOUND
-
-                $stmt->bind_result($name, $alphanumeric);
-
-                while ($stmt->fetch()) {
-                    $tmp = array();
-
-                    $tmp['name'] = $name;
-                    $tmp['alphanumeric'] = $alphanumeric;
-
-                    $response = $tmp;
-                }
-
-
-            } else {
-                //IF NOT FOUND
-                $response = null;
-            }
-
-        } else {
-            //IF QUERY FAILED TO EXECUTE
-            $response['error'] = true;
-            $response['message'] = 'Oops! An error occurred';
-            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-            $this->Execute_failed_to_file($response, $sql);
-        }
-
-        $stmt->close();
-        return $response;
-    }
-
-    public function checkTokenBalance($trader_id = null, $mobile_number = null,$end_point = false)
-    {
-        $response = array();
-
-        $sql = 'SELECT trader_id,firstname,lastname,token_balance
-                FROM traders
-                WHERE trader_id = ? OR mobile_number = ?';
-        //SUBSTRING(mobile_number,3) = ?
-
-        $isPrepared = $stmt = $this->conn->prepare($sql);
-
-        if (!$isPrepared) {
-            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-        }
-
-        //$mobile_number = '%' . $mobile_number . '%';
-        $isParamBound = $stmt->bind_param('is', $trader_id, $mobile_number);
-        if (!$isParamBound) {
-            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-        }
-
-        if ($stmt->execute()) {
-
-            $stmt->store_result();
-
-            if ($stmt->num_rows > 0) {
-                //IF FOUND
-
-                $stmt->bind_result($trader_id_db,$firstname,$lastname ,$token_balance_db);
-
-                $response['error'] = false;
-                $response['user'] = array();
-
-                while ($stmt->fetch()) {
-                    $tmp = array();
-
-                    $tmp['trader_id'] = $trader_id_db;
-                    $tmp['name'] = $firstname .' '.$lastname;
-                    $tmp['token_balance'] = $token_balance_db;
-
-                    if($end_point){
-                        $response['user'] = $tmp;
-                    }else{
-                        $response = $tmp;
-                    }
-                }
-
-
-            } else {
-                //IF NOT FOUND
-                if($end_point){
-//                    $tmp = array();
-//
-//                    $tmp['trader_id'] = 0;
-//                    $tmp['name'] = null;
-//                    $tmp['token_balance'] = 0.0;
-
-                    $response['error'] = false;
-                    $response['user'] = null;
-                    $response['message'] = 'No results found';
-                }else{
-                    $response = null;
-                }
-            }
-
-        } else {
-            //IF QUERY FAILED TO EXECUTE
-            $response['error'] = true;
-            $response['message'] = 'Oops! An error occurred';
-            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-            $this->Execute_failed_to_file($response, $sql);
-        }
-
-        $stmt->close();
-        return $response;
-    }
     //END OF FUNCTIONS**************************************************************************************************
 
 
@@ -377,7 +245,7 @@ class DbHandler
             //Generating API key
             $api_key = $this->generateApiKey();
 
-            $sql = 'INSERT INTO traders(role, firstname, lastname, nrc, gender, dob, mobile_number, password,auth_key) VALUES(?,?,?,?,?,?,?,?,?)';
+            $sql = 'INSERT INTO unza_traders(role, firstname, lastname, nrc, gender, dob, mobile_number, password,auth_key) VALUES(?,?,?,?,?,?,?,?,?)';
 
             if (!($stmt = $this->conn->prepare($sql))) {
                 $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
@@ -445,7 +313,7 @@ class DbHandler
 
         $response = array();
 
-        $sql = 'UPDATE traders SET
+        $sql = 'UPDATE unza_traders SET
                       firstname = ?,
                       lastname = ?,
                       nrc = ?,
@@ -519,7 +387,7 @@ class DbHandler
 
         $response = array();
 
-        $sql = 'SELECT password,auth_key FROM traders WHERE mobile_number = ?';
+        $sql = 'SELECT password,auth_key FROM unza_traders WHERE mobile_number = ?';
 
         if (!($stmt = $this->conn->prepare($sql))) {
             $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
@@ -594,7 +462,7 @@ class DbHandler
 
         //FETCH PARENT BY MOBILE NUMBER
         $sql = 'SELECT password,auth_key 
-                FROM traders
+                FROM unza_traders
                 WHERE mobile_number = ?';
 
         if (!($stmt = $this->conn->prepare($sql))) {
@@ -619,7 +487,7 @@ class DbHandler
 
                 if ($this->security->validatePassword($old_password . $auth_key, $password_hash)) {
                     //PASSWORD MATCH
-                    $sql = 'UPDATE traders 
+                    $sql = 'UPDATE unza_traders 
                             SET password = ?, auth_key=?
                             WHERE mobile_number = ? ';
 
@@ -704,7 +572,7 @@ class DbHandler
 
     private function doesUserExist($firstname, $lastname, $nrc, $mobile_number)
     {
-        $stmt = $this->conn->prepare('SELECT trader_id FROM traders WHERE ((firstname = ? AND lastname = ?) OR (nrc = ? OR mobile_number = ?))');
+        $stmt = $this->conn->prepare('SELECT trader_id FROM unza_traders WHERE ((firstname = ? AND lastname = ?) OR (nrc = ? OR mobile_number = ?))');
         $stmt->bind_param('ssss', $firstname, $lastname, $nrc, $mobile_number);
         $stmt->execute();
         $stmt->store_result();
@@ -718,7 +586,7 @@ class DbHandler
         $response = array();
 
         $sql = 'SELECT trader_id,role, image, firstname, lastname, nrc, gender, dob, mobile_number, account_number ,status
-                FROM traders
+                FROM unza_traders
                 WHERE  trader_id = ? OR mobile_number = ?';
 
         if (!($stmt = $this->conn->prepare($sql))) {
@@ -787,7 +655,7 @@ class DbHandler
         $response = array();
 
         $sql = 'SELECT firstname,lastname,mobile_number,password_reset_token 
-                FROM traders 
+                FROM unza_traders 
                 WHERE mobile_number = ?';
 
         if (!($stmt = $this->conn->prepare($sql))) {
@@ -829,7 +697,7 @@ class DbHandler
 
                 //---------------------------------------------
 
-                $sql = 'UPDATE traders 
+                $sql = 'UPDATE unza_traders 
                         SET password_reset_token = ? 
                         WHERE mobile_number = ? ';
 
@@ -913,7 +781,7 @@ class DbHandler
         require_once 'PassHash.php';
 
         $sql = 'SELECT trader_id 
-                FROM traders
+                FROM unza_traders
                 WHERE  mobile_number = ? AND password_reset_token = ?';
 
         $stmt = $this->conn->prepare($sql);
@@ -933,7 +801,7 @@ class DbHandler
                 $auth_key = $this->security->generateRandomString();
                 $password_hash = $this->security->generatePasswordHash($password . $auth_key);
 
-                $sql = 'UPDATE traders 
+                $sql = 'UPDATE unza_traders 
                         SET password = ?, 
                             password_reset_token = ? 
                         WHERE  mobile_number = ?';
@@ -1002,6 +870,11 @@ class DbHandler
 
         return null;
     }
+
+    public function getCurrentDateTime()
+    {
+        return date('Y-m-d H:i:s');
+    }
     //************************ENTITY***************************//
 
     //************************ROLES***************************//
@@ -1010,7 +883,7 @@ class DbHandler
         $response = array();
 
         $sql = 'SELECT role_id, name, description
-                FROM roles
+                FROM unza_roles
                 ';
 
         $isPrepared = $stmt = $this->conn->prepare($sql);
@@ -1146,7 +1019,7 @@ class DbHandler
         $response = array();
 
         $sql = 'SELECT transaction_type_id, name, description
-                FROM transaction_types';
+                FROM unza_transaction_types';
 
         $isPrepared = $stmt = $this->conn->prepare($sql);
 
@@ -1167,7 +1040,7 @@ class DbHandler
             if ($stmt->num_rows > 0) {
                 //IF FOUND
 
-                $stmt->bind_result($transaction_type_id, $name,$description);
+                $stmt->bind_result($transaction_type_id, $name, $description);
 
                 $response['error'] = false;
                 $response['transaction_types'] = array();
@@ -1213,7 +1086,7 @@ class DbHandler
         $response = array();
 
         $sql = 'SELECT transaction_type_id, name, description
-                FROM transaction_types
+                FROM unza_transaction_types
                 ';
 
         $isPrepared = $stmt = $this->conn->prepare($sql);
@@ -1284,7 +1157,7 @@ class DbHandler
         if ($role !== null) {
 
             $sql = 'SELECT trader_id,role,firstname, lastname, nrc, gender, dob, mobile_number, status                                                                                       
-                    FROM traders
+                    FROM unza_traders
                     WHERE role = ?
                     ORDER BY role,firstname,lastname';
 
@@ -1298,7 +1171,7 @@ class DbHandler
         } elseif ($mobile_number !== null) {
 
             $sql = 'SELECT trader_id,role,firstname, lastname, nrc, gender, dob, mobile_number, status                                                                                       
-                    FROM traders
+                    FROM unza_traders
                     WHERE mobile_number = ?
                     ORDER BY firstname,lastname';
 
@@ -1311,7 +1184,7 @@ class DbHandler
         } else {
 
             $sql = 'SELECT trader_id, role,firstname, lastname, nrc, gender, dob, mobile_number,status                                                                                       
-                    FROM traders
+                    FROM unza_traders
                     ORDER BY role,firstname,lastname';
 
             $isPrepared = $stmt = $this->conn->prepare($sql);
@@ -1414,50 +1287,109 @@ class DbHandler
     //************************MARKETEER PRODUCTS***************************//
     //************************END OF MARKETEER PRODUCTS***************************//
 
+    //************************MARKETEER KYC***************************//
+    public function fetchMarketeerKYC()
+    {
+        $response = array();
 
-    //************************TOKEN PROCUREMENT***************************//
-    public function getAllTokenProcurement($trader_id = null, $multiple_result)
+        $tmp = array();
+//        "response": {
+//        "QUERY": {
+//            "data": {
+//                "account_status": "INACTIVE",
+//                "email": null,
+//                "first_name": null,
+//                "last_name": null,
+//                "mobile": "0973279867",
+//                "nrc": "102030/10/7",
+//                "operator_role": "MARKETER",
+//                "ssn": "12345678911",
+//                "username": "unzatesttwo",
+//                "uuid": "2020-7174453813-1-0283-21"
+//            },
+//            "operation": "QUERY",
+//            "operation_status": "SUCCESS",
+//            "status": 0
+//        }
+//    }
+
+        $response['response'] = array();
+        $stands = array();
+        $stands[] = array(
+            'stand_number' => 'A70',
+            'stand_price' => '10.00'
+        );
+
+        $first = array(
+            'account_status' => 'ACTIVE',
+            'email' => null,
+            'first_name' => 'Francis',
+            'last_name' => 'Marketeer',
+            'mobile' => '260969240309',
+            'nrc' => null,
+            'operator_role' => 'MARKETER',
+            'ssn' => null,
+            'username' => null,
+            'uuid' => '2020-0812387178-1-1287-28',
+            'stands' => $stands
+        );
+
+        $stands = array();
+        $stands[] = array(
+            'stand_number' => 'A26',
+            'stand_price' => '10.00'
+        );
+        $stands[] = array(
+            'stand_number' => 'B40',
+            'stand_price' => '10.00'
+        );
+        $second = array(
+            'account_status' => 'ACTIVE',
+            'email' => null,
+            'first_name' => 'Simon',
+            'last_name' => 'Marketeer',
+            'mobile' => '260967485331',
+            'nrc' => null,
+            'operator_role' => 'MARKETER',
+            'ssn' => null,
+            'username' => null,
+            'uuid' => '2020-3676257032-2-8166-20',
+            'stands' => $stands
+
+        );
+
+
+        $tmp['QUERY']['data'][] = $first;
+        $tmp['QUERY']['data'][] = $second;
+        $tmp['QUERY']['operation'] = "QUERY";
+        $tmp['QUERY']['operation_status'] = "SUCCESS";
+        $tmp['QUERY']['status'] = 0;
+
+        $response['response'] = $tmp;
+
+        return $response;
+    }
+    //************************END OF MARKETEER KYC***************************//
+
+
+
+
+    //************************MARKET FEES***************************//
+    public function getAllPendingMarketCharges($seller_mobile_number)
     {
 
         $response = array();
 
-        if ($trader_id !== null) {
+        $sql = 'SELECT id, marketeer_msisdn, collection_msisdn, SUM(amount), transaction_type, status, transaction_details, transaction_date                                                                                       
+                    FROM unza_market_charge_collections
+                    WHERE marketeer_msisdn = ?
+                    ';
 
-            $sql = 'SELECT token_procurement_id, u.trader_id,u.firstname,u.lastname, 
-                            amount_tendered, token_value, reference_number, agent_id,a.firstname,a.lastname, 
-                            organisation_id, payment_methods.payment_method_id,payment_method_name, 
-                            procuring_msisdn, device_serial, transaction_date                                                                                       
-                    FROM token_procurement
-                    JOIN traders u ON u.trader_id = token_procurement.trader_id
-                    JOIN users a ON a.user_id = token_procurement.agent_id
-                    JOIN payment_methods ON payment_methods.payment_method_id = token_procurement.payment_method_id
-                    WHERE token_procurement.trader_id = ?
-                    ORDER BY token_procurement_id DESC ';
+        $isPrepared = $stmt = $this->conn->prepare($sql);
 
-            $isPrepared = $stmt = $this->conn->prepare($sql);
-
-            $isParamBound = $stmt->bind_param('i', $trader_id);
-            if (!$isParamBound) {
-                $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-            }
-
-
-        } else {
-
-            $sql = 'SELECT token_procurement_id, u.trader_id,u.firstname,u.lastname, 
-                            amount_tendered, token_value, reference_number, agent_id,a.firstname,a.lastname, 
-                            organisation_id, payment_methods.payment_method_id,payment_method_name, 
-                            procuring_msisdn, device_serial, transaction_date                                                                                       
-                    FROM token_procurement
-                    JOIN traders u ON u.trader_id = token_procurement.trader_id
-                    JOIN users a ON a.user_id = token_procurement.agent_id
-                    JOIN payment_methods ON payment_methods.payment_method_id = token_procurement.payment_method_id
-                    
-                    ORDER BY token_procurement_id DESC ';
-
-            $isPrepared = $stmt = $this->conn->prepare($sql);
-
-            //$stmt->bind_param('i', $user_level_id);
+        $isParamBound = $stmt->bind_param('s', $seller_mobile_number);
+        if (!$isParamBound) {
+            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
         }
 
         if (!$isPrepared) {
@@ -1471,48 +1403,31 @@ class DbHandler
             if ($stmt->num_rows > 0) {
                 //IF FOUND
 
-                $stmt->bind_result($token_procurement_id, $u_trader_id, $u_firstname, $u_lastname,
-                    $amount_tendered, $token_value, $reference_number, $agent_id, $a_firstname, $a_lastname,
-                    $organisation_id, $payment_method_id, $payment_method_name, $procuring_msisdn, $device_serial, $transaction_date);
+                $stmt->bind_result($id, $marketeer_msisdn, $collection_msisdn, $amount, $transaction_type, $status, $transaction_details, $transaction_date);
 
                 $response['error'] = false;
-                $response['token_procurement'] = array();
+                $response['market_fee'] = array();
 
                 while ($stmt->fetch()) {
                     $tmp = array();
-                    $tmp['token_procurement_id'] = $token_procurement_id;
-                    $tmp['trader_id'] = $u_trader_id;
-                    $tmp['user_firstname'] = $u_firstname;
-                    $tmp['user_lastname'] = $u_lastname;
-                    $tmp['amount_tendered'] = $amount_tendered;
-                    $tmp['token_value'] = $token_value;
-                    $tmp['reference_number'] = $reference_number;
-                    $tmp['agent_id'] = $agent_id;
-                    $tmp['agent_firstname'] = $a_firstname;
-                    $tmp['agent_lastname'] = $a_lastname;
-                    $tmp['organisation_id'] = $organisation_id;
-                    $tmp['payment_method_id'] = $payment_method_id;
-                    $tmp['payment_method_name'] = $payment_method_name;
-                    $tmp['procuring_msisdn'] = $procuring_msisdn;
-                    $tmp['device_serial'] = $device_serial;
-                    $tmp['transaction_date'] = $transaction_date;
+                    $tmp['marketeer_msisdn'] = $marketeer_msisdn;
+                    $tmp['sum_amount'] = abs($amount);
+                    //$tmp['transaction_date'] = $transaction_date;
 
-
-                    if ($multiple_result) {
-                        $response['token_procurement'][] = $tmp;
-                    } else {
-                        $response['token_procurement'] = $tmp;
-                    }
-
+                    $response['market_fee'] = $tmp;
                 }
 
                 $this->echoResponse(HTTP_status_200_OK, $response);
 
+
             } else {
                 //IF NOT FOUND
                 $response['error'] = false;
-                $response['token_procurement'] = array();
-                $response['message'] = 'No results found';
+                $response['market_fee'] = array(
+                    'marketeer_msisdn' => $seller_mobile_number,
+                    'sum_amount' => 0.0
+                );
+                //$response['message'] = 'No results found';
 
                 $this->echoResponse(HTTP_status_200_OK, $response);
             }
@@ -1528,428 +1443,67 @@ class DbHandler
             $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
         }
 
-        return $response;
+        return null;
     }
 
-    public function createToken($trader_id, $amount_tendered, $reference_number = null, $agent_id, $organisation_id = null, $payment_method_id, $procuring_msisdn, $device_serial, $transaction_date)
+    public function createPaidMarketChargesRecord($seller_mobile_number, $amount)
     {
 
         $response = array();
 
-        $sql = 'INSERT INTO token_procurement(trader_id, amount_tendered, token_value, reference_number, agent_id, organisation_id, payment_method_id, procuring_msisdn, device_serial, transaction_date) VALUES(?,?,?,?,?,?,?,?,?,?)';
+        $sql = 'INSERT INTO unza_market_charge_collections(marketeer_msisdn,amount,transaction_type,transaction_details,transaction_date) VALUES(?,?,?,?,?)';
 
         if (!($stmt = $this->conn->prepare($sql))) {
             $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
         }
 
-        $isParamBound = $stmt->bind_param('iddsiiisss', $trader_id, $amount_tendered, $amount_tendered, $reference_number, $agent_id, $organisation_id, $payment_method_id, $procuring_msisdn, $device_serial, $transaction_date);
+        $transaction_type = "CR";
+        $transaction_details = "Market Fees Payments";
+        $transaction_date = $this->getCurrentDateTime();
+
+        $isParamBound = $stmt->bind_param('sdsss', $seller_mobile_number, $amount, $transaction_type, $transaction_details, $transaction_date);
         if (!$isParamBound) {
             $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
         }
 
         if ($stmt->execute()) {
             //CREATED
-            //$new_id = $this->conn->insert_id;
-
-            $res = $this->incrementTokenBalance($amount_tendered, $trader_id);
+            $new_id = $this->conn->insert_id;
 
             $response['error'] = false;
-            $response['message'] = 'Token created successfully';
-            $response['account_message'] = $res;
-            $stmt->close();
+            $response['message'] = 'Market fee payment created successfully';
 
-            $this->echoResponse(HTTP_status_201_Created, $response);
+            //$this->echoResponse(HTTP_status_201_Created,$response);
+            $this->updatePaidMarketCharges($seller_mobile_number);
+
         } else {
             //FAILED TO CREATE
             $response['error'] = true;
             $response['message'] = 'Oops! An error occurred';
             $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-            $stmt->close();
 
             $this->Execute_failed_to_file($response, $sql);
 
             $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
         }
 
-
-        return $response;
-    }
-
-    public function incrementTokenBalance($token_value, $trader_id, $mobile_number = null)
-    {
-
-        $response = array();
-
-        $sql = 'UPDATE traders SET token_balance = (token_balance + ?) WHERE  trader_id = ?';
-
-        if (!($stmt = $this->conn->prepare($sql))) {
-            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-        }
-
-
-        $isParamBound = $stmt->bind_param('di', $token_value, $trader_id);
-        if (!$isParamBound) {
-            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-        }
-
-        if ($stmt->execute()) {
-
-            if ($stmt->affected_rows > 0) {
-                //UPDATE SUCCESSFUL
-                if ($mobile_number != null) {
-                    $telco = substr(trim($mobile_number), 0, -3);
-
-                    switch ($telco) {
-                        case "097":
-                            $res = $this->incrementFloatBalance($token_value, 1);
-                            break;
-                        case "096":
-                            $res = $this->incrementFloatBalance($token_value, 2);
-                            break;
-                        case "076":
-                            $res = $this->incrementFloatBalance($token_value, 2);
-                            break;
-                        case "095":
-                            $res = $this->incrementFloatBalance($token_value, 3);
-                            break;
-                        default:
-                            echo "Telco not identified";
-                    }
-                }
-
-                $response['error'] = false;
-                $response['message'] = 'Balance updated successfully';
-            } else {
-                //FAILED TO UPDATE
-                $response['error'] = true;
-                $response['message'] = 'Failed to update token balance. Please try again!';
-            }
-
-        } else {
-            //IF QUERY FAILED TO EXECUTE
-            $response['error'] = true;
-            $response['message'] = 'Oops! An error occurred';
-            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-            $this->Execute_failed_to_file($response, $sql);
-        }
-
         $stmt->close();
-        return $response;
-    }
 
-    public function incrementFloatBalance($token_value, $float_money_id)
-    {
-
-        $response = array();
-
-        $sql = 'UPDATE float_money SET amount = (amount + ?) WHERE  float_money_id = ?';
-
-        if (!($stmt = $this->conn->prepare($sql))) {
-            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-        }
-
-
-        $isParamBound = $stmt->bind_param('di', $token_value, $float_money_id);
-        if (!$isParamBound) {
-            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-        }
-
-        if ($stmt->execute()) {
-
-            if ($stmt->affected_rows > 0) {
-                //UPDATE SUCCESSFUL
-                $response['error'] = false;
-                $response['message'] = 'Float balance updated successfully';
-            } else {
-                //FAILED TO UPDATE
-                $response['error'] = true;
-                $response['message'] = 'Failed to update float balance. Please try again!';
-            }
-
-        } else {
-            //IF QUERY FAILED TO EXECUTE
-            $response['error'] = true;
-            $response['message'] = 'Oops! An error occurred';
-            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-            $this->Execute_failed_to_file($response, $sql);
-        }
-
-        $stmt->close();
-        return $response;
-    }
-    //************************END OF TOKEN PROCUREMENT***************************//
-
-
-    //************************TOKEN REDEMPTION***************************//
-    public function getAllTokenRedemption($trader_id = null, $multiple_result)
-    {
-
-        $response = array();
-
-        if ($trader_id !== null) {
-
-            $sql = 'SELECT token_redemption_id, u.trader_id,u.firstname,u.lastname, 
-                            token_value_tendered, amount_redeemed, reference_number, agent_id,a.firstname,a.lastname, 
-                            organisation_id, payment_methods.payment_method_id,payment_method_name, 
-                            recipient_msisdn, device_serial, transaction_date                                                                                       
-                    FROM token_redemption
-                    JOIN traders u ON u.trader_id = token_redemption.trader_id
-                    JOIN users a ON a.user_id = token_redemption.agent_id
-                    JOIN payment_methods ON payment_methods.payment_method_id = token_redemption.payment_method_id
-                    WHERE token_redemption.trader_id = ?
-                    ORDER BY token_redemption_id DESC ';
-
-            $isPrepared = $stmt = $this->conn->prepare($sql);
-
-            $isParamBound = $stmt->bind_param('i', $trader_id);
-            if (!$isParamBound) {
-                $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-            }
-
-
-        } else {
-
-            $sql = 'SELECT token_redemption_id, u.trader_id,u.firstname,u.lastname, 
-                            token_value_tendered, amount_redeemed, reference_number, agent_id,a.firstname,a.lastname, 
-                            organisation_id, payment_methods.payment_method_id,payment_method_name, 
-                            recipient_msisdn, device_serial, transaction_date                                                                                       
-                    FROM token_redemption
-                    JOIN traders u ON u.trader_id = token_redemption.trader_id
-                    JOIN users a ON a.user_id = token_redemption.agent_id
-                    JOIN payment_methods ON payment_methods.payment_method_id = token_redemption.payment_method_id
-                   
-                    ORDER BY token_redemption_id DESC ';
-
-            $isPrepared = $stmt = $this->conn->prepare($sql);
-
-            //$stmt->bind_param('i', $user_level_id);
-        }
-
-        if (!$isPrepared) {
-            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-        }
-
-        if ($stmt->execute()) {
-
-            $stmt->store_result();
-
-            if ($stmt->num_rows > 0) {
-                //IF FOUND
-
-                $stmt->bind_result($token_redemption_id, $u_trader_id, $u_firstname, $u_lastname,
-                    $token_value_tendered, $amount_redeemed, $reference_number, $agent_id, $a_firstname, $a_lastname,
-                    $organisation_id, $payment_method_id, $payment_method_name, $recipient_msisdn, $device_serial, $transaction_date);
-
-                $response['error'] = false;
-                $response['token_redemption'] = array();
-
-                while ($stmt->fetch()) {
-                    $tmp = array();
-                    $tmp['token_redemption_id'] = $token_redemption_id;
-                    $tmp['trader_id'] = $u_trader_id;
-                    $tmp['user_firstname'] = $u_firstname;
-                    $tmp['user_lastname'] = $u_lastname;
-                    $tmp['token_value_tendered'] = $token_value_tendered;
-                    $tmp['amount_redeemed'] = $amount_redeemed;
-                    $tmp['reference_number'] = $reference_number;
-                    $tmp['agent_id'] = $agent_id;
-                    $tmp['agent_firstname'] = $a_firstname;
-                    $tmp['agent_lastname'] = $a_lastname;
-                    $tmp['organisation_id'] = $organisation_id;
-                    $tmp['payment_method_id'] = $payment_method_id;
-                    $tmp['payment_method_name'] = $payment_method_name;
-                    $tmp['recipient_msisdn'] = $recipient_msisdn;
-                    $tmp['device_serial'] = $device_serial;
-                    $tmp['transaction_date'] = $transaction_date;
-
-
-                    if ($multiple_result) {
-                        $response['token_redemption'][] = $tmp;
-                    } else {
-                        $response['token_redemption'] = $tmp;
-                    }
-
-                }
-
-                $this->echoResponse(HTTP_status_200_OK, $response);
-
-
-            } else {
-                //IF NOT FOUND
-                $response['error'] = false;
-                $response['token_redemption'] = array();
-                $response['message'] = 'No results found';
-
-                $this->echoResponse(HTTP_status_200_OK, $response);
-            }
-
-        } else {
-            //IF QUERY FAILED TO EXECUTE
-            $response['error'] = true;
-            $response['message'] = 'Oops! An error occurred';
-            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-            $this->Execute_failed_to_file($response, $sql);
-
-            $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
-        }
 
         return null;
     }
 
-    public function createTokenRedemption($trader_id, $token_value_tendered, $reference_number = null, $agent_id = null, $organisation_id = null, $payment_method_id, $recipient_msisdn, $device_serial, $transaction_date)
+    public function updatePaidMarketCharges($seller_mobile_number)
     {
-
         $response = array();
 
-        $res = $this->checkTokenBalance($trader_id);
-
-        if ($res[TOKEN_BALANCE] >= $token_value_tendered) {
-
-            $sql = 'INSERT INTO token_redemption(trader_id, token_value_tendered, amount_redeemed, reference_number, agent_id, organisation_id, payment_method_id, recipient_msisdn, device_serial, transaction_date) VALUES(?,?,?,?,?,?,?,?,?,?)';
-
-            if (!($stmt = $this->conn->prepare($sql))) {
-                $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-            }
-
-
-            $isParamBound = $stmt->bind_param('iddsiiisss', $trader_id, $token_value_tendered, $token_value_tendered, $reference_number, $agent_id, $organisation_id, $payment_method_id, $recipient_msisdn, $device_serial, $transaction_date);
-            if (!$isParamBound) {
-                $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-            }
-
-            if ($stmt->execute()) {
-                //CREATED
-                //$new_id = $this->conn->insert_id;
-
-
-                $telco = substr(trim($recipient_msisdn), 0, 3);
-
-                $resFloat = null;
-                switch ($telco) {
-                    case '097':
-                        $resFloat = $this->incrementFloatBalance($token_value_tendered, 1);
-                        break;
-                    case '096':
-                        $resFloat = $this->incrementFloatBalance($token_value_tendered, 2);
-                        break;
-                    case '076':
-                        $resFloat = $this->incrementFloatBalance($token_value_tendered, 2);
-                        break;
-                    case '095':
-                        $resFloat = $this->incrementFloatBalance($token_value_tendered, 3);
-                        break;
-                    default:
-                        $resFloat = "Telco not identified";
-                }
-
-                if (!$resFloat) {
-                    $res = $this->decrementTokenBalance($token_value_tendered, $trader_id, $recipient_msisdn);
-                }
-
-
-                $response['error'] = false;
-                $response['message'] = 'Token redemption log created successfully';
-                $response['float_balance'] = $resFloat;
-                if (!$resFloat) {
-                    $response['message_token'] = $res;
-                }
-                $stmt->close();
-
-                $this->echoResponse(HTTP_status_201_Created, $response);
-
-            } else {
-                //FAILED TO CREATE
-                $response['error'] = true;
-                $response['message'] = 'Oops! An error occurred';
-                $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-                $stmt->close();
-
-                $this->Execute_failed_to_file($response, $sql);
-
-                $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
-            }
-
-
-        } else {
-            $response['error'] = false;
-            $response['message'] = 'submitted token value is greater than available token value';
-
-            $this->echoResponse(HTTP_status_200_OK, $response);
-
-        }
-
-        return null;
-    }
-
-    public function decrementTokenBalance($token_value, $trader_id = null, $mobile_number = null)
-    {
-
-        $response = array();
-
-        $res = $this->checkTokenBalance($trader_id, $mobile_number);
-
-        if ($res[TOKEN_BALANCE] >= $token_value) {
-
-            $sql = "UPDATE traders SET token_balance = (token_balance - ?) WHERE  trader_id = ? OR mobile_number LIKE ?";
-
-            if (!($stmt = $this->conn->prepare($sql))) {
-                $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-            }
-
-            $buyer_number = '%' . $mobile_number . '%';
-            $isParamBound = $stmt->bind_param('dis', $token_value, $trader_id, $buyer_number);
-            if (!$isParamBound) {
-                $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-            }
-
-            if ($stmt->execute()) {
-
-                if ($stmt->affected_rows > 0) {
-                    //UPDATE SUCCESSFUL
-                    $response['error'] = false;
-                    $response['message'] = 'Token updated successfully';
-                } else {
-                    //FAILED TO UPDATE
-                    $response['error'] = true;
-                    $response['message'] = 'Failed to update token balance. Please try again!';
-                }
-
-            } else {
-                //IF QUERY FAILED TO EXECUTE
-                $response['error'] = true;
-                $response['message'] = 'Oops! An error occurred';
-                $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-                $this->Execute_failed_to_file($response, $sql);
-            }
-
-            $stmt->close();
-
-        } else {
-            $response['error'] = false;
-            $response['message'] = 'Submitted token value is greater than available token value';
-        }
-
-
-        return $response;
-    }
-
-    public function decrementFloatBalance($token_value, $float_money_id)
-    {
-
-        $response = array();
-
-        $sql = 'UPDATE float_money SET amount = (amount - ?) WHERE  float_money_id = ?';
+        $sql = 'UPDATE unza_market_charge_collections SET status = 1 WHERE marketeer_msisdn = ? AND status = 0';
 
         if (!($stmt = $this->conn->prepare($sql))) {
             $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
         }
 
-
-        $isParamBound = $stmt->bind_param('di', $token_value, $float_money_id);
+        $isParamBound = $stmt->bind_param('s', $seller_mobile_number);
         if (!$isParamBound) {
             $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
         }
@@ -1959,11 +1513,15 @@ class DbHandler
             if ($stmt->affected_rows > 0) {
                 //UPDATE SUCCESSFUL
                 $response['error'] = false;
-                $response['message'] = 'Token updated successfully';
+                $response['message'] = 'Market fees information updated successfully';
+
+                //$this->echoResponse(HTTP_status_200_OK,$response);
             } else {
                 //FAILED TO UPDATE
                 $response['error'] = true;
-                $response['message'] = 'Failed to update token balance. Please try again!';
+                $response['message'] = 'Failed to update market fees information. Please try again!';
+
+                //$this->echoResponse(HTTP_status_422_Unprocessable_Entity,$response);
             }
 
         } else {
@@ -1973,20 +1531,15 @@ class DbHandler
             $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
 
             $this->Execute_failed_to_file($response, $sql);
+
+            //$this->echoResponse(HTTP_status_500_Internal_Server_Error,$response);
         }
 
         $stmt->close();
-        return $response;
+        //return $response;
+        return null;
     }
-    //************************END OF TOKEN REDEMPTION***************************//
-
-
-    //**************************REWARD CAMPAIGNS*************************//
-    //************************END OF REWARD CAMPAIGNS***************************//
-
-
-    //************************REDEEMED REWARDS***************************//
-    //************************END OF REDEEMED REWARDS***************************//
+    //************************END OF MARKET FEES***************************//
 
 
     //************************TRANSACTIONS***************************//
@@ -1994,35 +1547,35 @@ class DbHandler
     {
         $response = array();
 
-        if ($cart_id !== null || $seller_id !==null || $buyer_id !==null) {
+        if ($cart_id !== null || $seller_id !== null || $buyer_id !== null) {
 
             $sql = 'SELECT cart_id, seller_id,s.firstname,s.lastname,seller_mobile_number, buyer_id,b.firstname,b.lastname,buyer_mobile_number, amount, device_serial, transaction_date 
-                    FROM transaction_summaries
-                    JOIN traders b ON b.trader_id = transaction_summaries.buyer_id
-                    JOIN traders s ON s.trader_id = transaction_summaries.seller_id
+                    FROM unza_transactions
+                    JOIN unza_traders b ON b.trader_id = unza_transactions.buyer_id
+                    JOIN unza_traders s ON s.trader_id = unza_transactions.seller_id
                     WHERE cart_id = ? OR seller_id = ? OR buyer_id = ?
                     ';
 
             $isPrepared = $stmt = $this->conn->prepare($sql);
 
-            $isParamBound = $stmt->bind_param('iii', $cart_id,$seller_id,$buyer_id);
+            $isParamBound = $stmt->bind_param('iii', $cart_id, $seller_id, $buyer_id);
             if (!$isParamBound) {
                 $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
             }
 
 
-        }else if($seller_mobile_number !== null || $buyer_mobile_number !== null){
+        } else if ($seller_mobile_number !== null || $buyer_mobile_number !== null) {
 
             $sql = 'SELECT cart_id, seller_id,s.firstname,s.lastname,seller_mobile_number, buyer_id,b.firstname,b.lastname,buyer_mobile_number, amount, device_serial, transaction_date 
-                    FROM transaction_summaries
-                    JOIN traders b ON b.trader_id = transaction_summaries.buyer_id
-                    JOIN traders s ON s.trader_id = transaction_summaries.seller_id
+                    FROM unza_transactions
+                    JOIN unza_traders b ON b.trader_id = unza_transactions.buyer_id
+                    JOIN unza_traders s ON s.trader_id = unza_transactions.seller_id
                     WHERE seller_mobile_number = ? OR buyer_mobile_number  = ?
             ';
 
             $isPrepared = $stmt = $this->conn->prepare($sql);
 
-            $isParamBound = $stmt->bind_param('ss', $seller_mobile_number,$buyer_mobile_number);
+            $isParamBound = $stmt->bind_param('ss', $seller_mobile_number, $buyer_mobile_number);
             if (!$isParamBound) {
                 $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
             }
@@ -2030,9 +1583,9 @@ class DbHandler
         } else {
 
             $sql = 'SELECT cart_id, seller_id,s.firstname,s.lastname,seller_mobile_number, buyer_id,b.firstname,b.lastname,buyer_mobile_number, amount, device_serial, transaction_date 
-                    FROM transaction_summaries
-                    JOIN traders b ON b.trader_id = transaction_summaries.buyer_id
-                    JOIN traders s ON s.trader_id = transaction_summaries.seller_id
+                    FROM unza_transactions
+                    JOIN unza_traders b ON b.trader_id = unza_transactions.buyer_id
+                    JOIN unza_traders s ON s.trader_id = unza_transactions.seller_id
                     ';
 
             $isPrepared = $stmt = $this->conn->prepare($sql);
@@ -2051,7 +1604,7 @@ class DbHandler
             if ($stmt->num_rows > 0) {
                 //IF FOUND
 
-                $stmt->bind_result($cart_id, $seller_id,$s_firstname,$s_lastname,$seller_mobile_number, $buyer_id,$b_firstname,$b_lastname,$buyer_mobile_number, $amount_due,  $device_serial, $transaction_date);
+                $stmt->bind_result($cart_id, $seller_id, $s_firstname, $s_lastname, $seller_mobile_number, $buyer_id, $b_firstname, $b_lastname, $buyer_mobile_number, $amount_due, $device_serial, $transaction_date);
 
                 $response['error'] = false;
                 $response['transaction_summaries'] = array();
@@ -2104,6 +1657,295 @@ class DbHandler
             $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
         }
 
+        return null;
+    }
+
+    public function getAllTransactionsSummary($period, $seller_mobile_number = null)
+    {
+        $today = date('Y-m-d');
+        $response = array();
+        $response['marketeer'] = array();
+        $response['today'] = array();
+        $response['week'] = array();
+        $response['month'] = array();
+
+        $sql = 'SELECT seller_id, seller_firstname, seller_lastname, seller_mobile_number
+                    FROM unza_transactions
+                    WHERE seller_mobile_number = ?      
+            ';
+
+        $isPrepared = $stmt = $this->conn->prepare($sql);
+
+        if (!$isPrepared) {
+            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
+        }
+
+        $isParamBound = $stmt->bind_param('s', $seller_mobile_number);
+        if (!$isParamBound) {
+            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
+        }
+
+
+        if ($stmt->execute()) {
+
+            $stmt->store_result();
+
+            if ($stmt->num_rows > 0) {
+                //IF FOUND
+
+                $stmt->bind_result($seller_id, $seller_firstname, $seller_lastname, $seller_mobile_number);
+
+                //$response['error'] = false;
+
+                while ($stmt->fetch()) {
+                    $tmp = array();
+                    $tmp['seller_id'] = $seller_id;
+                    $tmp['seller_firstname'] = $seller_firstname;
+                    $tmp['seller_lastname'] = $seller_lastname;
+                    $tmp['seller_mobile_number'] = $seller_mobile_number;
+
+                    $response['marketeer'] = $tmp;
+                }
+
+            } else {
+                //IF NOT FOUND
+                $tmp = array();
+                $tmp['seller_id'] = null;
+                $tmp['seller_firstname'] = null;
+                $tmp['seller_lastname'] = null;
+                $tmp['seller_mobile_number'] = null;
+                //$tmp['error'] = false;
+                //$tmp['marketeer'] = array();
+                $tmp['message'] = 'No results found';
+
+                $response['marketeer'] = $tmp;
+
+            }
+
+        } else {
+            //IF QUERY FAILED TO EXECUTE
+            $response['error'] = true;
+            $response['message'] = 'Oops! An error occurred';
+            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
+
+            $this->Execute_failed_to_file($response, $sql);
+
+            //$this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
+        }
+
+
+        $stmt->close();
+
+//            $sql = 'SELECT LEFT(transaction_date,10) AS day,seller_id, seller_firstname, seller_lastname, seller_mobile_number,COUNT(cart_id) AS num_of_sales,SUM(amount) AS revenue
+//                    FROM transaction_summaries
+//                    WHERE seller_mobile_number = ? AND  DATE(transaction_date) >= ?
+//                    GROUP BY 1
+//                    ORDER BY 1 DESC
+//                    LIMIT 7
+//            ';
+
+        $sql = 'SELECT LEFT(transaction_date,10) AS day,seller_id, seller_firstname, seller_lastname, seller_mobile_number,COUNT(cart_id) AS num_of_sales,SUM(amount) AS revenue
+                    FROM unza_transactions
+                    WHERE transaction_date >= DATE_SUB(CURDATE(), INTERVAL 1 Day)  AND seller_mobile_number = ?
+                    GROUP BY seller_mobile_number
+            ';
+
+        $isPrepared = $stmt = $this->conn->prepare($sql);
+
+        $isParamBound = $stmt->bind_param('s', $seller_mobile_number);
+        if (!$isParamBound) {
+            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
+        }
+
+        if (!$isPrepared) {
+            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
+        }
+
+        if ($stmt->execute()) {
+
+            $stmt->store_result();
+
+            if ($stmt->num_rows > 0) {
+                //IF FOUND
+
+                $stmt->bind_result($day, $seller_id, $seller_firstname, $seller_lastname, $seller_mobile_number, $num_of_sales, $revenue);
+
+
+                while ($stmt->fetch()) {
+                    $tmp = array();
+
+                    //$tmp['$day'] = $day;
+//                    $tmp['seller_id'] = $seller_id;
+//                    $tmp['seller_firstname'] = $seller_firstname;
+//                    $tmp['seller_lastname'] = $seller_lastname;
+//                    $tmp['seller_mobile_number'] = $seller_mobile_number;
+                    $tmp['num_of_sales'] = $num_of_sales;
+                    $tmp['revenue'] = "ZMW " . $revenue;
+
+                    $response['today'] = $tmp;
+                }
+
+            }else{
+
+                $tmp = array();
+                $tmp['num_of_sales'] = 0;
+                $tmp['revenue'] = "ZMW " . 0.0;
+
+                $response['today'] = $tmp;
+
+            }
+
+        } else {
+            //IF QUERY FAILED TO EXECUTE
+            $response['error'] = true;
+            $response['message'] = 'Oops! An error occurred';
+            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
+
+            $this->Execute_failed_to_file($response, $sql);
+
+        }
+
+        $stmt->close();
+
+
+//            $sql = 'SELECT  day,seller_id, seller_firstname, seller_lastname, seller_mobile_number, SUM(num_of_sales), SUM(revenue)
+//                    FROM  (
+//                    SELECT LEFT(transaction_date,10) AS day,seller_id, seller_firstname, seller_lastname, seller_mobile_number,COUNT(cart_id) AS num_of_sales,SUM(amount) AS revenue
+//                    FROM transaction_summaries
+//                    WHERE seller_mobile_number = ?
+//                    GROUP BY 1
+//                    ORDER BY 1 DESC
+//                    LIMIT 7) as ts
+//            ';
+
+        $sql = 'SELECT LEFT(transaction_date,10) AS day,seller_id, seller_firstname, seller_lastname, seller_mobile_number,COUNT(cart_id) AS num_of_sales,SUM(amount) AS revenue
+                    FROM unza_transactions
+                    WHERE transaction_date >= DATE_SUB(CURDATE(), INTERVAL 7 Day)  AND seller_mobile_number = ?
+                    GROUP BY seller_mobile_number
+            ';
+
+        $isPrepared = $stmt = $this->conn->prepare($sql);
+
+        $isParamBound = $stmt->bind_param('s', $seller_mobile_number);
+        if (!$isParamBound) {
+            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
+        }
+
+        if (!$isPrepared) {
+            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
+        }
+
+        if ($stmt->execute()) {
+
+            $stmt->store_result();
+
+            if ($stmt->num_rows > 0) {
+                //IF FOUND
+
+                $stmt->bind_result($day, $seller_id, $seller_firstname, $seller_lastname, $seller_mobile_number, $num_of_sales, $revenue);
+
+                while ($stmt->fetch()) {
+                    $tmp = array();
+
+                    //$tmp['$day'] = $day;
+                    $tmp['num_of_sales'] = $num_of_sales;
+                    $tmp['revenue'] = "ZMW " . $revenue;
+
+                    $response['week'] = $tmp;
+
+                }
+
+            }else{
+
+                $tmp = array();
+                $tmp['num_of_sales'] = 0;
+                $tmp['revenue'] = "ZMW " . 0.0;
+
+                $response['week'] = $tmp;
+            }
+
+        } else {
+            //IF QUERY FAILED TO EXECUTE
+            $response['error'] = true;
+            $response['message'] = 'Oops! An error occurred';
+            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
+
+            $this->Execute_failed_to_file($response, $sql);
+
+            $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
+        }
+
+
+        $stmt->close();
+
+
+//            $sql = 'SELECT LEFT(transaction_date,7) AS day,seller_id, seller_firstname, seller_lastname, seller_mobile_number,COUNT(cart_id) AS num_of_sales,SUM(amount) AS revenue
+//                    FROM transaction_summaries
+//                    WHERE seller_mobile_number = ?
+//                    GROUP BY 1
+//                    ORDER BY 1 DESC
+//                    LIMIT 1
+//            ';
+
+        $sql = 'SELECT LEFT(transaction_date,10) AS day,seller_id, seller_firstname, seller_lastname, seller_mobile_number,COUNT(cart_id) AS num_of_sales,SUM(amount) AS revenue
+                    FROM unza_transactions
+                    WHERE transaction_date >= DATE_SUB(CURDATE(), INTERVAL 1 Month)  AND seller_mobile_number = ?
+                    GROUP BY seller_mobile_number
+            ';
+
+        $isPrepared = $stmt = $this->conn->prepare($sql);
+
+        $isParamBound = $stmt->bind_param('s', $seller_mobile_number);
+        if (!$isParamBound) {
+            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
+        }
+
+        if (!$isPrepared) {
+            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
+        }
+
+        if ($stmt->execute()) {
+
+            $stmt->store_result();
+
+            if ($stmt->num_rows > 0) {
+                //IF FOUND
+
+                $stmt->bind_result($day, $seller_id, $seller_firstname, $seller_lastname, $seller_mobile_number, $num_of_sales, $revenue);
+
+                while ($stmt->fetch()) {
+                    $tmp = array();
+
+                    //$tmp['$day'] = $day;
+                    $tmp['num_of_sales'] = $num_of_sales;
+                    $tmp['revenue'] = "ZMW " . $revenue;
+
+                    $response['month'] = $tmp;
+
+                }
+
+            }else{
+
+                $tmp = array();
+                $tmp['num_of_sales'] = 0;
+                $tmp['revenue'] = "ZMW " . 0.0;
+
+                $response['month'] = $tmp;
+            }
+
+        } else {
+            //IF QUERY FAILED TO EXECUTE
+            $response['error'] = true;
+            $response['message'] = 'Oops! An error occurred';
+            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
+
+            $this->Execute_failed_to_file($response, $sql);
+
+            $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
+        }
+
+
+        $this->echoResponse(HTTP_status_200_OK, $response);
         return null;
     }
 
@@ -2209,7 +2051,7 @@ class DbHandler
         return $response;
     }
 
-    public function createTransactionsSummaries($transaction_type_id, $seller_id, $seller_name, $seller_mobile_number, $buyer_id, $buyer_name, $buyer_mobile_number, $amount, $device_serial, $transaction_date)
+    public function createTransactionsSummaries($transaction_type_id, $route_code, $transaction_channel, $id_type, $passenger_id, $bus_schedule_id, $travel_date, $travel_time, $seller_id, $seller_firstname, $seller_lastname, $seller_mobile_number, $buyer_id, $buyer_firstname, $buyer_lastname, $buyer_mobile_number, $buyer_email, $amount, $device_serial, $transaction_date)
     {
 
         $response = array();
@@ -2219,74 +2061,59 @@ class DbHandler
 
         //if ($res[TOKEN_BALANCE] >= $amount) {
 
-            //LOG ATTEMPTED TRANSACTION
-            $sql = 'INSERT INTO transaction_summaries(transaction_type_id, seller_id, seller_name, seller_mobile_number, buyer_id, buyer_name, buyer_mobile_number, amount, device_serial, transaction_date) VALUES(?,?,?,?,?,?,?,?,?,?)';
+        //LOG ATTEMPTED TRANSACTION
+        $sql = 'INSERT INTO unza_transactions(transaction_type_id,route_code,transaction_channel,id_type,passenger_id,bus_schedule_id,travel_date,travel_time, seller_id,seller_firstname,seller_lastname, seller_mobile_number, buyer_id, buyer_firstname,buyer_lastname,buyer_mobile_number, buyer_email,amount, device_serial, transaction_date) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
 
-            if (!($stmt = $this->conn->prepare($sql))) {
-                $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
+        if (!($stmt = $this->conn->prepare($sql))) {
+            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
+        }
+
+        $isParamBound = $stmt->bind_param('issssssssssssssssdss', $transaction_type_id, $route_code, $transaction_channel, $id_type, $passenger_id, $bus_schedule_id, $travel_date, $travel_time, $seller_id, $seller_firstname, $seller_lastname, $seller_mobile_number, $buyer_id, $buyer_firstname, $buyer_lastname, $buyer_mobile_number, $buyer_email, $amount, $device_serial, $transaction_date);
+        if (!$isParamBound) {
+            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
+        }
+
+        if ($stmt->execute()) {
+            //CREATED
+            $cart_id = $this->conn->insert_id;
+
+            $response['error'] = false;
+            $response['message'] = 'Transaction is being processed,you will soon receive an SMS confirmation';
+            $stmt->close();
+
+            $this->echoResponse(HTTP_status_202_Accepted, $response);
+
+            $telco = substr(trim($buyer_mobile_number), 0, 5);
+
+            switch ($telco) {
+                case '26097':
+                    $res = $this->wallet_API('AIRTELZM', 'malipo', $buyer_mobile_number, $amount, $cart_id, 1);
+                    break;
+                case '26096':
+                    $res = $this->wallet_API('MTNZM', 'malipo', $buyer_mobile_number, $amount, $cart_id, 1);
+                    break;
+                case '26076':
+                    $res = $this->wallet_API('MTNZM', 'malipo', $buyer_mobile_number, $amount, $cart_id, 1);
+                    break;
+                case '26095':
+                    $res = $this->wallet_API('ZAMTEL ', 'malipo', $buyer_mobile_number, $amount, $cart_id, 1);
+                    break;
+                default:
+                    $res = "Telco not identified";
             }
 
-            $isParamBound = $stmt->bind_param('iississdss', $transaction_type_id, $seller_id, $seller_name, $seller_mobile_number, $buyer_id, $buyer_name, $buyer_mobile_number, $amount, $device_serial, $transaction_date);
-            if (!$isParamBound) {
-                $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-            }
 
-            if ($stmt->execute()) {
-                //CREATED
-                $cart_id = $this->conn->insert_id;
+        } else {
+            //FAILED TO CREATE
+            $response['error'] = true;
+            $response['message'] = 'Oops! An error occurred';
+            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
+            $stmt->close();
 
-                //DECREMENT BUYER'S TOKEN
-                //$resBuyer = $this->decrementBuyerTokenBalance($amount, $buyer_id, $buyer_mobile_number);
+            $this->Execute_failed_to_file($response, $sql);
 
-                //INCREMENT MARKETEER'S TOKEN
-                //$resMarketeer = $this->incrementTokenBalance($amount, $seller_id);
-
-
-                //$this->createTransactionsDetails($cart_id, $transaction_details);
-
-
-                $response['error'] = false;
-                $response['message'] = 'Transaction is being processed,you will soon receive an SMS confirmation';
-                //$response['buyer'] = $resBuyer;
-                //$response['trader'] = $resMarketeer;
-                $stmt->close();
-
-                $this->echoResponse(HTTP_status_202_Accepted, $response);
-
-                $telco = substr(trim($buyer_mobile_number), 0, 5);
-
-                    //$resFloat = null;
-                    switch ($telco) {
-                        case '26097':
-                            $res = $this->wallet_API('AIRTELZM','malipo',$buyer_mobile_number,$amount,$cart_id,1);
-                            break;
-                        case '26096':
-                            $res =  $this->wallet_API('MTNZM','malipo',$buyer_mobile_number,$amount,$cart_id,1);
-                            break;
-                        case '26076':
-                            $res =  $this->wallet_API('MTNZM','malipo',$buyer_mobile_number,$amount,$cart_id,1);
-                            break;
-                        case '26095':
-                            $res =  $this->wallet_API('ZAMTEL ','malipo',$buyer_mobile_number,$amount,$cart_id,1);
-                            break;
-                        default:
-                            $res = "Telco not identified";
-                    }
-
-
-
-
-            } else {
-                //FAILED TO CREATE
-                $response['error'] = true;
-                $response['message'] = 'Oops! An error occurred';
-                $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-                $stmt->close();
-
-                $this->Execute_failed_to_file($response, $sql);
-
-                $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
-            }
+            $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
+        }
 
 
 //        } else {
@@ -2350,7 +2177,7 @@ class DbHandler
 
         if ($res[TOKEN_BALANCE] >= $token_value) {
 
-            $sql = "UPDATE traders SET token_balance = (token_balance - ?) WHERE  trader_id = ? OR mobile_number = ?";
+            $sql = "UPDATE unza_traders SET token_balance = (token_balance - ?) WHERE  trader_id = ? OR mobile_number = ?";
 
             if (!($stmt = $this->conn->prepare($sql))) {
                 $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
@@ -2422,7 +2249,7 @@ class DbHandler
 
         $response = array();
 
-        $sql = 'UPDATE transaction_summaries SET
+        $sql = 'UPDATE unza_transactions SET
                                  external_trans_id = ?,
                                  probase_status_code =  ?,
                                  probase_status_description = ?
@@ -2463,22 +2290,109 @@ class DbHandler
         return $response;
     }
 
-    public function updateByTelco($momo_status_code, $momo_status_description, $cart_id)
+    //************************END OF TRANSACTIONS***************************//
+
+
+    //************************LOGS***************************//
+    public function createTransactionDebitRequestLog($ref_id, $debit_request)
     {
 
         $response = array();
 
-        $sql = 'UPDATE transaction_summaries SET
-                                 momo_status_code =  ?,
-                                 momo_status_description = ?
-                WHERE  cart_id = ?';
+        $date_time = $this->getCurrentDateTime();
+
+        //LOG ATTEMPTED TRANSACTION
+        $sql = 'INSERT INTO unza_transaction_logs(ref_id,debit_request,debit_request_time) VALUES(?,?,?)';
 
         if (!($stmt = $this->conn->prepare($sql))) {
             $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
         }
 
+        $isParamBound = $stmt->bind_param('iss', $ref_id, $debit_request, $date_time);
+        if (!$isParamBound) {
+            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
+        }
 
-        $isParamBound = $stmt->bind_param('isi', $momo_status_code, $momo_status_description, $cart_id);
+        if ($stmt->execute()) {
+            //CREATED
+
+            $response['error'] = false;
+            $response['message'] = 'Debit Request captured';
+            $stmt->close();
+
+            //$this->echoResponse(HTTP_status_200_OK, $response);
+
+        } else {
+            //FAILED TO CREATE
+            $response['error'] = true;
+            $response['message'] = 'Oops! An error occurred';
+            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
+            $stmt->close();
+
+            $this->Execute_failed_to_file($response, $sql);
+
+            //$this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
+        }
+
+        return null;
+    }
+
+    public function createTransactionCreditRequestLog($ref_id, $credit_request)
+    {
+
+        $response = array();
+
+        $date_time = $this->getCurrentDateTime();
+
+        //LOG ATTEMPTED TRANSACTION
+        $sql = 'INSERT INTO unza_transaction_logs(ref_id,credit_request,credit_request_time) VALUES(?,?,?)';
+
+        if (!($stmt = $this->conn->prepare($sql))) {
+            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
+        }
+
+        $isParamBound = $stmt->bind_param('iss', $ref_id, $credit_request, $date_time);
+        if (!$isParamBound) {
+            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
+        }
+
+        if ($stmt->execute()) {
+            //CREATED
+
+            $response['error'] = false;
+            $response['message'] = 'Debit Request captured';
+            $stmt->close();
+
+            //$this->echoResponse(HTTP_status_200_OK, $response);
+
+        } else {
+            //FAILED TO CREATE
+            $response['error'] = true;
+            $response['message'] = 'Oops! An error occurred';
+            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
+            $stmt->close();
+
+            $this->Execute_failed_to_file($response, $sql);
+
+            //$this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
+        }
+
+        return null;
+    }
+
+    public function updateTransactionDebitResponseLog($ref_id, $reference, $debit_response)
+    {
+        $response = array();
+
+        $date_time = $this->getCurrentDateTime();
+
+        $sql = 'UPDATE unza_transaction_logs SET debit_reference = ?, debit_response = ?, debit_response_time = ? WHERE ref_id  = ?';
+
+        if (!($stmt = $this->conn->prepare($sql))) {
+            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
+        }
+
+        $isParamBound = $stmt->bind_param('sssi', $reference, $debit_response, $date_time, $ref_id);
         if (!$isParamBound) {
             $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
         }
@@ -2488,11 +2402,15 @@ class DbHandler
             if ($stmt->affected_rows > 0) {
                 //UPDATE SUCCESSFUL
                 $response['error'] = false;
-                $response['message'] = 'Transaction updated successfully';
+                $response['message'] = 'Debit information updated successfully';
+
+                //$this->echoResponse(HTTP_status_200_OK,$response);
             } else {
                 //FAILED TO UPDATE
                 $response['error'] = true;
-                $response['message'] = 'Failed to update transaction. Please try again!';
+                $response['message'] = 'Failed to update debit information. Please try again!';
+
+                //$this->echoResponse(HTTP_status_422_Unprocessable_Entity,$response);
             }
 
         } else {
@@ -2502,64 +2420,46 @@ class DbHandler
             $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
 
             $this->Execute_failed_to_file($response, $sql);
+
+            //$this->echoResponse(HTTP_status_500_Internal_Server_Error,$response);
         }
 
         $stmt->close();
-        return $response;
+
+        return null;
     }
-    //************************END OF TRANSACTIONS***************************//
 
-
-    //************************SIMULATION ROUTES***************************//
-    public function getAllRoutes()
+    public function updateTransactionDebitCallbackLog($reference, $debit_callback_response)
     {
         $response = array();
 
-        $sql = 'SELECT route_id, company_id, station_id, name, origin, destination
-                FROM route
-                ';
+        $date_time = $this->getCurrentDateTime();
+
+        $sql = 'UPDATE unza_transaction_logs SET debit_callback_response = ?, debit_callback_response_time = ? WHERE debit_reference  = ?';
 
         if (!($stmt = $this->conn->prepare($sql))) {
             $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
         }
 
-//        $isParamBound = $stmt->bind_param('i', $trader_id);
-//        if (!$isParamBound) {
-//            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-//        }
-
+        $isParamBound = $stmt->bind_param('sss', $debit_callback_response, $date_time, $reference);
+        if (!$isParamBound) {
+            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
+        }
 
         if ($stmt->execute()) {
 
-            $stmt->store_result();
-
-            if ($stmt->num_rows > 0) {
-                //IF FOUND
-
-                $stmt->bind_result($route_id, $company_id, $station_id, $name, $origin, $destination);
-
+            if ($stmt->affected_rows > 0) {
+                //UPDATE SUCCESSFUL
                 $response['error'] = false;
-                $response['routes'] = array();
+                $response['message'] = 'Debit callback information updated successfully';
 
-                while ($stmt->fetch()) {
-                    $tmp = array();
-                    $tmp['route_code'] = $route_id;
-                    $tmp['route_name'] = $name;
-                    $tmp['origin'] = $origin;
-                    $tmp['destination'] = $destination;
-
-                    $response['routes'][] = $tmp;
-                }
-
-
-                $this->echoResponse(HTTP_status_200_OK, $response);
+                //$this->echoResponse(HTTP_status_200_OK,$response);
             } else {
-                //IF NOT FOUND
-                $response['error'] = false;
-                $response['routes'] = array();
-                $response['message'] = 'No results found';
+                //FAILED TO UPDATE
+                $response['error'] = true;
+                $response['message'] = 'Failed to update debit callback information. Please try again!';
 
-                $this->echoResponse(HTTP_status_200_OK, $response);
+                //$this->echoResponse(HTTP_status_422_Unprocessable_Entity,$response);
             }
 
         } else {
@@ -2570,183 +2470,45 @@ class DbHandler
 
             $this->Execute_failed_to_file($response, $sql);
 
-            $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
+            //$this->echoResponse(HTTP_status_500_Internal_Server_Error,$response);
         }
+
+        $stmt->close();
 
         return null;
     }
-    //************************END OF ROUTES***************************//
 
-    //************************SIMULATION ROUTES TIMES***************************//
-    public function getAllRoutesTimes($route_id = null)
-    {
-        $today = date('Y-m-d');
-
-        $response = array();
-
-        if ($route_id != null) {
-
-            $sql = 'SELECT routes_times.route_id,origin,destination,bus_departure_time
-                FROM routes_times
-                JOIN route ON route.route_id = routes_times.route_id
-                JOIN bus_departure_times ON bus_departure_times.bus_departure_time_id = routes_times.bus_departure_time_id
-                WHERE routes_times.route_id = ? AND TIME(bus_departure_time) >= ?
-                ';
-
-            if (!($stmt = $this->conn->prepare($sql))) {
-                $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-            }
-
-            $isParamBound = $stmt->bind_param('is', $route_id,$today);
-            if (!$isParamBound) {
-                $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-            }
-
-        } else {
-
-            $sql = 'SELECT routes_times.route_id,origin,destination,bus_departure_time
-                FROM routes_times
-                JOIN route ON route.route_id = routes_times.route_id
-                JOIN bus_departure_times ON bus_departure_times.bus_departure_time_id = routes_times.bus_departure_time_id
-                WHERE TIME(bus_departure_time) >= ?
-                ';
-
-            if (!($stmt = $this->conn->prepare($sql))) {
-                $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-            }
-
-            $isParamBound = $stmt->bind_param('s', $today);
-            if (!$isParamBound) {
-                $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-            }
-        }
-
-
-        if ($stmt->execute()) {
-
-            $stmt->store_result();
-
-            if ($stmt->num_rows > 0) {
-                //IF FOUND
-
-                $stmt->bind_result($route_id, $origin, $destination, $bus_departure_time);
-
-                $response['error'] = false;
-                $response['departure_times'] = array();
-
-                while ($stmt->fetch()) {
-                    $tmp = array();
-                    $tmp['route_code'] = $route_id;
-                    //$tmp['$company_id'] = $company_id;
-                    //$tmp['station_id'] = $station_id;
-                    $tmp['origin'] = $origin;
-                    $tmp['destination'] = $destination;
-                    $tmp['departure_time'] = $bus_departure_time;
-                    //$tmp['fare'] = $price;
-
-                    $response['departure_times'][] = $tmp;
-                }
-
-
-                $this->echoResponse(HTTP_status_200_OK, $response);
-            } else {
-                //IF NOT FOUND
-                $response['error'] = false;
-                $response['departure_times'] = array();
-                $response['message'] = 'No results found';
-
-                $this->echoResponse(HTTP_status_200_OK, $response);
-            }
-
-        } else {
-            //IF QUERY FAILED TO EXECUTE
-            $response['error'] = true;
-            $response['message'] = 'Oops! An error occurred';
-            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
-
-            $this->Execute_failed_to_file($response, $sql);
-
-            $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
-        }
-
-        return null;
-    }
-    //************************END OF ROUTES TIMES***************************//
-
-    //************************SIMULATION AVAILABLE BUS***************************//
-    public function getAllAvailableBuses($route_id = null)
+    public function updateTransactionCreditRequestLog($reference, $credit_request)
     {
         $response = array();
 
-        if ($route_id != null) {
+        $date_time = $this->getCurrentDateTime();
 
-            $sql = 'SELECT bus.company_id,bus_companies.name,bus_id,bus_reg,total_seats
-                    FROM bus
-                    JOIN bus_companies ON  bus_companies.company_id = bus.company_id
-                  ';
+        $sql = 'UPDATE unza_transaction_logs SET credit_request = ?, credit_request_time = ? WHERE debit_reference  = ?';
 
-            if (!($stmt = $this->conn->prepare($sql))) {
-                $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-            }
-
-            $isParamBound = $stmt->bind_param('i', $route_id);
-            if (!$isParamBound) {
-                $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-            }
-
-        } else {
-
-            $sql = 'SELECT bus.company_id,bus_companies.name,bus_id,bus_reg,total_seats
-                    FROM bus
-                    JOIN bus_companies ON  bus_companies.company_id = bus.company_id
-                  ';
-
-            if (!($stmt = $this->conn->prepare($sql))) {
-                $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
-            }
-
-//        $isParamBound = $stmt->bind_param('i', $trader_id);
-//        if (!$isParamBound) {
-//            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
-//        }
+        if (!($stmt = $this->conn->prepare($sql))) {
+            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
         }
 
+        $isParamBound = $stmt->bind_param('sss', $credit_request, $date_time, $reference);
+        if (!$isParamBound) {
+            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
+        }
 
         if ($stmt->execute()) {
 
-            $stmt->store_result();
-
-            if ($stmt->num_rows > 0) {
-                //IF FOUND
-
-                $stmt->bind_result($company_id, $name, $bus_id, $bus_reg, $total_seats);
-
+            if ($stmt->affected_rows > 0) {
+                //UPDATE SUCCESSFUL
                 $response['error'] = false;
-                $response['available_buses'] = array();
+                $response['message'] = 'Credit information updated successfully';
 
-                while ($stmt->fetch()) {
-                    $tmp = array();
-                    $tmp['company_id'] = $company_id;
-                    //$tmp['$company_id'] = $company_id;
-                    //$tmp['station_id'] = $station_id;
-                    $tmp['company_name'] = $name;
-                    //$tmp['bus_id'] = $bus_id;
-                    $tmp['bus_reg'] = $bus_reg;
-                    $tmp['available_seats'] = $total_seats;
-                    //$tmp['fare'] = $price;
-
-                    $response['available_buses'][] = $tmp;
-                }
-
-
-                $this->echoResponse(HTTP_status_200_OK, $response);
+                //$this->echoResponse(HTTP_status_200_OK,$response);
             } else {
-                //IF NOT FOUND
-                $response['error'] = false;
-                $response['available_buses'] = array();
-                $response['message'] = 'No results found';
+                //FAILED TO UPDATE
+                $response['error'] = true;
+                $response['message'] = 'Failed to update credit information. Please try again!';
 
-                $this->echoResponse(HTTP_status_200_OK, $response);
+                //$this->echoResponse(HTTP_status_422_Unprocessable_Entity,$response);
             }
 
         } else {
@@ -2757,33 +2519,130 @@ class DbHandler
 
             $this->Execute_failed_to_file($response, $sql);
 
-            $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
+            //$this->echoResponse(HTTP_status_500_Internal_Server_Error,$response);
         }
+
+        $stmt->close();
 
         return null;
     }
-    //************************END OF AVAILABLE BUS***************************//
 
-    public function wallet_API($mno, $kuwaita, $msisdn, $amount, $refID = null,$leg)
+    public function updateTransactionCreditResponseLog($ref_id, $reference, $credit_response)
+    {
+        $response = array();
+
+        $date_time = $this->getCurrentDateTime();
+
+        $sql = 'UPDATE unza_transaction_logs SET credit_reference = ?,credit_response = ?, credit_response_time = ? WHERE ref_id  = ?';
+
+        if (!($stmt = $this->conn->prepare($sql))) {
+            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
+        }
+
+        $isParamBound = $stmt->bind_param('ssss', $reference, $credit_response, $date_time, $ref_id);
+        if (!$isParamBound) {
+            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
+        }
+
+        if ($stmt->execute()) {
+
+            if ($stmt->affected_rows > 0) {
+                //UPDATE SUCCESSFUL
+                $response['error'] = false;
+                $response['message'] = 'Credit information updated successfully';
+
+                //$this->echoResponse(HTTP_status_200_OK,$response);
+            } else {
+                //FAILED TO UPDATE
+                $response['error'] = true;
+                $response['message'] = 'Failed to update credit information. Please try again!';
+
+                //$this->echoResponse(HTTP_status_422_Unprocessable_Entity,$response);
+            }
+
+        } else {
+            //IF QUERY FAILED TO EXECUTE
+            $response['error'] = true;
+            $response['message'] = 'Oops! An error occurred';
+            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
+
+            $this->Execute_failed_to_file($response, $sql);
+
+            //$this->echoResponse(HTTP_status_500_Internal_Server_Error,$response);
+        }
+
+        $stmt->close();
+
+        return null;
+    }
+    //************************END OF LOGS***************************//
+
+
+    public function wallet_API($mno, $kuwaita, $msisdn, $amount, $refID, $leg)
     {
 
-        $url = "https://".NSANO_URL.":".NSANO_PORT."/api/fusion/tp/" . NSANO_API_KEY;
+        $url = "https://" . NSANO_URL . ":" . NSANO_PORT . "/api/fusion/tp/" . NSANO_API_KEY;
         $port = NSANO_PORT;
-
 
         $headers = [
             'Content-Type: application/x-www-form-urlencoded',
             'Accept: application/json'
         ];
 
+
+        //loop through all transactions
+        $result = $this->getTransactionFees();
+
+        $seller_amount_due = $amount;
+        $total_transaction_feel = 0.0;
+
+        foreach ($result as $key => $val) {
+
+            if ($val['status'] == 1)
+
+                //percentage
+                if ($val['charge_type'] == "Percentage") {
+
+                    $total_transaction_feel = $total_transaction_feel + ($amount * ($val['value'] / 100));
+
+                    //none percentage
+                } else {
+
+                    $total_transaction_feel = $total_transaction_feel + ($amount - $val['value']);
+
+                }
+
+            //INSERT TRANSACTION FEE INTO TRANSACTION TABLE
+
+
+        }
+
+
         $post_fields = [
             'mno' => $mno,
             'kuwaita' => $kuwaita,
             'msisdn' => $msisdn,
             'amount' => $amount,
-            'refID' => $refID == null ? date("YmdHis") : $refID,
+            'refID' => $refID,
         ];
 
+//        if($leg == 2){
+//            $post_fields = [
+//                'mno' => $mno,
+//                'kuwaita' => $kuwaita,
+//                'msisdn' => $msisdn,
+//                'amount' => $amount,
+//                'refID' => date("YmdHis")
+//            ];
+//        }else{
+//            $post_fields = [
+//                'mno' => $mno,
+//                'kuwaita' => $kuwaita,
+//                'msisdn' => $msisdn,
+//                'amount' => $amount,
+//                'refID' => $refID ,
+//            ];
+//        }
 
         //Initializing curl to open a connection
         $curl_handler = curl_init();
@@ -2799,14 +2658,26 @@ class DbHandler
         curl_setopt($curl_handler, CURLOPT_CONNECTTIMEOUT, 0);// 100; // set to zero for no timeout
 
         $result = curl_exec($curl_handler);
-        if ($result === FALSE) {
+
+        if ($kuwaita == "mikopo") {//CREDIT
+            if ($leg == 1) {
+                $this->createTransactionCreditRequestLog($refID, http_build_query($post_fields));
+            } else if ($leg == 2) {
+                $this->updateTransactionCreditRequestLog($refID, http_build_query($post_fields));
+            }
+        } else if ($kuwaita == "malipo") {//DEBIT
+            $this->createTransactionDebitRequestLog($refID, http_build_query($post_fields));
+        }
+
+
+        if ($result === FALSE) {//AN ERROR OCCURRED
 
             $file = null;
-            if ($kuwaita == "mikopo") {
+            if ($kuwaita == "mikopo") {//credit
                 $file = __DIR__ . '/Credit_Wallet_Errors.txt';
-            } else if ($kuwaita == "malipo") {
+            } else if ($kuwaita == "malipo") {//debit
                 $file = __DIR__ . '/Debit_Wallet_Errors.txt';
-            }else{
+            } else {
                 $file = __DIR__ . '/Errors.txt';
             }
 
@@ -2815,58 +2686,116 @@ class DbHandler
 
             die('Curl failed: ' . curl_error($curl_handler));
 
-        } else {
+        } else {// REQUEST SUCCESSFUL
 
-            if($kuwaita == "malipo"){//debit
+            if ($kuwaita == "malipo") {//debit
 
                 //$this->notify_API($kuwaita, $refID, $code);
 
                 //WRITE A MESSAGE TO A FILE IN THE SAME DIRECTORY
-                $file = __DIR__ . '/Nsano-debit_wallet-transaction.txt';
+                $file = __DIR__ . '/1-Nsano-debit_wallet-transaction.txt';
                 $date = 'Script was executed at ' . date('d/m/Y H:i:s') . "\n" . $result . "\n" . "\n";
                 file_put_contents($file, $date, FILE_APPEND);
                 //END OF WRITING TO FILE
 
                 $json_obj = json_decode($result, true);
-                $msg = isset($json_obj['msg']) ? $json_obj['msg']: null;
-                $reference = isset($json_obj['reference']) ? $json_obj['reference']: null;
-                $code = isset($json_obj['code']) ? $json_obj['code']: null;
+                $msg = isset($json_obj['msg']) ? $json_obj['msg'] : null;
+                $reference = isset($json_obj['reference']) ? $json_obj['reference'] : null;
+                $code = isset($json_obj['code']) ? $json_obj['code'] : null;
 
-                $this->pushSMS("Transaction failed",$msisdn);
 
-//                if($code == 01 || $code == 02){
-//                }
+                if ($code != 00) {
+                    $buyer_msg = $msg . " .During Debit buyer's wallet";
+                    $this->pushSMS($buyer_msg, $msisdn);
+                }
 
-                $this->updateTransactionDebitDetails($msg,$reference,$code,$refID);
+                $this->updateTransactionDebitResponseLog($refID, $reference, $result);
+                $this->updateTransactionDebitDetails($msg, $reference, $code, $refID);
 
             } elseif ($kuwaita == "mikopo") {//credit
 
                 //WRITE A MESSAGE TO A FILE IN THE SAME DIRECTORY
-                $file = __DIR__ . '/Nsano-credit_wallet-transaction.txt';
+                $file = __DIR__ . '/5-Nsano-credit_wallet-transaction.txt';
                 $date = 'Script was executed at ' . date('d/m/Y H:i:s') . "\n" . $result . "\n" . "\n";
                 file_put_contents($file, $date, FILE_APPEND);
                 //END OF WRITING TO FILE
 
                 $json_obj = json_decode($result, true);
-                $msg = isset($json_obj['msg']) ? $json_obj['msg']: null;
-                $reference = isset($json_obj['reference']) ? $json_obj['reference']: null;
-                $code = isset($json_obj['code']) ? $json_obj['code']: null;
-                $system_code = isset($json_obj['system_code']) ? $json_obj['system_code']: null;
-                $transactionID = isset($json_obj['transactionID']) ? $json_obj['transactionID']: null;
+                $msg = isset($json_obj['msg']) ? $json_obj['msg'] : null;
+                $reference = isset($json_obj['reference']) ? $json_obj['reference'] : null;
+                $code = isset($json_obj['code']) ? $json_obj['code'] : null;
+                $system_code = isset($json_obj['system_code']) ? $json_obj['system_code'] : null;
+                $transactionID = isset($json_obj['transactionID']) ? $json_obj['transactionID'] : null;
 
-                if($leg == 1){
-                    $this->pushSMS($msg,$msisdn);
+                if ($leg == 1) {
 
-                    $this->updateTransactionCreditDetails($msg,$reference,$code,$system_code,$transactionID,$refID);
-                }elseif ($leg == 2){
+                    $this->saveSMS($msg, $msisdn);
+                    $this->pushSMS($msg, "260973297682");
 
-                    $final_msg = $msg . ". You have received ZMK".$amount. "Reference number is ".$refID;
+                    $this->updateTransactionCreditDetails($msg, $reference, $code, $system_code, $transactionID, $refID);
 
-                    $this->pushSMS($final_msg,$msisdn);
-                    $this->updateTransactionCreditAfterDebitDetails($msg,$reference,$code,$system_code,$transactionID,$refID);
+                } elseif ($leg == 2) {
+
+                    $resTraderInformation = $this->getTraderInformation($refID);
+
+                    if ($code == 00) {//Transaction successful
+
+                        $seller_msg = "Transaction successful. You have received ZMW " . $amount . ". Transaction REF: " . strtoupper($refID);
+                        $buyer_msg = "Transaction successful. You have sent ZMW " . $amount . ". Transaction REF: " . strtoupper($refID);
+
+                        //NOTIFY THE SELLER
+                        $this->saveSMS($seller_msg, $msisdn);
+                        $this->pushSMS($seller_msg, "260973297682");
+
+                        //NOTIFY THE BUYER
+                        $this->saveSMS($buyer_msg, $resTraderInformation['buyer_mobile_number']);
+                        $this->pushSMS($buyer_msg, "260973297682");
+
+                        $response['code'] = '00';
+                        $response['msg'] = 'Transaction successful';
+
+                        $this->echoResponse(HTTP_status_200_OK, $response);//NOTIFY NSANO
+
+                    } else if ($code == 01) {//Transaction failed
+
+                        //NOTIFY THE SELLER
+                        $seller_msg = $msg . " during credit seller's wallet";
+                        $this->saveSMS($seller_msg, $resTraderInformation['seller_mobile_number']);
+                        $this->pushSMS($seller_msg, "260973297682");
+
+                        //NOTIFY THE BUYER
+                        $buyer_msg = $msg . " during credit seller's wallet. Transaction will be reversed";
+                        $this->saveSMS($buyer_msg, $resTraderInformation['buyer_mobile_number']);
+                        $this->pushSMS($buyer_msg, "260973297682");
+
+                        $response['code'] = '01';
+                        $response['msg'] = "Failure to complete transaction";
+
+                        $this->echoResponse(HTTP_status_200_OK, $response);//NOTIFY NSANO
+
+                    } else {
+
+                        //NOTIFY THE SELLER
+                        $seller_msg = $msg . " During credit seller's wallet";
+                        $this->saveSMS($seller_msg, $resTraderInformation['seller_mobile_number']);
+                        $this->pushSMS($seller_msg, "260973297682");
+
+                        //NOTIFY THE BUYER
+                        $buyer_msg = $msg . " During credit seller's wallet. Transaction will be reversed";
+                        $this->saveSMS($buyer_msg, $resTraderInformation['buyer_mobile_number']);
+                        $this->pushSMS($buyer_msg, "260973297682");
+
+                        $response['code'] = '01';
+                        $response['msg'] = "Failure to complete transaction";
+
+                        $this->echoResponse(HTTP_status_200_OK, $response);//NOTIFY NSANO
+                    }
+
+                    $this->updateTransactionCreditResponseLog($refID, $reference, $result);
+                    $this->updateTransactionSellerBalanceAfterDebitDetails($msg, $reference, $code, $system_code, $transactionID, $refID);
                 }
 
-            }else{
+            } else {
 
                 //WRITE A MESSAGE TO A FILE IN THE SAME DIRECTORY
                 $file = __DIR__ . '/Nsano-error_wallet-transaction.txt';
@@ -2882,27 +2811,27 @@ class DbHandler
         return $result;
     }
 
-    public function updateTransactionDebitDetails($msg,$reference,$code,$refID)
+    public function updateTransactionDebitDetails($msg, $reference, $code, $refID)
     {
         $response = array();
 
-        $sql = 'UPDATE transaction_summaries SET debit_msg = ?, debit_reference = ?, debit_code = ? WHERE cart_id  = ?';
+        $sql = 'UPDATE unza_transactions SET debit_msg = ?, debit_reference = ?, debit_code = ? WHERE cart_id  = ?';
 
         if (!($stmt = $this->conn->prepare($sql))) {
             $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
         }
 
-        $isParamBound = $stmt->bind_param('sssi', $msg,$reference,$code,$refID);
+        $isParamBound = $stmt->bind_param('sssi', $msg, $reference, $code, $refID);
         if (!$isParamBound) {
             $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
         }
 
         if ($stmt->execute()) {
 
-            if ( $stmt->affected_rows > 0) {
+            if ($stmt->affected_rows > 0) {
                 //UPDATE SUCCESSFUL
                 $response['error'] = false;
-                $response['message'] = 'debit information updated successfully';
+                $response['message'] = 'Debit information updated successfully';
 
                 //$this->echoResponse(HTTP_status_200_OK,$response);
             } else {
@@ -2926,7 +2855,7 @@ class DbHandler
 
         $stmt->close();
         //WRITE A MESSAGE TO A FILE IN THE SAME DIRECTORY
-        $file = __DIR__ . '/updateTransactionDebitDetails.txt';
+        $file = __DIR__ . '/2-updateTransactionDebitDetails.txt';
 
         $date = 'Script was executed at ' . date('d/m/Y H:i:s') . "\n" . json_encode($response) . "\n" . "\n";
 
@@ -2935,11 +2864,11 @@ class DbHandler
         return $response;
     }
 
-    public function updateTransactionDebitCallbackDetails($msg,$reference,$code,$system_code = null,$transactionID = null)
+    public function updateTransactionDebitCallbackDetails($msg, $reference, $code, $system_code = null, $transactionID = null)
     {
         $response = array();
 
-        $sql = 'UPDATE transaction_summaries 
+        $sql = 'UPDATE unza_transactions 
                 SET callback_msg = ?, callback_reference = ?, callback_code = ?,callback_system_code = ?, callback_transactionID = ? 
                 WHERE debit_reference  = ?';
 
@@ -2947,7 +2876,7 @@ class DbHandler
             $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
         }
 
-        $isParamBound = $stmt->bind_param('ssssss', $msg,$reference,$code,$system_code,$transactionID,$reference);
+        $isParamBound = $stmt->bind_param('ssssss', $msg, $reference, $code, $system_code, $transactionID, $reference);
         if (!$isParamBound) {
             $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
         }
@@ -2961,8 +2890,83 @@ class DbHandler
                 $response['error'] = false;
                 $response['message'] = 'debit callback information updated successfully';
 
-                if($code == 00){//proceed to credit the seller
-                    $this->getSellerInformation($reference);
+                if ($code == 00) {
+
+                    $resTraderInformation = $this->getTraderInformation($reference);
+
+                    if ($resTraderInformation != null) {
+
+                        if ($resTraderInformation['transaction_type_id'] == 1 || $resTraderInformation['transaction_type_id'] == 2) {//MAKE SELL OR MAKE ORDER
+
+                            //PROCEED TO CREDIT THE SELLER
+                            $this->creditSeller($reference);
+
+                        } else if ($resTraderInformation['transaction_type_id'] == 3) {//TICKET PURCHASE
+
+                            //NOTIFY THE BUYER
+                            $buyer_msg = $msg . " The ticket number is ticket" . $resTraderInformation['cart_id'] . ". Transaction REF: " . strtoupper($reference);
+                            $this->saveSMS($buyer_msg, $resTraderInformation['buyer_mobile_number']);
+                            $this->pushSMS($buyer_msg, "260973297682");
+
+                            $response['code'] = '00';
+                            $response['msg'] = 'Transaction successful';
+
+                            $this->echoResponse(HTTP_status_200_OK, $response);//NOTIFY NSANO
+
+                            $this->pushToProbasePurchaseTicketAPI($reference);
+
+                        } else if ($resTraderInformation['transaction_type_id'] == 4) {//MARKET FEE PAYMENT
+
+                            //NOTIFY THE BUYER
+                            $buyer_msg = $msg . ". Transaction REF: " . strtoupper($reference);
+                            $this->saveSMS($buyer_msg, $resTraderInformation['buyer_mobile_number']);
+                            $this->pushSMS($buyer_msg, "260973297682");
+
+                            $response['code'] = '00';
+                            $response['msg'] = 'Transaction successful';
+
+                            $this->echoResponse(HTTP_status_200_OK, $response);//NOTIFY NSANO
+
+                            $this->createPaidMarketChargesRecord($resTraderInformation['buyer_mobile_number'], $resTraderInformation['amount']);
+
+                        }
+
+                    }
+
+                } else { //TRANSACTION FAILED AT NSANO OR TELCO
+
+                    $resTraderInformation = $this->getTraderInformation($reference);
+
+                    if ($resTraderInformation != null) {
+
+                        //BUYER
+                        $buyer_msg = $msg . " at Nsano or Telco";
+                        $this->pushSMS($buyer_msg, $resTraderInformation['buyer_mobile_number']);
+                        $this->pushSMS($buyer_msg, "260973297682");
+                        //BUYER
+
+                        //SELLER
+                        $seller_msg = "Transaction for " . $resTraderInformation['buyer_mobile_number'] . " has failed at Nsano or Telco";
+                        $this->pushSMS($seller_msg, $resTraderInformation['seller_mobile_number']);
+                        $this->pushSMS($seller_msg, "260973297682");
+                        //SELLER
+
+                        $response['code'] = '01';
+                        $response['msg'] = "Failure to complete transaction";
+
+                        $this->echoResponse(HTTP_status_200_OK, $response);//NOTIFY NSANO
+
+                    } else {
+
+                        $response['code'] = '01';
+                        $response['msg'] = "Failure to complete transaction";
+
+                        $this->echoResponse(HTTP_status_200_OK, $response);//NOTIFY NSANO
+
+                        $response['error'] = true;
+                        $response['message'] = 'Oops! An error occurred when fetching trader information';
+
+                    }
                 }
 
                 //$this->echoResponse(HTTP_status_200_OK,$response);
@@ -2987,7 +2991,7 @@ class DbHandler
 
         $stmt->close();
         //WRITE A MESSAGE TO A FILE IN THE SAME DIRECTORY
-        $file = __DIR__ . '/updateTransactionDebitCallbackDetails.txt';
+        $file = __DIR__ . '/4-updateTransactionDebitCallbackDetails.txt';
 
         $date = 'Script was executed at ' . date('d/m/Y H:i:s') . "\n" . json_encode($response) . "\n" . "\n";
 
@@ -2996,23 +3000,113 @@ class DbHandler
         return $response;
     }
 
-    public function getSellerInformation($debit_reference)
+    public function creditSeller($debit_reference)
     {
         $response = array();
 
-        $sql = 'SELECT seller_mobile_number,buyer_mobile_number,amount
-                FROM transaction_summaries
+        $resTraderInformation = $this->getTraderInformation($debit_reference);
+
+        if ($resTraderInformation != null) {
+
+            $telco = substr(trim($resTraderInformation['seller_mobile_number']), 0, 5);
+
+            //$refID = $resTraderInformation['cart_id'] . date("YmdHis");
+
+            switch ($telco) {
+                case '26097':
+                    $res = $this->wallet_API('AIRTELZM', 'mikopo', $resTraderInformation['seller_mobile_number'], $resTraderInformation['amount'], $debit_reference, 2);
+                    break;
+                case '26096':
+                    $res = $this->wallet_API('MTNZM', 'mikopo', $resTraderInformation['seller_mobile_number'], $resTraderInformation['amount'], $debit_reference, 2);
+                    break;
+                case '26076':
+                    $res = $this->wallet_API('MTNZM', 'mikopo', $resTraderInformation['seller_mobile_number'], $resTraderInformation['amount'], $debit_reference, 2);
+                    break;
+                case '26095':
+                    $res = $this->wallet_API('ZAMTEL ', 'mikopo', $resTraderInformation['seller_mobile_number'], $resTraderInformation['amount'], $debit_reference, 2);
+                    break;
+                default:
+                    $res = "Telco not identified";
+            }
+
+
+        } else {
+            $response['error'] = true;
+            $response['message'] = 'Oops! An error occurred when fetching trader information';
+        }
+
+        return $response;
+    }
+
+    public function updateTransactionSellerBalanceAfterDebitDetails($msg, $reference, $code, $system_code = null, $transactionID = null, $refID)
+    {
+        $response = array();
+
+        $sql = 'UPDATE unza_transactions 
+                SET credit_msg = ?, credit_reference = ?, credit_code = ?,credit_system_code = ?, credit_transactionID = ? 
+                WHERE debit_reference  = ?';
+
+        if (!($stmt = $this->conn->prepare($sql))) {
+            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
+        }
+
+        $isParamBound = $stmt->bind_param('ssssss', $msg, $reference, $code, $system_code, $transactionID, $refID);
+        if (!$isParamBound) {
+            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
+        }
+
+        if ($stmt->execute()) {
+
+            $num_affected_rows = $stmt->affected_rows;
+
+            if ($num_affected_rows > 0) {
+                //UPDATE SUCCESSFUL
+                $response['error'] = false;
+                $response['message'] = 'credit information updated successfully';
+
+            } else {
+                //FAILED TO UPDATE
+                $response['error'] = true;
+                $response['message'] = 'Failed to update credit information. Please try again!';
+
+            }
+
+        } else {
+            //IF QUERY FAILED TO EXECUTE
+            $response['error'] = true;
+            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
+
+            $this->Execute_failed_to_file($response, $sql);
+
+        }
+
+        $stmt->close();
+        //WRITE A MESSAGE TO A FILE IN THE SAME DIRECTORY
+        $file = __DIR__ . '/6-updateTransactionSellerBalanceAfterDebitDetails.txt';
+        $date = 'Script was executed at ' . date('d/m/Y H:i:s') . "\n" . json_encode($response) . "\n" . "\n";
+        file_put_contents($file, $date, FILE_APPEND);
+        //END OF WRITING TO FILE
+        return $response;
+    }
+
+
+    public function getTraderInformation($debit_reference)
+    {
+        $response = array();
+
+        $sql = 'SELECT cart_id,seller_mobile_number,buyer_mobile_number,amount,transaction_type_id
+                FROM unza_transactions
                 WHERE debit_reference = ?';
 
         $isPrepared = $stmt = $this->conn->prepare($sql);
 
         if (!$isPrepared) {
-            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error,$sql);
+            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
         }
 
         $isParamBound = $stmt->bind_param('s', $debit_reference);
         if (!$isParamBound) {
-            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error,$sql);
+            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
         }
 
         if ($stmt->execute()) {
@@ -3022,39 +3116,18 @@ class DbHandler
             if ($stmt->num_rows > 0) {
                 //IF FOUND
 
-                $stmt->bind_result($seller_mobile_number,$buyer_mobile_number,$amount);
+                $stmt->bind_result($cart_id, $seller_mobile_number, $buyer_mobile_number, $amount, $transaction_type_id);
 
                 while ($stmt->fetch()) {
                     $tmp = array();
 
+                    $tmp['cart_id'] = $cart_id;
                     $tmp['seller_mobile_number'] = $seller_mobile_number;
                     $tmp['buyer_mobile_number'] = $buyer_mobile_number;
                     $tmp['amount'] = $amount;
+                    $tmp['transaction_type_id'] = $transaction_type_id;
 
                     $response = $tmp;
-                }
-
-                $buyer_msg = "Transaction successful. Your reference number is ".$debit_reference;
-                $this->pushSMS($buyer_msg,$response['buyer_mobile_number']);
-
-                $telco = substr(trim($response['seller_mobile_number']), 0, 5);
-
-                //$resFloat = null;
-                switch ($telco) {
-                    case '26097':
-                        $res = $this->wallet_API('AIRTELZM','mikopo',$response['seller_mobile_number'],$response['amount'],$debit_reference,2);
-                        break;
-                    case '26096':
-                        $res =  $this->wallet_API('MTNZM','mikopo',$response['seller_mobile_number'],$response['amount'],$debit_reference,2);
-                        break;
-                    case '26076':
-                        $res =  $this->wallet_API('MTNZM','mikopo',$response['seller_mobile_number'],$response['amount'],$debit_reference,2);
-                        break;
-                    case '26095':
-                        $res =  $this->wallet_API('ZAMTEL ','mikopo',$response['seller_mobile_number'],$response['amount'],$debit_reference,2);
-                        break;
-                    default:
-                        $res = "Telco not identified";
                 }
 
 
@@ -3069,95 +3142,97 @@ class DbHandler
             $response['message'] = 'Oops! An error occurred';
             $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
 
-            $this->Execute_failed_to_file($response,$sql);
+            $this->Execute_failed_to_file($response, $sql);
         }
 
         $stmt->close();
         return $response;
     }
 
-    public function updateTransactionCreditAfterDebitDetails($msg,$reference,$code,$system_code = null,$transactionID = null,$refID)
+    public function getTransactionFees()
     {
         $response = array();
 
-        $sql = 'UPDATE transaction_summaries 
-                SET credit_msg = ?, credit_reference = ?, credit_code = ?,credit_system_code = ?, credit_transactionID = ? 
-                WHERE debit_reference  = ?';
+        $sql = 'SELECT id, name, "value", status, charge_type
+                FROM unza_transaction_fees
+                WHERE status = 1
+                ';
 
-        if (!($stmt = $this->conn->prepare($sql))) {
+        $isPrepared = $stmt = $this->conn->prepare($sql);
+
+        if (!$isPrepared) {
             $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
         }
 
-        $isParamBound = $stmt->bind_param('ssssss', $msg,$reference,$code,$system_code,$transactionID,$refID);
+        $isParamBound = $stmt->bind_param('s', $debit_reference);
         if (!$isParamBound) {
             $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
         }
 
         if ($stmt->execute()) {
 
-            $num_affected_rows = $stmt->affected_rows;
+            $stmt->store_result();
 
-            if ($num_affected_rows > 0) {
-                //UPDATE SUCCESSFUL
-                //$response['error'] = false;
-                //$response['message'] = 'credit information updated successfully';
-                $response['code'] = '00';
-                $response['msg'] = 'Transaction successful';
+            if ($stmt->num_rows > 0) {
+                //IF FOUND
 
-                $this->echoResponse(HTTP_status_200_OK,$response);
+                $stmt->bind_result($id, $name, $value, $status, $charge_type);
+
+                while ($stmt->fetch()) {
+                    $tmp = array();
+
+                    $tmp['id'] = $id;
+                    $tmp['name'] = $name;
+                    $tmp['value'] = $value;
+                    $tmp['status'] = $status;
+                    $tmp['charge_type'] = $charge_type;
+
+                    $response[] = $tmp;
+                }
+
+
             } else {
-                //FAILED TO UPDATE
-                //$response['error'] = true;
-                //$response['message'] = 'Failed to update credit information. Please try again!';
-                $response['code'] = '01';
-                $response['msg'] = "Failure to complete transaction";
+                //IF NOT FOUND
+                $tmp['id'] = 0;
+                $tmp['name'] = 0;
+                $tmp['value'] = 0;
+                $tmp['status'] = 0;
+                $tmp['charge_type'] = 0;
 
-                $this->echoResponse(HTTP_status_200_OK,$response);
+                $response[] = $tmp;
             }
 
         } else {
             //IF QUERY FAILED TO EXECUTE
-            //$response['error'] = true;
-            $response['code'] = '02';
-            $response['msg'] = 'Oops! An error occurred';
-            //$response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
+            $response['error'] = true;
+            $response['message'] = 'Oops! An error occurred';
+            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
 
             $this->Execute_failed_to_file($response, $sql);
-
-            $this->echoResponse(HTTP_status_500_Internal_Server_Error,$response);
         }
 
         $stmt->close();
-        //WRITE A MESSAGE TO A FILE IN THE SAME DIRECTORY
-        $file = __DIR__ . '/updateTransactionCreditAfterDebitDetails.txt';
-        $date = 'Script was executed at ' . date('d/m/Y H:i:s') . "\n" . json_encode($response) . "\n" . "\n";
-        file_put_contents($file, $date, FILE_APPEND);
-        //END OF WRITING TO FILE
         return $response;
     }
 
-
-
-
-
-    public function updateTransactionCreditDetails($msg,$reference,$code,$system_code,$transactionID,$cart_id)
+    public function updateTransactionCreditDetails($msg, $reference, $code, $system_code, $transactionID, $cart_id)
     {
         $response = array();
 
-        $sql = 'UPDATE transaction_summaries SET credit_msg = ?, credit_reference = ?, credit_code = ?,credit_system_code = ?, credit_transactionID = ? WHERE cart_id  = ?';
+        $sql = 'UPDATE unza_transactions SET credit_msg = ?, credit_reference = ?, credit_code = ?,credit_system_code = ?, credit_transactionID = ? WHERE cart_id  = ?';
 
         if (!($stmt = $this->conn->prepare($sql))) {
             $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
         }
 
-        $isParamBound = $stmt->bind_param('sssssi', $msg,$reference,$code,$system_code,$transactionID,$cart_id);
+        $isParamBound = $stmt->bind_param('sssssi', $msg, $reference, $code, $system_code, $transactionID, $cart_id);
         if (!$isParamBound) {
             $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
         }
 
         if ($stmt->execute()) {
 
-            if ( $stmt->affected_rows > 0) {
+            if ($stmt->affected_rows > 0) {
                 //UPDATE SUCCESSFUL
                 $response['error'] = false;
                 $response['message'] = 'credit information updated successfully';
@@ -3186,11 +3261,11 @@ class DbHandler
         return $response;
     }
 
-    public function notify_API($kuwaita ="kusubiri_mikopo", $refID, $code)
+    public function notify_API($kuwaita = "kusubiri_mikopo", $refID, $code)
     {
-        $apiKey = "0ef94dc7b623471f94b9c342c9e9dc17";
+        $apiKey = NSANO_API_KEY;
         $url = "https://sandbox.nsano.com:7003/api/fusion/tp/" . $apiKey;
-        $port = 7003;
+        $port = NSANO_PORT;
 
         $headers = [
             'Content-Type: application/x-www-form-urlencoded',
@@ -3256,11 +3331,11 @@ class DbHandler
         return $result;
     }
 
-    public function check_status_API( $refID = null)
+    public function check_status_API($refID = null)
     {
-        $apiKey = "0ef94dc7b623471f94b9c342c9e9dc17";
-        $url = "https://sandbox.nsano.com:7003/api/fusion/tp/metadata/".$refID."/" . $apiKey;
-        $port = 7003;
+        $apiKey = NSANO_API_KEY;
+        $url = "https://sandbox.nsano.com:7003/api/fusion/tp/metadata/" . $refID . "/" . $apiKey;
+        $port = NSANO_PORT;
 
         $headers = [
             'Content-Type: application/x-www-form-urlencoded',
@@ -3274,7 +3349,7 @@ class DbHandler
         curl_setopt($curl_handler, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl_handler, CURLOPT_URL, $url);
         curl_setopt($curl_handler, CURLOPT_PORT, $port);
-        curl_setopt($curl_handler,  CURLOPT_CUSTOMREQUEST,  "GET");
+        curl_setopt($curl_handler, CURLOPT_CUSTOMREQUEST, "GET");
         curl_setopt($curl_handler, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl_handler, CURLOPT_SSL_VERIFYPEER, false);//set to true in production
         curl_setopt($curl_handler, CURLOPT_SSL_VERIFYHOST, false);//set to true in production
@@ -3347,23 +3422,331 @@ class DbHandler
         return $result;
     }
 
-    public function pushSMS($msg, $destination) {
-        $source = "MarketSales";
+    public function pushToProbaseMakeSalesAPI($debit_reference)
+    {
+        $url = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+
+        $headers = [
+            'x-request-id:Fe2lL9okYV7WkCEAAAeB',
+            'Content-Type: application/json',
+            'Accept: application/json'
+        ];
+
+
+        $salesRes = $this->getTransactionDetails($debit_reference);
+
+        $auth = [
+            "username" => "admin",
+            "service_token" => "JJ8DJ7S66DMA5"
+        ];
+        $payload = [
+            'cart_id' => $salesRes['cart_id'],
+            'transaction_type' => $salesRes['transaction_type'],
+
+            'seller_uuid' => $salesRes['seller_id'],
+            'seller_firstname' => $salesRes['seller_firstname'],
+            'seller_lastname' => $salesRes['seller_lastname'],
+            'seller_mobile_number' => $salesRes['seller_mobile_number'],
+
+            'buyer_uuid' => $salesRes['buyer_id'],
+            'buyer_firstname' => $salesRes['buyer_firstname'],
+            'buyer_lastname' => $salesRes['buyer_lastname'],
+            'buyer_mobile_number' => $salesRes['buyer_mobile_number'],
+
+            'amount' => $salesRes['amount'],
+            'transaction_date' => $salesRes['transaction_date']
+        ];
+
+        $json = [
+            "auth" => $auth,
+            "payload" => $payload
+        ];
+
+        //Initializing curl to open a connection
+        $curl_handler = curl_init();
+
+        curl_setopt($curl_handler, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl_handler, CURLOPT_URL, $url);
+        curl_setopt($curl_handler, CURLOPT_POST, true);
+        curl_setopt($curl_handler, CURLOPT_POSTFIELDS, json_encode($json));
+        curl_setopt($curl_handler, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl_handler, CURLOPT_SSL_VERIFYPEER, false);//set to true in production
+        curl_setopt($curl_handler, CURLOPT_SSL_VERIFYHOST, false);//set to true in production
+        curl_setopt($curl_handler, CURLOPT_CONNECTTIMEOUT, 0);// 100; // set to zero for no timeout
+
+        $result = curl_exec($curl_handler);
+        if ($result === FALSE) {
+
+            $file = __DIR__ . '/MarketSales_Errors.txt';
+
+            $date = 'Script was executed at ' . date('d/m/Y H:i:s') . "\n" . json_encode(curl_error($curl_handler)) . "\n" . "\n";
+
+            file_put_contents($file, $date, FILE_APPEND);
+
+            die('Curl failed: ' . curl_error($curl_handler));
+
+        } else {
+
+            //WRITE A MESSAGE TO A FILE IN THE SAME DIRECTORY
+            $file = __DIR__ . '/Probase-Market-Sales';
+            $date = 'Script was executed at ' . date('d/m/Y H:i:s') . "\n" . $result . "\n" . "\n";
+            file_put_contents($file, $date, FILE_APPEND);
+            //END OF WRITING TO FILE
+
+            $json_obj = json_decode($result, true);
+//            $msg = isset($json_obj['msg']) ? $json_obj['msg'] : null;
+//            $reference = isset($json_obj['reference']) ? $json_obj['reference'] : null;
+//            $code = isset($json_obj['code']) ? $json_obj['code'] : null;
+//            $system_code = isset($json_obj['system_code']) ? $json_obj['system_code'] : null;
+//            $transactionID = isset($json_obj['transactionID']) ? $json_obj['transactionID'] : null;
+        }
+
+        curl_close($curl_handler);
+
+        return $result;
+    }
+
+    public function pushToProbasePurchaseTicketAPI($debit_reference)
+    {
+        $url = '10.10.1.57:4000/api/v1/btms/tickets/secured/purchase';
+
+        $headers = [
+            'x-request-id:Fe2lL9okYV7WkCEAAAeB',
+            'Content-Type: application/json',
+            'Accept: application/json'
+        ];
+
+
+        $ticketRes = $this->getTransactionDetails($debit_reference);
+
+        $auth = [
+            "username" => "admin",
+            "service_token" => "JJ8DJ7S66DMA5"
+        ];
+        $payload = [
+            'external_ref' => 'ticket' . $ticketRes['cart_id'],
+            'route_code' => $ticketRes['route_code'],
+            'first_name' => $ticketRes['buyer_firstname'],
+            'other_name' => '',
+            'last_name' => $ticketRes['buyer_lastname'],
+            'email' => $ticketRes['buyer_email'],
+            'transaction_channel' => $ticketRes['transaction_channel'],
+            'id_type' => $ticketRes['id_type'],
+            'passenger_id' => $ticketRes['passenger_id'],
+            'bus_schedule_id' => $ticketRes['bus_schedule_id'],
+            'travel_date' => $ticketRes['travel_date'],
+            'mobile_number' => $ticketRes['buyer_mobile_number']
+        ];
+
+        $json = [
+            "auth" => $auth,
+            "payload" => $payload
+        ];
+
+        //Initializing curl to open a connection
+        $curl_handler = curl_init();
+
+        curl_setopt($curl_handler, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl_handler, CURLOPT_URL, $url);
+        curl_setopt($curl_handler, CURLOPT_POST, true);
+        curl_setopt($curl_handler, CURLOPT_POSTFIELDS, json_encode($json));
+        curl_setopt($curl_handler, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl_handler, CURLOPT_SSL_VERIFYPEER, false);//set to true in production
+        curl_setopt($curl_handler, CURLOPT_SSL_VERIFYHOST, false);//set to true in production
+        curl_setopt($curl_handler, CURLOPT_CONNECTTIMEOUT, 0);// 100; // set to zero for no timeout
+
+        $result = curl_exec($curl_handler);
+        if ($result === FALSE) {
+
+            $file = __DIR__ . '/TicketPurchase_Errors.txt';
+
+            $date = 'Script was executed at ' . date('d/m/Y H:i:s') . "\n" . json_encode(curl_error($curl_handler)) . "\n" . "\n";
+
+            file_put_contents($file, $date, FILE_APPEND);
+
+            die('Curl failed: ' . curl_error($curl_handler));
+
+        } else {
+
+            //WRITE A MESSAGE TO A FILE IN THE SAME DIRECTORY
+            $file = __DIR__ . '/Probase-Ticket-Purchase';
+            $date = 'Script was executed at ' . date('d/m/Y H:i:s') . "\n" . $result . "\n" . "\n";
+            file_put_contents($file, $date, FILE_APPEND);
+            //END OF WRITING TO FILE
+
+            $json_obj = json_decode($result, true);
+//            $msg = isset($json_obj['msg']) ? $json_obj['msg'] : null;
+//            $reference = isset($json_obj['reference']) ? $json_obj['reference'] : null;
+//            $code = isset($json_obj['code']) ? $json_obj['code'] : null;
+//            $system_code = isset($json_obj['system_code']) ? $json_obj['system_code'] : null;
+//            $transactionID = isset($json_obj['transactionID']) ? $json_obj['transactionID'] : null;
+        }
+
+        curl_close($curl_handler);
+
+        return $result;
+    }
+
+    public function getTransactionDetails($debit_reference)
+    {
+        $response = array();
+
+        $sql = 'SELECT cart_id, transaction_type_id, route_code, transaction_channel, id_type, passenger_id, bus_schedule_id,travel_date, travel_time, 
+                      seller_id, seller_firstname, seller_lastname, seller_mobile_number, 
+                      buyer_id, buyer_firstname, buyer_lastname, buyer_mobile_number, buyer_email, 
+                      amount, device_serial, transaction_date
+                FROM unza_transactions
+                WHERE debit_reference = ?';
+
+        $isPrepared = $stmt = $this->conn->prepare($sql);
+
+        if (!$isPrepared) {
+            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
+        }
+
+        $isParamBound = $stmt->bind_param('s', $debit_reference);
+        if (!$isParamBound) {
+            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
+        }
+
+        if ($stmt->execute()) {
+
+            $stmt->store_result();
+
+            if ($stmt->num_rows > 0) {
+                //IF FOUND
+
+                $stmt->bind_result($cart_id, $transaction_type_id, $route_code, $transaction_channel, $id_type, $passenger_id, $bus_schedule_id, $travel_date, $travel_time,
+                    $seller_id, $seller_firstname, $seller_lastname, $seller_mobile_number,
+                    $buyer_id, $buyer_firstname, $buyer_lastname, $buyer_mobile_number, $buyer_email,
+                    $amount, $device_serial, $transaction_date);
+
+                while ($stmt->fetch()) {
+                    $tmp = array();
+
+                    $tmp['cart_id'] = $cart_id;
+                    $tmp['transaction_type_id'] = $transaction_type_id;
+
+                    $tmp['seller_id'] = $seller_id;
+                    $tmp['seller_firstname'] = $seller_firstname;
+                    $tmp['seller_lastname'] = $seller_lastname;
+                    $tmp['seller_mobile_number'] = $seller_mobile_number;
+
+                    $tmp['buyer_id'] = $buyer_id;
+                    $tmp['buyer_firstname'] = $buyer_firstname;
+                    $tmp['buyer_lastname'] = $buyer_lastname;
+                    $tmp['buyer_mobile_number'] = $buyer_mobile_number;
+                    $tmp['buyer_email'] = $buyer_email;
+
+                    $tmp['amount'] = $amount;
+                    $tmp['device_serial'] = $device_serial;
+                    $tmp['transaction_date'] = $transaction_date;
+
+                    $tmp['route_code'] = $route_code;
+                    $tmp['transaction_channel'] = $transaction_channel;
+                    $tmp['id_type'] = $id_type;
+                    $tmp['passenger_id'] = $passenger_id;
+                    $tmp['bus_schedule_id'] = $bus_schedule_id;
+                    $tmp['travel_date'] = $travel_date;
+
+                    $response = $tmp;
+                }
+
+
+            } else {
+                //IF NOT FOUND
+                $response = null;
+            }
+
+        } else {
+            //IF QUERY FAILED TO EXECUTE
+            $response['error'] = true;
+            $response['message'] = 'Oops! An error occurred';
+            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
+
+            $this->Execute_failed_to_file($response, $sql);
+        }
+
+        $stmt->close();
+        return $response;
+    }
+
+    public function pushSMS($msg, $destination)
+    {
+        $source = "Sales";
         $SMS = urlencode($msg);
 
-        $url = "http://".KANNEL_IP.":".KANNEL_PORT."/napsamobile/pushsms?smsc=zamtelsmsc&username=".KANNEL_USER."&password=".KANNEL_PASSWORD."&from=".$source."&to=".$destination."&text=".$SMS;
+        $url = "http://" . KANNEL_IP . ":" . KANNEL_PORT . "/napsamobile/pushsms?smsc=zamtelsmsc&username=" . KANNEL_USER . "&password=" . KANNEL_PASSWORD . "&from=" . $source . "&to=" . $destination . "&text=" . $SMS;
         try {
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 //            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, PaEaseConnectionTimeout);
 //            curl_setopt($ch, CURLOPT_TIMEOUT, PaEaseReadTimeout);
-             $response = curl_exec($ch);
+            $response = curl_exec($ch);
+
+            //WRITE A MESSAGE TO A FILE IN THE SAME DIRECTORY
+            $file = __DIR__ . '/SMS-report.txt';
+            $date = 'Script was executed at ' . date('d/m/Y H:i:s') . "\n" . $response . " mobile number: " . $destination . "\n" . "\n";
+            file_put_contents($file, $date, FILE_APPEND);
+            //END OF WRITING TO FILE
+
             curl_close($ch);
         } catch (Exception $ex) {
+
+            //WRITE A MESSAGE TO A FILE IN THE SAME DIRECTORY
+            $file = __DIR__ . '/SMS-exception-report.txt';
+            $date = 'Script was executed at ' . date('d/m/Y H:i:s') . "\n" . $ex . " mobile number: " . $destination . "\n" . "\n";
+            file_put_contents($file, $date, FILE_APPEND);
+            //END OF WRITING TO FILE
+
             throw new Exception("Error occurred while sending sms");
         }
     }
+
+    public function saveSMS($message, $mobile_number)
+    {
+        $response = array();
+
+        $sender_id = "Sales";
+        $status = 0;
+
+        $sql = 'INSERT INTO unza_sms_logs(sender_id, mobile_number, message, status) VALUES(?,?,?,?)';
+
+        if (!($stmt = $this->conn->prepare($sql))) {
+            $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
+        }
+
+        $isParamBound = $stmt->bind_param('ssss', $sender_id, $mobile_number, $message, $status);
+        if (!$isParamBound) {
+            $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
+        }
+
+        if ($stmt->execute()) {
+            //CREATED
+
+            $response['error'] = false;
+            $response['message'] = 'Debit Request captured';
+            $stmt->close();
+
+            $this->echoResponse(HTTP_status_200_OK, $response);
+
+        } else {
+            //FAILED TO CREATE
+            $response['error'] = true;
+            $response['message'] = 'Oops! An error occurred';
+            $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
+            $stmt->close();
+
+            $this->Execute_failed_to_file($response, $sql);
+
+            $this->echoResponse(HTTP_status_500_Internal_Server_Error, $response);
+        }
+
+        return null;
+    }
+
+
 
 //************************END OF ENTITY***************************//
     /*
@@ -3372,7 +3755,7 @@ class DbHandler
     */
     public function getApiKeyById($trader_id)
     {
-        $stmt = $this->conn->prepare('SELECT api_key FROM users WHERE id = ?');
+        $stmt = $this->conn->prepare('SELECT api_key FROM unza_users WHERE id = ?');
         $stmt->bind_param('i', $trader_id);
         if ($stmt->execute()) {
             # code...
@@ -3391,7 +3774,7 @@ class DbHandler
     public function getUserId($api_key)
     {
         # code...
-        $stmt = $this->conn->prepare('SELECT id FROM users WHERE api_key = ?');
+        $stmt = $this->conn->prepare('SELECT id FROM unza_users WHERE api_key = ?');
         $stmt->bind_param('s', $api_key);
         if ($stmt->execute()) {
             # code...
@@ -3411,7 +3794,7 @@ class DbHandler
 
         if (!$this->doesApplicationExist($application_name)) {
 
-            $sql = 'INSERT INTO api_config(application_name,api_key) VALUES(?,?)';
+            $sql = 'INSERT INTO unza_api_config(application_name,api_key) VALUES(?,?)';
 
             $isPrepared = $stmt = $this->conn->prepare($sql);
             if (!$isPrepared) {
@@ -3456,7 +3839,7 @@ class DbHandler
 
     private function doesApplicationExist($application_name)
     {
-        $stmt = $this->conn->prepare('SELECT api_config_id FROM api_config WHERE application_name = ? ');
+        $stmt = $this->conn->prepare('SELECT api_config_id FROM unza_api_config WHERE application_name = ? ');
         $stmt->bind_param('s', $application_name);
         $stmt->execute();
         $stmt->store_result();
@@ -3470,7 +3853,7 @@ class DbHandler
     //if the api key is there in db, it is valid key
     public function isValidApiKey($api_key)
     {
-        $stmt = $this->conn->prepare('SELECT api_config_id FROM api_config WHERE api_key = ?');
+        $stmt = $this->conn->prepare('SELECT api_config_id FROM unza_api_config WHERE api_key = ?');
         $stmt->bind_param('s', $api_key);
         $stmt->execute();
         $stmt->store_result();
@@ -3503,12 +3886,12 @@ class DbHandler
 
             $isPrepared = $stmt = $this->conn->prepare($sql);
             if (!$isPrepared) {
-                $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error,$sql);
+                $this->Prepare_failed_to_file('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error, $sql);
             }
 
             $isParamBound = $stmt->bind_param('ssssisi', $from, $val['number'], $val['cost'], $val['messageId'], $val['messageParts'], $val['status'], $val['statusCode']);
             if (!$isParamBound) {
-                $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error,$sql);
+                $this->Binding_parameters_failed_to_file('Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error, $sql);
             }
 
 
@@ -3525,7 +3908,7 @@ class DbHandler
                 $response['message'] = 'Oops! An error occurred';
                 $response['error_message'] = 'Execute failed: (' . $stmt->errno . ')' . $stmt->error;
 
-                $this->Execute_failed_to_file($response,$sql);
+                $this->Execute_failed_to_file($response, $sql);
 
                 $stmt->close();
             }

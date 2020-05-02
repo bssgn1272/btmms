@@ -1,20 +1,20 @@
 package com.innovitrix.napsamarketsales.models;
 public class User {
-    private int trader_id;
+    private String trader_id;
     private String firstname;
     private String lastname;
     private String nrc;
     private String gender;
     private String mobile_number;
     private double balance;
-    private int status;
+    private String status;
 
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -26,12 +26,12 @@ public class User {
         this.balance = balance;
     }
 
-    public User(int trader_id, double balance) {
+    public User(String trader_id, double balance) {
         this.trader_id = trader_id;
         this.balance = balance;
     }
 
-    public User(int trader_id, String firstname, String lastname, String nrc, String gender, String mobile_number, double balance) {
+    public User(String trader_id, String firstname, String lastname, String nrc, String gender, String mobile_number, double balance) {
         this.trader_id = trader_id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -41,7 +41,7 @@ public class User {
         this.balance = balance;
     }
 
-    public User(int trader_id, String firstname, String lastname, String nrc, String gender, String mobile_number, double balance, int status) {
+    public User(String trader_id, String firstname, String lastname, String nrc, String gender, String mobile_number, double balance, String status) {
         this.trader_id = trader_id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -55,11 +55,11 @@ public class User {
     public User() {
     }
 
-    public int getTrader_id() {
+    public String getTrader_id() {
         return trader_id;
     }
 
-    public void setTrader_id(int trader_id) {
+    public void setTrader_id(String trader_id) {
         this.trader_id = trader_id;
     }
 
@@ -103,12 +103,15 @@ public class User {
         this.mobile_number = mobile_number;
     }
 
-    public User(int trader_id, String firstname, String lastname, String nrc, String gender, String mobile_number) {
+    public User(String trader_id, String firstname, String lastname, String nrc, String mobile_number) {
         this.trader_id = trader_id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.nrc = nrc;
-        this.gender = gender;
+       this.mobile_number = mobile_number;
+    }
+    public User(String trader_id,  String mobile_number) {
+        this.trader_id = trader_id;
         this.mobile_number = mobile_number;
     }
 }

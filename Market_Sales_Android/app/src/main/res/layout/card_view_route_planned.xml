@@ -8,14 +8,14 @@
     <android.support.v7.widget.CardView
         android:id="@+id/cardViewRouteId"
         android:layout_width="match_parent"
-        android:layout_height="78dp"
+        android:layout_height="140dp"
         android:layout_margin="10dp"
         android:clickable="true"
-        cardview:cardCornerRadius="10dp">
+        cardview:cardCornerRadius="1dp">
 
 
         <LinearLayout
-            android:id="@+id/linearLayoutRoutePlanned"
+            android:id="@+id/linearLayoutScheduledRoute"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -25,32 +25,71 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="Bus Fare"
+                android:text="Route Name : "
+
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+           <!--<TextView
+                android:id="@+id/textView_Route_Id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Route ID"
                 android:textSize="14sp" />
+-->
+            <TextView
+                android:id="@+id/textView_Departure_Date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Departure Date : "
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/textView_Departure_Time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Departure Time : "
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/textView_Company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Bus Operator : "
+                android:textSize="14sp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/textView_BusLicensePlate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Bus License Plate : "
+                android:textSize="14sp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/textView_Seats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Available Seats : "
+                android:textSize="14sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/textView_BusFare"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="Bus Fare"
-                android:textSize="14sp" />
+                android:text="Bus Fare : ZMW "
+                android:textSize="14sp"
+                android:textStyle="bold"
+                />
 
-            <TextView
-                android:id="@+id/textView_Company"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:text="Bus Operator"
-                android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/textView_BusLicensePlate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:text="Bus License Plate"
-                android:textSize="14sp" />
 
 
         </LinearLayout>

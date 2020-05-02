@@ -4,7 +4,6 @@ namespace backend\models;
 
 use Yii;
 use yii\base\NotSupportedException;
-use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
 
@@ -49,7 +48,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
      * {@inheritdoc}
      */
     public static function tableName() {
-        return 'users';
+        return 'unza_users';
     }
 
     /**
@@ -62,8 +61,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
             [['firstname', 'lastname', 'nrc', 'mobile_number','account_number'], 'string'],
             //[['firstname', 'lastname', 'nrc', 'mobile_number','QR_code','account_number'], 'string'],
             [['dob'], 'safe'],
-            ['password', 'string', 'min' => 6],
-            ['confirm_password', 'string', 'min' => 6],
+            ['password', 'string', 'min' => 8,'message'=>"password must have 8 characters minimum"],
+            ['password', 'match', 'pattern' => '/^.*(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/', 'message' => 'Password must contain atleast a lower & upper case character, a special case and a digit'],
+            ['confirm_password', 'string', 'min' => 8,'message'=>"Confirm password must have 8 characters minimum"],
             [['gender'], 'string', 'max' => 10],
             ['mobile_number','unique','targetClass' => '\backend\models\User', 'message' => 'A record with this mobile number exists in the system.'],
             //['nrc','unique','targetClass' => '\backend\models\User', 'message' => 'A record with this NRC exists in the system.'],

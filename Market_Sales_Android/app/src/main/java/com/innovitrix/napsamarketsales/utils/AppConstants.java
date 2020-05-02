@@ -3,6 +3,8 @@ package com.innovitrix.napsamarketsales.utils;
 public class AppConstants {
 
     public static final String KEY_CUSTOMER_ID = "customer_id";
+    public static final String KEY_TRADER_ID = "trader_id";
+
     public static final String KEY_USERNAME = "username";
     public static final String KEY_FIRSTNAME = "firstname";
     public static final String KEY_LASTNAME = "lastname";
@@ -17,12 +19,22 @@ public class AppConstants {
     public static final String KEY_DOB = "date_of_birth";
     public static final String KEY_NRC = "nrc";
     public static final String KEY_GENDER = "gender";
-
     public static final String KEY_OLD_PASSWORD = "old_password";
     public static final String KEY_NEW_PASSWORD = "new_password";
     public static final String KEY_CONF_PASSWORD = "conf_password";
     public static final String KEY_PIN = "pin";
-
+    public static final String KEY_ROUTE_CODE = "route_code";
+    public static final String KEY_ROUTE_NAME= "route_name";
+    public static final String KEY_TRAVEL_DATE = "travel_date";
+    public static final String KEY_START_ROUTE= "start_route";
+    public static final String KEY_END_ROUTE= "end_route";
+    public static final String KEY_DEPARTURE_DATE= "departure_date";
+    public static final String KEY_DEPARTURE_TIME= "departure_time";
+    public static final String KEY_BUS_OPERATOR_NAME= "bus_operator_name";
+    public static final String KEY_BUS_LICENSE_PLATE= "bus_license_plate";
+    public static final String KEY_BUS_FARE= "bus_fare";
+    public static final String KEY_AMOUNT = "amount";
+    public static final String KEY_MARKET_STAND_NUMBER = "market_stand_number";
     //IDs
     public static final String TAG_VOLLEY_RESPONSE = "VOLLEY_RESPONSE";
     public static final String TAG_VOLLEY_ERROR = "VOLLEY_ERROR";

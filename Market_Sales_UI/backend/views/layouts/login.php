@@ -33,13 +33,18 @@ AppAsset::register($this);
 
         <!-- Head Libs -->
         <script src="<?= Url::to('@web/vendor/modernizr/modernizr.js') ?>"></script>
-
+        <style type = "text/css">
+            body {
+                background-image: url("<?= Url::to('@web/img/bg.jpg') ?>");
+                  background-size: cover;
+            }
+        </style>
     </head>
-    <body>
+    <body >
         <?php $this->beginBody() ?>
         <!-- start: page -->
         <section class="body-sign">
-          
+
 
             <div class="center-sign">
                 <?= $content ?>

@@ -38,7 +38,8 @@ if (!empty($image->file)) {
                         are required.<br/> Email is used for system login hence its REQUIRED!</div>
                     <?php
                     $form = ActiveForm::begin([
-                                'action' => 'profile?id=' . $model->id,
+                                'action' => Yii::$app->urlManager->createUrl(['user/profile?id=' . $model->id]),
+                                //'action' => 'profile?id=' . $model->id,
                                 'fieldConfig' => [
                                     'options' => [
                                     ],
@@ -85,7 +86,7 @@ if (!empty($image->file)) {
                             <?=
                                     $form->field($model, 'role_id')
                                     ->dropDownList(
-                                            \backend\models\Roles::getRoles(), ['prompt' => 'Select role', 'required' => true]
+                                            \backend\models\Roles::getRoles(), ['prompt' => 'Select role', 'required' => true, 'disabled' => TRUE]
                             );
                             ?>
                             <?=
@@ -116,7 +117,7 @@ if (!empty($image->file)) {
                 <?php
                 $img_model = new \backend\models\Image();
                 $form = ActiveForm::begin([
-                            'action' =>Yii::$app->urlManager->createUrl(['user/image?id=' . $model->id."&type=profile"]),
+                            'action' => Yii::$app->urlManager->createUrl(['user/image?id=' . $model->id . "&type=profile"]),
                             'fieldConfig' => [
                                 'options' => [
                                     'tag' => false,

@@ -22,18 +22,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row">
             <div class="col-lg-12">
                 <p>Please reset your password below</p>
-                <?php $form = ActiveForm::begin([
-                    'id' => 'reset-password-form',
-                    'fieldConfig' => [
-                        'options' => [
-                            'tag' => false,
-                        ],
-                    ],
-                ]); ?>
+                  <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
                 <div class="form-group field-passwordresetrequestform-email">
                     <label for="passwordresetrequestfrom-email" class="control-label">Password</label>
                     <div class="input-group input-group-icon">
-                        <?= $form->field($model, 'password')->passwordInput(['autofocus' => true])->label(false) ?>
+                        <?= $form->field($model, 'password')->passwordInput(['autofocus' => false])->label(false) ?>
                         <span class="input-group-addon">
                             <span class="icon icon-md">
                                 <i class="fa fa-lock"></i>
@@ -44,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="form-group field-passwordresetrequestform-email">
                     <label for="passwordresetrequestfrom-email" class="control-label">Confirm password</label>
                     <div class="input-group input-group-icon">
-                        <?= $form->field($model, 'confirm_password')->passwordInput(['autofocus' => true])->label(false) ?>
+                        <?= $form->field($model, 'confirm_password')->passwordInput(['autofocus' => false])->label(false) ?>
                         <span class="input-group-addon">
                             <span class="icon icon-md">
                                 <i class="fa fa-lock"></i>

@@ -10,6 +10,7 @@ class Config {
      * @var string
      */
     CONST APP_INFO_LOG = "/var/log/applications/ussd/INFO";
+    //CONST APP_INFO_LOG = "C:/xampp/logs/INFO";
 
     /**
      * USSD error log file path
@@ -17,13 +18,15 @@ class Config {
      * @var string
      */
     CONST APP_ERROR_LOG = "/var/log/applications/ussd/ERROR";
+    //CONST APP_ERROR_LOG = "C:/xampp/logs/ERROR";
 
     /**
      * USSD deburg log file path
      * 
      * @var string
      */
-    CONST APP_DEBURG_LOG = "/var/log/applications/ussd/DEBURG";
+     CONST APP_DEBURG_LOG = "/var/log/applications/ussd/DEBURG";
+    //CONST APP_DEBURG_LOG = "C:/xampp/logs/DEBURG";
 
     /**
      * System busy message
@@ -73,6 +76,28 @@ class Config {
      */
     //CONST API_URL = "http://localhost/tms_api/v1/";
     CONST API_URL = "http://18.188.249.56/MarketSalesAPI/v1/";
+    //PROBASE END POINTS
+    CONST VERSION_MARKET = "http://{HOST}:{PORT}/api/v1/btms/market/secured/";
+    CONST VERSION_TRAVEL = "http://{HOST}:{PORT}/api/v1/btms/travel/secured/";
+    CONST VERSION_TICKETS = "http://{HOST}:{PORT}/api/v1/btms/tickets/secured/";
+    CONST MARKETER_KYC = "marketer_kyc";
+    CONST AUTH_MARKETEER = "authenticate_marketer";
+    CONST UPDATE_PIN = "update_pin";
+    CONST RESET_PIN = "reset_pin";
+    CONST REGISTER_MARKETEER = "register_market";
+    CONST ROUTES = "routes";
+    CONST SCHEDULED_ROUTES = "internal/locations/destinations";
+    CONST PURCHASE_TICKET = "purchase";
+    //NAPSA DETAILS
+   CONST NAPSA_IP = "10.10.1.57";
+   // CONST NAPSA_IP = "192.168.8.253";
+    CONST NAPSA_PORT = "4000";
+    //PROBASE API CREDENTIALS
+    CONST PROBASE_API_USERNAME = "admin";
+    CONST PROBASE_API_SERVICE_TOKEN = "JJ8DJ7S66DMA5";
+    //PROBASE STATUS CODES
+    CONST OPERATION_SUCCESS = 0;
+    CONST OPERATION_FAILED = 1;
 
     /**
      * Curl calls connection timeout in seconds
@@ -90,13 +115,19 @@ class Config {
      * Marketeer account is blocked
      * @var type int
      */
-    CONST ACC_BLOCKED_STATUS = 0;
+    CONST ACC_BLOCKED_STATUS = "INACTIVE";
 
     /**
      * Marketeer account is active
      * @var type int
      */
-    CONST ACC_ACTIVE_STATUS = 1;
+    CONST ACC_ACTIVE_STATUS = "ACTIVE";
+
+    /**
+     * Marketeer account is in otp
+     * @var type int
+     */
+    CONST ACC_OTP_STATUS = "OTP";
 
     /**
      * SUCCESS STATUS
@@ -116,7 +147,7 @@ class Config {
     /**
      * MOMO Pin length
      */
-    CONST MOMO_PIN_LEN = 4;
+    CONST MOMO_PIN_LEN = 5;
 
     /**
      * Country code
@@ -129,5 +160,7 @@ class Config {
     CONST MAKE_SALE = 1;
     CONST ORDER = 2;
     CONST TICKET_PURCHASE = 3;
+    CONST PAY_MARKET_FEE = 4;
+    CONST MAX_OPTIONS_PER_PAGE=3;
 
 }

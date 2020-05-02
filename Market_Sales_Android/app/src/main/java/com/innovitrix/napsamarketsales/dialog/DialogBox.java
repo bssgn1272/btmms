@@ -35,7 +35,7 @@ public class DialogBox {
     public static void mLovelyStandardDialog(Context context, String message){
         new LovelyStandardDialog(context)
                 .setTopColorRes(R.color.colorPrimary)
-                .setButtonsColorRes(R.color.colorAccent)
+                .setButtonsColorRes(R.color.white)
                 .setIcon(R.drawable.ic_notifications_active_black_24dp)
                 .setTitle("")
                 .setMessage(message)
@@ -51,7 +51,7 @@ public class DialogBox {
     public static void mLovelyStandardDialog(Context context, String subject , String message){
         new LovelyStandardDialog(context)
                 .setTopColorRes(R.color.colorPrimary)
-                .setButtonsColorRes(R.color.colorAccent)
+                .setButtonsColorRes(R.color.white)
                 .setIcon(R.drawable.ic_notifications_active_black_24dp)
                 .setTitle(subject)
                 .setMessage(message)

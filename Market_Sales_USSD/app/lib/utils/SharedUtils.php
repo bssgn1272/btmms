@@ -38,9 +38,10 @@ class SharedUtils {
      * @param type $log
      * @return boolean
      */
-    public static function httpGet($method, $payload, $msisdn, $log) {
-        $log->logInfo(Config::APP_INFO_LOG, $msisdn, '| Sending API request data::' . print_r($payload, TRUE));
-        $ch = curl_init(Config::API_URL . $method . '?' . http_build_query($payload));
+    public static function httpGet($url, $payload, $msisdn, $log) {
+        $log->logInfo(Config::APP_INFO_LOG, $msisdn, '| Calling URL:' . $url);
+        $log->logInfo(Config::APP_INFO_LOG, $msisdn, '| With request data::' . print_r($payload, TRUE));
+        $ch = curl_init($url . '?' . http_build_query($payload));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         //Spend n seconds trying to connect to.
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, Config::CONNECTION_TIMEOUT);
@@ -62,14 +63,16 @@ class SharedUtils {
      * @param String url, String params
      * @return output of curl
      */
-    public static function httpPostJson($method, $params, $msisdn, $log) {
-        $log->logInfo(Config::APP_INFO_LOG, $msisdn, '| Sending API request data::' . print_r($params, TRUE));
+    public static function httpPostJson($url, $params, $msisdn, $log) {
+        $log->logInfo(Config::APP_INFO_LOG, $msisdn, '| Calling URL: ' . $url);
+        $log->logInfo(Config::APP_INFO_LOG, $msisdn, '| With API request data::' . SharedUtils::arrayToJson($params));
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, Config::API_URL . $method);
+        curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, SharedUtils::arrayToJson($params));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
         //Spend n seconds trying to connect to.
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, Config::CONNECTION_TIMEOUT);
         //Take n seconds to complete operations.
@@ -101,19 +104,47 @@ class SharedUtils {
         return $payload;
     }
 
-    public static function buildPushTransactionRequest($trader_id, $amount,$seller_mobile,$seller_names, $mobile_number, $transaction_type_id,$buyer_id,$buyer_names) {
+    public static function BuildProbaseMarketRequest($mobile, $nrc, $pin, $first_name, $last_name, $start_route = "", $end_route = "", $date = "") {
+        $payload = [
+            "mobile" => $mobile,
+            "nrc" => $nrc,
+            "pin" => $pin,
+            "first_name" => $first_name,
+            "last_name" => $last_name,
+            "start_route" => $start_route,
+            "end_route" => $end_route,
+            "date" => $date
+        ];
+        $auth = [
+            "username" => Config::PROBASE_API_USERNAME,
+            "service_token" => Config::PROBASE_API_USERNAME
+        ];
+        return ["auth" => $auth, "payload" => $payload];
+    }
+
+    public static function buildPushTransactionRequest($trader_id, $amount, $seller_mobile, $seller_firstname, $seller_lastname, $mobile_number, $transaction_type_id, $buyer_id, $buyer_firstname, $buyer_lastname, $email, $route_code, $passenger_id, $travel_date, $bus_schedule_id,$stand_number) {
         # Packet
         $payload = [
             'transaction_type_id' => $transaction_type_id,
             'seller_id' => $trader_id,
             'seller_mobile_number' => $seller_mobile,
-            'seller_name' => $seller_names,
+            'seller_firstname' => $seller_firstname,
+            'seller_lastname' => $seller_lastname,
             'transaction_date' => date('Y-m-d'),
             'device_serial' => "1111111",
             'amount_due' => $amount,
             'buyer_mobile_number' => $mobile_number,
             'buyer_id' => $buyer_id,
-            'buyer_name' => $buyer_names,
+            'buyer_firstname' => $buyer_firstname,
+            'buyer_lastname' => $buyer_lastname,
+            "buyer_email" => $email,
+            "route_code" => $route_code,
+            "transaction_channel" => "USSD",
+            "id_type" => "NRC",
+            "passenger_id" => $passenger_id,
+            "travel_date" => $travel_date,
+            "bus_schedule_id" => $bus_schedule_id,
+            "stand_number" => $stand_number,
         ];
         return $payload;
     }
@@ -142,13 +173,13 @@ class SharedUtils {
         return $response;
     }
 
-    public static function validateMomoPin($msisdn, $mobile, $pin, $log) {
+    public static function validatePin($msisdn, $pin, $log) {
         //For now we just check the length and if its numeric.
         //TODO: We need to make a call to a MoMo System based on msisdn to authenticate buyer
-        $log->logInfo(Config::APP_INFO_LOG, $msisdn, '| Validating MoMo pin xxxx');
+        $log->logInfo(Config::APP_INFO_LOG, $msisdn, '| Validating pin xxxxx');
         $response = false;
         if (!empty($pin) && is_numeric($pin) && strlen($pin) == Config::MOMO_PIN_LEN) {
-            $log->logInfo(Config::APP_INFO_LOG, $msisdn, '| MoMo pin xxxx is valid');
+            $log->logInfo(Config::APP_INFO_LOG, $msisdn, '| Pin xxxxx is valid');
             $response = TRUE;
         }
         return $response;
