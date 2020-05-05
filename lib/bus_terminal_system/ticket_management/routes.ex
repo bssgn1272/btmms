@@ -3,7 +3,7 @@ defmodule BusTerminalSystem.TravelRoutes do
   import Ecto.Changeset
 
   @derive {Poison.Encoder, only: [:id, :route_name, :start_route, :end_route, :route_code, :source_state]}
-  schema "travel_routes" do
+  schema "probase_tbl_travel_routes" do
     field :route_name, :string
     field :start_route, :string
     field :end_route, :string

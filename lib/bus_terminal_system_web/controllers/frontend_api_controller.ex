@@ -13,6 +13,39 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     |> json(operators)
   end
 
+  def query_user_by_id(conn, params) do
+
+    user_id = params["user_id"]
+    case user_id do
+      nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
+      _ ->
+        case user_id |> RepoManager.find_user_by_id do
+          nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
+          user ->
+
+            IO.inspect user
+
+            conn
+            |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_query,"SUCCESS",0,
+              %{
+                "username" => user.username,
+                "first_name" => user.first_name,
+                "last_name" => user.last_name,
+                "ssn" => user.ssn,
+                "nrc" => user.nrc,
+                "email" => user.email,
+                "mobile" => user.mobile,
+                "account_status" => user.account_status,
+                "uuid" => user.uuid,
+                "operator_role" => user.operator_role
+              }))
+          _value ->
+            IO.inspect _value
+            json conn, ["hello"]
+        end
+    end
+  end
+
   def query_user(conn, params) do
 
     user_id = params["payload"]["user_id"]
@@ -225,5 +258,112 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   def checkin_passenger(conn,%{"ticket_id" => ticket_id} = params) do
     conn |> json(RepoManager.checkin(ticket_id))
   end
-  
+
+  #---------------------------------------MARKET-------------------------------------------------------------------------
+
+  alias BusTerminalSystem.Market.MarketRepo
+
+  @validation_params %{ "module" => :string, "action" => :string, "branch" => :string, "use_params" => :bool}
+  def modules(conn, params) do
+    IO.inspect(params)
+    Skooma.valid?(params,@validation_params) |> case do
+        :ok ->
+          %{"branch" => branch} = params
+          branch |> case do
+             "MARKET" -> conn |> market_module(params)
+             "TERMINUS" -> ""
+             "ADMINISTRATION" -> ""
+             _ -> conn |> json(%{"error" => "No Branch #{branch} found"})
+           end
+        {:error, error_message} -> conn |> json(error_message)
+    end
+  end
+
+  defp market_module(conn, %{"module" => module, "action" => action, "use_params" => use_params, "params" => parameters} = params) do
+    action
+    |> case do
+         "LIST" ->
+           module
+           |> case do
+                "market" ->
+                  if use_params do query_list_by_params(conn,parameters,module) else
+                    conn |> json(MarketRepo.market_list() |> Poison.encode! |> JSON.decode!)
+                  end
+                "section" ->
+                  if use_params do query_list_by_params(conn,parameters,module) else
+                    conn |> json(MarketRepo.market_section_list() |> Poison.encode! |> JSON.decode!)
+                  end
+                "stand" ->
+                  if use_params do query_list_by_params(conn,parameters,module) else
+                    conn |> json(MarketRepo.market_shop_list() |> Poison.encode! |> JSON.decode!)
+                  end
+                _ -> conn |> json(%{"error" => "No Module with name #{module}"})
+              end
+         "CREATE" ->
+           module
+           |> case do
+                "market" -> create_by_params(conn,parameters,module)
+                "section" -> create_by_params(conn,parameters,module)
+                "stand" -> create_by_params(conn,parameters,module)
+              end
+         "QUERY" ->
+            module
+            |> case do
+                "market" -> query_query_by_params(conn,parameters,module)
+                "section" -> query_query_by_params(conn,parameters,module)
+                "stand" -> query_query_by_params(conn,parameters,module)
+               end
+         "UPDATE" -> ""
+         _ -> conn |> json(%{"error" => "No Action Type for #{module}"})
+       end
+  end
+
+  defp query_list_by_params(conn,params,module) do
+    params |> JSON.decode |> case do
+       {:ok, result} ->
+          module |> case do
+            "market" ->
+              [id] = result
+              conn |> json(MarketRepo.market_list_by_market_id(id) |> Poison.encode! |> JSON.decode!)
+            "section" ->
+              [id] = result
+              conn |> json(MarketRepo.market_section_list_by_market_id(id) |> Poison.encode! |> JSON.decode!)
+            "stand" ->
+              [id] = result
+              conn |> json(MarketRepo.market_shop_list_by_market_id(id) |> Poison.encode! |> JSON.decode!)
+          end
+
+       {:error, error_message} -> conn |> json(%{"error" => "Could not parse parameters #{params}"})
+     end
+  end
+
+  defp query_query_by_params(conn,params,module) do
+    params |> JSON.decode |> case do
+       {:ok, result} ->
+         module
+         |> case do
+           "market" ->
+             [id] = result
+             conn |> json(MarketRepo.market_find([id: id]) |> Poison.encode! |> JSON.decode!)
+           "section" ->
+             [id] = result
+             conn |> json(MarketRepo.market_section_find([id: id]) |> Poison.encode! |> JSON.decode!)
+           "stand" ->
+             [id] = result
+             conn |> json(MarketRepo.market_shop_find([id: id]) |> Poison.encode! |> JSON.decode!)
+         end
+
+       {:error, error_message} -> conn |> json(%{"error" => "Could not parse parameters #{params}"})
+     end
+  end
+
+  defp create_by_params(conn,params,module) do
+     module
+     |> case do
+        "market" -> conn |> json(MarketRepo.market_create(params) |> Poison.encode! |> JSON.decode!)
+        "section" -> conn |> json(MarketRepo.market_section_create(params) |> Poison.encode! |> JSON.decode!)
+        "stand" -> conn |> json(MarketRepo.market_shop_create(params) |> Poison.encode! |> JSON.decode!)
+    end
+  end
+
 end

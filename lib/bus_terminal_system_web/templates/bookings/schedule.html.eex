@@ -30,7 +30,7 @@
                       <tr>
                         <td> <%= trip.id %> </td>
                         <td> <%= BusTerminalSystem.RepoManager.get_bus(trip.bus_id).company  %> </td>
-                        <td> <%= BusTerminalSystem.RepoManager.get_bus(trip.bus_id).make %> - <%= BusTerminalSystem.RepoManager.get_bus(trip.bus_id).liscense_plate %> </td>
+                        <td> <%= BusTerminalSystem.RepoManager.get_bus(trip.bus_id).make %> - <%= BusTerminalSystem.RepoManager.get_bus(trip.bus_id).license_plate %> </td>
                         <td> <%= BusTerminalSystem.RepoManager.get_route(trip.route_id).start_route  %> to <%= BusTerminalSystem.RepoManager.get_route(trip.route_id).end_route  %> </td>
                         <td> <%= BusTerminalSystem.RepoManager.get_route(trip.route_id).route_code  %> </td>
                         <td> <%= trip.fare %> </td>

@@ -2,7 +2,7 @@ defmodule BusTerminalSystem.Tenant do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "market_tenant" do
+  schema "probase_tbl_market_tenant" do
     field :stand_id, :string
     field :first_names, :string
     field :last_name, :string

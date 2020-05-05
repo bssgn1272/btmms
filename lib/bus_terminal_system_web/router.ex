@@ -54,10 +54,9 @@ defmodule BusTerminalSystemWeb.Router do
     )
 
     get "/creating_section", MarketerController, :form_section
-
     get "/allocating_shop", MarketerController, :form_shop
-
     get "/stand_allocation", MarketerController, :standallocation
+    post "/create", MarketerController, :market_create_actions
 
     # ______________________________________________________________________________________________________________
 
@@ -100,10 +99,10 @@ defmodule BusTerminalSystemWeb.Router do
     forward "/mailbox", Plug.Swoosh.MailboxPreview, [base_path: "/dev/mailbox"]
   end
 
-  scope "/" do
+  scope "/btms/services/graphql/" do
     pipe_through :api
 
-    forward "/graphiql", Absinthe.Plug.GraphiQL,
+    forward "/interface", Absinthe.Plug.GraphiQL,
             schema: BusTerminalSystemWeb.Schema
 
     forward "/", Absinthe.Plug,
@@ -139,6 +138,7 @@ defmodule BusTerminalSystemWeb.Router do
     get "/internal/list/bus_routes", FrontendApiController, :list_travel_routes
     get "/internal/list/bus_operators", FrontendApiController, :list_bus_operators
     post "/internal/query/user", FrontendApiController, :query_user
+    post "/internal/query/user/id", FrontendApiController, :query_user_by_id
     post "/internal/update/user", FrontendApiController, :update_user
     post "/internal/query/bus", FrontendApiController, :query_bus
     post "/internal/update/bus", FrontendApiController, :update_bus
@@ -148,6 +148,8 @@ defmodule BusTerminalSystemWeb.Router do
     post "/internal/get_luggage_by_ticket_id", FrontendApiController, :get_luggage_by_ticket
     post "/internal/add_luggage", FrontendApiController, :add_luggage
     post "/internal/checkin", FrontendApiController, :checkin_passenger
+
+    post "/internal/markets", FrontendApiController, :modules
   end
 
   def swagger_info do

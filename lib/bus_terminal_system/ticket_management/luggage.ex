@@ -3,7 +3,7 @@ defmodule BusTerminalSystem.Luggage do
   import Ecto.Changeset
 
   @derive {Poison.Encoder, only: [:id, :description, :ticket_id, :weight, :cost]}
-  schema "tbl_luggage" do
+  schema "probase_tbl_luggage" do
     field :description, :string
     field :ticket_id, :integer
     field :weight, :float

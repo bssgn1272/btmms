@@ -6,7 +6,7 @@ defmodule BusTerminalSystem.TicketManagement.Ticket do
 
   @derive {Poison.Encoder, only: [:reference_number, :serial_number, :external_ref, :inserted_at, :bus_no, :class, :activation_status,:bus_schedule_id,
                              :first_name, :last_name, :other_name, :id_type, :passenger_id, :mobile_number, :email_address, :transaction_channel]}
-  schema "tickets" do
+  schema "probase_tbl_tickets" do
     field :reference_number, :string
     field :serial_number, :string
     field :external_ref, :string

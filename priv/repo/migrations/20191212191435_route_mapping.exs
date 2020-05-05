@@ -1,18 +1,30 @@
 defmodule BusTerminalSystem.Repo.Migrations.RouteMapping do
   use Ecto.Migration
 
-  def change do
-    create table(:tbl_route_mapping) do
+  def up do
+    create_if_not_exists table(:probase_tbl_route_mapping) do
       add :operator_id, :string
       add :bus_id, :string
       add :route_id, :string
-      add :fare, :string
+      add :fare, :integer
+
+      add :date, :string
+      add :time, :string
+
+      add :route_uid, :integer
 
       timestamps()
     end
-
-    alter table(:travel_routes) do
-      remove_if_exists :bus_fair, :string
-    end
   end
+
+  def change do
+
+
+  end
+
+  def down do
+    drop_if_exists table(:probase_tbl_route_mapping)
+  end
+
+
 end

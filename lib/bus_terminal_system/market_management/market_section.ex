@@ -1,21 +1,24 @@
-defmodule BusTerminalSystem.Section do
+defmodule BusTerminalSystem.Market.Section do
     use Ecto.Schema
     import Ecto.Changeset
 
-    alias BusTerminalSystem.Market
+    @db_columns [:section_name, :section_lable, :number_of_shops, :market_id]
+    @derive {Poison.Encoder, only: @db_columns ++ [:id]}
 
-    schema "market_section" do
-        field :name, :string
-        field :label, :string
-        #field :assigned_market, Market
+    schema "probase_tbl_market_section" do
+        field :section_name, :string
+        field :section_lable, :string
+        field :number_of_shops, :integer
+        field :market_id, :integer
 
         timestamps()
     end
 
+
     @doc false
     def changeset(section, attrs) do
         section
-        |> cast(attrs, [:name, :label])
-        |> validate_required([:name, :label])
+        |> cast(attrs, @db_columns)
+        |> validate_required(@db_columns)
     end
 end

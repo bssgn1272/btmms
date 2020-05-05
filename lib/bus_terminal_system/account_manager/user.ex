@@ -3,8 +3,8 @@ defmodule BusTerminalSystem.AccountManager.User do
   import Ecto.Changeset
   # alias Argon2
 
-  @derive {Poison.Encoder,only: [:id, :username,:first_name,:last_name,:ssn,:nrc,:email,:mobile,:account_status,:operator_role,:role,:company]}
-  schema "users" do
+  @derive {Poison.Encoder,only: [:id,:account_type,:username,:first_name,:last_name,:ssn,:nrc,:email,:mobile,:account_status,:operator_role,:role,:company,:account_number]}
+  schema "probase_tbl_users" do
     field :password, :string
     field :username, :string
     field :first_name, :string
@@ -21,6 +21,8 @@ defmodule BusTerminalSystem.AccountManager.User do
     field :pin, :string
     field :tmp_pin, :string
     field :company, :string
+    field :account_number, :string
+    field :account_type, :string
 
     timestamps()
   end
@@ -60,9 +62,7 @@ defmodule BusTerminalSystem.AccountManager.User do
     |> put_password_hash()
   end
 
-  defp put_password_hash(
-         %Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset
-       ) do
+  defp put_password_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
     change(changeset, password: Base.encode16(:crypto.hash(:sha512, password)))
   end
 

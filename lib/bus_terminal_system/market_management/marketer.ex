@@ -2,7 +2,7 @@ defmodule BusTerminalSystem.MarketManagement.Marketer do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "marketer" do
+  schema "probase_tbl_marketer" do
     field :stand_id, :string
     field :first_name, :string
     field :last_name, :string

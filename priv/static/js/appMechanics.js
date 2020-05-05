@@ -602,7 +602,7 @@ function find_buses_by_id(id) {
             $.each(response, function (k, v) {
                 let o = JSON.parse(JSON.stringify(v));
                 operator_buses += '<option value="'+o.id+'">';
-                operator_buses += o.liscense_plate;
+                operator_buses += o.license_plate;
                 operator_buses += '</option>';
 
             });

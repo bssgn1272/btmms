@@ -5,7 +5,7 @@ defmodule BusTerminalSystem.RouteMapping do
   alias BusTerminalSystem.Randomizer
 
   @derive {Poison.Encoder, only: [:operator_id, :bus_id, :route_id, :fare, :date, :time, :route_uid]}
-  schema "tbl_route_mapping" do
+  schema "probase_tbl_route_mapping" do
     field :operator_id, :string
     field :bus_id, :string
     field :route_id, :string

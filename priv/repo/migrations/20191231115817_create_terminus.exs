@@ -1,8 +1,8 @@
 defmodule BusTerminalSystem.Repo.Migrations.CreateTerminus do
   use Ecto.Migration
 
-  def change do
-    create table(:tbl_terminus) do
+  def up do
+    create_if_not_exists table(:probase_tbl_terminus) do
       add :terminus_name, :string
       add :terminus_location, :string
       add :estimated_buses, :integer
@@ -11,4 +11,14 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTerminus do
       timestamps()
     end
   end
+
+  def change do
+
+  end
+
+  def down do
+    drop_if_exists table(:probase_tbl_terminus)
+  end
+
+
 end

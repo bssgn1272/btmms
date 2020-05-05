@@ -3,7 +3,7 @@ defmodule BusTerminalSystem.LuggageTarrif do
   import Ecto.Changeset
 
   @derive {Poison.Encoder, only: [:id ,:cost_per_kilo]}
-  schema "tbl_luggage_tarrifs" do
+  schema "probase_tbl_luggage_tarrifs" do
     field :cost_per_kilo, :float
   end
 

@@ -5,9 +5,9 @@ defmodule BusTerminalSystem.RepoManager do
   alias BusTerminalSystem.Repo
   alias BusTerminalSystem.Randomizer
 
-  alias BusTerminalSystem.Market
-  alias BusTerminalSystem.Section
-  alias BusTerminalSystem.Hub
+  alias BusTerminalSystem.Market.Market
+  alias BusTerminalSystem.Market.Section
+  alias BusTerminalSystem.Market.Shop, as: Hub
   alias BusTerminalSystem.Tenant
 
   alias BusTerminalSystem.Terminus
@@ -168,12 +168,15 @@ defmodule BusTerminalSystem.RepoManager do
 
   #-------------------------- USER -------------------------------------------------------------------------------------
 
+
   def list_bus_operators do
     query = from r in User, where: r.role == ^"BOP"
     {status, operators} = Repo.all(query) |> Poison.encode
     {decode_status, bus_operators} = JSON.decode(operators)
     bus_operators
   end
+
+  def query_users(query), do: Repo.all(query)
 
   def find_user_by_username(username) do
     Repo.get_by(User, username: username)

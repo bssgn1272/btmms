@@ -1143,7 +1143,7 @@ TO ADD STATICS GRAPH
                                             <%= for bus <- @buses do %>
                                                 <tr>
                                                     <td><%= bus.id %></td>
-                                                    <td><%= bus.liscense_plate %></td>
+                                                    <td><%= bus.license_plate %></td>
                                                     <td><%= bus.engine_type %></td>
                                                     <td><%= bus.model %></td>
                                                     <td><%= bus.make %></td>
@@ -1299,25 +1299,20 @@ TO ADD STATICS GRAPH
                                 
                                 <div class="card">
                                     Tellers are typically the first point of interaction for customers as they want to buy a ticket from a kiosk. Tellers verify the identity of customers and process requests for tickets. They generate certified tickets according to the specifications of customers. Tellers answer questions about the bus operator services and direct customers to customer care service center for more information. They must count cash in their drawers as they begin their shift and reconcile remaining cash at the end of their shift to account accurately for the days transactions. These tellers will be provided by NAPSA.
-<<<<<<< HEAD
+
                                 </div>
                                 </p>                                   
                             </div>                            
-=======
+
                                 </p>
                             </div>
->>>>>>> 878e4097b141c19d3537ec6bbb79742a412afbe8
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
-   
-=======
 
-
->>>>>>> 878e4097b141c19d3537ec6bbb79742a412afbe8
         <div class="panel panel-flat">
             <div class="panel-heading">
                 <div class="heading-elements">
@@ -1445,7 +1440,7 @@ TO ADD STATICS GRAPH
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                   <label>License Plate:</label>
-                                                  <input name="payload[liscense_plate]" id="licensePlate" class="form-control" placeholder="Enter License Plate" type="text">
+                                                  <input name="payload[license_plate]" id="licensePlate" class="form-control" placeholder="Enter License Plate" type="text">
                                             </div>
 
                                             <div class="form-group">

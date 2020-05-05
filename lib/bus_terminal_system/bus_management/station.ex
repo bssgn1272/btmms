@@ -4,7 +4,7 @@ defmodule BusTerminalSystem.Station do
 
     alias BusTerminalSystem.Terminus
 
-    schema "terminus_stations" do
+    schema "probase_tbl_terminus_stations" do
         field :name, :string
         field :label, :string
         field :route, :string

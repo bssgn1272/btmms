@@ -2,7 +2,7 @@ defmodule BusTerminalSystem.Terminus do
     use Ecto.Schema
     import Ecto.Changeset
 
-    schema "terminus" do
+    schema "probase_tbl_terminus" do
         field :name, :string
         field :location, :string
         field :terminus_id, :string

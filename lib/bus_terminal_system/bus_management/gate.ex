@@ -4,7 +4,7 @@ defmodule BusTerminalSystem.Gate do
 
     alias BusTerminalSystem.Station
 
-    schema "gate" do
+    schema "probase_tbl_gate" do
       field :gate_code, :string
       #field :assigned_station, Station
 
