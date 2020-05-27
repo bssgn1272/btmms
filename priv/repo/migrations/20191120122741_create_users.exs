@@ -2,6 +2,10 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateUsers do
   use Ecto.Migration
 
   def up do
+    tmp()
+  end
+
+  def tmp do
     create_if_not_exists table(:probase_tbl_users) do
       add :username, :string
       add :password, :string
@@ -29,9 +33,9 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateUsers do
                                 VALUES ('admin',UPPER(SHA2('password', 512)),'probase','zambia','NOT AVAILABLE','ADMIN','admin@probasegroup.com','+260950773797','000000/00/0','ACTIVE',
                                         'ADMINISTRATOR',current_date,current_date)")
 
-    execute("INSERT INTO probase_tbl_users (username, password, first_name, last_name, ssn, role, email, mobile,nrc, account_status, operator_role, inserted_at, updated_at)
+    execute("INSERT INTO probase_tbl_users (username, password, first_name, last_name, ssn, role, email, mobile,nrc, account_status, operator_role, company,inserted_at, updated_at)
                                 VALUES ('bop',UPPER(SHA2('password', 512)),'operator','zambia','NOT AVAILABLE','BOP','operator@btmsnapsa.com','+260950773797','000000/00/0','ACTIVE',
-                                        'BUS OPERATOR',current_date,current_date)")
+                                        'BUS OPERATOR','NAPSA BUS SERVICES',current_date,current_date)")
 
     execute("INSERT INTO probase_tbl_users (username, password, first_name, last_name, ssn, role, email, mobile,nrc, account_status, operator_role, inserted_at, updated_at)
                                 VALUES ('mop',UPPER(SHA2('password', 512)),'marketeer','zambia','NOT AVAILABLE','MOP','marketeer@btmsnapsa.com','+260950773797','000000/00/0','ACTIVE',
@@ -44,7 +48,7 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateUsers do
   end
 
   def down do
-    drop_if_exists table(:probase_tbl_users)
+    #drop_if_exists table(:probase_tbl_users)
   end
 
 end

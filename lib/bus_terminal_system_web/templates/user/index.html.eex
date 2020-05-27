@@ -1,4 +1,4 @@
-<!-- TARGETING TICKETING MODAL -->
+    <!-- TARGETING TICKETING MODAL -->
 <style type="text/css">
     @media print{
        body {
@@ -55,10 +55,9 @@
         */
 </style>
 
-
 <!--############# ADMIN ################-->
 <%= if @user.role == "ADMIN" do %>
-    <h1 style="text-align:center; color:blue; text-decoration:underline;"><strong>ADMIN DASHBOARD</strong></h1><hr style="border-top: 1px solid orange;">
+    <h1 style="text-align:center; color:blue; text-decoration:underline;"><strong>DASHBOARD</strong></h1><hr style="border-top: 1px solid orange;">
     <div class="timeline timeline-left content-group" style="margin-top: 2%;">
         <div class="timeline-container">
 
@@ -384,7 +383,6 @@
 <% end %>
 <!--############# ADMIN ################-->
 
-
 <!--########################### NAPSA SEARCH ###########################-->
 <!-- NEW MARKETEER MODAL -->
   <div class="modal fade" id="regSystemUser" role="dialog">
@@ -421,8 +419,6 @@
 <!-- END -->
 <!--########################### NAPSA SEARCH ###########################-->
 
-
-
 <!-- ########################################## TELLER MODULE ########################################-->
 <%= if @user.role == "TOP" do %>
 <!--
@@ -439,18 +435,16 @@
 <br><br>
 -->
 
-
-
-        <style>
-            #rcorners1 {
-            border-radius: 15px;
-            border: 2px solid #DCDCDC;
-            }
-            #heed {
-            border-radius: 10px;
-            border: 1px solid #FFA500;
-            }
-        </style>
+<style>
+    #rcorners1 {
+    border-radius: 15px;
+    border: 2px solid #DCDCDC;
+    }
+    #heed {
+    border-radius: 10px;
+    border: 1px solid #FFA500;
+    }
+</style>
 
 <div class="container">
     <div class="row">
@@ -643,7 +637,22 @@
                 <div class="container">
                     <div class="row">
                         <div class="form-inline" action="#" method="post" style="margin-top: 0.5%; margin-bottom: 5%;">
+
                         <div class="col-md-4"><br>
+                              <div class="form-group">
+                                <label for="text">
+                                    <strong>Ticket Type:</strong>
+                                </label>
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <select class="w3-select" id="ticket_type" name="ticket_type">
+                                        <option value="unattended_luggage" selected>Unattended Luggage</option>
+                                        <option value="passenger_ticket" selected>Passenger Ticket</option>
+                                    </select>
+                                </div>
+                              </div>
+                        </div>
+
+                        <div class="col-md-2"><br>
                               <div class="form-group">
                                 <label for="text">
                                     <strong>From:</strong>
@@ -656,7 +665,7 @@
                               </div>
                         </div>
 
-                        <div class="col-md-4"><br>
+                        <div class="col-md-2"><br>
                               <div class="form-group">
                                 <label for="text">
                                     <strong>To:</strong>
@@ -688,38 +697,120 @@
                     <header class="w3-container w3-indigo w3-center" id="heed">
                         <h3>RESULTS</h3>
                     </header>
-
-
-                <div class="container">
-                    <form role="form" >
-                    <div class="col-lg-11 mt-4 stretched_card">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card_title" style="text-align:center; color:blue; text-decoration:underline;">Search Results</h4>
-                                <div class="single-table">
-                                    <div class="table-responsive">
-                                        <table id="routes_dataTable"  class="table table-striped table-bordered" >
-                                            <thead class="text-uppercase">
-                                            <tr>
-                                                <th scope="col"></th>
-                                                <th scope="col">Operater</th>
-                                                <th scope="col">Route</th>
-                                                <th scope="col">Time</th>
-                                                <th scope="col">Price</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody id="trips_form"></tbody>
-                                        </table>
+                    <!-- ------------------------------------------------------------------------- -->
+                    <div class="container" id="passenger_ticket_view">
+                        <form role="form" >
+                            <div class="col-lg-11 mt-4 stretched_card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card_title" style="text-align:center; color:blue; text-decoration:underline;">Search Results</h4>
+                                    <div class="single-table">
+                                        <div class="table-responsive">
+                                            <table id="routes_dataTable"  class="table table-striped table-bordered" >
+                                                <thead class="text-uppercase">
+                                                <tr>
+                                                    <th scope="col"></th>
+                                                    <th scope="col">Operator</th>
+                                                    <th scope="col">Route</th>
+                                                    <th scope="col">Time</th>
+                                                    <th scope="col">Price</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody id="trips_form"></tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        </form>
                     </div>
-                    </form>
-                </div><br>
-                    </form>
-                <hr>
+                        <br>
+                        <hr>
+                    <!-- ------------------------------------------------------------------------- -->
+                    <div class="container" id="unattended_view">
 
+                        <div style="margin-left: 15px" class="col-md-12">
+                            <p id="unattended_luggage_code" style="font-weight: bold"></p>
+                        </div>
+
+                        <form role="form" >
+                            <div class="col-lg-11 mt-4 stretched_card">
+                                <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card_title" style="text-align:center; color:blue; text-decoration:underline;"></h4>
+                                    <div class="container-fluid">
+
+                                        <div class="row">
+
+                                            <div style="margin-left: 15px">
+                                                <div class="col-md-5">
+                                                    <label>PASSENGER ID: </label> <br>
+                                                    <input  id="unattended_luggage_id_input" placeholder="">
+                                                </div>
+
+                                                <div class="col-md-5">
+                                                    <label>MOBILE NUMBER: </label> <br>
+                                                    <input id="unattended_luggage_phone_input" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <br><br><br><br>
+
+                                            <div class="col-md-6">
+                                                <button onclick="get_weight()" class="w3-btn-block w3-indigo w3-hover-orange w3-round">Get Weight</button>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <p id="unattended_luggage_scale_weight" style="font-weight: bold; font-size: 25px;"> 0 </p>
+                                            </div>
+
+                                            </div>
+                                            <br>
+                                            <textarea id="unattended_luggage_luggage_description"  maxlength="40" style="width: 100%;" placeholder="Description"></textarea>
+                                            <br><br>
+                                            <p>
+                                                <strong>Luggage Tag ID:</strong>
+                                                <i id="unattended_luggage_luggage_ticket"></i>
+                                            </p>
+
+                                            <p>
+                                                <strong>Luggage Weight (KG):</strong>
+                                                <i id="unattended_luggage_luggage_weight_2"></i>
+                                            </p>
+
+                                            <p>
+                                                <strong>Total Cost (ZMW):</strong>
+                                                <i id="unattended_luggage_luggage_total_cost">1</i>
+                                            </p>
+
+                                            <div style="margin-top: 15px">
+                                              <button id="unattended_luggage_add_luggage_button" onclick="add_unattended_luggage_button()" type="button" class="w3-btn w3-indigo w3-hover-orange w3-round w3-left">Add</button>
+                                            </div>
+
+                                            <br><br>
+
+                                            <div style="margin-top: 15px">
+                                                <table  id="unattended_luggage_table_list" class="w3-table w3-striped w3-border">
+                                                        <tr><th>Description</th><th>Luggage TAG ID</th><th>Weight</th><th>Cost</th></tr>
+                                                </table>
+                                            </div>
+
+                                        </div>
+
+                                       <div style="margin-top: 25px">
+                                          <button id="unattended_luggage_add_luggage_button" style="margin-left: 10px" onclick="add_luggage_button()" type="button" class="w3-btn w3-indigo w3-hover-orange w3-round w3-left">Done</button>
+                                          <button id="unattended_luggage_cancle_button" type="button" style="margin-left: 15px" class="w3-btn w3-red w3-round" data-dismiss="modal">Close</button>
+                                       </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                        <br>
+                        <hr>
+                    <!-- ------------------------------------------------------------------------- -->
                 </div>
 
             </div>
@@ -735,17 +826,17 @@
 
                 <div class="container">
                     <!--####################-- NAPSA TICKET PURCHASE --####################-->
-                            <div class="col-lg-12">
-                                <div class="container-fluid">
+                        <div class="col-lg-12">
+                            <div class="container-fluid">
 
 
-                                <div class="text-center" style="height: 5%">
-                                    <div class="icon-object border-slate-100 text-slate-100 w3-orange">
-                                        <img src="<%= Routes.static_path(@conn, "/images/logo/1.png") %>" width="90" height="70" alt="NapsaLogo">
-                                    </div>
-
-                                    <h5 class="content-group">To Purschase Ticket <small class="display-block">Fill Form Below</small></h5>
+                            <div class="text-center" style="height: 5%">
+                                <div class="icon-object border-slate-100 text-slate-100 w3-orange">
+                                    <img src="<%= Routes.static_path(@conn, "/images/logo/1.png") %>" width="90" height="70" alt="NapsaLogo">
                                 </div>
+
+                                <h5 class="content-group">To Purschase Ticket <small class="display-block">Fill Form Below</small></h5>
+                            </div>
 
 
                         <form method="post" action="<%= Routes.ticket_path(@conn, :create) %>">
@@ -786,11 +877,7 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-
-                            <div class="col-md-6">
+                        <div class="col-md-6">
                                 <div class="form-group has-feedback has-feedback-left">
                                     <input name="payload[last_name]" id="Last_Name" type="text" class="form-control" placeholder="Passenger Last Name">
                                     <div class="form-control-feedback">
@@ -835,14 +922,7 @@
                                         <b><i class="icon-checkmark2"></i></b>Purchase Ticket
                                     </button>
                                 </div>
-
                         </form>
-
-
-
-
-
-
                     <!--####################-- NAPSA TICKET PURCHASE --####################-->
                 </div>
 
@@ -852,7 +932,6 @@
 
             </div>
             <!---------------------------------------------------------->
-
             </div>
         </div>
         <!------------------------------------>
@@ -890,7 +969,6 @@
         </div>
         <!------------------------------------->
 
-
         <!------------ CHECKIN----------------->
         <div class="col-md-12 bus" id="checkin">
             <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
@@ -902,29 +980,25 @@
                 <div class="container">
                     <div class="row">
                         <div class="form-inline" style="margin-top: 0.5%; margin-bottom: 5%;">
-                        <div class="col-md-10">
-                              <div class="form-group">
-                                <label for="ticket">
-                                    <strong>From:</strong>
-                                </label>
-                                <input type="text" id="checkin_ticket_id_1" class="form-control" required="required" placeholder="Enter Ticket ID">
-                              </div>
-                        </div>
+                            <div class="col-md-10">
+                                  <div class="form-group">
+                                    <label for="ticket">
+                                        <strong>Ticket ID:</strong>
+                                    </label>
+                                    <input type="text" id="checkin_ticket_id_1" class="form-control" required="required" placeholder="Enter Ticket ID">
+                                  </div>
+                            </div>
 
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <button onclick="checkinAction()" type="submit" class="w3-btn w3-light-grey w3-hover-white w3-round pull-right">
-                                     <img src="<%= Routes.static_path(@conn, "/images/1.png") %>" class="img-fluid" style="width:30px;height:30px" alt="search">
-                                </button>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <button onclick="checkinAction()" type="submit" class="w3-btn w3-light-grey w3-hover-white w3-round pull-right">
+                                         <img src="<%= Routes.static_path(@conn, "/images/1.png") %>" class="img-fluid" style="width:30px;height:30px" alt="search">
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                      </div>
 
-                        <div class="col-md-12">
-                                <!--
-                                RESULTS FOR SEARCH QUERY
-                                -->
-                        </div>
+                        <div class="col-md-12"></div>
                     </div>
                 </div>
 
@@ -937,7 +1011,6 @@
                         <h3>RESULTS</h3>
                     </header>
 
-
                     <div class="container-fluid"><br>
                         <div class="w3-card-4" style="width:100%;">
                             <header class="w3-container">
@@ -947,36 +1020,30 @@
                             </header>
 
                             <div class="w3-container">
-
-
-
-                                    <div class="row">
-                                        <div class="col-md-4 col-sm-4">
-                                            <div class="container-fluid">
-                                                <p><strong>Ticket ID:</strong> <i id="checkin_ticket_id"></i></p>
-                                                <p><strong>Ref. Number: </strong> <i id="checkin_ticket_ref_number"></i></p>
-                                                <p><strong>Serial Number: <%=  %></strong> <i id="checkin_ticket_serial_number"></i></p>
-                                                <p><strong>Travel Date: <%=  %></strong> <i id="checkin_ticket_travel_date"></i></p>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4 col-sm-4">
-                                            <div class="container-fluid">
-                                                <p><strong>Name: <%=  %> <%=  %></strong> <i id="checkin_ticket_name"></i></p>
-                                                <p><strong>Passenger ID: <%=  %></strong> <i id="checkin_ticket_passenger_id"></i></p>
-                                                <p><strong>Cell: <%=  %></strong> <i id="checkin_ticket_cell"></i></p>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4 col-sm-4">
-                                            <div class="container-fluid">
-                                                 <img src="<%= Routes.static_path(@conn, "/images/icons/Scan.png") %>"  width="300" height="70" class="img-responsive" alt="">
-                                            </div>
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="container-fluid">
+                                            <p><strong>Ticket ID:</strong> <i id="checkin_ticket_id"></i></p>
+                                            <p><strong>Ref. Number: </strong> <i id="checkin_ticket_ref_number"></i></p>
+                                            <p><strong>Serial Number: <%=  %></strong> <i id="checkin_ticket_serial_number"></i></p>
+                                            <p><strong>Travel Date: <%=  %></strong> <i id="checkin_ticket_travel_date"></i></p>
                                         </div>
                                     </div>
 
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="container-fluid">
+                                            <p><strong>Name: <%=  %> <%=  %></strong> <i id="checkin_ticket_name"></i></p>
+                                            <p><strong>Passenger ID: <%=  %></strong> <i id="checkin_ticket_passenger_id"></i></p>
+                                            <p><strong>Cell: <%=  %></strong> <i id="checkin_ticket_cell"></i></p>
+                                        </div>
+                                    </div>
 
-
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="container-fluid">
+                                             <img src="<%= Routes.static_path(@conn, "/images/icons/Scan.png") %>"  width="300" height="70" class="img-responsive" alt="">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1004,12 +1071,10 @@
                         </button>
                     </div>
                     <br>
-
             </div>
             <!---------------------------------------------------------->
         </div>
         <!----------------------------------->
-
     </div>
 
 
@@ -1018,10 +1083,8 @@
 <!-- ########################################## END TELLER MODULE ###############################-->
 
 
-
-
 <!-- ########################################## BUS OPERATOR MODULE ########################################-->
-<%= if @user.role == "BOP" do %>
+<%= if @user.role == "ADMIN" do %>
 <!--################ BOP COVER ################-->
 <!--
 <div class="profile-cover">
@@ -1040,9 +1103,7 @@
     </div>
 </div>
 -->
-<div class="header">
-    <h1 style="text-align:center; color:blue; text-decoration:underline ; font-weight: bold; font-size: 30px;"><span class="icon-car"></span> BOP DASHBOARD</h1><hr style="border-top: 1px solid orange;">
-</div>
+
 <!-- Toolbar
 <div class="navbar navbar-default navbar-xs navbar-component no-border-radius-top">
     <ul class="nav navbar-nav visible-xs-block">
@@ -1102,79 +1163,7 @@ TO ADD STATICS GRAPH
     <div class="container-fluid">
         <!-- Timeline -->
         <div class="timeline timeline-left content-group">
-            <div class="timeline-container">
 
-                <div class="timeline-row">
-                    <div class="timeline-icon">
-                        <div class="bg-primary-400">
-                            <i class="icon-table"></i>
-                        </div>
-                    </div>
-                    <style>
-                    .panel {
-                        border-radius: 25px;
-                        border:1px solid orange;
-                        }
-                    </style>
-                    <div class="panel border-left-lg border-left-primary timeline-content">
-                        <div class="panel-heading">
-                            <h6 class="panel-title" style="color:blue; text-align:center; text-decoration:underline ;">Registered Buses</h6>
-                        </div><hr style="color:orange;">
-
-                        <div class="panel-body">
-                            <div class="chart-container">
-                                <div style="overflow-x:auto;">
-                                    <table  class="table table-striped table-bordered" id="dataTableBusTerminusId">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Liscense plate</th>
-                                                <th>Engine Type</th>
-                                                <th>Model</th>
-                                                <th>Make</th>
-                                                <th>Year</th>
-                                                <th>Color</th>
-                                                <th>State of Registration</th>
-                                                <th>Vin Number</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <%= for bus <- @buses do %>
-                                                <tr>
-                                                    <td><%= bus.id %></td>
-                                                    <td><%= bus.license_plate %></td>
-                                                    <td><%= bus.engine_type %></td>
-                                                    <td><%= bus.model %></td>
-                                                    <td><%= bus.make %></td>
-                                                    <td><%= bus.year %></td>
-                                                    <td><%= bus.color %></td>
-                                                    <td><%= bus.state_of_registration %></td>
-                                                    <td><%= bus.vin_number %></td>
-                                                    <td class="text-center">
-                                                        <ul class="icons-list">
-                                                            <li class="dropdown">
-                                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                                    <i class="icon-menu9"></i>
-                                                                </a>
-
-                                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                                    <li><button style="margin-left: 10px" type="button" class="btn btn-default btn-sm">
-                                                                    EDIT <i class="icon-user position-right"></i></button></li>
-                                                                                                    </ul>
-                                                            </li>
-                                                        </ul>
-                                                    </td>
-                                                 </tr>
-                                            <% end %>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
 
             <!-- Date stamp -->
@@ -1566,8 +1555,6 @@ TO ADD STATICS GRAPH
 <!--################ BOP DASHBOARD %> ################-->
 <% end %>
 <!-- ########################################## END BUS OPERATOR MODULE ####################################-->
-
-
 
 
 <!-- ########################################## MOP OPERATOR MODULE ####################################-->
@@ -2020,526 +2007,515 @@ TO ADD STATICS GRAPH
 <!-- ########################################## END MOP OPERATOR MODULE ####################################-->
 
 <!-- ########## MODAL ######### -->
-        <!-- Modal -->
-        <div id="id01" class="w3-modal" >
-                <div class="w3-modal-content w3-card-4 w3-animate-zoom">
-                  <header class="w3-container w3-light-grey">
-                   <span onclick="document.getElementById('id01').style.display='none'"
-                   class="w3-closebtn w3-padding-top">×</span>
-                   <h3 style="color:rgb(102, 0, 102); text-align: center;">
-                    Payment
-                   </h3>
-                  </header>
-                <div class="container-fluid">
-                <div class="row">
-                <div class="c">
-                <div class="media">
-                <div class="media-right">
-                </div>
-                </div>
-                </div>
+<!-- Modal -->
+<div id="id01" class="w3-modal" >
+        <div class="w3-modal-content w3-card-4 w3-animate-zoom">
+          <header class="w3-container w3-light-grey">
+           <span onclick="document.getElementById('id01').style.display='none'"
+           class="w3-closebtn w3-padding-top">×</span>
+           <h3 style="color:rgb(102, 0, 102); text-align: center;">
+            Payment
+           </h3>
+          </header>
+        <div class="container-fluid">
+        <div class="row">
+        <div class="c">
+        <div class="media">
+        <div class="media-right">
+        </div>
+        </div>
+        </div>
 
-                <div class="col-md-12">
-                <!-- start -->
-                <div class="media-body">
+        <div class="col-md-12">
+        <!-- start -->
+        <div class="media-body">
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <link href="<%= Routes.static_path(@conn, "/css/payment.css") %>" rel="stylesheet" type="text/css">
 
 <ul class="nav nav-tabs">
-    <li class="active"><a href="#tab1" data-toggle="tab">Billing</a></li>
-    <li><a href="#tab2" data-toggle="tab">PAYMENT TYPE</a></li>
-  <li><a href="#tab3" data-toggle="tab">REVIEW</a></li>
-    <li><a href="#tab4" data-toggle="tab">Receipt</a></li>
+<li class="active"><a href="#tab1" data-toggle="tab">Billing</a></li>
+<li><a href="#tab2" data-toggle="tab">PAYMENT TYPE</a></li>
+<li><a href="#tab3" data-toggle="tab">REVIEW</a></li>
+<li><a href="#tab4" data-toggle="tab">Receipt</a></li>
 </ul>
 <div class="tab-content">
-        <!--start of billing-->
-        <div class="tab-pane active" id="tab1">
-                <div class="row" id="billingInfo">
-                    <div class="col-xsm-12 col-md-12 col-lg-12">
-                        <div class="w3-card w3-white">
-                            <div class="container-fluid">
-                            <h2 style="text-align:center;">Billing Information</h2><hr style="border-top: 2px solid orange;">
-                        <div class="error-messages" style="display:none;"></div>
+<!--start of billing-->
+<div class="tab-pane active" id="tab1">
+        <div class="row" id="billingInfo">
+            <div class="col-xsm-12 col-md-12 col-lg-12">
+                <div class="w3-card w3-white">
+                    <div class="container-fluid">
+                    <h2 style="text-align:center;">Billing Information</h2><hr style="border-top: 2px solid orange;">
+                <div class="error-messages" style="display:none;"></div>
 
-                                <div class="form-group ss-item-required">
-                                    <label for="name"><strong>First Name:</strong></label>
-                                    <input type="text" id="FNAME" name="name" class="form-control" placeholder="First Name">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="Lname"><strong>Last Name:</strong></label>
-                                    <input type="text" id="LNAME" name="Lname" class="form-control" placeholder="Last Name" >
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="address"><strong>Address:</strong></label>
-                                    <input type="text" id="ADDRESS" name="address" class="form-control" placeholder="Address" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="city"><strong>Town/City:</strong></label>
-                                    <input type="text" id="TOWN" name="city" class="form-control" placeholder="Town/City" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="email"><strong>Email:</strong></label>
-                                    <input type="email" id="EMAIL" name="email" class="form-control" placeholder="Eamil" required>
-                                </div>
-                                <a class="w3-btn w3-indigo btnNext w3-hover-orange" style="border-radius: 12px;">Next</a>
-                                <br><br>
-                            </div>
+                        <div class="form-group ss-item-required">
+                            <label for="name"><strong>First Name:</strong></label>
+                            <input type="text" id="FNAME" name="name" class="form-control" placeholder="First Name">
                         </div>
+
+                        <div class="form-group">
+                            <label for="Lname"><strong>Last Name:</strong></label>
+                            <input type="text" id="LNAME" name="Lname" class="form-control" placeholder="Last Name" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address"><strong>Address:</strong></label>
+                            <input type="text" id="ADDRESS" name="address" class="form-control" placeholder="Address" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="city"><strong>Town/City:</strong></label>
+                            <input type="text" id="TOWN" name="city" class="form-control" placeholder="Town/City" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email"><strong>Email:</strong></label>
+                            <input type="email" id="EMAIL" name="email" class="form-control" placeholder="Eamil" required>
+                        </div>
+                        <a class="w3-btn w3-indigo btnNext w3-hover-orange" style="border-radius: 12px;">Next</a>
+                        <br><br>
                     </div>
+                </div>
+            </div>
 
-                    </div>
-
-
-        </div>
-        <!-- end of billing -->
+            </div>
 
 
+</div>
+<!-- end of billing -->
 
-        <!-- start of payment type -->
-        <div class="tab-pane" id="tab2">
-            <div class = "row">
-                <div class="col-xsm-12 col-md-12 col-lg-12">
-                    <div class="tab-pane" id="tab2">
-                        <div class="w3-card-4 w3-card w3-white">
-                            <h2 style="text-align:center;">Billing Information</h2><hr style="border-top: 2px solid orange;">
-                            <div class="container-fluid">
-                                <div class="col-xsm-3 col-md-3 col-lg-3">
-                                    <label class="w3-btn w3-sand w3-hover w3-round-xlarge  w3-jumbo">
-                                        <input type="radio" name="cat" class="styled" value="visa" />
-                                        <img src="<%= Routes.static_path(@conn, "/images/payments/Mastercardvisa.png") %>" width="100" height="70" alt="CreditCardd">
-                                    </label>
-                                </div>
-                                <div class="col-xsm-3 col-md-3 col-lg-3">
-                                    <label class="w3-btn w3-sand w3-hover w3-round-xlarge  w3-jumbo">
-                                        <input type="radio" name="cat" class="styled" value="airtel" />
-                                        <img src="<%= Routes.static_path(@conn, "/images/payments/Airtel.png") %>" width="100" height="70" alt="AirtelMoney">
-                                    </label>
-                                </div>
 
-                                <div class="col-xsm-3 col-md-3 col-lg-3">
-                                        <label class="w3-btn w3-yellow w3-hover w3-round-xlarge w3-jumbo">
-                                            <input type="radio" name="cat" class="styled" value="mtn" />
-                                            <img src="<%= Routes.static_path(@conn, "/images/payments/MTN.png") %>" width="100" height="70" alt="MTNMoney">
-                                        </label>
-                                </div>
-                                <div class="col-xsm-3 col-md-3 col-lg-3">
-                                    <label class="w3-btn w3-sand w3-hover w3-round-xlarge  w3-jumbo">
-                                        <input type="radio" name="cat" class="styled" value="zamtel" />
-                                        <img src="<%= Routes.static_path(@conn, "/images/payments/zamtel.png") %>" width="100" height="70" alt="AirtelMoney">
-                                    </label>
-                                </div>
-                                 <div class='area' id="visa">
-                                                    <br>
-                                                    <div class="col-xsm-6 col-md-6 col-lg-6">
-                                                        <div class="w3-card w3-white">
-                                                            <div class="container-fluid">
-                                                            <h2 style="text-align:center;">Bank Acount Details</h2><hr style="border-top: 2px solid orange;"></h2>
 
-                                                            <label class="radio-inline"><input type="Checkbox" name="optradio">Visa</label>
-                                                                <label class="radio-inline"><input type="Checkbox" name="optradio">Mastercards</label>
+<!-- start of payment type -->
+<div class="tab-pane" id="tab2">
+    <div class = "row">
+        <div class="col-xsm-12 col-md-12 col-lg-12">
+            <div class="tab-pane" id="tab2">
+                <div class="w3-card-4 w3-card w3-white">
+                    <h2 style="text-align:center;">Billing Information</h2><hr style="border-top: 2px solid orange;">
+                    <div class="container-fluid">
+                        <div class="col-xsm-3 col-md-3 col-lg-3">
+                            <label class="w3-btn w3-sand w3-hover w3-round-xlarge  w3-jumbo">
+                                <input type="radio" name="cat" class="styled" value="visa" />
+                                <img src="<%= Routes.static_path(@conn, "/images/payments/Mastercardvisa.png") %>" width="100" height="70" alt="CreditCardd">
+                            </label>
+                        </div>
+                        <div class="col-xsm-3 col-md-3 col-lg-3">
+                            <label class="w3-btn w3-sand w3-hover w3-round-xlarge  w3-jumbo">
+                                <input type="radio" name="cat" class="styled" value="airtel" />
+                                <img src="<%= Routes.static_path(@conn, "/images/payments/Airtel.png") %>" width="100" height="70" alt="AirtelMoney">
+                            </label>
+                        </div>
 
-                                                                    <div class="form-group">
-                                                                        <label for="cardNumber">Card Number:</label>
-                                                                        <input type="number" id="cardNumber"name="cardNumber" class="form-control" placeholder="xxxx xxxx xxxx xxxx" required="required">
-                                                                    </div>
+                        <div class="col-xsm-3 col-md-3 col-lg-3">
+                                <label class="w3-btn w3-yellow w3-hover w3-round-xlarge w3-jumbo">
+                                    <input type="radio" name="cat" class="styled" value="mtn" />
+                                    <img src="<%= Routes.static_path(@conn, "/images/payments/MTN.png") %>" width="100" height="70" alt="MTNMoney">
+                                </label>
+                        </div>
+                        <div class="col-xsm-3 col-md-3 col-lg-3">
+                            <label class="w3-btn w3-sand w3-hover w3-round-xlarge  w3-jumbo">
+                                <input type="radio" name="cat" class="styled" value="zamtel" />
+                                <img src="<%= Routes.static_path(@conn, "/images/payments/zamtel.png") %>" width="100" height="70" alt="AirtelMoney">
+                            </label>
+                        </div>
+                         <div class='area' id="visa">
+                                            <br>
+                                            <div class="col-xsm-6 col-md-6 col-lg-6">
+                                                <div class="w3-card w3-white">
+                                                    <div class="container-fluid">
+                                                    <h2 style="text-align:center;">Bank Acount Details</h2><hr style="border-top: 2px solid orange;"></h2>
 
-                                                                    <div class="form-group">
-                                                                        <label for="Expirydate"><strong>Expiry Date:</strong></label>
-                                                                        <input type="date" name="Expirydate" class="form-control" required="required">
-                                                                    </div>
+                                                    <label class="radio-inline"><input type="Checkbox" name="optradio">Visa</label>
+                                                        <label class="radio-inline"><input type="Checkbox" name="optradio">Mastercards</label>
 
-                                                                    <div class="form-group">
-                                                                        <label for="address"><strong>Security Code:</strong></label>
-                                                                        <p>
-                                                                            This code is a three or four digit number printed on the back or front of credit cards.
-                                                                        </p>
-                                                                        <input type="number" id="securityCode" name="secCode" maxlength="4" class="form-control" placeholder="xxx" required="required">
-                                                                    </div>
-                                                                </div>
+                                                            <div class="form-group">
+                                                                <label for="cardNumber">Card Number:</label>
+                                                                <input type="number" id="cardNumber"name="cardNumber" class="form-control" placeholder="xxxx xxxx xxxx xxxx" required="required">
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="Expirydate"><strong>Expiry Date:</strong></label>
+                                                                <input type="date" name="Expirydate" class="form-control" required="required">
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="address"><strong>Security Code:</strong></label>
+                                                                <p>
+                                                                    This code is a three or four digit number printed on the back or front of credit cards.
+                                                                </p>
+                                                                <input type="number" id="securityCode" name="secCode" maxlength="4" class="form-control" placeholder="xxx" required="required">
                                                             </div>
                                                         </div>
-                                                        <div class="col-xsm-6 col-md-6 col-lg-6">
-                                                            <div class="w3-card w3-white">
-                                                                <div class="container-fluid">
-                                                                    <h2 style="text-align:center;">Review</h2><hr style="border-top: 2px solid orange;"></h2>
-                                                                    <h6>Subtotal (1 item)   <i style="padding-left: 10em;">K350.00</i></h6>
-                                                                    <h6>Shipping    <i style="padding-left: 13em;">Free</i></h6>
-                                                                    <hr>
-                                                                    <h6><strong>Payment:</strong> Bus Terminus Transport Fare</h6>
-                                                                    <h6><strong>Cost:</strong> K350.00</h6>
-                                                                    <h6>
-                                                                        <strong>Card Number:</strong>
-                                                                        <div id="CardNUMBER"></div>
-                                                                    </h6>
-                                                                    <h6>
-                                                                        <strong>Security Code:</strong>
-                                                                        <div id="SecurityCODE"></div>
-                                                                    </h6>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
+                                                    </div>
+                                                </div>
+                                                <div class="col-xsm-6 col-md-6 col-lg-6">
+                                                    <div class="w3-card w3-white">
                                                         <div class="container-fluid">
-                                                            <a class="w3-btn w3-indigo btnNext w3-hover-orange" style="border-radius: 12px;">Next</a>
-                                                            <a class="w3-btn w3-indigo btnPrevious w3-hover-orange" style="border-radius: 12px;">Previous</a>
-                                                            </div><br>
+                                                            <h2 style="text-align:center;">Review</h2><hr style="border-top: 2px solid orange;"></h2>
+                                                            <h6>Subtotal (1 item)   <i style="padding-left: 10em;">K350.00</i></h6>
+                                                            <h6>Shipping    <i style="padding-left: 13em;">Free</i></h6>
+                                                            <hr>
+                                                            <h6><strong>Payment:</strong> Bus Terminus Transport Fare</h6>
+                                                            <h6><strong>Cost:</strong> K350.00</h6>
+                                                            <h6>
+                                                                <strong>Card Number:</strong>
+                                                                <div id="CardNUMBER"></div>
+                                                            </h6>
+                                                            <h6>
+                                                                <strong>Security Code:</strong>
+                                                                <div id="SecurityCODE"></div>
+                                                            </h6>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
-                                                <div class='area' id="airtel">
-                                                <br>
-                                                <div class="col-xsm-6 col-md-6 col-lg-6">
-                                                        <div class="w3-card w3-white">
-                                                            <div class="container-fluid">
-                                                            <div style="text-align:center;">
-                                                            <img src="<%= Routes.static_path(@conn, "/images/payments/Airtel.png") %>" width="100" height="70" alt="AirtelMoney" >
-                                                            </div>
-                                                                <h2 style="text-align:center;">Airtel Money Details</h2><hr style="border-top: 2px solid orange;"></h2>
+                                                <div class="container-fluid">
+                                                    <a class="w3-btn w3-indigo btnNext w3-hover-orange" style="border-radius: 12px;">Next</a>
+                                                    <a class="w3-btn w3-indigo btnPrevious w3-hover-orange" style="border-radius: 12px;">Previous</a>
+                                                    </div><br>
+                                        </div>
 
-                                                                    <div class="form-group">
-                                                                        <label for="cardNumber">Phone Number:</label>
-                                                                        <input type="number" id="PHONE"name="cardNumber" class="form-control" placeholder="26097" required="required">
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="address"><strong>Comfirmation Code:</strong></label>
-                                                                        <p>
-                                                                            A comfirmation code has been sent. Please check your phone.
-                                                                        </p>
-                                                                        <input type="number" id="PHONE2" name="secCode" maxlength="4" class="form-control" placeholder="xxxx" required="required">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                        <div class='area' id="airtel">
+                                        <br>
+                                        <div class="col-xsm-6 col-md-6 col-lg-6">
+                                                <div class="w3-card w3-white">
+                                                    <div class="container-fluid">
+                                                    <div style="text-align:center;">
+                                                    <img src="<%= Routes.static_path(@conn, "/images/payments/Airtel.png") %>" width="100" height="70" alt="AirtelMoney" >
+                                                    </div>
+                                                        <h2 style="text-align:center;">Airtel Money Details</h2><hr style="border-top: 2px solid orange;"></h2>
 
-                                                        <div class="col-xsm-6 col-md-6 col-lg-6">
-                                                        <div class="w3-card w3-white">
-                                                            <div class="container-fluid">
-                                                            <div style="text-align:center;">
-                                                            <img src="<%= Routes.static_path(@conn, "/images/payments/Airtel.png") %>" width="100" height="70" alt="AirtelMoney" >
+                                                            <div class="form-group">
+                                                                <label for="cardNumber">Phone Number:</label>
+                                                                <input type="number" id="PHONE"name="cardNumber" class="form-control" placeholder="26097" required="required">
                                                             </div>
-                                                                <h2 style="text-align:center;">Review</h2><hr style="border-top: 2px solid orange;"></h2>
-                                                                <h6>Subtotal (1 item)   <i style="padding-left: 10em;">K350.00</i></h6>
-                                                                <h6>Shipping    <i style="padding-left: 13em;">Free</i></h6>
-                                                                <hr>
-                                                                <h6><strong>Payment:</strong> Bus Terminus Transport Fare</h6>
-                                                                <h6><strong>Cost:</strong> K350.00</h6>
-                                                                <h6>
-                                                                    <strong>Phone Number:</strong>
-                                                                    <div id="phone"></div>
-                                                                </h6>
-                                                                <h6>
-                                                                    <strong>Phone Number:</strong>
-                                                                    <div id="phone2"></div>
-                                                                </h6>
+                                                            <div class="form-group">
+                                                                <label for="address"><strong>Comfirmation Code:</strong></label>
+                                                                <p>
+                                                                    A comfirmation code has been sent. Please check your phone.
+                                                                </p>
+                                                                <input type="number" id="PHONE2" name="secCode" maxlength="4" class="form-control" placeholder="xxxx" required="required">
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                            <div class="container-fluid">
-                                                            <a class="w3-btn w3-indigo btnNext w3-hover-orange" style="border-radius: 12px;">Next</a>
-                                                            <a class="w3-btn w3-indigo btnPrevious w3-hover-orange" style="border-radius: 12px;">Previous</a>
-                                                            </div><br>
                                                 </div>
 
-												<div class='area' id="mtn">
-                                                <br>
                                                 <div class="col-xsm-6 col-md-6 col-lg-6">
-                                                        <div class="w3-card w3-white">
-                                                            <div class="container-fluid">
-                                                            <div style="text-align:center;">
-                                                            <img src="<%= Routes.static_path(@conn, "/images/payments/MTN.png") %>" width="100" height="70" alt="MTNMoney">
-                                                            </div>
-                                                                <h2 style="text-align:center;">MTN Money Details</h2><hr style="border-top: 2px solid orange;"></h2>
+                                                <div class="w3-card w3-white">
+                                                    <div class="container-fluid">
+                                                    <div style="text-align:center;">
+                                                    <img src="<%= Routes.static_path(@conn, "/images/payments/Airtel.png") %>" width="100" height="70" alt="AirtelMoney" >
+                                                    </div>
+                                                        <h2 style="text-align:center;">Review</h2><hr style="border-top: 2px solid orange;"></h2>
+                                                        <h6>Subtotal (1 item)   <i style="padding-left: 10em;">K350.00</i></h6>
+                                                        <h6>Shipping    <i style="padding-left: 13em;">Free</i></h6>
+                                                        <hr>
+                                                        <h6><strong>Payment:</strong> Bus Terminus Transport Fare</h6>
+                                                        <h6><strong>Cost:</strong> K350.00</h6>
+                                                        <h6>
+                                                            <strong>Phone Number:</strong>
+                                                            <div id="phone"></div>
+                                                        </h6>
+                                                        <h6>
+                                                            <strong>Phone Number:</strong>
+                                                            <div id="phone2"></div>
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                                                    <div class="form-group">
-                                                                        <label for="cardNumber">Phone Number:</label>
-                                                                        <input type="number" id="PHONE"name="cardNumber" class="form-control" placeholder="26097" required="required">
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="address"><strong>Comfirmation Code:</strong></label>
-                                                                        <p>
-                                                                            A comfirmation code has been sent. Please check your phone.
-                                                                        </p>
-                                                                        <input type="number" id="PHONE2" name="secCode" maxlength="4" class="form-control" placeholder="xxxx" required="required">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <div class="container-fluid">
+                                                    <a class="w3-btn w3-indigo btnNext w3-hover-orange" style="border-radius: 12px;">Next</a>
+                                                    <a class="w3-btn w3-indigo btnPrevious w3-hover-orange" style="border-radius: 12px;">Previous</a>
+                                                    </div><br>
+                                        </div>
 
-                                                        <div class="col-xsm-6 col-md-6 col-lg-6">
-                                                        <div class="w3-card w3-white">
-                                                            <div class="container-fluid">
-                                                            <div style="text-align:center;">
-                                                           <img src="<%= Routes.static_path(@conn, "/images/payments/MTN.png") %>" width="100" height="70" alt="MTNMoney">
+                                        <div class='area' id="mtn">
+                                        <br>
+                                        <div class="col-xsm-6 col-md-6 col-lg-6">
+                                                <div class="w3-card w3-white">
+                                                    <div class="container-fluid">
+                                                    <div style="text-align:center;">
+                                                    <img src="<%= Routes.static_path(@conn, "/images/payments/MTN.png") %>" width="100" height="70" alt="MTNMoney">
+                                                    </div>
+                                                        <h2 style="text-align:center;">MTN Money Details</h2><hr style="border-top: 2px solid orange;"></h2>
+
+                                                            <div class="form-group">
+                                                                <label for="cardNumber">Phone Number:</label>
+                                                                <input type="number" id="PHONE"name="cardNumber" class="form-control" placeholder="26097" required="required">
                                                             </div>
-                                                                <h2 style="text-align:center;">Review</h2><hr style="border-top: 2px solid orange;"></h2>
-                                                                <h6>Subtotal (1 item)   <i style="padding-left: 10em;">K350.00</i></h6>
-                                                                <h6>Shipping    <i style="padding-left: 13em;">Free</i></h6>
-                                                                <hr>
-                                                                <h6><strong>Payment:</strong> Bus Terminus Transport Fare</h6>
-                                                                <h6><strong>Cost:</strong> K350.00</h6>
-                                                                <h6>
-                                                                    <strong>Phone Number:</strong>
-                                                                    <div id="phone"></div>
-                                                                </h6>
-                                                                <h6>
-                                                                    <strong>Phone Number:</strong>
-                                                                    <div id="phone2"></div>
-                                                                </h6>
+                                                            <div class="form-group">
+                                                                <label for="address"><strong>Comfirmation Code:</strong></label>
+                                                                <p>
+                                                                    A comfirmation code has been sent. Please check your phone.
+                                                                </p>
+                                                                <input type="number" id="PHONE2" name="secCode" maxlength="4" class="form-control" placeholder="xxxx" required="required">
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                            <div class="container-fluid">
-
-                                                            <a class="w3-btn w3-indigo btnNext w3-hover-orange" style="border-radius: 12px;">Next</a>
-                                                            <a class="w3-btn w3-indigo btnPrevious w3-hover-orange" style="border-radius: 12px;">Previous</a>
-                                                            </div><br>
                                                 </div>
 
-
-                                                    <div class='area' id="zamtel">
-                                                <br>
                                                 <div class="col-xsm-6 col-md-6 col-lg-6">
-                                                        <div class="w3-card w3-white">
-                                                            <div class="container-fluid">
-                                                            <div style="text-align:center;">
-                                                            <img src="<%= Routes.static_path(@conn, "/images/payments/zamtel.png") %>" width="100" height="70" alt="AirtelMoney" >
-                                                            </div>
-                                                                <h2 style="text-align:center;">Zamtel Money Details</h2><hr style="border-top: 2px solid orange;"></h2>
+                                                <div class="w3-card w3-white">
+                                                    <div class="container-fluid">
+                                                    <div style="text-align:center;">
+                                                   <img src="<%= Routes.static_path(@conn, "/images/payments/MTN.png") %>" width="100" height="70" alt="MTNMoney">
+                                                    </div>
+                                                        <h2 style="text-align:center;">Review</h2><hr style="border-top: 2px solid orange;"></h2>
+                                                        <h6>Subtotal (1 item)   <i style="padding-left: 10em;">K350.00</i></h6>
+                                                        <h6>Shipping    <i style="padding-left: 13em;">Free</i></h6>
+                                                        <hr>
+                                                        <h6><strong>Payment:</strong> Bus Terminus Transport Fare</h6>
+                                                        <h6><strong>Cost:</strong> K350.00</h6>
+                                                        <h6>
+                                                            <strong>Phone Number:</strong>
+                                                            <div id="phone"></div>
+                                                        </h6>
+                                                        <h6>
+                                                            <strong>Phone Number:</strong>
+                                                            <div id="phone2"></div>
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                                                    <div class="form-group">
-                                                                        <label for="cardNumber">Phone Number:</label>
-                                                                        <input type="number" id="cardNumber"name="cardNumber" class="form-control" placeholder="26097" required="required">
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="address"><strong>Comfirmation Code:</strong></label>
-                                                                        <p>
-                                                                            A comfirmation code has been sent. Please check your phone.
-                                                                        </p>
-                                                                        <input type="number" id="securityCode" name="secCode" maxlength="4" class="form-control" placeholder="xxxx" required="required">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <div class="container-fluid">
 
-                                                        <div class="col-xsm-6 col-md-6 col-lg-6">
-                                                        <div class="w3-card w3-white">
-                                                            <div class="container-fluid">
-                                                            <div style="text-align:center;">
-                                                            <img src="<%= Routes.static_path(@conn, "/images/payments/zamtel.png") %>" width="100" height="70" alt="AirtelMoney" >
+                                                    <a class="w3-btn w3-indigo btnNext w3-hover-orange" style="border-radius: 12px;">Next</a>
+                                                    <a class="w3-btn w3-indigo btnPrevious w3-hover-orange" style="border-radius: 12px;">Previous</a>
+                                                    </div><br>
+                                        </div>
+
+
+                                            <div class='area' id="zamtel">
+                                        <br>
+                                        <div class="col-xsm-6 col-md-6 col-lg-6">
+                                                <div class="w3-card w3-white">
+                                                    <div class="container-fluid">
+                                                    <div style="text-align:center;">
+                                                    <img src="<%= Routes.static_path(@conn, "/images/payments/zamtel.png") %>" width="100" height="70" alt="AirtelMoney" >
+                                                    </div>
+                                                        <h2 style="text-align:center;">Zamtel Money Details</h2><hr style="border-top: 2px solid orange;"></h2>
+
+                                                            <div class="form-group">
+                                                                <label for="cardNumber">Phone Number:</label>
+                                                                <input type="number" id="cardNumber"name="cardNumber" class="form-control" placeholder="26097" required="required">
                                                             </div>
-                                                                <h2 style="text-align:center;">Review</h2><hr style="border-top: 2px solid orange;"></h2>
-                                                                <h6>Subtotal (1 item)   <i style="padding-left: 10em;">K350.00</i></h6>
-                                                                <h6>Shipping    <i style="padding-left: 13em;">Free</i></h6>
-                                                                <hr>
-                                                                <h6><strong>Payment:</strong> Bus Terminus Transport Fare</h6>
-                                                                <h6><strong>Cost:</strong> K350.00</h6>
-                                                                <h6>
-                                                                    <strong>Card Number:</strong>
-                                                                    <div id="CardNUMBER"></div>
-                                                                </h6>
-                                                                <h6>
-                                                                    <strong>Security Code:</strong>
-                                                                    <div id="SecurityCODE"></div>
-                                                                </h6>
+                                                            <div class="form-group">
+                                                                <label for="address"><strong>Comfirmation Code:</strong></label>
+                                                                <p>
+                                                                    A comfirmation code has been sent. Please check your phone.
+                                                                </p>
+                                                                <input type="number" id="securityCode" name="secCode" maxlength="4" class="form-control" placeholder="xxxx" required="required">
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                            <div class="container-fluid">
-                                                            <a class="w3-btn w3-indigo btnNext w3-hover-orange" style="border-radius: 12px;">Next</a>
-                                                            <a class="w3-btn w3-indigo btnPrevious w3-hover-orange" style="border-radius: 12px;">Previous</a>
-                                                            </div><br>
                                                 </div>
-                            </div>
-                        </div>
+
+                                                <div class="col-xsm-6 col-md-6 col-lg-6">
+                                                <div class="w3-card w3-white">
+                                                    <div class="container-fluid">
+                                                    <div style="text-align:center;">
+                                                    <img src="<%= Routes.static_path(@conn, "/images/payments/zamtel.png") %>" width="100" height="70" alt="AirtelMoney" >
+                                                    </div>
+                                                        <h2 style="text-align:center;">Review</h2><hr style="border-top: 2px solid orange;"></h2>
+                                                        <h6>Subtotal (1 item)   <i style="padding-left: 10em;">K350.00</i></h6>
+                                                        <h6>Shipping    <i style="padding-left: 13em;">Free</i></h6>
+                                                        <hr>
+                                                        <h6><strong>Payment:</strong> Bus Terminus Transport Fare</h6>
+                                                        <h6><strong>Cost:</strong> K350.00</h6>
+                                                        <h6>
+                                                            <strong>Card Number:</strong>
+                                                            <div id="CardNUMBER"></div>
+                                                        </h6>
+                                                        <h6>
+                                                            <strong>Security Code:</strong>
+                                                            <div id="SecurityCODE"></div>
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                                    <div class="container-fluid">
+                                                    <a class="w3-btn w3-indigo btnNext w3-hover-orange" style="border-radius: 12px;">Next</a>
+                                                    <a class="w3-btn w3-indigo btnPrevious w3-hover-orange" style="border-radius: 12px;">Previous</a>
+                                                    </div><br>
+                                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- end of payment type -->
+    </div>
+</div>
+<!-- end of payment type -->
 
 
 
-        <!-- start of review -->
-        <div class="tab-pane" id="tab3">
-                        <div class="col-xsm-12 col-md-12 col-lg-12">
-                            <div class="w3-card w3-white">
-                                <div class="row">
+<!-- start of review -->
+<div class="tab-pane" id="tab3">
+                <div class="col-xsm-12 col-md-12 col-lg-12">
+                    <div class="w3-card w3-white">
+                        <div class="row">
 
-                                        <div class="col-md-12">
-                                        <h5 style="text-align:center;">PASSENGER DETAILS</h5><hr style="border-top: 2px solid orange;"></h2>
-                                            <fieldset>
-                                                <legend class="text-semibold"><i class="icon-reading position-left"></i></legend>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                            <b>NAME: </b><div id="PFname"></div><div id="PLname"></div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <b>PHONE NUMBER: </b><div id="PContatct"></div>
-                                                        </div>
+                                <div class="col-md-12">
+                                <h5 style="text-align:center;">PASSENGER DETAILS</h5><hr style="border-top: 2px solid orange;"></h2>
+                                    <fieldset>
+                                        <legend class="text-semibold"><i class="icon-reading position-left"></i></legend>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                    <b>NAME: </b><div id="PFname"></div><div id="PLname"></div>
                                                 </div>
-                                                <div class="row" style="margin-top: 30px">
-                                                        <div class="col-md-6">
-                                                            <b>BUS: </b><div id="Presult"></div>
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                            <b>NUMBER OF PASSENGERS: </b><div id="Ppassengernumber"></div>
-                                                        </div>
+                                                <div class="col-md-6">
+                                                    <b>PHONE NUMBER: </b><div id="PContatct"></div>
                                                 </div>
-                                                <div class="row" style="margin-top: 30px">
-
-                                                        <div class="col-md-6">
-                                                            <b>SEAT: </b><div id="PSeatPosition"></div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <b>TERMINUS: </b><div id="terminus"></div>
-                                                        </div>
-                                                </div>
-                                                <div class="row" style="margin-top: 30px">
-                                                        <div class="col-md-6">
-                                                            <div id="PFrom"></div>
-                                                            <b>TO: </b><div id="PTo"></div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <b>DEPARTURE TIME: </b><div id="PTime"></div>
-                                                        </div>
-                                                </div>
-                                                <div class="row" style="margin-top: 30px">
-                                                        <div class="col-md-6">
-                                                            <b>DATE: </b><div id="PdateOfDepature"></div>
-                                                        </div>
-                                                </div>
-
-                                                <legend class="text-semibold"><i class=""></i></legend>
-                                            </fieldset>
-                                        <h5 style="text-align:center;">PAYMENT DETAILS</h5><hr style="border-top: 2px solid orange;"></h2>
-                                            <fieldset>
-                                                <legend class="text-semibold"><i class="icon-reading position-left"></i></legend>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                            <b>FIRST NAME: </b><div id="fname"></div>
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                            <b>LAST NAME: </b><div id="lname"></div>
-                                                        </div>
-                                                </div>
-                                                <div class="row" style="margin-top: 30px">
-                                                        <div class="col-md-6">
-                                                            <b>ADDRESS: </b><div id="address"></div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <b>TOWN: </b><div id="town"></div>
-                                                        </div>
-                                                </div>
-                                                <div class="row" style="margin-top: 30px">
-                                                        <div class="col-md-6">
-                                                            <b>EMAIL: </b><div id="email"></div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <b>COUNTRY: </b><div id="country"></div>
-                                                        </div>
-                                                </div>
-                                                <div class="row" style="margin-top: 30px">
-                                                        <div class="col-md-6">
-                                                            <b>PAYMENT METHOD: </b><div id="vehicleCompanyText"></div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <b>PHONE NUMBER: </b><div id="vehicleCompanyText"></div>
-                                                        </div>
-                                                </div>
-                                                <div class="row" style="margin-top: 30px">
-                                                        <div class="col-md-6">
-                                                            <b>AMOUNT: </b><div id="vehicleCompanyText"></div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <b>PHONE NUMBER: </b><div id="vehicleCompanyText"></div>
-                                                        </div>
-                                                </div>
-                                                <div class="row" style="margin-top: 30px">
-                                                        <div class="col-md-6">
-                                                            <b>DATE: </b><div id="vehicleCompanyText"></div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <b>SELECTED STATION: </b><div id="vehicleCompanyText"></div>
-                                                        </div>
-                                                </div>
-
-                                                <legend class="text-semibold"><i class=""></i></legend>
-                                            </fieldset>
                                         </div>
-                                    </div>
-                                    <br>
+                                        <div class="row" style="margin-top: 30px">
+                                                <div class="col-md-6">
+                                                    <b>BUS: </b><div id="Presult"></div>
+                                                </div>
 
-                                    <div class="container-fluid">
-                                        <a class="w3-btn w3-indigo btnNext w3-hover-orange" style="border-radius: 12px;">Next</a>
-                                        <a class="w3-btn btnPrevious w3-indigo w3-hover-orange" style="border-radius: 12px;">Previous</a>
-                                        <a class="btn btn-success  w3-hover-orange" type="submit" style="border-radius: 12px;">Buy Ticket</a>
-                                    </div>
-                                    <br><br>
+                                                <div class="col-md-6">
+                                                    <b>NUMBER OF PASSENGERS: </b><div id="Ppassengernumber"></div>
+                                                </div>
+                                        </div>
+                                        <div class="row" style="margin-top: 30px">
+
+                                                <div class="col-md-6">
+                                                    <b>SEAT: </b><div id="PSeatPosition"></div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <b>TERMINUS: </b><div id="terminus"></div>
+                                                </div>
+                                        </div>
+                                        <div class="row" style="margin-top: 30px">
+                                                <div class="col-md-6">
+                                                    <div id="PFrom"></div>
+                                                    <b>TO: </b><div id="PTo"></div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <b>DEPARTURE TIME: </b><div id="PTime"></div>
+                                                </div>
+                                        </div>
+                                        <div class="row" style="margin-top: 30px">
+                                                <div class="col-md-6">
+                                                    <b>DATE: </b><div id="PdateOfDepature"></div>
+                                                </div>
+                                        </div>
+
+                                        <legend class="text-semibold"><i class=""></i></legend>
+                                    </fieldset>
+                                <h5 style="text-align:center;">PAYMENT DETAILS</h5><hr style="border-top: 2px solid orange;"></h2>
+                                    <fieldset>
+                                        <legend class="text-semibold"><i class="icon-reading position-left"></i></legend>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                    <b>FIRST NAME: </b><div id="fname"></div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <b>LAST NAME: </b><div id="lname"></div>
+                                                </div>
+                                        </div>
+                                        <div class="row" style="margin-top: 30px">
+                                                <div class="col-md-6">
+                                                    <b>ADDRESS: </b><div id="address"></div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <b>TOWN: </b><div id="town"></div>
+                                                </div>
+                                        </div>
+                                        <div class="row" style="margin-top: 30px">
+                                                <div class="col-md-6">
+                                                    <b>EMAIL: </b><div id="email"></div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <b>COUNTRY: </b><div id="country"></div>
+                                                </div>
+                                        </div>
+                                        <div class="row" style="margin-top: 30px">
+                                                <div class="col-md-6">
+                                                    <b>PAYMENT METHOD: </b><div id="vehicleCompanyText"></div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <b>PHONE NUMBER: </b><div id="vehicleCompanyText"></div>
+                                                </div>
+                                        </div>
+                                        <div class="row" style="margin-top: 30px">
+                                                <div class="col-md-6">
+                                                    <b>AMOUNT: </b><div id="vehicleCompanyText"></div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <b>PHONE NUMBER: </b><div id="vehicleCompanyText"></div>
+                                                </div>
+                                        </div>
+                                        <div class="row" style="margin-top: 30px">
+                                                <div class="col-md-6">
+                                                    <b>DATE: </b><div id="vehicleCompanyText"></div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <b>SELECTED STATION: </b><div id="vehicleCompanyText"></div>
+                                                </div>
+                                        </div>
+
+                                        <legend class="text-semibold"><i class=""></i></legend>
+                                    </fieldset>
                                 </div>
                             </div>
-        </div>
-        <!-- end of review -->
+                            <br>
+
+                            <div class="container-fluid">
+                                <a class="w3-btn w3-indigo btnNext w3-hover-orange" style="border-radius: 12px;">Next</a>
+                                <a class="w3-btn btnPrevious w3-indigo w3-hover-orange" style="border-radius: 12px;">Previous</a>
+                                <a class="btn btn-success  w3-hover-orange" type="submit" style="border-radius: 12px;">Buy Ticket</a>
+                            </div>
+                            <br><br>
+                        </div>
+                    </div>
+</div>
+<!-- end of review -->
 
 
 
-        <!--start of recept -->
-        <div class="tab-pane" id="tab4">
-            <h2 style="text-align:center;">Print Out Recept</h2><hr style="border-top: 2px solid orange;"></h2>
-            <div class="container-fluid" style="text-align:center;">
-            <img src="<%= Routes.static_path(@conn, "/images/payments/recp.webp") %>" alt="recept">
-            </div>
-            <br>
-            <div style="text-align:center;">
-            <a class="w3-btn w3-indigo btnPrevious w3-hover-orange pull-center" style="border-radius: 12px;">Print Receipt</a>
-            </div>
-        </div>
-        <!-- end of recept -->
+<!--start of recept -->
+<div class="tab-pane" id="tab4">
+    <h2 style="text-align:center;">Print Out Recept</h2><hr style="border-top: 2px solid orange;"></h2>
+    <div class="container-fluid" style="text-align:center;">
+    <img src="<%= Routes.static_path(@conn, "/images/payments/recp.webp") %>" alt="recept">
+    </div>
+    <br>
+    <div style="text-align:center;">
+    <a class="w3-btn w3-indigo btnPrevious w3-hover-orange pull-center" style="border-radius: 12px;">Print Receipt</a>
+    </div>
+</div>
+<!-- end of recept -->
 </div>
 
 
 
 
 
-                 </div>
-                 <!-- end -->
-                </div>
+         </div>
+         <!-- end -->
+        </div>
 
-                </div>
-                </div>
+        </div>
+        </div>
 
-                <div class="w3-container w3-light-grey w3-padding">
-                <button class="w3-btn w3-red w3-right" onclick="document.getElementById('id01').style.display='none'">Close</button>
-                </div>
-                </div>
-                </div>
-        <!-- ########## /MODAL ######### -->
-
-
+        <div class="w3-container w3-light-grey w3-padding">
+        <button class="w3-btn w3-red w3-right" onclick="document.getElementById('id01').style.display='none'">Close</button>
+        </div>
+        </div>
+        </div>
+<!-- ########## /MODAL ######### -->
 
 <!-- JavaScript For Charts -->
 <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/stats/statistics.js") %>"></script>
 <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/stats/canvas.min.js") %>"></script>
 
 <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/payment.js") %>"></script>
-
-
-
-
-
-
-
-
-
 <!-- Modal -->
 <div id="other" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -2667,263 +2643,249 @@ TO ADD STATICS GRAPH
         </div>
 <!-- ########## /PICKING_SEAT_MODAL ######### -->
 
-
 <script> function aa() { var a = document.getElementById('a').style.backgroundColor = 'red'; a.innerHTML = ''; }</script>
-                    <script> function ab() { var b = document.getElementById('b').style.backgroundColor = 'red'; b.innerHTML = ''; }</script>
-                    <script> function ac() { var c = document.getElementById('c').style.backgroundColor = 'red'; c.innerHTML = ''; }</script>
-                    <script> function ad() { var d = document.getElementById('d').style.backgroundColor = 'red'; d.innerHTML = ''; }</script>
-                    <script> function ae() { var e = document.getElementById('e').style.backgroundColor = 'red'; e.innerHTML = ''; }</script>
-                    <script> function af() { var f = document.getElementById('f').style.backgroundColor = 'red'; f.innerHTML = ''; }</script>
-                    <script> function ag() { var g = document.getElementById('g').style.backgroundColor = 'red'; g.innerHTML = ''; }</script>
-                    <script> function ah() { var h = document.getElementById('h').style.backgroundColor = 'red'; h.innerHTML = ''; }</script>
-                    <script> function ai() { var i = document.getElementById('i').style.backgroundColor = 'red'; i.innerHTML = ''; }</script>
-                    <script> function aj() { var j = document.getElementById('j').style.backgroundColor = 'red'; j.innerHTML = ''; }</script>
-                    <script> function ak() { var k = document.getElementById('k').style.backgroundColor = 'red'; k.innerHTML = ''; }</script>
-                    <script> function al() { var l = document.getElementById('l').style.backgroundColor = 'red'; l.innerHTML = ''; }</script>
-                    <script> function am() { var m = document.getElementById('m').style.backgroundColor = 'red'; m.innerHTML = ''; }</script>
-                    <script> function an() { var n = document.getElementById('n').style.backgroundColor = 'red'; n.innerHTML = ''; }</script>
-                    <script> function ao() { var o = document.getElementById('o').style.backgroundColor = 'red'; o.innerHTML = ''; }</script>
-                    <script> function ap() { var p = document.getElementById('p').style.backgroundColor = 'red'; p.innerHTML = ''; }</script>
-                    <script> function aq() { var q = document.getElementById('q').style.backgroundColor = 'red'; q.innerHTML = ''; }</script>
-                    <script> function ar() { var r = document.getElementById('r').style.backgroundColor = 'red'; r.innerHTML = ''; }</script>
-                    <script> function as() { var s = document.getElementById('s').style.backgroundColor = 'red'; s.innerHTML = ''; }</script>
-                    <script> function at() { var t = document.getElementById('t').style.backgroundColor = 'red'; t.innerHTML = ''; }</script>
+<script> function ab() { var b = document.getElementById('b').style.backgroundColor = 'red'; b.innerHTML = ''; }</script>
+<script> function ac() { var c = document.getElementById('c').style.backgroundColor = 'red'; c.innerHTML = ''; }</script>
+<script> function ad() { var d = document.getElementById('d').style.backgroundColor = 'red'; d.innerHTML = ''; }</script>
+<script> function ae() { var e = document.getElementById('e').style.backgroundColor = 'red'; e.innerHTML = ''; }</script>
+<script> function af() { var f = document.getElementById('f').style.backgroundColor = 'red'; f.innerHTML = ''; }</script>
+<script> function ag() { var g = document.getElementById('g').style.backgroundColor = 'red'; g.innerHTML = ''; }</script>
+<script> function ah() { var h = document.getElementById('h').style.backgroundColor = 'red'; h.innerHTML = ''; }</script>
+<script> function ai() { var i = document.getElementById('i').style.backgroundColor = 'red'; i.innerHTML = ''; }</script>
+<script> function aj() { var j = document.getElementById('j').style.backgroundColor = 'red'; j.innerHTML = ''; }</script>
+<script> function ak() { var k = document.getElementById('k').style.backgroundColor = 'red'; k.innerHTML = ''; }</script>
+<script> function al() { var l = document.getElementById('l').style.backgroundColor = 'red'; l.innerHTML = ''; }</script>
+<script> function am() { var m = document.getElementById('m').style.backgroundColor = 'red'; m.innerHTML = ''; }</script>
+<script> function an() { var n = document.getElementById('n').style.backgroundColor = 'red'; n.innerHTML = ''; }</script>
+<script> function ao() { var o = document.getElementById('o').style.backgroundColor = 'red'; o.innerHTML = ''; }</script>
+<script> function ap() { var p = document.getElementById('p').style.backgroundColor = 'red'; p.innerHTML = ''; }</script>
+<script> function aq() { var q = document.getElementById('q').style.backgroundColor = 'red'; q.innerHTML = ''; }</script>
+<script> function ar() { var r = document.getElementById('r').style.backgroundColor = 'red'; r.innerHTML = ''; }</script>
+<script> function as() { var s = document.getElementById('s').style.backgroundColor = 'red'; s.innerHTML = ''; }</script>
+<script> function at() { var t = document.getElementById('t').style.backgroundColor = 'red'; t.innerHTML = ''; }</script>
 
-                    <script> function ba() { var a1 = document.getElementById('a1').style.backgroundColor = 'red'; a1.innerHTML = ''; }</script>
-                    <script> function bb() { var b1 = document.getElementById('b1').style.backgroundColor = 'red'; b1.innerHTML = ''; }</script>
-                    <script> function bc() { var c1 = document.getElementById('c1').style.backgroundColor = 'red'; c1.innerHTML = ''; }</script>
-                    <script> function bd() { var d1 = document.getElementById('d1').style.backgroundColor = 'red'; d1.innerHTML = ''; }</script>
-                    <script> function be() { var e1 = document.getElementById('e1').style.backgroundColor = 'red'; e1.innerHTML = ''; }</script>
-                    <script> function bf() { var f1 = document.getElementById('f1').style.backgroundColor = 'red'; f1.innerHTML = ''; }</script>
-                    <script> function bg() { var g1 = document.getElementById('g1').style.backgroundColor = 'red'; g1.innerHTML = ''; }</script>
-                    <script> function bh() { var h1 = document.getElementById('h1').style.backgroundColor = 'red'; h1.innerHTML = ''; }</script>
-                    <script> function bi() { var i1 = document.getElementById('i1').style.backgroundColor = 'red'; i1.innerHTML = ''; }</script>
-                    <script> function bj() { var j1 = document.getElementById('j1').style.backgroundColor = 'red'; j1.innerHTML = ''; }</script>
-                    <script> function bk() { var k1 = document.getElementById('k1').style.backgroundColor = 'red'; k1.innerHTML = ''; }</script>
-                    <script> function bl() { var l1 = document.getElementById('l1').style.backgroundColor = 'red'; l1.innerHTML = ''; }</script>
-                    <script> function bm() { var m1 = document.getElementById('m1').style.backgroundColor = 'red'; m1.innerHTML = ''; }</script>
-                    <script> function bn() { var n1 = document.getElementById('n1').style.backgroundColor = 'red'; n1.innerHTML = ''; }</script>
-                    <script> function bo() { var o1 = document.getElementById('o1').style.backgroundColor = 'red'; o1.innerHTML = ''; }</script>
-                    <script> function bp() { var p1 = document.getElementById('p1').style.backgroundColor = 'red'; p1.innerHTML = ''; }</script>
-                    <script> function bq() { var q1 = document.getElementById('q1').style.backgroundColor = 'red'; q1.innerHTML = ''; }</script>
-                    <script> function br() { var r1 = document.getElementById('r1').style.backgroundColor = 'red'; r1.innerHTML = ''; }</script>
-                    <script> function bs() { var s1 = document.getElementById('s1').style.backgroundColor = 'red'; s1.innerHTML = ''; }</script>
-                    <script> function bt() { var t1 = document.getElementById('t1').style.backgroundColor = 'red'; t1.innerHTML = ''; }</script>
+<script> function ba() { var a1 = document.getElementById('a1').style.backgroundColor = 'red'; a1.innerHTML = ''; }</script>
+<script> function bb() { var b1 = document.getElementById('b1').style.backgroundColor = 'red'; b1.innerHTML = ''; }</script>
+<script> function bc() { var c1 = document.getElementById('c1').style.backgroundColor = 'red'; c1.innerHTML = ''; }</script>
+<script> function bd() { var d1 = document.getElementById('d1').style.backgroundColor = 'red'; d1.innerHTML = ''; }</script>
+<script> function be() { var e1 = document.getElementById('e1').style.backgroundColor = 'red'; e1.innerHTML = ''; }</script>
+<script> function bf() { var f1 = document.getElementById('f1').style.backgroundColor = 'red'; f1.innerHTML = ''; }</script>
+<script> function bg() { var g1 = document.getElementById('g1').style.backgroundColor = 'red'; g1.innerHTML = ''; }</script>
+<script> function bh() { var h1 = document.getElementById('h1').style.backgroundColor = 'red'; h1.innerHTML = ''; }</script>
+<script> function bi() { var i1 = document.getElementById('i1').style.backgroundColor = 'red'; i1.innerHTML = ''; }</script>
+<script> function bj() { var j1 = document.getElementById('j1').style.backgroundColor = 'red'; j1.innerHTML = ''; }</script>
+<script> function bk() { var k1 = document.getElementById('k1').style.backgroundColor = 'red'; k1.innerHTML = ''; }</script>
+<script> function bl() { var l1 = document.getElementById('l1').style.backgroundColor = 'red'; l1.innerHTML = ''; }</script>
+<script> function bm() { var m1 = document.getElementById('m1').style.backgroundColor = 'red'; m1.innerHTML = ''; }</script>
+<script> function bn() { var n1 = document.getElementById('n1').style.backgroundColor = 'red'; n1.innerHTML = ''; }</script>
+<script> function bo() { var o1 = document.getElementById('o1').style.backgroundColor = 'red'; o1.innerHTML = ''; }</script>
+<script> function bp() { var p1 = document.getElementById('p1').style.backgroundColor = 'red'; p1.innerHTML = ''; }</script>
+<script> function bq() { var q1 = document.getElementById('q1').style.backgroundColor = 'red'; q1.innerHTML = ''; }</script>
+<script> function br() { var r1 = document.getElementById('r1').style.backgroundColor = 'red'; r1.innerHTML = ''; }</script>
+<script> function bs() { var s1 = document.getElementById('s1').style.backgroundColor = 'red'; s1.innerHTML = ''; }</script>
+<script> function bt() { var t1 = document.getElementById('t1').style.backgroundColor = 'red'; t1.innerHTML = ''; }</script>
 
-                    <script> function ca() { var a2 = document.getElementById('a2').style.backgroundColor = 'red'; a2.innerHTML = ''; }</script>
-                    <script> function cb() { var b2 = document.getElementById('b2').style.backgroundColor = 'red'; b2.innerHTML = ''; }</script>
-                    <script> function cc() { var c2 = document.getElementById('c2').style.backgroundColor = 'red'; c2.innerHTML = ''; }</script>
-                    <script> function cd() { var d2 = document.getElementById('d2').style.backgroundColor = 'red'; d2.innerHTML = ''; }</script>
-                    <script> function ce() { var e2 = document.getElementById('e2').style.backgroundColor = 'red'; e2.innerHTML = ''; }</script>
-                    <script> function cf() { var f2 = document.getElementById('f2').style.backgroundColor = 'red'; f2.innerHTML = ''; }</script>
-                    <script> function cg() { var g2 = document.getElementById('g2').style.backgroundColor = 'red'; g2.innerHTML = ''; }</script>
-                    <script> function ch() { var h2 = document.getElementById('h2').style.backgroundColor = 'red'; h2.innerHTML = ''; }</script>
-                    <script> function ci() { var i2 = document.getElementById('i2').style.backgroundColor = 'red'; i2.innerHTML = ''; }</script>
-                    <script> function cj() { var j2 = document.getElementById('j2').style.backgroundColor = 'red'; j2.innerHTML = ''; }</script>
-                    <script> function ck() { var k2 = document.getElementById('k2').style.backgroundColor = 'red'; k2.innerHTML = ''; }</script>
-                    <script> function cl() { var l2 = document.getElementById('l2').style.backgroundColor = 'red'; l2.innerHTML = ''; }</script>
-                    <script> function cm() { var m2 = document.getElementById('m2').style.backgroundColor = 'red'; m2.innerHTML = ''; }</script>
-                    <script> function cn() { var n2 = document.getElementById('n2').style.backgroundColor = 'red'; n2.innerHTML = ''; }</script>
-                    <script> function co() { var o2 = document.getElementById('o2').style.backgroundColor = 'red'; o2.innerHTML = ''; }</script>
-                    <script> function cp() { var p2 = document.getElementById('p2').style.backgroundColor = 'red'; p2.innerHTML = ''; }</script>
-                    <script> function cq() { var q2 = document.getElementById('q2').style.backgroundColor = 'red'; q2.innerHTML = ''; }</script>
-                    <script> function cr() { var r2 = document.getElementById('r2').style.backgroundColor = 'red'; r2.innerHTML = ''; }</script>
-                    <script> function cs() { var s2 = document.getElementById('s2').style.backgroundColor = 'red'; s2.innerHTML = ''; }</script>
-                    <script> function ct() { var t2 = document.getElementById('t2').style.backgroundColor = 'red'; t2.innerHTML = ''; }</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
+<script> function ca() { var a2 = document.getElementById('a2').style.backgroundColor = 'red'; a2.innerHTML = ''; }</script>
+<script> function cb() { var b2 = document.getElementById('b2').style.backgroundColor = 'red'; b2.innerHTML = ''; }</script>
+<script> function cc() { var c2 = document.getElementById('c2').style.backgroundColor = 'red'; c2.innerHTML = ''; }</script>
+<script> function cd() { var d2 = document.getElementById('d2').style.backgroundColor = 'red'; d2.innerHTML = ''; }</script>
+<script> function ce() { var e2 = document.getElementById('e2').style.backgroundColor = 'red'; e2.innerHTML = ''; }</script>
+<script> function cf() { var f2 = document.getElementById('f2').style.backgroundColor = 'red'; f2.innerHTML = ''; }</script>
+<script> function cg() { var g2 = document.getElementById('g2').style.backgroundColor = 'red'; g2.innerHTML = ''; }</script>
+<script> function ch() { var h2 = document.getElementById('h2').style.backgroundColor = 'red'; h2.innerHTML = ''; }</script>
+<script> function ci() { var i2 = document.getElementById('i2').style.backgroundColor = 'red'; i2.innerHTML = ''; }</script>
+<script> function cj() { var j2 = document.getElementById('j2').style.backgroundColor = 'red'; j2.innerHTML = ''; }</script>
+<script> function ck() { var k2 = document.getElementById('k2').style.backgroundColor = 'red'; k2.innerHTML = ''; }</script>
+<script> function cl() { var l2 = document.getElementById('l2').style.backgroundColor = 'red'; l2.innerHTML = ''; }</script>
+<script> function cm() { var m2 = document.getElementById('m2').style.backgroundColor = 'red'; m2.innerHTML = ''; }</script>
+<script> function cn() { var n2 = document.getElementById('n2').style.backgroundColor = 'red'; n2.innerHTML = ''; }</script>
+<script> function co() { var o2 = document.getElementById('o2').style.backgroundColor = 'red'; o2.innerHTML = ''; }</script>
+<script> function cp() { var p2 = document.getElementById('p2').style.backgroundColor = 'red'; p2.innerHTML = ''; }</script>
+<script> function cq() { var q2 = document.getElementById('q2').style.backgroundColor = 'red'; q2.innerHTML = ''; }</script>
+<script> function cr() { var r2 = document.getElementById('r2').style.backgroundColor = 'red'; r2.innerHTML = ''; }</script>
+<script> function cs() { var s2 = document.getElementById('s2').style.backgroundColor = 'red'; s2.innerHTML = ''; }</script>
+<script> function ct() { var t2 = document.getElementById('t2').style.backgroundColor = 'red'; t2.innerHTML = ''; }</script>
 
 <!-- ########## BUYING TICKET ######### -->
         <!-- Modal -->
 
-        <div id="ticketModal" class="w3-modal" style="width:100%;">
-                <div class="w3-modal-content w3-card-4 w3-animate-zoom">
-                    <header class="w3-container w3-light-grey">
-                    <span onclick="document.getElementById('ticketModal').style.display='none'"
-                    class="w3-closebtn w3-padding-top">×</span>
-                    <h3 style="color:rgb(102, 0, 102); text-align: center;">
-                        Your Ticket
-                    </h3>
-                    </header><br>
+<div id="ticketModal" class="w3-modal" style="width:100%;">
+        <div class="w3-modal-content w3-card-4 w3-animate-zoom">
+            <header class="w3-container w3-light-grey">
+            <span onclick="document.getElementById('ticketModal').style.display='none'"
+            class="w3-closebtn w3-padding-top">×</span>
+            <h3 style="color:rgb(102, 0, 102); text-align: center;">
+                Your Ticket
+            </h3>
+            </header><br>
 
-                    <div class="container-fluid">
+            <div class="container-fluid">
 
-                        <div class="w3-card-2 w3-white" id="printTicket" style="width:100%;">
-                            <header class="w3-container w3-white">
-                            <img src="<%= Routes.static_path(@conn, "/images/icon.png") %>" class="img-fluid" style="width:80px  ;height:70px; margin-top: 0.5%;" alt="NapsaLogo">
-                              <h4 class="pull-right" style="font-weight: bold;">
-                                Ref No.
-                              </h4>
-                              <div id="RefNo"></div>
-                            </header><hr>
+                <div class="w3-card-2 w3-white" id="printTicket" style="width:100%;">
+                    <header class="w3-container w3-white">
+                    <img src="<%= Routes.static_path(@conn, "/images/icon.png") %>" class="img-fluid" style="width:80px  ;height:70px; margin-top: 0.5%;" alt="NapsaLogo">
+                      <h4 class="pull-right" style="font-weight: bold;">
+                        Ref No.
+                      </h4>
+                      <div id="RefNo"></div>
+                    </header><hr>
 
-                            <div class="w3-container">
-                              <div class="row" style="padding: 12px;">
+                    <div class="w3-container">
+                      <div class="row" style="padding: 12px;">
 
-                                <!-- ###### Partion One of Ticket ####### -->
-                                <div class="one">
-                                    <div class="col-md-4">
-                                      <form class="form-horizontal" action="/action_page.php">
-                                        <div class="form-group">
-                                          <label class="control-label col-sm-2" for="email">Bus Name:</label>
-                                          <br><br><br>
-                                          <div class="container">
-                                            <div id="result" style="font-weight: bold;"></div>
-                                          </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                          <label class="control-label col-sm-2" for="email">Date:</label>
-                                          <br><br>
-                                          <div class="container">
-                                              <div id="dateOfDepature" style="font-weight: bold;">
-                                              </div>
-                                          </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                          <label class="control-label col-sm-2" for="pwd">Time:</label>
-                                          <br><br>
-                                          <div class="container">
-                                              <div id="Time" style="font-weight: bold;">
-                                              </div>
-                                          </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                          <label class="control-label col-sm-2" for="pwd">From:</label>
-                                          <br><br>
-                                          <div class="container">
-                                              <div id="From" style="font-weight: bold;">
-                                              </div>
-                                          </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                          <label class="control-label col-sm-2" for="pwd">To:</label>
-                                          <br><br>
-                                          <div class="container">
-                                              <div id="To" style="font-weight: bold;">
-                                              </div>
-                                          </div>
-                                        </div>
-                                      </form>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <form class="form-horizontal" action="/action_page.php">
-                                        <div class="form-group">
-                                          <label class="control-label col-sm-2" for="email">Passenger Name:</label>
-                                          <br><br><br>
-                                          <div class="container">
-                                              <div id="Pname" style="font-weight: bold;">
-                                              </div>
-                                              <div id="Lname" style="font-weight: bold;">
-                                              </div>
-                                          </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                          <label class="control-label col-sm-2" for="pwd">Ticket Number:</label>
-                                          <div id="ticketNeumber"></div>
-                                        </div>
-
-                                      </form>
-                                        <img src="<%= Routes.static_path(@conn, "/images/1.2.jpg") %>" class="img-fluid" style="width:200px;height:100px" alt="NapsaLogo">
-                                    </div>
+                        <!-- ###### Partion One of Ticket ####### -->
+                        <div class="one">
+                            <div class="col-md-4">
+                              <form class="form-horizontal" action="/action_page.php">
+                                <div class="form-group">
+                                  <label class="control-label col-sm-2" for="email">Bus Name:</label>
+                                  <br><br><br>
+                                  <div class="container">
+                                    <div id="result" style="font-weight: bold;"></div>
+                                  </div>
                                 </div>
-                                <!-- ###### Partion One of Ticket ####### -->
 
-
-                                <!-- ###### Partion Two of Ticket ####### -->
-                                <div class="two">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                          <label class="control-label col-sm-2" for="pwd">Seat</label>
-                                          <br>
-                                          <div class="container">
-                                              <div id="SeatPosition" style="font-weight: bold;">
-                                              </div>
-                                            </div>
-                                        </div><br>
-
-
-                                        <div class="form-group">
-                                          <label class="control-label col-sm-2" for="pwd">Amount:</label>
-                                          <br>
-                                          <div class="container">
-                                          <div style="font-weight: bold;">180 ZMW</div>
+                                <div class="form-group">
+                                  <label class="control-label col-sm-2" for="email">Date:</label>
+                                  <br><br>
+                                  <div class="container">
+                                      <div id="dateOfDepature" style="font-weight: bold;">
                                       </div>
-                                        </div><br>
-
-
-                                        <h3 style="font-weight: bold;">Bus Terminus System</h3>
-                                        <p style="font-size: 12px;">
-                                        The Bus Terminus System, is a transport system by NAPSA which has been
-                                        provided as a solution to get rid of the old fashioned ways of traveling,
-                                        especially making payments. The system allows users to buy tickets even from the comfort of
-                                        their homes through the internet by visiting our portal.
-                                        The BTS provides a variety choice of Buses available in a selected terminus
-                                        Contact us. The system is available 24/7.</p>
-                                        <div class="container">
-                                            Scan Code To Visit Our Website<br>
-                                            <img src="<%= Routes.static_path(@conn, "/images/1.1.png") %>" class="img-fluid" style="width:100px;height:100px" alt="NapsaLogo">
-                                        </div>
-                                    </div>
+                                  </div>
                                 </div>
-                                <!-- ###### Partion Two of Ticket ####### -->
 
+                                <div class="form-group">
+                                  <label class="control-label col-sm-2" for="pwd">Time:</label>
+                                  <br><br>
+                                  <div class="container">
+                                      <div id="Time" style="font-weight: bold;">
+                                      </div>
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                  <label class="control-label col-sm-2" for="pwd">From:</label>
+                                  <br><br>
+                                  <div class="container">
+                                      <div id="From" style="font-weight: bold;">
+                                      </div>
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                  <label class="control-label col-sm-2" for="pwd">To:</label>
+                                  <br><br>
+                                  <div class="container">
+                                      <div id="To" style="font-weight: bold;">
+                                      </div>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+
+                            <div class="col-md-4">
+                                <form class="form-horizontal" action="/action_page.php">
+                                <div class="form-group">
+                                  <label class="control-label col-sm-2" for="email">Passenger Name:</label>
+                                  <br><br><br>
+                                  <div class="container">
+                                      <div id="Pname" style="font-weight: bold;">
+                                      </div>
+                                      <div id="Lname" style="font-weight: bold;">
+                                      </div>
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                  <label class="control-label col-sm-2" for="pwd">Ticket Number:</label>
+                                  <div id="ticketNeumber"></div>
+                                </div>
+
+                              </form>
+                                <img src="<%= Routes.static_path(@conn, "/images/1.2.jpg") %>" class="img-fluid" style="width:200px;height:100px" alt="NapsaLogo">
+                            </div>
+                        </div>
+                        <!-- ###### Partion One of Ticket ####### -->
+
+
+                        <!-- ###### Partion Two of Ticket ####### -->
+                        <div class="two">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                  <label class="control-label col-sm-2" for="pwd">Seat</label>
+                                  <br>
+                                  <div class="container">
+                                      <div id="SeatPosition" style="font-weight: bold;">
+                                      </div>
+                                    </div>
+                                </div><br>
+
+
+                                <div class="form-group">
+                                  <label class="control-label col-sm-2" for="pwd">Amount:</label>
+                                  <br>
+                                  <div class="container">
+                                  <div style="font-weight: bold;">180 ZMW</div>
                               </div>
+                                </div><br>
+
+
+                                <h3 style="font-weight: bold;">Bus Terminus System</h3>
+                                <p style="font-size: 12px;">
+                                The Bus Terminus System, is a transport system by NAPSA which has been
+                                provided as a solution to get rid of the old fashioned ways of traveling,
+                                especially making payments. The system allows users to buy tickets even from the comfort of
+                                their homes through the internet by visiting our portal.
+                                The BTS provides a variety choice of Buses available in a selected terminus
+                                Contact us. The system is available 24/7.</p>
+                                <div class="container">
+                                    Scan Code To Visit Our Website<br>
+                                    <img src="<%= Routes.static_path(@conn, "/images/1.1.png") %>" class="img-fluid" style="width:100px;height:100px" alt="NapsaLogo">
+                                </div>
                             </div>
+                        </div>
+                        <!-- ###### Partion Two of Ticket ####### -->
 
-                            <footer class="w3-container w3-black">
-                              <h5>Boarding Pass</h5>
-                            </footer>
-                          </div>
-                          <br>
-                            <form method="post" action="<%= Routes.ticket_path(@conn, :create) %>">
-
-                              <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-
-                              <input type="hidden" name="payload[external_ref]" value="<%= BusTerminalSystem.Randomizer.randomizer(16) %>">
-                              <input type="hidden" name="payload[transaction_channel]" value="TELLER">
-                              <input type="hidden" name="payload[id_type]" value="NRC">
-                              <input type="hidden" id="Ref_Number" name="payload[reference_number]" value="<%= BusTerminalSystem.Randomizer.randomizer(16) %>">
-                              <input type="hidden" id="Ticket_Number" name="payload[serial_number]" value="<%= BusTerminalSystem.Randomizer.randomizer(16) %>">
-                              <input type="hidden" name="payload[reference_number]" value="<%= BusTerminalSystemWeb.TicketController.generate_reference_number %>">
-                              <input type="hidden" name="payload[serial_number]" value="<%= BusTerminalSystem.Randomizer.randomizer(16) %>">
-                              <input type="hidden" name="payload[activation_status]" value="VALID">
-                              <input type="hidden" id="first_name_input" name="payload[first_name]" >
-                              <input type="hidden" id="last_name_input" name="payload[last_name]" >
-                              <input type="hidden" id="passenger_id_input" name="payload[passenger_id]" value="1" >
-                              <input type="hidden" id="mobile_number_input" name="payload[mobile_number]">
-                              <input type="hidden" id="travel_date_input" name="payload[travel_date]" value="03/01/2020">
-
-                            <div class="form-group">
-                                <button type="submit" href="javascript:window.print()" class="w3-btn w3-indigo w3-hover-orange" style="border-radius: 12px;">
-                                   Buy
-                                </button>
-
-
-                                <a href="http://localhost:4000/platform/secure/commercial/services/users/management" class="w3-btn w3-indigo w3-hover-orange" style="border-radius: 12px;">
-                                    Cancel Payment
-                                </a>
-                            </div>
-                            </form>
+                      </div>
                     </div>
-                </div>
+
+                    <footer class="w3-container w3-black">
+                      <h5>Boarding Pass</h5>
+                    </footer>
+                  </div>
+                  <br>
+                    <form method="post" action="<%= Routes.ticket_path(@conn, :create) %>">
+
+                      <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+
+                      <input type="hidden" name="payload[external_ref]" value="<%= BusTerminalSystem.Randomizer.randomizer(16) %>">
+                      <input type="hidden" name="payload[transaction_channel]" value="TELLER">
+                      <input type="hidden" name="payload[id_type]" value="NRC">
+                      <input type="hidden" id="Ref_Number" name="payload[reference_number]" value="<%= BusTerminalSystem.Randomizer.randomizer(16) %>">
+                      <input type="hidden" id="Ticket_Number" name="payload[serial_number]" value="<%= BusTerminalSystem.Randomizer.randomizer(16) %>">
+                      <input type="hidden" name="payload[reference_number]" value="<%= BusTerminalSystemWeb.TicketController.generate_reference_number %>">
+                      <input type="hidden" name="payload[serial_number]" value="<%= BusTerminalSystem.Randomizer.randomizer(16) %>">
+                      <input type="hidden" name="payload[activation_status]" value="VALID">
+                      <input type="hidden" id="first_name_input" name="payload[first_name]" >
+                      <input type="hidden" id="last_name_input" name="payload[last_name]" >
+                      <input type="hidden" id="passenger_id_input" name="payload[passenger_id]" value="1" >
+                      <input type="hidden" id="mobile_number_input" name="payload[mobile_number]">
+                      <input type="hidden" id="travel_date_input" name="payload[travel_date]" value="03/01/2020">
+
+                    <div class="form-group">
+                        <button type="submit" href="javascript:window.print()" class="w3-btn w3-indigo w3-hover-orange" style="border-radius: 12px;">
+                           Buy
+                        </button>
+
+
+                        <a href="http://localhost:4000/platform/secure/commercial/services/users/management" class="w3-btn w3-indigo w3-hover-orange" style="border-radius: 12px;">
+                            Cancel Payment
+                        </a>
+                    </div>
+                    </form>
+            </div>
         </div>
+</div>
 <!-- ########## /PICKING_SEAT_MODAL ######### -->
 
 <!-- ########## /TELLER DASHBOARD ######### -->
@@ -2957,17 +2919,6 @@ function openCity(cityName) {
 }
 </script>
 <!-- ########## /TELLER DASHBOARD ######### -->
-
-
-
-
-
-
-
-
-
-
-
 
 <!-------------------------- Add Luggage Modal ------------------------------------------------------------------------------------------------------------>
 <div id="addLuggageModel" class="modal fade" role="dialog">
@@ -3019,3 +2970,4 @@ function openCity(cityName) {
   </div>
   <!------------------------------------------------------------------------------------------------------------------------------------------------------->
 
+</div>

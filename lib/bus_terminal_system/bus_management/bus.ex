@@ -33,4 +33,8 @@ defmodule BusTerminalSystem.BusManagement.Bus do
     :company_info, :vehicle_capacity])
     |> validate_required([:license_plate, :company, :operator_id])
   end
+
+  defp register_to_cosec(changeset) do
+
+  end
 end

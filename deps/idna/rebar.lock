@@ -1,6 +1,6 @@
 {"1.1.0",
-[{<<"unicode_util_compat">>,{pkg,<<"unicode_util_compat">>,<<"0.4.1">>},0}]}.
+[{<<"unicode_util_compat">>,{pkg,<<"unicode_util_compat">>,<<"0.5.0">>},0}]}.
 [
 {pkg_hash,[
- {<<"unicode_util_compat">>, <<"D869E4C68901DD9531385BB0C8C40444EBF624E60B6962D95952775CAC5E90CD">>}]}
+ {<<"unicode_util_compat">>, <<"8516502659002CEC19E244EBD90D312183064BE95025A319A6C7E89F4BCCD65B">>}]}
 ].

@@ -120,7 +120,7 @@
 
                                     <li>
                                         <a href="<%= Routes.bookings_path(@conn, :schedule)%>">
-                                            <i style="color:orange;" class="icon-watch"></i> <span>Scheduling</span>
+                                            <i style="color:orange;" onclick="get_buses()" class="icon-watch"></i> <span>Scheduling</span>
                                         </a>
                                     </li>
 
@@ -433,6 +433,7 @@
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/datatables/js/jquery.datatables.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/appMechanics.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/market.js") %>"></script>
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/ticketing.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/AjaxCall.js") %>"></script>
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
 

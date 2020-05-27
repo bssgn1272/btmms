@@ -2,6 +2,10 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTerminus do
   use Ecto.Migration
 
   def up do
+
+  end
+
+  def up_ do
     create_if_not_exists table(:probase_tbl_terminus) do
       add :terminus_name, :string
       add :terminus_location, :string

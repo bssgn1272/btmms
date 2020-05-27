@@ -245,7 +245,7 @@ request(Method, URL, Headers, Body) ->
 %%          <li>`{connect_timeout, infinity | integer()}': timeout used when
 %%          establishing a connection, in milliseconds. Default is 8000</li>
 %%          <li>`{recv_timeout, infinity | integer()}': timeout used when
-%%          receiving a connection. Default is 5000</li>
+%%          receiving data over a connection. Default is 5000</li>
 %%      </ul>
 %%
 %%      <blockquote>Note: if the response is async, only
@@ -884,13 +884,12 @@ absolute_url(RelativeUrl, #client{transport=T, host=Host, port=Port,
                   _       -> <<Path/binary, "/", RelativeUrl/binary>>
                 end
             end,
-  Parsed = hackney_url:normalize(#hackney_url{scheme=Scheme,
-                                              host=Host,
-                                              port=Port,
-                                              netloc=Netloc,
-                                              path=NewPath}),
-  hackney_url:unparse_url(Parsed).
 
+  hackney_url:unparse_url(#hackney_url{scheme=Scheme,
+                                       host=Host,
+                                       port=Port,
+                                       netloc=Netloc,
+                                       path=NewPath}).
 
 %% handle send response
 reply({ok, Data, NState}, _State) ->

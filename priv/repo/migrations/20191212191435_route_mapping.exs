@@ -2,6 +2,10 @@ defmodule BusTerminalSystem.Repo.Migrations.RouteMapping do
   use Ecto.Migration
 
   def up do
+
+  end
+
+  def up_ do
     create_if_not_exists table(:probase_tbl_route_mapping) do
       add :operator_id, :string
       add :bus_id, :string
@@ -23,7 +27,7 @@ defmodule BusTerminalSystem.Repo.Migrations.RouteMapping do
   end
 
   def down do
-    drop_if_exists table(:probase_tbl_route_mapping)
+    #drop_if_exists table(:probase_tbl_route_mapping)
   end
 
 

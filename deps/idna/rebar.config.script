@@ -1,7 +1,7 @@
 IsRebar3 = erlang:function_exported(rebar3, main, 1),
 Rebar2Deps = [{unicode_util_compat, ".*",
                {git, "https://github.com/benoitc/unicode_util_compat.git",
-                {tag, "0.3.1"}}}
+                {tag, "0.5.0"}}}
              ],
 case IsRebar3 of
     true ->

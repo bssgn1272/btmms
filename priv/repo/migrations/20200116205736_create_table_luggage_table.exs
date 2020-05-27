@@ -2,6 +2,10 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTableLuggageTable do
   use Ecto.Migration
 
   def up do
+
+  end
+
+  def up_ do
     create_if_not_exists table(:probase_tbl_luggage) do
       add :description, :string
       add :ticket_id, :integer
@@ -12,12 +16,8 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTableLuggageTable do
     end
   end
 
-  def change do
-
-  end
-
   def down do
-    drop_if_exists table(:probase_tbl_luggage)
+    #drop_if_exists table(:probase_tbl_luggage)
   end
 
 

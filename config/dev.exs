@@ -2,14 +2,14 @@ use Mix.Config
 
 # Configure your database
 config :bus_terminal_system, BusTerminalSystem.Repo,
-  #username: "probase",
-  #password: "V1ney@rd",
-  #database: "btmms",
-  #hostname: "196.46.196.42",
+#  username: "probase",
+#  password: "V1neyard",
+#  database: "btmms",
+#  hostname: "10.10.1.88",
   username: "root",
   password: "Qwerty12",
   database: "bus_terminal_system_dev",
-  hostname: "196.46.196.42",
+  hostname: "localhost",
 
   show_sensitive_data_on_connection_error: true,
   pool_size: 10

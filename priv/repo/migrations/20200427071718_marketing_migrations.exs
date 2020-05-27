@@ -3,6 +3,10 @@ defmodule BusTerminalSystem.Repo.Migrations.MarketingMigrations do
 
   def up do
 
+  end
+
+  def up_ do
+
     create_if_not_exists table(:probase_tbl_market) do
       add :market_name, :string
       add :location, :string

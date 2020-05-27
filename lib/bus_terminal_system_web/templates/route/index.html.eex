@@ -19,6 +19,7 @@
                             <th>Source State</th>
                             <th>From</th>
                             <th>To</th>
+                            <th>Fare</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -29,6 +30,7 @@
                           <td><%= route.source_state %></td>
                           <td><%= route.start_route %></td>
                           <td><%= route.end_route %></td>
+                          <td><%= route.route_fare %></td>
                           <td class="text-center">
                             <ul class="icons-list">
                               <li class="dropdown">
@@ -81,9 +83,9 @@
 		                                        <input type="hidden" name="payload[route_uuid]" value="<%= BusTerminalSystem.Randomizer.randomizer(16,:all) %>">
 		                                    </div>
 
-		                                    <div class="form-group">
+		                                    <div class="form-group" hidden>
 		                                        <label>Source State:</label>
-		                                        <input id="source_kilo" name="payload[source_state]" class="form-control" placeholder="Source State" type="text" required="required">
+		                                        <input id="source_kilo" name="payload[source_state]" value="Livingstone" class="form-control" placeholder="Source State" type="text" required="required">
 		                                    </div>
 
 		                                    <div class="form-group">
@@ -100,6 +102,11 @@
 		                                        <label>To:</label>
 		                                        <input id="route_to" name="payload[end_route]" class="form-control" placeholder="To" type="text" required="required">
 		                                    </div>
+
+		                                    <div class="form-group">
+                                                <label>Fare:</label>
+                                                <input id="route_fare" name="payload[route_fare]" class="form-control" placeholder="To" type="text" required="required">
+                                            </div>
 		                                </div>
 		                            </div>     
 		                    </div>

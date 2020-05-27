@@ -58,7 +58,8 @@ defmodule BusTerminalSystem.MixProject do
       {:redix, ">= 0.10.4"},
       {:timex, "~> 3.5"},
       {:absinthe, "~> 1.4"},
-      {:absinthe_plug, "~> 1.4"}
+      {:absinthe_plug, "~> 1.4"},
+      {:toolshed, "~> 0.2.13"}
     ]
   end
 

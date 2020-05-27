@@ -54,6 +54,7 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/swoosh" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/telemetry" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/timex" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/toolshed" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/tzdata" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/unicode_util_compat" />
       <excludeFolder url="file://$MODULE_DIR$/assets/node_modules/phoenix" />
@@ -139,5 +140,7 @@
     <orderEntry type="library" name="libdecaf" level="project" />
     <orderEntry type="library" name="libsodium" level="project" />
     <orderEntry type="library" name="ojson" level="project" />
+    <orderEntry type="library" name="toolshed" level="project" />
+    <orderEntry type="library" name="nerves_runtime" level="project" />
   </component>
 </module>
