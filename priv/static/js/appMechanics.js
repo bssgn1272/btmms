@@ -507,11 +507,30 @@ function get_buses () {
                 operator_id = o.id.toString()
             });
 
+            let bus_operator2_html = '';
+            let operator_id2 = "";
+            $.each(response, function (k, v) {
+                let o = JSON.parse(JSON.stringify(v));
+                bus_operator2_html += '<option value="'+o.id+'" >';
+                bus_operator2_html += o.username;
+                bus_operator2_html += '</option>';
+
+                operator_id2 = o.id.toString()
+            });
+
+            $('#bus_operator_list').html(bus_operator2_html);
+
             get_route_codes();
 
             $('#scheduling_operator_id').html(bus_operator_html);
         }
     });
+}
+
+function bus_operator_selection_action() {
+    let operator_id = $('#bus_operator_list').val().toString();
+    $('#bus_operator_id_input').val(operator_id);
+    console.log("Operator ID:" + $('#bus_operator_id_input').val())
 }
 
 function find_buses_by_id(id) {

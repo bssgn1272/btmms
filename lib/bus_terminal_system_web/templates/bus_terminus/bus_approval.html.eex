@@ -33,8 +33,8 @@
                                 <tr>
                                     <th>Bus Name</th>
                                     <th>Bus Number Plate</th>
-                                    <th>BOP</th>
-                                    <th>Town</th>
+                                    <th>Operator</th>
+                                    <th>company</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>

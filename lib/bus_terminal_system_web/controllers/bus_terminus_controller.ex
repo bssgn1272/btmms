@@ -34,7 +34,7 @@ defmodule BusTerminalSystemWeb.BusTerminusController do
       {:ok, bus_terminus} ->
         conn
         |> put_flash(:info, "Bus terminus created successfully.")
-        |> redirect(to: Routes.bus_terminus_path(conn, :index, buses))
+        |> redirect(to: Routes.user_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
       IO.inspect changeset

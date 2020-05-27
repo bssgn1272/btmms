@@ -139,10 +139,10 @@
                                     <%= if @user.role == "BOP" or @user.role == "ADMIN" do %>
                                    									
                                     <li>
-                                        <a href="#"><i style="color:orange;" class="icon-bus"></i> <span>Bus</span></a>
+                                        <a href="#"><i style="color:orange;" class="icon-bus"></i> <span>Bus Management</span></a>
                                         <ul>
                                             <li>
-                                                <%= link "Approve Bus", to: Routes.bus_terminus_path(@conn, :bus_approval) %>
+                                                <%= link "List Buses", to: Routes.bus_terminus_path(@conn, :bus_approval) %>
                                             </li>
                                         </ul>
                                     </li>
@@ -360,10 +360,6 @@
                 </div>
                 <% end %>
                 <!-- ############ END TOP-SIDE-BAR ######### -->
-
-
-
-
 
     			  <main role="main" id="renderApp" class="container-fluid">
                       <%= render @view_module, @view_template, assigns %>
