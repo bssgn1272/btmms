@@ -241,6 +241,7 @@ class Core {
             case "ENTER_PIN":
                 $this->gw_response = $this->authenticate();
                 break;
+            //For self purchase bus ticket
             case "BUS_ROUTES":
                 $this->gw_response = $this->busRoutes();
                 break;
@@ -252,6 +253,13 @@ class Core {
                 break;
             case "NO_SCHEDULED_ROUTES":
                 $this->gw_response = $this->noScheduledRoutes();
+                break;
+            //FOR Marketeer sale bus tickets
+             case "BUS_ROUTES1":
+                $this->gw_response = $this->busRoutes1();
+                break;
+             case "BUS_ROUTES1":
+                $this->gw_response = $this->busRoutes1();
                 break;
             case "PASSENGER_NRC":
                 $this->gw_response = $this->passengerNrc();
