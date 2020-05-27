@@ -41,6 +41,7 @@ func main() {
 	router.Handle("/api/reservation/requests/create", c.CreateReservationController).Methods("POST")
 	router.Handle("/api/reservation/get", c.GetReservationsController).Methods("GET")
 	router.Handle("/api/reservation/get/{id}", c.GetReservationsForController).Methods("GET")
+	router.Handle("/api/reservation/history/get/{id}", c.GetReservationsHistoryForController).Methods("GET")
 
 	// Slots routes
 	router.Handle("/api/slots/create", c.CreateSlotController).Methods("POST")
@@ -50,7 +51,8 @@ func main() {
 
 	// Reservations Approval routes
 	router.Handle("/api/reservations/requests", c.GetReservationsRequestsController).Methods("GET")
-	router.Handle("/api/reservations/requests/history/range", c.GetReservationsRequestsHistoryController).Methods("GET")
+	router.Handle("/api/reservations/requests/history", c.GetReservationsRequestsHistoryController).Methods("GET")
+	//router.Handle("/api/reservations/requests/history/range", c.GetReservationsRequestsHistoryController).Methods("GET")
 	router.Handle("/api/approve/reservations/requests/{id}", c.UpdateReservationController).Methods("PUT")
 	router.Handle("/api/slots/close", c.CloseReservationController).Methods("PUT")
 
@@ -68,8 +70,30 @@ func main() {
 	router.Handle("/api/time", c.GetTimesController).Methods("GET")
 
 	// Destination with Time Routes
-	router.Handle("/api/destination/time", c.CreateDestinationDayTimesController).Methods("POST")
+	/*router.Handle("/api/destination/time", c.CreateDestinationDayTimesController).Methods("POST")*/
 	router.Handle("/api/destination/time", c.GetDestinationDayTimesController).Methods("GET")
+
+	// Buses routes
+	router.Handle("/api/buses/{id}", c.GetBusesController).Methods("GET")
+
+	// Workflow Routes
+	router.Handle("/api/workflow", c.GetModesController).Methods("GET")
+	router.Handle("/api/workflow", c.CreateModeController).Methods("POST")
+	router.Handle("/api/workflow/{id}", c.UpdateWorkFlowStatusController).Methods("PUT")
+
+
+	// Penalty Due Times Routes
+	router.Handle("/api/penalty/time", c.CreatePenaltyTimeController).Methods("POST")
+	router.Handle("/api/penalty/time", c.GetPenaltyTimesController).Methods("GET")
+	router.Handle("/api/latest/penalty/time", c.GetLatestPenaltyTimesController).Methods("GET")
+	router.Handle("/api/penalty/time/{id}", c.UpdateDueTimeStatusController).Methods("PUT")
+
+
+	// Penalty Due Times Routes
+	router.Handle("/api/penalty", c.CreatePenaltyController).Methods("POST")
+	router.Handle("/api/penalty", c.GetPenaltiesController).Methods("GET")
+	router.Handle("/api/latest/penalty", c.GetLatestPenaltyController).Methods("GET")
+
 
 
 

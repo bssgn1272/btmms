@@ -14,7 +14,7 @@ import (
 // Function for Creating Slots
 var CreateSlotController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
-	slot := &models.Slot{}
+	slot := &models.EdSlot{}
 
 	err := json.NewDecoder(r.Body).Decode(slot)
 	if err != nil {
@@ -51,7 +51,7 @@ func InitMidNight() {
 		time.Sleep(d)
 		d = 24 * time.Hour
 
-		slot := &models.Slot{}
+		slot := &models.EdSlot{}
 
 		reset := slot.Update()
 
@@ -65,7 +65,7 @@ var UpdateSlotController = http.HandlerFunc(func(w http.ResponseWriter, r *http.
 	params := mux.Vars(r)
 	id, _ := strconv.Atoi(params["id"])
 
-	slot := &models.Slot{}
+	slot := &models.EdSlot{}
 
 	err := json.NewDecoder(r.Body).Decode(slot)
 	if err != nil {

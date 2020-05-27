@@ -18,13 +18,24 @@
 
             <mat-dialog-actions>
               <button class="mat-raised-button" (click)="close()">Close</button>
-              <button
-                mat-raised-button
-                class="btn btn-danger"
-                (click)="cancel()"
-              >
-                Confirm
-              </button>
+              <div *ngIf="workFlow.mode === 'NWF'">
+                <button
+                  mat-raised-button
+                  class="btn btn-danger"
+                  (click)="cancel()"
+                >
+                  Confirm
+                </button>
+              </div>
+              <div *ngIf="workFlow.mode === 'WF'">
+                <button
+                  mat-raised-button
+                  class="btn btn-danger"
+                  (click)="requestCancellation()"
+                >
+                  Request Cancellation
+                </button>
+              </div>
             </mat-dialog-actions>
           </div>
         </div>

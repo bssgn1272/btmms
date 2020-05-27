@@ -1,17 +1,18 @@
-import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User } from 'app/models/user';
-import { AuthService } from 'app/login/auth.service';
+import { Injectable } from "@angular/core";
+import { Http } from "@angular/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { User } from "app/models/user";
+import { AuthService } from "app/login/auth.service";
 // import { IGroup } from './group';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class ViewSlotsService {
   currentUser: User;
 
-  private url = '/api/reservation/get';
+  private url = "/api/reservation/get";
+  private urlh = "/api/reservation/history/get";
 
   constructor(private http: HttpClient, private authService: AuthService) {
     this.currentUser = this.authService.currentUserValue;
@@ -19,10 +20,12 @@ export class ViewSlotsService {
 
   async getList(id: number): Promise<any> {
     const url = `${this.url}/${id}`;
-    return await this.http
-      .get(url)
-      .toPromise()
-      .catch(this.handleError);
+    return await this.http.get(url).toPromise().catch(this.handleError);
+  }
+
+  async getHistoryList(id): Promise<any> {
+    const url = `${this.urlh}/${id}`;
+    return await this.http.get(url).toPromise().catch(this.handleError);
   }
 
   // handler for error in URL

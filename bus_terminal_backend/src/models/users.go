@@ -2,13 +2,16 @@ package models
 
 import (
 	u "../../src/utils"
+	"crypto/hmac"
+	"crypto/sha512"
+	"encoding/hex"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/jinzhu/gorm"
-	"golang.org/x/crypto/bcrypt"
 	"log"
 	"net/url"
 	"os"
 	"regexp"
+	"time"
 )
 
 /*
@@ -20,14 +23,25 @@ type Token struct {
 }
 
 //a struct to rep user account
-type User struct {
+type ProbaseTblUser struct {
 	gorm.Model
+	//Id          uint    `json:"id" sql:"AUTO_INCREMENT" gorm:"primary_key"`
 	Username string `json:"username"`
 	Role string `json:"role"`
 	Email string `json:"email"`
-	Phone string `json:"phone"`
+	Mobile string `json:"mobile"`
 	Password string `json:"password"`
 	Token string `json:"token"`
+	Uuid string `json:"uuid"`
+	Nrc string `json:"nrc"`
+	AccountStatus string `json:"account_status"`
+	OperatorRole string `json:"operator_role"`
+	Pin string `json:"pin"`
+	TmpPin string `json:"tmp_pin"`
+	Company string `json:"company"`
+	AccountType string `json:"account_type"`
+	AccountNumber string `json:"account_number"`
+	InsertedAt time.Time `json:"inserted_at"`
 }
 
 // Variables for regular expressions
@@ -41,7 +55,7 @@ var (
 )
 
 //Validate incoming user details...
-func (account *User) Validate() url.Values  {
+func (account *ProbaseTblUser) Validate() url.Values  {
 
 	errs := url.Values{}
 
@@ -60,9 +74,9 @@ func (account *User) Validate() url.Values  {
 	}
 
 
-	temp := &User{}
+	temp := &ProbaseTblUser{}
 
-	err := GetDB().Table("users").Where("username = ?", account.Username).First(temp).Error
+	err := GetDB().Table("probase_tbl_users").Where("username = ?", account.Username).First(temp).Error
 
 	log.Println(err)
 
@@ -83,7 +97,7 @@ func (account *User) Validate() url.Values  {
 	if !regexpEmail.Match([]byte(account.Email)) {
 		errs.Add("email", "The email field should be valid!")
 	}
-	if !regexpPhone.Match([]byte(account.Phone)) {
+	if !regexpPhone.Match([]byte(account.Mobile)) {
 		errs.Add("phone", "The phone number field should be valid!")
 	}
 	if !regexpPassword.Match([]byte(account.Username)) {
@@ -96,15 +110,22 @@ func (account *User) Validate() url.Values  {
 }
 
 // create user function
-func (account *User) Create() (map[string] interface{}) {
+func (account *ProbaseTblUser) Create() (map[string] interface{}) {
+
 
 	if validErrs := account.Validate(); len(validErrs) > 0 {
 		err := map[string]interface{}{"validationError": validErrs}
 		return err
 	}
 
-	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(account.Password), bcrypt.DefaultCost)
-	account.Password = string(hashedPassword)
+	hash :=  hmac.New(sha512.New, []byte(os.Getenv( "secretKey")))
+
+	 hash.Write([]byte(account.Password))
+	hashedPassword := hex.EncodeToString(hash.Sum(nil))
+
+	log.Println(hashedPassword)
+	account.Password = hashedPassword
+	log.Println(account.Password)
 
 	GetDB().Create(account)
 

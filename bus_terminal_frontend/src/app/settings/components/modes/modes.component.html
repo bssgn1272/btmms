@@ -1,0 +1,83 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card card-plain">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Create Mode</h4>
+      </div>
+      <p></p>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-body">
+            <mat-dialog-content>
+              <form [formGroup]="modesForm" novalidate>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="example-container">
+                      <mat-form-field>
+                        <mat-label>Mode</mat-label>
+                        <input
+                          formControlName="mode"
+                          [ngClass]="{ 'is-invalid': submitted &amp;&amp; modesForm.controls.mode.errors }"
+                          required
+                          matInput
+                        />
+
+                        <div
+                          *ngIf="submitted &amp;&amp; modesForm.controls.mode.errors"
+                          class="text-danger"
+                        >
+                          <div *ngIf="modesForm.controls.mode.errors.required">
+                            Mode is required
+                          </div>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="example-container">
+                      <mat-form-field>
+                        <mat-label>Description</mat-label>
+                        <input
+                          formControlName="description"
+                          [ngClass]="{ 'is-invalid': submitted &amp;&amp; modesForm.controls.description.errors }"
+                          required
+                          matInput
+                        />
+
+                        <div
+                          *ngIf="submitted &amp;&amp; modesForm.controls.description.errors"
+                          class="text-danger"
+                        >
+                          <div
+                            *ngIf="
+                              modesForm.controls.description.errors.required
+                            "
+                          >
+                            Description is required
+                          </div>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </mat-dialog-content>
+
+            <mat-dialog-actions>
+              <button class="mat-raised-button" (click)="close()">Close</button>
+              <button
+                mat-raised-button
+                class="btn btn-primary"
+                (click)="onSubmit()"
+              >
+                Save
+              </button>
+            </mat-dialog-actions>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -7,7 +7,7 @@ import (
 )
 
 // a struct for Time model
-type Time struct {
+type EdTime struct {
 	gorm.Model
 
 	TimeOfDay string `json:"time_of_day"`
@@ -16,7 +16,7 @@ type Time struct {
 
 
 // create town
-func (time *Time) Create() (map[string] interface{}) {
+func (time *EdTime) Create() (map[string] interface{}) {
 
 	/*if validErrs := time.Validate(); len(validErrs) > 0 {
 		err := map[string]interface{}{"validationError": validErrs}
@@ -32,10 +32,10 @@ func (time *Time) Create() (map[string] interface{}) {
 }
 
 // get towns
-func GetTimes() ([]*Time) {
+func GetTimes() ([]*EdTime) {
 
-	times := make([]*Time, 0)
-	err := GetDB().Table("times").Find(&times).Error
+	times := make([]*EdTime, 0)
+	err := GetDB().Table("ed_times").Find(&times).Error
 	log.Println(err)
 	if err != nil {
 		log.Println(err)

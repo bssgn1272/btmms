@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 
 declare const $: any;
 declare interface RouteInfo {
@@ -10,16 +10,16 @@ declare interface RouteInfo {
 }
 export const ROUTES: RouteInfo[] = [
   {
-    path: '/dashboard',
-    title: 'Dashboard',
-    icon: 'dashboard',
-    class: ''
+    path: "/dashboard",
+    title: "Dashboard",
+    icon: "dashboard",
+    class: "",
   },
   {
-    path: '/veiw-slot',
-    title: 'View Slots',
-    icon: 'view_list',
-    class: ''
+    path: "/veiw-slot",
+    title: "View Slots",
+    icon: "view_list",
+    class: "",
   },
   // {
   //   path: '/veiw-resavations-requests',
@@ -29,33 +29,34 @@ export const ROUTES: RouteInfo[] = [
   // }
 ];
 
-
 export const ROUTESTWO: RouteInfo[] = [
-  // {
-  //   path: "/dashboard",
-  //   title: "Dashboard",
-  //   icon: "dashboard",
-  //   class: ""
-  // },
-
   {
-    path: '/veiw-resavations-requests',
-    title: 'View Requests',
-    icon: 'view_module',
-    class: ''
+    path: "/veiw-resavations-requests",
+    title: "View Requests",
+    icon: "view_module",
+    class: "",
   },
   {
-    path: '/settings',
-    title: 'Settings',
-    icon: 'settings_applications',
-    class: ''
-  }
+    path: "/settings",
+    title: "Settings",
+    icon: "settings_applications",
+    class: "",
+  },
+];
+
+export const ROUTESTHREE: RouteInfo[] = [
+  {
+    path: "/veiw-resavations-requests",
+    title: "View Requests",
+    icon: "view_module",
+    class: "",
+  },
 ];
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+  selector: "app-sidebar",
+  templateUrl: "./sidebar.component.html",
+  styleUrls: ["./sidebar.component.css"],
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
@@ -65,27 +66,33 @@ export class SidebarComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   public getFromLocalStrorage() {
-    const users = JSON.parse(localStorage.getItem('currentUser'));
+    const users = JSON.parse(localStorage.getItem("currentUser"));
     return users;
   }
 
   ngOnInit() {
     this.userItems = this.getFromLocalStrorage();
     const _role = this.userItems.role;
-    console.log(_role)
-    if (_role === 'admin') {
-      this.menuItems = ROUTESTWO.filter(menuItem => menuItem);
+    console.log(_role);
+    if (_role === "ADMIN") {
+      this.menuItems = ROUTESTWO.filter((menuItem) => menuItem);
       // get return url from route parameters or default to '/'
-    this.returnUrl =
-      this.route.snapshot.queryParams['returnUrl'] ||
-      '/veiw-resavations-requests';
+      this.returnUrl =
+        this.route.snapshot.queryParams["returnUrl"] ||
+        "/veiw-resavations-requests";
       this.router.navigate([this.returnUrl]);
-    } else if (_role === 'operator') {
-      this.menuItems = ROUTES.filter(menuItem => menuItem);
-       // get return url from route parameters or default to '/'
-    this.returnUrl =
-      this.route.snapshot.queryParams['returnUrl'] ||
-      '/dashboard';
+    } else if (_role === "BOP") {
+      this.menuItems = ROUTES.filter((menuItem) => menuItem);
+      // get return url from route parameters or default to '/'
+      this.returnUrl =
+        this.route.snapshot.queryParams["returnUrl"] || "/dashboard";
+      this.router.navigate([this.returnUrl]);
+    } else if (_role === "TOP") {
+      this.menuItems = ROUTESTHREE.filter((menuItem) => menuItem);
+      // get return url from route parameters or default to '/'
+      this.returnUrl =
+        this.route.snapshot.queryParams["returnUrl"] ||
+        "/veiw-resavations-requests";
       this.router.navigate([this.returnUrl]);
     }
   }

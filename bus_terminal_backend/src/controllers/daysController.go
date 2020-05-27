@@ -13,7 +13,7 @@ import(
 var CreateDayController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 
-	day := &models.Day{}
+	day := &models.EdDay{}
 
 	err := json.NewDecoder(r.Body).Decode(day)
 	if err != nil {

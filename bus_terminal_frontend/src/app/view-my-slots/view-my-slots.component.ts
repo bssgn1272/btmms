@@ -1,43 +1,48 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from "@angular/core";
 import {
   MatTableDataSource,
   MatPaginator,
   MatDialog,
   MatDialogConfig,
   MatSort,
-  MatSnackBar
-} from '@angular/material';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ViewSlotsService } from './view-slots.service';
-import { AuthService } from 'app/login/auth.service';
-import { Location } from '@angular/common';
-import { CancelReservationComponent } from '../cancel-reservation/cancel-reservation.component';
-
-
+  MatSnackBar,
+} from "@angular/material";
+import { HttpClient } from "@angular/common/http";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ViewSlotsService } from "./view-slots.service";
+import { AuthService } from "app/login/auth.service";
+import { Location, formatDate } from "@angular/common";
+import { CancelReservationComponent } from "../cancel-reservation/cancel-reservation.component";
+import * as moment from "moment";
 
 @Component({
-  selector: 'app-view-my-slots',
-  templateUrl: './view-my-slots.component.html',
-  styleUrls: ['./view-my-slots.component.scss']
+  selector: "app-view-my-slots",
+  templateUrl: "./view-my-slots.component.html",
+  styleUrls: ["./view-my-slots.component.scss"],
 })
 export class ViewMySlotsComponent implements OnInit {
-  status = '';
+  status = "";
   id = 0;
-  slot = '';
-  slot_one = 'open';
-  slot_two = 'open';
-  slot_three = 'open';
-  slot_four = 'open';
-  slot_five = 'open';
-  time = '';
+  slot = "";
+  slot_one = "open";
+  slot_two = "open";
+  slot_three = "open";
+  slot_four = "open";
+  slot_five = "open";
+  time = "";
+  from: any;
+  to: any;
+  fromHistory: any;
+  toHistory: any;
+  selectedFilter = "";
+  selectedHistoryFilter = "";
   displayedColumns: string[] = [
-    'time',
-    'slot',
-    'route',
-    'status',
-    'reserved_time',
-    'action'
+    "time",
+    "slot",
+    "route",
+    "status",
+    "reserved_time",
+    "action",
   ];
 
   dataSource = new MatTableDataSource([]);
@@ -46,6 +51,23 @@ export class ViewMySlotsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   userItems: any;
 
+  displayedHistoryColumns: string[] = [
+    "time",
+    "slot",
+    "route",
+    "status",
+    "reserved_time",
+  ];
+
+  dataSourceHistory = new MatTableDataSource([]);
+
+  @ViewChild("HistoryPaginator") paginatorHistory: MatPaginator;
+  @ViewChild("HistorySort") sortHistory: MatSort;
+  displayData: any;
+  filterDataSource: any;
+  rStatus: string;
+  displayDataHistory: any;
+  filterDataSourceHistory: any;
   constructor(
     private httpClient: HttpClient,
     private route: ActivatedRoute,
@@ -58,7 +80,7 @@ export class ViewMySlotsComponent implements OnInit {
   ) {}
 
   public getFromLocalStrorage() {
-    const users = JSON.parse(localStorage.getItem('currentUser'));
+    const users = JSON.parse(localStorage.getItem("currentUser"));
     return users;
   }
 
@@ -66,10 +88,20 @@ export class ViewMySlotsComponent implements OnInit {
     this.userItems = this.getFromLocalStrorage();
     const _id = this.userItems.ID;
 
-    this.viewSlots.getList(_id).then(res => {
-      this.dataSource = new MatTableDataSource(res.data);
+    this.viewSlots.getList(_id).then((res) => {
+      this.displayData = res.data;
+      this.filterDataSource = this.displayData;
+      this.dataSource = new MatTableDataSource(this.displayData);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+    });
+
+    this.viewSlots.getHistoryList(_id).then((res) => {
+      this.displayDataHistory = res.data;
+      this.filterDataSourceHistory = this.displayDataHistory;
+      this.dataSourceHistory = new MatTableDataSource(res.data);
+      this.dataSourceHistory.paginator = this.paginatorHistory;
+      this.dataSourceHistory.sort = this.sortHistory;
     });
 
     // console.log(this.currentUser.id);
@@ -79,17 +111,151 @@ export class ViewMySlotsComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  applyHistoryFilter(filterValue: string) {
+    this.dataSourceHistory.filter = filterValue.trim().toLowerCase();
+  }
+
   // add Open Dialog
   onOpenCancelDialog(row): void {
     const dialogRef = this.dialog.open(CancelReservationComponent, {
-      width: '60%',
+      width: "60%",
       // height: "850",
-      data: { row }
+      data: { row },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       row = result;
     });
-    console.log('Row clicked: ', row);
+    console.log("Row clicked: ", row);
+  }
+
+  log(value) {
+    // this.requests.getList().then((res) => {
+    if (value === "All") {
+      this.filterDataSource = this.displayData;
+      this.dataSource = new MatTableDataSource(this.filterDataSource);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    } else {
+      this.filterDataSource = this.displayData.filter(
+        (x) => x.status === value
+      );
+      this.dataSource = new MatTableDataSource(this.filterDataSource);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      if (value === "All") {
+        this.rStatus = "All";
+      } else if (value === "C") {
+        this.rStatus = "C";
+      } else if (value === "A") {
+        this.rStatus = "A";
+      } else if (value === "PC") {
+        this.rStatus = "PC";
+      }
+    }
+    // });
+  }
+
+  dateRange() {
+    console.log(this.from, this.to);
+    if (this.rStatus !== "All") {
+      this.filterDataSource = this.displayData.filter(
+        (x) =>
+          x.reserved_time >
+            formatDate(this.from, "yyy-MM-dd hh:mm:ss", "en-US", "+0530") &&
+          x.reserved_time <
+            formatDate(this.to, "yyy-MM-dd hh:mm:ss", "en-US", "+0530") &&
+          x.status === this.rStatus
+      );
+    } else {
+      this.filterDataSource = this.displayData.filter(
+        (x) =>
+          x.reserved_time >
+            formatDate(this.from, "yyy-MM-dd hh:mm:ss", "en-US", "+0530") &&
+          x.reserved_time <
+            formatDate(this.to, "yyy-MM-dd hh:mm:ss", "en-US", "+0530")
+      );
+    }
+
+    this.dataSource = new MatTableDataSource(this.filterDataSource);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    console.log(
+      this.displayData,
+      formatDate(this.from, "yyy-MM-dd hh:mm:ss", "en-US", "+0530")
+    );
+  }
+
+  logHistory(value) {
+    // this.requests.getList().then((res) => {
+    if (value === "All") {
+      this.filterDataSourceHistory = this.displayDataHistory;
+      this.dataSourceHistory = new MatTableDataSource(
+        this.filterDataSourceHistory
+      );
+      this.dataSourceHistory.paginator = this.paginatorHistory;
+      this.dataSourceHistory.sort = this.sortHistory;
+    } else {
+      this.filterDataSourceHistory = this.displayDataHistory.filter(
+        (x) => x.status === value
+      );
+      this.dataSourceHistory = new MatTableDataSource(
+        this.filterDataSourceHistory
+      );
+      this.dataSourceHistory.paginator = this.paginatorHistory;
+      this.dataSourceHistory.sort = this.sortHistory;
+      if (value === "All") {
+        this.rStatus = "All";
+      } else if (value === "C") {
+        this.rStatus = "C";
+      } else if (value === "A") {
+        this.rStatus = "A";
+      } else if (value === "PC") {
+        this.rStatus = "PC";
+      }
+    }
+    // });
+  }
+
+  dateRangeHistory() {
+    console.log(this.fromHistory, this.toHistory);
+    if (this.rStatus !== "All") {
+      this.filterDataSourceHistory = this.displayDataHistory.filter(
+        (x) =>
+          x.reserved_time >
+            formatDate(
+              this.fromHistory,
+              "yyy-MM-dd hh:mm:ss",
+              "en-US",
+              "+0530"
+            ) &&
+          x.reserved_time <
+            formatDate(this.toHistory, "yyy-MM-dd hh:mm:ss", "en-US", "+0530")
+        // &&
+        // x.status === this.rStatus
+      );
+    } else {
+      this.filterDataSourceHistory = this.displayDataHistory.filter(
+        (x) =>
+          x.reserved_time >
+            formatDate(
+              this.fromHistory,
+              "yyy-MM-dd hh:mm:ss",
+              "en-US",
+              "+0530"
+            ) &&
+          x.reserved_time <
+            formatDate(this.toHistory, "yyy-MM-dd hh:mm:ss", "en-US", "+0530")
+      );
+    }
+
+    this.dataSourceHistory = new MatTableDataSource(
+      this.filterDataSourceHistory
+    );
+    this.dataSourceHistory.paginator = this.paginatorHistory;
+    this.dataSourceHistory.sort = this.sortHistory;
+    console.log(
+      this.displayData,
+      formatDate(this.fromHistory, "yyy-MM-dd hh:mm:ss", "en-US", "+0530")
+    );
   }
 }
-

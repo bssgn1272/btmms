@@ -3,16 +3,19 @@ package controllers
 import (
 	"../../src/models"
 	u "../../src/utils"
+	"crypto/hmac"
+	"crypto/sha512"
+	"crypto/subtle"
+	"encoding/hex"
 	"encoding/json"
 	"github.com/dgrijalva/jwt-go"
-	"golang.org/x/crypto/bcrypt"
 	"log"
 	"net/http"
 	"os"
 )
 
 var(
-	auth models.User
+	auth models.ProbaseTblUser
 
 
 )
@@ -27,7 +30,7 @@ type ResponseResult struct {
 // Function for User registration
 var CreateUserController = http.HandlerFunc( func(w http.ResponseWriter, r *http.Request) {
 
-	account := &models.User{}
+	account := &models.ProbaseTblUser{}
 	err := json.NewDecoder(r.Body).Decode(account) //decode the request body into struct and failed if any error occur
 	if err != nil {
 		u.Respond(w, u.Message(false, "Invalid request"))
@@ -44,7 +47,7 @@ var CreateUserController = http.HandlerFunc( func(w http.ResponseWriter, r *http
 var AuthenticateUserController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	var res ResponseResult
-	var check models.User
+	var check models.ProbaseTblUser
 
 	err := json.NewDecoder(r.Body).Decode(&auth)
 	if err != nil {
@@ -52,7 +55,7 @@ var AuthenticateUserController = http.HandlerFunc(func(w http.ResponseWriter, r 
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	err = models.GetDB().Table("users").Where("username = ?", auth.Username).First(&check).Error
+	err = models.GetDB().Table("probase_tbl_users").Where("username = ?", auth.Username).First(&check).Error
 
 	if err != nil {
 		log.Println(check.Username)
@@ -61,7 +64,14 @@ var AuthenticateUserController = http.HandlerFunc(func(w http.ResponseWriter, r 
 		return
 	}
 
-	err = bcrypt.CompareHashAndPassword([]byte(check.Password), []byte(auth.Password))
+	hash :=  hmac.New(sha512.New, []byte(os.Getenv( "secretKey")))
+
+	hash.Write([]byte(auth.Password))
+	hashedPassword := hex.EncodeToString(hash.Sum(nil))
+
+	subtle.ConstantTimeCompare([]byte(check.Password), []byte(hashedPassword))
+
+	//err = bcrypt.CompareHashAndPassword([]byte(check.Password), []byte(auth.Password))
 
 	if err != nil {
 		// res.Error = "Invalid password"

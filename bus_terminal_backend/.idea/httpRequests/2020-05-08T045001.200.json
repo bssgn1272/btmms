@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "ID": 1,
+      "CreatedAt": "2020-05-08T11:45:41Z",
+      "UpdatedAt": "2020-05-08T11:45:41Z",
+      "DeletedAt": null,
+      "mode": "WF",
+      "description": "Work Flow",
+      "Status": "Inactive"
+    },
+    {
+      "ID": 2,
+      "CreatedAt": "2020-05-08T11:53:14Z",
+      "UpdatedAt": "2020-05-08T11:53:14Z",
+      "DeletedAt": null,
+      "mode": "NWF",
+      "description": "Non Work Flow",
+      "Status": "Inactive"
+    }
+  ],
+  "message": "success",
+  "status": true
+}

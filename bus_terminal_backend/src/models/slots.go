@@ -10,7 +10,7 @@ import (
 )
 
 //a struct to rep Slot model
-type Slot struct {
+type EdSlot struct {
 	gorm.Model
 	SlotOne string `gorm:"default:'open'" json:"slot_one"`
 	SlotTwo string `gorm:"default:'open'" json:"slot_two"`
@@ -35,7 +35,7 @@ var(
  This struct function validate the required parameters sent through the http request body
 returns message and true if the requirement is met
 */
-func (slot *Slot) Validate()  url.Values {
+func (slot *EdSlot) Validate()  url.Values {
 
 
 	errs := url.Values{}
@@ -91,7 +91,7 @@ func (slot *Slot) Validate()  url.Values {
 
 
 // create slots
-func (slot *Slot) Create() (map[string] interface{}) {
+func (slot *EdSlot) Create() (map[string] interface{}) {
 
 	if validErrs := slot.Validate(); len(validErrs) > 0 {
 		err := map[string]interface{}{"validationError": validErrs}
@@ -107,10 +107,10 @@ func (slot *Slot) Create() (map[string] interface{}) {
 }
 
 // Retrieve Slots
-func GetSlots() ([]*Slot) {
+func GetSlots() ([]*EdSlot) {
 
-	slots := make([]*Slot, 0)
-	err := GetDB().Table("slots").Order("time asc").Find(&slots).Error
+	slots := make([]*EdSlot, 0)
+	err := GetDB().Table("ed_slots").Order("time asc").Find(&slots).Error
 	log.Println(err)
 	if err != nil {
 		log.Println(err)
@@ -123,12 +123,12 @@ func GetSlots() ([]*Slot) {
 
 // upadate Slots Table
 
-func (slot *Slot) Update() (map[string] interface{}) {
+func (slot *EdSlot) Update() (map[string] interface{}) {
 
 
 	day := time.Now().AddDate(0,0,1,)
 
-	db.Model(&slot).UpdateColumns(Slot{SlotOne: "open", SlotTwo: "open", SlotThree: "open", SlotFour: "open", SlotFive: "open", ReservationTime: day})
+	db.Model(&slot).UpdateColumns(EdSlot{SlotOne: "open", SlotTwo: "open", SlotThree: "open", SlotFour: "open", SlotFive: "open", ReservationTime: day})
 
 	resp := u.Message(true, "success")
 	resp["slot"] = slot
@@ -139,9 +139,9 @@ func (slot *Slot) Update() (map[string] interface{}) {
 
 // upadate Slots Table
 
-func (slot *Slot) UpdateSlotTInterval(id uint) (map[string] interface{}) {
+func (slot *EdSlot) UpdateSlotTInterval(id uint) (map[string] interface{}) {
 
-	db.Model(&slot).Where("id = ?", slot.ID).Updates(Slot{Time:slot.Time})
+	db.Model(&slot).Where("id = ?", slot.ID).Updates(EdSlot{Time:slot.Time})
 
 	resp := u.Message(true, "success")
 	resp["slot"] = slot
@@ -152,10 +152,10 @@ func (slot *Slot) UpdateSlotTInterval(id uint) (map[string] interface{}) {
 
 // update Slots Table
 
-func (slot *Slot) Close() (map[string] interface{}) {
+func (slot *EdSlot) Close() (map[string] interface{}) {
 
 
-	db.Model(&slot).Where("time = ?", slot.Time).Updates(Slot{SlotOne:slot.SlotOne, SlotTwo:slot.SlotTwo,SlotThree:slot.SlotThree,SlotFour:slot.SlotFour, SlotFive:slot.SlotFive})
+	db.Model(&slot).Where("time = ?", slot.Time).Updates(EdSlot{SlotOne:slot.SlotOne, SlotTwo:slot.SlotTwo,SlotThree:slot.SlotThree,SlotFour:slot.SlotFour, SlotFive:slot.SlotFive})
 
 	log.Println(slot.Time)
 	resp := u.Message(true, "success")

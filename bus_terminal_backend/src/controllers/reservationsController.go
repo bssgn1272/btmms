@@ -15,7 +15,7 @@ import (
 var CreateReservationController http.HandlerFunc = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 
-	reservation := &models.Reservation{}
+	reservation := &models.EdReservation{}
 
 	err := json.NewDecoder(r.Body).Decode(reservation)
 	if err != nil {
@@ -58,4 +58,21 @@ var GetReservationsForController = http.HandlerFunc(func(w http.ResponseWriter, 
 })
 
 
+// Function for retrieving reservations for a particular user
+var GetReservationsHistoryForController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
+	params := mux.Vars(r)
+	id, err := strconv.Atoi(params["id"])
+
+	fmt.Print(id)
+	if err != nil {
+		//The passed path parameter is not an integer
+		u.Respond(w, u.Message(false, "There was an error in your request"))
+		return
+	}
+
+	data := models.GetReservationOperatorHistory(uint(id))
+	resp := u.Message(true, "success")
+	resp["data"] = data
+	u.Respond(w, resp)
+})

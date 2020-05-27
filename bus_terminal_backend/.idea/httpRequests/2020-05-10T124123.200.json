@@ -1,0 +1,13 @@
+{
+  "message": "success",
+  "mode": {
+    "ID": 17,
+    "CreatedAt": "2020-05-10T12:41:22.9691894+02:00",
+    "UpdatedAt": "2020-05-10T12:41:22.9691894+02:00",
+    "DeletedAt": null,
+    "mode": "WF",
+    "description": "Work Flow",
+    "status": "Active"
+  },
+  "status": true
+}

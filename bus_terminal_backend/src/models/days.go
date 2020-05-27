@@ -9,7 +9,7 @@ import (
 )
 
 // a struct for Days model
-type Day struct {
+type EdDay struct {
 	gorm.Model
 
 	Day string `json:"day"`
@@ -27,7 +27,7 @@ var(
  This struct function validate the required parameters sent through the http request body
 returns message and true if the requirement is met
 */
-func (day *Day) Validate() url.Values {
+func (day *EdDay) Validate() url.Values {
 
 	errs := url.Values{}
 
@@ -47,7 +47,7 @@ func (day *Day) Validate() url.Values {
 
 
 // create town
-func (day *Day) Create() (map[string] interface{}) {
+func (day *EdDay) Create() (map[string] interface{}) {
 
 	if validErrs := day.Validate(); len(validErrs) > 0 {
 		err := map[string]interface{}{"validationError": validErrs}
@@ -63,10 +63,10 @@ func (day *Day) Create() (map[string] interface{}) {
 }
 
 // get towns
-func GetDays() ([]*Day) {
+func GetDays() ([]*EdDay) {
 
-	days := make([]*Day, 0)
-	err := GetDB().Table("days").Find(&days).Error
+	days := make([]*EdDay, 0)
+	err := GetDB().Table("ed_days").Find(&days).Error
 	log.Println(err)
 	if err != nil {
 		log.Println(err)

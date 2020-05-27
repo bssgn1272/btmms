@@ -27,7 +27,8 @@ func init() {
 
 
 	//Building a connection string
-	dbUri := fmt.Sprintf("%s:%s@tcp(127.0.0.1)/%s?charset=utf8&parseTime=True", username, password, dbName)
+	// dbUri := fmt.Sprintf("%s:%s@tcp(196.46.196.42)/%s?charset=utf8&parseTime=True", username, password, dbName)
+	dbUri := fmt.Sprintf("%s:%s@tcp(localhost)/%s?charset=utf8&parseTime=True", username, password, dbName)
 	log.Println(dbUri)
 
 	conn, err := gorm.Open("mysql", dbUri)
@@ -38,22 +39,33 @@ func init() {
 	db = conn
 
 	// DB Migration
-	db.Debug().AutoMigrate(&User{})
-	db.Debug().AutoMigrate(&Reservation{})
-	db.Debug().AutoMigrate(&Slot{})
-	db.Debug().AutoMigrate(&Town{})
-	db.Debug().AutoMigrate(&Day{})
-	db.Debug().AutoMigrate(&Time{})
-	db.Debug().AutoMigrate(&DestinationDayTime{})
+	db.Debug().AutoMigrate(&ProbaseTblUser{})
+	//db.Debug().AutoMigrate(&EdReservation{})
+	db.Debug().AutoMigrate(&EdSlot{})
+	db.Debug().AutoMigrate(&EdTown{})
+	db.Debug().AutoMigrate(&EdDay{})
+	db.Debug().AutoMigrate(&EdTime{})
+	db.Debug().AutoMigrate(&ProbaseTblTravelRoutes{})
+	db.Debug().AutoMigrate(&EdReservation{})
+	db.Debug().AutoMigrate(&EdWorkFlow{})
+	db.Debug().AutoMigrate(&ProbaseTblBus{})
+	db.Debug().AutoMigrate(&EdPenaltyInterval{})
+	db.Debug().AutoMigrate(&EdPenalty{})
+
+
+
 
 	// Track Migrations
-	log.Println(db.Debug().AutoMigrate(&User{}))
-	log.Println(db.Debug().AutoMigrate(&Reservation{}))
-	log.Println(db.Debug().AutoMigrate(&Slot{}))
-	log.Println(db.Debug().AutoMigrate(&Town{}))
-	log.Println(db.Debug().AutoMigrate(&Day{}))
-	log.Println(db.Debug().AutoMigrate(&Time{}))
-	log.Println(db.Debug().AutoMigrate(&DestinationDayTime{}))
+	log.Println(db.Debug().AutoMigrate(&ProbaseTblUser{}))
+	log.Println(db.Debug().AutoMigrate(&ProbaseTblBus{}))
+	log.Println(db.Debug().AutoMigrate(&EdSlot{}))
+	log.Println(db.Debug().AutoMigrate(&EdTown{}))
+	log.Println(db.Debug().AutoMigrate(&EdDay{}))
+	log.Println(db.Debug().AutoMigrate(&EdTime{}))
+	log.Println(db.Debug().AutoMigrate(&ProbaseTblTravelRoutes{}))
+	log.Println(db.Debug().AutoMigrate(EdWorkFlow{}))
+	log.Println(db.Debug().AutoMigrate(&EdPenaltyInterval{}))
+	log.Println(db.Debug().AutoMigrate(&EdPenalty{}))
 
 }
 

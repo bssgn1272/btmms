@@ -1,0 +1,460 @@
+POST http://localhost:7080/api/user/register
+Accept: */*
+Cache-Control: no-cache
+
+{"username": "admin", "role":"ADMIN", "admin@admin.com", "moblie": "0977336677", "password": "123456789"}
+
+<> 2020-05-11T105453.200.json
+
+###
+
+PUT http://localhost:7080/api/workflow/17
+Accept: */*
+Cache-Control: no-cache
+
+{"Status":"Inactive"}
+
+<> 2020-05-10T013143.200.json
+
+###
+
+PUT http://localhost:7080/api/workflow/17
+Accept: */*
+Cache-Control: no-cache
+
+{"Status":"Inactive"}
+
+<> 2020-05-10T012853.200.json
+
+###
+
+PUT http://localhost:7080/api/workflow/17
+Accept: */*
+Cache-Control: no-cache
+
+{"Status":"Inactive"}
+
+<> 2020-05-10T012849.200.json
+
+###
+
+PUT http://localhost:7080/api/workflow/17
+Accept: */*
+Cache-Control: no-cache
+
+{"mode":"WF","description":"Work Flow","Status":"Inactive"}
+
+<> 2020-05-10T012837.200.json
+
+###
+
+PATCH http://localhost:7080/api/workflow/17
+Accept: */*
+Cache-Control: no-cache
+
+{"mode":"WF","description":"Work Flow","Status":"Inactive"}
+
+###
+
+PATCH http://localhost:7080/api/workflow/17
+Accept: */*
+Cache-Control: no-cache
+
+{"mode":"WF","description":"Work Flow","Status":"Inactive"}
+
+<> 2020-05-10T012505.200.json
+
+###
+
+PATCH http://localhost:7080/api/workflow/17
+Accept: */*
+Cache-Control: no-cache
+
+{"mode":"WF","description":"Work Flow","Status":"Inactive"}
+
+<> 2020-05-10T012502.200.json
+
+###
+
+PATCH http://localhost:7080/api/workflow/17
+Accept: */*
+Cache-Control: no-cache
+
+{"mode":"WF","description":"Work Flow","Status":"Inactive"}
+
+<> 2020-05-10T011539.200.json
+
+###
+
+PATCH http://localhost:7080/api/workflow/17
+Accept: */*
+Cache-Control: no-cache
+
+{"Status":"Inactive"}
+
+<> 2020-05-10T011521.200.json
+
+###
+
+PUT http://localhost:7080/api/workflow/17
+Accept: */*
+Cache-Control: no-cache
+
+{"Status":"Inactive"}
+
+<> 2020-05-10T011402.200.json
+
+###
+
+PUT http://localhost:7080/api/workflow/17
+Accept: */*
+Cache-Control: no-cache
+
+{"Status":"Inactive"}
+
+<> 2020-05-10T011102.200.json
+
+###
+
+PUT http://localhost:7080/api/workflow/17
+Accept: */*
+Cache-Control: no-cache
+
+{"mode":"WF","description":"Work Flow","Status":"Inactive"}
+
+<> 2020-05-10T124952.200.json
+
+###
+
+PUT http://localhost:7080/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{"mode":"WF","description":"Work Flow","Status":"Active"}
+
+<> 2020-05-10T124123.200.json
+
+###
+
+PUT http://localhost:7080/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{"mode":"WF","description":"Work Flow","Status":"Active"}
+
+<> 2020-05-10T121822.200.json
+
+###
+
+PUT http://localhost:7080/api/workflow
+Accept: */*
+Cache-Control: no-cache
+
+{"mode":"WF","description":"Work Flow","Status":"Active"}
+
+###
+
+PUT http://localhost:7080/api/workflow/0
+Accept: */*
+Cache-Control: no-cache
+
+{"mode":"WF","description":"Work Flow","Status":"Active"}
+
+<> 2020-05-10T121745.200.json
+
+###
+
+PUT http://localhost:7080/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{"mode":"WF","description":"Work Flow","Status":"Active"}
+
+<> 2020-05-10T121712.200.json
+
+###
+
+PUT http://localhost:7080/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{"mode":"WF","description":"Work Flow","Status":"Active"}
+
+<> 2020-05-10T121711.200.json
+
+###
+
+PUT http://localhost:7080/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{"mode":"WF","description":"Work Flow","Status":"Active"}
+
+<> 2020-05-10T121704.200.json
+
+###
+
+PUT http://localhost:7080/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{"Status":"Active"}
+
+<> 2020-05-10T121222.200.json
+
+###
+
+PATCH http://localhost:7080/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{"Status":"Active"}
+
+<> 2020-05-10T120600.200.json
+
+###
+
+PATCH http://localhost:7080/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{"mode":"WF","description":"Work Flow","Status":"Active"}
+
+<> 2020-05-10T120404.200.json
+
+###
+
+PATCH http://localhost:7080/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{"mode":"WF","description":"Work Flow","Status":"Active"}
+
+<> 2020-05-08T045343.200.json
+
+###
+
+PATCH http://localhost:7080/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{"ID":1,"CreatedAt":"2020-05-08T11:45:41Z","UpdatedAt":"2020-05-08T11:45:41Z","DeletedAt":null,"mode":"WF","description":"Work Flow","Status":"Active"},{"ID":2,"CreatedAt":"2020-05-08T11:53:14Z","UpdatedAt":"2020-05-08T11:53:14Z","DeletedAt":null,"mode":"NWF","description":"Non Work Flow","Status":"Active"}
+
+<> 2020-05-08T045147.200.json
+
+###
+
+PATCH http://localhost:7080/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{"ID":1,"CreatedAt":"2020-05-08T11:45:41Z","UpdatedAt":"2020-05-08T11:45:41Z","DeletedAt":null,"mode":"WF","description":"Work Flow","Status":"Inactive"},{"ID":2,"CreatedAt":"2020-05-08T11:53:14Z","UpdatedAt":"2020-05-08T11:53:14Z","DeletedAt":null,"mode":"NWF","description":"Non Work Flow","Status":"Active"}
+
+<> 2020-05-08T045123.200.json
+
+###
+
+GET http://localhost:7080/api/workflow
+Accept: */*
+Cache-Control: no-cache
+
+{"Status":"Active"}
+
+<> 2020-05-08T045001.200.json
+
+###
+
+GET http://localhost:7080/api/workflow/
+Accept: */*
+Cache-Control: no-cache
+
+{"Status":"Active"}
+
+<> 2020-05-08T044953.200.html
+
+###
+
+PATCH http://localhost:7080/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{"Status":"Active"}
+
+<> 2020-05-08T044901.200.json
+
+###
+
+PATCH http://localhost:7080/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{"Status":"Active"}
+
+<> 2020-05-08T044251.200.json
+
+###
+
+PATCH http://localhost:7080/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{"Status":"Active"}
+
+<> 2020-05-08T043031.200.json
+
+###
+
+PATCH http://localhost:7080/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{"Status":"Active"}
+
+###
+
+PUT http://localhost:7080/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{"Status":"Active"}
+
+<> 2020-05-08T042627.200.json
+
+###
+
+PUT http://localhost:7080/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{"Status":"Active"}
+
+<> 2020-05-08T042613.200.json
+
+###
+
+PUT http://localhost:7080/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{"ID":1,"CreatedAt":"2020-05-08T11:45:41Z","UpdatedAt":"2020-05-08T11:45:41Z","DeletedAt":null,"mode":"WF","description":"Work Flow","Status":"Active"}
+
+<> 2020-05-08T042357.200.json
+
+###
+
+PATCH http://localhost:7080/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{"ID":1,"CreatedAt":"2020-05-08T11:45:41Z","UpdatedAt":"2020-05-08T11:45:41Z","DeletedAt":null,"mode":"WF","description":"Work Flow","Status":"Active"}
+
+<> 2020-05-08T042112.200.json
+
+###
+
+GET http://localhost:7080/api/workflow
+Accept: */*
+Cache-Control: no-cache
+
+{"mode" "status" = "Active" }
+
+<> 2020-05-08T042018.200.json
+
+###
+
+GET http://localhost:7080/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{"mode" "status" = "Active" }
+
+###
+
+PATCH http://localhost:7080/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{ "status" = "Active" }
+
+<> 2020-05-08T041930.200.json
+
+###
+
+PATCH http://localhost:7080/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{ "status" = "Active" }
+
+<> 2020-05-08T041459.200.txt
+
+###
+
+PATCH http://localhost:4200/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{ "status" = "Active" }
+
+<> 2020-05-08T041448.200.txt
+
+###
+
+PATCH http://localhost:4200/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{ "status" = "Active" }
+
+<> 2020-05-08T041437.200.txt
+
+###
+
+PATCH http://localhost:4200/api/workflow/1
+Accept: */*
+Cache-Control: no-cache
+
+{ "status" = "Active" }
+
+<> 2020-05-08T041215.200.txt
+
+###
+
+PUT http://localhost:4200/api/workflow
+Accept: */*
+Cache-Control: no-cache
+
+{ "status" = "Active" }
+
+###
+
+PATCH http://localhost:4200/api/workflow
+Accept: */*
+Cache-Control: no-cache
+
+{ "status" = "Active" }
+
+<> 2020-05-08T041124.200.json
+
+###
+
+PUT http://localhost:8080/resources
+Accept: */*
+Cache-Control: no-cache
+
+{ "status" = "Active" }
+
+<> 2020-05-08T041042.405.html
+
+###
+
+PATCH http://localhost:8080/resources
+Accept: */*
+Cache-Control: no-cache
+
+{ "status" = "Active" }
+
+<> 2020-05-08T041014.405.html
+
+###
+

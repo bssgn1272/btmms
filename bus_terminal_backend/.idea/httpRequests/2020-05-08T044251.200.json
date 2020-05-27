@@ -1,0 +1,13 @@
+{
+  "message": "success",
+  "mode": {
+    "ID": 6,
+    "CreatedAt": "2020-05-08T16:42:50.9051574+02:00",
+    "UpdatedAt": "2020-05-08T16:42:50.9051574+02:00",
+    "DeletedAt": null,
+    "mode": "",
+    "description": "",
+    "Status": "Active"
+  },
+  "status": true
+}

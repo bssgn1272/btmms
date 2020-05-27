@@ -10,7 +10,7 @@ import(
 
 
 // a struct for town model
-type Town struct {
+type EdTown struct {
 	gorm.Model
 
 	TownName string `json:"town_name"`
@@ -27,7 +27,7 @@ var(
  This struct function validate the required parameters sent through the http request body
 returns message and true if the requirement is met
 */
-func (town *Town) Validate() url.Values {
+func (town *EdTown) Validate() url.Values {
 
 	errs := url.Values{}
 
@@ -47,7 +47,7 @@ func (town *Town) Validate() url.Values {
 
 
 // create town
-func (town *Town) Create() (map[string] interface{}) {
+func (town *EdTown) Create() (map[string] interface{}) {
 
 	if validErrs := town.Validate(); len(validErrs) > 0 {
 		err := map[string]interface{}{"validationError": validErrs}
@@ -63,10 +63,10 @@ func (town *Town) Create() (map[string] interface{}) {
 }
 
 // get towns
-func GetTowns() ([]*Town) {
+func GetTowns() ([]*EdTown) {
 
-	towns := make([]*Town, 0)
-	err := GetDB().Table("towns").Find(&towns).Error
+	towns := make([]*EdTown, 0)
+	err := GetDB().Table("ed_towns").Find(&towns).Error
 	log.Println(err)
 	if err != nil {
 		log.Println(err)

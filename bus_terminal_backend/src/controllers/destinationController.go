@@ -13,7 +13,7 @@ import(
 var CreateTownController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 
-	town := &models.Town{}
+	town := &models.EdTown{}
 
 	err := json.NewDecoder(r.Body).Decode(town)
 	if err != nil {
@@ -38,20 +38,20 @@ var GetTownsController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Re
 
 
 // Function for Destination and time request function
-var CreateDestinationDayTimesController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
-
-	destinationDayTime := &models.DestinationDayTime{}
-
-	err := json.NewDecoder(r.Body).Decode(destinationDayTime)
-	if err != nil {
-		u.Respond(w, u.Message(false, "Error while decoding request body"))
-		return
-	}
-
-	resp := destinationDayTime.Create()
-	u.Respond(w, resp)
-})
+//var CreateDestinationDayTimesController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+//
+//
+//	destinationDayTime := &models.EdDestinationDayTime{}
+//
+//	err := json.NewDecoder(r.Body).Decode(destinationDayTime)
+//	if err != nil {
+//		u.Respond(w, u.Message(false, "Error while decoding request body"))
+//		return
+//	}
+//
+//	resp := destinationDayTime.Create()
+//	u.Respond(w, resp)
+//})
 
 
 // Function for retrieving Destination and time requests for the day

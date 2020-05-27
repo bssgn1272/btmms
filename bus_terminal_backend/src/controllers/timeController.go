@@ -14,7 +14,7 @@ u "../utils"
 var CreateTimeController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 
-	time := &models.Time{}
+	time := &models.EdTime{}
 
 	err := json.NewDecoder(r.Body).Decode(time)
 	if err != nil {
