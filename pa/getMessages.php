@@ -1,0 +1,1 @@
+<!-- getmessages.php -->
