@@ -2,7 +2,7 @@ defmodule BusTerminalSystem.Repo.Migrations.MarketingMigrations do
   use Ecto.Migration
 
   def up do
-
+    up_()
   end
 
   def up_ do

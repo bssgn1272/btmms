@@ -508,7 +508,7 @@
             <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
                 <header class="w3-container w3-indigo w3-center" id="heed">
-                  <h3>Tickects Due Today</h3>
+                  <h3>Tickets Due Today</h3>
                 </header>
 
                 <div class="w3-container">
@@ -734,8 +734,7 @@
                             <p id="unattended_luggage_code" style="font-weight: bold"></p>
                         </div>
 
-                        <form role="form" >
-                            <div class="col-lg-11 mt-4 stretched_card">
+                        <div class="col-lg-11 mt-4 stretched_card">
                                 <div class="card">
                                 <div class="card-body">
                                     <h4 class="card_title" style="text-align:center; color:blue; text-decoration:underline;"></h4>
@@ -744,21 +743,26 @@
                                         <div class="row">
 
                                             <div style="margin-left: 15px">
-                                                <div class="col-md-5">
+                                                <div class="col-md-3">
                                                     <label>PASSENGER ID: </label> <br>
-                                                    <input  id="unattended_luggage_id_input" placeholder="">
+                                                    <input  id="unattended_luggage_id_input" required placeholder="">
                                                 </div>
 
-                                                <div class="col-md-5">
-                                                    <label>MOBILE NUMBER: </label> <br>
-                                                    <input id="unattended_luggage_phone_input" placeholder="">
+                                                <div class="col-md-3">
+                                                    <label>RECEIVER MOBILE NUMBER: </label> <br>
+                                                    <input id="unattended_luggage_phone_input" required type="number" placeholder="">
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <label>SENDER MOBILE NUMBER: </label> <br>
+                                                    <input id="unattended_luggage_phone_input" required type="number" placeholder="">
                                                 </div>
                                             </div>
 
                                             <br><br><br><br>
 
                                             <div class="col-md-6">
-                                                <button onclick="get_weight()" class="w3-btn-block w3-indigo w3-hover-orange w3-round">Get Weight</button>
+                                                <button onclick="get_unattended_luggage_weight()" class="w3-btn-block w3-indigo w3-hover-orange w3-round">Get Weight</button>
                                             </div>
 
                                             <div class="col-md-6">
@@ -806,7 +810,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
+
                     </div>
                         <br>
                         <hr>
@@ -835,7 +839,7 @@
                                     <img src="<%= Routes.static_path(@conn, "/images/logo/1.png") %>" width="90" height="70" alt="NapsaLogo">
                                 </div>
 
-                                <h5 class="content-group">To Purschase Ticket <small class="display-block">Fill Form Below</small></h5>
+                                <h5 class="content-group">To PurchaseTicket <small class="display-block">Fill Form Below</small></h5>
                             </div>
 
 
@@ -1723,13 +1727,9 @@ TO ADD STATICS GRAPH
                                     </div>
 
                                     <p>
-<<<<<<< HEAD
                                             Market operators can register their new clients here, by clicking the <i>New Marketeer</i> button. 
-                                    </p>                                    
-=======
-                                        Market operators can register their new clients here, by clicking the <i>New Marketeer</i> button.
                                     </p>
->>>>>>> 878e4097b141c19d3537ec6bbb79742a412afbe8
+
                                 </div>
                                 <div class="panel-footer panel-footer-condensed">
                                     <div class="container-fluid">
@@ -1824,16 +1824,12 @@ TO ADD STATICS GRAPH
                                     <hr>
                                 </div>
 
-                                <p>
-<<<<<<< HEAD
-                                    <div class="card">
-                                        Market operators are individuals or firms that manage the market were marketeers are assured of a smooth flow of business. These individuals or firms are responsible for tax collection from the the traders operating in that particular market. Market opeartors are required to deem-fit weather someone has the capability of operating in a particular market, if they are, the operator will be required to assign a shop in a specific section of the market. To register a new marketeer click the <i>New Marketeer</i> button. 
-                                    </div>
-                                </p>                                    
-=======
-                                    Market operators are individuals or firms that manage the market were marketeers are assured of a smooth flow of business. These individuals or firms are responsible for tax collection from the the traders operating in that particular market. Market opeartors are required to deem-fit weather someone has the capability of operating in a particular market, if they are, the operator will be required to assign a shop in a specific section of the market. To register a new marketeer click the <i>New Marketeer</i> button.
-                                </p>
->>>>>>> 878e4097b141c19d3537ec6bbb79742a412afbe8
+
+                            <div class="card">
+                                Market operators are individuals or firms that manage the market were marketeers are assured of a smooth flow of business. These individuals or firms are responsible for tax collection from the the traders operating in that particular market. Market opeartors are required to deem-fit weather someone has the capability of operating in a particular market, if they are, the operator will be required to assign a shop in a specific section of the market. To register a new marketeer click the <i>New Marketeer</i> button.
+                            </div>
+
+
                             </div>
 
                             <div class="panel-footer panel-footer-condensed">

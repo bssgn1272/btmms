@@ -236,6 +236,12 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     |> json(operators)
   end
 
+  def query_route(params) do
+    route_id = params["payload"]["route_id"]
+    conn |> json(RepoManager.find_route_by_id(route_id))
+
+  end
+
   #---------------------------------------Scale-------------------------------------------------------------------------
   def get_scale_query(conn, _params) do
     conn |> json(ScaleQuery.query_scale)

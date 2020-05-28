@@ -193,6 +193,46 @@ function add_luggage_button() {
 
 }
 
+function get_unattended_luggage_weight() {
+
+    let weight = "";
+    $.ajax({
+        method: 'get',
+        url: '/api/v1/internal/scale/query',
+        contentType: 'application/json',
+        success: function (response) {
+            weight = response;
+
+            console.log("Response:" + response);
+
+            $("#unattended_luggage_scale_weight").html(weight);
+            $("#unattended_luggage_luggage_weight_2").html(weight);
+            //$("#luggage_ticket").html($("#checkin_ticket_id").html());
+
+            let json_request = JSON.stringify({
+                tarrif_id: 1
+            });
+
+            var weight2;
+            $.ajax({
+                method: 'post',
+                url: '/api/v1/internal/get_luggage_tarrif',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: json_request,
+                success: function (response) {
+                    let data = JSON.parse(JSON.stringify(response));
+                    weight2 = data.cost_per_kilo;
+                    console.log("weight 1:" + weight);
+                    var cost = (weight2 * parseFloat(weight)).toFixed(2);
+                    $("#unattended_luggage_luggage_total_cost").html(commaSeperate(cost) );
+                }
+            });
+
+        }
+    });
+}
+
 function add_unattended_luggage_button() {
 
     //let w = $("#scale_weight").html();

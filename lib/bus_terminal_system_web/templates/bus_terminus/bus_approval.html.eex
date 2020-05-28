@@ -1,4 +1,4 @@
-<h1 style="text-align:center; color:blue; text-decoration:underline;"><strong>Manage Bus</strong></h1><hr style="border-top: 1px solid orange;">
+<h1 style="text-align:center; color:blue; text-decoration:underline;"><strong>Manage Buses</strong></h1><hr style="border-top: 1px solid orange;">
 
 <style>
          .panel{
@@ -9,7 +9,6 @@
         <div class="container-fluid">
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#home">Manage</a></li>
-                <li><a data-toggle="tab" href="#menu1">Requests <span class="badge badge-primary badge-pill">6</span></a></li>
             </ul>
 
             <div class="tab-content">
@@ -17,7 +16,7 @@
                 <div id="home" class="tab-pane fade in active">
                     <div class="panel panel-flat" style="padding: 9px">
                         <div class="panel-heading">
-                            <h5 class="panel-title" style="text-align:center; font-weight: bold; color:blue; text-decoration:underline;">BUSSES</h5>
+                            <h5 class="panel-title" style="text-align:center; font-weight: bold; color:blue; text-decoration:underline;">BUSES</h5>
                             <div class="heading-elements">
                                 <ul class="icons-list">
                                     <li><a data-action="collapse"></a></li>
@@ -31,33 +30,56 @@
                             <table class="table table-striped table-bordered" id="ManageBus">
                             <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>Bus Name</th>
                                     <th>Bus Number Plate</th>
                                     <th>Operator</th>
-                                    <th>company</th>
+                                    <th>Company</th>
+
+                                    <th>Capacity</th>
+                                    <th>State. Reg</th>
+                                    <th>Color</th>
+                                    <th>Class</th>
+                                    <th>Model</th>
+                                    <th>Serial</th>
+                                    <th>UID</th>
+
                                     <th>Action</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td class="text-center">
-                                    <ul class="icons-list">
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                <i class="icon-menu9"></i>
-                                            </a>
+                                <%= for bus <- @bus_terminus do %>
+                                    <td><%= bus.id %></td>
+                                    <td><%= bus.make %></td>
+                                    <td><%= bus.license_plate %></td>
+                                    <td><%= BusTerminalSystem.AccountManager.get_user!(bus.operator_id).username %></td>
+                                    <td><%= bus.company %></td>
 
-                                            <ul class="dropdown-menu dropdown-menu-right">
-                                                <li><a href="#" data-toggle="modal" data-target="#edit"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Edit</a></li>
-                                                <li><a href="#"><img src="https://img.icons8.com/material/24/000000/cancel--v1.png"> Deactivate</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </td>
+                                    <td><%= bus.vehicle_capacity %></td>
+                                    <td><%= bus.state_of_registration %></td>
+                                    <td><%= bus.color %></td>
+                                    <td><%= bus.vehicle_class %></td>
+                                    <td><%= bus.model %></td>
+                                    <td><%= bus.serial_number %></td>
+                                    <td><%= bus.uid %></td>
+
+                                    <td class="text-center">
+                                        <ul class="icons-list">
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                    <i class="icon-menu9"></i>
+                                                </a>
+
+                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li><a href="#" data-toggle="modal" data-target="#edit"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Edit</a></li>
+                                                    <li><a href="#"><img src="https://img.icons8.com/material/24/000000/cancel--v1.png"> Deactivate</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                <% end %>
+
                             </tbody>
 
                             </table>

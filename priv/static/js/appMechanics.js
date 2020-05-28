@@ -786,3 +786,11 @@ function user_type_selection(role){
     }
 }
 
+function route_edit_model_manage(route) {
+    //$('#edit_route_name').val("name");
+    //$('#edit_route_source_state').val("source");
+    //$('#edit_route_from').val("start");
+    //$('#edit_route_to').val("end");
+    console.log(route)
+    //console.log(name[1])
+}

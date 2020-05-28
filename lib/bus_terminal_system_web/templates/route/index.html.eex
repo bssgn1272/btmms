@@ -39,7 +39,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                  <li><a href="#" data-toggle="modal" data-target="#edit"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Edit</a></li>
+                                  <li><a href="#" data-toggle="modal" onclick="route_edit_model_manage([<%= route.id %>,<%= route.route_name %>,<%= route.source_state %>, <%= route.start_route %>,<%= route.end_route %>,<%= route.route_fare %>])" data-target="#edit"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Edit</a></li>
                                 </ul>
                               </li>
                             </ul>
@@ -71,7 +71,7 @@
 
 		                <div class="row">
 		                    <div class="col-md-12">
-		                        <legend class="text-semibold" style="color:blue; text-align:center; text-decoration:underline;"><i class="icon-road position-left"></i> CREATING ROUTES</legend>
+		                        <legend class="text-semibold" style="color:blue; text-align:center; text-decoration:underline;"><i class="icon-road position-left"></i> BUS ROUTES</legend>
 		                        <hr>
 
 		                            <div class="row">
@@ -115,9 +115,11 @@
 
 		                        <div class="text-right">
 		                            <button type="submit" id="submitVehicleButton" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange w3-left">
-		                                <b><i class="icon-checkmark2"></i></b>Create Route
+		                                <b><i class="icon-checkmark2"></i></b>Update Route
 		                            </button>                  
 		                        </div>
+
+
 		                    </div>
 		                </div>
 		            </form>
@@ -168,43 +170,38 @@
     <div class="modal-content">
       <div class="modal-header w3-indigo">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Edit Route KYC</h4>
+        <h4 class="modal-title">ROUTE</h4>
       </div>
      
       <div class="modal-body">
           <form class="form-vertical" action="<%= Routes.route_path(@conn, :create) %>" method="post">
                     <div class="row">
                         <div class="col-md-12">
-                            <legend class="text-semibold"><i class="icon-road position-left"></i> CREATING ROUTES</legend>
+                            <legend class="text-semibold"><i class="icon-road position-left"></i> MANAGE ROUTE</legend>
                             <hr>
 
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Route Name:</label>
-                                            <input id="route_name" name="payload[route_name]" class="form-control" placeholder="Route Name" type="text" required="required">
+                                            <input id="edit_route_name" name="payload[route_name]" class="form-control" placeholder="Route Name" type="text" required="required">
                                             <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
                                             <input type="hidden" name="payload[route_uuid]" value="<%= BusTerminalSystem.Randomizer.randomizer(16,:all) %>">
                                         </div>
 
                                         <div class="form-group">
                                             <label>Source State:</label>
-                                            <input id="source_kilo" name="payload[source_state]" class="form-control" placeholder="Source State" type="text" required="required">
+                                            <input id="edit_route_source_state" name="payload[source_state]" class="form-control" placeholder="Source State" type="text" required="required">
                                         </div>
 
                                         <div class="form-group">
-                                                <label>Route Code:</label>
-                                                <input id="route_code" name="payload[route_code]" class="form-control" placeholder="Route Code" type="text" required="required">
-                                            </div>
-
-                                        <div class="form-group">
                                             <label>From:</label>
-                                            <input id="route_from" name="payload[start_route]" value="Livingstone" class="form-control" type="text" disabled>
+                                            <input id="edit_route_from" name="payload[start_route]" value="Livingstone" class="form-control" type="text" disabled>
                                         </div>
 
                                         <div class="form-group">
                                             <label>To:</label>
-                                            <input id="route_to" name="payload[end_route]" class="form-control" placeholder="To" type="text" required="required">
+                                            <input id="edit_route_to" name="payload[end_route]" class="form-control" placeholder="To" type="text" required="required">
                                         </div>
                                     </div>
                                 </div>     
@@ -212,11 +209,18 @@
                     </div>
                             <br>
 
-                            <div class="text-right">
-                                <button type="submit" id="submitVehicleButton" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange w3-left">
-                                    <b><i class="icon-checkmark2"></i></b>Create Route
-                                </button>                  
-                            </div>
+                        <div class="text-right">
+                            <button type="submit" id="submitVehicleButton" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange w3-left">
+                                <b><i class="icon-checkmark2"></i></b>Update Route
+                            </button>
+                        </div>
+
+                        <div class="text-right">
+                            <button  id="submitVehicleButton" style="border-radius: 12px; margin-left: 15px" class="w3-btn w3-indigo w3-hover-orange w3-left">
+                                Remove Route
+                            </button>
+                        </div>
+
                 </form>
       </div>
       <hr>

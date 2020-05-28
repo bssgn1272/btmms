@@ -2,7 +2,7 @@ defmodule BusTerminalSystem.Repo.Migrations.RouteMapping do
   use Ecto.Migration
 
   def up do
-
+    up_()
   end
 
   def up_ do
@@ -27,7 +27,7 @@ defmodule BusTerminalSystem.Repo.Migrations.RouteMapping do
   end
 
   def down do
-    #drop_if_exists table(:probase_tbl_route_mapping)
+    drop_if_exists table(:probase_tbl_route_mapping)
   end
 
 
