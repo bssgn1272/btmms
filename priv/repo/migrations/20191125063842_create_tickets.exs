@@ -2,7 +2,7 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTickets do
   use Ecto.Migration
 
   def up do
-
+    up_()
   end
 
   def up_ do
@@ -13,6 +13,7 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTickets do
       add :route, :int
       add :date, :string
       add :bus_no, :string
+      add :maker, :string
       add :class, :string
       add :activation_status, :string
 

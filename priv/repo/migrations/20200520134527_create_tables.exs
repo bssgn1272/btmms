@@ -3,6 +3,11 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
 
   def up do
     create_tables()
+
+    #alter table(:probase_tbl_tickets) do
+    #  add :maker, :string
+    #end
+
   end
 
   def down do

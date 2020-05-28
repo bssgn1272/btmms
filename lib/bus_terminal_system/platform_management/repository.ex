@@ -289,7 +289,7 @@ defmodule BusTerminalSystem.RepoManager do
   def get_ticket_serial(serial_number) do
     Repo.get_by(Ticket, [serial_number: serial_number])
   end
-  def list_tickets(), do: Repo.all(Ticket)
+  def list_tickets(), do: Repo.all(from t in Ticket, where: not is_nil(t.reference_number) )
 
   def list_tickets_json() do
     {status, tickets_list} = Repo.all(Ticket) |> Poison.encode()

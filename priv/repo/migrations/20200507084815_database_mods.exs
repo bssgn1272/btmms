@@ -3,7 +3,7 @@ defmodule BusTerminalSystem.Repo.Migrations.DatabaseMods do
 
   def change do
 
-    create_new_tables()
+    #create_new_tables()
 
   end
 
