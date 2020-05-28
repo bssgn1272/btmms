@@ -19,6 +19,7 @@ $(document).ready( function () {
     $('#passenger_view').hide();
 
     $('#checkin_results_view').hide();
+    get_buses()
 } );
 
 $('#modal_form_horizontal_user').on('show.bs.model', function(e) {
@@ -534,7 +535,7 @@ function bus_operator_selection_action() {
 }
 
 function find_buses_by_id(id) {
-    get_buses();
+
     let json_request = JSON.stringify({
         payload: {
             bus_id: id
@@ -561,6 +562,7 @@ function find_buses_by_id(id) {
             });
 
             $('#scheduling_operator_buses').html(operator_buses);
+            //scheduling_operator_id
         }
     });
 }
@@ -790,7 +792,7 @@ function route_edit_model_manage(route) {
 
     let json_request = JSON.stringify({
         payload: {
-            route_id: 1
+            route_id: route
         }
     });
 
@@ -801,14 +803,58 @@ function route_edit_model_manage(route) {
         contentType: 'application/json',
         data: json_request,
         success: function (response) {
-            window.location.reload();
+            let data = JSON.parse(JSON.stringify(response));
+            console.log(response)
+            $('#edit_route_name').val(response.route_name);
+            $('#edit_route_route_fare').val(response.route_fare);
+            $('#edit_route_from').val(response.start_route);
+            $('#edit_route_to').val(response.end_route);
+            $('#edit_route_id').val(route);
+            console.log(route)
+
+        }
+    })
+}
+
+function update_system_bus_route() {
+
+    route_id = $('#edit_route_id').val();
+    let json_request_1 = JSON.stringify({
+        payload: {
+            route_id: route_id
+        }
+    });
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/query/route',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request_1,
+        success: function (response) {
+
+            let json_request = JSON.stringify({
+                payload: {
+                    route_id: route_id,
+                    route_name: $('#edit_route_name').val(),
+                    start_route: $('#edit_route_from').val(),
+                    end_route: $('#edit_route_to').val(),
+                    route_fare: $('#edit_route_route_fare').val()
+                }
+            });
+
+            $.ajax({
+                method: 'post',
+                url: '/api/v1/internal/update/route',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: json_request,
+                success: function (response) {
+                    window.location.reload()
+                }
+            })
         }
     })
 
-    //$('#edit_route_name').val("name");
-    //$('#edit_route_source_state').val("source");
-    //$('#edit_route_from').val("start");
-    //$('#edit_route_to').val("end");
-    console.log(route)
-    //console.log(name[1])
+
 }

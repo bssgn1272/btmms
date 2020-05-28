@@ -39,7 +39,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                  <li><a href="#" data-toggle="modal" onclick="route_edit_model_manage([<%= route.id %>,<%= route.route_name %>,<%= route.source_state %>, <%= route.start_route %>,<%= route.end_route %>,<%= route.route_fare %>])" data-target="#edit"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Edit</a></li>
+                                  <li><a href="#" data-toggle="modal" onclick="route_edit_model_manage(<%= route.id %>)" data-target="#edit"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Edit</a></li>
                                 </ul>
                               </li>
                             </ul>
@@ -174,7 +174,7 @@
       </div>
      
       <div class="modal-body">
-          <form class="form-vertical" action="<%= Routes.route_path(@conn, :create) %>" method="post">
+          <!-- <form class="form-vertical" action="<%= Routes.route_path(@conn, :create) %>" method="post"> -->
                     <div class="row">
                         <div class="col-md-12">
                             <legend class="text-semibold"><i class="icon-road position-left"></i> MANAGE ROUTE</legend>
@@ -186,17 +186,18 @@
                                             <label>Route Name:</label>
                                             <input id="edit_route_name" name="payload[route_name]" class="form-control" placeholder="Route Name" type="text" required="required">
                                             <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                                            <input type="hidden" id="edit_route_id" name="edit_route_id" value="">
                                             <input type="hidden" name="payload[route_uuid]" value="<%= BusTerminalSystem.Randomizer.randomizer(16,:all) %>">
                                         </div>
 
                                         <div class="form-group">
-                                            <label>Source State:</label>
-                                            <input id="edit_route_source_state" name="payload[source_state]" class="form-control" placeholder="Source State" type="text" required="required">
+                                            <label>Route Fare:</label>
+                                            <input id="edit_route_route_fare" name="payload[route_fare]" class="form-control" placeholder="Source State" type="text" required="required">
                                         </div>
 
                                         <div class="form-group">
                                             <label>From:</label>
-                                            <input id="edit_route_from" name="payload[start_route]" value="Livingstone" class="form-control" type="text" disabled>
+                                            <input id="edit_route_from" name="payload[start_route]" value="Livingstone" class="form-control" type="text">
                                         </div>
 
                                         <div class="form-group">
@@ -210,7 +211,7 @@
                             <br>
 
                         <div class="text-right">
-                            <button type="submit" id="submitVehicleButton" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange w3-left">
+                            <button type="submit" onclick="update_system_bus_route()" id="submitVehicleButton" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange w3-left">
                                 <b><i class="icon-checkmark2"></i></b>Update Route
                             </button>
                         </div>
@@ -221,7 +222,7 @@
                             </button>
                         </div>
 
-                </form>
+             <!--   </form> -->
       </div>
       <hr>
             <div class="modal-footer">

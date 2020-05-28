@@ -233,14 +233,57 @@ function get_unattended_luggage_weight() {
     });
 }
 
+let v_ticket = ""
+function virtual_ticket(){
+    let virtual_ticket_request = JSON.stringify({
+
+    });
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/create/virtual_ticket',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: virtual_ticket_request,
+        success: function (v_ticket_response) {
+            let ticket = JSON.parse(JSON.stringify(v_ticket_response));
+            console.log("ticket: " + ticket)
+            v_ticket = ticket.id.toString()
+        }
+    })
+}
+
+function acquire_luggage(){
+    let acquire_request = JSON.stringify({
+        receiver: $("#unattended_receiver_luggage_phone_input").val(),
+        sender: $("#unattended_sender_luggage_phone_input").val(),
+        luggage_id: v_ticket
+    });
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/create/acquire_luggage',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: acquire_request,
+        success: function (v_ticket_response) {
+            window.location.reload()
+        }
+    })
+}
+
 function add_unattended_luggage_button() {
+
+    if (v_ticket == ""){
+        virtual_ticket()
+    }
 
     //let w = $("#scale_weight").html();
     let lw = $("#unattended_luggage_scale_weight").html();
     let ltc = $("#unattended_luggage_luggage_total_cost").html();
     let dsc = $("#unattended_luggage_luggage_description").val();
     let ticket_interface_id2 = $("#checkin_ticket_id").html();
-    let luggage_tag_id = "1"
+    let luggage_tag_id = v_ticket.toString()
 
     let luggage_request = JSON.stringify({
         ticket_id: luggage_tag_id,
@@ -259,9 +302,9 @@ function add_unattended_luggage_button() {
         data: luggage_request,
         success: function (data_response) {
             let data2 = JSON.parse(JSON.stringify(data_response));
-            console.log("add data" + data2);
+            console.log("add data: " + data2);
 
-            var ticket_interface_id = "1"//$("#checkin_ticket_id").html();
+            var ticket_interface_id = v_ticket.toString() //$("#checkin_ticket_id").html();
             let json_request = JSON.stringify({
                 ticket_id: parseInt(ticket_interface_id)
             });
@@ -284,13 +327,10 @@ function add_unattended_luggage_button() {
                     });
 
                     $("#unattended_luggage_table_list").html(luggage_html_table);
-
                 }
             });
         }
     });
-
-
 }
 
 function addLuggageFunction() {
@@ -320,6 +360,10 @@ function checkInButton() {
 
 $('#routes_dataTable').DataTable();
 function toggle_route_search(){
+
+    virtual_ticket()
+    console.log("v_ticket: " + v_ticket)
+
     switch ($('#ticket_type').val()) {
         case "passenger_ticket":
             passenger_ticket_logic()

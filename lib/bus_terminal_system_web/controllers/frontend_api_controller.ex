@@ -4,6 +4,8 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   alias BusTerminalSystem.RepoManager
   alias BusTerminalSystem.ApiManager
   alias BusTerminalSystem.ScaleQuery
+  alias BusTerminalSystem.TicketManagement
+  alias BusTerminalSystem.NapsaSmsGetway
 
   #---------------------------------------USER--------------------------------------------------------------------------
 
@@ -241,6 +243,19 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     conn |> json(RepoManager.route_by_id_json(1))
   end
 
+  def update_route_bus_route(conn, %{"payload" => %{ "route_id" => route_id } = payload} = params) do
+    IO.inspect(params)
+    RepoManager.find_route_by_id(route_id)
+    |> case do
+         route ->
+
+          RepoManager.update_route(route, payload)
+          conn |> json(%{})
+
+          _ -> conn |> json(%{})
+       end
+  end
+
   #---------------------------------------Scale-------------------------------------------------------------------------
   def get_scale_query(conn, _params) do
     conn |> json(ScaleQuery.query_scale)
@@ -257,7 +272,19 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   end
 
   def add_luggage(conn, params) do
+    IO.inspect(params)
     conn |> json(RepoManager.create_luggage(params))
+
+  end
+
+  def acquire_luggage(conn, %{"sender" => sender, "receiver" => receiver, "luggage_id" => luggage_id} = params) do
+
+    IO.inspect(params)
+    sms_message = ", \n Luggage Checking successful \n LUGGAGE ID: #{luggage_id}"
+    NapsaSmsGetway.send_sms(sender,sms_message)
+    NapsaSmsGetway.send_sms(receiver,sms_message)
+
+    conn |> json(%{"status" => "done"})
   end
 
   def checkin_passenger(conn,%{"ticket_id" => ticket_id} = params) do
@@ -368,6 +395,27 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
         "market" -> conn |> json(MarketRepo.market_create(params) |> Poison.encode! |> JSON.decode!)
         "section" -> conn |> json(MarketRepo.market_section_create(params) |> Poison.encode! |> JSON.decode!)
         "stand" -> conn |> json(MarketRepo.market_shop_create(params) |> Poison.encode! |> JSON.decode!)
+    end
+  end
+
+  #---------------------------------------TICKETS-----------------------------------------------------------------------
+
+  def create_virtual_luggage_ticket(conn, ticket_params) do
+
+    ticket_params = Map.put(ticket_params, "route", 1)
+
+    case TicketManagement.create_virtual_ticket(ticket_params) do
+      {:ok, ticket} ->
+
+        conn
+        |> json(ticket)
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+
+        IO.inspect changeset
+
+        conn
+        |> json(%{})
     end
   end
 

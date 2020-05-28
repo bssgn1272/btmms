@@ -134,7 +134,12 @@ defmodule BusTerminalSystemWeb.Router do
     post "/btms/market/secured/reset_pin", MarketApiController, :reset_pin
     post "/btms/market/secured/register_market", MarketApiController, :register_marketeer
 
+
+    post "/internal/create/acquire_luggage", FrontendApiController, :acquire_luggage
+    post "/internal/create/virtual_ticket", FrontendApiController, :create_virtual_luggage_ticket
     post "/internal/query/route", FrontendApiController, :query_route
+    post "/internal/update/route", FrontendApiController, :update_route_bus_route
+
     post "/internal/list/bus", FrontendApiController, :query_list_buses
     get "/internal/list/bus_routes", FrontendApiController, :list_travel_routes
     get "/internal/list/bus_operators", FrontendApiController, :list_bus_operators

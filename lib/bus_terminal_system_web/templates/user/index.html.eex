@@ -750,12 +750,12 @@
 
                                                 <div class="col-md-3">
                                                     <label>RECEIVER MOBILE NUMBER: </label> <br>
-                                                    <input id="unattended_luggage_phone_input" required type="number" placeholder="">
+                                                    <input id="unattended_receiver_luggage_phone_input" required type="number" placeholder="">
                                                 </div>
 
                                                 <div class="col-md-3">
                                                     <label>SENDER MOBILE NUMBER: </label> <br>
-                                                    <input id="unattended_luggage_phone_input" required type="number" placeholder="">
+                                                    <input id="unattended_sender_luggage_phone_input" required type="number" placeholder="">
                                                 </div>
                                             </div>
 
@@ -774,9 +774,11 @@
                                             <textarea id="unattended_luggage_luggage_description"  maxlength="40" style="width: 100%;" placeholder="Description"></textarea>
                                             <br><br>
                                             <p>
-                                                <strong>Luggage Tag ID:</strong>
+                                                <strong>Luggage Tag:</strong>
                                                 <i id="unattended_luggage_luggage_ticket"></i>
                                             </p>
+
+
 
                                             <p>
                                                 <strong>Luggage Weight (KG):</strong>
@@ -803,7 +805,7 @@
                                         </div>
 
                                        <div style="margin-top: 25px">
-                                          <button id="unattended_luggage_add_luggage_button" style="margin-left: 10px" onclick="add_unattended_luggage_button()" type="button" class="w3-btn w3-indigo w3-hover-orange w3-round w3-left">Done</button>
+                                          <button id="unattended_luggage_add_luggage_button" style="margin-left: 10px" onclick="acquire_luggage()" type="button" class="w3-btn w3-indigo w3-hover-orange w3-round w3-left">Done</button>
                                           <button id="unattended_luggage_cancle_button" type="button" style="margin-left: 15px" class="w3-btn w3-red w3-round" data-dismiss="modal">Close</button>
                                        </div>
 
@@ -2954,7 +2956,7 @@ function openCity(cityName) {
                 <textarea id="luggage_description"  maxlength="40" style="width: 100%;" placeholder="Description"></textarea>
                 <br><br>
                 <p>
-                    <strong>Ticket ID:</strong>
+                    <strong>TICKET ID:</strong>
                     <i id="luggage_ticket"></i>
                 </p>
 

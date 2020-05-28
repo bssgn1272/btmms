@@ -71,7 +71,7 @@ defmodule BusTerminalSystem.RepoManager do
 
   def update_route(%TravelRoutes{} = travel_routes, attrs) do
     travel_routes
-    |> Bus.changeset(attrs)
+    |> TravelRoutes.changeset(attrs)
     |> Repo.update()
   end
 
@@ -216,7 +216,7 @@ defmodule BusTerminalSystem.RepoManager do
 
   def update_route(%TravelRoutes{} = travel_routes, attrs) do
     travel_routes
-    |> User.changeset(attrs)
+    |> TravelRoutes.changeset(attrs)
     |> Repo.update()
   end
 

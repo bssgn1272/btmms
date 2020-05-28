@@ -50,9 +50,12 @@ defmodule BusTerminalSystem.TicketManagement do
 
   """
   def create_ticket(attrs \\ %{}) do
-    %Ticket{}
-    |> Ticket.changeset(attrs)
-    |> Repo.insert()
+    %Ticket{} |> Ticket.changeset(attrs) |> Repo.insert()
+  end
+
+  def create_virtual_ticket(attrs \\ %{}) do
+    {status, new_ticket} = %Ticket{} |> Ticket.luggage_changeset(attrs) |> Repo.insert()
+    {:ok, new_ticket |> Poison.encode! |> JSON.decode!}
   end
 
   @doc """
