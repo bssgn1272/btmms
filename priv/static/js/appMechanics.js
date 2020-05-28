@@ -4,6 +4,8 @@ $(document).ready( function () {
     $('#ManageBus').DataTable(); //Bus Terminus DataTable
     $('#busTerminusDT').DataTable(); //Bus Terminus DataTable
     $('#dataTableBusTerminusId').DataTable(); //Bus Terminus DataTable
+    $('#dataTableBusTerminusId1').DataTable(); //Bus Terminus DataTable
+    $('#dataTableBusTerminusId2').DataTable(); //Bus Terminus DataTable
     $('#dataTableMarket').DataTable(); //Marktet DataTable
     $('#gates').DataTable(); //Gates DataTable
     $('#stations').DataTable(); //Stations DataTable
