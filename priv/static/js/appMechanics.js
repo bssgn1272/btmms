@@ -432,6 +432,7 @@ function ticket_purchase(value){
     let info = "OPERATOR: " + rd[0] + "\t START: " + rd[1] + "\t END: " + rd[2] + "\t DEPARTURE: " + rd[3] + "\t PRICE: K" + rd[4];
 
     $('#route_information').val(info);
+    $('#bus_id_input').val(rd[5]);
 }
 
 function distinct_destination(json_array){
@@ -751,8 +752,6 @@ function updateRoute() {
         }
     })
 }
-
-
 
 function route_edit_model(id){
     let json_request = JSON.stringify({

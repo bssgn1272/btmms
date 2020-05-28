@@ -49,6 +49,9 @@ defmodule BusTerminalSystem.RepoManager do
   end
 
   def create_luggage(luggage) do
+
+    luggage = Map.put(luggage, "class", "LUGGAGE")
+
     {status, luggage_json} = %Luggage{}
     |> Luggage.changeset(luggage)
     |> Repo.insert()
@@ -294,7 +297,12 @@ defmodule BusTerminalSystem.RepoManager do
     tickets_map
   end
 
-  def create_ticket(attrs \\ %{}), do: %Ticket{} |> Ticket.changeset(attrs) |> Repo.insert()
+  def create_ticket(attrs \\ %{}) do
+
+    attrs = Map.put(attrs, "class", "TICKET")
+    IO.inspect(attrs)
+    %Ticket{} |> Ticket.changeset(attrs) |> Repo.insert()
+  end
   def update_ticket(%Ticket{} = ticket, attrs), do: ticket |> Ticket.changeset(attrs) |> Repo.update()
   def delete_ticket(%Ticket{} = ticket), do: Repo.delete(ticket)
 

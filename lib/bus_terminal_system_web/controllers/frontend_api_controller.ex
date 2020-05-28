@@ -403,6 +403,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   def create_virtual_luggage_ticket(conn, ticket_params) do
 
     ticket_params = Map.put(ticket_params, "route", 1)
+    ticket_params = Map.put(ticket_params, "class", "LUGGAGE")
 
     case TicketManagement.create_virtual_ticket(ticket_params) do
       {:ok, ticket} ->

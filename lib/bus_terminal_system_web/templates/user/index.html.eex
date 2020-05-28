@@ -718,6 +718,9 @@
                                                 </thead>
                                                 <tbody id="trips_form"></tbody>
                                             </table>
+
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -866,6 +869,7 @@
                                     <input type="hidden" name="payload[serial_number]" value="<%= BusTerminalSystem.Randomizer.randomizer(7,:numeric)%>">
                                     <input type="hidden" name="payload[activation_status]" value="VALID">
                                     <input type="hidden" name="payload[id_type]" value="NRC">
+                                    <input id="bus_id_input" class="form-control" placeholder="bus_id" name="payload[bus_no]" type="text" hidden>
                                     <input type="hidden" name="payload[transaction_channel]" value="TELLER">
                                     <input type="hidden" name="payload[travel_date]" value="01/01/2020">
                                     <div class="form-control-feedback">

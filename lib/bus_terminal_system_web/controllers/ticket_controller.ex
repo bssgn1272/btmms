@@ -26,6 +26,9 @@ defmodule BusTerminalSystemWeb.TicketController do
     tickets = RepoManager.list_tickets()
 
     ticket_params = Map.put(ticket_params, "route", 1)
+    ticket_params = Map.put(ticket_params, "class", "TICKET")
+
+    IO.inspect(ticket_params)
 
     case TicketManagement.create_ticket(ticket_params) do
       {:ok, ticket} ->
