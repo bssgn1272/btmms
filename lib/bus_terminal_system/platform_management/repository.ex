@@ -208,6 +208,12 @@ defmodule BusTerminalSystem.RepoManager do
     Repo.get_by(TravelRoutes, id: id)
   end
 
+  def route_by_id_json(id) do
+    {status_s, route_json} = find_route_by_id(id) |> Poison.encode
+    {status, route_map} = JSON.decode(route_json)
+    route_map
+  end
+
   def update_route(%TravelRoutes{} = travel_routes, attrs) do
     travel_routes
     |> User.changeset(attrs)

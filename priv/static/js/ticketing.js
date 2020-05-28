@@ -240,7 +240,7 @@ function add_unattended_luggage_button() {
     let ltc = $("#unattended_luggage_luggage_total_cost").html();
     let dsc = $("#unattended_luggage_luggage_description").val();
     let ticket_interface_id2 = $("#checkin_ticket_id").html();
-    let luggage_tag_id = random_string(12)
+    let luggage_tag_id = "1"
 
     let luggage_request = JSON.stringify({
         ticket_id: luggage_tag_id,
@@ -261,7 +261,7 @@ function add_unattended_luggage_button() {
             let data2 = JSON.parse(JSON.stringify(data_response));
             console.log("add data" + data2);
 
-            var ticket_interface_id = $("#checkin_ticket_id").html();
+            var ticket_interface_id = "1"//$("#checkin_ticket_id").html();
             let json_request = JSON.stringify({
                 ticket_id: parseInt(ticket_interface_id)
             });

@@ -236,10 +236,9 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     |> json(operators)
   end
 
-  def query_route(params) do
+  def query_route(conn, params) do
     route_id = params["payload"]["route_id"]
-    conn |> json(RepoManager.find_route_by_id(route_id))
-
+    conn |> json(RepoManager.route_by_id_json(1))
   end
 
   #---------------------------------------Scale-------------------------------------------------------------------------

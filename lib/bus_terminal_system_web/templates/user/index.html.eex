@@ -803,7 +803,7 @@
                                         </div>
 
                                        <div style="margin-top: 25px">
-                                          <button id="unattended_luggage_add_luggage_button" style="margin-left: 10px" onclick="add_luggage_button()" type="button" class="w3-btn w3-indigo w3-hover-orange w3-round w3-left">Done</button>
+                                          <button id="unattended_luggage_add_luggage_button" style="margin-left: 10px" onclick="add_unattended_luggage_button()" type="button" class="w3-btn w3-indigo w3-hover-orange w3-round w3-left">Done</button>
                                           <button id="unattended_luggage_cancle_button" type="button" style="margin-left: 15px" class="w3-btn w3-red w3-round" data-dismiss="modal">Close</button>
                                        </div>
 

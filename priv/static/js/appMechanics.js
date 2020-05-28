@@ -787,6 +787,24 @@ function user_type_selection(role){
 }
 
 function route_edit_model_manage(route) {
+
+    let json_request = JSON.stringify({
+        payload: {
+            route_id: 1
+        }
+    });
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/query/route',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request,
+        success: function (response) {
+            window.location.reload();
+        }
+    })
+
     //$('#edit_route_name').val("name");
     //$('#edit_route_source_state').val("source");
     //$('#edit_route_from').val("start");
