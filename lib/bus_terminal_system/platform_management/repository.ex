@@ -24,6 +24,7 @@ defmodule BusTerminalSystem.RepoManager do
 
   alias BusTerminalSystem.Utility
   alias BusTerminalSystem.NapsaSmsGetway
+  alias BusTerminalSystem.TblEdReservations
 
   #--------------------------Luggage---------------------------------------------------------------
 
@@ -489,8 +490,74 @@ defmodule BusTerminalSystem.RepoManager do
   def route_mapping_by_location(date \\ "01/01/2019", start_route \\ "Livingstone", end_route) do
     IO.inspect "DATE: #{date}"
     {:ok, agent} = Agent.start_link fn  -> [] end
+
+    query = from r in TblEdReservations #, where: r.reserved_time == ^~U[2020-05-29 06:00:00Z]
+    {st, data} = Repo.all(query) |> Poison.encode
+
+
+    IO.inspect data
+    {status,route_mapping_data} = JSON.decode(data)
+
+    route_mapping_data
+    |> Enum.with_index()
+    |> Enum.each(fn {e, index} ->
+
+      {:ok, operator_id} = Map.fetch(e,"user_id")
+      {operator_id_int, _operator_id_string} = Integer.parse(operator_id |> to_string)
+      {operator_json_status, operator_json} = get_operator(operator_id_int) |> Poison.encode
+      {operator_status, operator} = JSON.decode(operator_json)
+
+      {:ok, bus_id} = Map.fetch(e,"bus_id")
+      {bus_id_int, _bus_id_string} = Integer.parse(bus_id |> to_string)
+      {bus_json_status, bus_json} = get_bus(bus_id_int) |> Poison.encode
+      {bus_status, bus} = JSON.decode(bus_json)
+
+      IO.inspect "BUS:"
+      {:ok, capacity} = Map.fetch(bus,"vehicle_capacity")
+      IO.inspect Utility.string_to_int(capacity)
+
+      {:ok, route_id} = Map.fetch(e,"route")
+      {route_id_int, _route_id_string} = Integer.parse(route_id)
+      {route_json_status, route_json} = get_route(route_id_int) |> Poison.encode
+      {route_status, route} = JSON.decode(route_json)
+
+      queried_route = get_route(route_id_int)
+
+      #IO.inspect route
+
+      {:ok, route_uid} = Map.fetch(e,"route")
+       fare = queried_route.route_fare
+      {:ok, time} = Map.fetch(e,"time")
+      {:ok, date} = Map.fetch(e,"reserved_time")
+
+      IO.inspect "start route #{queried_route.start_route} : end route #{queried_route.end_route}"
+      if queried_route.start_route == start_route and queried_route.end_route == end_route do
+        Agent.update(agent, fn list -> [
+           %{
+             "available_seats" => available_seats(capacity,schedule_ticket_count(Utility.int_to_string(route_uid))),
+             "bus_schedule_id" => route_uid,
+             "route" => route,
+             "bus" => bus,
+             "fare" => fare,
+             "departure_time" => time,
+             "departure_date" => date
+           } | list ] end)
+      end
+
+
+    end)
+
+    {:ok, agent, Agent.get(agent, fn list -> list end) }
+  end
+
+  def route_mapping_by_location_(date \\ "01/01/2019", start_route \\ "Livingstone", end_route) do
+    IO.inspect "DATE: #{date}"
+    {:ok, agent} = Agent.start_link fn  -> [] end
+
     query = from r in RouteMapping, where: r.date == ^date
     {st, data} = Repo.all(query) |> Poison.encode
+
+
     IO.inspect data
     {status,route_mapping_data} = JSON.decode(data)
 

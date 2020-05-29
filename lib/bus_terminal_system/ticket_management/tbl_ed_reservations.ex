@@ -12,7 +12,12 @@ defmodule BusTerminalSystem.TblEdReservations do
     field :user_id, :integer
     field :bus_id, :integer
     field :time, :string
-    field :reserved_time, :date
+    field :reserved_time, :naive_datetime
+  end
+
+  def changeset(ed, attrs) do
+    ed
+    |> cast(attrs, @db_column)
   end
 
 end
