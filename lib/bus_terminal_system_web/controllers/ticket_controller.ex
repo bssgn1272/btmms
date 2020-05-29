@@ -36,6 +36,9 @@ defmodule BusTerminalSystemWeb.TicketController do
         sms_message = "Hello #{ticket.first_name} #{ticket.last_name}, \n Ticket Purchase was successful \n TICKET ID: #{ticket.id}"
         NapsaSmsGetway.send_sms(ticket.mobile_number,sms_message)
 
+        IO.inspect(ticket.id)
+        APIRequestMockup.send(ticket.id |> to_string)
+
         conn
         |> put_flash(:info, "Ticket created successfully.")
         |> redirect(to: Routes.user_path(conn, :index))
@@ -151,6 +154,7 @@ defmodule BusTerminalSystemWeb.TicketController do
                   "id_number" => ticket.passenger_id,
                   "mobile_number" => ticket.mobile_number,
                   "email_address" => ticket.email_address,
+                  "ticket_id" => ticket.id,
                   "transaction_channel" => ticket.transaction_channel,
                   "travel_date" => ticket.travel_date,
                   "qr_code" => qr_generator("#{ticket.reference_number}")

@@ -340,8 +340,8 @@ defmodule BusTerminalSystem.RepoManager do
 
   # TICKETING
   def get_ticket(id), do: Repo.get(Ticket, id)
-  def get_ticket_serial(serial_number) do
-    Repo.get_by(Ticket, [serial_number: serial_number])
+  def get_ticket_serial(ticket_id) do
+    Repo.get_by(Ticket, [id: ticket_id])
   end
   def list_tickets(), do: Repo.all(from t in Ticket, where: not is_nil(t.reference_number) )
 
