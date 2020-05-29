@@ -78,19 +78,53 @@ defmodule BusTerminalSystem.RepoManager do
     |> Repo.update()
   end
 
+  def teller_profiler(list) do
+    [date | [sales | teller_id] ] = list
+    data =%{
+      :date =>  date |> Date.to_string(),
+      :sales => sales,
+      :teller => teller_id #list |> Stream.with_index(1) |> Enum.reduce(%{}, fn({v,k}, acc)-> Map.put(acc, k, v)[1] end) |> Map.fetch!(2)
+    }
+    data
+  end
+
   def report_sales_by_seller() do
     sales_query = "select a.trn_dt,sum(a.lcy_amount) total_sales,a.maker_id from probase_tbl_transactions a where a.transaction_channel='TELLER' and a.trn_code='PUR_TIC_CASH' and a.drcr_ind='C' group by  a.trn_dt desc ,a.maker_id;"
-    Repo.query(sales_query)
+    {:ok, result} = Repo.query(sales_query)
+    result
+  end
+
+  def operator_profiler(list) do
+    [date | [sales | [company | id]] ] = list
+    data =%{
+      :date =>  date |> Date.to_string(),
+      :sales => sales,
+      :company => company,
+      :id => id #list |> Stream.with_index(1) |> Enum.reduce(%{}, fn({v,k}, acc)-> Map.put(acc, k, v)[1] end) |> Map.fetch!(2)
+    }
+    data
   end
 
   def report_sales_by_operator() do
     sales_query = "select a.trn_dt,sum(a.lcy_amount) total_sales,d.company,d.id from probase_tbl_transactions a ,probase_tbl_tickets b ,probase_tbl_bus c, probase_tbl_users d where a.transaction_channel='TELLER' and a.trn_code='PUR_TIC_CASH' and a.drcr_ind='C' and a.trans_ref_no=b.reference_number and c.id=b.bus_no and d.role='BOP' and c.operator_id=d.id group by  a.trn_dt desc ,d.id;"
-    Repo.query(sales_query)
+    {:ok, result} = Repo.query(sales_query)
+    result
+  end
+
+  def bus_profiler(list) do
+    [date | [sales | licence] ] = list
+    data =%{
+      :date =>  date |> Date.to_string(),
+      :sales => sales,
+      :licence => licence#list |> Stream.with_index(1) |> Enum.reduce(%{}, fn({v,k}, acc)-> Map.put(acc, k, v)[1] end) |> Map.fetch!(2)
+    }
+    data
   end
 
   def report_sales_by_bus() do
     sales_query = "select a.trn_dt,sum(a.lcy_amount) total_sales,c.license_plate from probase_tbl_transactions a ,probase_tbl_tickets b ,probase_tbl_bus c where a.transaction_channel='TELLER' and a.trn_code='PUR_TIC_CASH' and a.drcr_ind='C' and a.trans_ref_no=b.reference_number and c.id=b.bus_no group by  a.trn_dt desc ,c.license_plate;"
-    Repo.query(sales_query)
+    {:ok, result} = Repo.query(sales_query)
+    result
   end
 
   #--------------------------TELLER-------------------------------------------------------------------------------------
@@ -165,6 +199,10 @@ defmodule BusTerminalSystem.RepoManager do
 
   def find_bus_by_uid(uid) do
     Repo.get_by(Bus, uid: uid)
+  end
+
+  def q do
+    Repo.all(from a in "probase_tbl_trans_code", select: a.trn_code)
   end
 
   def list_buses(operator_id) do
@@ -429,14 +467,14 @@ defmodule BusTerminalSystem.RepoManager do
 
 
       Agent.update(agent, fn list -> [
-                                       %{
-                                         #"operator" => operator,
-                                         "route" => route,
-                                         "bus" => bus,
-                                         "fare" => fare,
-                                         "time" => time,
-                                         "date" => date
-                                       } | list ] end)
+       %{
+         #"operator" => operator,
+         "route" => route,
+         "bus" => bus,
+         "fare" => fare,
+         "time" => time,
+         "date" => date
+       } | list ] end)
     end)
 
     {:ok, agent, Agent.get(agent, fn list -> list end) }

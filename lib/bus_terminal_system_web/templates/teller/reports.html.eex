@@ -22,6 +22,13 @@
                                </tr>
                            </thead>
                            <tbody>
+                             <%= for rb <- BusTerminalSystem.RepoManager.report_sales_by_seller.rows do %>
+                                <tr>
+                                    <td><%= BusTerminalSystem.RepoManager.teller_profiler(rb).date %></td>
+                                    <td><%= BusTerminalSystem.RepoManager.teller_profiler(rb).sales %></td>
+                                    <td><%= BusTerminalSystem.RepoManager.teller_profiler(rb).teller %></td>
+                                </tr>
+                            <% end %>
                            </tbody>
                            </table>
                        </div>
@@ -39,10 +46,16 @@
                                 <th>Transaction Date</th>
                                 <th>Total Sales</th>
                                 <th>Licence Plate</th>
-                                <th>Company</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <%= for rb <- BusTerminalSystem.RepoManager.report_sales_by_bus.rows do %>
+                                <tr>
+                                    <td><%= BusTerminalSystem.RepoManager.bus_profiler(rb).date %></td>
+                                    <td><%= BusTerminalSystem.RepoManager.bus_profiler(rb).sales %></td>
+                                    <td><%= BusTerminalSystem.RepoManager.bus_profiler(rb).licence %></td>
+                                </tr>
+                           <% end %>
                         </tbody>
                         </table>
                     </div>
@@ -63,6 +76,13 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <%= for rb <- BusTerminalSystem.RepoManager.report_sales_by_operator.rows do %>
+                                <tr>
+                                    <td><%= BusTerminalSystem.RepoManager.operator_profiler(rb).date %></td>
+                                    <td><%= BusTerminalSystem.RepoManager.operator_profiler(rb).sales %></td>
+                                    <td><%= BusTerminalSystem.RepoManager.operator_profiler(rb).company %></td>
+                                </tr>
+                            <% end %>
                         </tbody>
                         </table>
                     </div>
