@@ -2,16 +2,16 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
   use Ecto.Migration
 
   def up do
-    create_tables()
+    #create_tables()
 
-    #alter table(:probase_tbl_tickets) do
-    #  add :maker, :string
+    #alter table(:probase_tbl_market_section_shop) do
+      #add :shop_price, :float, default: 0, precision: 10, scale: 2
     #end
 
   end
 
   def down do
-    drop_tables()
+    #drop_tables()
   end
 
   def drop_tables do

@@ -29,10 +29,36 @@ defmodule BusTerminalSystemWeb.MarketApiController do
                 "account_status" => user.account_status,
                 "uuid" => user.uuid,
                 "operator_role" => user.operator_role,
-                "market_stand" => BusTerminalSystem.Market.MarketRepo.stand_details(user.id)
+                "stands" => [BusTerminalSystem.Market.MarketRepo.stand_details(user.id)]
               }))
           _value ->
           IO.inspect _value
+            json conn, ["hello"]
+        end
+    end
+  end
+
+  def fetch_kyc_minimal(conn, params) do
+    ApiManager.auth(conn,params)
+
+    key = params["payload"]["mobile"]
+    case key do
+      nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
+      _ ->
+        case key |> RepoManager.find_marketer_by_mobile do
+          nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
+          user ->
+            conn
+            |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_query,"SUCCESS",0,
+              %{
+                "first_name" => user.first_name,
+                "last_name" => user.last_name,
+                "mobile" => user.mobile,
+                "stand_number" => Map.get(BusTerminalSystem.Market.MarketRepo.stand_details_minimal(user.id), :shop_number) || -1,
+                "stand_price" => Map.get(BusTerminalSystem.Market.MarketRepo.stand_details_minimal(user.id), :shop_price) || -1
+              }))
+          _value ->
+            IO.inspect _value
             json conn, ["hello"]
         end
     end

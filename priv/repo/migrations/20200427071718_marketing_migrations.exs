@@ -31,6 +31,7 @@ defmodule BusTerminalSystem.Repo.Migrations.MarketingMigrations do
       add :section_id, :integer
       add :maketeer_id, :integer
       add :shop_number, :integer
+      add :shop_price, :integer
 
       timestamps()
     end

@@ -207,6 +207,11 @@
                                     </select>
                                 </div>
 
+                                <div class="form-group" id="market_stand_div" >
+                                    <label>Stand Price:</label>
+                                    <input id="stand_price" name="stand_price" class="form-control" placeholder="Stand Price" type="number" required="required">
+                                </div>
+
 		                        <div hidden class="form-group">
 		                            <label>Stand Name:</label>
 		                            <input id="stand_name" name="" class="form-control" placeholder="Stand Name" type="text" required="required">

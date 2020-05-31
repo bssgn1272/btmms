@@ -111,7 +111,6 @@ function pull_shop_list () {
     });
 }
 
-
 function pull_section_list_by_market_id () {
 
     let json_request = JSON.stringify({
@@ -260,7 +259,8 @@ function allocate_stand() {
                     shop_code: new Date().getTime().toString(),
                     section_id: $('#market_section_model_list').val(),
                     maketeer_id: MODEL_USER,
-                    shop_number: $('#market_stand_model_list').val()
+                    shop_number: $('#market_stand_model_list').val(),
+                    shop_price: $('#stand_price').val()
                 }
             });
 
