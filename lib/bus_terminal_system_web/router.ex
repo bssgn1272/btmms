@@ -129,6 +129,7 @@ defmodule BusTerminalSystemWeb.Router do
     get "/btms/tickets/secured/list", TicketController, :list_tickets
 
     post "/btms/market/secured/marketer_kyc", MarketApiController, :fetch_kyc
+    get "/btms/market/secured/all_marketer_kyc", MarketApiController, :all_marketeer_kyc
     post "/btms/market/secured/marketer_kyc_minimal", MarketApiController, :fetch_kyc_minimal
     post "/btms/market/secured/authenticate_marketer", MarketApiController, :authenticate_marketer
     post "/btms/market/secured/update_pin", MarketApiController, :update_pin

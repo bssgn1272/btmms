@@ -29,7 +29,7 @@ defmodule BusTerminalSystemWeb.MarketApiController do
                 "account_status" => user.account_status,
                 "uuid" => user.uuid,
                 "operator_role" => user.operator_role,
-                "stands" => [BusTerminalSystem.Market.MarketRepo.stand_details(user.id)]
+                "stands" => BusTerminalSystem.Market.MarketRepo.stand_details_list(user.id)
               }))
           _value ->
           IO.inspect _value
@@ -51,17 +51,28 @@ defmodule BusTerminalSystemWeb.MarketApiController do
             conn
             |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_query,"SUCCESS",0,
               %{
+                "notice" => "Service Decommissioned",
                 "first_name" => user.first_name,
                 "last_name" => user.last_name,
                 "mobile" => user.mobile,
-                "stand_number" => Map.get(BusTerminalSystem.Market.MarketRepo.stand_details_minimal(user.id), :shop_number) || -1,
-                "stand_price" => Map.get(BusTerminalSystem.Market.MarketRepo.stand_details_minimal(user.id), :shop_price) || -1
+                "stand_number" => -1,#Map.get(BusTerminalSystem.Market.MarketRepo.stand_details_minimal(user.id), :shop_number) || -1,
+                "stand_price" => -1#Map.get(BusTerminalSystem.Market.MarketRepo.stand_details_minimal(user.id), :shop_price) || -1
               }))
           _value ->
             IO.inspect _value
-            json conn, ["hello"]
+            json conn, ["-"]
         end
     end
+  end
+
+  def all_marketeer_kyc(conn, _params) do
+
+    BusTerminalSystem.Market.MarketRepo.market_users_list_res() |> case do
+     {:ok, agent, users} ->
+     Agent.stop(agent)
+       conn |> json(ApiManager.api_success_handler(conn, ApiManager.definition_query, users))
+     _ -> conn |> json([])
+     end
   end
 
   def authenticate_marketer(conn, params) do
