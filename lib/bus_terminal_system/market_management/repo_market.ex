@@ -39,7 +39,7 @@ defmodule BusTerminalSystem.Market.MarketRepo do
     query = from u in User, join: s in Shop, on: u.id == s.maketeer_id
     query = from [u, s] in query, select: {u.id, s}
 
-    query = from u in User, where: u.role == ^"MOP"
+    query = from u in User, where: u.role == ^"MOP" and u.account_status == ^"ACTIVE" or u.account_status == ^"OTP"
     Repo.all(query)
   end
 
@@ -50,15 +50,17 @@ defmodule BusTerminalSystem.Market.MarketRepo do
 
     market_users_list |> Enum.each(fn user ->
 
-      Agent.update(agent, fn list -> [
-        %{
-          "first_name" => user.first_name,
-          "last_name" => user.last_name,
-          "mobile" => user.mobile,
-          "uuid" => user.uuid,
-          "stands" => user.id |> stand_details_list
-        } | list ]
-      end)
+      if user.id |> stand_details_list |> length > 0 do
+        Agent.update(agent, fn list -> [
+         %{
+           "first_name" => user.first_name,
+           "last_name" => user.last_name,
+           "mobile" => user.mobile,
+           "uuid" => user.uuid,
+           "stands" => user.id |> stand_details_list
+          } | list ]
+        end)
+      end
     end)
 
     {:ok, agent, Agent.get(agent, fn list -> list end) }
