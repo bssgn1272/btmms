@@ -40,6 +40,12 @@ defmodule BusTerminalSystemWeb.SessionController do
     |> redirect(to: Routes.user_path(conn, :index))
   end
 
+  defp login_reply({:error, message}, conn) do
+    conn
+    |> put_flash(:error, message)
+    |> redirect(to: Routes.user_path(conn, :index))
+  end
+
   defp login_reply({:error, reason}, conn) do
     conn
     |> put_flash(:error, to_string(reason))

@@ -50,36 +50,38 @@
 
                             <tbody>
                                 <%= for bus <- @bus_terminus do %>
-                                    <td><%= bus.id %></td>
-                                    <td><%= bus.make %></td>
-                                    <td><%= bus.license_plate %></td>
-                                    <td><%= BusTerminalSystem.AccountManager.get_user!(bus.operator_id).username %></td>
-                                    <td><%= bus.company %></td>
+                                    <tr>
+                                        <td><%= bus.id %></td>
+                                        <td><%= bus.make %></td>
+                                        <td><%= bus.license_plate %></td>
+                                        <td><%= BusTerminalSystem.AccountManager.get_user!(bus.operator_id).username %></td>
+                                        <td><%= bus.company %></td>
 
-                                    <td><%= bus.vehicle_capacity %></td>
-                                    <td><%= bus.state_of_registration %></td>
-                                    <td><%= bus.color %></td>
-                                    <td><%= bus.vehicle_class %></td>
-                                    <td><%= bus.model %></td>
-                                    <td><%= bus.serial_number %></td>
-                                    <td><%= bus.uid %></td>
+                                        <td><%= bus.vehicle_capacity %></td>
+                                        <td><%= bus.state_of_registration %></td>
+                                        <td><%= bus.color %></td>
+                                        <td><%= bus.vehicle_class %></td>
+                                        <td><%= bus.model %></td>
+                                        <td><%= bus.serial_number %></td>
+                                        <td><%= bus.uid %></td>
 
-                                    <td class="text-center">
-                                        <ul class="icons-list">
-                                            <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                    <i class="icon-menu9"></i>
-                                                </a>
+                                        <td class="text-center">
+                                            <ul class="icons-list">
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                        <i class="icon-menu9"></i>
+                                                    </a>
 
-                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li><a href="#" data-toggle="modal" data-target="#edit"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Edit</a></li>
-                                                    <li><a href="#"><img src="https://img.icons8.com/material/24/000000/cancel--v1.png"> Deactivate</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </td>
+                                                    <ul class="dropdown-menu dropdown-menu-right">
+                                                        <li><a href="#" data-toggle="modal" data-target="#edit"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Edit</a></li>
+                                                        <li><a href="#"><img src="https://img.icons8.com/material/24/000000/cancel--v1.png"> Deactivate</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+
                                 <% end %>
-
                             </tbody>
 
                             </table>

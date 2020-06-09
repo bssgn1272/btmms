@@ -176,7 +176,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Market Name:</label>
-                                                <input name="market_name" id="market_name" class="form-control" placeholder="Market Name" type="text">
+                                                <input name="market_name" id="market_name" class="form-control" placeholder="Market Name" type="text" required>
                                                 <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
                                                 <input name="action_type" id="action_type" type="hidden" class="form-control" value="create_market">
                                             </div>
@@ -187,7 +187,7 @@
 
                                             <div class="form-group">
                                                   <label>Market Location:</label>
-                                                  <input name="location" id="market_location" class="form-control" placeholder="Market Location" type="text">
+                                                  <input name="location" id="market_location" class="form-control" placeholder="Market Location" type="text" required>
                                             </div>
 
                                         </div>
@@ -196,12 +196,12 @@
 
                                             <div class="form-group">
                                                   <label>Estimated Population:</label>
-                                                  <input name="estimated_population" id="estimated_population" class="form-control" placeholder="Estimated Population" type="text">
+                                                  <input name="estimated_population" id="estimated_population" class="form-control" placeholder="Estimated Population" type="text" required>
                                             </div>
 
                                             <div class="form-group">
                                                   <label>City/Town:</label>
-                                                  <input name="city_town" id="city_town" class="form-control" placeholder="City/Town" type="text">
+                                                  <input name="city_town" id="city_town" class="form-control" placeholder="City/Town" type="text" required>
                                             </div>
                                         </div>
                                     </div>
@@ -296,18 +296,18 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Section Name:</label>
-                                                    <input name="section_name" id="section_name" class="form-control" placeholder="Section Name" type="text">
+                                                    <input name="section_name" id="section_name" class="form-control" placeholder="Section Name" type="text" required>
                                                     <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
                                                     <input name="action_type" id="action_type" type="hidden" class="form-control" value="create_section">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <input name="section_uid" id="section_uid" type="hidden" class="form-control" readonly="readonly" placeholder="Auto Generated">
+                                                    <input name="section_uid" id="section_uid" type="hidden" class="form-control" readonly="readonly" placeholder="Auto Generated" required>
                                                 </div>
 
                                                 <div class="form-group">
                                                       <label>Number of Shops:</label>
-                                                      <input name="number_of_shops" id="number_of_shops" class="form-control" placeholder="Number of Shops" type="number">
+                                                      <input name="number_of_shops" id="number_of_shops" class="form-control" placeholder="Number of Shops" type="number" required>
                                                 </div>
                                                 
                                                 
@@ -317,7 +317,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                       <label>Section Label:</label>
-                                                      <input name="section_lable" id="section_lable" class="form-control" placeholder="Section Label" type="text">
+                                                      <input name="section_lable" id="section_lable" class="form-control" placeholder="Section Label" type="text" required>
                                                 </div>
 
                                                 <div class="form-group">

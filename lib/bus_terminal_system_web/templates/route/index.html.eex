@@ -105,7 +105,7 @@
 
 		                                    <div class="form-group">
                                                 <label>Fare:</label>
-                                                <input id="route_fare" name="payload[route_fare]" class="form-control" placeholder="To" type="text" required="required">
+                                                <input id="route_fare" name="payload[route_fare]" class="form-control" placeholder="To" type="number" required="required">
                                             </div>
 		                                </div>
 		                            </div>     
@@ -115,7 +115,7 @@
 
 		                        <div class="text-right">
 		                            <button type="submit" id="submitVehicleButton" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange w3-left">
-		                                <b><i class="icon-checkmark2"></i></b>Update Route
+		                                <b><i class="icon-checkmark2"></i></b>Create Route
 		                            </button>                  
 		                        </div>
 

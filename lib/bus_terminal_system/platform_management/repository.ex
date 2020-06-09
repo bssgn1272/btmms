@@ -289,6 +289,7 @@ defmodule BusTerminalSystem.RepoManager do
   def get_route(id), do: Repo.get!(TravelRoutes, id)
   def list_routes(), do: Repo.all(TravelRoutes)
   def list_schedules(), do: Repo.all(RouteMapping)
+  def list_ed_schedules(), do: Repo.all(TblEdReservations)
   def create_route(attrs \\ %{}), do: %TravelRoutes{} |> TravelRoutes.changeset(attrs) |> Repo.insert()
   def delete_route(%TravelRoutes{} = route), do: Repo.delete(route)
 

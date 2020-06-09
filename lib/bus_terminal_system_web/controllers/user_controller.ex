@@ -28,7 +28,9 @@ defmodule BusTerminalSystemWeb.UserController do
     users = AccountManager.list_users()
     tickets = RepoManager.list_tickets()
     buses = RepoManager.list_buses()
-    render(conn, "index.html", users: users, tickets: tickets, buses: buses)
+    conn
+    |> put_flash(:info, "Welcome Back")
+    |> render("index.html", users: users, tickets: tickets, buses: buses)
   end
 
   def new(conn, _params) do
@@ -44,8 +46,9 @@ defmodule BusTerminalSystemWeb.UserController do
     {s,username} = Map.fetch(payload,"username")
     {s,email} = Map.fetch(payload,"email")
     {s,mobile_number} = Map.fetch(payload,"mobile")
+    {s,pin} = Map.fetch(payload,"pin") #TODO update pin
 
-    message = " Hello #{first_name}, \n Your BTMS TELLER ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{password}"
+    message = " Hello #{first_name}, \n Your BTMMS ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{password}"
 
     case AccountManager.create_user(payload) do
       {:ok, user} ->

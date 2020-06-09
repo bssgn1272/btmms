@@ -146,7 +146,7 @@
         </style>
 
 
-            <div class="timeline-row">
+            <div class="timeline-row" hidden>
                 <div class="timeline-icon">
                     <div class="bg-primary-400">
                         <i class="icon-table"></i>
@@ -337,7 +337,7 @@
                                 <div class="col-sm-12">
                                     <h6 class="text-semibold no-margin-top">
                                         <a href="<%= Routes.user_path(@conn, :table_users) %>" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange">
-                                            View System users
+                                            View System Users
                                         </a>
                                     </h6>
                                 </div>
@@ -1154,39 +1154,12 @@ toolbar -->
 
 <!--############ BOP_HOME %> ###########-->
 <div class="tab-pane fade in active" id="BOPhome">
-<!--
-TO ADD STATICS GRAPH
-<div class="container-fluid">
-    <div class="col-md-12 col-lg-12 panel panel-flat">
-        <h2>Sales Statistics</h2>
-        <hr>
 
-        <div class="col">
-           <div class="row-md-12 panel panel-flat">
-                ############## OVER-THE-COUNTER ##############
-                    <div id="chartContainer5" style="height: 370px; width: 100;"></div>
-                ############## OVER-THE-COUNTER ##############
-           </div>
-        </div>
-    </div>
-</div>
--->
     <div class="container-fluid">
         <!-- Timeline -->
-        <div class="timeline timeline-left content-group">
+            <div class="timeline timeline-left content-group">
 
-
-
-            <!-- Date stamp -->
-            <div class="timeline-date text-muted">
-                <i class="icon-history position-left"></i>
-                <span class="text-semibold"></span>
-                <a onclick="this.innerHTML=Date()">Click To Check Time</a>
-            </div>
-            <!-- /date stamp -->
-
-
-            <div class="timeline-row">
+             <div class="timeline-row">
                 <div class="timeline-icon">
                     <div class="bg-success-400">
                         <i class="icon-user"></i>
@@ -1200,7 +1173,7 @@ TO ADD STATICS GRAPH
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <h6 class="text-semibold no-margin-top" style="color:blue; text-align:center; text-decoration:underline ;">
-                                            Resgistering Buses
+                                            Registering Buses
                                         </h6>
                                         <hr style="color:orange;">
                                     </div>
@@ -1396,7 +1369,6 @@ TO ADD STATICS GRAPH
                                                         <option value="Hyundai">Hyundai</option>
                                                     </select>
                                                     <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-
                                                 </div>
 
                                                  <div class="form-group">
@@ -1436,50 +1408,56 @@ TO ADD STATICS GRAPH
 
                                                 <div class="form-group">
                                                       <label>Model:</label>
-                                                      <input name="payload[model]" id="vehicleModel" class="form-control" placeholder="Engine Type" type="text">
+                                                      <input name="payload[model]" id="vehicleModel" class="form-control" placeholder="Engine Type" type="text" required>
                                                 </div>
 
                                                 <div class="form-group">
                                                       <label>Year:</label>
-                                                      <input name="payload[year]" id="vehicleYear" class="form-control" placeholder="Year" type="text">
+                                                      <input name="payload[year]" id="vehicleYear" class="form-control" placeholder="Year" type="number" required>
                                                 </div>
 
                                                 <div class="form-group">
                                                       <label>Color:</label>
-                                                      <input name="payload[color]" id="vehicleColor" class="form-control" placeholder="Enter Vehicle Color" type="text">
+                                                      <input name="payload[color]" id="vehicleColor" class="form-control" placeholder="Enter Vehicle Color" type="text" required>
                                                 </div>
+
+                                                <div class="form-group">
+                                                      <label>Seat Capacity:</label>
+                                                      <input name="payload[vehicle_capacity]" id="vehicleCapacity" class="form-control" placeholder="Seat Capacity" type="number" required>
+                                                </div>
+
                                             </div>
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                       <label>License Plate:</label>
-                                                      <input name="payload[license_plate]" id="licensePlate" class="form-control" placeholder="Enter License Plate" type="text">
+                                                      <input name="payload[license_plate]" id="licensePlate" class="form-control" placeholder="Enter License Plate" type="text" required>
                                                 </div>
 
                                                 <div class="form-group">
                                                       <label>Engine Type:</label>
-                                                      <input name="payload[engine_type]" id="engineType" class="form-control" placeholder="Enter Last Name" type="text">
+                                                      <input name="payload[engine_type]" id="engineType" class="form-control" placeholder="Enter Last Name" type="text" required>
                                                 </div>
 
 
                                                 <div class="form-group">
                                                       <label>VIN Number:</label>
-                                                      <input name="payload[vin_number]" id="vinNumber" class="form-control" placeholder="Enter VIN Number" type="text">
+                                                      <input name="payload[vin_number]" id="vinNumber" class="form-control" placeholder="Enter VIN Number" type="text" required>
                                                 </div>
 
                                                 <div class="form-group">
                                                       <label>Serial Number:</label>
-                                                      <input name="payload[serial_number]" id="vehicleSerialNumber" class="form-control" placeholder="Enter Serial Number" type="text">
+                                                      <input name="payload[serial_number]" id="vehicleSerialNumber" class="form-control" placeholder="Enter Serial Number" type="text" required>
                                                 </div>
 
                                                 <div class="form-group">
                                                       <label>Hull Number:</label>
-                                                      <input name="payload[hull_number]" id="vehicleHullNUmber" class="form-control" placeholder="Enter Hull Number" type="text">
+                                                      <input name="payload[hull_number]" id="vehicleHullNUmber" class="form-control" placeholder="Enter Hull Number" type="text" required>
                                                 </div>
 
                                                 <div class="form-group">
                                                       <label>Company:</label>
-                                                      <input name="payload[company]" id="vehicleCompany" class="form-control" placeholder="Enter Company Number" type="text">
+                                                      <input name="payload[company]" id="vehicleCompany" class="form-control" placeholder="Enter Company Number" type="text" required>
                                                 </div>
 
                                                 <div class="form-group">
@@ -1708,12 +1686,7 @@ TO ADD STATICS GRAPH
                 <a onclick="this.innerHTML=Date()">Click To Check Time</a>
             </div>
             <!-- /date stamp -->
-<<<<<<< HEAD
-                                        
-=======
 
-
->>>>>>> 878e4097b141c19d3537ec6bbb79742a412afbe8
             <div class="timeline-row">
                 <div class="timeline-icon">
                     <div class="bg-warning-400">

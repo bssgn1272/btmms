@@ -6,7 +6,7 @@
          }
          </style>
 <!--------------- ROUTES_TABLE ----------------------------------------------------->
-<div class="container">
+<div class="container-fluid">
 	<div class="w3-card-2 w3-white" style="width: 100%;">
 		<div class="w3-container">
         <div class="chart-container" style="margin-top: 2%;">
@@ -22,7 +22,7 @@
                             <th>Fare</th>
                             <th>Date</th>
                             <th>Time</th>
-                            <th>Action</th>
+                            <th hidden>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,12 +31,12 @@
                         <td> <%= trip.id %> </td>
                         <td> <%= BusTerminalSystem.RepoManager.get_bus(trip.bus_id).company  %> </td>
                         <td> <%= BusTerminalSystem.RepoManager.get_bus(trip.bus_id).make %> - <%= BusTerminalSystem.RepoManager.get_bus(trip.bus_id).license_plate %> </td>
-                        <td> <%= BusTerminalSystem.RepoManager.get_route(trip.route_id).start_route  %> to <%= BusTerminalSystem.RepoManager.get_route(trip.route_id).end_route  %> </td>
-                        <td> <%= BusTerminalSystem.RepoManager.get_route(trip.route_id).route_code  %> </td>
-                        <td> <%= trip.fare %> </td>
-                        <td> <%= trip.date %> </td>
+                        <td> <%= BusTerminalSystem.RepoManager.get_route(trip.route).start_route  %> to <%= BusTerminalSystem.RepoManager.get_route(trip.route).end_route  %> </td>
+                        <td> <%= BusTerminalSystem.RepoManager.get_route(trip.route).route_code  %> </td>
+                        <td> <%= BusTerminalSystem.RepoManager.get_route(trip.route).route_fare %> </td>
+                        <td> <%= trip.reserved_time %> </td>
                         <td> <%= trip.time %> </td>
-                        <td class="text-center">
+                        <td class="text-center" hidden>
 							<ul class="icons-list">
 								<li class="dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -69,7 +69,7 @@
 				}
          </style>
 <!------------------ ROUTES_FORM ------------------------------------------------------>
-<div class="container">
+<div class="container" hidden>
 	<div class="row">
 		<div class="col-md-6">
 		   	<form class="form-vertical" action="<%= Routes.bookings_path(@conn, :create_schedule) %>" method="post">

@@ -10,7 +10,7 @@ defmodule BusTerminalSystemWeb.BookingsController do
 
   def schedule(conn, _params) do
 
-    route_mapping = RepoManager.list_schedules()
+    route_mapping = RepoManager.list_ed_schedules()
 
     render(conn, "schedule.html", schedules: route_mapping)
   end

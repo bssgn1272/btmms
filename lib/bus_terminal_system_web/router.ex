@@ -70,14 +70,14 @@ defmodule BusTerminalSystemWeb.Router do
     get "/logout", SessionController, :logout
 
     # ROUTE_CONTROLLER
-    get "/routes", RouteController, :index
-    post "/routes/create", RouteController, :create
-    get "/customise_routes", RouteController, :customise_routes
+    get "/btmms/service/routes/display", RouteController, :index
+    post "/btmms/service/routes/add_route", RouteController, :create
+    get "/btmms/service/routes/customise_routes", RouteController, :customise_routes
 
     # TELLER_CONTROLLER
-    get "/teller", TellerController, :index
-    get "/documentation", TellerController, :documentation
-    get "/reports", TellerController, :reports
+    get "/btmms/service/teller/display", TellerController, :index
+    get "/btmms/service/teller/documentation", TellerController, :documentation
+    get "/btmms/service/teller/reports", TellerController, :reports
 
     # VISA_CONTROLLER
     get "/payment", VisaController, :index

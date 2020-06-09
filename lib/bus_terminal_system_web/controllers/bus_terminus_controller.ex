@@ -30,16 +30,26 @@ defmodule BusTerminalSystemWeb.BusTerminusController do
   def create(conn, %{"payload" => bus_terminus_params}) do
     buses = BusManagement.list_bus_terminus()
     IO.inspect bus_terminus_params
-    case BusManagement.create_bus_terminus(bus_terminus_params) do
-      {:ok, bus_terminus} ->
-        conn
-        |> put_flash(:info, "Bus terminus created successfully.")
-        |> redirect(to: Routes.user_path(conn, :index))
 
-      {:error, %Ecto.Changeset{} = changeset} ->
-      IO.inspect changeset
-        render(conn, "new.html", changeset: changeset)
+    [license_plate: bus_terminus_params["license_plate"]] |> BusManagement.get_bus_terminus_query |> case do
+      :bus_exists ->
+         conn
+         |> put_flash(:error, "This Bus is already registered.")
+         |> redirect(to: Routes.user_path(conn, :index))
+      :ok ->
+        case BusManagement.create_bus_terminus(bus_terminus_params) do
+          {:ok, bus_terminus} ->
+            conn
+            |> put_flash(:info, "Bus Created Successfully.")
+            |> redirect(to: Routes.user_path(conn, :index))
+
+          {:error, %Ecto.Changeset{} = changeset} ->
+            IO.inspect changeset
+            render(conn, "new.html", changeset: changeset)
+        end
     end
+
+
   end
 
   def createTerminus(conn, _params) do

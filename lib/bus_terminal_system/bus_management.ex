@@ -37,6 +37,15 @@ defmodule BusTerminalSystem.BusManagement do
   """
   def get_bus_terminus!(id), do: Repo.get!(Bus, id)
 
+  def get_bus_terminus_query(query) do
+    query_result = Repo.get_by(Bus, query)
+    if query_result != nil do
+      :bus_exists
+    else
+      :ok
+    end
+  end
+
   @doc """
   Creates a bus_terminus.
 

@@ -112,7 +112,7 @@
                                         </a>
                                     </li>
 
-                                    <li>
+                                    <li hidden>
                                         <a href="<%= Routes.bookings_path(@conn, :index)%>">
                                             <i style="color:orange;" class="icon-ticket"></i> <span>Bookings</span>
                                         </a>
@@ -120,11 +120,11 @@
 
                                     <li>
                                         <a href="<%= Routes.bookings_path(@conn, :schedule)%>">
-                                            <i style="color:orange;" onclick="get_buses()" class="icon-watch"></i> <span>Scheduling</span>
+                                            <i style="color:orange;" onclick="get_buses()" class="icon-watch"></i> <span>Schedules</span>
                                         </a>
                                     </li>
 
-                                    <li>
+                                    <li hidden>
                                         <a href="#"><i style="color:orange;" class="icon-user"></i> <span>Teller</span></a>
                                         <ul>
                                             <li>
@@ -150,7 +150,7 @@
 
 
 
-    								<li>
+    								<li hidden>
     									<a href="#"><i style="color:orange;" class="icon-stop    "></i> <span>Terminus</span></a>
     									<ul>
     										<li><%= link "Management", to: Routes.bus_terminus_path(@conn, :index) %></li>
@@ -362,6 +362,19 @@
                 <!-- ############ END TOP-SIDE-BAR ######### -->
 
     			  <main role="main" id="renderApp" class="container-fluid">
+                        <%= if get_flash(@conn, :info) do %>
+                          <div class="alert alert-success alert-styled-left">
+                          <button type="button" class="close" data-dismiss="alert">&times; <span class="sr-only">Close</span></button>
+                          <%= get_flash(@conn, :info) %>
+                          </div>
+                        <% end %>
+                          <%= if get_flash(@conn, :error) do %>
+                              <div class="alert alert-danger alert-styled-left">
+                              <button type="button" class="close" data-dismiss="alert">&times; <span class="sr-only">Close</span></button>
+                              Opps! <%= get_flash(@conn, :error) %>
+                              </div>
+                          <% end %>
+
                       <%= render @view_module, @view_template, assigns %>
                   </main>
 
@@ -385,7 +398,7 @@
 
     		<div class="navbar-collapse collapse">
     			<div class="navbar-text">
-                    &copy; 2019 Bus Terminus System
+                    &copy; <%= Date.utc_today.year %> Bus Terminus System
                 </div>
 
     			<div class="navbar-right">
