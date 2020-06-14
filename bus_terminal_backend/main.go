@@ -94,6 +94,11 @@ func main() {
 	router.Handle("/api/penalty", c.GetPenaltiesController).Methods("GET")
 	router.Handle("/api/latest/penalty", c.GetLatestPenaltyController).Methods("GET")
 
+	// Notification Routes
+	router.Handle("/api/email", c.GetEmailController).Methods("GET")
+	router.Handle("/api/sms", c.GetSMSController).Methods("GET")
+
+
 
 
 

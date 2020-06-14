@@ -40,6 +40,7 @@ export class RoservationRequestsComponent implements OnInit {
 
   displayedColumns: string[] = [
     "username",
+    "license_plate",
     "slot",
     "route",
     "time",
@@ -77,6 +78,7 @@ export class RoservationRequestsComponent implements OnInit {
 
   displayedHistoryColumns: string[] = [
     "username",
+    "license_plate",
     "slot",
     "route",
     "time",

@@ -39,6 +39,7 @@ export class ViewMySlotsComponent implements OnInit {
   displayedColumns: string[] = [
     "time",
     "slot",
+    "license_plate",
     "route",
     "status",
     "reserved_time",
@@ -54,6 +55,7 @@ export class ViewMySlotsComponent implements OnInit {
   displayedHistoryColumns: string[] = [
     "time",
     "slot",
+    "license_plate",
     "route",
     "status",
     "reserved_time",
@@ -89,6 +91,7 @@ export class ViewMySlotsComponent implements OnInit {
     const _id = this.userItems.ID;
 
     this.viewSlots.getList(_id).then((res) => {
+      console.log("MY SLOTS>>>>", res.data);
       this.displayData = res.data;
       this.filterDataSource = this.displayData;
       this.dataSource = new MatTableDataSource(this.displayData);

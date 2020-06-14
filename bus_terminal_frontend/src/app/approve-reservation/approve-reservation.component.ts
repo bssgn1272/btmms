@@ -1,25 +1,25 @@
-import { Component, OnInit, Optional, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { OpenSlotsService } from '../roservation-requests/slot.service';
+import { Component, OnInit, Optional, Inject } from "@angular/core";
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from "@angular/material";
+import { HttpClient } from "@angular/common/http";
+import { ActivatedRoute, Router } from "@angular/router";
+import { OpenSlotsService } from "../roservation-requests/slot.service";
 
 @Component({
-  selector: 'app-approve-reservation',
-  templateUrl: './approve-reservation.component.html',
-  styleUrls: ['./approve-reservation.component.scss']
+  selector: "app-approve-reservation",
+  templateUrl: "./approve-reservation.component.html",
+  styleUrls: ["./approve-reservation.component.scss"],
 })
 export class ApproveReservationComponent implements OnInit {
-  status = '';
+  status = "";
   id = 0;
-  slot = '';
-  slot_one = 'open';
-  slot_two = 'open';
-  slot_three = 'open';
-  slot_four = 'open';
-  slot_five = 'open';
-  user = '';
-  time = '';
+  slot = "";
+  slot_one = "open";
+  slot_two = "open";
+  slot_three = "open";
+  slot_four = "open";
+  slot_five = "open";
+  user = "";
+  time = "";
   slot_status: any;
   constructor(
     public dialogRef: MatDialogRef<ApproveReservationComponent>,
@@ -83,7 +83,7 @@ export class ApproveReservationComponent implements OnInit {
   //       .toPromise();
   //   }
   //   this.httpClient
-  //     .put('/api/approve/reservations/requests/' + this.id, {
+  //     .put('/api/approve/reservations/requests/' + this.data.row.res_uuid, {
   //       status: this.status
   //     })
   //     .subscribe(
@@ -115,7 +115,6 @@ export class ApproveReservationComponent implements OnInit {
     // console.log(this.slot);
     // this.id = row.id;
     // this.status = 'R';
-
     // if (this.slot === 'slot_one') {
     //   this.httpClient
     //     .put('/api/slots/close', {
@@ -153,7 +152,7 @@ export class ApproveReservationComponent implements OnInit {
     //     .toPromise();
     // }
     // this.httpClient
-    //   .put('/api/approve/reservations/requests/' + this.id, {
+    //   .put('/api/approve/reservations/requests/' + this.data.row.res_uuid, {
     //     status: this.status
     //   })
     //   .subscribe(
@@ -182,7 +181,6 @@ export class ApproveReservationComponent implements OnInit {
     //       });
     //     }
     //   );
-
-    console.log(this.data.row);
+    // console.log(this.data.row);
   }
 }

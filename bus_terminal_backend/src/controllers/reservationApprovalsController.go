@@ -7,7 +7,6 @@ import (
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
-	"strconv"
 )
 
 
@@ -52,16 +51,16 @@ var GetReservationsRequestsHistoryController = http.HandlerFunc(func(w http.Resp
 var UpdateReservationController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
-	id, err := strconv.Atoi(params["id"])
+	id := params["id"]
 	reservation := &models.EdReservation{}
 
-	err = json.NewDecoder(r.Body).Decode(reservation)
+	err := json.NewDecoder(r.Body).Decode(reservation)
 	if err != nil {
 		u.Respond(w, u.Message(false, "Error while decoding request body"))
 		return
 	}
 
-	resp := reservation.Update(uint(id))
+	resp := reservation.Update(id)
 	u.Respond(w, resp)
 
 })

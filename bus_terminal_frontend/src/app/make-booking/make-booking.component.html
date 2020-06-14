@@ -65,7 +65,7 @@
                       >
                         <div *ngFor="let destination of destinations">
                           <!-- <div *ngIf="destination.time_of_day == time"> -->
-                          <mat-option [value]="destination.end_route">
+                          <mat-option [value]="destination.ID">
                             {{ destination.end_route }}
                           </mat-option>
                           <!-- </div> -->
@@ -88,6 +88,7 @@
                       <mat-label>Bus</mat-label>
                       <mat-select
                         (change)="loadBuses($event)"
+                        ngModel="reserveBu"
                         formControlName="bus"
                         [ngClass]="{ 'is-invalid': submitted &amp;&amp; f.bus.errors }"
                         required

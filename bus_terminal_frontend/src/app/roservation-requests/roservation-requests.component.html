@@ -155,6 +155,15 @@
                       </td>
                     </ng-container>
 
+                    <ng-container matColumnDef="license_plate">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Registration Number
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.license_plate }}
+                      </td>
+                    </ng-container>
+
                     <!-- slot Column -->
                     <ng-container matColumnDef="slot">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -352,7 +361,14 @@
                         {{ element.username }}
                       </td>
                     </ng-container>
-
+                    <ng-container matColumnDef="license_plate">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Registration Number
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.license_plate }}
+                      </td>
+                    </ng-container>
                     <!-- slot Column -->
                     <ng-container matColumnDef="slot">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header>

@@ -1,10 +1,12 @@
 import { Component, OnInit, Optional, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from "@angular/material";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MakeBookingService } from "./make-booking.service";
 import { FormGroup, Validators, FormBuilder } from "@angular/forms";
 import { Location } from "@angular/common";
+import { v4 } from "uuid";
+import { ViewSlotsService } from "app/view-my-slots/view-slots.service";
 
 export interface Slot {
   value: string;
@@ -45,8 +47,10 @@ export class MakeBookingComponent implements OnInit {
   _id: any;
   public destinations: [];
   submitted = false;
-  buses: any;
+  buses: any[] = [];
+  busesFilter = [];
 
+  reservedBus = [];
   constructor(
     public dialogRef: MatDialogRef<MakeBookingComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
@@ -56,7 +60,8 @@ export class MakeBookingComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private makeBookingService: MakeBookingService,
     private _formBuilder: FormBuilder,
-    private _location: Location
+    private _location: Location,
+    private reservationService: ViewSlotsService
   ) {
     this.bookingForm = this._formBuilder.group({
       slot: ["", Validators.required],
@@ -154,6 +159,8 @@ export class MakeBookingComponent implements OnInit {
   // fetch routes
   async loadDestinations() {
     this.makeBookingService.getList().then((res) => {
+      console.log("DESTINATIONS>>>>>", res);
+
       this.destinations = res.data;
     });
   }
@@ -161,8 +168,19 @@ export class MakeBookingComponent implements OnInit {
   // fetch buses
   async loadBuses() {
     await this.makeBookingService.getBusList(this._id).then((res) => {
-      this.buses = res.data;
-      console.log("=========================");
+      this.busesFilter = res.data;
+      console.log("=========================>>>", this.busesFilter);
+
+      this.reservationService.getList(this._id).then((rese) => {
+        this.reservedBus = rese.data;
+
+        this.buses = this.busesFilter.filter(
+          (o) =>
+            !this.reservedBus.find(
+              (o2) => o.id === o2.bus_id && o2.status === "A"
+            )
+        );
+      });
 
       console.log(this.buses);
     });
@@ -190,12 +208,74 @@ export class MakeBookingComponent implements OnInit {
         status: this.status,
         route: this.f.route.value,
         user_id: this._id,
+        res_uuid: v4(),
         time: this.data.row.time,
         reserved_time: this.data.row.reservation_time,
         bus_id: this.f.bus.value,
       })
       .subscribe(
         (data) => {
+          if (this.f.slot.value === "slot_one") {
+            this.httpClient
+              .put("/api/slots/close", {
+                time: this.time,
+                slot_one: this.user,
+              })
+              .toPromise();
+          }
+          if (this.f.slot.value === "slot_two") {
+            this.httpClient
+              .put("/api/slots/close", {
+                time: this.time,
+                slot_two: this.user,
+              })
+              .toPromise();
+          }
+          if (this.f.slot.value === "slot_three") {
+            this.httpClient
+              .put("/api/slots/close", {
+                time: this.time,
+                slot_three: this.user,
+              })
+              .toPromise();
+          }
+          if (this.f.slot.value === "slot_four") {
+            this.httpClient
+              .put("/api/slots/close", {
+                time: this.time,
+                slot_four: this.user,
+              })
+              .toPromise();
+          }
+          if (this.f.slot.value === "slot_five") {
+            this.httpClient
+              .put("/api/slots/close", {
+                time: this.time,
+                slot_five: this.user,
+              })
+              .toPromise();
+          }
+
+          const message = "Slot Successfully Reserved";
+
+          let body = new HttpParams();
+          body = body.set("receiver", this.userItems.mobile);
+          body = body.set("msg", message);
+          this.httpClient.get("/api/sms", { params: body }).subscribe(
+            (data) => {},
+            (error) => {}
+          );
+
+          const subject = "Reservation";
+          let bodyc = new HttpParams();
+          bodyc = bodyc.set("email", this.userItems.email);
+          bodyc = bodyc.set("user", this.userItems.username);
+          bodyc = bodyc.set("subject", subject);
+          bodyc = bodyc.set("msg", message);
+          this.httpClient.get("/api/email", { params: bodyc }).subscribe(
+            (data) => {},
+            (error) => {}
+          );
           this._location.back();
           this._snackBar.open("Successfully Created", null, {
             duration: 1000,
@@ -213,47 +293,6 @@ export class MakeBookingComponent implements OnInit {
           });
         }
       );
-
-    if (this.f.slot.value === "slot_one") {
-      this.httpClient
-        .put("/api/slots/close", {
-          time: this.time,
-          slot_one: this.user,
-        })
-        .toPromise();
-    }
-    if (this.f.slot.value === "slot_two") {
-      this.httpClient
-        .put("/api/slots/close", {
-          time: this.time,
-          slot_two: this.user,
-        })
-        .toPromise();
-    }
-    if (this.f.slot.value === "slot_three") {
-      this.httpClient
-        .put("/api/slots/close", {
-          time: this.time,
-          slot_three: this.user,
-        })
-        .toPromise();
-    }
-    if (this.f.slot.value === "slot_four") {
-      this.httpClient
-        .put("/api/slots/close", {
-          time: this.time,
-          slot_four: this.user,
-        })
-        .toPromise();
-    }
-    if (this.f.slot.value === "slot_five") {
-      this.httpClient
-        .put("/api/slots/close", {
-          time: this.time,
-          slot_five: this.user,
-        })
-        .toPromise();
-    }
 
     // this.slot = '';
     // this.route = '';

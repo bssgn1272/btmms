@@ -77,7 +77,7 @@ export class RejectComponent implements OnInit {
         .toPromise();
     }
     this.httpClient
-      .put("/api/approve/reservations/requests/" + this.id, {
+      .put("/api/approve/reservations/requests/" + this.data.row.res_uuid, {
         status: this.status,
       })
       .subscribe(
