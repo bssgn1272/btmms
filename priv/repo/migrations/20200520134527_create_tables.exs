@@ -4,9 +4,9 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
   def up do
     #create_tables()
 
-    alter table(:probase_tbl_tickets) do
-      add :maker, :string
-    end
+    #alter table(:probase_tbl_tickets) do
+     # add :maker, :string
+    #end
 
   end
 
@@ -130,6 +130,44 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
                 updated_at datetime not null
             );"
 
+
+    execute "create table if not exists probase_trans_code
+            (
+                trn_code varchar(20) not null,
+                trn_desc varchar(50) null,
+                auth_status char default 'U' null,
+                maker_id varchar(50) null,
+                checker_id varchar(50) null,
+                constraint probase_trans_code_trn_code_uindex
+                    unique (trn_code)
+            );"
+
+    execute "create table if not exists probase_tbl_transactions
+            (
+                ac_sr_no int auto_increment
+                    primary key,
+                trn_dt date null,
+                val_dt date null,
+                trans_ref_no varchar(16) null,
+                ac_no varchar(20) null,
+                trn_code varchar(20) null,
+                drcr_ind char null,
+                lcy_amount decimal(19,2) null,
+                fin_cycle varchar(9) null,
+                auth_stat char null,
+                transaction_channel varchar(20) null,
+                maker_id varchar(20) null,
+                checker_id varchar(20) null,
+                cust_gl char null comment 'is transaction a customer transaction or gl ?',
+                related_customer int null comment 'Who is this transaction related to ?',
+                constraint probase_daily_transactions_probase_trans_code_trn_code_fk
+                    foreign key (trn_code) references probase_trans_code (trn_code)
+                        on update cascade
+            );"
+
+  end
+
+  def unused_migrations() do
     execute "create table if not exists probase_tbl_tickets
             (
                 id bigint auto_increment
@@ -220,41 +258,6 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
                 constraint probase_tbl_users_username_uindex
                     unique (username)
             );"
-
-    execute "create table if not exists probase_trans_code
-            (
-                trn_code varchar(20) not null,
-                trn_desc varchar(50) null,
-                auth_status char default 'U' null,
-                maker_id varchar(50) null,
-                checker_id varchar(50) null,
-                constraint probase_trans_code_trn_code_uindex
-                    unique (trn_code)
-            );"
-
-    execute "create table if not exists probase_tbl_transactions
-            (
-                ac_sr_no int auto_increment
-                    primary key,
-                trn_dt date null,
-                val_dt date null,
-                trans_ref_no varchar(16) null,
-                ac_no varchar(20) null,
-                trn_code varchar(20) null,
-                drcr_ind char null,
-                lcy_amount decimal(19,2) null,
-                fin_cycle varchar(9) null,
-                auth_stat char null,
-                transaction_channel varchar(20) null,
-                maker_id varchar(20) null,
-                checker_id varchar(20) null,
-                cust_gl char null comment 'is transaction a customer transaction or gl ?',
-                related_customer int null comment 'Who is this transaction related to ?',
-                constraint probase_daily_transactions_probase_trans_code_trn_code_fk
-                    foreign key (trn_code) references probase_trans_code (trn_code)
-                        on update cascade
-            );"
-
   end
 
 end

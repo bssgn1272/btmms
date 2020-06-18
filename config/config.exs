@@ -42,6 +42,9 @@ config :bus_terminal_system, BusTerminalSystem.Mailer,
        retries: 2,
        no_mx_lookups: false
 
+config :endon,
+       repo: BusTerminalSystem.Repo
+
 # Guardian config
 config :bus_terminal_system, BusTerminalSystemWeb.Guardian,
    issuer: "bus_terminal_system",

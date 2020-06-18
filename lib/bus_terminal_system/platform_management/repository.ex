@@ -25,6 +25,8 @@ defmodule BusTerminalSystem.RepoManager do
   alias BusTerminalSystem.Utility
   alias BusTerminalSystem.NapsaSmsGetway
   alias BusTerminalSystem.TblEdReservations
+  alias BusTerminalSystem.TransactionCodes
+  alias BusTerminalSystem.Transactions
 
   #--------------------------Luggage---------------------------------------------------------------
 
@@ -673,6 +675,22 @@ defmodule BusTerminalSystem.RepoManager do
     end)
 
     {:ok, agent, Agent.get(agent, fn list -> list end) }
+  end
+
+  #------------------------------------------TRANSACTIONS -----------------------------------
+  def transaction_to_leger(args) do
+
+  end
+
+  def find_transaction_code(code) do
+    query = from tc in TransactionCodes,
+                  where: tc.trn_code == ^code,
+                  select: [:trn_code, :trn_desc, :auth_status, :maker_id, :checker_id]
+
+    Repo.one(query) |> case do
+       nil -> "No Record for #{code} Found"
+       tr_code -> tr_code
+     end
   end
 
 end

@@ -77,6 +77,12 @@
                     <hr>
 
                 <div class="panel-body">
+
+                    <div>
+                        <%= raw Chartkick.column_chart Poison.encode!([[0, 32], [1, 46], [2, 32], [3, 46], [4, 32], [5, 46]])
+                         %>
+                    </div>
+
                     <div class="chart-container">
                         <!-- ############ STATISTICS ############ -->
                         <div class="row">
@@ -88,6 +94,8 @@
                                     <div class="row-md-6 panel panel-flat">
                                         <!-- ############## OVER-THE-COUNTER ############## -->
                                         <div id="chartContainer1" style="height: 370px; width: 100;"></div>
+
+
 
                                         <!-- ############## OVER-THE-COUNTER ############## -->
                                     </div>
@@ -108,14 +116,14 @@
                                     <div class="row-md-6 panel panel-flat">
                                         <!-- ############## MOST-USED-ROUTES ############## -->
                                         <div id="chartContainer3" style="height: 370px; width: 100%;"></div>
-                                        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+                                       <!-- <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> -->
                                         <!-- ############## MOST-USED-ROUTES ############## -->
                                     </div>
 
                                     <div class="row-md-6 panel panel-flat">
                                         <!-- ############## MOST-USED-BUS-OPERATOR ############## -->
                                         <div id="chartContainer4" style="height: 370px; width: 100%;"></div>
-                                        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+                                       <!-- <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> -->
                                         <!-- ############## MOST-USED-BUS-OPERATOR ############## -->
                                     </div>
                                 </div>
@@ -574,7 +582,6 @@
                 <div class="w3-container">
                     <div class="" style="overflow-x:auto; width: 100%;">
                             <h4 style="text-align: center; color:blue; text-decoration:underline; font-weight: bold; font-size: 18px;">
-                                List of Tickets
                             </h4><hr>
                         <table class="table table-striped table-bordered" id="queryTickets">
                         <thead>
@@ -958,20 +965,29 @@
                 <div class="w3-container">
                     <div class="" style="overflow-x:auto; width: 100%;">
                             <h4 style="text-align: center; color:blue; text-decoration:underline; font-weight: bold; font-size: 18px;">
-                                AVAILABLE ROUTES
                             </h4><hr>
                         <table class="table table-striped table-bordered" id="available_routes">
                         <thead>
                             <tr style="font-size: 12px;">
-                                <th>Bus Operator</th>
                                 <th>Route Name</th>
+                                <th>Source State</th>
                                 <th>From</th>
                                 <th>To</th>
-                                <th>Time</th>
-                                <th>Date</th>
+                                <th>Fare</th>
                             </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody>
+                            <%= for route <- @routes do %>
+                               <tr>
+                                 <td><%= route.route_name %></td>
+                                 <td><%= route.source_state %></td>
+                                 <td><%= route.start_route %></td>
+                                 <td><%= route.end_route %></td>
+                                 <td><%= route.route_fare %></td>
+
+                               </tr>
+                            <% end %>
+                        </tbody>
                         </table>
                     </div>
                 </div>
@@ -2756,7 +2772,7 @@ toolbar -->
                                   <label class="control-label col-sm-2" for="pwd">From:</label>
                                   <br><br>
                                   <div class="container">
-                                      <div id="From" style="font-weight: bold;">
+                                      <div id="From" style="
                                       </div>
                                   </div>
                                 </div>

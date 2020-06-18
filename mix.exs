@@ -36,8 +36,8 @@ defmodule BusTerminalSystem.MixProject do
       {:phoenix, "~> 1.4.11"},
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 4.0"},
+      {:endon, "~> 1.0"},
       {:ecto_sql, "~> 3.1"},
-      #{:postgrex, ">= 0.0.0"},
       {:myxql, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
@@ -59,7 +59,8 @@ defmodule BusTerminalSystem.MixProject do
       {:timex, "~> 3.5"},
       {:absinthe, "~> 1.4"},
       {:absinthe_plug, "~> 1.4"},
-      {:toolshed, "~> 0.2.13"}
+      {:toolshed, "~> 0.2.13"},
+      {:chartkick, "~>0.4.0"}
     ]
   end
 

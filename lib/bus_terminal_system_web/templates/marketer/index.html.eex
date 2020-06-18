@@ -309,8 +309,6 @@
                                                       <label>Number of Shops:</label>
                                                       <input name="number_of_shops" id="number_of_shops" class="form-control" placeholder="Number of Shops" type="number" required>
                                                 </div>
-                                                
-                                                
 
                                             </div>
 

@@ -1,0 +1,25 @@
+﻿Installing assembly 'V:\Mac Documents\Work\Projects\Bus Tickets Mgmt System\Applications\EPSON_PRINT_SERVER\EPSON_PRINT_SERVER\bin\Debug\EPSON_PRINT_SERVER.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = V:\Mac Documents\Work\Projects\Bus Tickets Mgmt System\Applications\EPSON_PRINT_SERVER\EPSON_PRINT_SERVER\bin\Debug\EPSON_PRINT_SERVER.InstallLog
+   assemblypath = V:\Mac Documents\Work\Projects\Bus Tickets Mgmt System\Applications\EPSON_PRINT_SERVER\EPSON_PRINT_SERVER\bin\Debug\EPSON_PRINT_SERVER.exe
+Installing service BTMMS Printer Service...
+Creating EventLog source BTMMS Printer Service in log Application...
+Rolling back assembly 'V:\Mac Documents\Work\Projects\Bus Tickets Mgmt System\Applications\EPSON_PRINT_SERVER\EPSON_PRINT_SERVER\bin\Debug\EPSON_PRINT_SERVER.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = V:\Mac Documents\Work\Projects\Bus Tickets Mgmt System\Applications\EPSON_PRINT_SERVER\EPSON_PRINT_SERVER\bin\Debug\EPSON_PRINT_SERVER.InstallLog
+   assemblypath = V:\Mac Documents\Work\Projects\Bus Tickets Mgmt System\Applications\EPSON_PRINT_SERVER\EPSON_PRINT_SERVER\bin\Debug\EPSON_PRINT_SERVER.exe
+Restoring event log to previous state for source BTMMS Printer Service.
+An exception occurred during the Rollback phase of the System.Diagnostics.EventLogInstaller installer.
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+An exception occurred during the Rollback phase of the installation. This exception will be ignored and the rollback will continue. However, the machine might not fully revert to its initial state after the rollback is complete.
+Uninstalling assembly 'V:\Mac Documents\Work\Projects\Bus Tickets Mgmt System\Applications\EPSON_PRINT_SERVER\EPSON_PRINT_SERVER\bin\Debug\EPSON_PRINT_SERVER.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = V:\Mac Documents\Work\Projects\Bus Tickets Mgmt System\Applications\EPSON_PRINT_SERVER\EPSON_PRINT_SERVER\bin\Debug\EPSON_PRINT_SERVER.InstallLog
+   assemblypath = V:\Mac Documents\Work\Projects\Bus Tickets Mgmt System\Applications\EPSON_PRINT_SERVER\EPSON_PRINT_SERVER\bin\Debug\EPSON_PRINT_SERVER.exe
+Removing EventLog source BTMMS Printer Service.
+An exception occurred during the uninstallation of the System.Diagnostics.EventLogInstaller installer.
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+An exception occurred while uninstalling. This exception will be ignored and the uninstall will continue. However, the application might not be fully uninstalled after the uninstall is complete.

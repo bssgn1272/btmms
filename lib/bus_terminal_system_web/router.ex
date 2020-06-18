@@ -113,7 +113,7 @@ defmodule BusTerminalSystemWeb.Router do
     pipe_through :api
 
 
-
+    post "/btms/tickets/secured/submit_ledger_transaction", TicketController, :transaction_post_to_ledger
     post "/btms/tickets/secured/find", TicketController, :find_ticket
     post "/btms/tickets/secured/find/serial", TicketController, :find_ticket_serial
     post "/btms/tickets/secured/purchase", TicketController, :purchase_ticket

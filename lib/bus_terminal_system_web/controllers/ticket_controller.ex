@@ -32,6 +32,22 @@ defmodule BusTerminalSystemWeb.TicketController do
 
     case TicketManagement.create_ticket(ticket_params) do
       {:ok, ticket} ->
+        [_, _, _, start_route, _, end_route, _, _, _, price] = ticket_params["route_information"] |> String.split()
+        printer_payload =
+          %{
+            "refNumber" => ticket.reference_number,
+            "fName" => ticket.first_name,
+            "sName" => ticket.last_name,
+            "from" => start_route,
+            "to" => end_route,
+            "Price" => price,
+            "ticketNumber" => ticket.id,
+            "items" => []
+          }
+          spawn(fn ->
+            BusTerminalSystem.PrinterTcpProtocol.print_local_connect(printer_payload)
+          end)
+
 
         sms_message = "Hello #{ticket.first_name} #{ticket.last_name}, \n Ticket Purchase was successful \n TICKET ID: #{ticket.id}"
         NapsaSmsGetway.send_sms(ticket.mobile_number,sms_message)
@@ -231,6 +247,10 @@ defmodule BusTerminalSystemWeb.TicketController do
         sms_message = "Hello #{ticket.first_name} #{ticket.last_name}, \n Ticket Purchase was successful \n TICKET ID: #{ticket.id}"
         NapsaSmsGetway.send_sms(ticket.mobile_number,sms_message)
 
+        #spawn(fn ->
+
+        #end)
+
         conn
         |> json(ApiManager.api_message_custom_handler(
           "PURCHASE",
@@ -369,6 +389,7 @@ defmodule BusTerminalSystemWeb.TicketController do
       case RepoManager.get_ticket(ticket_id) do
         nil -> json(conn,[])
         ticket ->
+
         conn
         |> json(ApiManager.api_message_custom_handler(ApiManager.definition_query,"SUCCESS",0,
           %{
@@ -390,6 +411,23 @@ defmodule BusTerminalSystemWeb.TicketController do
           }))
           _ -> json(conn,[])
       end
+    end
+  end
+
+  @ledger_params %{ "payload" => %{"account" => :string, "amount" => :int, "transaction_code" => :string, "date" => :string} }
+  def transaction_post_to_ledger(conn, params) do
+    ApiManager.authentication_mod(params) |> case do
+       {:error, result} -> { json(conn, result)}
+       {:ok, result} ->
+          Skooma.valid?(params,@ledger_params) |> case do
+             {:error, message} ->
+               conn |> json(ApiManager.api_error_handler(ApiManager.definition_transactions(),message))
+             :ok ->
+
+               #"01-06-2020" |> Timex.parse!("{D}-{0M}-{YYYY}") |> Timex.to_date
+
+               conn |> json(ApiManager.api_message_custom_handler(ApiManager.definition_transactions(),"SUCCESS",0, params))
+           end
     end
   end
 

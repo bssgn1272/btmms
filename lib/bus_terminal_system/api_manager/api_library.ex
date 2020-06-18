@@ -139,4 +139,6 @@ defmodule BusTerminalSystem.ApiManager do
 
   def definition_accounts, do: "ACCOUNTS"
 
+  def definition_transactions, do: "TRANSACTIONS"
+
 end

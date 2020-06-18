@@ -25,12 +25,13 @@ defmodule BusTerminalSystemWeb.UserController do
   )
 
   def index(conn, _params) do
+    routes = RepoManager.list_routes()
     users = AccountManager.list_users()
     tickets = RepoManager.list_tickets()
     buses = RepoManager.list_buses()
     conn
     |> put_flash(:info, "Welcome Back")
-    |> render("index.html", users: users, tickets: tickets, buses: buses)
+    |> render("index.html", users: users, tickets: tickets, buses: buses, routes: routes)
   end
 
   def new(conn, _params) do
