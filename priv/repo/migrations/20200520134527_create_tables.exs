@@ -2,7 +2,7 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
   use Ecto.Migration
 
   def up do
-    #create_tables()
+    create_tables()
 
     #alter table(:probase_tbl_tickets) do
      # add :maker, :string

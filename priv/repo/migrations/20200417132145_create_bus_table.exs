@@ -1,11 +1,8 @@
 defmodule BusTerminalSystem.Repo.Migrations.CreateBusTable do
   use Ecto.Migration
 
-  def up do
-    
-  end
   
-  def up_ do
+  def up do
     create_if_not_exists table(:probase_tbl_bus) do
       add :license_plate, :string
       add :uid, :string
@@ -29,12 +26,10 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateBusTable do
 
   end
 
-  def change do
 
-  end
 
   def down do
-    #drop_if_exists table(:probase_tbl_bus)
+    drop_if_exists table(:probase_tbl_bus)
   end
 
 

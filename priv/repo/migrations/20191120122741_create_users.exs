@@ -30,7 +30,7 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateUsers do
     end
 
     execute("INSERT INTO probase_tbl_users (username, password, first_name, last_name, ssn, role, email, mobile,nrc, account_status, operator_role, inserted_at, updated_at)
-                                VALUES ('admin',UPPER(SHA2('password', 512)),'probase','zambia','NOT AVAILABLE','ADMIN','admin@probasegroup.com','+260950773797','000000/00/0','ACTIVE',
+                                VALUES ('manager',UPPER(SHA2('password', 512)),'probase','zambia','NOT AVAILABLE','ADMIN','admin@probasegroup.com','+260950773797','000000/00/0','ACTIVE',
                                         'ADMINISTRATOR',current_date,current_date)")
 
     execute("INSERT INTO probase_tbl_users (username, password, first_name, last_name, ssn, role, email, mobile,nrc, account_status, operator_role, company,inserted_at, updated_at)
