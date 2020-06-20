@@ -16,6 +16,9 @@
     <link href="<%= Routes.static_path(@conn, "/js/datatables/css/jquery.datatables.css") %>" rel="stylesheet" type="text/css" />
     <link href="<%= Routes.static_path(@conn, "/css/custom.css") %>" rel="stylesheet" type="text/css">
     <link href="<%= Routes.static_path(@conn, "/css/w3.css") %>" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/jsapi.js") %>"></script>
+    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/ChartKick.js") %>"></script>
     <!-- /global stylesheets -->
   </head>
 
@@ -446,6 +449,7 @@
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/ticketing.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/AjaxCall.js") %>"></script>
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+
 
     	<!-- /theme JS files -->
   </body>

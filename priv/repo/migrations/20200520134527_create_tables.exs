@@ -11,7 +11,7 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
   end
 
   def down do
-    #drop_tables()
+    drop_tables()
   end
 
   def drop_tables do

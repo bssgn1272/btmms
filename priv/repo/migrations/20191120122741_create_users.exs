@@ -48,7 +48,7 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateUsers do
   end
 
   def down do
-    #drop_if_exists table(:probase_tbl_users)
+    drop_if_exists table(:probase_tbl_users)
   end
 
 end

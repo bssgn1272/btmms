@@ -24,7 +24,7 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateRouteTable do
 
 
   def down do
-    #drop_if_exists table(:probase_tbl_travel_routes)
+    drop_if_exists table(:probase_tbl_travel_routes)
   end
 
 

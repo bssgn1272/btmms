@@ -16,7 +16,6 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTickets do
       add :maker, :string
       add :class, :string
       add :activation_status, :string
-
       add :first_name, :string
       add :last_name, :string
       add :other_name, :string
@@ -38,7 +37,7 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTickets do
   end
 
   def down do
-    #drop_if_exists table(:probase_tbl_tickets)
+    drop_if_exists table(:probase_tbl_tickets)
   end
 
 

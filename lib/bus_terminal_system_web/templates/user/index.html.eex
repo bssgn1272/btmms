@@ -78,11 +78,6 @@
 
                 <div class="panel-body">
 
-                    <div>
-                        <%= raw Chartkick.column_chart Poison.encode!([[0, 32], [1, 46], [2, 32], [3, 46], [4, 32], [5, 46]])
-                         %>
-                    </div>
-
                     <div class="chart-container">
                         <!-- ############ STATISTICS ############ -->
                         <div class="row">
@@ -93,9 +88,9 @@
                                 <div class="col">
                                     <div class="row-md-6 panel panel-flat">
                                         <!-- ############## OVER-THE-COUNTER ############## -->
-                                        <div id="chartContainer1" style="height: 370px; width: 100;"></div>
 
-
+                                        <% data = Poison.encode!([["Cash", 60], ["USSD", 80], ["APP", 75]]) %>
+                                        <%= raw Chartkick.column_chart data, stacked: true, xtitle: "Operator", ytitle: "ZMW" %>
 
                                         <!-- ############## OVER-THE-COUNTER ############## -->
                                     </div>
