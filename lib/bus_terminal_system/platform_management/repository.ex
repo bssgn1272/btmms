@@ -194,7 +194,9 @@ defmodule BusTerminalSystem.RepoManager do
 
   def authenticate_marketer_by_mobile(mobile,pin) do
     user = Repo.get_by(User, [mobile: mobile,pin: encode_pin(pin), operator_role: "MARKETER"])
+
     IO.inspect user
+    IO.inspect("----------------------------------------------------------------")
     user
   end
 

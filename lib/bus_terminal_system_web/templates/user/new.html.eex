@@ -42,14 +42,14 @@
                                         <label>Enter Username:</label>
                                         <input name="payload[username]" class="form-control" required placeholder="Enter Username" type="text">
                                         <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-                                        <input type="hidden" name="payload[pin]" value="<%= BusTerminalSystem.RepoManager.encode_pin(BusTerminalSystem.Randomizer.randomizer(5,:numeric))%>">
+                                        <input type="hidden" name="payload[pin]" value="<%= BusTerminalSystem.Randomizer.randomizer(5,:numeric)%>">
                                         <input type="hidden" name="payload[account_status]" value="ACTIVE">
                                         <input type="hidden" name="payload[operator_role]" value="UNDEFINED">
                                         <input type="hidden" name="payload[ssn]" value="-">
                                     </div>
 
                                     <div class="form-group">
-                                        <input name="payload[password]" type="hidden" class="form-control" readonly="readonly" value="<%= BusTerminalSystem.Randomizer.randomizer(5, :numeric)%>" placeholder="Auto Generated">
+                                        <input name="payload[password]" type="hidden" class="form-control" readonly="readonly" value="12345" placeholder="Auto Generated">
                                     </div>
 
                                     <div class="form-group" id="user_company_name" >

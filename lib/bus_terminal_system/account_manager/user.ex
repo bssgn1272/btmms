@@ -60,11 +60,18 @@ defmodule BusTerminalSystem.AccountManager.User do
     ])
     # |> unique_constraint([:ssn])
     |> put_password_hash()
+    |> harsh_password_pin()
   end
 
   defp put_password_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
     change(changeset, password: Base.encode16(:crypto.hash(:sha512, password)))
   end
 
+  defp harsh_password_pin(%Ecto.Changeset{valid?: true, changes: %{pin: pin}} = changeset) do
+    change(changeset, pin: BusTerminalSystem.RepoManager.encode_pin(pin))
+  end
+
   defp put_password_hash(changeset), do: changeset
+
+  defp harsh_password_pin(changeset), do: changeset
 end

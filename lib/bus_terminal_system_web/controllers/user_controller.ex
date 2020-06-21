@@ -49,7 +49,8 @@ defmodule BusTerminalSystemWeb.UserController do
     {s,mobile_number} = Map.fetch(payload,"mobile")
     {s,pin} = Map.fetch(payload,"pin") #TODO update pin
 
-    message = " Hello #{first_name}, \n Your BTMMS ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{password}"
+    message = " Hello #{first_name}, \n Your BTMMS ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{password} \n
+                pin for mobile #{mobile_number} is #{pin}"
 
     case AccountManager.create_user(payload) do
       {:ok, user} ->
