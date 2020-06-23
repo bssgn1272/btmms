@@ -49,7 +49,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <input name="payload[password]" type="hidden" class="form-control" readonly="readonly" value="12345" placeholder="Auto Generated">
+                                        <input name="payload[password]" type="hidden" class="form-control" readonly="readonly" value="<%= BusTerminalSystem.Randomizer.randomizer(5,:numeric)%>" placeholder="Auto Generated">
                                     </div>
 
                                     <div class="form-group" id="user_company_name" >

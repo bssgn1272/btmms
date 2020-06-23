@@ -460,7 +460,7 @@
 
                 <div class="w3-container"><br>
                   <p>To query tickets, & check for past tickets click the button below.<br><br></p>
-                  <p style="width:50%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('query_tickets')">Query Ticket</button></p>
+                  <p style="width:50%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="reload_page()">Query Ticket</button></p>
                 </div>
             </div>
         </div>
@@ -1072,9 +1072,36 @@
 
                     <br>
                     <div class="container">
-                        <button id="addLuggageButton" onclick="addLuggageFunction()" type="submit" class="w3-btn w3-indigo w3-hover-orange w3-round">
-                            Add Luggage
-                        </button>
+
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button onclick="get_weight()" class="w3-btn-block w3-indigo w3-hover-orange w3-round">Get Weight</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <p id="scale_weight_3" style="font-weight: bold; font-size: 25px;"></p>
+                                </div>
+                            </div>
+                            <br>
+                            <textarea id="luggage_description"  maxlength="40" style="width: 50%;" placeholder="Description"></textarea>
+                            <br><br>
+                            <p>
+                                <strong>TICKET ID:</strong>
+                                <i id="luggage_ticket"></i>
+                            </p>
+
+                            <p>
+                                <strong>Luggage Weight (KG):</strong>
+                                <i id="luggage_weight_2"></i>
+                            </p>
+
+                            <p>
+                                <strong>Total Cost (ZMW):</strong>
+                                <i id="luggage_total_cost">1</i>
+                            </p>
+                        </div>
+
+                        <button id="add_luggage_button" onclick="add_luggage_button()" type="button" class="w3-btn w3-indigo w3-hover-orange w3-round w3-left">Add</button>
                     </div>
                     <br>
 
@@ -2916,6 +2943,7 @@ function openCity(cityName) {
     })
 
     document.getElementById(cityName).style.display = "block";
+
 }
 </script>
 <!-- ########## /TELLER DASHBOARD ######### -->
@@ -2930,7 +2958,7 @@ function openCity(cityName) {
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Add Luggage</h4>
       </div>
-     
+
         <div class="modal-body">
             <div class="container-fluid">
                 <div class="row">

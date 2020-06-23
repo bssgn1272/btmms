@@ -92,7 +92,7 @@ defmodule BusTerminalSystem.RepoManager do
   end
 
   def report_sales_by_seller() do
-    sales_query = "select a.trn_dt,sum(a.lcy_amount) total_sales,a.maker_id from probase_tbl_transactions a where a.transaction_channel='TELLER' and a.trn_code='PUR_TIC_CASH' and a.drcr_ind='C' group by  a.trn_dt desc ,a.maker_id;"
+    sales_query = "select a.trn_dt,sum(a.lcy_amount) total_sales,a.maker_id from probase_tbl_transactions a where a.transaction_channel='TELLER' and a.trn_code='PUR_TIC_CASH' and a.drcr_ind='C' group by  a.trn_dt  ,a.maker_id order by a.trn_dt desc;"
     {:ok, result} = Repo.query(sales_query)
     result
   end
@@ -109,7 +109,7 @@ defmodule BusTerminalSystem.RepoManager do
   end
 
   def report_sales_by_operator() do
-    sales_query = "select a.trn_dt,sum(a.lcy_amount) total_sales,d.company,d.id from probase_tbl_transactions a ,probase_tbl_tickets b ,probase_tbl_bus c, probase_tbl_users d where a.transaction_channel='TELLER' and a.trn_code='PUR_TIC_CASH' and a.drcr_ind='C' and a.trans_ref_no=b.reference_number and c.id=b.bus_no and d.role='BOP' and c.operator_id=d.id group by  a.trn_dt desc ,d.id;"
+    sales_query = "select a.trn_dt,sum(a.lcy_amount) total_sales,d.company,d.id from probase_tbl_transactions a ,probase_tbl_tickets b ,probase_tbl_bus c, probase_tbl_users d where a.transaction_channel='TELLER' and a.trn_code='PUR_TIC_CASH' and a.drcr_ind='C' and a.trans_ref_no=b.reference_number and c.id=b.bus_no and d.role='BOP' and c.operator_id=d.id group by  a.trn_dt,d.id  order by a.trn_dt desc ;"
     {:ok, result} = Repo.query(sales_query)
     result
   end
@@ -125,7 +125,7 @@ defmodule BusTerminalSystem.RepoManager do
   end
 
   def report_sales_by_bus() do
-    sales_query = "select a.trn_dt,sum(a.lcy_amount) total_sales,c.license_plate from probase_tbl_transactions a ,probase_tbl_tickets b ,probase_tbl_bus c where a.transaction_channel='TELLER' and a.trn_code='PUR_TIC_CASH' and a.drcr_ind='C' and a.trans_ref_no=b.reference_number and c.id=b.bus_no group by  a.trn_dt desc ,c.license_plate;"
+    sales_query = "select a.trn_dt,sum(a.lcy_amount) total_sales,c.license_plate from probase_tbl_transactions a ,probase_tbl_tickets b ,probase_tbl_bus c where a.transaction_channel='TELLER' and a.trn_code='PUR_TIC_CASH' and a.drcr_ind='C' and a.trans_ref_no=b.reference_number and c.id=b.bus_no group by  a.trn_dt  ,c.license_plate order by a.trn_dt desc;"
     {:ok, result} = Repo.query(sales_query)
     result
   end

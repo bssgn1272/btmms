@@ -333,6 +333,10 @@ function add_unattended_luggage_button() {
     });
 }
 
+function reload_page() {
+    location.reload();
+}
+
 function addLuggageFunction() {
     $("#addLuggageModel").modal("show");
 }
@@ -421,7 +425,7 @@ function passenger_ticket_logic() {
                 $.each(response, function (k,v) {
                     let single_object = JSON.parse(JSON.stringify(v));
 
-                    let value = single_object.bus.company + "-" + single_object.route.start_route + "-"
+                    let value = single_object.bus.company.replace(" ","").trim().toString() + "-" + single_object.route.start_route + "-"
                         + single_object.route.end_route + "-"  +  single_object.departure_time + "-" + single_object.fare + "-" + single_object.bus.id;
                     value = value.toString();
 
