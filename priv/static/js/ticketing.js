@@ -63,8 +63,6 @@ function checkinAction(){
             }
         })
     }
-
-
 }
 
 function get_tarrif() {
@@ -189,8 +187,6 @@ function add_luggage_button() {
             });
         }
     });
-
-
 }
 
 function get_unattended_luggage_weight() {

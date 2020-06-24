@@ -32,6 +32,54 @@ defmodule BusTerminalSystem.RepoManager do
 
   def checkin(id) do
     ticket = Repo.get_by(Ticket, id: id)
+
+    try do
+      IO.inspect("--------------------------------******---------------------------------------------")
+      IO.inspect(ticket.route_information)
+      [_, tBus, _, start_route, _, end_route, _, _, departure, price, _,slot] = ticket.route_information |> String.split()
+      printer_payload =
+        %{
+          "refNumber" => ticket.reference_number,
+          "fName" => ticket.first_name,
+          "sName" => ticket.last_name,
+          "from" => start_route,
+          "to" => end_route,
+          "Price" => price,
+          "Bus" => tBus,
+          "gate" => slot,
+          "departureTime" => departure,
+          "ticketNumber" => ticket.id,
+          "items" => []
+        }
+
+      spawn(fn ->
+        BusTerminalSystem.PrinterTcpProtocol.print_local_connect(printer_payload)
+      end)
+    rescue
+      _ ->
+        IO.inspect("--------------------------------******---------------------------------------------")
+        IO.inspect(ticket.route_information)
+        printer_payload =
+          %{
+            "refNumber" => ticket.reference_number,
+            "fName" => ticket.first_name,
+            "sName" => ticket.last_name,
+            "from" => "NOT DEFINED",
+            "to" =>  "NOT DEFINED",
+            "Price" =>  "NOT DEFINED",
+            "Bus" =>  "NOT DEFINED",
+            "gate" =>  "NOT DEFINED",
+            "departureTime" =>  "NOT DEFINED",
+            "ticketNumber" => ticket.id,
+            "items" => []
+          }
+
+        spawn(fn ->
+          BusTerminalSystem.PrinterTcpProtocol.print_local_connect(printer_payload)
+        end)
+    end
+
+
     {status, ticket} = update_ticket(ticket,%{ "activation_status" => "CHECKED_IN"})
     {status, json_result } = ticket |> Poison.encode
     {status, result} = json_result |> JSON.decode()

@@ -27,38 +27,21 @@ defmodule BusTerminalSystemWeb.TicketController do
 
     ticket_params = Map.put(ticket_params, "route", 1)
     ticket_params = Map.put(ticket_params, "class", "TICKET")
+    ticket_params = Map.put(ticket_params, "route_information", ticket_params["route_information"]) #route_information
 
     IO.inspect(ticket_params)
 
     case TicketManagement.create_ticket(ticket_params) do
       {:ok, ticket} ->
-        IO.inspect("--------------------------------******---------------------------------------------")
-        IO.inspect(ticket_params["route_information"])
-        [_, tBus, _, start_route, _, end_route, _, _, departure, price, _,slot] = ticket_params["route_information"] |> String.split()
-        printer_payload =
-          %{
-            "refNumber" => ticket.reference_number,
-            "fName" => ticket.first_name,
-            "sName" => ticket.last_name,
-            "from" => start_route,
-            "to" => end_route,
-            "Price" => price,
-            "Bus" => tBus,
-            "gate" => slot,
-            "departureTime" => departure,
-            "ticketNumber" => ticket.id,
-            "items" => []
-          }
-          spawn(fn ->
-            BusTerminalSystem.PrinterTcpProtocol.print_local_connect(printer_payload)
-          end)
-
 
         sms_message = "Hello #{ticket.first_name} #{ticket.last_name}, \n Ticket Purchase was successful \n TICKET ID: #{ticket.id}"
-        NapsaSmsGetway.send_sms(ticket.mobile_number,sms_message)
+        spawn(fn ->
+          NapsaSmsGetway.send_sms(ticket.mobile_number,sms_message)
+        end)
 
-        IO.inspect(ticket.id)
-        APIRequestMockup.send(ticket.id |> to_string)
+        spawn(fn ->
+          APIRequestMockup.send(ticket.id |> to_string)
+        end)
 
         conn
         |> put_flash(:info, "Ticket created successfully.")
@@ -262,6 +245,7 @@ defmodule BusTerminalSystemWeb.TicketController do
           "SUCCESS",
           0,
           %{
+            "route_information" => ticket.route_information,
             "activation_status" => ticket.activation_status,
             "ticket_id" => ticket.id,
             "reference_number" => ticket.reference_number,

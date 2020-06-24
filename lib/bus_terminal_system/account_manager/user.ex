@@ -40,6 +40,7 @@ defmodule BusTerminalSystem.AccountManager.User do
       :nrc,
       :email,
       :mobile,
+      :account_number,
       :tel,
       :uuid,
       :account_status,
@@ -50,6 +51,7 @@ defmodule BusTerminalSystem.AccountManager.User do
     ])
     |> validate_required([
       :username,
+      :account_number,
       :nrc,
       :mobile,
       :ssn,

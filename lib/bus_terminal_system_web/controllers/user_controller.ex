@@ -47,16 +47,33 @@ defmodule BusTerminalSystemWeb.UserController do
     {s,username} = Map.fetch(payload,"username")
     {s,email} = Map.fetch(payload,"email")
     {s,mobile_number} = Map.fetch(payload,"mobile")
-    {s,pin} = Map.fetch(payload,"pin") #TODO update pin
+    {s,role} = Map.fetch(payload,"role")
+    {s,pin} = Map.fetch(payload,"pin")
 
-    message = " Hello #{first_name}, \n Your BTMMS ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{password} \n
-                pin for mobile #{mobile_number} is #{pin}"
+    role |> case  do
+      "MOP" ->
+        payload = Map.put(payload, "operator_role", "MARKETER")
+        message = " Hello #{first_name}, \n Your BTMMS ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{password} Pin for mobile #{mobile_number} is #{pin}"
+        NapsaSmsGetway.send_sms(mobile_number,message)
+        user_create_payload(conn, payload)
+      "BOP" ->
+        payload = Map.put(payload, "operator_role", "BUS OPERATOR")
+        user_create_payload(conn, payload)
+      "TOP" ->
+        payload = Map.put(payload, "operator_role", "TELLER")
+        user_create_payload(conn, payload)
+      _ ->
+        payload = Map.put(payload, "operator_role", "ADMINISTRATOR")
+        user_create_payload(conn, payload)
+    end
+
+    render(conn, "new.html")
+  end
+
+  defp user_create_payload(conn, payload) do
 
     case AccountManager.create_user(payload) do
       {:ok, user} ->
-
-        NapsaSmsGetway.send_sms(mobile_number,message)
-
         conn
         |> put_flash(:info, "User created successfully.")
         |> redirect(to: Routes.user_path(conn, :new))
@@ -70,8 +87,6 @@ defmodule BusTerminalSystemWeb.UserController do
         |> render("new.html", changeset: changeset)
 
     end
-
-    render(conn, "new.html")
   end
 
   # %{"id" => id}

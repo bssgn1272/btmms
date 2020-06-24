@@ -26,6 +26,7 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTickets do
       add :transaction_channel, :string
       add :travel_date, :string
       add :bus_schedule_id, :string
+      add :route_information, :string
 
       timestamps()
     end
