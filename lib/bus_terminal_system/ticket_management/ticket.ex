@@ -1,4 +1,5 @@
 defmodule BusTerminalSystem.TicketManagement.Ticket do
+  use Endon
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -6,6 +7,7 @@ defmodule BusTerminalSystem.TicketManagement.Ticket do
 
   @derive {Poison.Encoder, only: [:id, :maker,:reference_number, :serial_number, :external_ref, :inserted_at, :bus_no, :class, :activation_status,:bus_schedule_id,
                              :first_name, :last_name, :other_name, :id_type, :passenger_id, :mobile_number, :email_address, :transaction_channel, :route_information]}
+
   schema "probase_tbl_tickets" do
     field :reference_number, :string
     field :serial_number, :string
@@ -41,7 +43,7 @@ defmodule BusTerminalSystem.TicketManagement.Ticket do
       :last_name, :other_name, :id_type, :passenger_id, :mobile_number, :email_address, :transaction_channel, :travel_date, :route_information])
 
     |> validate_required([:reference_number, :external_ref, :serial_number, :route, :activation_status, :first_name,
-      :last_name, :id_type, :passenger_id, :mobile_number, :transaction_channel, :travel_date, :route_information])
+      :last_name, :id_type, :passenger_id, :mobile_number, :transaction_channel, :travel_date])
     |> validate_format(:email_address, ~r/@/)
   end
 

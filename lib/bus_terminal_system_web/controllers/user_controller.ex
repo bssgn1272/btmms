@@ -52,17 +52,41 @@ defmodule BusTerminalSystemWeb.UserController do
 
     role |> case  do
       "MOP" ->
+
+        spawn(fn ->
+          message = " Hello #{first_name}, \n Your BTMMS ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{password} Pin for mobile #{mobile_number} is #{pin}"
+          NapsaSmsGetway.send_sms(mobile_number,message)
+        end)
+
         payload = Map.put(payload, "operator_role", "MARKETER")
-        message = " Hello #{first_name}, \n Your BTMMS ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{password} Pin for mobile #{mobile_number} is #{pin}"
-        NapsaSmsGetway.send_sms(mobile_number,message)
         user_create_payload(conn, payload)
+
       "BOP" ->
+
+        spawn(fn ->
+          message = " Hello #{first_name}, \n Your BTMMS BUS OPERATOR CREDENTIALS ARE .Username: #{username} Password: #{password}"
+          NapsaSmsGetway.send_sms(mobile_number,message)
+        end)
+
         payload = Map.put(payload, "operator_role", "BUS OPERATOR")
         user_create_payload(conn, payload)
+
       "TOP" ->
+
+        spawn(fn ->
+          message = " Hello #{first_name}, \n Your BTMMS TELLER ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{password}"
+          NapsaSmsGetway.send_sms(mobile_number,message)
+        end)
+
         payload = Map.put(payload, "operator_role", "TELLER")
         user_create_payload(conn, payload)
       _ ->
+
+        spawn(fn ->
+          message = " Hello #{first_name}, \n Your BTMMS ADMINISTRATIVE ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{password}"
+          NapsaSmsGetway.send_sms(mobile_number,message)
+        end)
+
         payload = Map.put(payload, "operator_role", "ADMINISTRATOR")
         user_create_payload(conn, payload)
     end

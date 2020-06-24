@@ -39,10 +39,6 @@ defmodule BusTerminalSystemWeb.TicketController do
           NapsaSmsGetway.send_sms(ticket.mobile_number,sms_message)
         end)
 
-        spawn(fn ->
-          APIRequestMockup.send(ticket.id |> to_string)
-        end)
-
         conn
         |> put_flash(:info, "Ticket created successfully.")
         |> redirect(to: Routes.user_path(conn, :index))
@@ -203,6 +199,14 @@ defmodule BusTerminalSystemWeb.TicketController do
                     map = Map.put(map, "serial_number", serial_number)
                     map = Map.put(map, "activation_status", "VALID")
                     map = Map.put(map, "route", route.id)
+
+                    schedule = BusTerminalSystem.TblEdReservations.find_by(id: Map.fetch!(map, "bus_schedule_id"))
+                    bus = BusTerminalSystem.BusManagement.Bus.find_by(id: schedule.bus_id)
+                    operator = BusTerminalSystem.AccountManager.User.find_by(id: bus.operator_id)
+
+                    r_info = "OPERATOR: #{operator.company |> String.replace(" ","_")}: START: #{route.start_route} END: #{route.end_route}	 DEPARTURE: #{schedule.time} PRICE: K#{route.route_fare} GATE: #{schedule.slot}"
+
+                    map = Map.put(map, "route_information", r_info)
 
                     #serial_number = Integer.to_string(serial_number)
                     IO.inspect(serial_number)

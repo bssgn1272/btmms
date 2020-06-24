@@ -34,9 +34,10 @@ defmodule BusTerminalSystem.RepoManager do
     ticket = Repo.get_by(Ticket, id: id)
 
     try do
+
       IO.inspect("--------------------------------******---------------------------------------------")
       IO.inspect(ticket.route_information)
-      [_, tBus, _, start_route, _, end_route, _, _, departure, price, _,slot] = ticket.route_information |> String.split()
+      [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot] = ticket.route_information |> String.split()
       printer_payload =
         %{
           "refNumber" => ticket.reference_number,
@@ -47,13 +48,17 @@ defmodule BusTerminalSystem.RepoManager do
           "Price" => price,
           "Bus" => tBus,
           "gate" => slot,
-          "departureTime" => departure,
+          "depatureTime" => departure,
           "ticketNumber" => ticket.id,
           "items" => []
         }
 
       spawn(fn ->
         BusTerminalSystem.PrinterTcpProtocol.print_local_connect(printer_payload)
+      end)
+
+      spawn(fn ->
+        BusTerminalSystem.APIRequestMockup.send(ticket.id |> to_string)
       end)
     rescue
       _ ->
@@ -76,6 +81,10 @@ defmodule BusTerminalSystem.RepoManager do
 
         spawn(fn ->
           BusTerminalSystem.PrinterTcpProtocol.print_local_connect(printer_payload)
+        end)
+
+        spawn(fn ->
+          BusTerminalSystem.APIRequestMockup.send(ticket.id |> to_string)
         end)
     end
 

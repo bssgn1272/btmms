@@ -1,4 +1,5 @@
 defmodule BusTerminalSystem.TblEdReservations do
+  use Endon
   use Ecto.Schema
   import Ecto.Changeset
 

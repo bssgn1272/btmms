@@ -1,4 +1,5 @@
 defmodule BusTerminalSystem.AccountManager.User do
+  use Endon
   use Ecto.Schema
   import Ecto.Changeset
   # alias Argon2
