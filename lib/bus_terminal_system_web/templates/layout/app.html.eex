@@ -78,11 +78,11 @@
     	<div class="page-container">
 
     		<!-- Page content -->
-    		<div class="page-content">
+    		<div class="page-content" >
 
                 <!-- ############# ADMIN SIDE-BAR ########### -->
                 <%= if @user.role == "ADMIN" do %>
-    			<div class="sidebar sidebar-main sidebar-default">
+    			<div class="sidebar sidebar-main sidebar-default" >
     				<div class="sidebar-content">
 
     					<!-- Main navigation -->
@@ -181,7 +181,6 @@
                 <!-- ############ END ADMIN-SIDE-BAR ######### -->
                 <% end %>
 
-
                 <!-- ############# MOP SIDE-BAR ########### -->
                 <%= if @user.role == "MOP" do %>
                 <div class="sidebar sidebar-main sidebar-default">
@@ -243,8 +242,6 @@
                 <% end %>
                 <!-- ############ END MOP-SIDE-BAR ######### -->
 
-
-
                 <!-- ############# BOP SIDE-BAR ########### -->
                 <%= if @user.role == "BOP" do %>
                 <div class="sidebar sidebar-main sidebar-default">
@@ -303,7 +300,6 @@
                 </div>
                 <% end %>
                 <!-- ############ END BOP-SIDE-BAR ######### -->
-
 
                 <!-- ############# TOP SIDE-BAR ########### -->
                 <%= if @user.role == "TOP" do %>

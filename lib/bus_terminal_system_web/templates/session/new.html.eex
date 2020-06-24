@@ -77,7 +77,7 @@
 <div class="navbar-header pull-right" style="margin-top: 0.5%;" id="navbar-mobile">
 	<ul style="list-style: none;" id="textColor">
 		<li class="tab active" style="display:inline;">
-			<a href="#ticketForm">
+			<a hidden href="#ticketForm">
 				<i class="icon-cash3 position-left">
 					Buy Ticket
 				</i>
@@ -85,7 +85,7 @@
 		</li>
 
 		<li class="tab" style="display:inline;">
-			<a href="#loginForm" style="border-radius: 12px;">
+			<a hidden href="#loginForm" style="border-radius: 12px;">
 				<i class="icon-user position-left">
 					Login
 				</i>
@@ -100,11 +100,29 @@
 <div class="page-container">
 	<div class="container">
 
+            <div class="form-group" style="margin-top: 30px;">
+                  <%= if get_flash(@conn, :info) do %>
+                      <div class="alert alert-success alert-styled-left">
+                      <button type="button" class="close" data-dismiss="alert">&times; <span class="sr-only">Close</span></button>
+                      <%= get_flash(@conn, :info) %>
+                      </div>
+                  <% end %>
+                  <%= if get_flash(@conn, :error) do %>
+                      <div class="alert alert-danger alert-styled-left">
+                      <button type="button" class="close" data-dismiss="alert">&times; <span class="sr-only">Close</span></button>
+                      <%= get_flash(@conn, :error) %>
+                      </div>
+                  <% end %>
+              </div>
+
 			<!--#################### Ticket Form ####################-->
-			<div class="container-fluid forms" id="styleForms">
-			   	<form method="POST" action="" id="ticketForm" style="margin-top: 5%;">
+			<div class="container-fluid forms" id="styleForms" >
+
+			   	<form method="POST" action="" id="ticketForm" hidden style="margin-top: 5%;">
 			   		<div class="panel panel-body login-form" style="width: 100%;">
 			   			<div class="row">
+
+
 
 			   				<!--####################-- NEWS & ANNOUNCEMENTS --####################-->
 			   				<div class="col-lg-6">
@@ -351,25 +369,6 @@
 									Purchase Ticket
 									</a>
 								</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			   				</div>
 			   				<!--####################-- NAPSA STAFF ANNOUNCEMENTS --####################-->
 			   			</div>
@@ -380,7 +379,7 @@
 
 
 			<!--#################### Login Form ####################-->
-				<form method="POST" action="<%= Routes.session_path(@conn, :login) %>" id="loginForm" style="margin-top: 6%; margin-left: 5%;">
+				<form method="POST" action="<%= Routes.session_path(@conn, :login) %>"  style="margin-top: 6%; margin-left: 5%;"> <!--id="loginForm" -->
 					<div class="panel panel-body login-form" style="width: 100%;">
 						
 						<div class="row">

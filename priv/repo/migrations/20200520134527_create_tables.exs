@@ -11,7 +11,7 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
   end
 
   def down do
-    drop_tables()
+    #drop_tables()
   end
 
   def drop_tables do
@@ -69,7 +69,7 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
     execute "create table if not exists probase_tbl_acc_acgl_bal
             (
                 account varchar(20) not null,
-                entry_date date null,
+                entry_date datetime null,
                 opening_bal decimal(19,2) null comment 'Account opening balance',
                 closing_bal decimal(19,2) null comment 'Account closing balance',
                 dr_mov decimal(19,2) null comment 'Account debit movement from daily transactions',
@@ -146,9 +146,9 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
             (
                 ac_sr_no int auto_increment
                     primary key,
-                trn_dt date null,
-                val_dt date null,
-                trans_ref_no varchar(16) null,
+                trn_dt datetime null,
+                val_dt datetime null,
+                trans_ref_no varchar(255) null,
                 ac_no varchar(20) null,
                 trn_code varchar(20) null,
                 drcr_ind char null,
@@ -159,10 +159,23 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
                 maker_id varchar(20) null,
                 checker_id varchar(20) null,
                 cust_gl char null comment 'is transaction a customer transaction or gl ?',
-                related_customer int null comment 'Who is this transaction related to ?',
+                related_customer varchar(50) null comment 'Who is this transaction related to ?',
                 constraint probase_daily_transactions_probase_trans_code_trn_code_fk
                     foreign key (trn_code) references probase_trans_code (trn_code)
                         on update cascade
+            );"
+
+    execute "create table if not exists probase_tbl_luggage
+            (
+                id bigint auto_increment
+                    primary key,
+                description varchar(255) null,
+                ticket_id bigint null,
+                weight double null,
+                cost double null,
+                inserted_at datetime not null,
+                updated_at datetime not null
+
             );"
 
   end
@@ -196,19 +209,6 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
                     unique (reference_number)
             );"
 
-    execute "create table if not exists probase_tbl_luggage
-            (
-                id bigint auto_increment
-                    primary key,
-                description varchar(255) null,
-                ticket_id bigint null,
-                weight double null,
-                cost double null,
-                inserted_at datetime not null,
-                updated_at datetime not null,
-                constraint probase_tbl_luggage_probase_tbl_tickets_id_fk
-                    foreign key (ticket_id) references probase_tbl_tickets (id)
-            );"
 
     execute "create table if not exists probase_tbl_travel_routes
             (

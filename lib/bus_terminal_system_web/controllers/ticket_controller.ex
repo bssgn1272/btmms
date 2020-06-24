@@ -32,7 +32,9 @@ defmodule BusTerminalSystemWeb.TicketController do
 
     case TicketManagement.create_ticket(ticket_params) do
       {:ok, ticket} ->
-        [_, _, _, start_route, _, end_route, _, _, _, price] = ticket_params["route_information"] |> String.split()
+        IO.inspect("--------------------------------******---------------------------------------------")
+        IO.inspect(ticket_params["route_information"])
+        [_, tBus, _, start_route, _, end_route, _, _, departure, price, _,slot] = ticket_params["route_information"] |> String.split()
         printer_payload =
           %{
             "refNumber" => ticket.reference_number,
@@ -41,6 +43,9 @@ defmodule BusTerminalSystemWeb.TicketController do
             "from" => start_route,
             "to" => end_route,
             "Price" => price,
+            "Bus" => tBus,
+            "gate" => slot,
+            "departureTime" => departure,
             "ticketNumber" => ticket.id,
             "items" => []
           }

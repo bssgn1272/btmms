@@ -534,6 +534,7 @@ defmodule BusTerminalSystem.RepoManager do
        fare = queried_route.route_fare
       {:ok, time} = Map.fetch(e,"time")
       {:ok, date} = Map.fetch(e,"reserved_time")
+      {:ok, slot} = Map.fetch(e,"slot")
 
       IO.inspect "start route #{queried_route.start_route} : end route #{queried_route.end_route}"
       if queried_route.start_route == start_route and queried_route.end_route == end_route do
@@ -544,6 +545,7 @@ defmodule BusTerminalSystem.RepoManager do
              "route" => route,
              "bus" => bus,
              "fare" => fare,
+             "slot" => slot,
              "departure_time" => time,
              "departure_date" => date
            } | list ] end)

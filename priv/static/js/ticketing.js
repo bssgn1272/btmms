@@ -106,7 +106,7 @@ function get_weight() {
 
             console.log("Response:" + response);
 
-            $("#scale_weight_3").html(weight);
+            $("#scale_weight_3").html(weight + " Kg");
             $("#luggage_weight_2").html(weight);
             $("#luggage_ticket").html($("#checkin_ticket_id").html());
 
@@ -425,8 +425,10 @@ function passenger_ticket_logic() {
                 $.each(response, function (k,v) {
                     let single_object = JSON.parse(JSON.stringify(v));
 
+                    console.log(single_object)
+
                     let value = single_object.bus.company.replace(" ","").trim().toString() + "-" + single_object.route.start_route + "-"
-                        + single_object.route.end_route + "-"  +  single_object.departure_time + "-" + single_object.fare + "-" + single_object.bus.id;
+                        + single_object.route.end_route + "-"  +  single_object.departure_time + "-" + single_object.fare + "-" + single_object.bus.id + "-" + single_object.slot;
                     value = value.toString();
 
                     //trips_html += '<div class="radio"><label><input type="radio" onclick="ticket_purchase(this.value)" value="'+value+'" name="opt_radio" />';
