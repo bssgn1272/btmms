@@ -204,6 +204,7 @@ defmodule BusTerminalSystemWeb.TicketController do
                     bus = BusTerminalSystem.BusManagement.Bus.find_by(id: schedule.bus_id)
                     operator = BusTerminalSystem.AccountManager.User.find_by(id: bus.operator_id)
 
+                    map = Map.put(map, "bus_no", bus.id)
                     r_info = "OPERATOR: #{operator.company |> String.replace(" ","_")}: START: #{route.start_route} END: #{route.end_route}	 DEPARTURE: #{schedule.time} PRICE: K#{route.route_fare} GATE: #{schedule.slot}"
 
                     map = Map.put(map, "route_information", r_info)

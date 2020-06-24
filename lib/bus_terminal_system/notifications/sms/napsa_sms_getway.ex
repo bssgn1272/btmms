@@ -8,7 +8,7 @@ defmodule BusTerminalSystem.NapsaSmsGetway do
         smsc: "zamtelsmsc",
         username: "napsamobile",
         password: "napsamobile@kannel",
-        from: "NAPSA",
+        from: "BTMMS",
         to: phone,
         text: message
         }

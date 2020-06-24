@@ -2,8 +2,7 @@
   <div class="col-md-2">
   </div>
 
-   <%= get_flash(@conn, :error) %>
-   <%= get_flash(@conn, :info) %>
+
 
   <div class="col-md-8">
          <form class="form-vertical" action="<%= Routes.user_path(@conn, :create) %>" method="post" style="width:100%; margin-top:5%;">

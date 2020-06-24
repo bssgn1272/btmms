@@ -149,7 +149,7 @@ defmodule BusTerminalSystem.RepoManager do
   end
 
   def report_sales_by_seller() do
-    sales_query = "select a.trn_dt,sum(a.lcy_amount) total_sales,a.maker_id from probase_tbl_transactions a where a.transaction_channel='TELLER' and a.trn_code='PUR_TIC_CASH' and a.drcr_ind='C' group by  a.trn_dt  ,a.maker_id order by a.trn_dt desc;"
+    sales_query = "select * from vw_sales_by_teller;"
     {:ok, result} = Repo.query(sales_query)
     result
   end
@@ -166,7 +166,7 @@ defmodule BusTerminalSystem.RepoManager do
   end
 
   def report_sales_by_operator() do
-    sales_query = "select a.trn_dt,sum(a.lcy_amount) total_sales,d.company,d.id from probase_tbl_transactions a ,probase_tbl_tickets b ,probase_tbl_bus c, probase_tbl_users d where a.transaction_channel='TELLER' and a.trn_code='PUR_TIC_CASH' and a.drcr_ind='C' and a.trans_ref_no=b.reference_number and c.id=b.bus_no and d.role='BOP' and c.operator_id=d.id group by  a.trn_dt,d.id  order by a.trn_dt desc ;"
+    sales_query = "select * from vw_sales_by_operator;"
     {:ok, result} = Repo.query(sales_query)
     result
   end
@@ -182,7 +182,7 @@ defmodule BusTerminalSystem.RepoManager do
   end
 
   def report_sales_by_bus() do
-    sales_query = "select a.trn_dt,sum(a.lcy_amount) total_sales,c.license_plate from probase_tbl_transactions a ,probase_tbl_tickets b ,probase_tbl_bus c where a.transaction_channel='TELLER' and a.trn_code='PUR_TIC_CASH' and a.drcr_ind='C' and a.trans_ref_no=b.reference_number and c.id=b.bus_no group by  a.trn_dt  ,c.license_plate order by a.trn_dt desc;"
+    sales_query = "select * from vw_sales_by_bus;"
     {:ok, result} = Repo.query(sales_query)
     result
   end
@@ -553,7 +553,7 @@ defmodule BusTerminalSystem.RepoManager do
     IO.inspect "DATE: #{date}"
     {:ok, agent} = Agent.start_link fn  -> [] end
 
-    query = from r in TblEdReservations #, where: r.reserved_time == ^~U[2020-05-29 06:00:00Z]
+    query = from r in TblEdReservations , where: r.reserved_time >= ^Timex.parse!(date, "{YYYY}-{0M}-{0D}")
     {st, data} = Repo.all(query) |> Poison.encode
 
 
@@ -587,7 +587,7 @@ defmodule BusTerminalSystem.RepoManager do
 
       #IO.inspect route
 
-      {:ok, route_uid} = Map.fetch(e,"route")
+      {:ok, route_uid} = Map.fetch(e,"id")
        fare = queried_route.route_fare
       {:ok, time} = Map.fetch(e,"time")
       {:ok, date} = Map.fetch(e,"reserved_time")
@@ -598,7 +598,7 @@ defmodule BusTerminalSystem.RepoManager do
         Agent.update(agent, fn list -> [
            %{
              "available_seats" => available_seats(capacity,schedule_ticket_count(Utility.int_to_string(route_uid))),
-             "bus_schedule_id" => route_uid,
+             "bus_schedule_id" => route_uid |> to_string,
              "route" => route,
              "bus" => bus,
              "fare" => fare,
