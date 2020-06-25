@@ -87,6 +87,19 @@ defmodule BusTerminalSystemWeb.TicketController do
   end
 
   ##----------------------APIs---------------------------------------
+
+  def ticket_board_passenger(conn,%{ "ticket_id" => ticket_id } = params) do
+    try do
+      ticket = BusTerminalSystem.TicketManagement.Ticket.find_by(id: ticket_id)
+      ticket |> BusTerminalSystem.TicketManagement.Ticket.update(activation_status: "BOARDED")
+      conn |> json(%{"status" => "Ok"})
+    rescue
+      _ -> conn |> json(%{"status" => "Failed"})
+   end
+
+
+  end
+
   def find_ticket(conn, params) do
     case ApiManager.authentication_mod(params) do
       {:error, result} -> { json(conn, result)}

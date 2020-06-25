@@ -8,84 +8,38 @@
     <div class="container-fluid">
         <div class="row">
 
-            <div class="col-lg-5 col-md-4 panel panel-flat" >
-                   <div class="container-fluid">
-                       <h4 style="text-align:center; color:blue; text-decoration:underline;">SALES BY TELLER</h4>
-                       <hr>
-                       <div style="overflow-x:auto;">
-                           <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
-                           <thead>
-                               <tr>
-                                   <th>Transaction Date</th>
-                                   <th>Total Sales</th>
-                                   <th>Teller Id</th>
-                               </tr>
-                           </thead>
-                           <tbody>
-                             <%= for rb <- BusTerminalSystem.RepoManager.report_sales_by_seller.rows do %>
-                                <tr>
-                                    <td><%= BusTerminalSystem.RepoManager.teller_profiler(rb).date %></td>
-                                    <td><%= BusTerminalSystem.RepoManager.teller_profiler(rb).sales %></td>
-                                    <td><%= BusTerminalSystem.RepoManager.teller_profiler(rb).teller %></td>
-                                </tr>
-                            <% end %>
-                           </tbody>
-                           </table>
-                       </div>
-                   </div>
-               </div>
-
-            <div class="col-lg-5 col-md-4 panel panel-flat" style="margin-left: 18px">
-                <div class="container-fluid">
-                    <h4 style="text-align:center; color:blue; text-decoration:underline;">SALES BY BUS</h4>
-                    <hr>
-                    <div style="overflow-x:auto;">
-                        <table class="table table-striped table-bordered" id="dataTableBusTerminusId1">
-                        <thead>
-                            <tr>
-                                <th>Transaction Date</th>
-                                <th>Total Sales</th>
-                                <th>Licence Plate</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <%= for rb <- BusTerminalSystem.RepoManager.report_sales_by_bus.rows do %>
-                                <tr>
-                                    <td><%= BusTerminalSystem.RepoManager.bus_profiler(rb).date %></td>
-                                    <td><%= BusTerminalSystem.RepoManager.bus_profiler(rb).sales %></td>
-                                    <td><%= BusTerminalSystem.RepoManager.bus_profiler(rb).licence %></td>
-                                </tr>
-                           <% end %>
-                        </tbody>
-                        </table>
+            <div>
+                <div class="panel panel-flat" style="width: auto; padding: 9px">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">Users</h5>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                                <li><a data-action="reload"></a></li>
+                                <li><a data-action="close"></a></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-             <div class="col-lg-5 col-md-4 panel panel-flat" >
-                <div class="container-fluid">
-                    <h4 style="text-align:center; color:blue; text-decoration:underline;">SALES BY OPERATOR</h4>
-                    <hr>
                     <div style="overflow-x:auto;">
-                        <table class="table table-striped table-bordered" id="dataTableBusTerminusId2">
-                        <thead>
-                            <tr>
-                                <th>Transaction Date</th>
-                                <th>Total Sales</th>
-                                <th>Company</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <%= for rb <- BusTerminalSystem.RepoManager.report_sales_by_operator.rows do %>
+                    <table class="table table-striped table-bordered" id="dataTableId">
+                              <thead>
                                 <tr>
-                                    <td><%= BusTerminalSystem.RepoManager.operator_profiler(rb).date %></td>
-                                    <td><%= BusTerminalSystem.RepoManager.operator_profiler(rb).sales %></td>
-                                    <td><%= BusTerminalSystem.RepoManager.operator_profiler(rb).company %></td>
+                                  <th>Name</th>
+                                  <th>Destination</th>
+                                  <th>Luggage</th>
+                                  <th>Fare</th>
                                 </tr>
-                            <% end %>
-                        </tbody>
-                        </table>
-                    </div>
+                              </thead>
+                              <tbody>
+
+                              </tbody>
+                            </table>
+                        </div>
+
+                    <span>
+                        <%= link "Back" , class: "w3-btn w3-indigo w3-hover-orange", style: "border-radius: 12px", type: "submit",to: Routes.user_path(@conn, :index) %>
+                    </span>
                 </div>
             </div>
 

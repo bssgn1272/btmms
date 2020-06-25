@@ -137,9 +137,16 @@ defmodule BusTerminalSystem.RepoManager do
     luggage
   end
 
+  def generate_luggage_reference_number(route) do
+    dt = DateTime.utc_now
+    {micro,_} = dt.microsecond
+    "ZBMS-#{dt.year}#{dt.month}#{dt.day}-#{dt.hour}#{dt.minute}#{dt.second}#{micro}"
+  end
+
   def create_luggage(luggage) do
 
     luggage = Map.put(luggage, "class", "LUGGAGE")
+    luggage = Map.put(luggage, "reference_number", "LUGGAGE")
 
     {status, luggage_json} = %Luggage{}
     |> Luggage.changeset(luggage)
