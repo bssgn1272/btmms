@@ -416,6 +416,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     route_info = "OPERATOR: PowerTools	 START: #{Map.fetch!(ticket_params, "source")}	 END: #{Map.fetch!(ticket_params, "destination")}	 DEPARTURE: 09:00	 PRICE: K300	 GATE: slot_two"
     ticket_params = Map.put(ticket_params, "route", route.id)
     ticket_params = Map.put(ticket_params, "class", "LUGGAGE")
+    ticket_params = Map.put(ticket_params, "bus_no", "0")
     ticket_params = Map.put(ticket_params, "activation_status", "VALID")
     ticket_params = Map.put(ticket_params, "route_information", route_info)
 

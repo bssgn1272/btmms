@@ -206,7 +206,7 @@ defmodule BusTerminalSystemWeb.TicketController do
 
                     IO.inspect bus
 
-                    map = Map.put(map, "bus_no", bus.id)
+                    map = Map.put(map, "bus_no", bus.id |> to_string)
                     r_info = "OPERATOR: #{operator.company |> String.replace(" ","_")}: START: #{route.start_route} END: #{route.end_route}	 DEPARTURE: #{schedule.time} PRICE: K#{route.route_fare} GATE: #{schedule.slot}"
 
                     map = Map.put(map, "route_information", r_info)
