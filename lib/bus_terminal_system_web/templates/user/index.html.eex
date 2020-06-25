@@ -755,7 +755,7 @@
 
                                                 <div class="col-md-3">
                                                     <label>RECEIVER MOBILE NUMBER: </label> <br>
-                                                    <input id="unattended_receiver_luggage_phone_input" required type="number" placeholder="">
+                                                    <input class="input-group" id="unattended_receiver_luggage_phone_input" required type="number" placeholder="">
                                                 </div>
 
                                                 <div class="col-md-3">

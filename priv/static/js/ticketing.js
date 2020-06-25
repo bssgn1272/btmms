@@ -131,7 +131,7 @@ function get_weight() {
         }
     });
 }
-
+let v_ticket = ""
 function add_luggage_button() {
 
     //let w = $("#scale_weight").html();
@@ -159,9 +159,16 @@ function add_luggage_button() {
             let data2 = JSON.parse(JSON.stringify(data_response));
             console.log("add data" + data2);
 
-            var ticket_interface_id = $("#checkin_ticket_id").html();
+            let ticket_interface_id = $("#checkin_ticket_id").html();
+
+            console.log("Ticket ID: ")
+
+            if(ticket_interface_id === ""){
+                ticket_interface_id = "0"
+            }
+
             let json_request = JSON.stringify({
-                ticket_id: parseInt(ticket_interface_id)
+                ticket_id: parseInt(v_ticket)
             });
 
             $.ajax({
@@ -229,10 +236,16 @@ function get_unattended_luggage_weight() {
     });
 }
 
-let v_ticket = ""
-function virtual_ticket(){
-    let virtual_ticket_request = JSON.stringify({
 
+function virtual_ticket(){
+
+
+    let travel_source ="Livingstone"
+    let travel_destination = $("#destination_option_select").val();
+
+    let virtual_ticket_request = JSON.stringify({
+        source: travel_source,
+        destination: travel_destination
     });
 
     $.ajax({
@@ -270,11 +283,11 @@ function acquire_luggage(){
 
 function add_unattended_luggage_button() {
 
-    if (v_ticket == ""){
+    if (v_ticket === ""){
         virtual_ticket()
     }
-
     //let w = $("#scale_weight").html();
+
     let lw = $("#unattended_luggage_scale_weight").html();
     let ltc = $("#unattended_luggage_luggage_total_cost").html();
     let dsc = $("#unattended_luggage_luggage_description").val();
@@ -361,8 +374,8 @@ function checkInButton() {
 $('#routes_dataTable').DataTable();
 function toggle_route_search(){
 
-    virtual_ticket()
-    console.log("v_ticket: " + v_ticket)
+    //virtual_ticket()
+    //console.log("v_ticket: " + v_ticket)
 
     switch ($('#ticket_type').val()) {
         case "passenger_ticket":
@@ -401,7 +414,7 @@ function passenger_ticket_logic() {
 
     $.ajax({
         method: 'post',
-        url: '/api/v1/btms/travel/secured/internal/locations/destinations',
+        url: '/api/v1/btms/travel/secured/internal/locations/destinations/internal',
         dataType: 'json',
         contentType: 'application/json',
         data: json_request,

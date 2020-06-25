@@ -125,6 +125,10 @@ defmodule BusTerminalSystemWeb.Router do
          TicketController,
          :get_schedules_buses
 
+    post "/btms/travel/secured/internal/locations/destinations/internal",
+         TicketController,
+         :get_schedules_buses_internal
+
     get "/btms/travel/secured/routes", TicketController, :get_travel_routes
     get "/btms/tickets/secured/list", TicketController, :list_tickets
 

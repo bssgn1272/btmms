@@ -268,7 +268,12 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   end
 
   def get_luggage_by_ticket(conn, %{ "ticket_id" => ticket_id } = params) do
-    conn |> json(RepoManager.get_luggage_by_ticket_id(ticket_id))
+    if ticket_id == nil do
+      conn |> json(RepoManager.get_luggage_by_ticket_id(0))
+    else
+      conn |> json(RepoManager.get_luggage_by_ticket_id(ticket_id))
+    end
+
   end
 
   def add_luggage(conn, params) do
@@ -277,12 +282,17 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
   end
 
-  def acquire_luggage(conn, %{"sender" => sender, "receiver" => receiver, "luggage_id" => luggage_id} = params) do
+  def acquire_luggage(conn, %{"sender" => sender, "receiver" => receiver, "luggage_id" => luggage_id} = params)do
 
     IO.inspect(params)
-    sms_message = ", \n Luggage Checking successful \n LUGGAGE ID: #{luggage_id}"
-    NapsaSmsGetway.send_sms(sender,sms_message)
-    NapsaSmsGetway.send_sms(receiver,sms_message)
+    sms_message = "Luggage from #{sender} to #{receiver} Check-in successful \n LUGGAGE ID: #{luggage_id}"
+    spawn(fn ->
+      NapsaSmsGetway.send_sms(sender,sms_message)
+    end)
+
+    spawn(fn ->
+      NapsaSmsGetway.send_sms(receiver,sms_message)
+    end)
 
     conn |> json(%{"status" => "done"})
   end
@@ -401,9 +411,15 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   #---------------------------------------TICKETS-----------------------------------------------------------------------
 
   def create_virtual_luggage_ticket(conn, ticket_params) do
-
-    ticket_params = Map.put(ticket_params, "route", 1)
+    IO.inspect("---------------------------VIRTUAL------------------------------------------------------")
+    route = BusTerminalSystem.TravelRoutes.find_by([start_route: Map.fetch!(ticket_params, "source"), end_route: Map.fetch!(ticket_params, "destination")])
+    route_info = "OPERATOR: PowerTools	 START: #{Map.fetch!(ticket_params, "source")}	 END: #{Map.fetch!(ticket_params, "destination")}	 DEPARTURE: 09:00	 PRICE: K300	 GATE: slot_two"
+    ticket_params = Map.put(ticket_params, "route", route.id)
     ticket_params = Map.put(ticket_params, "class", "LUGGAGE")
+    ticket_params = Map.put(ticket_params, "activation_status", "VALID")
+    ticket_params = Map.put(ticket_params, "route_information", route_info)
+
+    IO.inspect(ticket_params)
 
     case TicketManagement.create_virtual_ticket(ticket_params) do
       {:ok, ticket} ->

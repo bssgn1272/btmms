@@ -204,6 +204,8 @@ defmodule BusTerminalSystemWeb.TicketController do
                     bus = BusTerminalSystem.BusManagement.Bus.find_by(id: schedule.bus_id)
                     operator = BusTerminalSystem.AccountManager.User.find_by(id: bus.operator_id)
 
+                    IO.inspect bus
+
                     map = Map.put(map, "bus_no", bus.id)
                     r_info = "OPERATOR: #{operator.company |> String.replace(" ","_")}: START: #{route.start_route} END: #{route.end_route}	 DEPARTURE: #{schedule.time} PRICE: K#{route.route_fare} GATE: #{schedule.slot}"
 
@@ -291,7 +293,11 @@ defmodule BusTerminalSystemWeb.TicketController do
   end
 
   def qr_generator(data) do
-    data |> EQRCode.encode |> EQRCode.png() |> Base.encode64
+    try do
+      data |> EQRCode.encode |> EQRCode.png() |> Base.encode64
+    rescue
+      _ -> ""
+     end
   end
 
   def bar_code_generator(data) do
@@ -342,8 +348,13 @@ defmodule BusTerminalSystemWeb.TicketController do
   end
 
   def get_schedules_buses(conn, %{"payload" => %{ "date" => date, "start_route" => start_route, "end_route" => end_route}} = params) do
-    IO.inspect params
     {:ok,agent,schedules} = RepoManager.route_mapping_by_location(date, start_route,end_route)
+    Agent.stop(agent)
+    json(conn, schedules)
+  end
+
+  def get_schedules_buses_internal(conn, %{"payload" => %{ "date" => date, "start_route" => start_route, "end_route" => end_route}} = params) do
+    {:ok,agent,schedules} = RepoManager.route_mapping_by_location_internal(date, start_route,end_route)
     Agent.stop(agent)
     json(conn, schedules)
   end

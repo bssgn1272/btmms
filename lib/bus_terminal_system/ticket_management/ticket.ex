@@ -39,7 +39,7 @@ defmodule BusTerminalSystem.TicketManagement.Ticket do
   def changeset(ticket, attrs) do
 
     ticket
-    |> cast(attrs, [:reference_number, :maker, :bus_no, :external_ref, :class, :serial_number, :route, :activation_status, :first_name, :bus_schedule_id,
+    |> cast(attrs, [:reference_number, :maker, :external_ref, :class, :serial_number, :route, :activation_status, :first_name, :bus_schedule_id,
       :last_name, :other_name, :id_type, :passenger_id, :mobile_number, :email_address, :transaction_channel, :travel_date, :route_information])
 
     |> validate_required([:reference_number, :external_ref, :serial_number, :route, :activation_status, :first_name,

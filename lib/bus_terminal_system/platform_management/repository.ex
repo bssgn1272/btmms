@@ -33,60 +33,89 @@ defmodule BusTerminalSystem.RepoManager do
   def checkin(id) do
     ticket = Repo.get_by(Ticket, id: id)
 
-    try do
+     ticket.class |> case do
+        "TICKET" -> ""
+          try do
+            IO.inspect("--------------------------------******---------------------------------------------")
+            IO.inspect(ticket.route_information)
+            [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot] = ticket.route_information |> String.split()
+            printer_payload =
+              %{
+                "refNumber" => ticket.reference_number,
+                "fName" => ticket.first_name,
+                "sName" => ticket.last_name,
+                "from" => start_route,
+                "to" => end_route,
+                "Price" => price,
+                "Bus" => tBus,
+                "gate" => slot,
+                "depatureTime" => departure,
+                "ticketNumber" => ticket.id,
+                "items" => []
+              }
 
-      IO.inspect("--------------------------------******---------------------------------------------")
-      IO.inspect(ticket.route_information)
-      [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot] = ticket.route_information |> String.split()
-      printer_payload =
-        %{
-          "refNumber" => ticket.reference_number,
-          "fName" => ticket.first_name,
-          "sName" => ticket.last_name,
-          "from" => start_route,
-          "to" => end_route,
-          "Price" => price,
-          "Bus" => tBus,
-          "gate" => slot,
-          "depatureTime" => departure,
-          "ticketNumber" => ticket.id,
-          "items" => []
-        }
+            spawn(fn ->
+              BusTerminalSystem.PrinterTcpProtocol.print_local_connect(printer_payload)
+            end)
 
-      spawn(fn ->
-        BusTerminalSystem.PrinterTcpProtocol.print_local_connect(printer_payload)
-      end)
+            spawn(fn ->
+              BusTerminalSystem.APIRequestMockup.send(ticket.id |> to_string)
+            end)
+          rescue
+            _ ->
+              IO.inspect("--------------------------------******---------------------------------------------")
+              IO.inspect(ticket.route_information)
+              printer_payload =
+                %{
+                  "refNumber" => ticket.reference_number,
+                  "fName" => ticket.first_name,
+                  "sName" => ticket.last_name,
+                  "from" => "NOT DEFINED",
+                  "to" =>  "NOT DEFINED",
+                  "Price" =>  "NOT DEFINED",
+                  "Bus" =>  "NOT DEFINED",
+                  "gate" =>  "NOT DEFINED",
+                  "departureTime" =>  "NOT DEFINED",
+                  "ticketNumber" => ticket.id,
+                  "items" => []
+                }
 
-      spawn(fn ->
-        BusTerminalSystem.APIRequestMockup.send(ticket.id |> to_string)
-      end)
-    rescue
-      _ ->
-        IO.inspect("--------------------------------******---------------------------------------------")
-        IO.inspect(ticket.route_information)
-        printer_payload =
-          %{
-            "refNumber" => ticket.reference_number,
-            "fName" => ticket.first_name,
-            "sName" => ticket.last_name,
-            "from" => "NOT DEFINED",
-            "to" =>  "NOT DEFINED",
-            "Price" =>  "NOT DEFINED",
-            "Bus" =>  "NOT DEFINED",
-            "gate" =>  "NOT DEFINED",
-            "departureTime" =>  "NOT DEFINED",
-            "ticketNumber" => ticket.id,
-            "items" => []
-          }
+              spawn(fn ->
+                BusTerminalSystem.PrinterTcpProtocol.print_local_connect(printer_payload)
+              end)
 
-        spawn(fn ->
-          BusTerminalSystem.PrinterTcpProtocol.print_local_connect(printer_payload)
-        end)
+              spawn(fn ->
+                BusTerminalSystem.APIRequestMockup.send(ticket.id |> to_string)
+              end)
+          end
 
-        spawn(fn ->
-          BusTerminalSystem.APIRequestMockup.send(ticket.id |> to_string)
-        end)
-    end
+        "LUGGAGE" ->
+          IO.inspect(ticket.route_information)
+          [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot] = ticket.route_information |> String.split()
+          printer_payload =
+            %{
+              "refNumber" => ticket.reference_number,
+              "fName" => "",
+              "sName" => "",
+              "from" => start_route,
+              "to" => end_route,
+              "Price" => "",
+              "Bus" => "",
+              "gate" => "",
+              "depatureTime" => "",
+              "ticketNumber" => ticket.id,
+              "items" => []
+            }
+
+          spawn(fn ->
+            BusTerminalSystem.PrinterTcpProtocol.print_local_connect(printer_payload)
+          end)
+
+          spawn(fn ->
+            BusTerminalSystem.APIRequestMockup.send(ticket.id |> to_string)
+          end)
+          _ -> ""
+      end
 
 
     {status, ticket} = update_ticket(ticket,%{ "activation_status" => "CHECKED_IN"})
@@ -549,11 +578,82 @@ defmodule BusTerminalSystem.RepoManager do
     Utility.string_to_int(capacity) - ticket_count
   end
 
+  def route_mapping_by_location_internal(date \\ "01/01/2019", start_route \\ "Livingstone", end_route) do
+    IO.inspect "DATE: #{date}"
+    {:ok, agent} = Agent.start_link fn  -> [] end
+
+    #    {YYYY}-{0M}-{0D}
+    query = from r in TblEdReservations , where: r.reserved_time >= ^Timex.parse!(date, "{0D}/{0M}/{YYYY}")
+    #    query = from r in TblEdReservations, where: fragment("?::date_time", r.reserved_time) >= ^Timex.parse!(date, "{YYYY}-{0M}-{0D}") and
+    #                                                fragment("?::date_time", r.reserved_time) <= ^Timex.parse!(date, "{YYYY}-{0M}-{0D}")
+    {st, data} = Repo.all(query) |> Poison.encode
+
+
+    IO.inspect data
+    {status,route_mapping_data} = JSON.decode(data)
+
+    route_mapping_data
+    |> Enum.with_index()
+    |> Enum.each(fn {e, index} ->
+
+      {:ok, operator_id} = Map.fetch(e,"user_id")
+      {operator_id_int, _operator_id_string} = Integer.parse(operator_id |> to_string)
+      {operator_json_status, operator_json} = get_operator(operator_id_int) |> Poison.encode
+      {operator_status, operator} = JSON.decode(operator_json)
+
+      {:ok, bus_id} = Map.fetch(e,"bus_id")
+      {bus_id_int, _bus_id_string} = Integer.parse(bus_id |> to_string)
+      {bus_json_status, bus_json} = get_bus(bus_id_int) |> Poison.encode
+      {bus_status, bus} = JSON.decode(bus_json)
+
+      IO.inspect "BUS:"
+      {:ok, capacity} = Map.fetch(bus,"vehicle_capacity")
+      IO.inspect Utility.string_to_int(capacity)
+
+      {:ok, route_id} = Map.fetch(e,"route")
+      {route_id_int, _route_id_string} = Integer.parse(route_id)
+      {route_json_status, route_json} = get_route(route_id_int) |> Poison.encode
+      {route_status, route} = JSON.decode(route_json)
+
+      queried_route = get_route(route_id_int)
+
+      #IO.inspect route
+
+      {:ok, route_uid} = Map.fetch(e,"id")
+      fare = queried_route.route_fare
+      {:ok, time} = Map.fetch(e,"time")
+      {:ok, date} = Map.fetch(e,"reserved_time")
+      {:ok, slot} = Map.fetch(e,"slot")
+
+      IO.inspect "start route #{queried_route.start_route} : end route #{queried_route.end_route}"
+      if queried_route.start_route == start_route and queried_route.end_route == end_route do
+        Agent.update(agent, fn list -> [
+                                         %{
+                                           "available_seats" => available_seats(capacity,schedule_ticket_count(Utility.int_to_string(route_uid))),
+                                           "bus_schedule_id" => route_uid |> to_string,
+                                           "route" => route,
+                                           "bus" => bus,
+                                           "fare" => fare,
+                                           "slot" => slot,
+                                           "departure_time" => time,
+                                           "departure_date" => date
+                                         } | list ] end)
+      end
+
+
+    end)
+
+    {:ok, agent, Agent.get(agent, fn list -> list end) }
+  end
+
   def route_mapping_by_location(date \\ "01/01/2019", start_route \\ "Livingstone", end_route) do
     IO.inspect "DATE: #{date}"
     {:ok, agent} = Agent.start_link fn  -> [] end
 
+#    {YYYY}-{0M}-{0D}
     query = from r in TblEdReservations , where: r.reserved_time >= ^Timex.parse!(date, "{YYYY}-{0M}-{0D}")
+#    query = from r in TblEdReservations, where: fragment("?::date_time", r.reserved_time) >= ^Timex.parse!(date, "{YYYY}-{0M}-{0D}") and
+#                                                fragment("?::date_time", r.reserved_time) <= ^Timex.parse!(date, "{YYYY}-{0M}-{0D}")
     {st, data} = Repo.all(query) |> Poison.encode
 
 
