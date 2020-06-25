@@ -29,6 +29,9 @@ defmodule BusTerminalSystemWeb.TicketController do
     ticket_params = Map.put(ticket_params, "class", "TICKET")
     ticket_params = Map.put(ticket_params, "route_information", ticket_params["route_information"]) #route_information
 
+    [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot] = ticket_params["route_information"] |> String.split()
+    ticket_params = Map.put(ticket_params, "amount", price |> String.replace("K",""))
+
     IO.inspect(ticket_params)
 
     case TicketManagement.create_ticket(ticket_params) do
@@ -212,6 +215,7 @@ defmodule BusTerminalSystemWeb.TicketController do
                     map = Map.put(map, "serial_number", serial_number)
                     map = Map.put(map, "activation_status", "VALID")
                     map = Map.put(map, "route", route.id)
+                    map = Map.put(map, "amount", route.route_fare)
 
                     schedule = BusTerminalSystem.TblEdReservations.find_by(id: Map.fetch!(map, "bus_schedule_id"))
                     bus = BusTerminalSystem.BusManagement.Bus.find_by(id: schedule.bus_id)
