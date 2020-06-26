@@ -1,4 +1,5 @@
 defmodule BusTerminalSystem.Luggage do
+  use Endon
   use Ecto.Schema
   import Ecto.Changeset
 

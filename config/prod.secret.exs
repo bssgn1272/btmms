@@ -14,7 +14,7 @@ database_url =
 config :bus_terminal_system, BusTerminalSystem.Repo,
   # ssl: true,
   url: database_url,
-  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "20")
 
 secret_key_base =
   System.get_env("SECRET_KEY_BASE") ||
@@ -32,7 +32,7 @@ config :bus_terminal_system, BusTerminalSystemWeb.Endpoint,
 # If you are doing OTP releases, you need to instruct Phoenix
 # to start each relevant endpoint:
 #
-#     config :bus_terminal_system, BusTerminalSystemWeb.Endpoint, server: true
+#config :bus_terminal_system, BusTerminalSystemWeb.Endpoint, server: true
 #
 # Then you can assemble a release by calling `mix release`.
 # See `mix help release` for more information.

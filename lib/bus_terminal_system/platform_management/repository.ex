@@ -30,6 +30,22 @@ defmodule BusTerminalSystem.RepoManager do
 
   #--------------------------Luggage---------------------------------------------------------------
 
+  def acquire_luggage(ticket_id) do
+
+    {:ok, agent} = Agent.start_link fn  -> [] end
+
+    BusTerminalSystem.Luggage.where(ticket_id: ticket_id)
+    |> Enum.with_index()
+    |> Enum.each(fn {e, index} ->
+      IO.inspect(e)
+      Agent.update(agent, fn list -> ["#{Map.fetch!(e, :description)}:#{Map.fetch!(e, :cost)}" | list ] end)
+    end)
+
+    luggage_data = Agent.get(agent, fn list -> list end)
+    Agent.stop(agent)
+    luggage_data
+  end
+
   def checkin(id) do
     ticket = Repo.get_by(Ticket, id: id)
 
@@ -38,6 +54,9 @@ defmodule BusTerminalSystem.RepoManager do
           try do
             IO.inspect("--------------------------------******---------------------------------------------")
             IO.inspect(ticket.route_information)
+
+
+
             [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot] = ticket.route_information |> String.split()
             printer_payload =
               %{
@@ -51,7 +70,7 @@ defmodule BusTerminalSystem.RepoManager do
                 "gate" => slot,
                 "depatureTime" => departure,
                 "ticketNumber" => ticket.id,
-                "items" => []
+                "items" => acquire_luggage(ticket.id)
               }
 
             spawn(fn ->
@@ -77,7 +96,7 @@ defmodule BusTerminalSystem.RepoManager do
                   "gate" =>  "NOT DEFINED",
                   "departureTime" =>  "NOT DEFINED",
                   "ticketNumber" => ticket.id,
-                  "items" => []
+                  "items" => acquire_luggage(ticket.id)
                 }
 
               spawn(fn ->
@@ -104,7 +123,7 @@ defmodule BusTerminalSystem.RepoManager do
               "gate" => "",
               "depatureTime" => "",
               "ticketNumber" => ticket.id,
-              "items" => []
+              "items" => acquire_luggage(ticket.id)
             }
 
           spawn(fn ->
