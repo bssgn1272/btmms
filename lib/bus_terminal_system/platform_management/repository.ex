@@ -57,7 +57,7 @@ defmodule BusTerminalSystem.RepoManager do
 
 
 
-            [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot] = ticket.route_information |> String.split()
+            [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot, _, _] = ticket.route_information |> String.split()
             printer_payload =
               %{
                 "refNumber" => ticket.reference_number,
@@ -110,7 +110,7 @@ defmodule BusTerminalSystem.RepoManager do
 
         "LUGGAGE" ->
           IO.inspect(ticket.route_information)
-          [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot] = ticket.route_information |> String.split()
+          [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot, _, _] = ticket.route_information |> String.split()
           printer_payload =
             %{
               "refNumber" => ticket.reference_number,
