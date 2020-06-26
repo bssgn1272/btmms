@@ -6,6 +6,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   alias BusTerminalSystem.ScaleQuery
   alias BusTerminalSystem.TicketManagement
   alias BusTerminalSystem.NapsaSmsGetway
+  alias BusTerminalSystem.TicketManagement.Ticket
 
   #---------------------------------------USER--------------------------------------------------------------------------
 
@@ -273,13 +274,19 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     else
       conn |> json(RepoManager.get_luggage_by_ticket_id(ticket_id))
     end
+  end
 
+  def get_luggage_by_ticket_total_cost(conn, %{ "ticket_id" => ticket_id } = params) do
+    if ticket_id == nil do
+      conn |> text(RepoManager.get_luggage_by_ticket_id_total_cost(0))
+    else
+      conn |> text(RepoManager.get_luggage_by_ticket_id_total_cost(ticket_id))
+    end
   end
 
   def add_luggage(conn, params) do
     IO.inspect(params)
     conn |> json(RepoManager.create_luggage(params))
-
   end
 
   def acquire_luggage(conn, %{"sender" => sender, "receiver" => receiver, "luggage_id" => luggage_id} = params)do
@@ -295,6 +302,61 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     end)
 
     conn |> json(%{"status" => "done"})
+  end
+
+  def luggage_ref do
+    dt = DateTime.utc_now
+    {micro,_} = dt.microsecond
+    "ZBMS-#{dt.year}#{dt.month}#{dt.day}-#{dt.hour}#{dt.minute}#{dt.second}#{micro}"
+  end
+
+  def acquire_luggage_form_view(conn,%{"unattended" => luggage_params} = params) do
+
+#    IO.inspect(params)
+#    sms_message = "Luggage from #{sender} to #{receiver} Check-in successful \n LUGGAGE ID: #{luggage_id}"
+#    spawn(fn ->
+#      NapsaSmsGetway.send_sms(sender,sms_message)
+#    end)
+#
+    sms_message = "Luggage from #{Map.fetch!(luggage_params,"sender_mobile")} to #{Map.fetch!(luggage_params,"recipient_mobile")} Check-in successful \n LUGGAGE ID: #{Map.fetch!(luggage_params,"ticket_id")}"
+
+    spawn(fn ->
+      NapsaSmsGetway.send_sms(Map.fetch!(luggage_params,"recipient_mobile"),sms_message)
+    end)
+
+    spawn(fn ->
+      NapsaSmsGetway.send_sms(Map.fetch!(luggage_params,"sender_mobile"),sms_message)
+    end)
+
+    ticket = Ticket.find(id: Map.fetch!(luggage_params,"sender_mobile"))
+
+      ticket |> Ticket.update([
+        reference_number: luggage_ref(),
+       first_name: Map.fetch!(luggage_params,"recipient_firstname"),
+      last_name: Map.fetch!(luggage_params,"recipient_lastname")
+     ])
+
+    printer_payload =
+      %{
+        "refNumber" => ticket.reference_number,
+        "fName" => ticket.first_name,
+        "sName" => ticket.last_name,
+        "from" => "",
+        "to" => "",
+        "Price" => "",
+        "Bus" => "",
+        "gate" => "",
+        "depatureTime" => "",
+        "ticketNumber" => ticket.id,
+        "items" => BusTerminalSystem.RepoManager.acquire_luggage(ticket.id)
+      }
+
+    spawn(fn ->
+      BusTerminalSystem.PrinterTcpProtocol.print_local_connect(printer_payload)
+    end)
+
+    conn
+    |> redirect(to: Routes.user_path(conn, :index))
   end
 
   def checkin_passenger(conn,%{"ticket_id" => ticket_id} = params) do

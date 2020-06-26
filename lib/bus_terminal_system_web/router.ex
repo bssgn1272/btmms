@@ -142,6 +142,7 @@ defmodule BusTerminalSystemWeb.Router do
 
 
     post "/internal/create/acquire_luggage", FrontendApiController, :acquire_luggage
+    post "/internal/create/acquire_luggage_plain", FrontendApiController, :acquire_luggage_form_view
     post "/internal/create/virtual_ticket", FrontendApiController, :create_virtual_luggage_ticket
     post "/internal/query/route", FrontendApiController, :query_route
     post "/internal/update/route", FrontendApiController, :update_route_bus_route
@@ -158,6 +159,7 @@ defmodule BusTerminalSystemWeb.Router do
     get "/internal/scale/query", FrontendApiController, :get_scale_query
     post "/internal/get_luggage_tarrif", FrontendApiController, :get_luggage_tarrif
     post "/internal/get_luggage_by_ticket_id", FrontendApiController, :get_luggage_by_ticket
+    post "/internal/get_luggage_by_ticket_id_total_cost", FrontendApiController, :get_luggage_by_ticket_total_cost
     post "/internal/add_luggage", FrontendApiController, :add_luggage
     post "/internal/checkin", FrontendApiController, :checkin_passenger
 

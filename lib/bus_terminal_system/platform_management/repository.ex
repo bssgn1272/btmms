@@ -157,6 +157,10 @@ defmodule BusTerminalSystem.RepoManager do
     luggage
   end
 
+  def get_luggage_by_ticket_id_total_cost(ticket_id) do
+    BusTerminalSystem.Luggage.sum(:cost, ticket_id: ticket_id)
+  end
+
   def generate_luggage_reference_number(route) do
     dt = DateTime.utc_now
     {micro,_} = dt.microsecond

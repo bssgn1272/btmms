@@ -30,7 +30,6 @@ defmodule BusTerminalSystemWeb.UserController do
     tickets = RepoManager.list_tickets()
     buses = RepoManager.list_buses()
     conn
-    |> put_flash(:info, "Welcome Back")
     |> render("index.html", users: users, tickets: tickets, buses: buses, routes: routes)
   end
 

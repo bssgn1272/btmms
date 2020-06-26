@@ -124,7 +124,7 @@ function get_weight() {
                     weight2 = data.cost_per_kilo;
                     console.log("weight 1:" + weight);
                     var cost = (weight2 * parseFloat(weight)).toFixed(2);
-                    $("#luggage_total_cost").html(commaSeperate(cost) );
+                    $("#luggage_item_cost").html(commaSeperate(cost) );
                 }
             });
 
@@ -136,7 +136,7 @@ function add_luggage_button() {
 
     //let w = $("#scale_weight").html();
     let lw = $("#scale_weight_3").html();
-    let ltc = $("#luggage_total_cost").html();
+    let ltc = $("#luggage_item_cost").html();
     let dsc = $("#luggage_description").val();
     let ticket_interface_id2 = $("#checkin_ticket_id").html();
 
@@ -157,11 +157,8 @@ function add_luggage_button() {
         data: luggage_request,
         success: function (data_response) {
             let data2 = JSON.parse(JSON.stringify(data_response));
-            console.log("add data" + data2);
 
             let ticket_interface_id = $("#checkin_ticket_id").html();
-
-            console.log("Ticket ID: ")
 
             if(ticket_interface_id === ""){
                 ticket_interface_id = "0"
@@ -189,6 +186,17 @@ function add_luggage_button() {
                     });
 
                     $("#luggage_table_list").html(luggage_html_table);
+
+                    $.ajax({
+                        method: 'post',
+                        url: '/api/v1/internal/get_luggage_by_ticket_id_total_cost',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: json_request,
+                        success: function (total_cost_res) {
+                            $("#luggage_total_cost").html(total_cost_res);
+                        }
+                    });
 
                 }
             });
@@ -257,6 +265,8 @@ function virtual_ticket(){
             let ticket = JSON.parse(JSON.stringify(v_ticket_response));
             console.log("ticket: " + ticket)
             v_ticket = ticket.id.toString()
+            $("#unattended_luggage_ticket_id_input").val(v_ticket);
+            $("#Luggage_id_tag").html(v_ticket);
         }
     })
 }
