@@ -25,22 +25,23 @@ defmodule BusTerminalSystemWeb.TicketController do
     users = AccountManager.list_users()
     tickets = RepoManager.list_tickets()
 
-    ticket_params = Map.put(ticket_params, "route", 1)
+
     ticket_params = Map.put(ticket_params, "class", "TICKET")
     ticket_params = Map.put(ticket_params, "route_information", ticket_params["route_information"]) #route_information
 
-    [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot] = ticket_params["route_information"] |> String.split()
+    [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot, _, bus_schedule_id] = ticket_params["route_information"] |> String.split()
+    route = BusTerminalSystem.TravelRoutes.find_by(start_route: start_route, end_route: end_route)
+
     ticket_params = Map.put(ticket_params, "amount", price |> String.replace("K",""))
+    ticket_params = Map.put(ticket_params, "route", route.id)
+    ticket_params = Map.put(ticket_params, "bus_schedule_id", bus_schedule_id)
 
     IO.inspect(ticket_params)
 
     case TicketManagement.create_ticket(ticket_params) do
       {:ok, ticket} ->
 
-        sms_message = "Hello #{ticket.first_name} #{ticket.last_name}, \n Ticket Purchase was successful \n TICKET ID: #{ticket.id}"
-        spawn(fn ->
-          NapsaSmsGetway.send_sms(ticket.mobile_number,sms_message)
-        end)
+        NapsaSmsGetway.send_ticket_sms(ticket.mobile_number,ticket)
 
         conn
         |> put_flash(:info, "Ticket created successfully.")
@@ -230,7 +231,10 @@ defmodule BusTerminalSystemWeb.TicketController do
 
                     #serial_number = Integer.to_string(serial_number)
                     IO.inspect(serial_number)
-                    APIRequestMockup.send(serial_number)
+                    spawn(fn ->
+                      APIRequestMockup.send(serial_number)
+                    end)
+
 
                     conn
                     |> db_insert_ticket(route,_reference ,map)
@@ -256,12 +260,7 @@ defmodule BusTerminalSystemWeb.TicketController do
     case RepoManager.create_ticket(params) do
       {:ok, ticket} ->
 
-        sms_message = "Hello #{ticket.first_name} #{ticket.last_name}, \n Ticket Purchase was successful \n TICKET ID: #{ticket.id}"
-        NapsaSmsGetway.send_sms(ticket.mobile_number,sms_message)
-
-        #spawn(fn ->
-
-        #end)
+        NapsaSmsGetway.send_ticket_sms(ticket.mobile_number,ticket)
 
         conn
         |> json(ApiManager.api_message_custom_handler(

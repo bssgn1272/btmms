@@ -431,7 +431,7 @@ function ticket_purchase(value){
     $('#passenger_view').show();
     let rd = value.split(/-/g);
 
-    let info = "OPERATOR: " + rd[0] + "\t START: " + rd[1] + "\t END: " + rd[2] + "\t DEPARTURE: " + rd[3] + "\t PRICE: K" + rd[4] + "\t GATE: " + rd[6];
+    let info = "OPERATOR: " + rd[0] + "\t START: " + rd[1] + "\t END: " + rd[2] + "\t DEPARTURE: " + rd[3] + "\t PRICE: K" + rd[4] + "\t GATE: " + rd[6] + "\t SCHEDULE: " + rd[7];
 
     $('#route_information').val(info);
     $('#bus_id_input').val(rd[5]);
