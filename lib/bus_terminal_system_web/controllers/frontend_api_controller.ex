@@ -330,17 +330,13 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
     ticket = Ticket.find(id: Map.fetch!(luggage_params,"sender_mobile"))
 
-      ticket |> Ticket.update([
-        reference_number: luggage_ref(),
-       first_name: Map.fetch!(luggage_params,"recipient_firstname"),
-      last_name: Map.fetch!(luggage_params,"recipient_lastname")
-     ])
+
 
     printer_payload =
       %{
         "refNumber" => ticket.reference_number,
-        "fName" => ticket.first_name,
-        "sName" => ticket.last_name,
+        "fName" => "",
+        "sName" => "",
         "from" => "",
         "to" => "",
         "Price" => "",

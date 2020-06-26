@@ -630,7 +630,7 @@
          
         <div class="row">
             <div class="col-md-12 bus" id="bookings">
-            <div class="w3-card-4 w3-margin w3-white w3-center" style="width:100%;" id="rcorners1">
+                <div class="w3-card-4 w3-margin w3-white w3-center" style="width:100%;" id="rcorners1">
 
                 <header class="w3-container w3-indigo w3-center" id="heed">
                   <h3>BOOKINGS</h3>
@@ -964,192 +964,195 @@
             <!---------------------------------------------------------->
             </div>
         </div>
-        <!------------------------------------>
+            <!------------------------------------>
 
-        <!------------ ROUTES----------------->
-        <div class="col-md-12 bus" id="routes">
-            <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
-                <header class="w3-container w3-indigo w3-center" id="heed">
-                  <h3>Routes</h3>
-                </header>
 
-                <div class="w3-container">
-                    <div class="" style="overflow-x:auto; width: 100%;">
-                            <h4 style="text-align: center; color:blue; text-decoration:underline; font-weight: bold; font-size: 18px;">
-                            </h4><hr>
-                        <table class="table table-striped table-bordered" id="available_routes">
-                        <thead>
-                            <tr style="font-size: 12px;">
-                                <th>Route Name</th>
-                                <th>Source State</th>
-                                <th>From</th>
-                                <th>To</th>
-                                <th>Fare</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <%= for route <- @routes do %>
-                               <tr>
-                                 <td><%= route.route_name %></td>
-                                 <td><%= route.source_state %></td>
-                                 <td><%= route.start_route %></td>
-                                 <td><%= route.end_route %></td>
-                                 <td><%= route.route_fare %></td>
 
-                               </tr>
-                            <% end %>
-                        </tbody>
-                        </table>
-                    </div>
-                </div>
+</div>
 
-            </div>
-        </div>
-        <!------------------------------------->
+  <!------------ ROUTES----------------->
+            <div class="col-md-12 bus" id="routes">
+                <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
-        <!------------ CHECKIN----------------->
-        <div class="col-md-12 bus" id="checkin">
-            <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
-
-                <header class="w3-container w3-indigo w3-center" id="heed">
-                  <h3>Checkin</h3>
-                </header>
-
-                <div class="container">
-                    <div class="row">
-                        <div class="form-inline" style="margin-top: 0.5%; margin-bottom: 5%;">
-                            <div class="col-md-10">
-                                  <div class="form-group">
-                                    <label for="ticket">
-                                        <strong>Ticket ID:</strong>
-                                    </label>
-                                    <input type="text" id="checkin_ticket_id_1" class="form-control" required="required" placeholder="Enter Ticket ID">
-                                  </div>
-                            </div>
-
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <button onclick="checkinAction()" type="submit" class="w3-btn w3-light-grey w3-hover-white w3-round pull-right">
-                                         <img src="<%= Routes.static_path(@conn, "/images/1.png") %>" class="img-fluid" style="width:30px;height:30px" alt="search">
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12"></div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!--------- RESULTS -------------------------------------->
-            <div id="checkin_results_view" class="container-fluid" style="display: none;">
-                <div  class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
                     <header class="w3-container w3-indigo w3-center" id="heed">
-                        <h3>RESULTS</h3>
+                      <h3>Routes</h3>
                     </header>
 
-                    <div class="container-fluid"><br>
-                        <div class="w3-card-4" style="width:100%;">
-                            <header class="w3-container">
-                                <div class="container-fluid" style="display: inline-block;">
-                                    <img src="<%= Routes.static_path(@conn, "/images/icons/6.png") %>"  width="500" height="50" class="img-responsive" alt="">
-                                </div><hr>
-                            </header>
+                    <div class="w3-container">
+                        <div class="" style="overflow-x:auto; width: 100%;">
+                                <h4 style="text-align: center; color:blue; text-decoration:underline; font-weight: bold; font-size: 18px;">
+                                </h4><hr>
+                            <table class="table table-striped table-bordered" id="available_routes">
+                            <thead>
+                                <tr style="font-size: 12px;">
+                                    <th>Route Name</th>
+                                    <th>Source State</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Fare</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%= for route <- @routes do %>
+                                   <tr>
+                                     <td><%= route.route_name %></td>
+                                     <td><%= route.source_state %></td>
+                                     <td><%= route.start_route %></td>
+                                     <td><%= route.end_route %></td>
+                                     <td><%= route.route_fare %></td>
 
-                            <div class="w3-container">
-                                <div class="row">
-                                    <div class="col-md-4 col-sm-4">
-                                        <div class="container-fluid">
-                                            <p><strong>Ticket ID:</strong> <i id="checkin_ticket_id"></i></p>
-                                            <p><strong>Ref. Number: </strong> <i id="checkin_ticket_ref_number"></i></p>
-                                            <p><strong>Serial Number: <%=  %></strong> <i id="checkin_ticket_serial_number"></i></p>
-                                            <p><strong>Travel Date: <%=  %></strong> <i id="checkin_ticket_travel_date"></i></p>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4 col-sm-4">
-                                        <div class="container-fluid">
-                                            <p><strong>Name: <%=  %> <%=  %></strong> <i id="checkin_ticket_name"></i></p>
-                                            <p><strong>Passenger ID: <%=  %></strong> <i id="checkin_ticket_passenger_id"></i></p>
-                                            <p><strong>Cell: <%=  %></strong> <i id="checkin_ticket_cell"></i></p>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4 col-sm-4">
-                                        <div class="container-fluid">
-                                             <img src="<%= Routes.static_path(@conn, "/images/icons/Scan.png") %>"  width="300" height="70" class="img-responsive" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <br>
-                    <div class="container">
-
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <button onclick="get_weight()" class="w3-btn-block w3-indigo w3-hover-orange w3-round">Get Weight</button>
-                                </div>
-                                <div class="col-md-6">
-                                    <p id="scale_weight_3" style="font-weight: bold; font-size: 25px;"></p>
-                                </div>
-                            </div>
-                            <br>
-                            <textarea id="luggage_description"  maxlength="40" style="width: 50%;" placeholder="Description"></textarea>
-                            <br><br>
-                            <p>
-                                <strong>TICKET ID:</strong>
-                                <i id="luggage_ticket"></i>
-                            </p>
-
-                            <p>
-                                <strong>Luggage Weight (KG):</strong>
-                                <i id="luggage_weight_2"></i>
-                            </p>
-
-                            <p>
-                                <strong>Item Cost (ZMW):</strong>
-                                <i id="luggage_item_cost">0</i>
-                            </p>
-
-                            <p>
-                                <strong>Total Cost (ZMW):</strong>
-                                <i id="luggage_total_cost">0</i>
-                            </p>
-                        </div>
-
-                        <button id="add_luggage_button" onclick="add_luggage_button()" type="button" class="w3-btn w3-indigo w3-hover-orange w3-round w3-left">Add</button>
-                    </div>
-                    <br>
-
-                    <div class="container-fluid">
-                        <div class="container-fluid">
-                            <table id="luggage_table_list" class="w3-table w3-striped w3-border">
-                                    <tr><th>Description</th><th>Ticket ID</th><th>Weight</th><th>Cost</th></tr>
+                                   </tr>
+                                <% end %>
+                            </tbody>
                             </table>
                         </div>
                     </div>
 
-                    <br>
-                    <div class="container">
-                        <button onclick="checkInButton()" type="submit" class="w3-btn w3-indigo w3-hover-orange w3-round">
-                            Check In
-                        </button>
-                    </div>
-                    <br>
+                </div>
             </div>
-            <!---------------------------------------------------------->
+            <!------------------------------------->
+
+            <!------------ CHECKIN----------------->
+            <div class="col-md-12 bus" id="checkin">
+                <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
+
+                    <header class="w3-container w3-indigo w3-center" id="heed">
+                      <h3>Checkin</h3>
+                    </header>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="form-inline" style="margin-top: 0.5%; margin-bottom: 5%;">
+                                <div class="col-md-10">
+                                      <div class="form-group">
+                                        <label for="ticket">
+                                            <strong>Ticket ID:</strong>
+                                        </label>
+                                        <input type="text" id="checkin_ticket_id_1" class="form-control" required="required" placeholder="Enter Ticket ID">
+                                      </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <button onclick="checkinAction()" type="submit" class="w3-btn w3-light-grey w3-hover-white w3-round pull-right">
+                                             <img src="<%= Routes.static_path(@conn, "/images/1.png") %>" class="img-fluid" style="width:30px;height:30px" alt="search">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--------- RESULTS -------------------------------------->
+                <div id="checkin_results_view" class="container-fluid" style="display: none;">
+                    <div  class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
+                        <header class="w3-container w3-indigo w3-center" id="heed">
+                            <h3>RESULTS</h3>
+                        </header>
+
+                        <div class="container-fluid"><br>
+                            <div class="w3-card-4" style="width:100%;">
+                                <header class="w3-container">
+                                    <div class="container-fluid" style="display: inline-block;">
+                                        <img src="<%= Routes.static_path(@conn, "/images/icons/6.png") %>"  width="500" height="50" class="img-responsive" alt="">
+                                    </div><hr>
+                                </header>
+
+                                <div class="w3-container">
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-4">
+                                            <div class="container-fluid">
+                                                <p><strong>Ticket ID:</strong> <i id="checkin_ticket_id"></i></p>
+                                                <p><strong>Ref. Number: </strong> <i id="checkin_ticket_ref_number"></i></p>
+                                                <p><strong>Serial Number: <%=  %></strong> <i id="checkin_ticket_serial_number"></i></p>
+                                                <p><strong>Travel Date: <%=  %></strong> <i id="checkin_ticket_travel_date"></i></p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-4">
+                                            <div class="container-fluid">
+                                                <p><strong>Name: <%=  %> <%=  %></strong> <i id="checkin_ticket_name"></i></p>
+                                                <p><strong>Passenger ID: <%=  %></strong> <i id="checkin_ticket_passenger_id"></i></p>
+                                                <p><strong>Cell: <%=  %></strong> <i id="checkin_ticket_cell"></i></p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-4">
+                                            <div class="container-fluid">
+                                                 <img src="<%= Routes.static_path(@conn, "/images/icons/Scan.png") %>"  width="300" height="70" class="img-responsive" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="container">
+
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button onclick="get_weight()" class="w3-btn-block w3-indigo w3-hover-orange w3-round">Get Weight</button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p id="scale_weight_3" style="font-weight: bold; font-size: 25px;"></p>
+                                    </div>
+                                </div>
+                                <br>
+                                <textarea id="luggage_description"  maxlength="40" style="width: 50%;" placeholder="Description"></textarea>
+                                <br><br>
+                                <p>
+                                    <strong>TICKET ID:</strong>
+                                    <i id="luggage_ticket"></i>
+                                </p>
+
+                                <p>
+                                    <strong>Luggage Weight (KG):</strong>
+                                    <i id="luggage_weight_2"></i>
+                                </p>
+
+                                <p>
+                                    <strong>Item Cost (ZMW):</strong>
+                                    <i id="luggage_item_cost">0</i>
+                                </p>
+
+                                <p>
+                                    <strong>Total Cost (ZMW):</strong>
+                                    <i id="luggage_total_cost">0</i>
+                                </p>
+                            </div>
+
+                            <button id="add_luggage_button" onclick="add_luggage_button()" type="button" class="w3-btn w3-indigo w3-hover-orange w3-round w3-left">Add</button>
+                        </div>
+                        <br>
+
+                        <div class="container-fluid">
+                            <div class="container-fluid">
+                                <table id="luggage_table_list" class="w3-table w3-striped w3-border">
+                                        <tr><th>Description</th><th>Ticket ID</th><th>Weight</th><th>Cost</th></tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="container">
+                            <button onclick="checkInButton()" type="submit" class="w3-btn w3-indigo w3-hover-orange w3-round">
+                                Check In
+                            </button>
+                        </div>
+                        <br>
+                </div>
+                <!---------------------------------------------------------->
+            </div>
+            <!----------------------------------->
         </div>
-        <!----------------------------------->
-    </div>
-
-
-</div>
+        </div>
 <% end %>
 <!-- ########################################## END TELLER MODULE ###############################-->
 
@@ -3019,5 +3022,6 @@ function openCity(cityName) {
     </div>
   </div>
   <!------------------------------------------------------------------------------------------------------------------------------------------------------->
-
+    </div>
+</div>
 </div>
