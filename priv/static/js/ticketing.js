@@ -168,7 +168,7 @@ function add_luggage_button() {
             }
 
             let json_request = JSON.stringify({
-                ticket_id: parseInt(v_ticket)
+                ticket_id: parseInt(ticket_interface_id)
             });
 
             $.ajax({

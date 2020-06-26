@@ -55,8 +55,6 @@ defmodule BusTerminalSystem.RepoManager do
             IO.inspect("--------------------------------******---------------------------------------------")
             IO.inspect(ticket.route_information)
 
-
-
             [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot, _, _] = ticket.route_information |> String.split()
             printer_payload =
               %{
@@ -74,7 +72,10 @@ defmodule BusTerminalSystem.RepoManager do
               }
 
             spawn(fn ->
+              IO.inspect("-----------------------------START TICKET PRINTING PAYLOAD--------------------------------")
+              IO.inspect(printer_payload)
               BusTerminalSystem.PrinterTcpProtocol.print_local_connect(printer_payload)
+              IO.inspect("-----------------------------END TICKET PRINTING PAYLOAD----------------------------------")
             end)
 
             spawn(fn ->
@@ -167,13 +168,25 @@ defmodule BusTerminalSystem.RepoManager do
     luggage = Map.put(luggage, "class", "LUGGAGE")
     luggage = Map.put(luggage, "reference_number", "LUGGAGE")
 
-    {status, luggage_json} = %Luggage{}
-    |> Luggage.changeset(luggage)
-    |> Repo.insert()
-    |> Poison.encode()
+    (Map.fetch!(luggage, "weight") == nil) |> if  do
+      luggage = Map.put(luggage, "weight", 0)
+      {status, luggage_json} = %Luggage{}
+      |> Luggage.changeset(luggage)
+      |> Repo.insert()
+      |> Poison.encode()
 
-    {sts, luggage_a} = JSON.encode(luggage_json)
-    luggage
+      {sts, luggage_a} = JSON.encode(luggage_json)
+      luggage
+
+    else
+      {status, luggage_json} = %Luggage{}
+       |> Luggage.changeset(luggage)
+       |> Repo.insert()
+       |> Poison.encode()
+
+      {sts, luggage_a} = JSON.encode(luggage_json)
+      luggage
+    end
 
   end
 
