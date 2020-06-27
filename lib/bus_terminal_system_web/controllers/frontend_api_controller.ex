@@ -328,15 +328,19 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
   def acquire_luggage_form_view(conn,%{"unattended" => luggage_params} = params) do
 
-    sms_message = "Luggage from #{Map.fetch!(luggage_params,"sender_mobile")} to #{Map.fetch!(luggage_params,"recipient_mobile")} Check-in successful \n LUGGAGE ID: #{Map.fetch!(luggage_params,"ticket_id")}"
+    sender_mobile = Map.fetch!(luggage_params,"recipient_mobile")
+    receiver_mobile = Map.fetch!(luggage_params,"sender_mobile")
+    luggage_id = Map.fetch!(luggage_params,"ticket_id")
+
+    sender_message = "You have successfully checked in and sent Luggage/Cargo to #{ receiver_mobile },ID: #{luggage_id}\nSend ID to recipient for collection. Thank you for using BTMMS Services"
+    receiver_message = "Hello, the number #{sender_mobile} has sent Luggage/Cargo to this number.\nA collection ID will be sent to you by sender for collection.\nThank you for using BTMMS Services."
 
     spawn(fn ->
-      BusTerminalSystem.Notification.Table.Sms.create!([recipient: Map.fetch!(luggage_params,"recipient_mobile"), message: sms_message, sent: false])
+      BusTerminalSystem.Notification.Table.Sms.create!([recipient: receiver_mobile, message: receiver_message, sent: false])
     end)
 
     spawn(fn ->
-      BusTerminalSystem.Notification.Table.Sms.create!([recipient: Map.fetch!(luggage_params,"sender_mobile"), message: sms_message, sent: false])
-
+      BusTerminalSystem.Notification.Table.Sms.create!([recipient: sender_mobile, message: sender_message, sent: false])
     end)
 
     ticket = Map.fetch!(luggage_params,"ticket_id") |> BusTerminalSystem.TicketManagement.Ticket.find
