@@ -28,9 +28,50 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
     drop_if_exists table(:probase_tbl_acc_acgl_bal)
     drop_if_exists table(:probase_acc_process_dates)
     drop_if_exists table(:probase_acc_gl_account)
+    drop_if_exists table(:probase_tbl_sms)
   end
 
   def create_tables() do
+
+    create_if_not_exists table(:probase_tbl_tickets) do
+      add :reference_number, :string
+      add :serial_number, :string
+      add :external_ref, :string
+      add :route, :int
+      add :date, :string
+      add :bus_no, :string
+      add :maker, :string
+      add :class, :string
+      add :activation_status, :string
+      add :first_name, :string
+      add :last_name, :string
+      add :other_name, :string
+      add :id_type, :string
+      add :passenger_id, :string
+      add :mobile_number, :string
+      add :email_address, :string
+      add :transaction_channel, :string
+      add :travel_date, :string
+      add :bus_schedule_id, :string
+      add :route_information, :string
+      add :amount, :float, default: 0, precision: 10, scale: 2
+      add :payment_mode, :string
+
+      timestamps()
+    end
+
+    create_if_not_exists table(:probase_tbl_sms) do
+      add :status, :string
+      add :status_code, :integer
+      add :recipient, :string
+      add :message, :string, size: 2000
+      add :request, :string, size: 2000
+      add :response, :string, size: 2000
+      add :sent, :boolean
+
+      timestamps
+    end
+
     execute "create table if not exists probase_acc_gl_account
             (
                 id bigint auto_increment

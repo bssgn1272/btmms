@@ -41,7 +41,9 @@ defmodule BusTerminalSystemWeb.TicketController do
     case TicketManagement.create_ticket(ticket_params) do
       {:ok, ticket} ->
 
-        NapsaSmsGetway.send_ticket_sms(ticket.mobile_number,ticket)
+        spawn(fn ->
+          BusTerminalSystem.Notification.Table.Sms.create!([recipient: ticket.mobile_number, message: NapsaSmsGetway.send_ticket_sms(ticket), sent: false])
+        end)
 
         conn
         |> put_flash(:info, "Ticket created successfully.")
@@ -260,7 +262,9 @@ defmodule BusTerminalSystemWeb.TicketController do
     case RepoManager.create_ticket(params) do
       {:ok, ticket} ->
 
-        NapsaSmsGetway.send_ticket_sms(ticket.mobile_number,ticket)
+      spawn(fn ->
+        BusTerminalSystem.Notification.Table.Sms.create!([recipient: ticket.mobile_number, message: NapsaSmsGetway.send_ticket_sms(ticket), sent: false])
+      end)
 
         conn
         |> json(ApiManager.api_message_custom_handler(

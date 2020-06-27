@@ -310,45 +310,67 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     "ZBMS-#{dt.year}#{dt.month}#{dt.day}-#{dt.hour}#{dt.minute}#{dt.second}#{micro}"
   end
 
+  def ext_luggage_ref do
+    dt = DateTime.utc_now
+    {micro,_} = dt.microsecond
+    "REF-#{dt.year}#{dt.month}#{dt.day}-#{dt.hour}#{dt.minute}#{dt.second}#{micro}"
+  end
+
+  def ext_luggage_serial do
+    dt = DateTime.utc_now
+    {micro,_} = dt.microsecond
+    "S#{dt.year}#{dt.month}#{dt.day}#{dt.hour}#{dt.minute}#{dt.second}#{micro}"
+  end
+
+  def from(key, map) do
+    Map.fetch!(map,key)
+  end
+
   def acquire_luggage_form_view(conn,%{"unattended" => luggage_params} = params) do
 
-#    IO.inspect(params)
-#    sms_message = "Luggage from #{sender} to #{receiver} Check-in successful \n LUGGAGE ID: #{luggage_id}"
-#    spawn(fn ->
-#      NapsaSmsGetway.send_sms(sender,sms_message)
-#    end)
-#
     sms_message = "Luggage from #{Map.fetch!(luggage_params,"sender_mobile")} to #{Map.fetch!(luggage_params,"recipient_mobile")} Check-in successful \n LUGGAGE ID: #{Map.fetch!(luggage_params,"ticket_id")}"
 
     spawn(fn ->
-      NapsaSmsGetway.send_sms(Map.fetch!(luggage_params,"recipient_mobile"),sms_message)
+      BusTerminalSystem.Notification.Table.Sms.create!([recipient: Map.fetch!(luggage_params,"recipient_mobile"), message: sms_message, sent: false])
     end)
 
     spawn(fn ->
-      NapsaSmsGetway.send_sms(Map.fetch!(luggage_params,"sender_mobile"),sms_message)
+      BusTerminalSystem.Notification.Table.Sms.create!([recipient: Map.fetch!(luggage_params,"sender_mobile"), message: sms_message, sent: false])
+
     end)
 
-    ticket = Ticket.find(id: Map.fetch!(luggage_params,"sender_mobile"))
-
-
-
-    printer_payload =
-      %{
-        "refNumber" => ticket.reference_number,
-        "fName" => "",
-        "sName" => "",
-        "from" => "",
-        "to" => "",
-        "Price" => "",
-        "Bus" => "",
-        "gate" => "",
-        "depatureTime" => "",
-        "ticketNumber" => ticket.id,
-        "items" => BusTerminalSystem.RepoManager.acquire_luggage(ticket.id)
-      }
+    ticket = Map.fetch!(luggage_params,"ticket_id") |> BusTerminalSystem.TicketManagement.Ticket.find
 
     spawn(fn ->
-      BusTerminalSystem.PrinterTcpProtocol.print_local_connect(printer_payload)
+      ticket |> BusTerminalSystem.TicketManagement.Ticket.update([
+        first_name: "recipient_firstname" |> from(luggage_params),
+        last_name: "recipient_lastname" |> from(luggage_params),
+        amount: ticket.id |> RepoManager.get_luggage_by_ticket_id_total_cost,
+        transaction_channel: "TELLER",
+        reference_number: luggage_ref,
+        external_ref: "#{ext_luggage_ref}",
+        mobile_number: "recipient_mobile" |> from(luggage_params),
+        travel_date: "2020",
+        passenger_id: "nrc_id" |> from(luggage_params),
+        id_type: "universal",
+        serial_number: ext_luggage_serial
+      ])
+    end)
+
+    spawn(fn ->
+        %{
+          "refNumber" => ticket.reference_number,
+          "fName" => "recipient_firstname" |> from(luggage_params),
+          "sName" => "recipient_lastname" |> from(luggage_params),
+          "from" => "",
+          "to" => "",
+          "Price" => ticket.id |> RepoManager.get_luggage_by_ticket_id_total_cost,
+          "Bus" => "",
+          "gate" => "",
+          "depatureTime" => "",
+          "ticketNumber" => ticket.id,
+          "items" => BusTerminalSystem.RepoManager.acquire_luggage(ticket.id)
+        } |> BusTerminalSystem.PrinterTcpProtocol.print_local_connect
     end)
 
     conn

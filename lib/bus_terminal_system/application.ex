@@ -3,6 +3,8 @@ defmodule BusTerminalSystem.Application do
   # for more information on OTP Applications
   @moduledoc false
 
+  import Supervisor.Spec
+
   use Application
 
   def start(_type, _args) do
@@ -11,9 +13,11 @@ defmodule BusTerminalSystem.Application do
       # Start the Ecto repository
       BusTerminalSystem.Repo,
       # Start the endpoint when the application starts
-      BusTerminalSystemWeb.Endpoint
+      BusTerminalSystemWeb.Endpoint,
       # Starts a worker by calling: BusTerminalSystem.Worker.start_link(arg)
       # {BusTerminalSystem.Worker, arg},
+      # SMS job
+       BusTerminalSystem.Job.Sms
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

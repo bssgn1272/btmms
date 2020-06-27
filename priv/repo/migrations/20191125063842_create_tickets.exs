@@ -40,7 +40,7 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTickets do
   end
 
   def down do
-    drop_if_exists table(:probase_tbl_tickets)
+    #drop_if_exists table(:probase_tbl_tickets)
   end
 
 
