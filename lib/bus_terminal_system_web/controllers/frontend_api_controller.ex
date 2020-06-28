@@ -395,7 +395,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
         "sName" => "recipient_lastname" |> from(luggage_params),
         "from" => start_route,
         "to" => end_route,
-        "Price" => ticket.id |> RepoManager.get_luggage_by_ticket_id_total_cost,
+        "Price" => (ticket.amount + BusTerminalSystem.Luggage.sum(:cost, ticket_id: ticket.id)),
         "Bus" => operator.company,
         "gate" => schedule.slot,
         "depatureTime" => travel_date,

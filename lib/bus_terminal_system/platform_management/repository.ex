@@ -67,7 +67,7 @@ defmodule BusTerminalSystem.RepoManager do
                 "sName" => ticket.last_name,
                 "from" => start_route,
                 "to" => end_route,
-                "Price" => price,
+                "Price" => (ticket.amount + BusTerminalSystem.Luggage.sum(:cost, ticket_id: ticket.id)),
                 "Bus" => tBus,
                 "gate" => slot,
                 "depatureTime" => departure,
