@@ -202,23 +202,25 @@ defmodule BusTerminalSystemWeb.TicketController do
               {:error, _payload} ->
                 conn
                 |> json(ApiManager.api_error_handler(ApiManager.definition_purchase,"INVALID ROUTE CODE"))
-
               {:ok, route} ->
-
                 {:ok, ext_reference} = Map.fetch(payload,"external_ref")
-
                 case validate_ext_reference(ext_reference) do
                   {:error, _reference} ->
                     conn
                     |> json(ApiManager.api_error_handler(ApiManager.definition_purchase,"Duplicate External Reference"))
 
                   {:ok, _reference} ->
+                    auth = "auth" |> from(params)
+                    teller_username = "username" |> from(auth)
+                    teller = BusTerminalSystem.AccountManager.User.find_by(username: teller_username)
                     serial_number = Randomizer.randomizer(7, :numeric)
+
                     map = Map.put(payload, "reference_number", generate_reference_number(route))
                     map = Map.put(map, "serial_number", serial_number)
                     map = Map.put(map, "activation_status", "VALID")
                     map = Map.put(map, "route", route.id)
                     map = Map.put(map, "amount", route.route_fare)
+                    map = Map.put(map, "maker", teller.id |> to_string)
 
                     schedule = BusTerminalSystem.TblEdReservations.find_by(id: Map.fetch!(map, "bus_schedule_id"))
                     bus = BusTerminalSystem.BusManagement.Bus.find_by(id: schedule.bus_id)
@@ -245,6 +247,10 @@ defmodule BusTerminalSystemWeb.TicketController do
             end
           end
     end
+  end
+
+  def from(key, map) do
+    Map.fetch!(map,key)
   end
 
   defp fetch(map,value) do

@@ -28,7 +28,7 @@ defmodule BusTerminalSystem.PrinterTcpProtocol do
 
   def print_test() do
     {:ok, socket} = :gen_tcp.connect({192, 168, 8, 113}, 1302, [:binary])
-    payload = %{"refNumber" => "12345","fName" => "BOB","sName" => "BANDA","from" => "LIVINGSTONE","to" => "LUSAKA","Price" => "300.00","ticketNumber" => "1234","items" => ["Luggage:300","TicketPrice:300"]}
+    payload = %{"refNumber" => "12345","fName" => "BOB","sName" => "BANDA","from" => "LIVINGSTONE","to" => "LUSAKA","Price" => "300.00","ticketNumber" => "1234","items" => ["Luggage:300","Luggage:700"]}
     :ok = :gen_tcp.send(socket, Poison.encode!(payload))
     :ok = :gen_tcp.close(socket)
   end

@@ -32,18 +32,22 @@ defmodule BusTerminalSystem.RepoManager do
 
   def acquire_luggage(ticket_id) do
 
-    {:ok, agent} = Agent.start_link fn  -> [] end
+#    {:ok, agent} = Agent.start_link fn  -> [] end
+#
+#    BusTerminalSystem.Luggage.where(ticket_id: ticket_id)
+#    |> Enum.with_index()
+#    |> Enum.each(fn {e, index} ->
+#      IO.inspect(e)
+#      Agent.update(agent, fn list -> ["#{Map.fetch!(e, :description)}:#{Map.fetch!(e, :cost)}" | list ] end)
+#    end)
+#
+#    luggage_data = Agent.get(agent, fn list -> list end)
+#    Agent.stop(agent)
+#    luggage_data
 
-    BusTerminalSystem.Luggage.where(ticket_id: ticket_id)
-    |> Enum.with_index()
-    |> Enum.each(fn {e, index} ->
-      IO.inspect(e)
-      Agent.update(agent, fn list -> ["#{Map.fetch!(e, :description)}:#{Map.fetch!(e, :cost)}" | list ] end)
-    end)
+    ["     Luggage                   :#{BusTerminalSystem.Luggage.sum(:cost,ticket_id: ticket_id)}",
+      "     Ticket                    :#{BusTerminalSystem.TicketManagement.Ticket.find(ticket_id).amount}"]
 
-    luggage_data = Agent.get(agent, fn list -> list end)
-    Agent.stop(agent)
-    luggage_data
   end
 
   def checkin(id) do
