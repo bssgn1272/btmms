@@ -359,6 +359,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     [year, month, day] = date |> String.split("-")
     travel_date = "#{schedule.time} #{day}-#{month}-#{year}"
     luggage_total_cost = ticket.id |> RepoManager.get_luggage_by_ticket_id_total_cost
+    reference_number = luggage_ref
 
     r_info = "OPERATOR: #{operator.company |> String.replace(" ","_")}: START: #{start_route} END: #{end_route}	 DEPARTURE: #{schedule.time} PRICE: K#{luggage_total_cost} GATE: #{schedule.slot}"
 
@@ -375,7 +376,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
       bus_schedule_id: bus_schedule_id,
       maker: "maker" |> from(luggage_params),
       luggage_total: luggage_total_cost,
-      reference_number: luggage_ref,
+      reference_number: reference_number,
       external_ref: "#{ext_luggage_ref}",
       mobile_number: "recipient_mobile" |> from(luggage_params),
       travel_date: "#{day}/#{month}/#{year}",
@@ -389,7 +390,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
     spawn(fn ->
       %{
-        "refNumber" => ticket.reference_number,
+        "refNumber" => reference_number,
         "fName" => "recipient_firstname" |> from(luggage_params),
         "sName" => "recipient_lastname" |> from(luggage_params),
         "from" => start_route,
