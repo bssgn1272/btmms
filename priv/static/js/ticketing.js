@@ -385,8 +385,8 @@ function checkInButton() {
 $('#routes_dataTable').DataTable();
 function toggle_route_search(){
 
-    //virtual_ticket()
-    //console.log("v_ticket: " + v_ticket)
+    $('#passenger_view').hide();
+    $("#unattended_layout_view").hide();
 
     switch ($('#ticket_type').val()) {
         case "passenger_ticket":
@@ -401,9 +401,11 @@ function toggle_route_search(){
 function unattended_luggage_logic() {
     $("#results_view").show();
     $("#unattended_view").show();
-    $("#passenger_ticket_view").hide();
+
+    passenger_ticket_logic();
 }
 
+$("#unattended_layout_view").hide();
 function passenger_ticket_logic() {
     $("#unattended_view").hide();
 
@@ -470,4 +472,37 @@ function passenger_ticket_logic() {
             }
         }
     });
+}
+
+function ticket_purchase(value){
+
+    console.log(value.split(/-/g));
+    let rd = value.split(/-/g);
+
+    switch ($('#ticket_type').val()) {
+        case "passenger_ticket":
+            $('#passenger_view').show();
+            let info = "OPERATOR: " + rd[0] + "\t START: " + rd[1] + "\t END: " + rd[2] + "\t DEPARTURE: " + rd[3] + "\t PRICE: K" + rd[4] + "\t GATE: " + rd[6] + "\t SCHEDULE: " + rd[7];
+            $('#route_information').val(info);
+            $('#bus_id_input').val(rd[5]);
+            break
+        case "unattended_luggage":
+            $('#passenger_view').hide();
+            $("#unattended_layout_view").show();
+
+            $("#unattended_luggage_operator").val(rd[0]);
+            $("#unattended_luggage_source").val(rd[1]);
+            $("#unattended_luggage_destination").val(rd[2]);
+            $("#unattended_luggage_start_route").val(rd[1]);
+            $("#unattended_luggage_end_route").val(rd[2]);
+            $("#unattended_luggage_departure_date").val(rd[3]);
+            $("#unattended_luggage_amount").val(rd[4]);
+            $("#unattended_luggage_bus_id").val(rd[5]);
+            $("#unattended_luggage_gate").val(rd[6]);
+            $("#unattended_luggage_bus_schedule_id").val(rd[7]);
+
+            break
+    }
+
+
 }

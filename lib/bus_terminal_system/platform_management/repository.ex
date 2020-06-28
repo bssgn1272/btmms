@@ -47,15 +47,15 @@ defmodule BusTerminalSystem.RepoManager do
   end
 
   def checkin(id) do
-    ticket = Repo.get_by(Ticket, id: id)
+    ticket = Ticket.find(id)
 
      ticket.class |> case do
-        "TICKET" -> ""
+        "TICKET" ->
           try do
             IO.inspect("--------------------------------******---------------------------------------------")
             IO.inspect(ticket.route_information)
 
-            [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot, _, _] = ticket.route_information |> String.split()
+            [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot, _, _ | data] = ticket.route_information |> String.split()
             printer_payload =
               %{
                 "refNumber" => ticket.reference_number,
@@ -111,11 +111,11 @@ defmodule BusTerminalSystem.RepoManager do
 
         "LUGGAGE" ->
           IO.inspect(ticket.route_information)
-          [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot, _, _] = ticket.route_information |> String.split()
+          [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot, _, _ | data] = ticket.route_information |> String.split()
           printer_payload =
             %{
               "refNumber" => ticket.reference_number,
-              "fName" => "",
+              "fName" => ticket.first_name,
               "sName" => "",
               "from" => start_route,
               "to" => end_route,

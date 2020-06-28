@@ -33,6 +33,9 @@ defmodule BusTerminalSystem.TicketManagement.Ticket do
     field :route_information, :string
     field :amount, :float
     field :payment_mode, :string
+    field :has_luggage, :boolean
+    field :luggage_total, :float
+    field :info, :string
 
     timestamps()
   end
@@ -42,7 +45,8 @@ defmodule BusTerminalSystem.TicketManagement.Ticket do
 
     ticket
     |> cast(attrs, [:reference_number, :maker, :external_ref, :bus_no, :class, :serial_number, :route, :activation_status, :first_name, :bus_schedule_id,
-      :last_name, :other_name, :id_type, :payment_mode, :amount, :passenger_id, :mobile_number, :email_address, :transaction_channel, :travel_date, :route_information])
+      :last_name, :other_name, :id_type, :payment_mode, :amount, :passenger_id, :mobile_number, :email_address, :transaction_channel, :travel_date,
+      :has_luggage, :luggage_total, :info, :route_information])
 
     |> validate_required([:reference_number, :external_ref, :amount, :serial_number, :route, :activation_status, :first_name,
       :last_name, :id_type, :passenger_id, :mobile_number, :transaction_channel, :travel_date])

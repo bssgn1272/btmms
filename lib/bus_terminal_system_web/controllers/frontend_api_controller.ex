@@ -327,6 +327,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   end
 
   def acquire_luggage_form_view(conn,%{"unattended" => luggage_params} = params) do
+    IO.inspect("------------------------------------UNATTENDED LUGGAGE CREATE ----------------------")
 
     sender_mobile = Map.fetch!(luggage_params,"recipient_mobile")
     receiver_mobile = Map.fetch!(luggage_params,"sender_mobile")
@@ -344,38 +345,65 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     end)
 
     ticket = Map.fetch!(luggage_params,"ticket_id") |> BusTerminalSystem.TicketManagement.Ticket.find
+    bus_id = Map.fetch!(luggage_params,"bus_id")
+    bus_schedule_id = Map.fetch!(luggage_params,"bus_schedule_id")
+    start_route = Map.fetch!(luggage_params,"start_route")
+    end_route = Map.fetch!(luggage_params,"end_route")
+    nrc_id = Map.fetch!(luggage_params,"nrc_id")
+
+    bus = bus_id |> BusTerminalSystem.BusManagement.Bus.find
+    operator = bus.operator_id |> BusTerminalSystem.AccountManager.User.find
+    schedule = bus_schedule_id |> BusTerminalSystem.TblEdReservations.find
+
+    [date, _] = schedule.reserved_time |> to_string |> String.split(" ")
+    [year, month, day] = date |> String.split("-")
+    travel_date = "#{schedule.time} #{day}-#{month}-#{year}"
+    luggage_total_cost = ticket.id |> RepoManager.get_luggage_by_ticket_id_total_cost
+
+    r_info = "OPERATOR: #{operator.company |> String.replace(" ","_")}: START: #{start_route} END: #{end_route}	 DEPARTURE: #{schedule.time} PRICE: K#{luggage_total_cost} GATE: #{schedule.slot}"
+
+    ticket_update = ticket |> BusTerminalSystem.TicketManagement.Ticket.update([
+      first_name: "recipient_firstname" |> from(luggage_params),
+      last_name: "recipient_lastname" |> from(luggage_params),
+      amount: 0.00,
+      transaction_channel: "TELLER",
+      payment_mode: "CASH",
+      has_luggage: false,
+      route: schedule.route,
+      route_information: r_info,
+      bus_no: bus.id |> to_string,
+      bus_schedule_id: bus_schedule_id,
+      maker: "maker" |> from(luggage_params),
+      luggage_total: luggage_total_cost,
+      reference_number: luggage_ref,
+      external_ref: "#{ext_luggage_ref}",
+      mobile_number: "recipient_mobile" |> from(luggage_params),
+      travel_date: "#{day}/#{month}/#{year}",
+      passenger_id: "nrc_id" |> from(luggage_params),
+      id_type: "UNIVERSAL",
+      info: "sender_mobile" |> from(luggage_params),
+      serial_number: ext_luggage_serial
+    ])
+
+    IO.inspect(ticket_update)
 
     spawn(fn ->
-      ticket |> BusTerminalSystem.TicketManagement.Ticket.update([
-        first_name: "recipient_firstname" |> from(luggage_params),
-        last_name: "recipient_lastname" |> from(luggage_params),
-        amount: ticket.id |> RepoManager.get_luggage_by_ticket_id_total_cost,
-        transaction_channel: "TELLER",
-        reference_number: luggage_ref,
-        external_ref: "#{ext_luggage_ref}",
-        mobile_number: "recipient_mobile" |> from(luggage_params),
-        travel_date: "2020",
-        passenger_id: "nrc_id" |> from(luggage_params),
-        id_type: "universal",
-        serial_number: ext_luggage_serial
-      ])
+      %{
+        "refNumber" => ticket.reference_number,
+        "fName" => "recipient_firstname" |> from(luggage_params),
+        "sName" => "recipient_lastname" |> from(luggage_params),
+        "from" => start_route,
+        "to" => end_route,
+        "Price" => ticket.id |> RepoManager.get_luggage_by_ticket_id_total_cost,
+        "Bus" => operator.company,
+        "gate" => schedule.slot,
+        "depatureTime" => travel_date,
+        "ticketNumber" => ticket.id,
+        "items" => BusTerminalSystem.RepoManager.acquire_luggage(ticket.id)
+      } |> BusTerminalSystem.PrinterTcpProtocol.print_local_connect
     end)
 
-    spawn(fn ->
-        %{
-          "refNumber" => ticket.reference_number,
-          "fName" => "recipient_firstname" |> from(luggage_params),
-          "sName" => "recipient_lastname" |> from(luggage_params),
-          "from" => "",
-          "to" => "",
-          "Price" => ticket.id |> RepoManager.get_luggage_by_ticket_id_total_cost,
-          "Bus" => "",
-          "gate" => "",
-          "depatureTime" => "",
-          "ticketNumber" => ticket.id,
-          "items" => BusTerminalSystem.RepoManager.acquire_luggage(ticket.id)
-        } |> BusTerminalSystem.PrinterTcpProtocol.print_local_connect
-    end)
+    IO.inspect("------------------------------------END UNATTENDED LUGGAGE CREATE ----------------------")
 
     conn
     |> redirect(to: Routes.user_path(conn, :index))

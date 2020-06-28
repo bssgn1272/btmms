@@ -526,6 +526,7 @@
                                 <th>Bus Operator</th>
                                 <th>Depature Date</th>
                                 <th>Route</th>
+                                <th>Mobile</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
                             <th></th>
@@ -535,9 +536,14 @@
                             <%= for ticket <- @tickets do %>
                             <tr>
                               <td><%= ticket.reference_number %></td>
-                              <td><%= ticket.bus_no %></td>
+                              <%
+                                operator_id = BusTerminalSystem.BusManagement.Bus.find(ticket.bus_no).operator_id
+                                operator = BusTerminalSystem.AccountManager.User.find(operator_id)
+                              %>
+                              <td><%= operator.company %></td>
                               <td><%= ticket.travel_date %></td>
-                              <td><%= ticket.route %></td>
+                              <td><%= BusTerminalSystem.TravelRoutes.find(ticket.route).route_name%></td>
+                              <td><%= ticket.mobile_number %></td>
                               <td><%= ticket.first_name %></td>
                               <td><%= ticket.last_name %></td>
                               <td class="text-center">
@@ -668,17 +674,17 @@
                         </div>
 
                         <div class="col-md-2"><br>
-                              <div class="form-group">
-                                <label for="text">
-                                    <strong>To:</strong>
-                                </label>
-                                <div class="form-group has-feedback has-feedback-left">
-                                    <select class="w3-select" id="destination_option_select" name="destination_option_select">
-                                        <option value="" disabled selected>Destination:</option>
+                          <div class="form-group">
+                            <label for="text">
+                                <strong>To:</strong>
+                            </label>
+                            <div class="form-group has-feedback has-feedback-left">
+                                <select class="w3-select" id="destination_option_select" name="destination_option_select">
+                                    <option value="" disabled selected>Destination:</option>
 
-                                    </select>
-                                </div>
-                              </div>
+                                </select>
+                            </div>
+                          </div>
                         </div>
 
                         <div class="col-md-4">
@@ -691,253 +697,141 @@
                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!--------- RESULTS -------------------------------------->
-            <div id="results_view" class="container-fluid">
-                <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
-                    <header class="w3-container w3-indigo w3-center" id="heed">
-                        <h3>RESULTS</h3>
-                    </header>
-                    <!-- ------------------------------------------------------------------------- -->
-                    <div class="container" id="passenger_ticket_view">
-                        <form role="form" >
-                            <div class="col-lg-11 mt-4 stretched_card">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card_title" style="text-align:center; color:blue; text-decoration:underline;">Search Results</h4>
-                                    <div class="single-table">
-                                        <div class="table-responsive">
-                                            <table id="routes_dataTable"  class="table table-striped table-bordered" >
-                                                <thead class="text-uppercase">
-                                                <tr>
-                                                    <th scope="col"></th>
-                                                    <th scope="col">Operator</th>
-                                                    <th scope="col">Route</th>
-                                                    <th scope="col">Time</th>
-                                                    <th scope="col">Price</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody id="trips_form"></tbody>
-                                            </table>
-
-
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        </form>
-                    </div>
-                        <br>
-                        <hr>
-                    <!-- ------------------------------------------------------------------------- -->
-                    <div class="container" id="unattended_view">
-
-                        <div style="margin-left: 15px" class="col-md-12">
-                            <p id="unattended_luggage_code" style="font-weight: bold"></p>
-                        </div>
-
-                        <div class="col-lg-11 mt-4 stretched_card">
-                                <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card_title" style="text-align:center; color:blue; text-decoration:underline;"></h4>
-                                     <div class="col-md-12">
-                                        LUGGAGE TAG ID:<p id="Luggage_id_tag" style=" font-size: 18px;">NOT SET</p>
-                                    </div>
-                                    <br><br>
-                                    <div class="container-fluid">
-
-                                        <div class="row">
-                                            <form class="form-horizontal" action="<%= Routes.frontend_api_path(@conn, :acquire_luggage_form_view) %>" method="post" style="width:100%; margin-left: 20px; margin-top:5%;">
-                                                <div class="form-group">
-
-                                                    <div class="row">
-
-                                                        <div class="col-md-3">
-                                                            <label>Recipient First Name: </label> <br>
-                                                            <input  id="unattended_sender_luggage_phone_input" name="unattended[recipient_firstname]" required type="text" placeholder="First Name">
-                                                            <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-                                                            <input type="hidden" id="unattended_luggage_ticket_id_input" required name="unattended[ticket_id]"  value="">
-                                                        </div>
-
-                                                        <div class="col-md-3">
-                                                            <label>Recipient Last Name: </label> <br>
-                                                            <input id="unattended_sender_luggage_phone_input" name="unattended[recipient_lastname]" required type="text" placeholder="Last Name">
-                                                        </div>
-
-                                                        <div class="col-md-3">
-                                                            <label>Recipient ID: </label> <br>
-                                                            <input  id="unattended_luggage_id_input" name="unattended[nrc_id]" required type="text" placeholder="000000/00/0">
-                                                        </div>
-
-                                                        <div class="col-md-3">
-                                                            <label>Recipient Mobile Number: </label> <br>
-                                                            <input class="input-group" id="unattended_receiver_luggage_phone_input" name="unattended[recipient_mobile]" required type="number" placeholder="260***">
-                                                        </div>
-
-                                                        <div class="col-md-3">
-                                                            <label>Sender Mobile Number: </label> <br>
-                                                            <input id="unattended_sender_luggage_phone_input" required type="number" name="unattended[sender_mobile]" placeholder="260***">
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <div onclick="get_unattended_luggage_weight()" class="btn w3-btn-block w3-indigo w3-hover-orange w3-round">Get Weight</div>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <p id="unattended_luggage_scale_weight" style="font-weight: bold; font-size: 25px;"> 0 </p>
-                                                </div>
-
-
-                                                <br><br>
-                                                <textarea id="unattended_luggage_luggage_description" name="unattended[description]"  maxlength="40" style="width: 100%;" placeholder="Description"></textarea>
-                                                <br><br>
-                                                <p>
-                                                    <strong>Luggage Tag:</strong>
-                                                    <i id="unattended_luggage_luggage_ticket"></i>
-                                                </p>
-
-                                                <p>
-                                                    <strong>Luggage Weight (KG):</strong>
-                                                    <i id="unattended_luggage_luggage_weight_2"></i>
-                                                </p>
-
-                                                <p>
-                                                    <strong>Total Cost (ZMW):</strong>
-                                                    <i id="unattended_luggage_luggage_total_cost">1</i>
-                                                </p>
-
-                                                <div style="margin-top: 15px">
-                                                  <button id="unattended_luggage_add_luggage_button" onclick="add_unattended_luggage_button()" type="button" class="w3-btn w3-indigo w3-hover-orange w3-round w3-left">Add</button>
-                                                </div>
-
-                                                <br><br>
-
-                                                <div style="margin-top: 15px">
-                                                    <table  id="unattended_luggage_table_list" class="w3-table w3-striped w3-border">
-                                                            <tr><th>Description</th><th>Luggage TAG ID</th><th>Weight</th><th>Cost</th></tr>
-                                                    </table>
-                                                </div>
-
-                                               <div style="margin-top: 25px">
-                                                  <button id="unattended_luggage_add_luggage_button" style="margin-left: 10px" type="submit" class="w3-btn w3-indigo w3-hover-orange w3-round w3-left">Done</button>
-                                                  <button id="unattended_luggage_cancle_button" type="button" style="margin-left: 15px" class="w3-btn w3-red w3-round" data-dismiss="modal">Close</button>
-                                               </div>
-
-                                            </form>
-                                    </div>
-                                </div>
-                            </div>
-
-                    </div>
-                        <br>
-                        <hr>
-                    <!-- ------------------------------------------------------------------------- -->
                 </div>
 
-            </div>
-            <!---------------------------------------------------------->
-
-            <!--------- PASSENGER KYC -------------------------------------->
-            <div id="passenger_view" class="container-fluid">
-                <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
-                    <header class="w3-container w3-indigo w3-center" id="heed">
-                        <h3>PASSENGER INFORMATION</h3>
-                    </header>
-
-
-                <div class="container">
-                    <!--####################-- NAPSA TICKET PURCHASE --####################-->
-                        <div class="col-lg-12">
-                            <div class="container-fluid">
-
-
-                            <div class="text-center" style="height: 5%">
-                                <div class="icon-object border-slate-100 text-slate-100 w3-orange">
-                                    <img src="<%= Routes.static_path(@conn, "/images/logo/1.png") %>" width="90" height="70" alt="NapsaLogo">
-                                </div>
-
-                                <h5 class="content-group">To PurchaseTicket <small class="display-block">Fill Form Below</small></h5>
-                            </div>
-
-
-                        <form method="post" action="<%= Routes.ticket_path(@conn, :create) %>">
-                        <div class="row">
-                            <div hidden="hidden" class="col-md-6">
-                                <div class="form-group has-feedback has-feedback-left">
-                                    <input type="date" id="date" name="bday" min="2015-10-28" class="form-control" onchange="GetSelectedDate()">
-                                    <div class="form-control-feedback">
-                                        <i class="icon-table text-muted"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group has-feedback has-feedback-left">
-                                    <input name="payload[first_name]" id="First_Name" type="text" class="form-control" placeholder="Passenger First Name">
-                                    <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-                                    <input type="hidden" name="payload[reference_number]" value="<%= BusTerminalSystemWeb.TicketController.generate_reference_number(0)%>">
-                                    <input type="hidden" name="payload[external_ref]" value="<%= BusTerminalSystem.Randomizer.randomizer(16)%>">
-                                    <input type="hidden" name="payload[serial_number]" value="<%= BusTerminalSystem.Randomizer.randomizer(7,:numeric)%>">
-                                    <input type="hidden" name="payload[activation_status]" value="VALID">
-                                    <input type="hidden" name="payload[id_type]" value="NRC">
-                                    <input type="hidden" name="payload[maker]" value="<%= @user.id %>">
-                                    <input id="bus_id_input" class="form-control" placeholder="bus_id" name="payload[bus_no]" type="text" hidden>
-                                    <input type="hidden" name="payload[transaction_channel]" value="TELLER">
-                                    <input type="hidden" name="payload[travel_date]" value="01/01/2020">
-                                    <div class="form-control-feedback">
-                                        <i class="icon-user text-muted"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group has-feedback has-feedback-left">
-                                    <input name="payload[mobile_number]" id="Contact_Number" type="text" class="form-control" placeholder="Passenger Cell">
-                                    <div class="form-control-feedback">
-                                        <i class="icon-phone text-muted"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                                <div class="form-group has-feedback has-feedback-left">
-                                    <input name="payload[last_name]" id="Last_Name" type="text" class="form-control" placeholder="Passenger Last Name">
-                                    <div class="form-control-feedback">
-                                        <i class="icon-user text-muted"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group has-feedback has-feedback-left">
-                                            <select class="w3-select" name="option" id="id_type2" onchange="GetSelectedTime()">
-                                                <option value="" disabled selected>ID Type</option>
-                                                <option value="NRC">NRC</option>
-                                                <option value="Passport">Passport</option>
-                                                <option value="Drivers License">Drivers License</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group has-feedback has-feedback-left">
-                                            <input name="payload[passenger_id]" id="ID" type="text" class="form-control" placeholder="ID Number">
-                                            <div class="form-control-feedback">
-                                                <i class="icon-credit-card text-muted"></i>
+                <!--------------------------- RESULTS ------------------------->
+                <div id="results_view" class="container-fluid">
+                    <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
+                        <header class="w3-container w3-indigo w3-center" id="heed">
+                            <h3>RESULTS</h3>
+                        </header>
+                        <!-- ------------------------------------------------------------------------- -->
+                        <div class="container" id="passenger_ticket_view">
+                            <form role="form" >
+                                <div class="col-lg-11 mt-4 stretched_card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card_title" style="text-align:center; color:blue; text-decoration:underline;">Search Results</h4>
+                                        <div class="single-table">
+                                            <div class="table-responsive">
+                                                <table id="routes_dataTable"  class="table table-striped table-bordered" >
+                                                    <thead class="text-uppercase">
+                                                    <tr>
+                                                        <th scope="col"></th>
+                                                        <th scope="col">Operator</th>
+                                                        <th scope="col">Route</th>
+                                                        <th scope="col">Time</th>
+                                                        <th scope="col">Price</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="trips_form"></tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            </form>
+                        </div>
+                            <br>
+                            <hr>
+                  </div>
+                </div>
+                <!-------------------------------END--------------------------->
+
+                <!----------------------- PASSENGER KYC ----------------------->
+                <div id="passenger_view" class="container-fluid">
+                    <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
+                        <header class="w3-container w3-indigo w3-center" id="heed">
+                            <h3>PASSENGER INFORMATION</h3>
+                        </header>
+
+                        <div class="container">
+                        <!--####################-- NAPSA TICKET PURCHASE --####################-->
+                            <div class="col-lg-12">
+                                <div class="container-fluid">
+
+
+                                <div class="text-center" style="height: 5%">
+                                    <div class="icon-object border-slate-100 text-slate-100 w3-orange">
+                                        <img src="<%= Routes.static_path(@conn, "/images/logo/1.png") %>" width="90" height="70" alt="NapsaLogo">
+                                    </div>
+
+                                    <h5 class="content-group">To PurchaseTicket <small class="display-block">Fill Form Below</small></h5>
+                                </div>
+
+
+                            <form method="post" action="<%= Routes.ticket_path(@conn, :create) %>">
+                                <div class="row">
+                                    <div hidden="hidden" class="col-md-6">
+                                        <div class="form-group has-feedback has-feedback-left">
+                                            <input type="date" id="date" name="bday" min="2015-10-28" class="form-control" onchange="GetSelectedDate()">
+                                            <div class="form-control-feedback">
+                                                <i class="icon-table text-muted"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group has-feedback has-feedback-left">
+                                            <input name="payload[first_name]" id="First_Name" type="text" class="form-control" placeholder="Passenger First Name">
+                                            <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                                            <input type="hidden" name="payload[reference_number]" value="<%= BusTerminalSystemWeb.TicketController.generate_reference_number(0)%>">
+                                            <input type="hidden" name="payload[external_ref]" value="<%= BusTerminalSystem.Randomizer.randomizer(16)%>">
+                                            <input type="hidden" name="payload[serial_number]" value="<%= BusTerminalSystem.Randomizer.randomizer(7,:numeric)%>">
+                                            <input type="hidden" name="payload[activation_status]" value="VALID">
+                                            <input type="hidden" name="payload[id_type]" value="NRC">
+                                            <input type="hidden" name="payload[maker]" value="<%= @user.id %>">
+                                            <input id="bus_id_input" class="form-control" placeholder="bus_id" name="payload[bus_no]" type="text" hidden>
+                                            <input type="hidden" name="payload[transaction_channel]" value="TELLER">
+                                            <input type="hidden" name="payload[travel_date]" value="01/01/2020">
+                                            <div class="form-control-feedback">
+                                                <i class="icon-user text-muted"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group has-feedback has-feedback-left">
+                                            <input name="payload[mobile_number]" id="Contact_Number" type="text" class="form-control" placeholder="Passenger Cell">
+                                            <div class="form-control-feedback">
+                                                <i class="icon-phone text-muted"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                        <div class="form-group has-feedback has-feedback-left">
+                                            <input name="payload[last_name]" id="Last_Name" type="text" class="form-control" placeholder="Passenger Last Name">
+                                            <div class="form-control-feedback">
+                                                <i class="icon-user text-muted"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group has-feedback has-feedback-left">
+                                                    <select class="w3-select" name="option" id="id_type2" onchange="GetSelectedTime()">
+                                                        <option value="" disabled selected>ID Type</option>
+                                                        <option value="NRC">NRC</option>
+                                                        <option value="Passport">Passport</option>
+                                                        <option value="Drivers License">Drivers License</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group has-feedback has-feedback-left">
+                                                    <input name="payload[passenger_id]" id="ID" type="text" class="form-control" placeholder="ID Number">
+                                                    <div class="form-control-feedback">
+                                                        <i class="icon-credit-card text-muted"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                 <div class="row">
                                     <div class="col-md-12">
@@ -952,26 +846,163 @@
                                         <b><i class="icon-checkmark2"></i></b>Purchase Ticket
                                     </button>
                                 </div>
-                        </form>
-                    <!--####################-- NAPSA TICKET PURCHASE --####################-->
-                </div>
-
+                            </form>
+                        <!--####################-- NAPSA TICKET PURCHASE --####################-->
                     </div>
+
+                        </div>
+                        </div>
                     </div>
                 </div>
+                <!-------------------------------END--------------------------->
 
+                <!------------------------UNATTENDED KYC----------------------->
+                 <div id="unattended_layout_view" class="container-fluid">
+                    <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
+                        <header class="w3-container w3-indigo w3-center" id="heed">
+                            <h3>UNATTENDED LUGGAGE</h3>
+                        </header>
+                        <!-- ------------------------------------------------------------------------- -->
+                        <div class="container" id="passenger_ticket_view">
+                            <div class="col-lg-11 mt-4 stretched_card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card_title" style="text-align:center; color:blue; text-decoration:underline;">FillForm</h4>
+                                        <!-- ------------------------------------------------------------------------- -->
+                                            <div class="container" id="unattended_view_tmp">
+
+                                                <div style="margin-left: 15px" class="col-md-12">
+                                                    <p id="unattended_luggage_code" style="font-weight: bold"></p>
+                                                </div>
+
+                                                <div class="col-lg-11 mt-4 stretched_card">
+                                                        <div class="card">
+                                                        <div class="card-body">
+                                                            <h4 class="card_title" style="text-align:center; color:blue; text-decoration:underline;"></h4>
+                                                             <div class="col-md-12">
+                                                                LUGGAGE TAG ID:<p id="Luggage_id_tag" style=" font-size: 18px;">NOT SET</p>
+                                                            </div>
+                                                            <br><br>
+                                                            <div class="container-fluid">
+
+                                                                <div class="row">
+                                                                    <form class="form-horizontal" action="<%= Routes.frontend_api_path(@conn, :acquire_luggage_form_view) %>" method="post" style="width:100%; margin-left: 20px; margin-top:5%;">
+                                                                        <div class="form-group">
+
+                                                                            <div class="row">
+
+                                                                                <div class="col-md-3">
+                                                                                    <label>Recipient First Name: </label> <br>
+                                                                                    <input  id="unattended_sender_luggage_phone_input" name="unattended[recipient_firstname]" required type="text" placeholder="First Name">
+                                                                                    <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                                                                                    <input type="hidden" id="unattended_luggage_source" required name="unattended[source]"  value="Livingstone">
+                                                                                    <input type="hidden" id="unattended_luggage_destination" required name="unattended[destination]" value="">
+                                                                                    <input type="hidden" id="unattended_luggage_operator" required name="unattended[operator]"  value="">
+                                                                                    <input type="hidden" id="unattended_luggage_start_route" required name="unattended[start_route]"  value="">
+                                                                                    <input type="hidden" id="unattended_luggage_end_route" required name="unattended[end_route]"  value="">
+                                                                                    <input type="hidden" id="unattended_luggage_departure_date" required name="unattended[departure_date]"  value="">
+                                                                                    <input type="hidden" id="unattended_luggage_amount" required name="unattended[amount]"  value="">
+                                                                                    <input type="hidden" id="unattended_luggage_gate" name="unattended[gate]"  value="">
+                                                                                    <input type="hidden" name="unattended[maker]" value="<%= @user.id %>">
+                                                                                    <input type="hidden" id="unattended_luggage_id" required name="unattended[bus_id]"  value="">
+                                                                                     <input type="hidden" id="unattended_luggage_bus_id" required name="unattended[bus_id]"  value="">
+                                                                                    <input type="hidden" id="unattended_luggage_bus_schedule_id" required name="unattended[bus_schedule_id]"  value="">
+                                                                                    <input type="hidden" id="unattended_luggage_ticket_id_input" required name="unattended[ticket_id]"  value="">
+                                                                                </div>
+
+                                                                                <div class="col-md-3">
+                                                                                    <label>Recipient Last Name: </label> <br>
+                                                                                    <input id="unattended_sender_luggage_phone_input" name="unattended[recipient_lastname]" required type="text" placeholder="Last Name">
+                                                                                </div>
+
+                                                                                <div class="col-md-3">
+                                                                                    <label>Recipient ID: </label> <br>
+                                                                                    <input  id="unattended_luggage_id_input" name="unattended[nrc_id]" required type="text" placeholder="000000/00/0">
+                                                                                </div>
+
+                                                                                <div class="col-md-3">
+                                                                                    <label>Recipient Mobile Number: </label> <br>
+                                                                                    <input class="input-group" id="unattended_receiver_luggage_phone_input" name="unattended[recipient_mobile]" required type="number" placeholder="260***">
+                                                                                </div>
+
+                                                                                <div class="col-md-3">
+                                                                                    <label>Sender Mobile Number: </label> <br>
+                                                                                    <input id="unattended_sender_luggage_phone_input" required type="number" name="unattended[sender_mobile]" placeholder="260***">
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        <div class="col-md-6">
+                                                                            <div onclick="get_unattended_luggage_weight()" class="btn w3-btn-block w3-indigo w3-hover-orange w3-round">Get Weight</div>
+                                                                        </div>
+
+                                                                        <div class="col-md-6">
+                                                                            <p id="unattended_luggage_scale_weight" style="font-weight: bold; font-size: 25px;"> 0 </p>
+                                                                        </div>
+
+
+                                                                        <br><br>
+                                                                        <textarea id="unattended_luggage_luggage_description" name="unattended[description]"  maxlength="40" style="width: 100%;" placeholder="Description"></textarea>
+                                                                        <br><br>
+                                                                        <p>
+                                                                            <strong>Luggage Tag:</strong>
+                                                                            <i id="unattended_luggage_luggage_ticket"></i>
+                                                                        </p>
+
+                                                                        <p>
+                                                                            <strong>Luggage Weight (KG):</strong>
+                                                                            <i id="unattended_luggage_luggage_weight_2"></i>
+                                                                        </p>
+
+                                                                        <p>
+                                                                            <strong>Total Cost (ZMW):</strong>
+                                                                            <i id="unattended_luggage_luggage_total_cost">1</i>
+                                                                        </p>
+
+                                                                        <div style="margin-top: 15px">
+                                                                          <button id="unattended_luggage_add_luggage_button" onclick="add_unattended_luggage_button()" type="button" class="w3-btn w3-indigo w3-hover-orange w3-round w3-left">Add</button>
+                                                                        </div>
+
+                                                                        <br><br>
+
+                                                                        <div style="margin-top: 15px">
+                                                                            <table  id="unattended_luggage_table_list" class="w3-table w3-striped w3-border">
+                                                                                    <tr><th>Description</th><th>Luggage TAG ID</th><th>Weight</th><th>Cost</th></tr>
+                                                                            </table>
+                                                                        </div>
+
+                                                                       <div style="margin-top: 25px">
+                                                                          <button id="unattended_luggage_add_luggage_button" style="margin-left: 10px" type="submit" class="w3-btn w3-indigo w3-hover-orange w3-round w3-left">Done</button>
+                                                                          <button id="unattended_luggage_cancle_button" type="button" style="margin-left: 15px" class="w3-btn w3-red w3-round" data-dismiss="modal">Close</button>
+                                                                       </div>
+
+                                                                    </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                            </div>
+                                                <br>
+                                                <hr>
+                                            <!-- ------------------------------------------------------------------------- -->
+                                        </div>
+
+                                    </div>
+                                        <!---------------------------------------------------------->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <hr>
+                    </div>
+                 </div>
+                 <!-------------------------------END--------------------------->
             </div>
-            <!---------------------------------------------------------->
-            </div>
-        </div>
-            <!------------------------------------>
 
-
-
-
-</div>
-
-  <!------------ ROUTES----------------->
+            <!------------ ROUTES----------------->
             <div class="col-md-12 bus" id="routes">
                 <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 

@@ -54,8 +54,11 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
       add :travel_date, :string
       add :bus_schedule_id, :string
       add :route_information, :string
-      add :amount, :float, default: 0, precision: 10, scale: 2
+      add :amount, :float, default: 0.00, precision: 10, scale: 2
       add :payment_mode, :string
+      add :has_luggage, :boolean, default: false
+      add :luggage_total, :float, default: 0.00, precision: 13, scale: 2
+      add :info, :string
 
       timestamps()
     end
