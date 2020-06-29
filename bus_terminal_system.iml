@@ -9,6 +9,7 @@
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/absinthe" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/absinthe_plug" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/artificery" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/barlix" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/base64url" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/certifi" />
@@ -19,6 +20,7 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/cowlib" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/db_connection" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/decimal" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/distillery" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ecto" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ecto_sql" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/endon" />
@@ -62,6 +64,7 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/uuid" />
       <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/absinthe" />
       <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/absinthe_plug" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/artificery" />
       <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/barlix" />
       <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/base64url" />
       <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/certifi" />
@@ -72,6 +75,7 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/cowlib" />
       <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/db_connection" />
       <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/decimal" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/distillery" />
       <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/ecto" />
       <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/ecto_sql" />
       <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/endon" />
@@ -199,5 +203,11 @@
     <orderEntry type="library" name="endon" level="project" />
     <orderEntry type="library" name="chartkick" level="project" />
     <orderEntry type="library" name="uuid" level="project" />
+    <orderEntry type="library" name="distillery" level="project" />
+    <orderEntry type="library" name="artificery" level="project" />
+    <orderEntry type="library" name="eqc_ex" level="project" />
+    <orderEntry type="library" name="ex_unit_clustered_case" level="project" />
+    <orderEntry type="library" name="dialyzex" level="project" />
+    <orderEntry type="library" name="phoenix_live_reload" level="project" />
   </component>
 </module>

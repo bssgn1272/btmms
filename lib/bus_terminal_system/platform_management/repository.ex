@@ -45,8 +45,18 @@ defmodule BusTerminalSystem.RepoManager do
 #    Agent.stop(agent)
 #    luggage_data
 
-    ["     Luggage                   :#{BusTerminalSystem.Luggage.sum(:cost,ticket_id: ticket_id)}",
-      "     Ticket                    :#{BusTerminalSystem.TicketManagement.Ticket.find(ticket_id).amount}"]
+    ticket = BusTerminalSystem.TicketManagement.Ticket.find(ticket_id)
+    sum_luggage = BusTerminalSystem.Luggage.sum(:cost,ticket_id: ticket_id)
+    if ticket.class == "TICKET" do
+      if sum_luggage == nil do
+        ["     Ticket                    :#{ticket.amount}"]
+      else
+        ["     Luggage                   :#{sum_luggage}",
+          "     Ticket                    :#{ticket.amount}"]
+      end
+    else
+      ["     Luggage                   :#{sum_luggage}"]
+    end
 
   end
 
@@ -55,36 +65,74 @@ defmodule BusTerminalSystem.RepoManager do
 
      ticket.class |> case do
         "TICKET" ->
+
           try do
             IO.inspect("--------------------------------******---------------------------------------------")
             IO.inspect(ticket.route_information)
 
-            [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot, _, _ | data] = ticket.route_information |> String.split()
-            printer_payload =
-              %{
-                "refNumber" => ticket.reference_number,
-                "fName" => ticket.first_name,
-                "sName" => ticket.last_name,
-                "from" => start_route,
-                "to" => end_route,
-                "Price" => (ticket.amount + BusTerminalSystem.Luggage.sum(:cost, ticket_id: ticket.id)),
-                "Bus" => tBus,
-                "gate" => slot,
-                "depatureTime" => departure,
-                "ticketNumber" => ticket.id,
-                "items" => acquire_luggage(ticket.id)
-              }
+            ticket = BusTerminalSystem.TicketManagement.Ticket.find(ticket.id)
+            sum_luggage = BusTerminalSystem.Luggage.sum(:cost,ticket_id: ticket.id)
 
-            spawn(fn ->
+            if sum_luggage != nil do
+              [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot | data] = ticket.route_information |> String.split()
+              printer_payload =
+                %{
+                  "refNumber" => ticket.reference_number,
+                  "fName" => ticket.first_name,
+                  "sName" => ticket.last_name,
+                  "from" => start_route,
+                  "to" => end_route,
+                  "Price" => ticket.amount + sum_luggage,
+                  "Bus" => tBus,
+                  "gate" => slot,
+                  "depatureTime" => departure,
+                  "ticketNumber" => ticket.id,
+                  "items" => acquire_luggage(ticket.id)
+                }
+
+
               IO.inspect("-----------------------------START TICKET PRINTING PAYLOAD--------------------------------")
               IO.inspect(printer_payload)
               BusTerminalSystem.PrinterTcpProtocol.print_local_connect(printer_payload)
               IO.inspect("-----------------------------END TICKET PRINTING PAYLOAD----------------------------------")
-            end)
 
-            spawn(fn ->
-              BusTerminalSystem.APIRequestMockup.send(ticket.id |> to_string)
-            end)
+
+              spawn(fn ->
+                BusTerminalSystem.APIRequestMockup.send(ticket.id |> to_string)
+              end)
+            else
+
+              [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot | data] = ticket.route_information |> String.split()
+              printer_payload =
+                %{
+                  "refNumber" => ticket.reference_number,
+                  "fName" => ticket.first_name,
+                  "sName" => ticket.last_name,
+                  "from" => start_route,
+                  "to" => end_route,
+                  "Price" => ticket.amount,
+                  "Bus" => tBus,
+                  "gate" => slot,
+                  "depatureTime" => departure,
+                  "ticketNumber" => ticket.id,
+                  "items" => acquire_luggage(ticket.id)
+                }
+
+
+              IO.inspect("-----------------------------START TICKET PRINTING PAYLOAD--------------------------------")
+              IO.inspect(printer_payload)
+              BusTerminalSystem.PrinterTcpProtocol.print_local_connect(printer_payload)
+              IO.inspect("-----------------------------END TICKET PRINTING PAYLOAD----------------------------------")
+
+
+              spawn(fn ->
+                BusTerminalSystem.APIRequestMockup.send(ticket.id |> to_string)
+              end)
+
+            end
+
+
+
           rescue
             _ ->
               IO.inspect("--------------------------------******---------------------------------------------")

@@ -61,6 +61,8 @@ defmodule BusTerminalSystem.MixProject do
       {:absinthe_plug, "~> 1.4"},
       {:toolshed, "~> 0.2.13"},
       {:chartkick, "~>0.4.0"},
+      {:distillery, "~> 2.0"},
+      { :uuid, "~> 1.1.8" }
     ]
   end
 

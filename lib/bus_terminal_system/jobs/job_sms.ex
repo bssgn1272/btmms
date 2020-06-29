@@ -3,7 +3,7 @@ defmodule BusTerminalSystem.Job.Sms do
 
   @moduledoc false
 
-  @check_after 80_000
+  @check_after 20_000
 
   alias BusTerminalSystem.Notification.Table.Sms
 
