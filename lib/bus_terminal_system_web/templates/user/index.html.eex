@@ -785,7 +785,7 @@
                                             <input type="hidden" name="payload[maker]" value="<%= @user.id %>">
                                             <input id="bus_id_input" class="form-control" placeholder="bus_id" name="payload[bus_no]" type="text" hidden>
                                             <input type="hidden" name="payload[transaction_channel]" value="TELLER">
-                                            <input type="hidden" name="payload[travel_date]" value="01/01/2020">
+                                            <input type="hidden" name="payload[travel_date]" value="<%= Timex.today |> to_string %>">
                                             <div class="form-control-feedback">
                                                 <i class="icon-user text-muted"></i>
                                             </div>

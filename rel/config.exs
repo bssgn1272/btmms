@@ -27,7 +27,7 @@ environment :dev do
   # server: true is set and the code reloader is disabled,
   # even in dev mode.
   # It is recommended that you build with MIX_ENV=prod and pass
-  # the --env flag to Distillery explicitly if you want to use
+  # the --env flag to Distillery explictly if you want to use
   # dev mode.
   set dev_mode: true
   set include_erts: false
@@ -35,7 +35,7 @@ environment :dev do
 end
 
 environment :prod do
-  set include_erts: false
+  set include_erts: true
   set include_src: false
   set cookie: :"x[@4]jNUCw)dc5=8}:uMjBNJu&Ya>ONo{>u$Me7.lIZqgCD~(ZG[=B9.9?ZD$(gt"
   set vm_args: "rel/vm.args"

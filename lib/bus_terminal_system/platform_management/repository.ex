@@ -49,12 +49,15 @@ defmodule BusTerminalSystem.RepoManager do
     sum_luggage = BusTerminalSystem.Luggage.sum(:cost,ticket_id: ticket_id)
     if ticket.class == "TICKET" do
       if sum_luggage == nil do
+        ticket = BusTerminalSystem.TicketManagement.Ticket.update(has_luggage: false)
         ["     Ticket                    :#{ticket.amount}"]
       else
+        ticket = BusTerminalSystem.TicketManagement.Ticket.update([has_luggage: true, luggage_total: sum_luggage])
         ["     Luggage                   :#{sum_luggage}",
           "     Ticket                    :#{ticket.amount}"]
       end
     else
+      ticket = BusTerminalSystem.TicketManagement.Ticket.update([has_luggage: true, luggage_total: sum_luggage])
       ["     Luggage                   :#{sum_luggage}"]
     end
 
@@ -74,6 +77,7 @@ defmodule BusTerminalSystem.RepoManager do
             sum_luggage = BusTerminalSystem.Luggage.sum(:cost,ticket_id: ticket.id)
 
             if sum_luggage != nil do
+
               [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot | data] = ticket.route_information |> String.split()
               printer_payload =
                 %{
@@ -90,6 +94,7 @@ defmodule BusTerminalSystem.RepoManager do
                   "items" => acquire_luggage(ticket.id)
                 }
 
+              ticket = BusTerminalSystem.TicketManagement.Ticket.update(has_luggage: false)
 
               IO.inspect("-----------------------------START TICKET PRINTING PAYLOAD--------------------------------")
               IO.inspect(printer_payload)

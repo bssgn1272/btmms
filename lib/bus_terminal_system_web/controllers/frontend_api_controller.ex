@@ -259,7 +259,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
   #---------------------------------------Scale-------------------------------------------------------------------------
   def get_scale_query(conn, _params) do
-    conn |> json(ScaleQuery.query_scale)
+    conn |> json(ScaleQuery.query_scale(conn.ip))
   end
 
   #---------------------------------------Luggage-------------------------------------------------------------------------
@@ -379,7 +379,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
       reference_number: reference_number,
       external_ref: "#{ext_luggage_ref}",
       mobile_number: "recipient_mobile" |> from(luggage_params),
-      travel_date: "#{day}/#{month}/#{year}",
+      travel_date: "#{year}-#{month}-#{day}",
       passenger_id: "nrc_id" |> from(luggage_params),
       id_type: "UNIVERSAL",
       info: "sender_mobile" |> from(luggage_params),
