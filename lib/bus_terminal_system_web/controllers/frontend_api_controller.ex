@@ -259,7 +259,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
   #---------------------------------------Scale-------------------------------------------------------------------------
   def get_scale_query(conn, _params) do
-    conn |> json(ScaleQuery.query_scale(conn.ip))
+    conn |> json(ScaleQuery.query_scale(conn.remote_ip))
   end
 
   #---------------------------------------Luggage-------------------------------------------------------------------------

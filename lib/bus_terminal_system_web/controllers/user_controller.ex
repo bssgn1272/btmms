@@ -27,6 +27,7 @@ defmodule BusTerminalSystemWeb.UserController do
   def index(conn, _params) do
     routes = RepoManager.list_routes()
     users = AccountManager.list_users()
+    f = Timex.today |> Timex.to_datetime
     tickets =  BusTerminalSystem.TicketManagement.Ticket.where(travel_date: Timex.today() |> to_string)
     buses = RepoManager.list_buses()
     conn

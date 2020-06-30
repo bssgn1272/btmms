@@ -49,15 +49,15 @@ defmodule BusTerminalSystem.RepoManager do
     sum_luggage = BusTerminalSystem.Luggage.sum(:cost,ticket_id: ticket_id)
     if ticket.class == "TICKET" do
       if sum_luggage == nil do
-        ticket = BusTerminalSystem.TicketManagement.Ticket.update(has_luggage: false)
+        ticket |> BusTerminalSystem.TicketManagement.Ticket.update(has_luggage: false)
         ["     Ticket                    :#{ticket.amount}"]
       else
-        ticket = BusTerminalSystem.TicketManagement.Ticket.update([has_luggage: true, luggage_total: sum_luggage])
+        ticket |> BusTerminalSystem.TicketManagement.Ticket.update([has_luggage: true, luggage_total: sum_luggage])
         ["     Luggage                   :#{sum_luggage}",
           "     Ticket                    :#{ticket.amount}"]
       end
     else
-      ticket = BusTerminalSystem.TicketManagement.Ticket.update([has_luggage: true, luggage_total: sum_luggage])
+      ticket |> BusTerminalSystem.TicketManagement.Ticket.update([has_luggage: true, luggage_total: sum_luggage])
       ["     Luggage                   :#{sum_luggage}"]
     end
 
