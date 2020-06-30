@@ -2,7 +2,7 @@ defmodule ScaleDriver.Driver do
   def get_weight() do
     {:ok, pid} = Circuits.UART.start_link
     devices = Circuits.UART.enumerate |> Map.keys
-    [device1] = ["COM16"]
+    [device1] = ["ttyUSB0"]
     open_status = Circuits.UART.open(pid, device1, speed: 9600, active: false)
 
     Circuits.UART.write(pid, "query\r\n")

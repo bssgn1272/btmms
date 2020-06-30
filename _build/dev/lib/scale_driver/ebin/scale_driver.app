@@ -1,7 +1,7 @@
 {application,scale_driver,
              [{applications,[kernel,stdlib,elixir,logger,runtime_tools,
                              gettext,jason,phoenix_pubsub,circuits_uart,
-                             plug_cowboy,phoenix]},
+                             distillery,plug_cowboy,phoenix]},
               {description,"scale_driver"},
               {modules,['Elixir.ScaleDriver','Elixir.ScaleDriver.Application',
                         'Elixir.ScaleDriver.Driver','Elixir.ScaleDriverWeb',

@@ -3,15 +3,18 @@ defmodule ScaleDriver.Application do
   # for more information on OTP Applications
   @moduledoc false
 
+  import Supervisor.Spec
+
   use Application
 
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
       # Start the endpoint when the application starts
-      ScaleDriverWeb.Endpoint
+      ScaleDriverWeb.Endpoint,
       # Starts a worker by calling: ScaleDriver.Worker.start_link(arg)
       # {ScaleDriver.Worker, arg},
+      #worker(Nerves.IO.NFC, [{RfidReader.Handler, :tag_scanned}])
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

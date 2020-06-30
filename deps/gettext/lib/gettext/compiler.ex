@@ -33,7 +33,8 @@ defmodule Gettext.Compiler do
     priv = Keyword.get(opts, :priv, @default_priv)
     translations_dir = Application.app_dir(otp_app, priv)
     external_file = String.replace(Path.join(".compile", priv), "/", "_")
-    known_locales = known_locales(translations_dir)
+    known_po_files = known_po_files(translations_dir, opts)
+    known_locales = Enum.map(known_po_files, & &1[:locale]) |> Enum.uniq()
 
     default_locale =
       opts[:default_locale] || quote(do: Application.fetch_env!(:gettext, :default_locale))
@@ -62,7 +63,7 @@ defmodule Gettext.Compiler do
       def lgettext(locale, domain, msgctxt \\ nil, msgid, bindings)
       def lngettext(locale, domain, msgctxt \\ nil, msgid, msgid_plural, n, bindings)
 
-      unquote(compile_po_files(env, translations_dir, opts))
+      unquote(compile_po_files(env, known_po_files, opts))
 
       # Catch-all clauses.
       def lgettext(locale, domain, msgctxt, msgid, bindings),
@@ -353,13 +354,12 @@ defmodule Gettext.Compiler do
 
   # Compiles all the `.po` files in the given directory (`dir`) into `lgettext/4`
   # and `lngettext/6` function clauses.
-  defp compile_po_files(env, dir, opts) do
+  defp compile_po_files(env, known_po_files, opts) do
     plural_mod = Keyword.get(opts, :plural_forms, Gettext.Plural)
-    po_files = po_files_in_dir(dir)
 
     if Keyword.get(opts, :one_module_per_locale, false) do
       {quoted, locales} =
-        Enum.map_reduce(po_files, %{}, &compile_parallel_po_file(env, &1, &2, plural_mod))
+        Enum.map_reduce(known_po_files, %{}, &compile_parallel_po_file(env, &1, &2, plural_mod))
 
       locales
       |> Enum.map(&Kernel.ParallelCompiler.async(fn -> create_locale_module(env, &1) end))
@@ -367,7 +367,7 @@ defmodule Gettext.Compiler do
 
       quoted
     else
-      Enum.map(po_files, &compile_serial_po_file(env, &1, plural_mod))
+      Enum.map(known_po_files, &compile_serial_po_file(env, &1, plural_mod))
     end
   end
 
@@ -377,9 +377,9 @@ defmodule Gettext.Compiler do
     :ok
   end
 
-  defp compile_serial_po_file(env, path, plural_mod) do
+  defp compile_serial_po_file(env, po_file, plural_mod) do
     {locale, domain, singular_fun, plural_fun, quoted} =
-      compile_po_file(:defp, path, env, plural_mod)
+      compile_po_file(:defp, po_file, env, plural_mod)
 
     quote do
       unquote(quoted)
@@ -394,9 +394,9 @@ defmodule Gettext.Compiler do
     end
   end
 
-  defp compile_parallel_po_file(env, path, locales, plural_mod) do
+  defp compile_parallel_po_file(env, po_file, locales, plural_mod) do
     {locale, domain, singular_fun, plural_fun, locale_module_quoted} =
-      compile_po_file(:def, path, env, plural_mod)
+      compile_po_file(:def, po_file, env, plural_mod)
 
     module = :"#{env.module}.T_#{locale}"
 
@@ -417,8 +417,8 @@ defmodule Gettext.Compiler do
 
   # Compiles a .po file into a list of lgettext/5 (for translations) and
   # lngettext/7 (for plural translations) clauses.
-  defp compile_po_file(kind, path, env, plural_mod) do
-    {locale, domain} = locale_and_domain_from_path(path)
+  defp compile_po_file(kind, po_file, env, plural_mod) do
+    %{locale: locale, domain: domain, path: path} = po_file
     %PO{translations: translations, file: file} = PO.parse_file!(path)
 
     singular_fun = :"#{locale}_#{domain}_lgettext"
@@ -430,7 +430,6 @@ defmodule Gettext.Compiler do
       quote do
         unquote(translations)
 
-        # We ignore the msgctxt in the handle_missing_translation.
         Kernel.unquote(kind)(unquote(singular_fun)(msgctxt, msgid, bindings)) do
           unquote(env.module).handle_missing_translation(
             unquote(locale),
@@ -473,19 +472,33 @@ defmodule Gettext.Compiler do
     msgid = IO.iodata_to_binary(t.msgid)
     msgstr = IO.iodata_to_binary(t.msgstr)
     msgctxt = t.msgctxt && IO.iodata_to_binary(t.msgctxt)
+    keys = Interpolation.keys(msgstr)
 
-    # Only actually generate this function clause if the msgstr is not empty. If
-    # it's empty, not generating this clause (by returning `nil` from this `if`)
-    # means that the dynamic clause will be executed, returning `{:default,
-    # msgid}` (with interpolation and so on).
-    if msgstr != "" do
-      quote do
-        Kernel.unquote(kind)(
-          unquote(singular_fun)(unquote(msgctxt), unquote(msgid), var!(bindings))
-        ) do
-          unquote(compile_interpolation(msgstr, :translation))
+    case msgstr do
+      # Only actually generate this function clause if the msgstr is not empty.
+      # If it is empty, it will trigger the missing translation case.
+      "" ->
+        nil
+
+      # If the msgid is the same as msgstr, simply return it without allocating
+      # a new string.
+      ^msgid when keys == [] ->
+        quote do
+          Kernel.unquote(kind)(
+            unquote(singular_fun)(unquote(msgctxt), unquote(msgid) = msgid, _)
+          ) do
+            {:ok, msgid}
+          end
         end
-      end
+
+      _ ->
+        quote do
+          Kernel.unquote(kind)(
+            unquote(singular_fun)(unquote(msgctxt), unquote(msgid), var!(bindings))
+          ) do
+            unquote(compile_interpolation(msgstr, :translation))
+          end
+        end
     end
   end
 
@@ -509,8 +522,8 @@ defmodule Gettext.Compiler do
     # function clause. The reason we do this is the same as for the
     # `%Translation{}` clause.
     unless Enum.any?(msgstr, &match?({_form, ""}, &1)) do
-      # We use flat_map here because clauses can only be defined in blocks, so
-      # when quoted they are a list.
+      # We use flat_map here because clauses can only be defined in blocks,
+      # so when quoted they are a list.
       clauses =
         Enum.flat_map(msgstr, fn {form, str} ->
           quote do: (unquote(form) -> unquote(compile_interpolation(str, :plural_translation)))
@@ -519,10 +532,11 @@ defmodule Gettext.Compiler do
       error_clause =
         quote do
           form ->
-            raise Gettext.Error,
-                  "plural form #{form} is required for locale #{inspect(unquote(locale))} " <>
-                    "but is missing for translation compiled from " <>
-                    "#{unquote(file)}:#{unquote(t.po_source_line)}"
+            raise Gettext.PluralFormError,
+              form: form,
+              locale: unquote(locale),
+              file: unquote(file),
+              line: unquote(t.po_source_line)
         end
 
       quote do
@@ -578,8 +592,8 @@ defmodule Gettext.Compiler do
 
   defp compile_interpolation(str, translation_type, keys) do
     match = compile_interpolation_match(keys)
-    interpolation = compile_interpolatable_string(str)
     interpolatable = Interpolation.to_interpolatable(str)
+    interpolation = compile_interpolatable_string(interpolatable)
 
     all_bindings_clause = quote do: (unquote(match) -> {:ok, unquote(interpolation)})
 
@@ -607,18 +621,19 @@ defmodule Gettext.Compiler do
     {:%{}, [], Enum.map(keys, &{&1, Macro.var(&1, __MODULE__)})}
   end
 
-  # Compiles a string into a sequence of applications of the `<>` operator.
-  # `%{var}` patterns are turned into `var` variables, namespaced inside the
-  # current `__MODULE__`. Heavily inspired by Chris McCord's "linguist", see
-  # https://github.com/chrismccord/linguist/blob/master/lib/linguist/compiler.ex#L70
-  defp compile_interpolatable_string(str) do
-    Enum.reduce(Interpolation.to_interpolatable(str), "", fn
-      key, acc when is_atom(key) ->
-        quote do: unquote(acc) <> to_string(unquote(Macro.var(key, __MODULE__)))
+  # Compiles a string into a binary with `%{var}` patterns turned into `var`
+  # variables, namespaced inside the current `__MODULE__`.
+  defp compile_interpolatable_string(interpolatable) do
+    parts =
+      Enum.map(interpolatable, fn
+        key when is_atom(key) ->
+          quote do: to_string(unquote(Macro.var(key, __MODULE__))) :: binary
 
-      str, acc ->
-        quote do: unquote(acc) <> unquote(str)
-    end)
+        str ->
+          str
+      end)
+
+    {:<<>>, [], parts}
   end
 
   # Returns all the PO files in `translations_dir` (under "canonical" paths,
@@ -629,12 +644,19 @@ defmodule Gettext.Compiler do
     |> Path.wildcard()
   end
 
-  # Returns all the locales in `translations_dir` (which are the locales known
-  # by the compiled backend).
-  defp known_locales(translations_dir) do
+  # Returns the known the PO files in `translations_dir` with their locale and domain
+  # If allowed_locales is configured, it removes all the PO files that do not belong
+  # to those locales
+  defp known_po_files(translations_dir, opts) do
     case File.ls(translations_dir) do
-      {:ok, files} ->
-        Enum.filter(files, &File.dir?(Path.join(translations_dir, &1)))
+      {:ok, _} ->
+        translations_dir
+        |> po_files_in_dir()
+        |> Enum.map(fn path ->
+          {locale, domain} = locale_and_domain_from_path(path)
+          %{locale: locale, path: path, domain: domain}
+        end)
+        |> maybe_restrict_locales(opts[:allowed_locales])
 
       {:error, :enoent} ->
         []
@@ -642,5 +664,14 @@ defmodule Gettext.Compiler do
       {:error, reason} ->
         raise File.Error, reason: reason, action: "list directory", path: translations_dir
     end
+  end
+
+  defp maybe_restrict_locales(po_files, nil) do
+    po_files
+  end
+
+  defp maybe_restrict_locales(po_files, allowed_locales) when is_list(allowed_locales) do
+    allowed_locales = MapSet.new(allowed_locales)
+    Enum.filter(po_files, &MapSet.member?(allowed_locales, &1[:locale]))
   end
 end

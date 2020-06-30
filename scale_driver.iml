@@ -7,20 +7,46 @@
       <sourceFolder url="file://$MODULE_DIR$/lib" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/artificery" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/circuits_gpio" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/circuits_spi" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/circuits_uart" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/cors_plug" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/cowboy" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/cowlib" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/distillery" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/elixir_make" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/gettext" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/hidraw" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/jason" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/mime" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/nerves_io_nfc" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/nerves_io_pn532" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/nerves_uart" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/phoenix" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/phoenix_pubsub" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/plug" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/plug_cowboy" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/plug_crypto" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ranch" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/rc522" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/telemetry" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/artificery" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/circuits_uart" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/cowboy" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/cowlib" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/distillery" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/elixir_make" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/gettext" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/jason" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/mime" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/phoenix" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/phoenix_pubsub" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/plug" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/plug_cowboy" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/plug_crypto" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/ranch" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/telemetry" />
       <excludeFolder url="file://$MODULE_DIR$/assets/node_modules/phoenix" />
       <excludeFolder url="file://$MODULE_DIR$/assets/node_modules/phoenix_html" />
       <excludeFolder url="file://$MODULE_DIR$/cover" />
@@ -51,5 +77,25 @@
     <orderEntry type="library" name="mime" level="project" />
     <orderEntry type="library" name="plug_crypto" level="project" />
     <orderEntry type="library" name="earmark" level="project" />
+    <orderEntry type="library" name="cors_plug" level="project" />
+    <orderEntry type="library" name="cowlib" level="project" />
+    <orderEntry type="library" name="ranch" level="project" />
+    <orderEntry type="library" name="mix_test_watch" level="project" />
+    <orderEntry type="library" name="hidraw" level="project" />
+    <orderEntry type="library" name="nerves_io_nfc" level="project" />
+    <orderEntry type="library" name="hidraw" level="project" />
+    <orderEntry type="library" name="nerves_io_nfc" level="project" />
+    <orderEntry type="library" name="nerves_io_pn532" level="project" />
+    <orderEntry type="library" name="nerves_uart" level="project" />
+    <orderEntry type="library" name="rc522" level="project" />
+    <orderEntry type="library" name="circuits_gpio" level="project" />
+    <orderEntry type="library" name="circuits_spi" level="project" />
+    <orderEntry type="library" name="escpos" level="project" />
+    <orderEntry type="library" name="distillery" level="project" />
+    <orderEntry type="library" name="artificery" level="project" />
+    <orderEntry type="library" name="excoveralls" level="project" />
+    <orderEntry type="library" name="eqc_ex" level="project" />
+    <orderEntry type="library" name="ex_unit_clustered_case" level="project" />
+    <orderEntry type="library" name="dialyzex" level="project" />
   </component>
 </module>
