@@ -69,7 +69,7 @@ defmodule BusTerminalSystem.RepoManager do
      ticket.class |> case do
         "TICKET" ->
 
-          try do
+#          try do
             IO.inspect("--------------------------------******---------------------------------------------")
             IO.inspect(ticket.route_information)
 
@@ -138,33 +138,33 @@ defmodule BusTerminalSystem.RepoManager do
 
 
 
-          rescue
-            _ ->
-              IO.inspect("--------------------------------******---------------------------------------------")
-              IO.inspect(ticket.route_information)
-              printer_payload =
-                %{
-                  "refNumber" => ticket.reference_number,
-                  "fName" => ticket.first_name,
-                  "sName" => ticket.last_name,
-                  "from" => "NOT DEFINED",
-                  "to" =>  "NOT DEFINED",
-                  "Price" =>  "NOT DEFINED",
-                  "Bus" =>  "NOT DEFINED",
-                  "gate" =>  "NOT DEFINED",
-                  "departureTime" =>  "NOT DEFINED",
-                  "ticketNumber" => ticket.id,
-                  "items" => acquire_luggage(ticket.id)
-                }
-
-              spawn(fn ->
-                BusTerminalSystem.PrinterTcpProtocol.print_local_connect(printer_payload)
-              end)
-
-              spawn(fn ->
-                BusTerminalSystem.APIRequestMockup.send(ticket.id |> to_string)
-              end)
-          end
+#          rescue
+#            _ ->
+#              IO.inspect("--------------------------------******---------------------------------------------")
+#              IO.inspect(ticket.route_information)
+#              printer_payload =
+#                %{
+#                  "refNumber" => ticket.reference_number,
+#                  "fName" => ticket.first_name,
+#                  "sName" => ticket.last_name,
+#                  "from" => "NOT DEFINED",
+#                  "to" =>  "NOT DEFINED",
+#                  "Price" =>  "NOT DEFINED",
+#                  "Bus" =>  "NOT DEFINED",
+#                  "gate" =>  "NOT DEFINED",
+#                  "departureTime" =>  "NOT DEFINED",
+#                  "ticketNumber" => ticket.id,
+#                  "items" => acquire_luggage(ticket.id)
+#                }
+#
+#              spawn(fn ->
+#                BusTerminalSystem.PrinterTcpProtocol.print_local_connect(printer_payload)
+#              end)
+#
+#              spawn(fn ->
+#                BusTerminalSystem.APIRequestMockup.send(ticket.id |> to_string)
+#              end)
+#          end
 
         "LUGGAGE" ->
           IO.inspect(ticket.route_information)
