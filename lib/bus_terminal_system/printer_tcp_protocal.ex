@@ -13,8 +13,6 @@ defmodule BusTerminalSystem.PrinterTcpProtocol do
   end
 
   def print_remote_cross_connect(payload, ip) do
-    {a, b, c, d} = ip
-    remote_ip = "#{a}.#{b}.#{c}.#{d}"
     {:ok, socket} = :gen_tcp.connect(remote_ip, 1302, [:binary])
     :ok = :gen_tcp.send(socket, Poison.encode!(payload))
     :ok = :gen_tcp.close(socket)
