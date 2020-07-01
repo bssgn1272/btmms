@@ -63,7 +63,7 @@ defmodule BusTerminalSystem.RepoManager do
 
   end
 
-  def checkin(id) do
+  def checkin(id, ip) do
     ticket = Ticket.find(id)
 
      ticket.class |> case do
@@ -94,11 +94,11 @@ defmodule BusTerminalSystem.RepoManager do
                   "items" => acquire_luggage(ticket.id)
                 }
 
-              ticket = BusTerminalSystem.TicketManagement.Ticket.update(has_luggage: false)
+              ticket |> BusTerminalSystem.TicketManagement.Ticket.update(has_luggage: false)
 
               IO.inspect("-----------------------------START TICKET PRINTING PAYLOAD--------------------------------")
               IO.inspect(printer_payload)
-              BusTerminalSystem.PrinterTcpProtocol.print_local_connect(printer_payload)
+              BusTerminalSystem.PrinterTcpProtocol.print_remote_cross_connect(printer_payload, ip)
               IO.inspect("-----------------------------END TICKET PRINTING PAYLOAD----------------------------------")
 
 
@@ -126,7 +126,7 @@ defmodule BusTerminalSystem.RepoManager do
 
               IO.inspect("-----------------------------START TICKET PRINTING PAYLOAD--------------------------------")
               IO.inspect(printer_payload)
-              BusTerminalSystem.PrinterTcpProtocol.print_local_connect(printer_payload)
+              BusTerminalSystem.PrinterTcpProtocol.print_remote_cross_connect(printer_payload, ip)
               IO.inspect("-----------------------------END TICKET PRINTING PAYLOAD----------------------------------")
 
 
@@ -185,7 +185,7 @@ defmodule BusTerminalSystem.RepoManager do
             }
 
           spawn(fn ->
-            BusTerminalSystem.PrinterTcpProtocol.print_local_connect(printer_payload)
+            BusTerminalSystem.PrinterTcpProtocol.print_remote_cross_connect(printer_payload, ip)
           end)
 
           spawn(fn ->

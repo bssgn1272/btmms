@@ -411,7 +411,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   end
 
   def checkin_passenger(conn,%{"ticket_id" => ticket_id} = params) do
-    conn |> json(RepoManager.checkin(ticket_id))
+    conn |> json(RepoManager.checkin(ticket_id, conn.remote_ip))
   end
 
   #---------------------------------------MARKET-------------------------------------------------------------------------
