@@ -66,6 +66,8 @@ defmodule BusTerminalSystem.RepoManager do
   def checkin(id, ip) do
     ticket = Ticket.find(id)
 
+    [y,m,d] = "2020-06-30" |> String.split("-")
+
      ticket.class |> case do
         "TICKET" ->
 
@@ -79,6 +81,7 @@ defmodule BusTerminalSystem.RepoManager do
             if sum_luggage != nil do
 
               [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot | data] = ticket.route_information |> String.split()
+              departure = "#{d}/#{m}/#{y} #{departure}"
               printer_payload =
                 %{
                   "refNumber" => ticket.reference_number,
@@ -88,7 +91,7 @@ defmodule BusTerminalSystem.RepoManager do
                   "to" => end_route,
                   "Price" => ticket.amount + sum_luggage,
                   "Bus" => tBus,
-                  "gate" => slot,
+                  "gate" => BusTerminalSystem.TblSlotMappings.find_by(slot: slot).gate,
                   "depatureTime" => departure,
                   "ticketNumber" => ticket.id,
                   "items" => acquire_luggage(ticket.id)
@@ -96,11 +99,12 @@ defmodule BusTerminalSystem.RepoManager do
 
               ticket |> BusTerminalSystem.TicketManagement.Ticket.update(has_luggage: false)
 
-              IO.inspect("-----------------------------START TICKET PRINTING PAYLOAD--------------------------------")
-              IO.inspect(printer_payload)
-              BusTerminalSystem.PrinterTcpProtocol.print_remote_cross_connect(printer_payload, ip)
-              IO.inspect("-----------------------------END TICKET PRINTING PAYLOAD----------------------------------")
-
+              spawn(fn ->
+                IO.inspect("-----------------------------START TICKET PRINTING PAYLOAD--------------------------------")
+                IO.inspect(printer_payload)
+                BusTerminalSystem.PrinterTcpProtocol.print_remote_cross_connect(printer_payload, ip)
+                IO.inspect("-----------------------------END TICKET PRINTING PAYLOAD----------------------------------")
+              end)
 
               spawn(fn ->
                 BusTerminalSystem.APIRequestMockup.send(ticket.id |> to_string)
@@ -117,26 +121,24 @@ defmodule BusTerminalSystem.RepoManager do
                   "to" => end_route,
                   "Price" => ticket.amount,
                   "Bus" => tBus,
-                  "gate" => slot,
+                  "gate" => BusTerminalSystem.TblSlotMappings.find_by(slot: slot).gate,
                   "depatureTime" => departure,
                   "ticketNumber" => ticket.id,
                   "items" => acquire_luggage(ticket.id)
                 }
 
+                spawn(fn ->
+                  IO.inspect("-----------------------------START TICKET PRINTING PAYLOAD--------------------------------")
+                  IO.inspect(printer_payload)
+                  BusTerminalSystem.PrinterTcpProtocol.print_remote_cross_connect(printer_payload, ip)
+                  IO.inspect("-----------------------------END TICKET PRINTING PAYLOAD----------------------------------")
+                end)
 
-              IO.inspect("-----------------------------START TICKET PRINTING PAYLOAD--------------------------------")
-              IO.inspect(printer_payload)
-              BusTerminalSystem.PrinterTcpProtocol.print_remote_cross_connect(printer_payload, ip)
-              IO.inspect("-----------------------------END TICKET PRINTING PAYLOAD----------------------------------")
-
-
-              spawn(fn ->
-                BusTerminalSystem.APIRequestMockup.send(ticket.id |> to_string)
-              end)
+                spawn(fn ->
+                  BusTerminalSystem.APIRequestMockup.send(ticket.id |> to_string)
+                end)
 
             end
-
-
 
 #          rescue
 #            _ ->
@@ -169,6 +171,7 @@ defmodule BusTerminalSystem.RepoManager do
         "LUGGAGE" ->
           IO.inspect(ticket.route_information)
           [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot, _, _ | data] = ticket.route_information |> String.split()
+
           printer_payload =
             %{
               "refNumber" => ticket.reference_number,

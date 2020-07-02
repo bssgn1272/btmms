@@ -357,7 +357,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
     [date, _] = schedule.reserved_time |> to_string |> String.split(" ")
     [year, month, day] = date |> String.split("-")
-    travel_date = "#{schedule.time} #{day}-#{month}-#{year}"
+    travel_date = " #{day}/#{month}/#{year} #{schedule.time}"
     luggage_total_cost = ticket.id |> RepoManager.get_luggage_by_ticket_id_total_cost
     reference_number = luggage_ref
 
@@ -397,7 +397,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
         "to" => end_route,
         "Price" => luggage_total_cost,
         "Bus" => operator.company,
-        "gate" => schedule.slot,
+        "gate" => BusTerminalSystem.TblSlotMappings.find_by(slot: schedule.slot).gate,
         "depatureTime" => travel_date,
         "ticketNumber" => ticket.id,
         "items" => BusTerminalSystem.RepoManager.acquire_luggage(ticket.id)
