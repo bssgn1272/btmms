@@ -53,12 +53,12 @@ defmodule BusTerminalSystem.RepoManager do
         ["     Ticket                    :#{ticket.amount}"]
       else
         ticket |> BusTerminalSystem.TicketManagement.Ticket.update([has_luggage: true, luggage_total: sum_luggage])
-        ["     Luggage                   :#{sum_luggage}",
+        ["     Luggage                   :#{sum_luggage |> Float.round(2)}",
           "     Ticket                    :#{ticket.amount}"]
       end
     else
       ticket |> BusTerminalSystem.TicketManagement.Ticket.update([has_luggage: true, luggage_total: sum_luggage])
-      ["     Luggage                   :#{sum_luggage}"]
+      ["     Luggage                   :#{sum_luggage |> Float.round(2)}"]
     end
 
   end

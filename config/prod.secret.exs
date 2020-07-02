@@ -32,7 +32,7 @@ config :bus_terminal_system, BusTerminalSystemWeb.Endpoint,
 # If you are doing OTP releases, you need to instruct Phoenix
 # to start each relevant endpoint:
 #
-#config :bus_terminal_system, BusTerminalSystemWeb.Endpoint, server: true
+config :bus_terminal_system, BusTerminalSystemWeb.Endpoint, server: true
 #
 # Then you can assemble a release by calling `mix release`.
 # See `mix help release` for more information.

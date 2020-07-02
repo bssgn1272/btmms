@@ -401,7 +401,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
         "depatureTime" => travel_date,
         "ticketNumber" => ticket.id,
         "items" => BusTerminalSystem.RepoManager.acquire_luggage(ticket.id)
-      } |> BusTerminalSystem.PrinterTcpProtocol.print_local_connect
+      } |> BusTerminalSystem.PrinterTcpProtocol.print_remote_cross_connect(conn.remote_ip)
     end)
 
     IO.inspect("------------------------------------END UNATTENDED LUGGAGE CREATE ----------------------")

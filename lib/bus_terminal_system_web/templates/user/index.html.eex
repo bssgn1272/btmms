@@ -721,6 +721,8 @@
                                                         <th scope="col">Operator</th>
                                                         <th scope="col">Route</th>
                                                         <th scope="col">Time</th>
+                                                        <th scope="col">Travel Date</th>
+                                                        <th scope="col">Seats Left</th>
                                                         <th scope="col">Price</th>
                                                     </tr>
                                                     </thead>

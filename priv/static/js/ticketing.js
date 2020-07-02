@@ -459,9 +459,14 @@ function passenger_ticket_logic() {
                     //trips_html += '</label></div';
                     //trips_html += "\n";
 
+                    date_obj = single_object.departure_date.split("T")[0]
+                    date_arr = date_obj.split("-")
+                    date = date_arr[2] + "/" + date_arr[1] + "/" + date_arr[0]
+
+
                     trips_html += '<tr>' + '<th scope="row"><input type="radio" onclick="ticket_purchase(this.value)" value="'+value+'" name="opt_radio"></th>'+
                         '<td>' + single_object.bus.company +'</td>' + '<td>' + single_object.route.start_route + " -> "+
-                        single_object.route.end_route +'</td>' + '<td>' + single_object.departure_time +'</td>' + '<td>' + single_object.fare
+                        single_object.route.end_route +'</td>' + '<td>' + single_object.departure_time +'</td>' + '<td>' + date +'</td>' + '<td>' + single_object.available_seats +'</td>' + '<td>' + single_object.fare
                         +'</td>' + '</tr>';
                 });
 
