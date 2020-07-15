@@ -106,6 +106,46 @@ defmodule BusTerminalSystemWeb.TicketController do
 
   end
 
+  def find_ticket_external_ref(conn, params) do
+    case ApiManager.authentication_mod(params) do
+      {:error, result} -> { json(conn, result)}
+
+      {:ok, result} ->
+        {:ok, payload} = Map.fetch(params,"payload")
+        if !Map.has_key?(payload,"external_ref") do
+          json(conn, ApiManager.api_error_handler(ApiManager.definition_query,ApiManager.support_query))
+        else
+          {:ok, external_ref} = Map.fetch(payload,"external_ref")
+          case BusTerminalSystem.TicketManagement.Ticket.find_by(external_ref: external_ref) do
+            nil -> conn |> json(ApiManager.api_error_handler(ApiManager.definition_query,%{"response" => "ticket not found"}))
+            ticket ->
+              conn
+              |> json(ApiManager.api_message_custom_handler(ApiManager.definition_query,"SUCCESS",0,
+                %{
+                  "activation_status" => ticket.activation_status,
+                  "reference_number" => ticket.reference_number,
+                  "serial_number" => ticket.serial_number,
+                  "external_ref" => ticket.external_ref,
+                  "first_name" => ticket.first_name,
+                  "last_name" => ticket.last_name,
+                  "other_name" => ticket.other_name,
+                  "id_type" => ticket.id_type,
+                  "id_number" => ticket.passenger_id,
+                  "mobile_number" => ticket.mobile_number,
+                  "email_address" => ticket.email_address,
+                  "transaction_channel" => ticket.transaction_channel,
+                  "travel_date" => ticket.travel_date,
+                  "qr_code" => qr_generator("#{ticket.reference_number}")
+                }))
+          end
+        end
+
+
+    end
+
+    json conn, []
+  end
+
   def find_ticket(conn, params) do
     case ApiManager.authentication_mod(params) do
       {:error, result} -> { json(conn, result)}

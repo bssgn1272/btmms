@@ -10,7 +10,7 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :bus_terminal_system, BusTerminalSystemWeb.Endpoint,
-  http: [:inet6, port: System.get_env("PORT") || 4000],
+  http: [port: System.get_env("PORT") || 4000],
   url: [host: "localhost", port: 4000],
   secret_key_base: "${SECRET_KEY_BASE}",
   cache_static_manifest: "priv/static/cache_manifest.json",

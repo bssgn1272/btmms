@@ -41,10 +41,11 @@ defmodule BusTerminalSystem.NapsaSmsGetway do
   def send_ticket_sms(ticket) do
       bus = BusTerminalSystem.BusManagement.Bus.find_by(id: ticket.bus_no)
       schedule = BusTerminalSystem.TblEdReservations.find_by(id: ticket.bus_schedule_id)
+      route = BusTerminalSystem.TravelRoutes.find(schedule.route)
       [date, _] = schedule.reserved_time |> to_string |> String.split(" ")
       [year, month, day] = date |> String.split("-")
       date = "#{day}-#{month}-#{year}"
 
-      "Hello #{ticket.first_name} #{ticket.last_name}, Ticket Purchase was successful.\n\nTICKET ID: #{ticket.id}\nBUS: #{bus.company}\nDEPARTURE DATE: #{date}\nDEPARTURE TIME: #{schedule.time}"
+      "Hello #{ticket.first_name} #{ticket.last_name}, Ticket Purchase was successful.\n\nTICKET ID: #{ticket.id}\nBUS: #{bus.company}\nDEPARTURE DATE: #{date}\nDEPARTURE TIME: #{schedule.time}\nDESTINATION: #{route.start_route} to #{route.end_route}"
   end
 end

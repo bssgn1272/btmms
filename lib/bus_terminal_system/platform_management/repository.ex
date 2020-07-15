@@ -369,8 +369,8 @@ defmodule BusTerminalSystem.RepoManager do
   end
 
   def update_marketer_pin(%User{} = user, attrs,pin) do
-    sms_message = "OTP: #{pin}"
-    NapsaSmsGetway.send_sms(user.mobile,sms_message)
+    #sms_message = "OTP: #{pin}"
+    #NapsaSmsGetway.send_sms(user.mobile,sms_message)
 
     user
     |> User.changeset(attrs)

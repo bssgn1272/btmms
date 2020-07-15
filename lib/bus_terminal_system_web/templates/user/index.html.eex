@@ -5,6 +5,7 @@
             visibility: hidden;
         }
 
+
         #printTicket, #printTicket {
             visibility: visible;
         }
@@ -13,6 +14,20 @@
             left: 0;
             top: 0;
         }
+
+    .required:after {
+        content:" *";
+        color: red;
+    }
+
+    .asterisk_input::after {
+    content:" *";
+    color: #e32;
+    position: absolute;
+    margin: 0px 0px 0px -20px;
+    font-size: xx-large;
+    padding: 0 5px 0 0; }
+
    .two {
         width: 360px;
         float: right;
@@ -316,9 +331,6 @@
                 </div>
                 </div>
             </div>
-
-
-
             <!-- Date stamp -->
             <div class="container" style="text-align: center; color: orange;">
                 <i class="icon-history position-left"></i> <span class="text-semibold"></span><a onclick="this.innerHTML=Date()">Click To Check Time</a>
@@ -449,7 +461,7 @@
     }
 </style>
 
-<div class="container">
+<div class="container-fluid" style="padding: 40px">
     <div class="row">
         <div class="col-md-3">
             <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
@@ -479,7 +491,7 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-3" >
             <div class="w3-card-4 w3-margin w3-white" style="width:100%;18rem;" id="rcorners1">
 
                 <header class="w3-container w3-indigo w3-center" id="heed">
@@ -493,7 +505,7 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-3" style="height: 15px">
             <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
                 <header class="w3-container w3-indigo w3-center" id="heed">
@@ -527,6 +539,7 @@
                                 <th>Depature Date</th>
                                 <th>Route</th>
                                 <th>Mobile</th>
+                                <th>Status</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
                             <th></th>
@@ -544,6 +557,12 @@
                               <td><%= ticket.travel_date %></td>
                               <td><%= BusTerminalSystem.TravelRoutes.find(ticket.route).route_name%></td>
                               <td><%= ticket.mobile_number %></td>
+                              <%= if ticket.activation_status == "VALID" do %>
+                                <td>NOT CHECKED IN</td>
+                             <% else %>
+                                <td><%= ticket.activation_status %></td>
+                              <% end %>
+
                               <td><%= ticket.first_name %></td>
                               <td><%= ticket.last_name %></td>
                               <td class="text-center">
@@ -719,7 +738,7 @@
                                                     <tr>
                                                         <th scope="col"></th>
                                                         <th scope="col">Operator</th>
-                                                        <th scope="col">Route</th>
+                                                        <th scope="col">Destination</th>
                                                         <th scope="col">Time</th>
                                                         <th scope="col">Travel Date</th>
                                                         <th scope="col">Seats Left</th>
@@ -777,7 +796,7 @@
                                     <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group has-feedback has-feedback-left">
-                                            <input name="payload[first_name]" id="First_Name" type="text" class="form-control" placeholder="Passenger First Name">
+                                            <input name="payload[first_name]" id="First_Name" type="text" required class="form-control" placeholder="Passenger First Name">
                                             <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
                                             <input type="hidden" name="payload[reference_number]" value="<%= BusTerminalSystemWeb.TicketController.generate_reference_number(0)%>">
                                             <input type="hidden" name="payload[external_ref]" value="<%= BusTerminalSystem.Randomizer.randomizer(16)%>">
@@ -792,12 +811,13 @@
                                             <div class="form-control-feedback">
                                                 <i class="icon-user text-muted"></i>
                                             </div>
+                                            <span class="asterisk_input">  </span>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="form-group has-feedback has-feedback-left">
-                                            <input name="payload[mobile_number]" id="Contact_Number" type="text" class="form-control" placeholder="Passenger Cell">
+                                            <input name="payload[mobile_number]" id="Contact_Number" required type="text" class="form-control" placeholder="Passenger Cell">
                                             <div class="form-control-feedback">
                                                 <i class="icon-phone text-muted"></i>
                                             </div>
@@ -806,7 +826,7 @@
                                 </div>
                                 <div class="col-md-6">
                                         <div class="form-group has-feedback has-feedback-left">
-                                            <input name="payload[last_name]" id="Last_Name" type="text" class="form-control" placeholder="Passenger Last Name">
+                                            <input name="payload[last_name]" id="Last_Name" required type="text" class="form-control" placeholder="Passenger Last Name">
                                             <div class="form-control-feedback">
                                                 <i class="icon-user text-muted"></i>
                                             </div>
@@ -828,7 +848,8 @@
 
                                             <div class="col-md-6">
                                                 <div class="form-group has-feedback has-feedback-left">
-                                                    <input name="payload[passenger_id]" id="ID" type="text" class="form-control" placeholder="ID Number">
+                                                    <input name="payload[passenger_id]" id="ID" type="text" required class="form-control required" placeholder="ID Number">
+                                                    <span class="asterisk_input">  </span>
                                                     <div class="form-control-feedback">
                                                         <i class="icon-credit-card text-muted"></i>
                                                     </div>
@@ -840,6 +861,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group has-feedback has-feedback-left">
                                             <input name="payload[route_information]" id="route_information" readonly type="text" class="form-control" placeholder="Route Info">
+
                                         </div>
                                     </div>
                                 </div>
@@ -1554,7 +1576,7 @@ toolbar -->
 
                                                 <div class="form-group">
                                                       <label>Company:</label>
-                                                      <input name="payload[company]" id="vehicleCompany" class="form-control" placeholder="Enter Company Number" type="text" required>
+                                                      <input name="payload[company]" disabled id="vehicleCompany" class="form-control" placeholder="Enter Company Number" type="text" required>
                                                 </div>
 
                                                 <div class="form-group">

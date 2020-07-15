@@ -137,6 +137,9 @@ defmodule BusTerminalSystem.ApiManager do
   def support_query, do: "Could not complete Query. Missing data keys. Please refer to documentation for more info"
   def not_found_query, do: "Result not Found"
 
+  def definition_update, do: "UPDATE"
+  def not_found_update, do: "User not Found"
+
   def definition_accounts, do: "ACCOUNTS"
 
   def definition_transactions, do: "TRANSACTIONS"

@@ -115,6 +115,7 @@ defmodule BusTerminalSystemWeb.Router do
     post "/btms/tickets/secured/board_ticket", TicketController, :ticket_board_passenger
     post "/btms/tickets/secured/submit_ledger_transaction", TicketController, :transaction_post_to_ledger
     post "/btms/tickets/secured/find", TicketController, :find_ticket
+    post "/btms/tickets/secured/find/external_ref", TicketController, :find_ticket_external_ref
     post "/btms/tickets/secured/find/serial", TicketController, :find_ticket_serial
     post "/btms/tickets/secured/purchase", TicketController, :purchase_ticket
     get "/btms/travel/secured/destinations", TicketController, :get_schedules
@@ -140,6 +141,7 @@ defmodule BusTerminalSystemWeb.Router do
     post "/btms/market/secured/reset_pin", MarketApiController, :reset_pin
     post "/btms/market/secured/register_market", MarketApiController, :register_marketeer
 
+    post "/btms/operator/secured/update_password", FrontendApiController, :update_user_password
 
     post "/internal/create/acquire_luggage", FrontendApiController, :acquire_luggage
     post "/internal/create/acquire_luggage_plain", FrontendApiController, :acquire_luggage_form_view
@@ -147,6 +149,7 @@ defmodule BusTerminalSystemWeb.Router do
     post "/internal/query/route", FrontendApiController, :query_route
     post "/internal/update/route", FrontendApiController, :update_route_bus_route
 
+    post "/internal/reset_password", FrontendApiController, :reset_password
     post "/internal/list/bus", FrontendApiController, :query_list_buses
     get "/internal/list/bus_routes", FrontendApiController, :list_travel_routes
     get "/internal/list/bus_operators", FrontendApiController, :list_bus_operators

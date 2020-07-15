@@ -475,8 +475,6 @@ let t = [
 
 
 
-
-
 function get_buses () {
 
     $.ajax({
@@ -522,6 +520,25 @@ function get_buses () {
 function bus_operator_selection_action() {
     let operator_id = $('#bus_operator_list').val().toString();
     $('#bus_operator_id_input').val(operator_id);
+
+    let json_request = JSON.stringify({
+        user_id: operator_id
+    });
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/query/user/id',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request,
+        success: function (response) {
+            let data = JSON.parse(JSON.stringify(response));
+            console.log(data.response.QUERY.data.company)
+            $('#vehicleCompany').val(data.response.QUERY.data.company);
+        }
+    })
+
+
     console.log("Operator ID:" + $('#bus_operator_id_input').val())
 }
 
@@ -583,6 +600,27 @@ function get_route_codes () {
 }
 
 //Toggle User model
+
+function reset_password() {
+
+    let json_request = JSON.stringify({
+        payload: {
+            username: $('#model_username').val()
+        }
+    });
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/reset_password',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request,
+        success: function (response) {
+            $('#modal_form_horizontal_user').modal('hide');
+            window.location.reload();
+        }
+    })
+}
 
 function updateUser() {
 
@@ -844,6 +882,4 @@ function update_system_bus_route() {
             })
         }
     })
-
-
 }

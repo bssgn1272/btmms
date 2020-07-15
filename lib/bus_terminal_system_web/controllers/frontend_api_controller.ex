@@ -38,6 +38,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
                 "nrc" => user.nrc,
                 "email" => user.email,
                 "mobile" => user.mobile,
+                "company" => user.company,
                 "account_status" => user.account_status,
                 "uuid" => user.uuid,
                 "operator_role" => user.operator_role
@@ -82,6 +83,22 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     end
   end
 
+  def reset_password(conn, params) do
+
+    IO.inspect "-------------------------- Password Rest ----------------------"
+
+    password = BusTerminalSystem.Randomizer.randomizer(5,:numeric)
+    user = BusTerminalSystem.AccountManager.User.find_by(username: params["payload"]["username"])
+
+    spawn(fn ->
+      BusTerminalSystem.Notification.Table.Sms.create!([recipient: user.mobile, message: "Password Reset. Your new BTMMS portal password is #{password}", sent: false])
+    end)
+
+    user |> BusTerminalSystem.AccountManager.User.update(password: password)
+
+    conn |> json(%{"message" => "password reset"})
+  end
+  
   def update_user(conn, %{"payload" => payload } = params) do
 
     username = payload["username"]
@@ -225,6 +242,49 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
                 {:error, %Ecto.Changeset{} = changeset} ->
                   conn
                   |> json(ApiManager.api_error_handler(ApiManager.definition_accounts(),ApiManager.translate_error(changeset)))
+              end
+          end
+      end
+    end
+  end
+
+  def update_user_password(conn, params) do
+    ApiManager.auth(conn,params)
+
+    username = params["payload"]["username"]
+    password = params["payload"]["password"]
+
+    if username == nil or password == nil do
+      json(conn,ApiManager.api_error_handler(conn,ApiManager.definition_query,[
+        "username can not be blank",
+        "password can not be blank"
+      ]))
+    else
+      case username do
+        nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_update(),ApiManager.not_found_update()))
+        _ ->
+          case BusTerminalSystem.AccountManager.User.find_by(username: username) do
+            nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_update(),ApiManager.not_found_update()))
+            user ->
+              case BusTerminalSystem.AccountManager.User.update(user,[password: password]) do
+                {:ok, user} ->
+                  conn
+                  |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_authentication,"SUCCESS",0,
+                    %{
+                      "message" => "PASSWORD UPDATED",
+                      "username" => user.username,
+                      "first_name" => user.first_name,
+                      "last_name" => user.last_name,
+                      "ssn" => user.ssn,
+                      "nrc" => user.nrc,
+                      "email" => user.email,
+                      "mobile" => user.mobile,
+                      "account_status" => user.account_status,
+                      "uuid" => user.uuid,
+                      "operator_role" => user.operator_role
+                    }))
+                _ ->
+                  conn |> json(ApiManager.api_error_handler(ApiManager.definition_accounts(),%{"message" => "Could not update Password. An error occurred"}))
               end
           end
       end
