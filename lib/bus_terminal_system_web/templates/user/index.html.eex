@@ -492,7 +492,7 @@
         </div>
 
         <div class="col-md-3" >
-            <div class="w3-card-4 w3-margin w3-white" style="width:100%;18rem;" id="rcorners1">
+            <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
                 <header class="w3-container w3-indigo w3-center" id="heed">
                   <h3>Routes</h3>
@@ -867,11 +867,19 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <button type="submit" id="submit_ticket" style="border-radius: 12px; margin-bottom: 10px" class="w3-btn w3-indigo w3-hover-orange w3-left">
+                                    <button type="button" id="submit_ticket"  style="border-radius: 12px; margin-bottom: 10px" class="w3-btn w3-indigo w3-hover-orange w3-left">
                                         <b><i class="icon-checkmark2"></i></b>Purchase Ticket
                                     </button>
                                 </div>
+
                             </form>
+
+                            <div class="form-group">
+                                <button type="button" data-toggle="modal" data-target="#modal_theme_primary" style="border-radius: 12px; margin-bottom: 10px" class="w3-btn w3-indigo w3-hover-orange w3-left">
+                                    <b><i class="icon-checkmark2"></i></b>tmp Purchase Ticket
+                                </button>
+                            </div>
+
                         <!--####################-- NAPSA TICKET PURCHASE --####################-->
                     </div>
 
@@ -2875,12 +2883,12 @@ toolbar -->
                                   <label class="control-label col-sm-2" for="pwd">From:</label>
                                   <br><br>
                                       <div class="container">
-                                          <div id="From" style=">
-                                          </div>
-                                      </div>
+                                            <div id="From" style="font-weight: bold;">d</div>
+                                        </div>
                                 </div>
 
-                                <div class="form-group">
+
+                                <div class="form-group" >
                                   <label class="control-label col-sm-2" for="pwd">To:</label>
                                   <br><br>
                                   <div class="container">
@@ -2888,7 +2896,9 @@ toolbar -->
                                       </div>
                                   </div>
                                 </div>
+
                               </form>
+
                             </div>
 
                             <div class="col-md-4">
@@ -3028,6 +3038,38 @@ function openCity(cityName) {
 }
 </script>
 <!-- ########## /TELLER DASHBOARD ######### -->
+
+
+<!-- Purchase Ticket Model -->
+
+<!-- Primary modal -->
+<div id="modal_theme_primary" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-blue" style="color: #0000cc">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">Confirm Ticket</h6>
+            </div>
+
+            <div class="modal-body">
+                <h6 class="text-semibold">Passenger KYC</h6>
+                <p>kyc</p>
+
+                <hr>
+
+                <h6 class="text-semibold">Ticket Information</h6>
+                <p>ticket.</p>
+                <p>.</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Confirm Purchase</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /primary modal -->
 
 <!-------------------------- Add Luggage Modal ------------------------------------------------------------------------------------------------------------>
 <div id="addLuggageModel" class="modal fade" role="dialog">
