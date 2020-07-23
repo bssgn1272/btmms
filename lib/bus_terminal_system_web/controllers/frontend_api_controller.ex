@@ -266,7 +266,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
           case BusTerminalSystem.AccountManager.User.find_by(username: username) do
             nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_update(),ApiManager.not_found_update()))
             user ->
-              case BusTerminalSystem.AccountManager.User.update(user,[password: password]) do
+              case BusTerminalSystem.AccountManager.User.update(user,[password: password, account_status: "ACTIVE"]) do
                 {:ok, user} ->
                   conn
                   |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_authentication,"SUCCESS",0,

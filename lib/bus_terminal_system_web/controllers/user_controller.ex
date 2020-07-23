@@ -74,6 +74,7 @@ defmodule BusTerminalSystemWeb.UserController do
             end)
 
             payload = Map.put(payload, "operator_role", "BUS OPERATOR")
+            payload = Map.put(payload, "account_status", "OTP")
             user_create_payload(conn, payload)
 
           "TOP" ->
