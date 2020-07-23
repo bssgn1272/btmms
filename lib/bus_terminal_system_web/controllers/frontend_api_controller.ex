@@ -94,7 +94,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
       BusTerminalSystem.Notification.Table.Sms.create!([recipient: user.mobile, message: "Password Reset. Your new BTMMS portal password is #{password}", sent: false])
     end)
 
-    user |> BusTerminalSystem.AccountManager.User.update(password: password)
+    user |> BusTerminalSystem.AccountManager.User.update([password: password, account_status: "OTP"])
 
     conn |> json(%{"message" => "password reset"})
   end

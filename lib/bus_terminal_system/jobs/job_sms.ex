@@ -29,8 +29,8 @@ defmodule BusTerminalSystem.Job.Sms do
     receive do
     after
       @check_after ->
-        Enum.each(Sms.stream_where(sent: false), &push_message/1)
-        send_messages()
+#        Enum.each(Sms.stream_where(sent: false), &push_message/1)
+#        send_messages()
     end
   end
 end

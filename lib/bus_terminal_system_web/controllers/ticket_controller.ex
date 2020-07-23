@@ -46,7 +46,7 @@ defmodule BusTerminalSystemWeb.TicketController do
         end)
 
         conn
-        |> put_flash(:info, "Ticket created successfully.")
+        |> put_flash(:info, "Ticket Purchased Successfully.")
         |> redirect(to: Routes.user_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -54,7 +54,45 @@ defmodule BusTerminalSystemWeb.TicketController do
       IO.inspect changeset
 
       conn
+      |> put_flash(:info, "Failed To Purchase Ticket.")
       |> redirect(to: Routes.user_path(conn, :index))
+    end
+  end
+
+  def create_ticket_payload(conn, %{"payload" => ticket_params}) do
+
+    users = AccountManager.list_users()
+    tickets = RepoManager.list_tickets()
+
+
+    ticket_params = Map.put(ticket_params, "class", "TICKET")
+    ticket_params = Map.put(ticket_params, "route_information", ticket_params["route_information"]) #route_information
+
+    [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot, _, bus_schedule_id] = ticket_params["route_information"] |> String.split()
+    route = BusTerminalSystem.TravelRoutes.find_by(start_route: start_route, end_route: end_route)
+
+    ticket_params = Map.put(ticket_params, "amount", price |> String.replace("K",""))
+    ticket_params = Map.put(ticket_params, "route", route.id)
+    ticket_params = Map.put(ticket_params, "bus_schedule_id", bus_schedule_id)
+
+    IO.inspect(ticket_params)
+
+    case TicketManagement.create_ticket(ticket_params) do
+      {:ok, ticket} ->
+
+        spawn(fn ->
+          BusTerminalSystem.Notification.Table.Sms.create!([recipient: ticket.mobile_number, message: NapsaSmsGetway.send_ticket_sms(ticket), sent: false])
+        end)
+
+        conn
+        |> json(ticket |> Map.merge(%{"status" => 200}) |> Poison.encode!())
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+
+        IO.inspect changeset
+
+        conn
+        |> json(%{"message" => "Failed", "status" => 400} )
     end
   end
 

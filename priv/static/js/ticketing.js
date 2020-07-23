@@ -489,6 +489,12 @@ function ticket_purchase(value){
             $('#passenger_view').show();
             let info = "OPERATOR: " + rd[0] + "\t START: " + rd[1] + "\t END: " + rd[2] + "\t DEPARTURE: " + rd[3] + "\t PRICE: K" + rd[4] + "\t GATE: " + rd[6] + "\t SCHEDULE: " + rd[7];
             $('#route_information').val(info);
+
+            $('#operator_Model').val(rd[0]);
+            $('#start_Model').val(rd[1]);
+            $('#end_Model').val(rd[2]);
+            $('#time_Model').val(rd[3]);
+
             $('#bus_id_input').val(rd[5]);
             break
         case "unattended_luggage":
@@ -508,6 +514,73 @@ function ticket_purchase(value){
 
             break
     }
+}
 
+function ticket_confirmation() {
+    $("#First_Name_Model").val($("#First_Name").val());
+    $("#Last_Name_Model").val($("#Last_Name").val());
+    $("#Contact_Number_Model").val($("#Contact_Number").val());
+    $("#Id_Type_Model").val($("#id_type2").val());
+    $("#ID_Model").val($("#ID").val());
+    $("#route_information_Model").val($("#route_information").val());
+}
 
+function purchase_ticket_internal() {
+
+    let json_request = JSON.stringify({
+        payload: {
+            first_name: $('#First_Name_Model').val(),
+            reference_number: $('#reference_number_Model').val(),
+            external_ref: $('#external_ref_Model').val(),
+            serial_number: $('#serial_number_Model').val(),
+            activation_status: $('#activation_status_Model').val(),
+            id_type: $('#id_type_Model').val(),
+            maker: $('#maker_Model').val(),
+            bus_no: $('#bus_id_input').val(),
+            transaction_channel: $('#transaction_channel_Model').val(),
+            payment_mode: $('#payment_mode_Model').val(),
+            travel_date: $('#travel_date_Model').val(),
+            last_name: $('#Last_Name_Model').val(),
+            mobile_number: $('#Contact_Number_Model').val(),
+            passenger_id: $('#ID_Model').val(),
+            route_information: $('#route_information_Model').val()
+        }
+    });
+
+    console.log(json_request)
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/btms/plvPM5f+H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hICn',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request,
+        success: function (data_response) {
+            let single_object = JSON.parse(data_response);
+            console.log(single_object)
+            $('#modal_theme_primary').modal("hide");
+
+            let status = single_object.status
+            if(status == 200){
+                swal({
+                    title: "Done!",
+                    text: "Ticket Purchase Successful! ID: " + single_object.id,
+                    icon: "success",
+                    button: "Ok",
+                });
+            }else{
+                swal({
+                    title: "Done!",
+                    text: "Ticket Purchase Successful! ID: " + single_object.id,
+                    icon: "success",
+                    button: "Ok",
+                });
+            }
+        }
+    });
+    // method="post" action="<%= Routes.ticket_path(@conn, :create) %>"
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }

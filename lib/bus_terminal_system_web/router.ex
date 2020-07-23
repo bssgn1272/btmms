@@ -131,8 +131,11 @@ defmodule BusTerminalSystemWeb.Router do
          TicketController,
          :get_schedules_buses_internal
 
+    post "/btms/plvPM5f+H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hICn", TicketController, :create_ticket_payload
+
     get "/btms/travel/secured/routes", TicketController, :get_travel_routes
     get "/btms/tickets/secured/list", TicketController, :list_tickets
+
 
     post "/btms/market/secured/marketer_kyc", MarketApiController, :fetch_kyc
     get "/btms/market/secured/all_marketer_kyc", MarketApiController, :all_marketeer_kyc

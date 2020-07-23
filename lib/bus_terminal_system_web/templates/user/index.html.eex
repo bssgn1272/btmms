@@ -782,7 +782,7 @@
                                 </div>
 
 
-                            <form method="post" action="<%= Routes.ticket_path(@conn, :create) %>">
+                            <form method="post" >
                                 <div class="row">
                                     <div hidden="hidden" class="col-md-6">
                                         <div class="form-group has-feedback has-feedback-left">
@@ -797,17 +797,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group has-feedback has-feedback-left">
                                             <input name="payload[first_name]" id="First_Name" type="text" required class="form-control" placeholder="Passenger First Name">
-                                            <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-                                            <input type="hidden" name="payload[reference_number]" value="<%= BusTerminalSystemWeb.TicketController.generate_reference_number(0)%>">
-                                            <input type="hidden" name="payload[external_ref]" value="<%= BusTerminalSystem.Randomizer.randomizer(16)%>">
-                                            <input type="hidden" name="payload[serial_number]" value="<%= BusTerminalSystem.Randomizer.randomizer(7,:numeric)%>">
-                                            <input type="hidden" name="payload[activation_status]" value="VALID">
-                                            <input type="hidden" name="payload[id_type]" value="NRC">
-                                            <input type="hidden" name="payload[maker]" value="<%= @user.id %>">
-                                            <input id="bus_id_input" class="form-control" placeholder="bus_id" name="payload[bus_no]" type="text" hidden>
-                                            <input type="hidden" name="payload[transaction_channel]" value="TELLER">
-                                            <input type="hidden" name="payload[payment_mode]" value="CASH">
-                                            <input type="hidden" name="payload[travel_date]" value="<%= Timex.today |> to_string %>">
+
                                             <div class="form-control-feedback">
                                                 <i class="icon-user text-muted"></i>
                                             </div>
@@ -861,24 +851,19 @@
                                     <div class="col-md-12">
                                         <div class="form-group has-feedback has-feedback-left">
                                             <input name="payload[route_information]" id="route_information" readonly type="text" class="form-control" placeholder="Route Info">
-
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <button type="button" id="submit_ticket"  style="border-radius: 12px; margin-bottom: 10px" class="w3-btn w3-indigo w3-hover-orange w3-left">
+                                    <button type="button" data-toggle="modal" data-target="#modal_theme_primary" onClick="ticket_confirmation()" style="border-radius: 12px; margin-bottom: 10px" class="w3-btn w3-indigo w3-hover-orange w3-left">
                                         <b><i class="icon-checkmark2"></i></b>Purchase Ticket
                                     </button>
                                 </div>
 
                             </form>
 
-                            <div class="form-group">
-                                <button type="button" data-toggle="modal" data-target="#modal_theme_primary" style="border-radius: 12px; margin-bottom: 10px" class="w3-btn w3-indigo w3-hover-orange w3-left">
-                                    <b><i class="icon-checkmark2"></i></b>tmp Purchase Ticket
-                                </button>
-                            </div>
+
 
                         <!--####################-- NAPSA TICKET PURCHASE --####################-->
                     </div>
@@ -3051,21 +3036,48 @@ function openCity(cityName) {
                 <h6 class="modal-title">Confirm Ticket</h6>
             </div>
 
-            <div class="modal-body">
-                <h6 class="text-semibold">Passenger KYC</h6>
-                <p>kyc</p>
+            <form>
+                <div class="modal-body">
+                    <h5 class="text-bold">Passenger KYC</h5>
+                    <p>First Name</p>
+                    <input name="payload[first_name]" id="First_Name_Model" readonly type="text" required class="form-control" placeholder="Passenger First Name">
+                    <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                    <input type="hidden" id="reference_number_Model" name="payload[reference_number]" value="<%= BusTerminalSystemWeb.TicketController.generate_reference_number(0)%>">
+                    <input type="hidden" id="external_ref_Model" name="payload[external_ref]" value="<%= BusTerminalSystem.Randomizer.randomizer(16)%>">
+                    <input type="hidden" id="serial_number_Model" name="payload[serial_number]" value="<%= BusTerminalSystem.Randomizer.randomizer(7,:numeric)%>">
+                    <input type="hidden" id="activation_status_Model" name="payload[activation_status]" value="VALID">
+                    <input type="hidden" id="id_type_Model" name="payload[id_type]" value="NRC">
+                    <input type="hidden" id="maker_Model" name="payload[maker]" value="<%= @user.id %>">
+                    <input id="bus_id_input" class="form-control" placeholder="bus_id" name="payload[bus_no]" type="text" hidden>
+                    <input type="hidden" id="transaction_channel_Model" name="payload[transaction_channel]" value="TELLER">
+                    <input type="hidden" id="payment_mode_Model" name="payload[payment_mode]" value="CASH">
+                    <input type="hidden" id="travel_date_Model" name="payload[travel_date]" value="<%= Timex.today |> to_string %>">
+                    <p>Last Name</p>
+                    <input name="payload[last_name]" readonly id="Last_Name_Model" required type="text" class="form-control" placeholder="Passenger Last Name">
+                    <p>Mobile Name</p>
+                    <input name="payload[mobile_number]" readonly id="Contact_Number_Model" required type="text" class="form-control" placeholder="Passenger Cell">
+                    <p>ID</p>
+                    <input name="payload[id_type]" class="form-control" id="Id_Type_Model" value="Last Name" readonly>
+                    <input name="payload[passenger_id]" readonly id="ID_Model" type="text" required class="form-control required" placeholder="ID Number">
+                    <input name="payload[route_information]" hidden  id="route_information_Model" readonly type="text" class="form-control" placeholder="Route Info">
 
-                <hr>
+                    <hr>
 
-                <h6 class="text-semibold">Ticket Information</h6>
-                <p>ticket.</p>
-                <p>.</p>
-            </div>
+                    <h6 class="text-bold">Travel Information</h6>
+                    <input id="operator_Model" readonly type="text" class="form-control" placeholder="Route Info">
+                    <input id="start_Model" readonly type="text" class="form-control" placeholder="Route Info">
+                    <input id="end_Model" readonly type="text" class="form-control" placeholder="Route Info">
+                    <input id="time_Model" readonly type="text" class="form-control" placeholder="Route Info">
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Confirm Purchase</button>
-            </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" onClick="purchase_ticket_internal()" id="sweet_success" class="btn btn-primary">Confirm Purchase</button>
+                </div>
+            </form>
+
         </div>
     </div>
 </div>
