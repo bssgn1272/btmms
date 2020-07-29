@@ -161,7 +161,13 @@ class Core {
     }
 
     function handle($payload) {
-        $this->log->logInfo(Config::APP_INFO_LOG, $this->msisdn, '| The request received is ' . print_r($payload, TRUE));
+        //We dont want to log pins anywhere!
+        $forlogging = $payload;
+        if (strlen($forlogging['USSD_BODY']) > 3) {
+            $forlogging['USSD_BODY'] = "xxxxx";
+        }
+
+        $this->log->logInfo(Config::APP_INFO_LOG, $this->msisdn, '| The request received is ' . print_r($forlogging, TRUE));
         $this->setVariables($payload);
         $this->startSession();
         $this->loadMenus();
@@ -203,7 +209,7 @@ class Core {
                         $_SESSION['trader_details'] = $result['response']['QUERY']["data"];
                         $_SESSION['names'] = $result['response']['QUERY']["data"]['first_name'] . " "
                                 . $result['response']['QUERY']["data"]['last_name'];
-                        $_SESSION['stands'] = $result['response']['QUERY']["data"]['market_stand'];
+                        $_SESSION['stands'] = $result['response']['QUERY']["data"]['stands'];
                         $response = TRUE;
                     }
                 }
@@ -222,7 +228,6 @@ class Core {
             $this->gw_response = $this->get_response_array();
             return $this->gw_response;
         }
-
         //Lets proceed and check customer selections
         return $this->menuSelections();
     }
@@ -241,6 +246,9 @@ class Core {
             case "LOGIN":
                 $this->gw_response = $this->login();
                 break;
+            case "NOT_REGISTERED":
+                $this->gw_response = $this->notRegsitered();
+                break;
             case "ENTER_PIN":
                 $this->gw_response = $this->authenticate();
                 break;
@@ -250,6 +258,9 @@ class Core {
                 break;
             case "MARKET_FEES_CONFIRM":
                 $this->gw_response = $this->marketFeesConfirm();
+                break;
+            case "MARKET_FEES_NO_FEES":
+                $this->gw_response = $this->marketFeesNoFees();
                 break;
             case "CHECK_SALES":
                 $this->gw_response = $this->checkSales();
@@ -361,8 +372,7 @@ class Core {
 
     private function authenticate() {
         switch ($this->body) {
-            case "#":
-            case "#":
+            case "00":
                 $_SESSION['menu-selection'] = "LOGIN";
                 $this->body = $this->menus['LOGIN'];
                 $this->gw_response = $this->get_response_array();
@@ -444,7 +454,7 @@ class Core {
 
     private function confirmNewPin() {
         switch ($this->body) {
-            case "#":
+            case "00":
                 $_SESSION['menu-selection'] = "NEW_PIN";
                 $this->body = $this->menus['NEW_PIN'];
                 $this->gw_response = $this->get_response_array();
@@ -502,47 +512,6 @@ class Core {
                 $this->gw_response = $this->get_response_array();
                 break;
             case "3":
-                //Pay market fees
-                if (!empty($_SESSION['stands'])) {
-                    $stand_menu = $this->formatStands($_SESSION['stands'], false, false);
-                    if (strlen($stand_menu) > 0) {
-                        $_SESSION['menu-selection'] = "MARKET_FEES";
-                        $this->body = SharedUtils::strReplace("{stands}", $stand_menu, $this->menus['MARKET_FEES']);
-                        $this->gw_response = $this->get_response_array();
-                    } else {
-                        $this->end_of_session = TRUE;
-                        $_SESSION['menu-selection'] = "";
-                        $this->body = Config::SYSTEM_BUSY_MESSAGE;
-                        $this->gw_response = $this->get_response_array();
-                    }
-                } else {
-                    //TODO: Make sure marketeer is able to go to the main menu
-                    $this->end_of_session = TRUE;
-                    $_SESSION['menu-selection'] = "";
-                    $this->body = "You currently have no market fees to pay!";
-                    $this->gw_response = $this->get_response_array();
-                }
-                break;
-            case "4":
-                //Check Sales. We try to pull the sales first before we present menu to customer
-                $url = Config::API_URL . "summary_transactions";
-                $payload = ["seller_mobile_number" => $this->msisdn];
-                $result = SharedUtils::httpGet($url, $payload, $this->msisdn, $this->log);
-
-                if (empty($result["marketeer"]['message'])) {
-                    $_SESSION['menu-selection'] = "CHECK_SALES";
-                    $_SESSION["sales"] = $result; //Just in case marketeer does not select and option but submits
-                    $this->body = SharedUtils::strReplace("{today}", $result["today"]['num_of_sales'] . ",K" . trim(str_replace("ZMW", "", $result["today"]['revenue'])), $this->menus['CHECK_SALES']);
-                    $this->body = SharedUtils::strReplace("{weekly}", $result["week"]['num_of_sales'] . ",K" . trim(str_replace("ZMW", "", $result["week"]['revenue'])), $this->body);
-                    $this->body = SharedUtils::strReplace("{monthly}", $result["month"]['num_of_sales'] . ",K" . trim(str_replace("ZMW", "", $result["month"]['revenue'])), $this->body);
-                    $this->gw_response = $this->get_response_array();
-                } else {
-                    $_SESSION['menu-selection'] = "CHECK_SALES_NO_SALES";
-                    $this->body = $this->menus['CHECK_SALES_NO_SALES'];
-                    $this->gw_response = $this->get_response_array();
-                }
-                break;
-            case "5":
                 $payload = [];
                 $result = SharedUtils::httpGet($this->probase_url_travel . Config::ROUTES, $payload, $this->msisdn, $this->log);
                 if (!empty($result['travel_routes']) && sizeof($result['travel_routes']) > 0) {
@@ -561,6 +530,50 @@ class Core {
                     $this->end_of_session = TRUE;
                     $_SESSION['menu-selection'] = "";
                     $this->body = $this->menus['NO_ROUTES1'];
+                    $this->gw_response = $this->get_response_array();
+                }
+                break;
+            case "4":
+                //Pay market fees
+                //We get the unpaid for stands for the marketeer for today
+                $payload = ['seller_mobile_number' => $this->msisdn];
+                $url = Config::API_URL . "market_fee";
+                $stands = SharedUtils::httpGet($url, $payload, $this->msisdn, $this->log);
+                if (!empty($stands) && $stands['found']) {
+                    $stand_menu = $this->formatStands($stands['market_fee'], false, false);
+                    if (strlen($stand_menu) > 0) {
+                        $_SESSION['menu-selection'] = "MARKET_FEES";
+                        $this->body = SharedUtils::strReplace("{stands}", $stand_menu, $this->menus['MARKET_FEES']);
+                        $this->gw_response = $this->get_response_array();
+                    } else {
+                        $this->end_of_session = TRUE;
+                        $_SESSION['menu-selection'] = "";
+                        $this->body = Config::SYSTEM_BUSY_MESSAGE;
+                        $this->gw_response = $this->get_response_array();
+                    }
+                } else {
+                    //TODO: Make sure marketeer is able to go to the main menu
+                    $_SESSION['menu-selection'] = "MARKET_FEES_NO_FEES";
+                    $this->body = $this->menus['MARKET_FEES_NO_FEES'];
+                    $this->gw_response = $this->get_response_array();
+                }
+                break;
+            case "5":
+                //Check Sales. We try to pull the sales first before we present menu to customer
+                $url = Config::API_URL . "summary_transactions";
+                $payload = ["seller_mobile_number" => $this->msisdn];
+                $result = SharedUtils::httpGet($url, $payload, $this->msisdn, $this->log);
+
+                if (empty($result["marketeer"]['message'])) {
+                    $_SESSION['menu-selection'] = "CHECK_SALES";
+                    $_SESSION["sales"] = $result; //Just in case marketeer does not select and option but submits
+                    $this->body = SharedUtils::strReplace("{today}", $result["today"]['num_of_sales'] . ",K" . trim(str_replace("ZMW", "", $result["today"]['revenue'])), $this->menus['CHECK_SALES']);
+                    $this->body = SharedUtils::strReplace("{weekly}", $result["week"]['num_of_sales'] . ",K" . trim(str_replace("ZMW", "", $result["week"]['revenue'])), $this->body);
+                    $this->body = SharedUtils::strReplace("{monthly}", $result["month"]['num_of_sales'] . ",K" . trim(str_replace("ZMW", "", $result["month"]['revenue'])), $this->body);
+                    $this->gw_response = $this->get_response_array();
+                } else {
+                    $_SESSION['menu-selection'] = "CHECK_SALES_NO_SALES";
+                    $this->body = $this->menus['CHECK_SALES_NO_SALES'];
                     $this->gw_response = $this->get_response_array();
                 }
                 break;
@@ -663,10 +676,10 @@ class Core {
         switch ($this->body) {
             case "1":
             case "2":
-                $format = \DateTime::createFromFormat('d-m-Y', date('d-m-Y', strtotime(date("d-m-Y") . ' +1 day')));
-                $tommorow = $format->format('d/m/Y');
+                $format = \DateTime::createFromFormat('Y-m-d', date('Y-m-d', strtotime(date("Y-m-d") . ' +1 day')));
+                $tommorow = $format->format('Y-m-d');
                 // $_SESSION["travel_date"] = "27/01/2020"; // SHOULD BE REMOVED. FOR TESTING ONLY!!
-                $_SESSION["travel_date"] = ($this->body == "1") ? date("d/m/Y") : $tommorow;
+                $_SESSION["travel_date"] = ($this->body == "1") ? date("Y-m-d") : $tommorow;
                 $_SESSION['menu-selection'] = "BUS_SCHEDULES";
                 //$payload = SharedUtils::BuildProbaseMarketRequest($this->msisdn, "", $this->body, "", "", $_SESSION['start_route'], $_SESSION['end_route'], "27/01/2020");
                 $payload = SharedUtils::BuildProbaseMarketRequest($this->msisdn, "", $this->body, "", "", $_SESSION['start_route'], $_SESSION['end_route'], $_SESSION["travel_date"]);
@@ -725,10 +738,10 @@ class Core {
         switch ($this->body) {
             case "1":
             case "2":
-                $format = \DateTime::createFromFormat('d-m-Y', date('d-m-Y', strtotime(date("d-m-Y") . ' +1 day')));
-                $tommorow = $format->format('d/m/Y');
+                $format = \DateTime::createFromFormat('Y-m-d', date('Y-m-d', strtotime(date("Y-m-d") . ' +1 day')));
+                $tommorow = $format->format('Y-m-d');
                 // $_SESSION["travel_date"] = "27/01/2020"; // SHOULD BE REMOVED. FOR TESTING ONLY!!
-                $_SESSION["travel_date"] = ($this->body == "1") ? date("d/m/Y") : $tommorow;
+                $_SESSION["travel_date"] = ($this->body == "1") ? date("Y-m-d") : $tommorow;
                 $_SESSION['menu-selection'] = "BUS_SCHEDULES1";
                 //$payload = SharedUtils::BuildProbaseMarketRequest($this->msisdn, "", $this->body, "", "", $_SESSION['start_route'], $_SESSION['end_route'], "27/01/2020");
                 $payload = SharedUtils::BuildProbaseMarketRequest($this->msisdn, "", $this->body, "", "", $_SESSION['start_route'], $_SESSION['end_route'], $_SESSION["travel_date"]);
@@ -993,11 +1006,12 @@ class Core {
         switch ($this->body) {
             case "1":
                 //Ok we push the request to the api
-                $payload = SharedUtils::buildPushTransactionRequest($_SESSION['trader_details']['uuid'], $_SESSION['stand_price'], $this->msisdn, $_SESSION['trader_details']['first_name'], $_SESSION['trader_details']['last_name'], $_SESSION['buyer_msisdn'], Config::PAY_MARKET_FEE, "", "", "", "", "", "", "", "", $_SESSION['stand_number']);
+                //$payload = SharedUtils::buildPushTransactionRequest($_SESSION['trader_details']['uuid'], $_SESSION['stand_price'], $this->msisdn, $_SESSION['trader_details']['first_name'], $_SESSION['trader_details']['last_name'], $_SESSION['buyer_msisdn'], Config::PAY_MARKET_FEE, "", "", "", "", "", "", "", "", $_SESSION['stand_number']);
+                $payload = SharedUtils:: buildPushTransactionRequest("", $_SESSION['stand_price'], "", "", "", $this->msisdn, Config::PAY_MARKET_FEE, $_SESSION['trader_details']['uuid'], $_SESSION['trader_details']['first_name'], $_SESSION['trader_details']['last_name'], "", "", "", "", "", $_SESSION['stand_number']);
                 $result = SharedUtils::httpPostJson(Config::API_URL . "transactions", $payload, $this->msisdn, $this->log);
                 if ($result['error'] == FALSE) {
                     $_SESSION['menu-selection'] = "TRX_PROCESSING";
-                    $this->body = $this->menus['TRX_PROCESSING'];
+                    $this->body = SharedUtils::strReplace("{message}", Config::SELLER_MSG, $this->menus['TRX_PROCESSING']);
                     $this->gw_response = $this->get_response_array();
                 } else {
                     $_SESSION['menu-selection'] = "";
@@ -1008,7 +1022,7 @@ class Core {
                 break;
             case "00":
                 //Go to previous menu
-                $stand_menu = $this->formatStands($_SESSION['stands'], false, false);
+                $stand_menu = $this->formatStands($_SESSION['stand_navigator']['stands'], false, false);
                 if (strlen($stand_menu) > 0) {
                     $_SESSION['menu-selection'] = "MARKET_FEES";
                     $this->body = SharedUtils::strReplace("{stands}", $stand_menu, $this->menus['MARKET_FEES']);
@@ -1031,6 +1045,24 @@ class Core {
                 $this->body = SharedUtils::strReplace("{amount}", $_SESSION['stand_price'], $this->menus['MARKET_FEES_CONFIRM']);
                 $this->body = "Invalid selection." . SharedUtils::strReplace("{stand}", $_SESSION['stand_number'], $this->body);
                 $_SESSION['menu-selection'] = "MARKET_FEES_CONFIRM";
+                $this->gw_response = $this->get_response_array();
+                break;
+        }
+        return $this->gw_response;
+    }
+
+    private function marketFeesNoFees() {
+        switch ($this->body) {
+            case "#":
+                //The user selected to go to main page
+                $_SESSION['menu-selection'] = "MAIN";
+                $this->body = SharedUtils::strReplace("{Marketeer}", $_SESSION['names'], $this->menus['MAIN']);
+                $this->gw_response = $this->get_response_array();
+                break;
+            default :
+                //The user selected an invalid option.
+                $this->body = "Invalid selection." . $this->menus['MARKET_FEES_NO_FEES'];
+                $_SESSION['menu-selection'] = "MARKET_FEES_NO_FEES";
                 $this->gw_response = $this->get_response_array();
                 break;
         }
@@ -1105,7 +1137,7 @@ class Core {
         $counter = 0;
         if (is_array($stands) && count($stands) > 0) {
             if (!isset($_SESSION['stand_navigator'])) {
-                $_SESSION['stand_navigator']['stands'] = $routes;
+                $_SESSION['stand_navigator']['stands'] = $stands;
                 $_SESSION['stand_navigator']['page_id'] = 1;
                 $_SESSION['stand_navigator']['max_entries_per_page'] = Config::MAX_OPTIONS_PER_PAGE;
                 $_SESSION['stand_navigator']['max_entries'] = count($stands);
@@ -1152,6 +1184,7 @@ class Core {
             //The user selected a valid option.
             $schedule_details = explode(",", $_SESSION['current_routes'][$this->body]);
             $_SESSION['bus_schedule_id'] = $schedule_details[0]; //We have to keep the selected schedule.
+            $_SESSION['departure_time'] = $schedule_details[1]; //We have to keep the selected departure time.
             $_SESSION['bus_str'] = $schedule_details[2] . "-" . $_SESSION['route_name'] . "," . $_SESSION["travel_date"] . " " . $schedule_details[1] . "hrs - K" . $schedule_details[3]; //We have to keep the selected schedule.
             $_SESSION['bus_fare'] = $schedule_details[3]; //We have to keep the selected schedule.
             $_SESSION['menu-selection'] = "PASSENGER_NRC";
@@ -1175,7 +1208,7 @@ class Core {
                 $this->body = Config::SYSTEM_BUSY_MESSAGE;
                 $this->gw_response = $this->get_response_array();
             }
-        } elseif ($this->body == "99" && ($_SESSION['schedules_navigator']['last_last_opt'] < count($_SESSION['schedules_navigator']['routes']))) {
+        } elseif ($this->body == "99" && ($_SESSION['schedules_navigator']['last_last_opt'] < count($_SESSION['schedules_navigator']['schedules']))) {
             //More routes...
             $routes_menu = $this->formatRoutes($_SESSION['schedules_navigator']['schedules'], true, false);
             if (strlen($routes_menu) > 0) {
@@ -1190,9 +1223,9 @@ class Core {
                 $this->gw_response = $this->get_response_array();
             }
         } else {
-            $format = \DateTime::createFromFormat('d-m-Y', date('d-m-Y', strtotime(date("d-m-Y") . ' +1 day')));
-            $tommorow = $format->format('d/m/Y');
-            $_SESSION["travel_date"] = ($this->body == "1") ? date("d/m/Y") : $tommorow;
+            $format = \DateTime::createFromFormat('Y-m-d', date('Y-m-d', strtotime(date("Y-m-d") . ' +1 day')));
+            $tommorow = $format->format('Y-m-d');
+            $_SESSION["travel_date"] = ($this->body == "1") ? date("Y-m-d") : $tommorow;
             $_SESSION['menu-selection'] = "BUS_SCHEDULES";
             $payload = SharedUtils::BuildProbaseMarketRequest($this->msisdn, "", $this->body, "", "", $_SESSION['start_route'], $_SESSION['end_route'], $_SESSION["travel_date"]);
             $result = SharedUtils::httpPostJson($this->probase_url_travel . Config::SCHEDULED_ROUTES, $payload, $this->msisdn, $this->log);
@@ -1224,6 +1257,7 @@ class Core {
             //The user selected a valid option.
             $schedule_details = explode(",", $_SESSION['current_routes'][$this->body]);
             $_SESSION['bus_schedule_id'] = $schedule_details[0]; //We have to keep the selected schedule id.
+            $_SESSION['departure_time'] = $schedule_details[1]; //We have to keep the selected departure time.
             $_SESSION['bus_str'] = $schedule_details[2] . "-" . $_SESSION['route_name'] . "," . $_SESSION["travel_date"] . " " . $schedule_details[1] . "hrs - K" . $schedule_details[3]; //We have to keep the selected schedule.
             $_SESSION['bus_fare'] = $schedule_details[3]; //We have to keep the selected schedule fare.
             $_SESSION['menu-selection'] = "PASSENGER_NRC1";
@@ -1247,7 +1281,7 @@ class Core {
                 $this->body = Config::SYSTEM_BUSY_MESSAGE;
                 $this->gw_response = $this->get_response_array();
             }
-        } elseif ($this->body == "99" && ($_SESSION['schedules_navigator']['last_last_opt'] < count($_SESSION['schedules_navigator']['routes']))) {
+        } elseif ($this->body == "99" && ($_SESSION['schedules_navigator']['last_last_opt'] < count($_SESSION['schedules_navigator']['schedules']))) {
             //More routes...
             $routes_menu = $this->formatRoutes($_SESSION['schedules_navigator']['schedules'], true, false);
             if (strlen($routes_menu) > 0) {
@@ -1262,9 +1296,9 @@ class Core {
                 $this->gw_response = $this->get_response_array();
             }
         } else {
-            $format = \DateTime::createFromFormat('d-m-Y', date('d-m-Y', strtotime(date("d-m-Y") . ' +1 day')));
-            $tommorow = $format->format('d/m/Y');
-            $_SESSION["travel_date"] = ($this->body == "1") ? date("d/m/Y") : $tommorow;
+            $format = \DateTime::createFromFormat('Y-m-d', date('Y-m-d', strtotime(date("Y-m-d") . ' +1 day')));
+            $tommorow = $format->format('Y-m-d');
+            $_SESSION["travel_date"] = ($this->body == "1") ? date("Y-m-d") : $tommorow;
             $_SESSION['menu-selection'] = "BUS_SCHEDULES1";
             $payload = SharedUtils::BuildProbaseMarketRequest($this->msisdn, "", $this->body, "", "", $_SESSION['start_route'], $_SESSION['end_route'], $_SESSION["travel_date"]);
             $result = SharedUtils::httpPostJson($this->probase_url_travel . Config::SCHEDULED_ROUTES, $payload, $this->msisdn, $this->log);
@@ -1299,9 +1333,9 @@ class Core {
                 $this->gw_response = $this->get_response_array();
                 break;
             case "00":
-                $format = \DateTime::createFromFormat('d-m-Y', date('d-m-Y', strtotime(date("d-m-Y") . ' +1 day')));
-                $tommorow = $format->format('d/m/Y');
-                $_SESSION["travel_date"] = ($this->body == "1") ? date("d/m/Y") : $tommorow;
+                $format = \DateTime::createFromFormat('Y-m-d', date('Y-m-d', strtotime(date("Y-m-d") . ' +1 day')));
+                $tommorow = $format->format('Y-m-d');
+                $_SESSION["travel_date"] = ($this->body == "1") ? date("Y-m-d") : $tommorow;
                 $_SESSION['menu-selection'] = "BUS_SCHEDULES";
                 $payload = SharedUtils::BuildProbaseMarketRequest($this->msisdn, "", $this->body, "", "", $_SESSION['start_route'], $_SESSION['end_route'], $_SESSION["travel_date"]);
                 $result = SharedUtils::httpPostJson($this->probase_url_travel . Config::SCHEDULED_ROUTES, $payload, $this->msisdn, $this->log);
@@ -1325,24 +1359,24 @@ class Core {
                 }
                 break;
             default :
-                if (strlen($this->body) >= 10) {
-                    $nrc_array = explode("/", $this->body);
-                    if (!empty($nrc_array) &&
-                            strlen($nrc_array[0]) == 6 &&
-                            strlen($nrc_array[1]) >= 1 &&
-                            strlen($nrc_array[2]) == 1) {
-                        $_SESSION['NRC'] = $this->body;
-                        $_SESSION['menu-selection'] = "PASSENGER_FNAME";
-                        $this->body = $this->menus['PASSENGER_FNAME'];
-                        $this->gw_response = $this->get_response_array();
-                    } else {
-                        $_SESSION['menu-selection'] = "PASSENGER_NRC";
-                        $this->body = "Invalid NRC." . $this->menus['PASSENGER_NRC'];
-                        $this->gw_response = $this->get_response_array();
-                    }
+                if (strlen($this->body) >= 5) {
+                    // $nrc_array = explode("/", $this->body);
+                    /*  if (!empty($nrc_array) &&
+                      strlen($nrc_array[0]) == 6 &&
+                      strlen($nrc_array[1]) >= 1 &&
+                      strlen($nrc_array[2]) == 1) { */
+                    $_SESSION['NRC'] = $this->body;
+                    $_SESSION['menu-selection'] = "PASSENGER_FNAME";
+                    $this->body = $this->menus['PASSENGER_FNAME'];
+                    $this->gw_response = $this->get_response_array();
+                    /* } else {
+                      $_SESSION['menu-selection'] = "PASSENGER_NRC";
+                      $this->body = "Invalid ID." . $this->menus['PASSENGER_NRC'];
+                      $this->gw_response = $this->get_response_array();
+                      } */
                 } else {
                     $_SESSION['menu-selection'] = "PASSENGER_NRC";
-                    $this->body = "Invalid NRC." . $this->menus['PASSENGER_NRC'];
+                    $this->body = "Invalid ID." . $this->menus['PASSENGER_NRC'];
                     $this->gw_response = $this->get_response_array();
                 }
                 break;
@@ -1354,13 +1388,13 @@ class Core {
         switch ($this->body) {
             case "#":
                 $_SESSION['menu-selection'] = "MAIN";
-                $this->body = $this->menus['MAIn'];
+                $this->body = $this->menus['MAIN'];
                 $this->gw_response = $this->get_response_array();
                 break;
             case "00":
-                $format = \DateTime::createFromFormat('d-m-Y', date('d-m-Y', strtotime(date("d-m-Y") . ' +1 day')));
-                $tommorow = $format->format('d/m/Y');
-                $_SESSION["travel_date"] = ($this->body == "1") ? date("d/m/Y") : $tommorow;
+                $format = \DateTime::createFromFormat('Y-m-d', date('Y-m-d', strtotime(date("Y-m-d") . ' +1 day')));
+                $tommorow = $format->format('Y-m-d');
+                $_SESSION["travel_date"] = ($this->body == "1") ? date("Y-m-d") : $tommorow;
                 $_SESSION['menu-selection'] = "BUS_SCHEDULES1";
                 $payload = SharedUtils::BuildProbaseMarketRequest($this->msisdn, "", $this->body, "", "", $_SESSION['start_route'], $_SESSION['end_route'], $_SESSION["travel_date"]);
                 $result = SharedUtils::httpPostJson($this->probase_url_travel . Config::SCHEDULED_ROUTES, $payload, $this->msisdn, $this->log);
@@ -1384,24 +1418,24 @@ class Core {
                 }
                 break;
             default :
-                if (strlen($this->body) >= 10) {
-                    $nrc_array = explode("/", $this->body);
-                    if (!empty($nrc_array) &&
-                            strlen($nrc_array[0]) == 6 &&
-                            strlen($nrc_array[1]) >= 1 &&
-                            strlen($nrc_array[2]) == 1) {
-                        $_SESSION['NRC'] = $this->body;
-                        $_SESSION['menu-selection'] = "PASSENGER_FNAME1";
-                        $this->body = $this->menus['PASSENGER_FNAME1'];
-                        $this->gw_response = $this->get_response_array();
-                    } else {
-                        $_SESSION['menu-selection'] = "PASSENGER_NRC1";
-                        $this->body = "Invalid NRC." . $this->menus['PASSENGER_NRC1'];
-                        $this->gw_response = $this->get_response_array();
-                    }
+                if (strlen($this->body) >= 5) {
+                    //$nrc_array = explode("/", $this->body);
+                    /* if (!empty($nrc_array) &&
+                      strlen($nrc_array[0]) == 6 &&
+                      strlen($nrc_array[1]) >= 1 &&
+                      strlen($nrc_array[2]) == 1) { */
+                    $_SESSION['NRC'] = $this->body;
+                    $_SESSION['menu-selection'] = "PASSENGER_FNAME1";
+                    $this->body = $this->menus['PASSENGER_FNAME1'];
+                    $this->gw_response = $this->get_response_array();
+                    /*  } else {
+                      $_SESSION['menu-selection'] = "PASSENGER_NRC1";
+                      $this->body = "Invalid ID." . $this->menus['PASSENGER_NRC1'];
+                      $this->gw_response = $this->get_response_array();
+                      } */
                 } else {
                     $_SESSION['menu-selection'] = "PASSENGER_NRC1";
-                    $this->body = "Invalid NRC." . $this->menus['PASSENGER_NRC1'];
+                    $this->body = "Invalid ID." . $this->menus['PASSENGER_NRC1'];
                     $this->gw_response = $this->get_response_array();
                 }
                 break;
@@ -1535,8 +1569,8 @@ class Core {
                 $this->gw_response = $this->get_response_array();
                 break;
             default :
-                if (SharedUtils::validateMsisdn($this->body)) {
-                    $_SESSION['PASSENGER_MSISDN'] = $this->body;
+                if (SharedUtils::validateMsisdn($this->body, $this->log, $this->msisdn)) {
+                    $_SESSION['PASSENGER_MSISDN'] = "26" . $this->body;
                     $_SESSION['menu-selection'] = "PASSENGER_CONFIRM1";
                     $this->body = str_replace("{names}", $_SESSION['FIRSTNAME'] . " " . $_SESSION['LASTNAME'], $this->menus['PASSENGER_CONFIRM1']);
                     $this->body = str_replace("{bus_str}", $_SESSION['bus_str'], $this->body);
@@ -1565,11 +1599,11 @@ class Core {
                 break;
             case "1":
                 //Lets push the transaction to the api
-                $payload = SharedUtils::buildPushTransactionRequest("", $_SESSION['bus_fare'], "", "", "", $this->msisdn, Config::TICKET_PURCHASE, "", $_SESSION['FIRSTNAME'], $_SESSION['LASTNAME'], "", $_SESSION['route_code'], $_SESSION['NRC'], $_SESSION["travel_date"], $_SESSION['bus_schedule_id'], "");
+                $payload = SharedUtils::buildPushTransactionRequest("", $_SESSION['bus_fare'], "", "", "", $this->msisdn, Config::TICKET_PURCHASE, "", $_SESSION['FIRSTNAME'], $_SESSION['LASTNAME'], "", $_SESSION['route_code'], $_SESSION['NRC'], $_SESSION["travel_date"], $_SESSION['bus_schedule_id'], "",$_SESSION['departure_time']);
                 $result = SharedUtils::httpPostJson(Config::API_URL . "transactions", $payload, $this->msisdn, $this->log);
                 if ($result['error'] == FALSE) {
                     $_SESSION['menu-selection'] = "TRX_PROCESSING1";
-                    $this->body = $this->menus['TRX_PROCESSING1'];
+                    $this->body = SharedUtils::strReplace("{message}", Config::SELLER_MSG, $this->menus['TRX_PROCESSING1']);
                     $this->gw_response = $this->get_response_array();
                 } else {
                     $_SESSION['menu-selection'] = "";
@@ -1602,12 +1636,13 @@ class Core {
                 break;
             case "1":
                 //Lets push the transaction to the api
-                $payload = SharedUtils::buildPushTransactionRequest($_SESSION['trader_details']['uuid'], $_SESSION['bus_fare'], $this->msisdn, $_SESSION['trader_details']['first_name'], $_SESSION['trader_details']['last_name'], $_SESSION['PASSENGER_MSISDN'], Config::TICKET_PURCHASE, "", $_SESSION['FIRSTNAME'], $_SESSION['LASTNAME'], "", $_SESSION['route_code'], $_SESSION['NRC'], $_SESSION["travel_date"], $_SESSION['bus_schedule_id'], "");
+                $payload = SharedUtils::buildPushTransactionRequest($_SESSION['trader_details']['uuid'], $_SESSION['bus_fare'], $this->msisdn, $_SESSION['trader_details']['first_name'], $_SESSION['trader_details']['last_name'], $_SESSION['PASSENGER_MSISDN'], Config::TICKET_PURCHASE, "", $_SESSION['FIRSTNAME'], $_SESSION['LASTNAME'], "", $_SESSION['route_code'], $_SESSION['NRC'], $_SESSION["travel_date"], $_SESSION['bus_schedule_id'], "",$_SESSION['departure_time']);
                 $result = SharedUtils::httpPostJson(Config::API_URL . "transactions", $payload, $this->msisdn, $this->log);
 
                 if ($result['error'] == FALSE) {
                     $_SESSION['menu-selection'] = "TRX_PROCESSING";
-                    $this->body = $this->menus['TRX_PROCESSING'];
+                    // $this->body = $this->menus['TRX_PROCESSING'];
+                    $this->body = SharedUtils::strReplace("{message}", Config::SELLER_MSG, $this->menus['TRX_PROCESSING']);
                     $this->gw_response = $this->get_response_array();
                 } else {
                     $_SESSION['menu-selection'] = "";
@@ -1628,7 +1663,7 @@ class Core {
 
     private function formatBusSchedules($Schedules, $is_next = false, $is_previous = false) {
         $return_menu = "";
-        $this->log->logInfo(Config::APP_INFO_LOG, $this->msisdn, '| Collected Schdules are: ' . print_r($Schedules, true));
+        $this->log->logInfo(Config::APP_INFO_LOG, $this->msisdn, '| Collected Schedules are: ' . print_r($Schedules, true));
         $counter = 1;
         if (is_array($Schedules) && count($Schedules) > 0) {
             if (!isset($_SESSION['schedules_navigator'])) {
@@ -1672,6 +1707,7 @@ class Core {
                 $return_menu .= "\n00.Previous";
             }
         }
+        $this->log->logInfo(Config::APP_INFO_LOG, $this->msisdn, "| Prepared Schedules: " . print_r($_SESSION['current_routes'], true));
         $this->log->logInfo(Config::APP_INFO_LOG, $this->msisdn, "| Prepared menus being returned are : " . $return_menu);
         return $return_menu;
     }
@@ -1701,7 +1737,7 @@ class Core {
     //CHECK BALANCE STARTS
     private function checkBalance() {
         switch ($this->body) {
-            case "1":
+            case "#":
                 $_SESSION['menu-selection'] = "MAIN";
                 $this->body = SharedUtils::strReplace("{Marketeer}", $_SESSION['names'], $this->menus['MAIN']);
                 $this->gw_response = $this->get_response_array();
@@ -1718,15 +1754,18 @@ class Core {
 
     //Transaction processing STARTS
     private function transactionProcessing() {
+        $this->end_of_session = FALSE;
+        $this->log->logInfo(Config::APP_INFO_LOG, $this->msisdn, "| BOOOODDDDDDDDDDDDDDDDDYYYYY IS:::: " . $this->body);
         switch ($this->body) {
-            case "1":
+            case "#":
                 $_SESSION['menu-selection'] = "MAIN";
                 $this->body = SharedUtils::strReplace("{Marketeer}", $_SESSION['names'], $this->menus['MAIN']);
                 $this->gw_response = $this->get_response_array();
                 break;
             default:
                 $_SESSION['menu-selection'] = "TRX_PROCESSING";
-                $this->body = SharedUtils::strReplace("{val}", "selection", Config::INVALID_STR) . "\n" . $this->menus['TRX_PROCESSING'];
+                $this->body = SharedUtils::strReplace("{message}", Config::BUYER_MSG, $this->menus['TRX_PROCESSING']);
+                $this->body = "Invalid selection." . $this->body;
                 $this->gw_response = $this->get_response_array();
                 break;
         }
@@ -1735,15 +1774,18 @@ class Core {
 
     //Transaction processing STARTS
     private function transactionProcessing1() {
+        $this->end_of_session = FALSE;
+        $this->log->logInfo(Config::APP_INFO_LOG, $this->msisdn, "| BOOOODDDDDDDDDDDDDDDDDYYYYY IS:::: " . $this->body);
         switch ($this->body) {
-            case "1":
+            case "#":
                 $_SESSION['menu-selection'] = "LOGIN";
                 $this->body = $this->menus['LOGIN'];
                 $this->gw_response = $this->get_response_array();
                 break;
             default:
                 $_SESSION['menu-selection'] = "TRX_PROCESSING1";
-                $this->body = SharedUtils::strReplace("{val}", "selection", Config::INVALID_STR) . "\n" . $this->menus['TRX_PROCESSING'];
+                $this->body = SharedUtils::strReplace("{message}", Config::SELLER_MSG, $this->menus['TRX_PROCESSING1']);
+                $this->body = "Invalid selection." . $this->body;
                 $this->gw_response = $this->get_response_array();
                 break;
         }
@@ -1792,8 +1834,8 @@ class Core {
                 $this->body = SharedUtils::strReplace("{Marketeer}", $_SESSION['names'], $this->menus['MAIN']);
                 $this->gw_response = $this->get_response_array();
                 break;
-            case "0":
-                $this->body = 2;
+            case "00":
+                $this->body = 1;
                 $this->gw_response = $this->main();
                 break;
             default:
@@ -1831,7 +1873,7 @@ class Core {
                 $result = SharedUtils::httpPostJson(Config::API_URL . "transactions", $payload, $this->msisdn, $this->log);
                 if ($result['error'] == FALSE) {
                     $_SESSION['menu-selection'] = "TRX_PROCESSING";
-                    $this->body = $this->menus['TRX_PROCESSING'];
+                    $this->body = SharedUtils::strReplace("{message}", Config::BUYER_MSG, $this->menus['TRX_PROCESSING']);
                     $this->gw_response = $this->get_response_array();
                 } else {
                     $_SESSION['menu-selection'] = "";
@@ -1845,7 +1887,7 @@ class Core {
                 $this->body = SharedUtils::strReplace("{Marketeer}", $_SESSION['names'], $this->menus['MAIN']);
                 $this->gw_response = $this->get_response_array();
                 break;
-            case "0":
+            case "00":
                 $this->body = $_SESSION['Sale_amount'];
                 $this->gw_response = $this->makeSaleAmount();
                 break;
@@ -1913,33 +1955,56 @@ class Core {
     }
 
     private function orderGoodsAmount() {
-        switch ($this->body) {
-            case "#":
-                $_SESSION['menu-selection'] = "MAIN";
-                $this->body = SharedUtils::strReplace("{Marketeer}", $_SESSION['names'], $this->menus['MAIN']);
+        if ($this->body === "#") {
+            $_SESSION['menu-selection'] = "MAIN";
+            $this->body = SharedUtils::strReplace("{Marketeer}", $_SESSION['names'], $this->menus['MAIN']);
+            $this->gw_response = $this->get_response_array();
+        } elseif ($this->body === "00") {
+            $this->body = 2;
+            $this->gw_response = $this->main();
+        } else {
+            if (SharedUtils::validateAmount($this->body, $this->log, $this->msisdn)) {
+                $_SESSION['Sale_amount'] = $this->body;
+                $_SESSION['menu-selection'] = "ORDER_GOODS_CONFIRM";
+                $this->body = SharedUtils::strReplace("{trader}", $_SESSION['seller_names'], $this->menus['ORDER_GOODS_CONFIRM']);
+                $this->body = SharedUtils::strReplace("{mobile}", $_SESSION['seller_mobile'], $this->body);
+                $this->body = SharedUtils::strReplace("{amount}", $_SESSION['Sale_amount'], $this->body);
                 $this->gw_response = $this->get_response_array();
-                break;
-            case "0":
-                $this->body = 2;
-                $this->gw_response = $this->main();
-                break;
-            default:
-                if (SharedUtils::validateAmount($this->body, $this->log, $this->msisdn)) {
-                    $_SESSION['Sale_amount'] = $this->body;
-                    $_SESSION['menu-selection'] = "ORDER_GOODS_CONFIRM";
-                    $this->body = SharedUtils::strReplace("{trader}", $_SESSION['seller_names'], $this->menus['ORDER_GOODS_CONFIRM']);
-                    $this->body = SharedUtils::strReplace("{mobile}", $_SESSION['seller_mobile'], $this->body);
-                    $this->body = SharedUtils::strReplace("{amount}", $_SESSION['Sale_amount'], $this->body);
-                    $this->gw_response = $this->get_response_array();
-                } else {
-                    $_SESSION['menu-selection'] = "ORDER_GOODS_AMOUNT";
-                    $this->body = SharedUtils::strReplace("{trader}", $_SESSION['seller_names'], $this->menus['ORDER_GOODS_AMOUNT']);
-                    $this->body = SharedUtils::strReplace("{mobile}", $_SESSION['seller_mobile'], $this->body);
-                    $this->body = SharedUtils::strReplace("{val}", "amount", Config::INVALID_STR) . "\n" . $this->body;
-                    $this->gw_response = $this->get_response_array();
-                }
-                break;
+            } else {
+                $_SESSION['menu-selection'] = "ORDER_GOODS_AMOUNT";
+                $this->body = SharedUtils::strReplace("{trader}", $_SESSION['seller_names'], $this->menus['ORDER_GOODS_AMOUNT']);
+                $this->body = SharedUtils::strReplace("{mobile}", $_SESSION['seller_mobile'], $this->body);
+                $this->body = SharedUtils::strReplace("{val}", "amount", Config::INVALID_STR) . "\n" . $this->body;
+                $this->gw_response = $this->get_response_array();
+            }
         }
+        /* switch ((String) $this->body) {
+          case "#":
+          $_SESSION['menu-selection'] = "MAIN";
+          $this->body = SharedUtils::strReplace("{Marketeer}", $_SESSION['names'], $this->menus['MAIN']);
+          $this->gw_response = $this->get_response_array();
+          break;
+          case "00":
+          $this->body = 2;
+          $this->gw_response = $this->main();
+          break;
+          default:
+          if (SharedUtils::validateAmount($this->body, $this->log, $this->msisdn)) {
+          $_SESSION['Sale_amount'] = $this->body;
+          $_SESSION['menu-selection'] = "ORDER_GOODS_CONFIRM";
+          $this->body = SharedUtils::strReplace("{trader}", $_SESSION['seller_names'], $this->menus['ORDER_GOODS_CONFIRM']);
+          $this->body = SharedUtils::strReplace("{mobile}", $_SESSION['seller_mobile'], $this->body);
+          $this->body = SharedUtils::strReplace("{amount}", $_SESSION['Sale_amount'], $this->body);
+          $this->gw_response = $this->get_response_array();
+          } else {
+          $_SESSION['menu-selection'] = "ORDER_GOODS_AMOUNT";
+          $this->body = SharedUtils::strReplace("{trader}", $_SESSION['seller_names'], $this->menus['ORDER_GOODS_AMOUNT']);
+          $this->body = SharedUtils::strReplace("{mobile}", $_SESSION['seller_mobile'], $this->body);
+          $this->body = SharedUtils::strReplace("{val}", "amount", Config::INVALID_STR) . "\n" . $this->body;
+          $this->gw_response = $this->get_response_array();
+          }
+          break;
+          } */
         return $this->gw_response;
     }
 
@@ -1954,7 +2019,8 @@ class Core {
                 $result = SharedUtils::httpPostJson(Config::API_URL . "transactions", $payload, $this->msisdn, $this->log);
                 if ($result['error'] == FALSE) {
                     $_SESSION['menu-selection'] = "TRX_PROCESSING";
-                    $this->body = $this->menus['TRX_PROCESSING'];
+                    // $this->body = $this->menus['TRX_PROCESSING'];
+                    $this->body = SharedUtils::strReplace("{message}", Config::SELLER_MSG, $this->menus['TRX_PROCESSING']);
                     $this->gw_response = $this->get_response_array();
                 } else {
                     $_SESSION['menu-selection'] = "";
@@ -1968,7 +2034,7 @@ class Core {
                 $this->body = SharedUtils::strReplace("{Marketeer}", $_SESSION['names'], $this->menus['MAIN']);
                 $this->gw_response = $this->get_response_array();
                 break;
-            case "0":
+            case "00":
                 $this->body = $_SESSION['seller_mobile'];
                 $this->gw_response = $this->orderGoods();
                 break;
@@ -2042,8 +2108,8 @@ class Core {
                     }
                 } else {
                     $this->log->logInfo(Config::APP_INFO_LOG, $this->msisdn, '| Trader is not registered. They need to register first before accessing the system!');
-                    $this->end_of_session = TRUE;
-                    $_SESSION['menu-selection'] = "-1";
+                    //  $this->end_of_session = TRUE;
+                    $_SESSION['menu-selection'] = "NOT_REGISTERED";
                     $this->body = str_replace("{msisdn}", $this->msisdn, $this->menus['NOT_REGISTERED']);
                     $this->gw_response = $this->get_response_array();
                     return $this->gw_response;
@@ -2061,6 +2127,23 @@ class Core {
                 $this->gw_response = $this->get_response_array();
                 break;
         }
+        return $this->gw_response;
+    }
+
+    private function notRegsitered() {
+        switch ($this->body) {
+            case "#":
+                $_SESSION['menu-selection'] = "LOGIN";
+                $this->body = $this->menus['LOGIN'];
+                $this->gw_response = $this->get_response_array();
+                break;
+            default :
+                $_SESSION['menu-selection'] = "NOT_REGISTERED";
+                $this->body = "Invalid selection." . str_replace("{msisdn}", $this->msisdn, $this->menus['NOT_REGISTERED']);
+                $this->gw_response = $this->get_response_array();
+                break;
+        }
+
         return $this->gw_response;
     }
 
@@ -2108,7 +2191,7 @@ class Core {
                 $this->body = $this->menus['TODO'];
                 $this->gw_response = $this->get_response_array();
                 break;
-            case "#":
+            case "00":
                 $_SESSION['menu-selection'] = "LOGIN_MAIN";
                 $this->body = $this->menus['LOGIN_MAIN'];
                 $this->gw_response = $this->get_response_array();
@@ -2192,6 +2275,7 @@ class Core {
         $response['SESSION_ID'] = $this->request_session_id;
         $response['SEQUENCE'] = $this->sequence;
         $response['USSD_BODY'] = $this->body;
+        $response['MOBILE_NUMBER'] = $this->msisdn;
         $response['END_OF_SESSION'] = $this->end_of_session;
         $response['REQUEST_TYPE'] = 'RESPONSE';
 

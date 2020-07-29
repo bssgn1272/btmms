@@ -2,10 +2,6 @@
 /*
 Handling database connection
 */
-
-/**
-* 
-*/
 class DbConnect {
 
 	private $conn;
@@ -27,12 +23,18 @@ class DbConnect {
 
 		//Check for database connection error
 		if (mysqli_connect_errno()) {
-			# code...
-			echo 'Failed to connect to MySQL: ' .mysqli_connect_error();
+            $msg = 'Failed to connect to MySQL: ' .mysqli_connect_error();
+
+			echo $msg;
+
+            //WRITE A MESSAGE TO A FILE IN THE SAME DIRECTORY
+            $file = __DIR__ . '/DB_Connection_Error.txt';
+            $date = 'Script was executed at ' . date('d/m/Y H:i:s') . "\n" . json_encode($msg) . "\n" . "\n";
+            file_put_contents($file, $date, FILE_APPEND);
+            //END OF WRITING TO FILE
 		}
 
 		//Returning connection resource
 		return $this->conn;
 	}
 }
-?>

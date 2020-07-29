@@ -3,9 +3,9 @@ package com.innovitrix.napsamarketsales;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.provider.Settings;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -16,7 +16,10 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.NumberKeyListener;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -24,83 +27,119 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.innovitrix.napsamarketsales.dialog.DialogBox;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import static android.text.InputType.TYPE_NULL;
-import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_MESSAGE;
-import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_AUTHENTICATE_MARKETER;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_SERVICE_TOKEN;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_USERNAME_API;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_VOLLEY_SOCKET_TIMEOUT_MS;
 import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_RESET_PIN;
-import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_TRANSACTIONS;
-import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_UPDATE_PIN;
 
 public class ResetPin extends AppCompatActivity {
-    private EditText editTextTraderMobileNumber, editTextTraderNRC;
-    private Button button_Save;
+     private Button button_Save;
     private ProgressBar progressBar;
     private ProgressDialog progressDialog;
     RequestQueue queue;
-    String   trader_mobile_number, trader_nrc;
+    TextInputLayout  textInputLayout_NRC, textInputLayout_Mobile_Number;
+
+    String   mobile_number, nrc;
     String pin;
     int mobile_number_char;
     String blockCharacterSet = "123456789";
+    private long backPressedTime;
+    private Toast backToast;
+    TextView textViewUsername;
+    TextView textViewDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
+
+        // ...but notify us that it happened.
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH, WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
+
         setContentView(R.layout.activity_reset_pin);
-        getSupportActionBar().setSubtitle("Reset pin");
+        //this.setFinishOnTouchOutside(false);
+        getSupportActionBar().setSubtitle("reset pin");
         progressDialog = new ProgressDialog(ResetPin.this);
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
         queue = Volley.newRequestQueue(this);
-        editTextTraderMobileNumber = (EditText) findViewById(R.id.editText_Trader_Mobile_Number);
-        editTextTraderNRC = (EditText) findViewById(R.id.editText_Trader_NRC);
 
-        editTextTraderMobileNumber.requestFocus();
+        // textViewUsername = (TextView)findViewById(R.id.textViewUsername);
+        //  textViewUsername.setText("Logged in as "+SharedPrefManager.getInstance(BusBuyTicketBuyerDetailsE.this).getUser().getFirstname()+ " "+SharedPrefManager.getInstance(BusBuyTicketBuyerDetailsE.this).getUser().getLastname());
+        textViewDate = (TextView)findViewById(R.id.textViewDate);
+        textViewDate.setText(SharedPrefManager.getInstance(ResetPin.this).getTranactionDate2());
 
-        editTextTraderMobileNumber.addTextChangedListener(new ResetPin.PhoneNumberTextWatcher());
-        editTextTraderMobileNumber.setFilters(new InputFilter[]{new ResetPin.PhoneNumberFilter(), new InputFilter.LengthFilter(10)});
+
+        textInputLayout_Mobile_Number = (TextInputLayout) findViewById(R.id.mobile_number_TextInputLayout);
+        textInputLayout_NRC =  (TextInputLayout) findViewById(R.id.nrc_TextInputLayout);
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        textInputLayout_Mobile_Number.requestFocus();
+        textInputLayout_NRC.setCounterEnabled(false);
+        textInputLayout_Mobile_Number.getEditText().addTextChangedListener(new ResetPin.PhoneNumberTextWatcher());
+        textInputLayout_Mobile_Number.getEditText().setFilters(new InputFilter[]{new ResetPin.PhoneNumberFilter(), new InputFilter.LengthFilter(10)});
+
+        textInputLayout_NRC.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+             /*   if (s.length() < 1) {
+                    textInputLayout.setErrorEnabled(true);
+                    textInputLayout.setError("Please enter a value");
+                }
+
+                if (s.length() > 0) {
+                    textInputLayout.setError(null);
+                    textInputLayout.setErrorEnabled(false);
+                }
+*/
+                textInputLayout_NRC.setError(null);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         button_Save = (Button) findViewById(R.id.buttonSubmitRP);
            button_Save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                trader_mobile_number =  "26"+ editTextTraderMobileNumber.getText().toString().trim();
-                trader_nrc =     editTextTraderNRC.getText().toString().trim();
-
-                if (TextUtils.isEmpty(trader_mobile_number)) {
-                    editTextTraderMobileNumber.setError("Please enter your mobile no.");
-                    editTextTraderMobileNumber.requestFocus();
+                if (!validateMobileNumber()||!validateNRC()) {
                     return;
-                }
-
-                if (TextUtils.isEmpty(       trader_nrc)) {
-                    editTextTraderNRC.setError("Please enter your nrc");
-                    editTextTraderNRC.requestFocus();
-                    return;
-                }
+                } else {
 
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(ResetPin.this);
-                builder.setMessage("Confirm password reset?");
+                mobile_number =  "26"+  mobile_number;
+                AlertDialog.Builder builder = new AlertDialog.Builder(ResetPin.this);;
+                builder.setCancelable(false);
+                builder.setMessage("Confirm pin reset for "+ mobile_number+"?");
                 builder.setPositiveButton("Yes",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                sendInformation( trader_mobile_number,trader_nrc);
+                                sendInformation( mobile_number,nrc);
                             }
                         });
 
@@ -112,24 +151,56 @@ public class ResetPin extends AppCompatActivity {
                         });
 
                 builder.create().show();
-            }
+            }}
         });
     }
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // If we've received a touch notification that the user has touched
+        // outside the app, finish the activity.
+        if (MotionEvent.ACTION_OUTSIDE == event.getAction()) {
+            finish();
+            return true;
+        }
 
+        // Delegate everything else to Activity.
+        return super.onTouchEvent(event);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //do whatever
+                Intent intent = new Intent(ResetPin.this,LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }}
 
+    @Override
+    public void onBackPressed() {
+        // Toast.makeText(getApplication(),"Use the in app controls to navigate.",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(ResetPin.this,LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
 
     public void sendInformation(
             final String mobile_number,
             String nrc
     )
     {
-
+        progressBar.setVisibility(View.VISIBLE);
 
         JSONObject jsonAuthObject = new JSONObject();
         try {
-            jsonAuthObject.put("username","admin");
-            jsonAuthObject.put("service_token","JJ8DJ7S66DMA5");
+            jsonAuthObject.put("username", KEY_USERNAME_API);
+            jsonAuthObject.put("service_token", KEY_SERVICE_TOKEN);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -171,7 +242,7 @@ public class ResetPin extends AppCompatActivity {
                         // display response
 
                         Log.d("Response", response.toString());
-                        //     progressBar.setVisibility(View.GONE);
+                             progressBar.setVisibility(View.GONE);
 
                         try {
                             //converting response to json object
@@ -181,24 +252,62 @@ public class ResetPin extends AppCompatActivity {
                             //Check if the object has the key.
                             if(obj.getJSONObject("response").getJSONObject("AUTHENTICATION").has("data")){
                                 //getting the user from the response
-                                Toast.makeText(getApplicationContext(), "Pin reset successful", Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(ResetPin.this, LoginActivity.class));
-                                //DialogBox.mLovelyStandardDialog(ResetPin.this,"Pin reset successful.");
-                                editTextTraderMobileNumber.requestFocus();
-                                editTextTraderMobileNumber.setText("");
-                                editTextTraderNRC.setText("");
-                                //startActivity(new Intent(ResetPin.this, LoginActivity.class));
+                                progressBar.setVisibility(View.GONE);
+                                AlertDialog.Builder builder = new AlertDialog.Builder(ResetPin.this);
+                                builder.setCancelable(false);
+                                builder.setMessage("Your pin has been reset. You will soon receive an SMS on "+ mobile_number+" with an one time pin (OTP).");
+                                builder.setPositiveButton("Ok",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                Intent intent = new Intent(ResetPin.this,LoginActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        });
+                                builder.create().show();
+//                                progressBar.setVisibility(View.GONE);
+//                                Toast.makeText(getApplicationContext(),"Your pin has been reset. You will soon receive an SMS on "+ mobile_number+" with an one time pin (OTP).", Toast.LENGTH_LONG).show();
+//                                Intent intent = new Intent(ResetPin.this,LoginActivity.class);
+//                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                                startActivity(intent);
+//                                finish();
+//                                //Toast.makeText(getApplicationContext(), "Pin reset successful", Toast.LENGTH_LONG).show();
+//                                //startActivity(new Intent(ResetPin.this, LoginActivity.class));
+//                                //DialogBox.mLovelyStandardDialog(ResetPin.this,"Pin reset successful.");
+//                                //startActivity(new Intent(ResetPin.this, LoginActivity.class));
                             }
                             else
                             {
-                                DialogBox.mLovelyStandardDialog(ResetPin.this,"Pin reset not successful.");
-                                //           progressBar.setVisibility(View.GONE);
+                                progressBar.setVisibility(View.GONE);
+                                AlertDialog.Builder builder = new AlertDialog.Builder(ResetPin.this);
+                                builder.setCancelable(false);
+                                builder.setMessage("Pin could not be reset, enter a registered mobile number and ID");
+                                builder.setPositiveButton("Ok",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+
+                                            }
+                                        });
+                                builder.create().show();
+
                             }
                         } catch (JSONException e) {
                             //     DialogBox.mLovelyStandardDialog(LoginActivity.this,e.getMessage());
-                            //       progressBar.setVisibility(View.GONE);
+                                  progressBar.setVisibility(View.GONE);
 
                             e.printStackTrace();
+
+
+//                            AlertDialog.Builder builder = new AlertDialog.Builder(ResetPin.this);
+//                            builder.setCancelable(false);
+//                            builder.setMessage("Connection failure, kindly check your internet connection and try again.");
+//                            builder.setPositiveButton("Ok",
+//                                    new DialogInterface.OnClickListener() {
+//                                        public void onClick(DialogInterface dialog, int id) {
+//                                        }
+//                                    });
+//                            builder.create().show();
                         }
 
                     }
@@ -207,10 +316,23 @@ public class ResetPin extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("Error.Response", error.toString());
+                progressBar.setVisibility(View.GONE);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ResetPin.this);
+                builder.setCancelable(false);
+                builder.setMessage("Connection failure, kindly check your internet connection and try again.");
+                builder.setPositiveButton("Ok",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //Intent intent = new Intent(ResetPin.this,LoginActivity.class);
+                               // startActivity(intent);
+                            }
+                        });
+                builder.create().show();
+
 //                       Log.d("Error.Response", error.getMessage());
                 //   startActivity(new Intent(LoginActivity.this, MainActivity.class)); //TODO Change when the API server is reachable
 
-                DialogBox.mLovelyStandardDialog(ResetPin.this,   "Connection failure.");
+                //DialogBox.mLovelyStandardDialog(ResetPin.this,   "Connection failure.");
                 // progressBar.setVisibility(View.GONE);
                 // Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -227,105 +349,16 @@ public class ResetPin extends AppCompatActivity {
             }
         };
 
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(KEY_VOLLEY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         //  VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
+
     }
-//
-//
-//
-//    public void sendInformation(
-//            String mobile_number,
-//            String nrc
-//    )
-//    {
-//        JSONObject jsonAuthObject = new JSONObject();
-//        try {
-//            jsonAuthObject.put("username","admin");
-//            jsonAuthObject.put("service_token","JJ8DJ7S66DMA5");
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//        //PAYLOAD
-//        JSONObject jsonPayloadObject = new JSONObject();
-//        try {
-//            jsonPayloadObject.put("mobile",mobile_number);
-//            jsonPayloadObject.put("nrc", nrc);
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//        ///prepare your JSONObject which you want to send in your web service request
-//        JSONObject jsonObject = new JSONObject();
-//        try {
-//            jsonObject.put("auth",jsonAuthObject);
-//            jsonObject.put("payload",jsonPayloadObject);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//        // progressDialog.show();
-//
-//        ///prepare your JSONObject which you want to send in your web service request
-//// Calendar.getInstance().getTime()
-//
-//
-//        // prepare the Request
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL_RESET_PIN, jsonObject,
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//
-//                        //Do stuff here
-//                        // display response
-//                        progressDialog.dismiss();
-//                        Log.d("Response", response.toString());
-//
-//                        try {
-//
-//                            DialogBox.mLovelyStandardDialog(ResetPin.this, response.getString(KEY_MESSAGE)); //response.getString(KEY_MESSAGE)
-//
-//                            //  startActivity(new Intent( BuyFromTrader.this,MainActivity.class));
-//
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                    }
-//                }, new Response.ErrorListener() {
-//
-//
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                //Handle Errors here
-//                progressDialog.dismiss();
-//                Log.d("Error.Response", error.toString());
-//                Log.d("Error.Response", error.getMessage());
-//
-//                DialogBox.mLovelyStandardDialog(ResetPin.this, error.toString());
-//
-//                // startActivity(new Intent( BuyFromTrader.this,MainActivity.class));
-//            }
-//        }) {
-//
-//            /** Passing some request headers* */
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                Map<String, String> headers = new HashMap<>();
-//                headers.put("Content-Type", "application/json");
-//                headers.put("apiKey", "xxxxxxxxxxxxxxx");
-//                return headers;
-//            }
-//
-//        };
-//
-//        // add it to the RequestQueue
-//        queue.add(jsonObjectRequest);
-//    }
+
     public class PhoneNumberTextWatcher implements TextWatcher {
 
         private boolean isFormatting;
@@ -386,12 +419,17 @@ public class ResetPin extends AppCompatActivity {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-            mobile_number_char =editTextTraderMobileNumber.getText().toString().length();
-            if (  editTextTraderMobileNumber.getText().toString().length() == 0)
+            textInputLayout_Mobile_Number.setError(null);
+            mobile_number = textInputLayout_Mobile_Number.getEditText().getText().toString().trim();
+          mobile_number.length();
+
+            if ( mobile_number.length()== 0)
                 blockCharacterSet = "123456789";
 
             else
                 blockCharacterSet = "";
+            if ( mobile_number.length() == 1)
+                blockCharacterSet = "0";
         }
     }
 
@@ -440,5 +478,35 @@ public class ResetPin extends AppCompatActivity {
             return null;
         }
     }
+
+    private boolean validateMobileNumber() {
+        mobile_number = textInputLayout_Mobile_Number.getEditText().getText().toString().trim();
+        if (mobile_number.isEmpty() | mobile_number.length() < 10) {
+            textInputLayout_Mobile_Number.setErrorEnabled(true);
+            textInputLayout_Mobile_Number.setError("Enter your 10 digit registered mobile number(0xxxxxxxxx).");
+            textInputLayout_Mobile_Number.requestFocus();
+            return false;
+
+        } else {
+            textInputLayout_Mobile_Number.setError(null);
+            return true;
+        }
+    }
+
+
+    private boolean validateNRC() {
+        nrc = textInputLayout_NRC.getEditText().getText().toString().trim();
+        if (nrc.isEmpty() | nrc.length() < 5) {
+            textInputLayout_NRC.setErrorEnabled(true);
+            textInputLayout_NRC.setError("Enter ID used to register.");
+            textInputLayout_NRC.requestFocus();
+            return false;
+
+        } else {
+            textInputLayout_NRC.setError(null);
+            return true;
+        }
+    }
+
 
 }

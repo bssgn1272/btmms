@@ -1,10 +1,17 @@
 package com.innovitrix.napsamarketsales.utils;
 
+import java.util.regex.Pattern;
+
 public class AppConstants {
+
+    //API
+    public static final String KEY_USERNAME_API = "";
+    public static final String KEY_SERVICE_TOKEN = "";
+    public static final int KEY_VOLLEY_SOCKET_TIMEOUT_MS = 10000;
+    public static final String KEY_TRANSACTION_CHANNEL = "MOBILE";
 
     public static final String KEY_CUSTOMER_ID = "customer_id";
     public static final String KEY_TRADER_ID = "trader_id";
-
     public static final String KEY_USERNAME = "username";
     public static final String KEY_FIRSTNAME = "firstname";
     public static final String KEY_LASTNAME = "lastname";
@@ -33,6 +40,7 @@ public class AppConstants {
     public static final String KEY_BUS_OPERATOR_NAME= "bus_operator_name";
     public static final String KEY_BUS_LICENSE_PLATE= "bus_license_plate";
     public static final String KEY_BUS_FARE= "bus_fare";
+    public static final String KEY_BUS_SCHEDULE_ID= "bus_schedule_id";
     public static final String KEY_AMOUNT = "amount";
     public static final String KEY_MARKET_STAND_NUMBER = "market_stand_number";
     //IDs
@@ -49,7 +57,31 @@ public class AppConstants {
 
     public static final String KEY_ERROR = "error";
     public static final String KEY_MESSAGE = "message";
+    public static final String KEY_LOGIN_STATUS = "login_status";
     public static final String KEY_STATUS = "status";
-   // public static final String KEY_ROUTE_ID = "route_id";
+
+    public static final String CHAR_REQUIRED = "<p style=\"color:red\">*</p>";
+
+    private static final Pattern PASSWORD_PATTERN =
+            Pattern.compile("^" +
+                    "(?=.*[0-9])" +         //at least 1 digit
+                    "(?=.*[a-z])" +         //at least 1 lower case letter
+                    "(?=.*[A-Z])" +         //at least 1 upper case letter
+                    "(?=.*[a-zA-Z])" +      //any letter
+                    "(?=.*[@#$%^&+=])" +    //at least 1 special character
+                    "(?=\\S+$)" +           //no white spaces
+                    ".{4,}" +               //at least 4 characters
+                    "$");
+    private static final Pattern PIN_PATTERN =
+            Pattern.compile("^" +
+                    "(?=.*[0-9])" +         //at least 1 digit
+                    "(?=.*[a-z])" +         //at least 1 lower case letter
+                    "(?=.*[A-Z])" +         //at least 1 upper case letter
+                    "(?=.*[a-zA-Z])" +      //any letter
+                    "(?=.*[/])" +    //at least 1 special character
+                    "(?=\\S+$)" +           //no white spaces
+                    ".{5,}" +               //at least 4 characters
+                    "$");
+    // public static final String KEY_ROUTE_ID = "route_id";
 
 }

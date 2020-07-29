@@ -26,7 +26,7 @@ $log = new ApiLogger();
 //For now we expect json request for POST and PUT
 if ($_SERVER['REQUEST_METHOD'] == 'PUT' || $_SERVER['REQUEST_METHOD'] == 'POST') {
     $decodedRequest = Utils::handleRequest();
-    //$log->logInfo(APP_INFO_LOG, -1, 'index | [' . $decodedRequest['seller_mobile_number']. ']  Received request is ' . print_r($decodedRequest, TRUE));
+    //$log->logInfo(APP_INFO_LOG, 'index | [' . $decodedRequest['seller_mobile_number']. ']  Received request is ' . print_r($decodedRequest, TRUE));
     if (isset($decodedRequest['status']) && $decodedRequest['status'] == StatusCodes::GENERIC_ERROR) {
         echoResponse(200, $decodedRequest);
         exit();
@@ -71,152 +71,6 @@ $app->post('/generateKey', function () use ($app) {
     $result = $db->createKey($application_name);
 
     echoResponse(200, $result);
-});
-
-$app->get('/users', function () use ($app) {
-
-
-    $trader_id = $app->request->get('trader_id');
-    $role = $app->request->get('role');
-    $mobile_number = $app->request->get('mobile_number');
-
-    $db = new DbHandler();
-
-    $multiple_result = true;
-
-    $db->getAllTraders($trader_id, $mobile_number, $role, $multiple_result);
-
-});
-
-$app->get('/balance', function () use ($app) {
-
-
-    $trader_id = $app->request->get('trader_id');
-    $mobile_number = $app->request->get('mobile_number');
-
-    $db = new DbHandler();
-
-    $end_point = true;
-    $result =$db->checkTokenBalance($trader_id,$mobile_number,$end_point);
-    echoResponse(200,$result);
-
-});
-
-$app->post('/register', function () use ($app) {
-    global $decodedRequest;
-    //check for required params
-    verifyRequiredParams(array('firstname', 'lastname', 'nrc', 'gender', 'mobile_number', 'password'));
-
-    //reading post params
-    //$role = $decodedRequest['role'];
-    $firstname = $decodedRequest['firstname'];
-    $lastname = $decodedRequest['lastname'];
-    $nrc = $decodedRequest['nrc'];
-    $gender = $decodedRequest['gender'];
-    $dob = $decodedRequest['dob'];
-    // $email = $app->request->post('email');
-    $mobile_number = $decodedRequest['mobile_number'];
-    //$account_number = $decodedRequest['account_number'];
-    $password = $decodedRequest['password'];
-
-    //validating email address
-    //validateEmail($email);
-
-    $db = new DbHandler();
-
-    $db->createUser($firstname, $lastname, $nrc, $gender, $dob, $mobile_number, $password);
-
-});
-
-$app->put('/update_profile', function () use ($app) {
-    global $decodedRequest;
-    //check for required params
-    verifyRequiredParams(array('firstname', 'lastname', 'nrc', 'gender', 'mobile_number'));
-
-
-    //reading post params
-    //$role = $decodedRequest['role'];
-    $trader_id = $decodedRequest['trader_id'];
-    $firstname = $decodedRequest['firstname'];
-    $lastname = $decodedRequest['lastname'];
-    $nrc = $decodedRequest['nrc'];
-    $gender = $decodedRequest['gender'];
-    $dob = $decodedRequest['dob'];
-    // $email = $app->request->post('email');
-    $mobile_number = $decodedRequest['mobile_number'];
-    //$account_number = $decodedRequest['account_number'];
-    //$password = $decodedRequest['password'];
-
-    //$password = $app->request->post('password');
-
-    $db = new DbHandler();
-
-    $db->updateUser($trader_id, $firstname, $lastname, $nrc, $gender, $dob, $mobile_number);
-
-});
-
-$app->post('/login', function () use ($app) {
-
-    global $decodedRequest;
-    //check for required params
-    //Email was removed so traders will be required to use their mobile number to login
-    //verifyRequiredParams(array('emailorMobile', 'password'));
-    verifyRequiredParams(array('mobile_number', 'password'));
-    //reading post params
-    //$role = $decodedRequest['role'];
-    $mobile_number = $decodedRequest['mobile_number'];
-    $password = $decodedRequest['password'];
-
-    $db = new DbHandler();
-
-    $db->checkLogin($mobile_number, $password);
-});
-
-$app->post('/change_password', function () use ($app) {
-    //check for required params
-    global $decodedRequest;
-    verifyRequiredParams(array('mobile_number', 'old_password', 'password'));
-
-    //$role = $decodedRequest['role'];
-    $mobile_number = $decodedRequest['mobile_number'];
-    $old_password = $decodedRequest['old_password'];
-    $password = $decodedRequest['password'];
-
-    $db = new DbHandler();
-
-    $db->changePassword($mobile_number, $old_password, $password);
-
-});
-
-$app->post('/pin_request', function () use ($app) {
-    //check for required params
-    global $decodedRequest;
-    verifyRequiredParams(array('mobile_number'));
-
-    //$role = $decodedRequest['role'];
-    $mobile_number = $decodedRequest['mobile_number'];
-
-    $db = new DbHandler();
-
-    $db->resetPasswordRequest($mobile_number);
-
-});
-
-$app->post('/reset_password', function () use ($app) {
-    //check for required params
-    global $decodedRequest;
-    verifyRequiredParams(array('mobile_number', 'pin', 'new_password'));
-
-    //reading post params
-    //$role = $decodedRequest['role'];
-    $mobile_number = $decodedRequest['mobile_number'];
-    $pin = $decodedRequest['pin'];
-    $password = $decodedRequest['new_password'];
-
-    $db = new DbHandler();
-
-    $db->resetPassword($mobile_number, $pin, $password);
-
 });
 
 
@@ -265,79 +119,6 @@ $app->get('/transaction_types', function () use ($app) {
 //************************END OF MARKETEER PRODUCTS***************************//
 
 
-//************************TOKEN PROCUREMENT***************************//
-$app->get('/token_procurement', function () use ($app) {
-
-    $trader_id = $app->request->get('trader_id');
-    $role = $app->request->get('role');
-
-    $db = new DbHandler();
-
-    $multiple_result = true;
-    $db->getAllTokenProcurement($trader_id, $multiple_result);
-
-});
-
-$app->post('/token_procurement', function () use ($app) {
-    //check for required params
-    global $decodedRequest;
-    verifyRequiredParams(array('trader_id', 'amount_tendered', 'reference_number', 'agent_id', 'payment_method_id', 'procuring_msisdn', 'device_serial', 'transaction_date'));
-
-    $trader_id = $decodedRequest['trader_id'];
-    $amount_tendered = $decodedRequest['amount_tendered'];
-    $reference_number = $decodedRequest['reference_number'];
-    $agent_id = $decodedRequest['agent_id'];
-    $organisation_id = $decodedRequest['organisation_id'];
-    $payment_method_id = $decodedRequest['payment_method_id'];
-    $procuring_msisdn = $decodedRequest['procuring_msisdn'];
-    $device_serial = $decodedRequest['device_serial'];
-    $transaction_date = $decodedRequest['transaction_date'];
-
-    $db = new DbHandler();
-
-    $db->createToken($trader_id, $amount_tendered, $reference_number, $agent_id, $organisation_id, $payment_method_id, $procuring_msisdn, $device_serial, $transaction_date);
-
-});
-//************************END OF TOKEN PROCUREMENT***************************//
-
-//************************TOKEN REDEMPTION**************************//
-$app->get('/token_redemption', function () use ($app) {
-
-    $trader_id = $app->request->get('trader_id');
-    $role = $app->request->get('role');
-
-    $db = new DbHandler();
-
-    $multiple_result = true;
-    $db->getAllTokenRedemption($trader_id, $multiple_result);
-
-});
-
-$app->post('/token_redemption', function () use ($app) {
-    //check for required params
-    global $decodedRequest;
-    verifyRequiredParams(array('trader_id', 'token_value_tendered', 'reference_number',  'payment_method_id', 'recipient_msisdn', 'device_serial', 'transaction_date'));
-
-    $trader_id = $decodedRequest['trader_id'];
-    $token_value_tendered = $decodedRequest['token_value_tendered'];
-    $reference_number = $decodedRequest['reference_number'];
-    //$agent_id = $decodedRequest['agent_id'];
-    //$organisation_id = $decodedRequest['organisation_id'];
-    $payment_method_id = $decodedRequest['payment_method_id'];
-    $recipient_msisdn = $decodedRequest['recipient_msisdn'];
-    $device_serial = $decodedRequest['device_serial'];
-    $transaction_date = $decodedRequest['transaction_date'];
-
-    $db = new DbHandler();
-
-    $db->createTokenRedemption($trader_id, $token_value_tendered, $reference_number, null, null, $payment_method_id, $recipient_msisdn, $device_serial, $transaction_date);
-
-});
-//************************END OF TOKEN REDEMPTION***************************//
-
-//************************REWARD CAMPAIGNS***************************//
-//************************END OF REWARD CAMPAIGNS***************************//
-
 //************************MARKET FEES***************************//
 $app->get('/market_fee', function () use ($app) {
 
@@ -384,7 +165,10 @@ $app->get('/summary_transactions', function () use ($app) {
 
 });
 
-$app->post('/transactions', function () use ($app) {
+//NSANO Payment API
+//now disabling Nsano
+//to enable "transactions"
+$app->post('/disable_transactions', function () use ($app) {
 
     //checking for required parameters
     //verifyRequiredParams(array('school_id','class_id'));
@@ -407,15 +191,13 @@ $app->post('/transactions', function () use ($app) {
     if (true) {
         //WRITE A MESSAGE TO A FILE IN THE SAME DIRECTORY
         $file = __DIR__ . '/transaction_capture.txt';
-
         $date = 'Script was executed at ' . date('d/m/Y H:i:s') . "\n" . json_encode($transactions_json_obj) . "\n" . "\n";
-
         file_put_contents($file, $date, FILE_APPEND);
         //END OF WRITING TO FILE
     }
 
     //FILE_NAME,SCRIPT_NAME,METHOD OR ENDPOINT,MESSAGE,TASK
-    $log->logInfo(APP_INFO_LOG, -1,'[Transaction Capture] | ' .json_encode($transactions_json_obj));
+    $log->logInfo(APP_INFO_LOG, 'Transaction Capture' ,json_encode($transactions_json_obj));
 
     $transaction_type_id = $transactions_json_obj['transaction_type_id'];
     $seller_id = isset($transactions_json_obj['seller_id']) ? $transactions_json_obj['seller_id'] : null;
@@ -438,11 +220,95 @@ $app->post('/transactions', function () use ($app) {
     $travel_date = isset($transactions_json_obj['travel_date']) ? $transactions_json_obj['travel_date'] : null;
     $travel_time = isset($transactions_json_obj['travel_time']) ? $transactions_json_obj['travel_time'] : null;
     $bus_schedule_id = isset($transactions_json_obj['bus_schedule_id']) ? $transactions_json_obj['bus_schedule_id'] : null;
+
+    $stand_number = isset($transactions_json_obj['stand_number']) ? $transactions_json_obj['stand_number'] : null;
     //$transaction_details = isset($transactions_json_obj['transaction_details']) ? $transactions_json_obj['transaction_details'] : null;
+
+    $seller = $seller_mobile_number;
+    $buyer = $buyer_mobile_number;
+
+    if(empty(trim($seller_mobile_number))){
+        $seller = null;
+    }
+
+    if (empty(trim($buyer_mobile_number))){
+        $buyer = null;
+    }
 
     $db = new DbHandler();
 
-    $db->createTransactionsSummaries($transaction_type_id,$route_code,$transaction_channel,$id_type,$passenger_id,$bus_schedule_id,$travel_date,$travel_time, $seller_id, $seller_firstname,$seller_lastname, $seller_mobile_number, $buyer_id,  $buyer_firstname,$buyer_lastname,$buyer_mobile_number, $buyer_email,$amount, $device_serial, $transaction_date);
+    $db->createNsanoTransactionsSummaries($transaction_type_id,$stand_number,
+        $route_code,$transaction_channel,$id_type,$passenger_id,$bus_schedule_id,$travel_date,$travel_time,
+        $seller_id, $seller_firstname,$seller_lastname, $seller,
+        $buyer_id,  $buyer_firstname,$buyer_lastname,$buyer, $buyer_email,
+        $amount, $device_serial, $transaction_date);
+
+});
+
+//UNZA Payment API
+$app->post('/transactions', function () use ($app) {
+
+    //checking for required parameters
+    //verifyRequiredParams(array('school_id','class_id'));
+
+    if (isset($_POST['transactions'])) {
+
+        $json_object = $_POST['transactions'];
+
+    } else {
+
+        $app->response()->header('Content-Type', 'application/json');
+        $json_object = file_get_contents('php://input');
+
+    }
+
+    //Decode JSON into an Array
+    $transactions_json_obj = json_decode($json_object, true);
+
+    if (true) {
+        //WRITE A MESSAGE TO A FILE IN THE SAME DIRECTORY
+        $file = __DIR__ . '/Transaction-Capture.txt';
+        $date = 'Script was executed at ' . date('d/m/Y H:i:s') . "\n" . json_encode($transactions_json_obj) . "\n" . "\n";
+        file_put_contents($file, $date, FILE_APPEND);
+        //END OF WRITING TO FILE
+    }
+
+    //FILE_NAME,SCRIPT_NAME,METHOD OR ENDPOINT,MESSAGE,TASK
+    global $log;
+    $log->logInfo(APP_INFO_LOG, 'Transaction Capture',json_encode($transactions_json_obj));
+
+    $transaction_type_id = $transactions_json_obj['transaction_type_id'];
+    $seller_id = !empty($transactions_json_obj['seller_id']) ? $transactions_json_obj['seller_id'] : null;
+    $seller_firstname = !empty($transactions_json_obj['seller_firstname']) ? $transactions_json_obj['seller_firstname'] : null;
+    $seller_lastname = !empty($transactions_json_obj['seller_lastname']) ? $transactions_json_obj['seller_lastname'] : null;
+    $seller_mobile_number = !empty(trim($transactions_json_obj['seller_mobile_number'])) ? startsWith(trim($transactions_json_obj['seller_mobile_number']),'260') : null;
+    $buyer_id = !empty($transactions_json_obj['buyer_id']) ? $transactions_json_obj['buyer_id'] : null;
+    $buyer_firstname = !empty($transactions_json_obj['buyer_firstname']) ? $transactions_json_obj['buyer_firstname'] : null;
+    $buyer_lastname = !empty($transactions_json_obj['buyer_lastname']) ? $transactions_json_obj['buyer_lastname'] : null;
+    $buyer_mobile_number = !empty(trim($transactions_json_obj['buyer_mobile_number'])) ? startsWith(trim($transactions_json_obj['buyer_mobile_number']),'260') : null;
+    $buyer_email = !empty($transactions_json_obj['buyer_email']) ? $transactions_json_obj['buyer_email'] : null;
+    $amount = $transactions_json_obj['amount_due'];
+    $device_serial = $transactions_json_obj['device_serial'];
+    $transaction_date = $transactions_json_obj['transaction_date'];
+
+    $route_code = !empty($transactions_json_obj['route_code']) ? $transactions_json_obj['route_code'] : null;
+    $transaction_channel = !empty($transactions_json_obj['transaction_channel']) ? $transactions_json_obj['transaction_channel'] : null;
+    $id_type = !empty($transactions_json_obj['id_type']) ? $transactions_json_obj['id_type'] : null;
+    $passenger_id = !empty($transactions_json_obj['passenger_id']) ? $transactions_json_obj['passenger_id'] : null;
+    $travel_date = !empty($transactions_json_obj['travel_date']) ? $transactions_json_obj['travel_date'] : null;
+    $travel_time = !empty($transactions_json_obj['travel_time']) ? $transactions_json_obj['travel_time'] : null;
+    $bus_schedule_id = !empty($transactions_json_obj['bus_schedule_id']) ? $transactions_json_obj['bus_schedule_id'] : null;
+
+    $stand_number = !empty($transactions_json_obj['stand_number']) ? $transactions_json_obj['stand_number'] : null;
+    //$transaction_details = empty($transactions_json_obj['transaction_details']) ? $transactions_json_obj['transaction_details'] : null;
+
+    $db = new DbHandler();
+
+    $db->createUNZATransactionsSummaries($transaction_type_id,$stand_number,
+        $route_code,$transaction_channel,$id_type,$passenger_id,$bus_schedule_id,$travel_date,$travel_time,
+        $seller_id, $seller_firstname,$seller_lastname, $seller_mobile_number,
+        $buyer_id,  $buyer_firstname,$buyer_lastname,$buyer_mobile_number, $buyer_email,
+        $amount, $device_serial, $transaction_date);
 
 });
 
@@ -451,7 +317,7 @@ $app->post('/credit_wallet', function () use ($app) {
     global $log;
 
     //check for required params
-    verifyRequiredParams(array('mno','msisdn','amount'));
+    //verifyRequiredParams(array('mno','msisdn','amount'));
 
     //reading post params
     //$mno = $app->request->post('mno');
@@ -460,7 +326,7 @@ $app->post('/credit_wallet', function () use ($app) {
     $msisdn = $decodedRequest['msisdn'];
     //$amount = $app->request()->post('amount');
     $amount = $decodedRequest['amount'];
-    $refID = $app->request()->post('refID');
+    //$refID = $app->request()->post('refID');
     $refID = $decodedRequest['refID'];
 
     $json = array(
@@ -471,14 +337,13 @@ $app->post('/credit_wallet', function () use ($app) {
     );
 
     //FILE_NAME,SCRIPT_NAME,METHOD OR ENDPOINT,MESSAGE,TASK
-    $log->logInfo(APP_INFO_LOG, -1,'[credit_wallet Capture] | ' .json_encode($json));
+    $log->logInfo(APP_INFO_LOG, 'Credit Wallet Capture' ,json_encode($json));
 
     $db = new DbHandler();
 
     $app->contentType('application/json');
-    echo $result = $db->wallet_API($mno,'mikopo',$msisdn,$amount,$refID,1);
+    echo $result = $db->nsano_API($mno,'mikopo',$msisdn,$amount,$refID,1);
 
-    //echoResponse(200, $result);
 });
 
 $app->post('/debit_wallet', function () use ($app) {
@@ -506,14 +371,13 @@ $app->post('/debit_wallet', function () use ($app) {
     );
 
     //FILE_NAME,SCRIPT_NAME,METHOD OR ENDPOINT,MESSAGE,TASK
-    $log->logInfo(APP_INFO_LOG, -1,'[debit_wallet Capture] | ' .json_encode($json));
+    $log->logInfo(APP_INFO_LOG, 'Debit Wallet Capture' ,json_encode($json));
 
     $db = new DbHandler();
 
     $app->contentType('application/json');
-    echo $result = $db->wallet_API($mno,'malipo',$msisdn,$amount,$refID,1);
+    echo $result = $db->nsano_API($mno,'malipo',$msisdn,$amount,$refID,1);
 
-    //echoResponse(200, $result);
 });
 
 $app->post('/notify_fusion', function () use ($app) {
@@ -534,7 +398,7 @@ $app->post('/notify_fusion', function () use ($app) {
     );
 
     //FILE_NAME,SCRIPT_NAME,METHOD OR ENDPOINT,MESSAGE,TASK
-    $log->logInfo(APP_INFO_LOG, -1,'[notify_fusion Capture] | ' .json_encode($json));
+    $log->logInfo(APP_INFO_LOG, 'notify_fusion Capture' ,json_encode($json));
 
     $db = new DbHandler();
 
@@ -575,29 +439,88 @@ $app->post('/debit_callback', function () use ($app) {
     $json_object = json_decode(file_get_contents('php://input'), true);
 
     //WRITE A MESSAGE TO A FILE IN THE SAME DIRECTORY
-    $file = __DIR__ . '/3-debit_callback_capture.txt';
-
+    $file = __DIR__ . '/NSANO-Debit_Callback_Capture.txt';
     $date = 'Script was executed at ' . date('d/m/Y H:i:s') . "\n" . json_encode($json_object) . "\n" . "\n";
-
     file_put_contents($file, $date, FILE_APPEND);
     //END OF WRITING TO FILE
-
-    $db = new DbHandler();
 
     $debt_callback_response = file_get_contents('php://input');
     $json_object = json_decode($debt_callback_response, true);
 
+    $code = isset($json_object['code']) ? $json_object['code']: null;
     $msg = isset($json_object['msg']) ? $json_object['msg']: null;
     $reference = isset($json_object['reference']) ? $json_object['reference']: null;
-    $code = isset($json_object['code']) ? $json_object['code']: null;
     $system_code = isset($json_object['system_code']) ? $json_object['system_code']: null;
     $transactionID = isset($json_object['transactionID']) ? $json_object['transactionID']: null;
 
-    $db->updateTransactionDebitCallbackLog($reference,$debt_callback_response);
-    $db->updateTransactionDebitCallbackDetails($msg,$reference,$code,$system_code,$transactionID);
+    $db = new DbHandler();
 
-    //echoResponse(201, $json_object);
+    $db->updateDebitCallbackResponseLog($reference,$debt_callback_response);
+    $db->updateNsanoDebitCallbackDetails($msg,$reference,$code,$system_code,$transactionID);
+
 });
+
+$app->post('/napsa_debit_callback', function () use ($app) {
+
+    $json_object = json_decode(file_get_contents('php://input'), true);
+
+    //WRITE A MESSAGE TO A FILE IN THE SAME DIRECTORY
+    $file = __DIR__ . '/Debit-Callback-Capture.txt';
+    $date = 'Script was executed at ' . date('d/m/Y H:i:s') . "\n" . json_encode($json_object) . "\n" . "\n";
+    file_put_contents($file, $date, FILE_APPEND);
+    //END OF WRITING TO FILE
+
+    global $log;
+    $log->logInfo(APP_INFO_LOG,'Debit Callback Capture' ,json_encode($json_object));
+
+    $nested_json_object = $json_object['query'];
+    $statusCode = isset($json_object['statusCode']) ? $json_object['statusCode']: null;
+    $statusDesc = isset($json_object['statusDesc']) ? $json_object['statusDesc']: null;
+    $coreTransactionID = isset($nested_json_object['coreTransactionID']) ? $nested_json_object['coreTransactionID']: null;
+    $extTransactionID = isset($nested_json_object['extTransactionID']) ? $nested_json_object['extTransactionID']: null;
+    $extNarration = isset($nested_json_object['extNarration']) ? $nested_json_object['extNarration']: null;
+    $serviceID = isset($nested_json_object['serviceID']) ? $nested_json_object['serviceID']: null;
+    $accountNumber = isset($nested_json_object['accountNumber']) ? $nested_json_object['accountNumber']: null;
+    $amount = isset($nested_json_object['amount']) ? $nested_json_object['amount']: null;
+
+    $db = new DbHandler();
+
+    $db->updateDebitCallbackResponseLog($json_object,$extTransactionID);
+    $db->updateDebitCallbackResponseDetails($statusCode,$statusDesc,$coreTransactionID,$extTransactionID,$accountNumber,$amount);
+
+});
+
+$app->post('/napsa_credit_callback', function () use ($app) {
+
+    $json_object = json_decode(file_get_contents('php://input'), true);
+
+    //WRITE A MESSAGE TO A FILE IN THE SAME DIRECTORY
+    $file = __DIR__ . '/Credit-Callback-Capture.txt';
+    $date = 'Script was executed at ' . date('d/m/Y H:i:s') . "\n" . json_encode($json_object) . "\n" . "\n";
+    file_put_contents($file, $date, FILE_APPEND);
+    //END OF WRITING TO FILE
+
+    global $log;
+    $log->logInfo(APP_INFO_LOG,'Credit Callback Capture' ,json_encode($json_object));
+
+    $nested_json_object = $json_object['query'];
+    $statusCode = isset($json_object['statusCode']) ? $json_object['statusCode']: null;
+    $statusDesc = isset($json_object['statusDesc']) ? $json_object['statusDesc']: null;
+    $coreTransactionID = isset($nested_json_object['coreTransactionID']) ? $nested_json_object['coreTransactionID']: null;
+    $extTransactionID = isset($nested_json_object['extTransactionID']) ? $nested_json_object['extTransactionID']: null;
+    $extNarration = isset($nested_json_object['extNarration']) ? $nested_json_object['extNarration']: null;
+    $serviceID = isset($nested_json_object['serviceID']) ? $nested_json_object['serviceID']: null;
+    $accountNumber = isset($nested_json_object['accountNumber']) ? $nested_json_object['accountNumber']: null;
+    $amount = isset($nested_json_object['amount']) ? $nested_json_object['amount']: null;
+
+    $db = new DbHandler();
+
+    $db->updateCreditCallbackResponseLog($json_object,$extTransactionID);
+    $db->updateCreditCallbackResponseDetails($statusCode,$statusDesc,$coreTransactionID,$extTransactionID,$accountNumber,$amount);
+
+});
+
+
 
 $app->post('/SMS', function () use ($app) {
 
@@ -618,7 +541,7 @@ $app->post('/SMS', function () use ($app) {
     );
 
     //FILE_NAME,SCRIPT_NAME,METHOD OR ENDPOINT,MESSAGE,TASK
-    $log->logInfo(APP_INFO_LOG, -1,'[SMS Capture] | ' .json_encode($json));
+    $log->logInfo(APP_INFO_LOG, 'SMS Capture' ,json_encode($json));
 
     $db = new DbHandler();
 
@@ -629,12 +552,41 @@ $app->post('/SMS', function () use ($app) {
     //echoResponse(201, $json_object);
 });
 
+$app->get('/fee', function () use ($app) {
+
+    $db = new DbHandler();
+
+    $result = $db->getTransactionFees();
+
+    echoResponse(200, $result);
+
+});
+
+$app->get('/transaction_fee', function () use ($app) {
+
+    $db = new DbHandler();
+
+    $result = $db->getTotalTransactionFee(1);
+
+    echoResponse(200, $result);
+
+});
 
 $app->get('/marketeer_kyc', function () use ($app) {
 
     $db = new DbHandler();
 
     $result = $db->fetchMarketeerKYC();
+
+    echoResponse(200, $result);
+
+});
+
+$app->get('/marketeer_kyc_single', function () use ($app) {
+
+    $db = new DbHandler();
+
+    $result = $db->fetchMarketeerKYCSingle();
 
     echoResponse(200, $result);
 
@@ -719,7 +671,7 @@ function echoResponse($status_code, $response)
 }
 
 
-//Verifying required params posted or not
+//Verifying required params posted or notgit
 function verifyRequiredParams($required_fields)
 {
     global $decodedRequest;
@@ -831,6 +783,23 @@ function verifyRequiredLabels($required_fields)
     }
 }
 
+// Function for basic field validation (present and neither empty nor only white space
+function isNullOrEmptyString($str){
+    return (!isset($str) || trim($str) === '');
+}
+
+// Function to check string starting with given substring
+function startsWith ($string, $startString)
+{
+    $len = strlen($startString);
+
+    if(substr($string, 0, $len) === $startString) {//true
+        return $string;
+    }else {//false
+        return "260". $string;
+    }
+
+}
 
 //ADDING MIDDLE LAYER TO AUTHENTICATE EVERY REQUEST
 //Checking if the request has valid api key in the 'Authorization' header
@@ -844,21 +813,21 @@ function authenticateAPIKEY(\Slim\Route $route)
     //Verifying the headers
     if (isset($headers['API_KEY'])) {
 
-        $db = new DbOperation();
+        $db = new DbHandler();
 
         //Getting api key from database
         $api_key = $headers['API_KEY'];
 
         //Validating api key from database
         if (!$db->isValidApiKey($api_key)) {
-            //api key is not present
+            //API KEY IS NOT PRESENT
             $response['error'] = true;
             $response['message'] = 'Access Denied. Invalid API key';
             echoResponse(401, $response);
             $app->stop();
         }
     } else {
-        //api key is missing in header
+        //API KEY IS MISSING IN HEADER
         $response['error'] = true;
         $response['message'] = 'API key is missing';
         echoResponse(400, $response);

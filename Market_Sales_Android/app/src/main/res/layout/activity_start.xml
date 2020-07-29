@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
@@ -24,12 +24,12 @@
 
     <TextView
         android:layout_width="195dp"
-        android:layout_height="78dp"
+        android:layout_height="146dp"
         android:gravity="left"
-        android:lines="2"
-        android:maxLines="2"
+        android:lines="5"
+        android:maxLines="5"
         android:textColor="@color/white"
-        android:text="Welcome to Market Sales"
+        android:text="@string/app_welcome_message"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -57,7 +57,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.422" />
+        app:layout_constraintVertical_bias="0.439" />
 
     <TextView
         android:id="@+id/textView_buy_bus_ticket"
@@ -79,4 +79,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.918"
         android:paddingLeft="5dp" />
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

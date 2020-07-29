@@ -4,6 +4,8 @@ node_modules/
 .idea/
 .vscode/
 
+# Don't track config file #
+############################################
 include/Config.php
 
 # Android related files #

@@ -5,64 +5,64 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:fillViewport="true"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingLeft="@dimen/activity_padding_left"
+    android:paddingRight="@dimen/activity_padding_right"
     tools:context=".BusSchedule">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical"
-        android:paddingLeft="25dp"
-        android:paddingTop="10dp"
-        android:paddingRight="25dp">
-<!--
-
-    <LinearLayout
-            android:layout_width="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/textViewUsername"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Scheduled Bus for"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:id="@+id/textViewRouteTitle"
-                android:padding="20dp"
-                />
-        </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <SearchView
-            android:id="@+id/searchview_Route"
-            android:layout_width="match_parent"
+            android:layout_gravity="end"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textViewDate"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:queryHint="Search Here"
-            android:iconifiedByDefault="false"
-            android:layout_alignParentTop="true"
-            android:padding="5dp"
-
-            />
-
-
-    </LinearLayout>
-          -->
+            android:layout_gravity="end"
+            android:textStyle="bold" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recylerview_Route"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </android.support.v7.widget.RecyclerView>
-    </LinearLayout>
+            android:layout_gravity="center_vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/activity_padding_left"
+            android:paddingRight="@dimen/activity_padding_right"
+            android:paddingTop="10dp"
+            android:paddingStart="@dimen/activity_padding_left"
+            android:paddingEnd="@dimen/activity_padding_right"
+            >
+
+            <TextView
+                android:id="@+id/textView_R"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Tap to select a bus of your choice"
+                android:padding="10dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+
+                >
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recylerview_Route"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout></ScrollView>

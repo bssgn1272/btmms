@@ -1,42 +1,38 @@
 package com.innovitrix.napsamarketsales;
 
 import android.app.ProgressDialog;
-import android.support.v7.app.AppCompatActivity;
+import android.content.DialogInterface;
+import android.content.Intent;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.innovitrix.napsamarketsales.dialog.DialogBox;
 import com.innovitrix.napsamarketsales.models.Transaction_Summary;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.API_KEY;
-import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_CHAR_AMPERSAND;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_VOLLEY_SOCKET_TIMEOUT_MS;
 import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_CHAR_QUESTION;
-import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_PARAM_PERIOD;
 import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_PARAM_SELLER_MOBILE_NUMBER;
 import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_SUMMARY_TRANSACTIONS;
 
@@ -54,13 +50,20 @@ public class CheckBalance extends AppCompatActivity {
     private List<Transaction_Summary> transaction_Summaries;
     ProgressBar progressBar;
     ProgressDialog progressDialog;
-
+    TextView textViewUsername;
+    TextView textViewDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_balance);
-        getSupportActionBar().setSubtitle("Check Sales");
+        getSupportActionBar().setSubtitle("check sales");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        textViewUsername = (TextView)findViewById(R.id.textViewUsername);
+        textViewUsername.setText("Logged in as "+SharedPrefManager.getInstance(CheckBalance.this).getUser().getFirstname()+ " "+SharedPrefManager.getInstance(CheckBalance.this).getUser().getLastname());
+        textViewDate = (TextView)findViewById(R.id.textViewDate);
+        textViewDate.setText(SharedPrefManager.getInstance(CheckBalance.this).getTranactionDate2());
+
         seller_id=  SharedPrefManager.getInstance(CheckBalance.this).getUser().getTrader_id();
         seller_mobile_number = SharedPrefManager.getInstance(CheckBalance.this).getUser().getMobile_number();
         seller_first_name= SharedPrefManager.getInstance(CheckBalance.this).getUser().getFirstname();
@@ -71,7 +74,8 @@ public class CheckBalance extends AppCompatActivity {
         textView_Balance_Daily_Count = (TextView) findViewById(R.id.tvBalanceDailyCount);
         textView_Balance_Weekly_Count = (TextView) findViewById(R.id.tvBalanceWeeklyCount);
         textView_Balance_Monthly_Count = (TextView) findViewById(R.id.tvBalanceMonthlyCount);
-        setDate();
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
 
         progressDialog = new ProgressDialog(CheckBalance.this);
         progressDialog.setMessage("Loading...");
@@ -83,34 +87,56 @@ public class CheckBalance extends AppCompatActivity {
         check_Balance();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //do whatever
+                Intent intent = new Intent(CheckBalance.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }}
 
+    @Override
+    public void onBackPressed() {
+        // Toast.makeText(getApplication(),"Use the in app controls to navigate.",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(CheckBalance.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
     public void check_Balance() {
 
-            progressDialog.show();
+           // progressDialog.show();
 
 
         // prepare the Request
-        // progressBar.setVisibility(View.VISIBLE);
+         progressBar.setVisibility(View.VISIBLE);
 
         //creating a string request
 
-
-
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_SUMMARY_TRANSACTIONS +
                 URL_CHAR_QUESTION +
-                URL_PARAM_SELLER_MOBILE_NUMBER +"260967485331"
+                URL_PARAM_SELLER_MOBILE_NUMBER +seller_mobile_number
                 , null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
 
                         progressDialog.dismiss();
+                        progressBar.setVisibility(View.GONE);
+
                         try {
 
                             // JSONObject obj = new JSONObject(String.valueOf(response));
                             //Check if the object if the object is null.
                             //if (!obj.isNull("transaction_summaries")){
                             Log.d("check_Balance", response.toString());
+                            progressBar.setVisibility(View.GONE);
 
                             // if(obj.getJSONObject("response").has("transaction_summaries")){
 
@@ -130,7 +156,6 @@ public class CheckBalance extends AppCompatActivity {
                                     response.getJSONObject("week").getString("revenue"),
                                     response.getJSONObject("month").getInt("num_of_sales"),
                                     response.getJSONObject("month").getString("revenue")
-
                             );
 
                             //storing the user in shared preferences
@@ -150,51 +175,49 @@ public class CheckBalance extends AppCompatActivity {
                            // DialogBox.mLovelyStandardDialog(CheckBalance.this,mTransaction_Summary.getMonth_num_of_sales());
                         } catch (JSONException e) {
                             e.printStackTrace();
-                       //     DialogBox.mLovelyStandardDialog(CheckBalance.this,e.getMessage());
-
+                            progressBar.setVisibility(View.GONE);
+//                            AlertDialog.Builder builder = new AlertDialog.Builder(CheckBalance.this);
+//                            builder.setCancelable(false);
+//                            builder.setMessage("An error occurred while retrieving sales, kindly check your internet connection and try again.");
+//                            builder.setPositiveButton("Ok",
+//                                    new DialogInterface.OnClickListener() {
+//                                        public void onClick(DialogInterface dialog, int id) {
+//
+//                                            Intent intent = new Intent(CheckBalance.this, MainActivity.class);
+//                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                                            startActivity(intent);
+//                                            finish();
+//                                        }
+//                                    });
+//                            builder.create().show();
                         }
-
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error)
                     {
-                        //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show()
-                        //Handle Errors here
-                        // progressDialog.dismiss();
                         Log.d("Error.Response", error.toString());
-                        Log.d("Error.Response", error.getMessage());
-                        // DialogBox.mLovelyStandardDialog(CheckBalance.this, error.toString());
-                        // startActivity(new Intent( BuyFromTrader.this,MainActivity.class));
 
-                        progressDialog.dismiss();
-                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-
-                            DialogBox.mLovelyStandardDialog(CheckBalance.this, R.string.error_timeout);
-
-                        } else if (error instanceof AuthFailureError) {
-
-                            DialogBox.mLovelyStandardDialog(CheckBalance.this, R.string.error_auth_failure);
-
-                        } else if (error instanceof ServerError) {
-
-                            DialogBox.mLovelyStandardDialog(CheckBalance.this, R.string.error_server);
-
-                        } else if (error instanceof NetworkError) {
-
-                            DialogBox.mLovelyStandardDialog(CheckBalance.this, R.string.error_network);
-
-                        } else if (error instanceof ParseError) {
-
-                            DialogBox.mLovelyStandardDialog(CheckBalance.this, R.string.error_parser);
-
-                        }
+                        progressBar.setVisibility(View.GONE);
 
 
+                        AlertDialog.Builder builder = new AlertDialog.Builder(CheckBalance.this);
+                        builder.setCancelable(false);
+                        builder.setMessage("Connection failure, kindly check your internet connection and try again.");
+                        builder.setPositiveButton("Ok",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
 
+                                        Intent intent = new Intent(CheckBalance.this, MainActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                });
+                        builder.create().show();
 
-        }
+                    }
                 }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -207,20 +230,15 @@ public class CheckBalance extends AppCompatActivity {
             }
         };
 
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(KEY_VOLLEY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         //  VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
-
     }
 
-    public void setDate()
-    {
-        Date today = Calendar.getInstance().getTime();//getting date
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE, d MMM yyyy");//formating according to my need
-        String date = formatter.format(today);
-        TextView txtViewDate = (TextView)findViewById(R.id.textViewDate2);
-        txtViewDate.setText(date);
-    }
 
 
 

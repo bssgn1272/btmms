@@ -1,96 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:fillViewport="true"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    tools:context=".BusSearch">
-
+    android:paddingLeft="@dimen/activity_padding_left"
+    android:paddingRight="@dimen/activity_padding_right"
+    tools:context=".BusSearch"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="5dp">
     <LinearLayout
+        android:id="@+id/date_LinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         android:orientation="vertical"
-        android:paddingLeft="25dp"
-        android:paddingTop="10dp"
-        android:paddingRight="25dp">
+        android:layout_marginBottom="30dp"
+        >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:text="Select your route:"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:paddingTop="10dp"/>
+        <TextView
+            android:id="@+id/textViewUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textViewDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textStyle="bold" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/spinner_route_LinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:layout_marginTop="50dp"
+        android:layout_weight="8"
+        android:background="@drawable/shape_spinner"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/activity_padding_top"
+        tools:ignore="UselessParent"
+        android:layout_below="@+id/date_LinearLayout"
+        >
 
-            <Spinner
-                android:id="@+id/spinner_Route"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:padding="5dp"
-                android:spinnerMode="dropdown"
-                android:gravity="start"
-               />
+        <Spinner
+            android:id="@+id/spinner_Route"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:gravity="start"
+            android:overlapAnchor="false"
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:text="Select your travel day:"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-            <RadioGroup
-                android:id="@+id/radioGroup_Day"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical"
-                >
+            android:spinnerMode="dropdown"
 
-                <!-- In RadioGroup create the 1 Radio Button-->
-                <!-- like this we will add some more Radio Button-->
-
-                <RadioButton
-                    android:id="@+id/radio_today"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Today"
-                    android:textSize="18sp"
-                    android:checked="true"/>
-
-                <RadioButton
-                    android:id="@+id/radio_tomorrow"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Tomorrow"
-                    android:textSize="18sp" />
-            </RadioGroup>
-
-            <Button
-                android:id="@+id/button_Search"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:clickable="true"
-                android:enabled="true"
-                android:padding="12dp"
-                android:shadowRadius="5"
-                android:text="Submit" />
-
+            />
 
     </LinearLayout>
-</ScrollView>
+
+    <TextView
+        android:id="@+id/spinner_Route_TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/grey_50"
+        android:text="@string/destination"
+        android:textColor="@color/colorAccent"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="-9dp"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:layout_below="@+id/date_LinearLayout"
+        />
+
+    <LinearLayout
+        android:id="@+id/travel_day_LinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinner_route_LinearLayout"
+        android:layout_marginStart="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginBottom="3dp"
+        android:layout_weight="8"
+        android:background="@drawable/shape_spinner"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/activity_padding_top"
+        tools:ignore="UselessParent"
+
+        >
+        <RadioGroup
+            android:id="@+id/radioGroup_Day"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/travel_day_TextView"
+            android:orientation="horizontal"
+            >
+
+            <!-- In RadioGroup create the 1 Radio Button-->
+            <!-- like this we will add some more Radio Button-->
+
+            <RadioButton
+                android:id="@+id/radio_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Today"
+                />
+
+            <RadioButton
+                android:id="@+id/radio_tomorrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tomorrow"
+                />
+        </RadioGroup>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/travel_day_TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/grey_50"
+        android:text="@string/travel_day"
+        android:textColor="@color/colorAccent"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="9dp"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:layout_below="@+id/spinner_route_LinearLayout"
+
+        />
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_below="@+id/travel_day_LinearLayout"
+
+        />
+    <Button
+        android:id="@+id/button_Search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:backgroundTint="@color/colorAccent"
+        android:layout_gravity="center"
+        android:text="Submit"
+        android:layout_below="@+id/progressBar"
+
+        />
+
+
+
+</RelativeLayout>
+

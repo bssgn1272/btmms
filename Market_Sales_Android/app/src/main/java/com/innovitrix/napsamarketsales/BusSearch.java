@@ -1,34 +1,39 @@
 package com.innovitrix.napsamarketsales;
 
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.innovitrix.napsamarketsales.dialog.DialogBox;
 import com.innovitrix.napsamarketsales.models.Route;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -37,18 +42,17 @@ import java.util.List;
 import java.util.Map;
 
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_END_ROUTE;
-import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_FIRSTNAME;
-import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_LASTNAME;
-import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_MOBILE;
-import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_NRC;
-import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_ROUTE_CODE;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_ROUTE_NAME;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_SERVICE_TOKEN;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_START_ROUTE;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_TRAVEL_DATE;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_USERNAME_API;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_VOLLEY_SOCKET_TIMEOUT_MS;
 import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_ROUTES;
 
 
 public class BusSearch extends AppCompatActivity {
+    ProgressBar progressBar;
 
     private RecyclerView recyclerView;
     private Spinner spinner_Route;
@@ -62,12 +66,23 @@ public class BusSearch extends AppCompatActivity {
     private String route_Name;
     private ArrayList<String> route_ArrayList;
     private Route selectedRoute;
+
+    TextView textViewUsername;
+    TextView textViewDate;
+    private long backPressedTime;
+    private Toast backToast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bus_search);
-        getSupportActionBar().setSubtitle("Search for bus schedule");
+        getSupportActionBar().setSubtitle("select destination and travel date");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        textViewUsername = (TextView)findViewById(R.id.textViewUsername);
+        textViewUsername.setText("Logged in as "+SharedPrefManager.getInstance(BusSearch.this).getUser().getFirstname()+ " "+SharedPrefManager.getInstance(BusSearch.this).getUser().getLastname());
+        textViewDate = (TextView)findViewById(R.id.textViewDate);
+        textViewDate.setText(SharedPrefManager.getInstance(BusSearch.this).getTranactionDate2());
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         spinner_Route = (Spinner) findViewById(R.id.spinner_Route);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup_Day);
         button_Search = (Button) findViewById(R.id.button_Search);
@@ -75,6 +90,7 @@ public class BusSearch extends AppCompatActivity {
         route_ArrayList = new ArrayList<>();
 
         routes = new ArrayList<>();
+
         fetchRoutes();
         spinner_Route.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -110,26 +126,58 @@ public class BusSearch extends AppCompatActivity {
                     travel_Date = c.getTime();
                     // DialogBox.mLovelyStandardDialog(BuyBusTicketActivity.this, travel_Date.toString());
                 }
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");//formating according to my need
-                date_Of_Travel = formatter.format(travel_Date);
+
+
+                date_Of_Travel = SharedPrefManager.getInstance(BusSearch.this).ConvertDateToString(travel_Date);
+
                 //   DialogBox.mLovelyStandardDialog(BuyBusTicketActivity.this,   date_Of_Travel.toString());
                 if (TextUtils.isEmpty(route_Name)) {
-                    DialogBox.mLovelyStandardDialog(BusSearch.this, "No route selected.");
-                    spinner_Route.requestFocus();
-                    return;
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(BusSearch.this);
+                    builder.setCancelable(false);
+                    builder.setMessage("Select a route for you to buy a bus ticket.");
+                    builder.setPositiveButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    spinner_Route.requestFocus();
+                                    return;
+                                }
+                            });
+                    builder.create().show();
 
                 }else
                 {
-                Intent intent = new Intent(getApplicationContext(),BusSchedule.class);
-                intent.putExtra(KEY_ROUTE_NAME,route_Name);
-                intent.putExtra(KEY_TRAVEL_DATE,date_Of_Travel);
-                intent.putExtra(KEY_START_ROUTE,selectedRoute.getStart_route());
-                intent.putExtra(KEY_END_ROUTE,selectedRoute.getEnd_route());
-                startActivity(intent);}
+                    Intent intent = new Intent(getApplicationContext(),BusSchedule.class);
+                    intent.putExtra(KEY_ROUTE_NAME,route_Name);
+                    intent.putExtra(KEY_TRAVEL_DATE,date_Of_Travel);
+                    intent.putExtra(KEY_START_ROUTE,selectedRoute.getStart_route());
+                    intent.putExtra(KEY_END_ROUTE,selectedRoute.getEnd_route());
+                    startActivity(intent);}
             }
         });
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //do whatever
+                Intent intent = new Intent(BusSearch.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }}
 
+    @Override
+    public void onBackPressed() {
+        // Toast.makeText(getApplication(),"Use the in app controls to navigate.",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(BusSearch.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
     public Route getRouteCode() {
         for (Route r : routes) {
             if (r.getRoute_name().equals(route_Name)) {
@@ -141,11 +189,12 @@ public class BusSearch extends AppCompatActivity {
 
 
     public void fetchRoutes() {
+        progressBar.setVisibility(View.VISIBLE);
 
         JSONObject jsonAuthObject = new JSONObject();
         try {
-            jsonAuthObject.put("username", "admin");
-            jsonAuthObject.put("service_token", "JJ8DJ7S66DMA5");
+            jsonAuthObject.put("username", KEY_USERNAME_API);
+            jsonAuthObject.put("service_token", KEY_SERVICE_TOKEN);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -170,7 +219,7 @@ public class BusSearch extends AppCompatActivity {
                         // display response
 
                         Log.d("Response", response.toString());
-                        //progressBar.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.GONE);
 
                         try {
                             //converting response to json object
@@ -194,7 +243,9 @@ public class BusSearch extends AppCompatActivity {
                                                     currentRoute.getString("route_name"),
                                                     currentRoute.getString("source_state"),
                                                     currentRoute.getString("start_route"),
-                                                    currentRoute.getString("end_route")
+                                                    currentRoute.getString("end_route"),
+                                                    currentRoute.getDouble("route_fare"),
+                                                    currentRoute.getString("route_uuid")
                                             );
 
                                     routes.add(r);
@@ -219,11 +270,39 @@ public class BusSearch extends AppCompatActivity {
 
                             } else {
 
-                                DialogBox.mLovelyStandardDialog(BusSearch.this, "Unable to retrieve routes");
+                                progressBar.setVisibility(View.GONE);
+                                AlertDialog.Builder builder = new AlertDialog.Builder(BusSearch.this);
+                                builder.setCancelable(false);
+                                builder.setMessage("There are no bus routes defined on the system, kindly contact the System Administrator.");
+                                builder.setPositiveButton("Ok",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                Intent intent = new Intent( BusSearch.this,MainActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        });
+                                builder.create().show();
+                                //DialogBox.mLovelyStandardDialog(BusSearchE.this, "Unable to retrieve routes");
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            progressBar.setVisibility(View.GONE);
+//                            AlertDialog.Builder builder = new AlertDialog.Builder(BusSearch.this);
+//                            builder.setCancelable(false);
+//                            builder.setMessage("An error occurred while retrieving bus routes, kindly check your internet connection and try again.");
+//                            builder.setPositiveButton("Ok",
+//                                    new DialogInterface.OnClickListener() {
+//                                        public void onClick(DialogInterface dialog, int id) {
+//                                            Intent intent = new Intent( BusSearch.this,MainActivity.class);
+//                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                                            startActivity(intent);
+//                                            finish();
+//                                        }
+//                                    });
+//                            builder.create().show();
                         }
 
                     }
@@ -235,9 +314,25 @@ public class BusSearch extends AppCompatActivity {
                         //Handle Errors here
                         //   progressDialog.dismiss();
                         Log.d("Error.Response", error.toString());
-                        //Log.d("Error.Response", error.getMessage());
+                        // Log.d("Error.Response", error.getMessage());
 //                        DialogBox.mLovelyStandardDialog(BusSearch.this, error.toString());
                         // startActivity(new Intent( BuyFromTrader.this,MainActivity.class));
+
+                        progressBar.setVisibility(View.GONE);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(BusSearch.this);
+                        builder.setCancelable(false);
+                        builder.setMessage("Connection failure, kindly check your internet connection and try again.");
+                        builder.setPositiveButton("Ok",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        Intent intent = new Intent( BusSearch.this,MainActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                });
+                        builder.create().show();
+
                     }
                 }) {
             @Override
@@ -251,14 +346,15 @@ public class BusSearch extends AppCompatActivity {
             }
         };
 
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(KEY_VOLLEY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         //  VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
 
     }
-
-
-
 
 
 }

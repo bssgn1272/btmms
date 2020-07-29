@@ -1,29 +1,28 @@
 package com.innovitrix.napsamarketsales;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-//import android.support.v7.widget.SearchView;
-import android.view.Menu;
-import android.view.View;
-import android.widget.SearchView;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.innovitrix.napsamarketsales.dialog.DialogBox;
 import com.innovitrix.napsamarketsales.models.Route;
 import com.innovitrix.napsamarketsales.models.RoutePlanned;
 import com.innovitrix.napsamarketsales.models.RoutePlannedAdapter;
@@ -39,18 +38,19 @@ import java.util.List;
 import java.util.Map;
 
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_END_ROUTE;
-import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_FIRSTNAME;
-import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_LASTNAME;
-import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_MOBILE;
-import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_NRC;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_ROUTE_CODE;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_ROUTE_NAME;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_SERVICE_TOKEN;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_START_ROUTE;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_TRAVEL_DATE;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_USERNAME_API;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_VOLLEY_SOCKET_TIMEOUT_MS;
 import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_DESTINATION;
-import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_ROUTES;
+
+//import android.support.v7.widget.SearchView;
 
 public class BusSchedule extends AppCompatActivity {
+    ProgressBar progressBar;
     private RecyclerView recyclerView;
     private CardView cardViewRoutePlanned;
     RoutePlannedAdapter routePlannedAdapter;
@@ -62,23 +62,36 @@ public class BusSchedule extends AppCompatActivity {
     private List<Route> routes;
     private String start_Route;
     private String end_Route;
-
+    private String start_Route_Format;
+    private String end_Route_Format;
+    TextView textViewUsername;
+    TextView textViewDate;
     private TextView textView_Route_Title;
+    private long backPressedTime;
+    private Toast backToast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bus_schedule);
-        getSupportActionBar().setSubtitle("Buy bus ticket");
+        getSupportActionBar().setSubtitle("bus schedules for ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         route_Name = getIntent().getStringExtra(KEY_ROUTE_NAME);
         start_Route= getIntent().getStringExtra(KEY_START_ROUTE);
         end_Route = getIntent().getStringExtra(KEY_END_ROUTE);
         travel_Date = getIntent().getStringExtra(KEY_TRAVEL_DATE);
         route_Code = getIntent().getStringExtra(KEY_ROUTE_CODE);
+        // textViewUsername = (TextView)findViewById(R.id.textViewUsername);
+        //textViewUsername.setText("Logged in as "+SharedPrefManager.getInstance(BusScheduleE.this).getUser().getFirstname()+ " "+SharedPrefManager.getInstance(BusScheduleE.this).getUser().getLastname());
+        textViewDate = (TextView)findViewById(R.id.textViewDate);
 
-       // textView_Route_Title = (TextView)findViewById(R.id.textViewRouteTitle);
-       // textView_Route_Title.setText("Bus Schedules \nScheduled Bus for "+ route_Name);
-        getSupportActionBar().setSubtitle("Bus Schedules Bus for "+ route_Name);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        textViewDate.setText(SharedPrefManager.getInstance(BusSchedule.this).getTranactionDate2());
+        // textView_Route_Title = (TextView)findViewById(R.id.textViewRouteTitle);
+        // textView_Route_Title.setText("Bus Schedules \nScheduled Bus for "+ route_Name);
+        start_Route_Format = start_Route.substring(0, 1).toUpperCase() + start_Route.substring(1).toLowerCase();
+        end_Route_Format = end_Route.substring(0, 1).toUpperCase() + end_Route.substring(1).toLowerCase();
+        getSupportActionBar().setSubtitle("bus schedules for "+ start_Route_Format +" to " + end_Route_Format);
         routes = new ArrayList<>();
         routesPlanned = new ArrayList<>();
 
@@ -97,7 +110,7 @@ public class BusSchedule extends AppCompatActivity {
 //            }
 //        });
 
-         setUpRecyclerView();
+        setUpRecyclerView();
         fetchDestinations();
 
     }
@@ -106,92 +119,28 @@ public class BusSchedule extends AppCompatActivity {
 ////        getMenuInflater().inflate(R.menu.menu_main,menu);
 //        return true;
 //    }
-    public void fetchRoutes() {
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //do whatever
+                Intent intent = new Intent(BusSchedule.this, BusSearch.class);
+                // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }}
 
-        // prepare the Request
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_ROUTES, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        //Do stuff here
-                        // display response
-
-                        Log.d("Response", response.toString());
-                        //progressBar.setVisibility(View.GONE);
-
-                        try {
-                            //converting response to json object
-                            JSONObject obj = new JSONObject(String.valueOf(response));
-
-                            //Check if the object has the key
-                            if (obj.has("travel_routes")) {
-
-                                //creating a new user object
-                                JSONArray array = obj.getJSONArray("travel_routes");
-
-                                for (int i = 0; i < array.length(); i++) {
-
-                                    JSONObject currentRoute = array.getJSONObject(i);
-
-                                    Route r = new Route
-                                            (
-                                                    currentRoute.getInt("id"),
-                                                    currentRoute.getString("route_code"),
-                                                    currentRoute.getString("route_name"),
-                                                    currentRoute.getString("source_state"),
-                                                    currentRoute.getString("start_route"),
-                                                    currentRoute.getString("end_route")
-                                            );
-
-                                    routes.add(r);
-                                    if (r.getRoute_name().equals(route_Name)){
-                                        start_Route = r.getStart_route();
-                                        end_Route = r.getEnd_route();
-                                        fetchDestinations();
-
-                                    }
-                                }
-
-                            } else {
-
-                                DialogBox.mLovelyStandardDialog(BusSchedule.this, "Unable to retrieve routes");
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show()
-                        //Handle Errors here
-                        //   progressDialog.dismiss();
-                        Log.d("Error.Response", error.toString());
-                        //Log.d("Error.Response", error.getMessage());
-                        DialogBox.mLovelyStandardDialog(BusSchedule.this, error.toString());
-                        // startActivity(new Intent( BuyFromTrader.this,MainActivity.class));
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                // params.put("username", trader_id);
-                //params.put("email", firstname);
-                // params.put("password", lastname);
-                params.put("mobile_number", route_Name);
-                return params;
-            }
-        };
-
-        //  VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(jsonObjectRequest);
-
+    @Override
+    public void onBackPressed() {
+        // Toast.makeText(getApplication(),"Use the in app controls to navigate.",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(BusSchedule.this, BusSearch.class);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
     private void setUpRecyclerView() {
         recyclerView = (RecyclerView) findViewById(R.id.recylerview_Route);
@@ -199,11 +148,12 @@ public class BusSchedule extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
     public void fetchDestinations() {
-
+        progressBar.setVisibility(View.VISIBLE);
+        //DialogBox.mLovelyStandardDialog(BusScheduleE.this, travel_Date);
         JSONObject jsonAuthObject = new JSONObject();
         try {
-            jsonAuthObject.put("username", "admin");
-            jsonAuthObject.put("service_token", "JJ8DJ7S66DMA5");
+            jsonAuthObject.put("username", KEY_USERNAME_API);
+            jsonAuthObject.put("service_token", KEY_SERVICE_TOKEN);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -214,8 +164,8 @@ public class BusSchedule extends AppCompatActivity {
         try {
             jsonPayloadObject.put("start_route", start_Route);
             jsonPayloadObject.put("end_route", end_Route);
-            jsonPayloadObject.put("date", travel_Date);//TODO change to actual date
-           //jsonPayloadObject.put("date", "27/01/2020");
+            //jsonPayloadObject.put("date", travel_Date);
+            jsonPayloadObject.put("date", "2020-07-04"); //TODO change to actual date
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -240,10 +190,10 @@ public class BusSchedule extends AppCompatActivity {
                         // display response
 
                         Log.d("Response", response.toString());
-                        //progressBar.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.GONE);
 
                         try {
-
+                            String ni =null;
                             if (response.length() > 0) {
 
                                 for (int i = 0; i < response.length(); i++) {
@@ -256,18 +206,22 @@ public class BusSchedule extends AppCompatActivity {
                                             (
                                                     currentRoute.getInt("available_seats"),
                                                     currentRoute.getJSONObject("bus").getString("company"),
-                                                    currentRoute.getJSONObject("bus").getString("liscense_plate"),
+                                                    currentRoute.getJSONObject("bus").getString("license_plate"),
                                                     currentRoute.getJSONObject("bus").getInt("operator_id"),
                                                     currentRoute.getJSONObject("bus").getInt("vehicle_capacity"),
-                                                    currentRoute.getInt("bus_schedule_id"),
+                                                    currentRoute.getString("bus_schedule_id"),
                                                     currentRoute.getString("departure_date"),
                                                     currentRoute.getString("departure_time"),
                                                     currentRoute.getDouble("fare"),
                                                     currentRoute.getJSONObject("route").getString("route_code"),
-                                                    currentRoute.getJSONObject("route").getString("route_name")
+                                                    currentRoute.getJSONObject("route").getString("route_name"),
+                                                    currentRoute.getJSONObject("route").getString("start_route"),
+                                                    currentRoute.getJSONObject("route").getString("end_route"),
+                                                    travel_Date
                                             );
 
                                     routesPlanned.add(rp);
+
                                 }
 
                                 routePlannedAdapter = new RoutePlannedAdapter(getApplicationContext(), routesPlanned);
@@ -275,13 +229,43 @@ public class BusSchedule extends AppCompatActivity {
 
                             }else{
 
-                                DialogBox.mLovelyStandardDialog(BusSchedule.this, "No buses are scheduled for " + route_Name+".");
+                                //DialogBox.mLovelyStandardDialog(BusSchedule.this, travel_Date");
+                                progressBar.setVisibility(View.GONE);
+                                AlertDialog.Builder builder = new AlertDialog.Builder(BusSchedule.this);
+                                builder.setCancelable(false);
+                                builder.setMessage("There are no buses scheduled for "+ start_Route_Format +" to " + end_Route_Format+" route, kindly contact the System Administrator.");
+                                builder.setPositiveButton("Ok",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                Intent intent = new Intent(BusSchedule.this,BusSearch.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        });
+                                builder.create().show();
+
 
                             }
 
 
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            progressBar.setVisibility(View.GONE);
+//                            AlertDialog.Builder builder = new AlertDialog.Builder(BusSchedule.this);
+//                            builder.setCancelable(false);
+//                            builder.setMessage("An error occurred while retrieving bus schedules for "+ start_Route_Format +" to " + end_Route_Format+" route, kindly check your internet connection and try again.");
+//                            builder.setPositiveButton("Ok",
+//                                    new DialogInterface.OnClickListener() {
+//                                        public void onClick(DialogInterface dialog, int id) {
+//                                            Intent intent = new Intent(BusSchedule.this,BusSearch.class);
+//                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                                            startActivity(intent);
+//                                            finish();
+//                                        }
+//                                    });
+//                            builder.create().show();
+
                         }
 
                     }
@@ -289,13 +273,26 @@ public class BusSchedule extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show()
                         //Handle Errors here
                         //   progressDialog.dismiss();
                         Log.d("Error.Response", error.toString());
                         //Log.d("Error.Response", error.getMessage());
-                        DialogBox.mLovelyStandardDialog(BusSchedule.this, "Server unreachable");
-                        // startActivity(new Intent( BuyFromTrader.this,MainActivity.class));
+                        progressBar.setVisibility(View.GONE);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(BusSchedule.this);
+                        builder.setCancelable(false);
+                        builder.setMessage("Connection failure, kindly check your internet connection and try again.");
+                        builder.setPositiveButton("Ok",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        Intent intent = new Intent(BusSchedule.this,BusSearch.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                });
+                        builder.create().show();
+
+
                     }
                 }) {
             @Override
@@ -309,11 +306,14 @@ public class BusSchedule extends AppCompatActivity {
             }
         };
 
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(KEY_VOLLEY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         //  VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
 
     }
-
 
 }

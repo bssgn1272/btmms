@@ -64,8 +64,15 @@ class SharedUtils {
      * @return output of curl
      */
     public static function httpPostJson($url, $params, $msisdn, $log) {
+        $forLoging = $params;
+        if (isset($forLoging['auth'])) {
+            $forLoging['auth']['service_token'] = "xxxxxxxxx";
+        }
+        if (isset($forLoging['payload'])) {
+            $forLoging['payload']['pin'] = "xxxxxxxxx";
+        }
         $log->logInfo(Config::APP_INFO_LOG, $msisdn, '| Calling URL: ' . $url);
-        $log->logInfo(Config::APP_INFO_LOG, $msisdn, '| With API request data::' . SharedUtils::arrayToJson($params));
+        $log->logInfo(Config::APP_INFO_LOG, $msisdn, '| With API request data::' . SharedUtils::arrayToJson($forLoging));
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -117,12 +124,13 @@ class SharedUtils {
         ];
         $auth = [
             "username" => Config::PROBASE_API_USERNAME,
-            "service_token" => Config::PROBASE_API_USERNAME
+            "service_token" => Config::PROBASE_API_SERVICE_TOKEN
         ];
         return ["auth" => $auth, "payload" => $payload];
     }
 
-    public static function buildPushTransactionRequest($trader_id, $amount, $seller_mobile, $seller_firstname, $seller_lastname, $mobile_number, $transaction_type_id, $buyer_id, $buyer_firstname, $buyer_lastname, $email, $route_code, $passenger_id, $travel_date, $bus_schedule_id,$stand_number) {
+    public static function buildPushTransactionRequest($trader_id, $amount, $seller_mobile, $seller_firstname, $seller_lastname, $mobile_number, $transaction_type_id, $buyer_id, $buyer_firstname, $buyer_lastname, $email, $route_code, $passenger_id, $travel_date, $bus_schedule_id, $stand_number,$travel_time="") {
+       
         # Packet
         $payload = [
             'transaction_type_id' => $transaction_type_id,
@@ -145,6 +153,7 @@ class SharedUtils {
             "travel_date" => $travel_date,
             "bus_schedule_id" => $bus_schedule_id,
             "stand_number" => $stand_number,
+            "travel_time" => $travel_time,
         ];
         return $payload;
     }
@@ -156,7 +165,7 @@ class SharedUtils {
     public static function validateMsisdn($input, $log, $msisdn) {
         $log->logInfo(Config::APP_INFO_LOG, $msisdn, '| Validating entered buyers mobile number:' . $input);
         $response = false;
-        if (is_numeric($input) && substr($input, 0, 2) == "09" && preg_match('/^[0-9]*$/', $input) && strlen($input) == Config::MSISDN_LEN) {
+        if (is_numeric($input) && (substr($input, 0, 2) == "09" || substr($input, 0, 3) == "077" || substr($input, 0, 3) == "076") && preg_match('/^[0-9]*$/', $input) && strlen($input) == Config::MSISDN_LEN) {
             $log->logInfo(Config::APP_INFO_LOG, $msisdn, '| The entered buyers mobile number:' . $input . ' is valid');
             $response = TRUE;
         }

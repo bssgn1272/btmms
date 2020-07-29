@@ -8,7 +8,6 @@ class ApiLogger extends Logger
 
     /**
      * Log object in the class.
-     *
      * @var string
      */
     private $log;
@@ -23,63 +22,32 @@ class ApiLogger extends Logger
         $this->log = Logger::getLogger(__CLASS__);
     }
 
-    /**
-     * Function to write info logs.
-     * @param string $logFile the log file to write to
-     * @param string $uniqueID the unique ID
-     * @param string $message the message to log
-     */
-    public function logInfo($logFile, $uniqueID = null, $message)
+    public function logInfo($logFile,$tag,$message)
     {
-        $this->setConfigurations($logFile, $uniqueID);
-        $this->log->info($message,NULL);
+        $this->setConfigurations($logFile,$tag,$message);
+        $this->log->info($message);
     }
 
-    /**
-     * Function to write error logs.
-     * @param string $logFile the log file to write to
-     * @param null $uniqueID the unique ID
-     * @param string $message the message to log
-     */
-    public function logError($logFile, $uniqueID = null, $message)
+    public function logError($logFile,$tag,$message)
     {
-        $this->setConfigurations($logFile, $uniqueID);
+        $this->setConfigurations($logFile,$tag,$message);
         $this->log->error($message);
     }
 
 
-    /**
-     * Function to write debug logs.
-     * @param string $logFile the log file to write to
-     * @param null $uniqueID the unique ID
-     * @param string $message the message to log
-     */
-    public function logDebug($logFile, $uniqueID, $message)
+    public function logDebug($logFile,$tag,$message)
     {
-        $this->setConfigurations($logFile, $uniqueID);
+        $this->setConfigurations($logFile,$tag,$message );
         $this->log->debug($message);
     }
 
-    /**
-     * Function to write fatal logs.
-     * @param string $logFile the log file to write to
-     * @param null $uniqueID the unique ID
-     * @param string $message the message to log
-     */
-    public function logFatal($logFile, $uniqueID, $message)
+    public function logFatal($logFile,$tag, $message)
     {
-        $this->setConfigurations($logFile, $uniqueID);
+        $this->setConfigurations($logFile,$tag,$message);
         $this->log->fatal($message);
     }
 
-    /**
-     * Function to write SQL logs.
-     *
-     * @param string $logFile the log file to write to
-     * @param string $uniqueID
-     * @param string $message the message to log
-     */
-    public function sequel($logFile, $uniqueID, $message)
+    public function sequel($logFile, $message)
     {
         $this->log->configure(
             array(
@@ -109,7 +77,7 @@ class ApiLogger extends Logger
     /**
      * Sets the log format and appender file class.
      */
-    private function setConfigurations($logFile, $uniqueID)
+    private function setConfigurations($logFile,$tag,$message)
     {
         $this->log->configure(
             array(
@@ -124,7 +92,8 @@ class ApiLogger extends Logger
                             "params" => array(
                                 //"conversionPattern" => date("Y-m-d H:i:s") . " | %p | %F | ". "%method | LINE:%L | " . $uniqueID . " |$to| %message%newline"
                                 //"conversionPattern" => date("Y-M-d H:i:s") . " | %p | %F %method | LINE:%L | %message%newline"
-                                "conversionPattern" => date("Y-M-d H:i:s") . " | %message%newline"
+                                //"conversionPattern" => date("Y-M-d H:i:s") . " | %message%newline"
+                                "conversionPattern" => date("Y-M-d H:i:s") . " [" . $tag . "] " .$message. " %newline"
                             )
                             //DATETIME LOG-TYPE  FILE METHOD LINE MESSAGE
                         ),

@@ -3,10 +3,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.innovitrix.napsamarketsales.BusSearch;
 import com.innovitrix.napsamarketsales.ChangePin;
 import com.innovitrix.napsamarketsales.CheckBalance;
 import com.innovitrix.napsamarketsales.FindTrader;
@@ -102,20 +103,28 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
         }
         if (menuDataList.get(i).getMenuId()==3)
         {
+            viewHolder.menuImage.setImageResource( R.drawable.ic_directions_bus_black_24dp);
+            viewHolder.menuImage.setBackgroundResource(R.drawable.circle_background_bus);
+        }
+
+        if (menuDataList.get(i).getMenuId()==4)
+        {
           viewHolder.menuImage.setImageResource( R.drawable.ic_payment_black_24dp);
             viewHolder.menuImage.setBackgroundResource(R.drawable.circle_background_payment);
         }
-        if (menuDataList.get(i).getMenuId()==4)
+
+
+        if (menuDataList.get(i).getMenuId()==5)
         {
            viewHolder.menuImage.setImageResource( R.drawable.ic_attach_money_black_24dp);
             viewHolder.menuImage.setBackgroundResource(R.drawable.circle_background_balance);
         }
-        if (menuDataList.get(i).getMenuId()==5)
+        if (menuDataList.get(i).getMenuId()==6)
         {
            viewHolder.menuImage.setImageResource(R.drawable.ic_lock_open_black_24dp);
             viewHolder.menuImage.setBackgroundResource(R.drawable.circle_background_pin);
         }
-        if (menuDataList.get(i).getMenuId()==6) {
+        if (menuDataList.get(i).getMenuId()==7) {
             viewHolder.menuImage.setImageResource(R.drawable.ic_power_settings_new_black_24dp);
             viewHolder.menuImage.setBackgroundResource(R.drawable.circle_background_logout);
         }
@@ -141,13 +150,16 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
                         i = new Intent(context, FindTrader.class);
                         context.startActivity(i);
                         break;
-
                     case 3:
+                        i = new Intent(context, BusSearch.class);
+                        context.startActivity(i);
+                        break;
+                    case 4:
                         i = new Intent(context, PayMarketFees.class);
                         context.startActivity(i);
                         break;
 
-                    case 4:
+                    case 5:
                         i = new Intent(context, CheckBalance.class);
                         context.startActivity(i);
                         break;
@@ -177,13 +189,13 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
 //
 //                        builder1.create().show();show
                       //  break;
-                    case 5:
+                    case 6:
 
                         i = new Intent(context, ChangePin.class);
                         context.startActivity(i);
                         break;
 
-                    case 6:
+                    case 7:
 
                        // i = new Intent(context, LoginActivity.class);
                        // context.startActivity(i);
@@ -199,9 +211,15 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
                                     public void onClick(DialogInterface dialog, int id) {
                                         dialog.cancel();
 
-                                        //SharedPrefManager.getInstance(context).logout();
-                                        Intent intent = new Intent(context, StartActivity.class);
+                                        SharedPrefManager.getInstance(context).logout();
+
+                                        Intent intent = new Intent(context,StartActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         context.startActivity(intent);
+                                        //context..finish();
+                                      //  Intent broadcastIntent = new Intent();
+                                       // broadcastIntent.setAction("com.package.ACTION_LOGOUT");
+                                        //context.sendBroadcast(broadcastIntent);
 
                                     }
                                 });

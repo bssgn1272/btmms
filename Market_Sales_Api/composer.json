@@ -1,0 +1,7 @@
+{
+    "require": {
+        "php-amqplib/php-amqplib": "^2.11",
+      "ext-json": "*",
+      "ext-curl": "*"
+    }
+}

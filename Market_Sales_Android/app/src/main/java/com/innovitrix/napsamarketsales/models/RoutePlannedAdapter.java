@@ -3,64 +3,51 @@ package com.innovitrix.napsamarketsales.models;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 import com.innovitrix.napsamarketsales.BusBuyTicketBuyerDetails;
-import com.innovitrix.napsamarketsales.BusSchedule;
-import com.innovitrix.napsamarketsales.BuyBusTicketActivity;
-import com.innovitrix.napsamarketsales.BuyTicket;
+import com.innovitrix.napsamarketsales.BusBuyTicketBuyerDetailsE;
 import com.innovitrix.napsamarketsales.R;
-
-
-
-import java.util.ArrayList;
-import java.util.List;
+import com.innovitrix.napsamarketsales.SharedPrefManager;
 
 
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_BUS_FARE;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_BUS_LICENSE_PLATE;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_BUS_OPERATOR_NAME;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_BUS_SCHEDULE_ID;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_DEPARTURE_DATE;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_DEPARTURE_TIME;
 
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_END_ROUTE;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_ROUTE_CODE;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_ROUTE_NAME;
-
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_START_ROUTE;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_TRAVEL_DATE;
 
 
 public class RoutePlannedAdapter extends RecyclerView.Adapter<RoutePlannedAdapter.MyViewHolder> {
 
 
-    Context context;
+
     List<RoutePlanned> routesPlanned;
     List<RoutePlanned> routesPlannedFull;
     List<Route> routes;
-
+    Context context;
+    String seller_mobile_number;
 
     public RoutePlannedAdapter(Context context, List<RoutePlanned> routesPlanned) {
         this.context = context;
@@ -80,8 +67,10 @@ public class RoutePlannedAdapter extends RecyclerView.Adapter<RoutePlannedAdapte
     @Override
     public void onBindViewHolder(@NonNull RoutePlannedAdapter.MyViewHolder myViewHolder, int i) {
         final RoutePlanned routePlanned = routesPlanned.get(i);
-        myViewHolder.textViewRouteName.append(routePlanned.getRoute_name());
-        myViewHolder.textViewDepartureDate.append(routePlanned.getDeparture_date());
+
+         String date =  SharedPrefManager.getInstance(context).ConvertStringToDate(routePlanned.getDeparture_date());
+        // myViewHolder.textViewRouteName.append(routePlanned.getRoute_name());
+        myViewHolder.textViewDepartureDate.append(date);
         myViewHolder.textViewDepartureTime.append(routePlanned.getDeparture_time()+"hrs");
         myViewHolder.textViewCompany.append(routePlanned.getCompany());
         myViewHolder.textViewSeats.append(String.valueOf(routePlanned.getAvailable_seats()));
@@ -90,7 +79,15 @@ public class RoutePlannedAdapter extends RecyclerView.Adapter<RoutePlannedAdapte
              myViewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent (view.getContext(), BusBuyTicketBuyerDetails.class);
+                seller_mobile_number=  SharedPrefManager.getInstance(view.getContext()).getUser().getMobile_number();
+                Intent intent;
+                if (TextUtils.isEmpty(seller_mobile_number))
+                {
+                    intent = new Intent(view.getContext(), BusBuyTicketBuyerDetailsE.class);
+                }
+                else {
+                    intent = new Intent(view.getContext(), BusBuyTicketBuyerDetails.class);
+                }
                 intent.putExtra(KEY_ROUTE_NAME,routePlanned.getRoute_name());
                 intent.putExtra(KEY_DEPARTURE_DATE,routePlanned.getDeparture_date());
                 intent.putExtra(KEY_ROUTE_CODE,routePlanned.getRoute_code());
@@ -98,7 +95,12 @@ public class RoutePlannedAdapter extends RecyclerView.Adapter<RoutePlannedAdapte
                 intent.putExtra(KEY_BUS_OPERATOR_NAME,routePlanned.getCompany());
                 intent.putExtra(KEY_BUS_LICENSE_PLATE,routePlanned.getLicense_plate());
                 intent.putExtra(KEY_BUS_FARE,String.valueOf(routePlanned.getFare()));
+                intent.putExtra(KEY_BUS_SCHEDULE_ID,routePlanned.getBus_schedule_id());
+                intent.putExtra(KEY_START_ROUTE,routePlanned.getStart_route());
+                intent.putExtra(KEY_END_ROUTE,routePlanned.getEnd_route());
+                intent.putExtra(KEY_TRAVEL_DATE,routePlanned.getTravel_date());
                 view.getContext().startActivity(intent);
+
             }
         });
     }
@@ -145,7 +147,7 @@ public class RoutePlannedAdapter extends RecyclerView.Adapter<RoutePlannedAdapte
 
     public  static class MyViewHolder extends RecyclerView.ViewHolder {
         private CardView card;
-        public TextView textViewRouteName;
+       // public TextView textViewRouteName;
         public TextView textViewDepartureDate;
         public TextView textViewCompany;
         public TextView textViewSeats;
@@ -159,7 +161,7 @@ public class RoutePlannedAdapter extends RecyclerView.Adapter<RoutePlannedAdapte
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             card = (CardView) itemView.findViewById(R.id.cardViewRouteId);
-            textViewRouteName = (TextView) itemView.findViewById(R.id.textView_RouteName);
+           // textViewRouteName = (TextView) itemView.findViewById(R.id.textView_RouteName);
             textViewDepartureDate = (TextView) itemView.findViewById(R.id.textView_Departure_Date);
             textViewDepartureTime = (TextView) itemView.findViewById(R.id.textView_Departure_Time);
             textViewCompany= (TextView) itemView.findViewById(R.id.textView_Company);

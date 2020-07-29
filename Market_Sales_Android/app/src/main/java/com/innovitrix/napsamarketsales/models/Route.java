@@ -8,6 +8,35 @@ public class Route {
     private String source_state;
     private String start_route;
     private String end_route;
+    private double route_fare;
+    private String  route_uuid;
+
+    public Route(int route_id, String route_code, String route_name, String source_state, String start_route, String end_route, double route_fare, String route_uuid) {
+        this.route_id = route_id;
+        this.route_code = route_code;
+        this.route_name = route_name;
+        this.source_state = source_state;
+        this.start_route = start_route;
+        this.end_route = end_route;
+        this.route_fare = route_fare;
+        this.route_uuid = route_uuid;
+    }
+
+    public double getRoute_fare() {
+        return route_fare;
+    }
+
+    public void setRoute_fare(double route_fare) {
+        this.route_fare = route_fare;
+    }
+
+    public String getRoute_uuid() {
+        return route_uuid;
+    }
+
+    public void setRoute_uuid(String route_uuid) {
+        this.route_uuid = route_uuid;
+    }
 
     public Route() {
 

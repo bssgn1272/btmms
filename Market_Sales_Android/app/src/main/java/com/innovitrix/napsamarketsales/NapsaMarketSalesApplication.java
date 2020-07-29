@@ -11,7 +11,7 @@ public class NapsaMarketSalesApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        Realm.init(this);
+/*        Realm.init(this);
         RealmConfiguration configuration = new RealmConfiguration.Builder()
                 .name("rewards.realm")
                 .deleteRealmIfMigrationNeeded()
@@ -20,6 +20,6 @@ public class NapsaMarketSalesApplication extends Application {
         //Realm.deleteRealm(configuration);
         Realm.setDefaultConfiguration(configuration);
 
-
+*/
     }
 }

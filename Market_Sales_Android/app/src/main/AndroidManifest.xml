@@ -18,17 +18,20 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".PayMarketFees"
+        <activity
+            android:name=".PayMarketFees"
+            android:launchMode="singleTop"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait">
-
         </activity>
         <activity
             android:name=".CheckBalance"
+            android:launchMode="singleTop"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".StartActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,48 +41,67 @@
         </activity>
         <activity
             android:name=".ResetPin"
+            android:launchMode="singleTop"
             android:parentActivityName=".LoginActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".FindTrader"
+            android:launchMode="singleTop"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ChangePin"
-            android:parentActivityName=".LoginActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".BusBuyTicketBuyerDetails"
-            android:parentActivityName=".BusSearch"
+            android:launchMode="singleTask"
+            android:parentActivityName=".BusSchedule"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".BusSchedule"
-            android:parentActivityName=".BusSearch"
+            android:name=".BusBuyTicketBuyerDetailsE"
+            android:launchMode="singleTop"
+            android:parentActivityName=".BusScheduleE"
+            android:screenOrientation="portrait" />
+        <activity
+        android:name=".BusSchedule"
+            android:launchMode="singleTop"
+        android:parentActivityName=".BusSearch"
+        android:screenOrientation="portrait" />
+        <activity
+            android:name=".BusScheduleE"
+            android:launchMode="singleTop"
+            android:parentActivityName=".BusSearchE"
             android:screenOrientation="portrait" />
         <activity
             android:name=".BusSearch"
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BusSearchE"
+            android:launchMode="singleTop"
             android:parentActivityName=".StartActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".BuyTicket"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".MakeSell"
+            android:launchMode="singleTop"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".LoginActivity"
+            android:launchMode="singleTop"
             android:parentActivityName=".StartActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".BuyFromTrader"
+            android:launchMode="singleTop"
             android:parentActivityName=".FindTrader"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".BuyBusTicketActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".MainActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
     </application>
 

@@ -1,12 +1,15 @@
 package com.innovitrix.napsamarketsales;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -16,33 +19,25 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.NumberKeyListener;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.innovitrix.napsamarketsales.dialog.DialogBox;
-import com.innovitrix.napsamarketsales.models.User;
-import com.innovitrix.napsamarketsales.network.VolleySingleton;
+import com.google.android.material.textfield.TextInputLayout;
 //import com.innovitrix.napsamarketsales.;
 //import com.innovitrix.reards.models.Customer;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,22 +45,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
 import static com.innovitrix.napsamarketsales.network.NetworkMonitor.checkNetworkConnection;
-import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_FIRSTNAME;
-import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_LASTNAME;
-import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_MESSAGE;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_LOGIN_STATUS;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_MOBILE;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_PASSWORD;
-import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_STATUS;
-import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_TRADER_ID;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_SERVICE_TOKEN;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_USERNAME_API;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_VOLLEY_SOCKET_TIMEOUT_MS;
 import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_AUTHENTICATE_MARKETER;
-import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_CHAR_AMPERSAND;
-import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_CHAR_QUESTION;
 import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_MARKETER_KYC;
-import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_PARAM_MOBILE_NUMBER;
-import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_PARAM_PIN;
-import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_USERS;
 
 /*import static com.innovitrix.reards.network.NetworkMonitor.checkNetworkConnection;
 import static com.innovitrix.reards.utils.AppConstants.KEY_COMPANY_ID;
@@ -79,9 +67,10 @@ import static com.innovitrix.reards.utils.UrlEndpoints.URL_LOGIN;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     //Defining views
-    private EditText editTextEmail, editTextPassword;
     private Button buttonLogin;
-    private TextView textRegisterLink, textPassRestLink,textCardSingInLink;
+    private TextView textRegisterLink, textPassRestLink, textCardSingInLink;
+
+    private TextInputLayout textInputLayout_Mobile_Number, textInputLayout_Pin;
 
     ProgressBar progressBar;
     ProgressDialog progressDialog;
@@ -90,10 +79,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     String androidDeviceId, deviceSerial, deviceName, serialNumber;
 
-    String email_or_mobile;
-   String password;
-
+    String pin_input;
+    String mobile_number_input;
     int mobile_number_char;
+    int email_or_mobile_char;
+    int password_char;
     String blockCharacterSet = "123456789";
     // Database Helper
     //DBHelper db;
@@ -102,17 +92,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getSupportActionBar().setSubtitle("login");
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //initializing views
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
-        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+
+        textInputLayout_Mobile_Number = (TextInputLayout) findViewById(R.id.mobile_number_TextInputLayout);
+        textInputLayout_Pin = (TextInputLayout) findViewById(R.id.pin_TextInputLayout);
+
+
+        //  editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+        //editTextPassword = (EditText) findViewById(R.id.editTextPassword);
 
         buttonLogin = findViewById(R.id.buttonLogin);
         buttonLogin.setOnClickListener(this);
 
 
-      //  textCardSingInLink = (TextView) findViewById(R.id.linkCardSignIn);
-      //  textCardSingInLink.setOnClickListener(this);
+        //  textCardSingInLink = (TextView) findViewById(R.id.linkCardSignIn);
+        //  textCardSingInLink.setOnClickListener(this);
 
 
         //textRegisterLink = (TextView) findViewById(R.id.linkSignup);
@@ -120,15 +117,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         textPassRestLink = (TextView) findViewById(R.id.linkPasswordReset);
         textPassRestLink.setOnClickListener(this);
-       editTextEmail.addTextChangedListener(new LoginActivity.PhoneNumberTextWatcher());
-       editTextEmail.setFilters(new InputFilter[]{new LoginActivity.PhoneNumberFilter(), new InputFilter.LengthFilter(10)});
+        textInputLayout_Mobile_Number.getEditText().addTextChangedListener(new LoginActivity.PhoneNumberTextWatcher());
+        textInputLayout_Mobile_Number.getEditText().setFilters(new InputFilter[]{new LoginActivity.PhoneNumberFilter(), new InputFilter.LengthFilter(10)});
 
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         serialNumber = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
 
-        deviceName = Build.BRAND +" "+ Build.MODEL;
+        deviceName = Build.BRAND + " " + Build.MODEL;
 
         //db = new DBHelper(LoginActivity.this);
 
@@ -136,56 +133,79 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
 
-        editTextEmail.requestFocus();
+        textInputLayout_Mobile_Number.requestFocus();
         if (!checkNetworkConnection(LoginActivity.this)) {
 
-           //DialogBox.mLovelyStandardDialog(LoginActivity.this, R.string..error_timeout);
+            //DialogBox.mLovelyStandardDialog(LoginActivity.this, R.string..error_timeout);
 
         }
         textPassRestLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this,ResetPin.class);
+                Intent intent = new Intent(LoginActivity.this, ResetPin.class);
                 startActivity(intent);
             }
         });
 
+
+        textInputLayout_Pin.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+             /*   if (s.length() < 1) {
+                    textInputLayout.setErrorEnabled(true);
+                    textInputLayout.setError("Please enter a value");
+                }
+
+                if (s.length() > 0) {
+                    textInputLayout.setError(null);
+                    textInputLayout.setErrorEnabled(false);
+                }
+*/
+                textInputLayout_Pin.setError(null);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //do whatever
+                Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Toast.makeText(getApplication(),"Use the in app controls to navigate.",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
+
+    //Probase Login - Production
     private void userLogin() {
-
-        email_or_mobile = editTextEmail.getText().toString().trim();
-        password = editTextPassword.getText().toString().trim();
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-    }
-
-
-    //Live
-    private void userLogin_Live() {
-
-        //getting values from edit texts
-       email_or_mobile = editTextEmail.getText().toString().trim();
-         password = editTextPassword.getText().toString().trim();
-
-
-        //validating inputs
-        if (TextUtils.isEmpty(email_or_mobile)) {
-            editTextEmail.setError("Please enter your mobile number");
-            editTextEmail.requestFocus();
-            return;
-        }
-        if (mobile_number_char != 10) {
-            editTextEmail.setError("Enter a 10 digit mobile number (0xxxxxxxxx)");
-            editTextEmail.requestFocus();
-            return;
-        }
-
-       if (TextUtils.isEmpty(password)) {
-            editTextPassword.setError("Please enter your password");
-            editTextPassword.requestFocus();
-            return;
-        }
-
 
         progressBar.setVisibility(View.VISIBLE);
 
@@ -193,8 +213,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         JSONObject jsonAuthObject = new JSONObject();
         try {
-            jsonAuthObject.put("username","admin");
-            jsonAuthObject.put("service_token","JJ8DJ7S66DMA5");
+            jsonAuthObject.put("username", KEY_USERNAME_API);
+            jsonAuthObject.put("service_token", KEY_SERVICE_TOKEN);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -203,19 +223,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //PAYLOAD
         JSONObject jsonPayloadObject = new JSONObject();
         try {
-            jsonPayloadObject.put("mobile","26" +email_or_mobile);
-            jsonPayloadObject.put("pin", password);
+            jsonPayloadObject.put("mobile", "26" + mobile_number_input);
+            jsonPayloadObject.put("pin", pin_input);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-
         ///prepare your JSONObject which you want to send in your web service request
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("auth",jsonAuthObject);
-            jsonObject.put("payload",jsonPayloadObject);
+            jsonObject.put("auth", jsonAuthObject);
+            jsonObject.put("payload", jsonPayloadObject);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -237,55 +256,88 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
                             //Check if the object has the key.
-                           if(obj.getJSONObject("response").has("AUTHENTICATION")){
+                            if (obj.getJSONObject("response").has("AUTHENTICATION")) {
 
 
                                 //    Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
 
                                 //getting the user from the response
-                               // DialogBox.mLovelyStandardDialog(LoginActivity.this,obj.getJSONObject("response").getJSONObject("AUTHENTICATION").getJSONObject("data").getString(KEY_MESSAGE));
+                                // DialogBox.mLovelyStandardDialog(LoginActivity.this,obj.getJSONObject("response").getJSONObject("AUTHENTICATION").getJSONObject("data").getString(KEY_MESSAGE));
 
                                 JSONObject currentUser = obj.getJSONObject("response").getJSONObject("AUTHENTICATION").getJSONObject("data");
                                 //creating a new user object
                                 com.innovitrix.napsamarketsales.models.User mUser = new com.innovitrix.napsamarketsales.models.User(
                                         currentUser.getString("uuid"),
-//                                        currentUser.getString("first_name"),
-//                                        currentUser.getString("last_name"),
-//                                        currentUser.getString("nrc"),
+                                        currentUser.getString("first_name"),
+                                        currentUser.getString("last_name"),
+                                        currentUser.getString("nrc"),
                                         currentUser.getString("mobile")
 
                                 );
 
-                                  //storing the user in shared preferences
+
+                                //storing the user in shared preferences
                                 //SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
                                 SharedPrefManager.getInstance(getApplicationContext()).storeCurrentUser(mUser);
                                 //starting main activity
 
-                               String ot =  obj.getJSONObject("response").getJSONObject("AUTHENTICATION").getJSONObject("data").getString("account_status");
-                               if (ot.equals("OTP")) {
-                                   //getting the user from the response
-                                   Intent intent = new Intent(getApplicationContext(), ChangePin.class);
-                                   intent.putExtra(KEY_PASSWORD, password);
-                                   intent.putExtra(KEY_MOBILE, "26" + email_or_mobile);//TODO change
-                                   startActivity(intent);
-                               }
-                               else
-                                   {
-                                   startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                               }
-                           }
-                           else
-                                {
+                                String ot = obj.getJSONObject("response").getJSONObject("AUTHENTICATION").getJSONObject("data").getString("account_status");
+                                if (ot.equals("OTP")) {
+                                    //getting the user from the response
+                                    SharedPrefManager.getInstance(getApplicationContext()).logout();
+                                    Intent intent = new Intent(getApplicationContext(), ChangePin.class);
+                                    intent.putExtra(KEY_PASSWORD, pin_input);
+                                    intent.putExtra(KEY_MOBILE, "26" + mobile_number_input);//TODO change
+                                    intent.putExtra(KEY_LOGIN_STATUS, "OTP");//TODO change
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    textInputLayout_Mobile_Number.getEditText().setText(null);
+                                    textInputLayout_Pin.getEditText().setText(null);
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                    finish();
 
-                                 // DialogBox.mLovelyStandardDialog(LoginActivity.this,obj.getJSONObject("response").getJSONObject("error").getJSONObject("message").getString(KEY_MESSAGE));
-                                  progressBar.setVisibility(View.GONE);
-                                    fetchTrader();
-                             }
+                                }
+                            } else {
+
+                                progressBar.setVisibility(View.GONE);
+                                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                                builder.setCancelable(false);
+                                builder.setMessage("Authentication failed: Invalid mobile number or pin.");
+                                builder.setPositiveButton("Ok",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                textInputLayout_Pin.getEditText().setText(null);
+                                                textInputLayout_Mobile_Number.requestFocus();
+                                                //Intent intent = new Intent(ResetPin.this,LoginActivity.class);
+                                                // startActivity(intent);
+                                                dialog.cancel();
+                                            }
+                                        });
+                                builder.create().show();
+                                //fetchTrader();
+                            }
                         } catch (JSONException e) {
-                          DialogBox.mLovelyStandardDialog(LoginActivity.this,e.getMessage());
-                            //progressBar.setVisibility(View.GONE);
 
                             e.printStackTrace();
+                            progressBar.setVisibility(View.GONE);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                            builder.setCancelable(false);
+                            builder.setMessage("Connection failure, kindly check your internet connection and try again.");
+
+                            builder.setPositiveButton("Ok",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            //Intent intent = new Intent(ResetPin.this,LoginActivity.class);
+                                            // startActivity(intent);
+                                            dialog.cancel();
+
+                                        }
+                                    });
+                            builder.create().show();
                         }
 
                     }
@@ -294,12 +346,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("Error.Response", error.toString());
-         //       Log.d("Error.Response", error.getMessage());
-             //   startActivity(new Intent(LoginActivity.this, MainActivity.class)); //TODO Change when the API server is reachable
-
-                DialogBox.mLovelyStandardDialog(LoginActivity.this,   "Server unreachable");
+                //  Log.d("Error.Response", error.getMessage());
+                //   startActivity(new Intent(LoginActivity.this, MainActivity.class)); //TODO Change when the API server is reachable
                 progressBar.setVisibility(View.GONE);
-                // Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                builder.setCancelable(false);
+                builder.setMessage("Connection failure, kindly check your internet connection and try again.");
+                builder.setPositiveButton("Ok",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                //Intent intent = new Intent(ResetPin.this,LoginActivity.class);
+                                // startActivity(intent);
+                                dialog.cancel();
+                            }
+                        });
+                builder.create().show();
+
             }
         }) {
             @Override
@@ -309,114 +372,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 // params.put("username", trader_id);
                 //params.put("email", firstname);
                 // params.put("password", lastname);
-                params.put("mobile_number", email_or_mobile );
+                params.put("mobile_number", mobile_number_input);
                 return params;
             }
         };
-
-        //  VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(jsonObjectRequest);
-    }
-
-    public void fetchTrader() {
-
-        //    progressDialog.show();
-
-
-        JSONObject jsonAuthObject = new JSONObject();
-        try {
-            jsonAuthObject.put("username", "admin");
-            jsonAuthObject.put("service_token", "JJ8DJ7S66DMA5");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-        //PAYLOAD
-        JSONObject jsonPayloadObject = new JSONObject();
-        try {
-            jsonPayloadObject.put("mobile", "26" +email_or_mobile);
-            //  jsonPayloadObject.put("pin", password);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-        ///prepare your JSONObject which you want to send in your web service request
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("auth", jsonAuthObject);
-            jsonObject.put("payload", jsonPayloadObject);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        // prepare the Request
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL_MARKETER_KYC, jsonObject,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        //Do stuff here
-                        // display response
-
-                        Log.d("Response", response.toString());
-                        progressBar.setVisibility(View.GONE);
-
-                        try {
-                            //converting response to json object
-                            JSONObject obj = new JSONObject(String.valueOf(response));
-
-
-                            //Check if the object has the key.
-                            if (obj.getJSONObject("response").has("QUERY"))
-                                                        {
-                                String ot =  obj.getJSONObject("response").getJSONObject("QUERY").getJSONObject("data").getString("account_status");
-                                if (ot.equals("OTP")) {
-                                    //getting the user from the response
-                                    Intent intent = new Intent(getApplicationContext(), ChangePin.class);
-                                    intent.putExtra(KEY_PASSWORD, password);
-                                    intent.putExtra(KEY_MOBILE, "26" + email_or_mobile);//TODO change
-                                    startActivity(intent);
-                                }
-                                else
-                                {
-                                    DialogBox.mLovelyStandardDialog(LoginActivity.this, "Wrong mobile number or pin!");
-
-                                }
-                            } else {
-
-                                    DialogBox.mLovelyStandardDialog(LoginActivity.this, "Wrong mobile number or pin!");
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show()
-                        //Handle Errors here
-                        progressDialog.dismiss();
-                        Log.d("Error.Response", error.toString());
-                        //Log.d("Error.Response", error.getMessage());
-                        DialogBox.mLovelyStandardDialog(LoginActivity.this,"Server unreachable.");
-                        // startActivity(new Intent( BuyFromTrader.this,MainActivity.class));
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                // params.put("username", trader_id);
-                //params.put("email", firstname);
-                // params.put("password", lastname);
-                params.put("mobile_number",email_or_mobile);
-                return params;
-            }
-        };
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(KEY_VOLLEY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         //  VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -430,18 +392,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (view == buttonLogin) {
             //calling the storeCurrentUser function
-            userLogin();
+            if (!validateMobileNumber() || !validatePin()) {
+                return;
+            } else {
+                userLogin();
+            }
+
         } else if (view == textCardSingInLink) {
             finish();
-          //  startActivity(new Intent(getApplicationContext(), LoginCardActivity.class));
+            //  startActivity(new Intent(getApplicationContext(), LoginCardActivity.class));
         } else if (view == textRegisterLink) {
             finish();
-           // startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+            // startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
         } else if (view == textPassRestLink) {
             finish();
-           startActivity(new Intent(getApplicationContext(), ResetPin.class));
+            startActivity(new Intent(getApplicationContext(), ResetPin.class));
         }
     }
+
+
     public class PhoneNumberTextWatcher implements TextWatcher {
 
         private boolean isFormatting;
@@ -502,12 +471,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-            mobile_number_char =editTextEmail.getText().toString().length();
-            if (editTextEmail.getText().toString().length() == 0)
+            textInputLayout_Mobile_Number.setError(null);
+            mobile_number_input = textInputLayout_Mobile_Number.getEditText().getText().toString().trim();
+
+
+            if (mobile_number_input.length() == 0)
                 blockCharacterSet = "123456789";
 
             else
                 blockCharacterSet = "";
+            if (mobile_number_input.length() == 1)
+                blockCharacterSet = "0";
         }
     }
 
@@ -529,7 +503,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             try {
                 // Don't let phone numbers start with 1
-
 
                 if (source != null && blockCharacterSet.contains("" + source.charAt(0)))
                     return "";
@@ -557,5 +530,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    private boolean validateMobileNumber() {
+        mobile_number_input = textInputLayout_Mobile_Number.getEditText().getText().toString().trim();
+        if (mobile_number_input.isEmpty() | mobile_number_input.length() < 10) {
+            textInputLayout_Mobile_Number.setErrorEnabled(true);
+            textInputLayout_Mobile_Number.setError("Enter a 10 digit mobile number (0xxxxxxxxx).");
+            textInputLayout_Mobile_Number.requestFocus();
+            return false;
+
+        } else {
+            textInputLayout_Mobile_Number.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validatePin() {
+        pin_input = textInputLayout_Pin.getEditText().getText().toString().trim();
+        if (pin_input.isEmpty() | pin_input.length() < 5) {
+            textInputLayout_Pin.setErrorEnabled(true);
+            textInputLayout_Pin.setError("Enter a valid 5 digit pin.");
+            textInputLayout_Pin.requestFocus();
+            return false;
+        } else {
+            textInputLayout_Pin.setError(null);
+            return true;
+        }
+    }
 
 }

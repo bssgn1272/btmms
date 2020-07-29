@@ -3,8 +3,8 @@ package com.innovitrix.napsamarketsales;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -15,19 +15,23 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.NumberKeyListener;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.innovitrix.napsamarketsales.dialog.DialogBox;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,25 +39,23 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_END_ROUTE;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_FIRSTNAME;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_LASTNAME;
-import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_MESSAGE;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_MOBILE;
-import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_ROUTE_NAME;
-import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_START_ROUTE;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_SERVICE_TOKEN;
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_TRADER_ID;
-import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_TRAVEL_DATE;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_USERNAME_API;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_VOLLEY_SOCKET_TIMEOUT_MS;
 import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_MARKETER_KYC;
 
 public class FindTrader extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
+    ProgressBar progressBar;
     RequestQueue queue;
 
     Button button_Submit;
-
-    EditText editText_Seller_Mobile_Number;
+    private TextInputLayout  textInputLayout_Mobile_Number, textInputLayout_Amount;
 
     int mobile_number_char;
     String blockCharacterSet = "123456789";
@@ -63,39 +65,48 @@ public class FindTrader extends AppCompatActivity {
     String seller_mobile_number;
     String seller_id;
     String buyer_mobile_number;
-
+    TextView textViewUsername;
+    TextView textViewDate;
+    private long backPressedTime;
+    private Toast backToast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_trader);
-        getSupportActionBar().setSubtitle("Make an order");
+        getSupportActionBar().setSubtitle("make an order");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         progressDialog = new ProgressDialog(FindTrader.this);
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
         queue = Volley.newRequestQueue(this);
 
+        textViewUsername = (TextView)findViewById(R.id.textViewUsername);
+        textViewUsername.setText("Logged in as "+SharedPrefManager.getInstance(FindTrader.this).getUser().getFirstname()+ " "+SharedPrefManager.getInstance(FindTrader.this).getUser().getLastname());
+        textViewDate = (TextView)findViewById(R.id.textViewDate);
+        textViewDate.setText(SharedPrefManager.getInstance(FindTrader.this).getTranactionDate2());
 
-        button_Submit = (Button) findViewById(R.id.button_SubmitFT);
-        editText_Seller_Mobile_Number = (EditText) findViewById(R.id.editTextSellerMobileNo);
-        editText_Seller_Mobile_Number.requestFocus();
-        editText_Seller_Mobile_Number.addTextChangedListener(new FindTrader.PhoneNumberTextWatcher());
-        editText_Seller_Mobile_Number.setFilters(new InputFilter[]{new FindTrader.PhoneNumberFilter(), new InputFilter.LengthFilter(12)});
+        button_Submit = (Button) findViewById(R.id.button_Submit);
 
+        textInputLayout_Mobile_Number = (TextInputLayout) findViewById(R.id.mobile_number_TextInputLayout);
+        textInputLayout_Mobile_Number.getEditText().addTextChangedListener(new FindTrader.PhoneNumberTextWatcher());
+        textInputLayout_Mobile_Number.getEditText().setFilters(new InputFilter[]{new FindTrader.PhoneNumberFilter(), new InputFilter.LengthFilter(10)});
+        textInputLayout_Mobile_Number.requestFocus();
 
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         button_Submit.setOnClickListener(new View.OnClickListener() {
                                              @Override
                                              public void onClick(View view) {
 
 
                                                  buyer_mobile_number = SharedPrefManager.getInstance(FindTrader.this).getUser().getMobile_number();
+                                                 String string_seller_mobile_number = textInputLayout_Mobile_Number.getEditText().getText().toString().trim();
+                                                 mobile_number_char = string_seller_mobile_number.length();
 
-                                                 String string_seller_mobile_number =  editText_Seller_Mobile_Number.getText().toString();
-
-
-                                                 if (TextUtils.isEmpty(string_seller_mobile_number)) {
-                                                     editText_Seller_Mobile_Number.setError("Please enter a mobile number.");
-                                                     editText_Seller_Mobile_Number.requestFocus();
+                                                 if (TextUtils.isEmpty(string_seller_mobile_number)  || mobile_number_char != 10) {
+                                                     textInputLayout_Mobile_Number.setErrorEnabled(true);
+                                                     textInputLayout_Mobile_Number.setError("Enter a 10 digit mobile number (0xxxxxxxxx).");
+                                                     textInputLayout_Mobile_Number.requestFocus();
                                                      return;
                                                  }
 
@@ -115,6 +126,7 @@ public class FindTrader extends AppCompatActivity {
                                                                  new DialogInterface.OnClickListener() {
                                                                      public void onClick(DialogInterface dialog, int id) {
                                                                          dialog.cancel();
+                                                                         textInputLayout_Mobile_Number.requestFocus();
                                                                      }
                                                                  });
 
@@ -133,9 +145,9 @@ public class FindTrader extends AppCompatActivity {
                                                      }
                                                  } else
                                                      {
-
-                                                     editText_Seller_Mobile_Number.setError("Enter a 10 digit mobile number.");
-                                                     editText_Seller_Mobile_Number.requestFocus();
+                                                         textInputLayout_Mobile_Number.setErrorEnabled(true);
+                                                         textInputLayout_Mobile_Number.setError("Enter a 10 digit mobile number (0xxxxxxxxx).");
+                                                         textInputLayout_Mobile_Number.requestFocus();
                                                  }
                                              }
                                          }
@@ -143,15 +155,41 @@ public class FindTrader extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //do whatever
+                Intent intent = new Intent(FindTrader.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }}
+
+    @Override
+    public void onBackPressed() {
+        // Toast.makeText(getApplication(),"Use the in app controls to navigate.",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(FindTrader.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
+
+
+
     public void fetchTrader() {
 
         //    progressDialog.show();
+        progressBar.setVisibility(View.VISIBLE);
 
 
         JSONObject jsonAuthObject = new JSONObject();
         try {
-            jsonAuthObject.put("username", "admin");
-            jsonAuthObject.put("service_token", "JJ8DJ7S66DMA5");
+            jsonAuthObject.put("username", KEY_USERNAME_API);
+            jsonAuthObject.put("service_token", KEY_SERVICE_TOKEN);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -166,7 +204,6 @@ public class FindTrader extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
         ///prepare your JSONObject which you want to send in your web service request
         JSONObject jsonObject = new JSONObject();
@@ -186,7 +223,7 @@ public class FindTrader extends AppCompatActivity {
                         // display response
 
                         Log.d("Response", response.toString());
-                        //progressBar.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.GONE);
 
                         try {
                             //converting response to json object
@@ -217,13 +254,35 @@ public class FindTrader extends AppCompatActivity {
                                 startActivity(intent);
                             } else {
 
-                                DialogBox.mLovelyStandardDialog(FindTrader.this, "Trader not found.");
-                                ;
+                               // DialogBox.mLovelyStandardDialog(FindTrader.this, "Trader not found.");
+                                progressBar.setVisibility(View.GONE);
+                                AlertDialog.Builder builder = new AlertDialog.Builder(FindTrader.this);
+                                builder.setCancelable(false);
+                                builder.setMessage("Trader not found, kindly contact the System Administrator.");
+                                builder.setPositiveButton("Ok",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                               textInputLayout_Mobile_Number.requestFocus();
+                                            }
+                                        });
+                                builder.create().show();
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                        }
 
+                            progressBar.setVisibility(View.GONE);
+//                            AlertDialog.Builder builder = new AlertDialog.Builder(FindTrader.this);
+//                            builder.setCancelable(false);
+//                            builder.setMessage("An error occurred while retrieving traders details, kindly check your internet connection and try again.");
+//                            builder.setPositiveButton("Ok",
+//                                    new DialogInterface.OnClickListener() {
+//                                        public void onClick(DialogInterface dialog, int id) {
+//                                            dialog.cancel();
+//                                        }
+//                                    });
+//                            builder.create().show();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -231,10 +290,23 @@ public class FindTrader extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show()
                         //Handle Errors here
-                        progressDialog.dismiss();
                         Log.d("Error.Response", error.toString());
+                        progressDialog.dismiss();
+                        progressBar.setVisibility(View.GONE);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(FindTrader.this);
+                        builder.setCancelable(false);
+                        builder.setMessage("Connection failure, kindly check your internet connection.");
+                        builder.setPositiveButton("Ok",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        //Intent intent = new Intent(ResetPin.this,LoginActivity.class);
+                                        // startActivity(intent);
+                                        dialog.cancel();
+                                    }
+                                });
+                        builder.create().show();
                         //Log.d("Error.Response", error.getMessage());
-                        DialogBox.mLovelyStandardDialog(FindTrader.this,"Server unreachable.");
+                        //DialogBox.mLovelyStandardDialog(FindTrader.this,"Server unreachable.");
                         // startActivity(new Intent( BuyFromTrader.this,MainActivity.class));
                     }
                 }) {
@@ -248,6 +320,10 @@ public class FindTrader extends AppCompatActivity {
                 return params;
             }
         };
+
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(KEY_VOLLEY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         //  VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -315,19 +391,16 @@ public class FindTrader extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            mobile_number_char = editText_Seller_Mobile_Number.getText().toString().length();
-            if (editText_Seller_Mobile_Number.getText().toString().length() == 0)
-
+            textInputLayout_Mobile_Number.setError(null);
+            seller_mobile_number = textInputLayout_Mobile_Number.getEditText().getText().toString().trim();
+            if (seller_mobile_number.length() == 0)
                 blockCharacterSet = "123456789";
 
-           else
+            else
                 blockCharacterSet = "";
-            if (editText_Seller_Mobile_Number.getText().toString().length() == 1)
+            if (  seller_mobile_number.length() == 1)
                 blockCharacterSet = "0";
-
-        }
-    }
+    }}
 
     public class PhoneNumberFilter extends NumberKeyListener {
 
@@ -374,6 +447,5 @@ public class FindTrader extends AppCompatActivity {
             return null;
         }
     }
-
 
 }

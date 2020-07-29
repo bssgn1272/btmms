@@ -14,7 +14,7 @@ $log->logInfo(Config::APP_INFO_LOG, $_GET['MSISDN'], "Gateway request is : \n" .
 //Just to be sure Zamtel is not sending a wrong request
 if (!empty($_GET['TransId']) && !empty($_GET['RequestType']) && !empty($_GET['MSISDN']) && !empty($_GET['AppId']) && !empty($_GET['SHORTCODE'])) {
     //Ok we are safe to proceed now
-    echo callMenu($_GET['TransId'], $_GET['MSISDN'], $_GET['AppId'], $_GET['USSDString'], $_GET['RequestType'], $_GET['SHORTCODE']);
+    echo callMenu($_GET['TransId'], $_GET['MSISDN'], $_GET['AppId'], urldecode($_GET['USSDString']), $_GET['RequestType'], $_GET['SHORTCODE']);
 } else {
     //Aha! some fields are missing we tell the customer system is busy
     $log->logInfo(Config::APP_INFO_LOG, $_GET['MSISDN'], "Some fields from zamtel are missing, I do not work like this!. Am aborting this request....");
@@ -69,6 +69,8 @@ function callMenu($transID, $msisdn, $appID, $ussdStr, $requestType, $shortCode)
  * @return string
  */
 function buildMenuRequest($transID, $msisdn, $appID, $ussdStr, $requestType, $shortCode) {
+     global $log;
+    $log->logInfo(Config::APP_INFO_LOG, $_GET['MSISDN'], "STRING IS: $ussdStr");
     $response = array();
     $response['SEQUENCE'] = "0";
     $response['END_OF_SESSION'] = "";

@@ -6,18 +6,61 @@ public class RoutePlanned {
     private String license_plate;
     private int operator_id;
     private int vehicle_capacity;
-    private int bus_schedule_id;
+    private String bus_schedule_id;
     private String  departure_date;
     private String departure_time;
     private double fare;
     private String route_code;
     private String route_name;
+    private String start_route;
+    private String end_route;
+    private String travel_date;
 
+    public RoutePlanned(int available_seats, String company, String license_plate, int operator_id, int vehicle_capacity, String bus_schedule_id, String departure_date, String departure_time, double fare, String route_code, String route_name, String start_route, String end_route, String travel_date) {
+        this.available_seats = available_seats;
+        this.company = company;
+        this.license_plate = license_plate;
+        this.operator_id = operator_id;
+        this.vehicle_capacity = vehicle_capacity;
+        this.bus_schedule_id = bus_schedule_id;
+        this.departure_date = departure_date;
+        this.departure_time = departure_time;
+        this.fare = fare;
+        this.route_code = route_code;
+        this.route_name = route_name;
+        this.start_route = start_route;
+        this.end_route = end_route;
+        this.travel_date = travel_date;
+    }
+
+    public String getStart_route() {
+        return start_route;
+    }
+
+    public void setStart_route(String start_route) {
+        this.start_route = start_route;
+    }
+
+    public String getEnd_route() {
+        return end_route;
+    }
+
+    public void setEnd_route(String end_route) {
+        this.end_route = end_route;
+    }
+
+    public String getTravel_date() {
+        return travel_date;
+    }
+
+    public void setTravel_date(String travel_date) {
+        this.travel_date = travel_date;
+    }
 
     public RoutePlanned() {
     }
 
-    public RoutePlanned(int available_seats, String company, String license_plate, int operator_id, int vehicle_capacity, int bus_schedule_id, String departure_date, String departure_time, double fare, String route_code, String route_name) {
+    public RoutePlanned(int available_seats, String company, String license_plate, int operator_id, int vehicle_capacity, String bus_schedule_id, String departure_date, String departure_time, double fare, String route_code, String route_name) {
         this.available_seats = available_seats;
         this.company = company;
         this.license_plate = license_plate;
@@ -71,11 +114,11 @@ public class RoutePlanned {
         this.vehicle_capacity = vehicle_capacity;
     }
 
-    public int getBus_schedule_id() {
+    public String getBus_schedule_id() {
         return bus_schedule_id;
     }
 
-    public void setBus_schedule_id(int bus_schedule_id) {
+    public void setBus_schedule_id(String bus_schedule_id) {
         this.bus_schedule_id = bus_schedule_id;
     }
 

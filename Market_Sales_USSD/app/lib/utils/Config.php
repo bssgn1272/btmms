@@ -25,7 +25,7 @@ class Config {
      * 
      * @var string
      */
-     CONST APP_DEBURG_LOG = "/var/log/applications/ussd/DEBURG";
+    CONST APP_DEBURG_LOG = "/var/log/applications/ussd/DEBURG";
     //CONST APP_DEBURG_LOG = "C:/xampp/logs/DEBURG";
 
     /**
@@ -89,11 +89,14 @@ class Config {
     CONST SCHEDULED_ROUTES = "internal/locations/destinations";
     CONST PURCHASE_TICKET = "purchase";
     //NAPSA DETAILS
-   CONST NAPSA_IP = "10.10.1.57";
-   // CONST NAPSA_IP = "192.168.8.253";
+    //CONST NAPSA_IP = "192.168.8.101";
+    CONST NAPSA_IP = "165.56.2.3";
+    //CONST NAPSA_IP = "10.70.3.55";
+    // CONST NAPSA_IP = "10.10.1.57";
+    // CONST NAPSA_IP = "192.168.8.253";
     CONST NAPSA_PORT = "4000";
     //PROBASE API CREDENTIALS
-    CONST PROBASE_API_USERNAME = "admin";
+    CONST PROBASE_API_USERNAME = "manager";
     CONST PROBASE_API_SERVICE_TOKEN = "JJ8DJ7S66DMA5";
     //PROBASE STATUS CODES
     CONST OPERATION_SUCCESS = 0;
@@ -103,13 +106,13 @@ class Config {
      * Curl calls connection timeout in seconds
      * @var type int
      */
-    CONST CONNECTION_TIMEOUT = 20;
+    CONST CONNECTION_TIMEOUT = 60;
 
     /**
      * Curl calls read timeout in seconds
      * @var type int
      */
-    CONST READ_TIMEOUT = 30;
+    CONST READ_TIMEOUT = 60;
 
     /**
      * Marketeer account is blocked
@@ -161,6 +164,9 @@ class Config {
     CONST ORDER = 2;
     CONST TICKET_PURCHASE = 3;
     CONST PAY_MARKET_FEE = 4;
-    CONST MAX_OPTIONS_PER_PAGE=3;
+    CONST MAX_OPTIONS_PER_PAGE = 3;
+    
+    CONST SELLER_MSG="Check your phone to approve the payment.";
+    CONST BUYER_MSG="Ask the buyer to check their phone to approve the payment.";
 
 }

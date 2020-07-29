@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="colorPrimary">@color/amber_A400</color>
     <color name="colorPrimaryDark">@color/amber_A700</color>
     <color name="colorAccent">@color/blue_700</color>
+    <color name="text_input_edit_text_background">@color/grey_50</color>
     <color name="backgroundcolor">#fcfcfc</color>
     <color name="lightgray">#ededed</color>
     <color name="deeppurple">#7c4dff</color>
@@ -229,12 +230,14 @@
     <!-- Lime -->
 
     <!-- Yellow -->
+
     <color name="yellow_50">#FFFDE7</color>
+    <color name="yellow_52">#FFFF52</color>
     <color name="yellow_100">#FFF9C4</color>
     <color name="yellow_200">#FFF59D</color>
     <color name="yellow_300">#FFF176</color>
     <color name="yellow_400">#FFEE58</color>
-    <color name="yellow_500">#FFEB3B</color>
+    <color name="yellow_500">#C7A500</color>
     <color name="yellow_600">#FDD835</color>
     <color name="yellow_700">#FBC02D</color>
     <color name="yellow_800">#F9A825</color>

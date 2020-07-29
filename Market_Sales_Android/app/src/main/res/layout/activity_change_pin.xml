@@ -6,6 +6,23 @@
     android:fillViewport="true"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <TextView
+        android:id="@+id/textViewUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textViewDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+
+    android:textStyle="bold" />
 
     <LinearLayout
 
@@ -15,78 +32,90 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical"
-        android:paddingLeft="25dp"
-        android:paddingTop="56dp"
-        android:paddingRight="25dp">
+        android:paddingLeft="@dimen/activity_padding_left"
+        android:paddingRight="@dimen/activity_padding_right"
+        android:paddingTop="@dimen/activity_padding_top"
+        android:paddingStart="@dimen/activity_padding_left"
+        android:paddingEnd="@dimen/activity_padding_right"
 
-        <android.support.design.widget.TextInputLayout
+        >
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/pin_current_TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:textColorHint="@color/colorAccent"
+            app:counterMaxLength="5"
+            app:endIconMode="password_toggle"
+            android:hint="@string/pin_current"
             >
-
-            <EditText
-                android:id="@+id/editTextCurrentPassword"
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/current_password"
-                android:inputType="textPassword"
+                android:textColorHighlight="@color/colorAccent"
+                android:background="@color/text_input_edit_text_background"
+                android:inputType="numberPassword"
+                android:maxLength="5"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                android:importantForAutofill="no" />
-
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/pin_new_TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-
-            android:textColorHint="@color/colorAccent"
+            app:counterMaxLength="5"
+            app:endIconMode="password_toggle"
+            android:hint="@string/pin_new"
             >
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHighlight="@color/colorAccent"
+                android:background="@color/text_input_edit_text_background"
+                android:inputType="numberPassword"
+                android:maxLength="5"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/editTextNewPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/new_password"
-        android:inputType="textPassword"
-        android:importantForAutofill="no" />
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/pin_confirm_TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-
-            android:textColorHint="@color/colorAccent"
+            app:counterMaxLength="5"
+            app:endIconMode="password_toggle"
+            android:hint="@string/pin_confirm"
             >
-    <EditText
-        android:id="@+id/editTextConfirmPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/confirm_new_password"
-        android:inputType="textPassword"
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHighlight="@color/colorAccent"
+                android:background="@color/text_input_edit_text_background"
+                android:inputType="numberPassword"
+                android:maxLength="5"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        android:importantForAutofill="no" />
-        </android.support.design.widget.TextInputLayout>
+        <TextView
+            android:id="@+id/textView_R"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="* Required fields."
+            android:textColor="@color/red_800"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
         <Button
             android:id="@+id/buttonSubmitCP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="5dp"
-            android:clickable="true"
-            android:enabled="true"
-            android:padding="10dp"
-            android:shadowRadius="10"
-            android:text="@string/save"
-
-            android:focusable="true" />
-
-
-
+            app:backgroundTint="@color/colorAccent"
+            android:text="Change pin"
+             />
+    </LinearLayout>
     </LinearLayout>
 </ScrollView>

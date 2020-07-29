@@ -3,10 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:fillViewport="true"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin">
-
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    tools:context=".MakeSell">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/textViewUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textViewDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textStyle="bold" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,82 +31,70 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical"
-        android:paddingLeft="25dp"
-        android:paddingTop="56dp"
-        android:paddingRight="25dp">
+        android:paddingLeft="@dimen/activity_padding_left"
+        android:paddingTop="@dimen/activity_padding_top"
+        android:paddingRight="@dimen/activity_padding_right">
 
-
-
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/mobile_number_TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-        android:textColorHint="@color/colorAccent">
+            android:hint="@string/mobile_number_required"
+            app:counterMaxLength="10"
+            >
 
-        <EditText
-            android:id="@+id/textAMT"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter Amount"
-
-            android:inputType="number" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:textColorHint="@color/colorAccent">
-
-            <EditText
-                android:id="@+id/textMobileNo"
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Mobile Number"
-                android:inputType="phone" />
+                android:textColorHighlight="@color/colorAccent"
+                android:background="@color/text_input_edit_text_background"
+                android:inputType="phone"
+                android:maxLength="10"
+                />
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/amount_TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:textColorHint="@color/colorAccent">
+            android:hint="@string/amount"
+            >
 
-<!--            <EditText-->
-<!--                android:id="@+id/editTextPin"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:hint="MOMO PIN"-->
-<!--                android:inputType="textPassword" />-->
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHighlight="@color/colorAccent"
+                android:background="@color/text_input_edit_text_background"
+                android:inputType="numberDecimal"
+                />
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:id="@+id/textView_R"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="* Required fields."
+            android:textColor="@color/red_800"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:visibility="gone" />
-
         <Button
             android:id="@+id/buttonPay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:clickable="true"
-            android:enabled="true"
-            android:padding="12dp"
-            android:shadowRadius="5"
-            android:text="Pay" />
+            style="@style/Widget.MaterialComponents.Button"
+            app:backgroundTint="@color/colorAccent"
+            android:text="Pay"
 
 
+            />
+    </LinearLayout>
 
     </LinearLayout>
 

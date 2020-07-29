@@ -4,32 +4,35 @@
     android:id="@+id/activity_check_balance"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop = "@dimen/activity_top_margin"
     android:paddingBottom = "@dimen/activity_bottom_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context=".CheckBalance">
-           <LinearLayout
-                android:clipToPadding="false"
-                android:layout_gravity="center_horizontal"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-               android:gravity="center_horizontal">
-               <TextView
-                   android:id="@+id/textViewDate2"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_marginTop="18dp"
-                   android:layout_gravity="right"
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/textViewUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textViewDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textStyle="bold" />"
                    android:textStyle="bold" />
 
-           <android.support.v7.widget.CardView
+           <androidx.cardview.widget.CardView
 
                android:foreground="?android:attr/selectableItemBackground"
                android:clickable="true"
                android:id="@+id/cardViewMenuSaleToBuyer"
-               android:layout_width="@dimen/menu_dashboard_card_view_layout_width"
+               android:layout_width="match_parent"
                android:layout_height="@dimen/menu_dashboard_card_view_layout_height"
                android:layout_margin="10dp">
                <LinearLayout
@@ -65,13 +68,13 @@
                        android:textStyle="bold" />
 
                </LinearLayout>
-           </android.support.v7.widget.CardView>
-               <android.support.v7.widget.CardView
+           </androidx.cardview.widget.CardView>
+               <androidx.cardview.widget.CardView
 
                    android:foreground="?android:attr/selectableItemBackground"
                    android:clickable="true"
 
-                   android:layout_width="@dimen/menu_dashboard_card_view_layout_width"
+                   android:layout_width="match_parent"
                    android:layout_height="@dimen/menu_dashboard_card_view_layout_height"
                    android:layout_margin="10dp">
 
@@ -108,13 +111,13 @@
                            android:textStyle="bold" />
 
                    </LinearLayout>
-               </android.support.v7.widget.CardView>
-               <android.support.v7.widget.CardView
+               </androidx.cardview.widget.CardView>
+               <androidx.cardview.widget.CardView
 
                    android:foreground="?android:attr/selectableItemBackground"
                    android:clickable="true"
 
-                   android:layout_width="@dimen/menu_dashboard_card_view_layout_width"
+                   android:layout_width="match_parent"
                    android:layout_height="@dimen/menu_dashboard_card_view_layout_height"
                    android:layout_margin="10dp">
                    <LinearLayout
@@ -150,9 +153,9 @@
                            android:textStyle="bold" />
 
                    </LinearLayout>
-               </android.support.v7.widget.CardView>
+               </androidx.cardview.widget.CardView>
                <ProgressBar
-                   android:id="@+id/progressBar1"
+                   android:id="@+id/progressBar"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:layout_gravity="center"

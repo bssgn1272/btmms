@@ -1,5 +1,8 @@
 <resources>
-    <string name="app_name">NAPSA Market Sales</string>
+    <string name="app_name">LMB Management</string>
+    <string name="company_name_long">Livingstone Market &amp; Bus Management Company Limited</string>
+    <string name="company_name_short">LMB Management Company Limited</string>
+    <string name="app_welcome_message">Welcome to Livingstone Market &amp; Bus Management</string>
     <string-array name="FromBusStation">
         <item>Livingstone</item>
         <item>Lusaka</item>
@@ -33,4 +36,24 @@
     <string name="error_server">The server is not reachable</string>
     <string name="error_network">No network connection</string>
     <string name="error_parser">Cast to type not allowed</string>
+    <string name="first_name">Enter first name <font fgcolor='#FF0000'>*</font></string>
+    <string name="last_name">Enter last name <font fgcolor='#FF0000'>*</font></string>
+    <string name="nrc">Enter ID <font fgcolor='#FF0000'>*</font></string>
+    <string name="mobile_number">Enter 10 digit mobile number (0xxxxxxxxx)</string>
+    <string name="mobile_number_required">Enter 10 digit mobile number (0xxxxxxxxx) <font fgcolor='#FF0000'>*</font></string>
+
+    <string name="amount">Enter amount <font fgcolor='#FF0000'>*</font></string>
+    <string name="pin">Enter 5 digit pin</string>
+    <string name="pin_current">Enter your 5 digit pin <font fgcolor='#FF0000'>*</font></string>
+    <string name="pin_new">Enter new 5 digit pin <font fgcolor='#FF0000'>*</font></string>
+    <string name="pin_confirm">Re-enter new 5 digit pin <font fgcolor='#FF0000'>*</font></string>
+
+
+    <string name="email_address">Enter email address </string>
+    <string name="nrc_format">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz/01234567890</string>
+    <string name="destination">Select your destination</string>
+    <string name="travel_day">Select your travel day</string>
+    <string name="travel_date_and_time">select destination and travel date</string>
+
+
 </resources>

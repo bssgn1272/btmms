@@ -1,20 +1,23 @@
 package com.innovitrix.napsamarketsales;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.provider.Settings;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.SearchView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -24,28 +27,29 @@ import com.android.volley.toolbox.Volley;
 import com.innovitrix.napsamarketsales.dialog.DialogBox;
 import com.innovitrix.napsamarketsales.models.MarketStand;
 import com.innovitrix.napsamarketsales.models.MarketStandAdapter;
-import com.innovitrix.napsamarketsales.models.Route;
-import com.innovitrix.napsamarketsales.models.RoutePlannedAdapter;
-import com.innovitrix.napsamarketsales.network.MyJsonArrayRequest;
-import com.innovitrix.napsamarketsales.utils.VerticalSpacingItemDecorator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_MESSAGE;
-import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_MARKETER_KYC;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_TRANSACTION_CHANNEL;
+import static com.innovitrix.napsamarketsales.utils.AppConstants.KEY_VOLLEY_SOCKET_TIMEOUT_MS;
+import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_CHAR_QUESTION;
+import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_MARKETEER_KYC_ALL;
+
 import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_MARKETER_KYC_SINGLE;
+import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_MARKET_FEE;
+import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_PARAM_SELLER_MOBILE_NUMBER;
 import static com.innovitrix.napsamarketsales.utils.UrlEndpoints.URL_TRANSACTIONS;
 
 public class PayMarketFees extends AppCompatActivity implements MarketStandAdapter.OnMarketStandListener {
     private static final String TAG = "PayMarketFees";
+    private ProgressBar progressBar;
 
     // ui components
     private RecyclerView recyclerView;
@@ -58,43 +62,74 @@ public class PayMarketFees extends AppCompatActivity implements MarketStandAdapt
 
     private String seller_id;
     private String seller_first_name;
-    private  String seller_last_name;
+    private String seller_last_name;
     private String seller_mobile_number;
     private String buyer_id;
-    private String  buyer_first_name;
-    private String  buyer_last_name;
+    private String buyer_first_name;
+    private String buyer_last_name;
     private String buyer_mobile_number;
 
     private String device_serial;
     private double amount;
-
+    private long backPressedTime;
+    private Toast backToast;
+    TextView textViewUsername;
+    TextView textViewDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay_market_fees);
-        getSupportActionBar().setSubtitle("Pay Market Fees");
+        getSupportActionBar().setSubtitle("pay market fees");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         queue = Volley.newRequestQueue(this);
         recyclerView = findViewById(R.id.recylerview_Market_Stand);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        buyer_id=  "2020-3676257032-2-8166-20"; //SharedPrefManager.getInstance(context).getUser().getTrader_id();
-        buyer_mobile_number = "260967485331";// SharedPrefManager.getInstance(context).getUser().getMobile_number();
-        buyer_first_name = "Simon";//SharedPrefManager.getInstance(context).getUser().getFirstname();
-        buyer_last_name = "Chiwamba"; //SharedPrefManager.getInstance(context).getUser().getLastname();
+        textViewUsername = (TextView)findViewById(R.id.textViewUsername);
+        textViewUsername.setText("Logged in as "+SharedPrefManager.getInstance(PayMarketFees.this).getUser().getFirstname()+ " "+SharedPrefManager.getInstance(PayMarketFees.this).getUser().getLastname());
+        textViewDate = (TextView)findViewById(R.id.textViewDate);
+        textViewDate.setText(SharedPrefManager.getInstance(PayMarketFees.this).getTranactionDate2());
 
+
+        seller_id = SharedPrefManager.getInstance(PayMarketFees.this).getUser().getTrader_id();
+        seller_mobile_number = SharedPrefManager.getInstance(PayMarketFees.this).getUser().getMobile_number();
+        seller_first_name = SharedPrefManager.getInstance(PayMarketFees.this).getUser().getFirstname();
+        seller_last_name = SharedPrefManager.getInstance(PayMarketFees.this).getUser().getLastname();
+        progressBar.setVisibility(View.VISIBLE);
 
         initRecyclerView();
-        fetchStands();
-
+        //fetchStands();
+        fetch_Stands();
         //insertFakeNotes();
 
 
     }
 
-    private void insertFakeNotes()
-    {
-        for(int i = 0; i < 5; i++){
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //do whatever
+                Intent intent = new Intent(PayMarketFees.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }}
+
+    @Override
+    public void onBackPressed() {
+        // Toast.makeText(getApplication(),"Use the in app controls to navigate.",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(PayMarketFees.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
+    private void insertFakeNotes() {
+        for (int i = 0; i < 5; i++) {
             MarketStand note = new MarketStand(String.valueOf(i), Double.valueOf(i));
             mMarketStands.add(note);
         }
@@ -102,7 +137,7 @@ public class PayMarketFees extends AppCompatActivity implements MarketStandAdapt
         mMarketStandAdapter.notifyDataSetChanged();
     }
 
-    private void initRecyclerView(){
+    private void initRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         //VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(10);
@@ -118,14 +153,36 @@ public class PayMarketFees extends AppCompatActivity implements MarketStandAdapt
         Log.d(TAG, "onMarketStandClick: Clicked # " + position);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(PayMarketFees.this);
+        builder.setCancelable(false);
+        builder.setMessage("Confirm payment of ZMW " + String.valueOf(mMarketStands.get(position).getStand_price()) + " market fees for stand number " + mMarketStands.get(position).getStand_number() + "?");
 
-        builder.setMessage("Confirm payment of ZMW "+String.valueOf(mMarketStands.get(position).getStand_price()) +" Market fees for stand number "+mMarketStands.get(position).getStand_number()+"?");
         builder.setPositiveButton("Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         MarketStand ms = mMarketStands.get(position);
                         device_serial = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-                        sendInformation(4,ms.getStand_number(), buyer_id, buyer_first_name, buyer_last_name, buyer_mobile_number,ms.getStand_price(), device_serial);
+                        sendInformation(4, ms.getStand_number(), seller_id, seller_first_name, seller_last_name, seller_mobile_number, ms.getStand_price(), device_serial);
+                        progressBar.setVisibility(View.GONE);
+//                        Toast.makeText(getApplicationContext(),"Check your phone to approve the payment. An SMS will notify you of the transaction status.",Toast.LENGTH_LONG).show();
+//                        Intent intent = new Intent(PayMarketFees.this, MainActivity.class);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                        startActivity(intent);
+//                        finish();
+                        dialog.cancel();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(PayMarketFees.this);
+                        builder.setCancelable(false);
+                        builder.setMessage("Check your phone that has mobile number "+  buyer_mobile_number+" to approve the payment. An SMS will notify you of the transaction status.");
+                        builder.setPositiveButton("Ok",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        Intent intent = new Intent(PayMarketFees.this, MainActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                        finish();
+
+                                    }
+                                });
+                        builder.create().show();
                     }
                 });
 
@@ -138,12 +195,14 @@ public class PayMarketFees extends AppCompatActivity implements MarketStandAdapt
                 });
 
         builder.create().show();
-}
+    }
 
-    public void fetchStands() {
 
-        JSONObject jsonAuthObject = new JSONObject();
-        try {
+    public void fetch_Stands() {
+        progressBar.setVisibility(View.VISIBLE);
+
+      /*  JSONObject jsonAuthObject = new JSONObject();
+      try {
             jsonAuthObject.put("username", "admin");
             jsonAuthObject.put("service_token", "JJ8DJ7S66DMA5");
         } catch (JSONException e) {
@@ -154,10 +213,10 @@ public class PayMarketFees extends AppCompatActivity implements MarketStandAdapt
         //PAYLOAD
         JSONObject jsonPayloadObject = new JSONObject();
         try {
-            // jsonPayloadObject.put("start_route", start_Route);
-            //jsonPayloadObject.put("end_route", end_Route);
-            //  jsonPayloadObject.put("date", travel_Date);//TODO change to actual date
-            jsonPayloadObject.put("date", "27/01/2020");
+             jsonPayloadObject.put("start_route", start_Route);
+             jsonPayloadObject.put("end_route", end_Route);
+              jsonPayloadObject.put("date", travel_Date);//TODO change to actual date
+           // jsonPayloadObject.put("date", "27/01/2020");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -166,16 +225,25 @@ public class PayMarketFees extends AppCompatActivity implements MarketStandAdapt
         ///prepare your JSONObject which you want to send in your web service request
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("auth", jsonAuthObject);
+            jsonObject.put("auth", jsonAuthObject); //TODO once a probase finalises
             jsonObject.put("payload", jsonPayloadObject);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
+*/
+        // prepare the Request
+
 
         // prepare the Request
 
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_MARKETER_KYC_SINGLE,null,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_MARKET_FEE
+                + URL_CHAR_QUESTION +
+                URL_PARAM_SELLER_MOBILE_NUMBER
+                + seller_mobile_number,
+                null,
+
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -184,7 +252,7 @@ public class PayMarketFees extends AppCompatActivity implements MarketStandAdapt
                         // display response
 
                         Log.d("Response", response.toString());
-                        //progressBar.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.GONE);
 
                         try {
                             //converting response to json object
@@ -192,19 +260,21 @@ public class PayMarketFees extends AppCompatActivity implements MarketStandAdapt
 
 
                             //Check if the object has the key.
-                            if (obj.getJSONObject("response").has("QUERY")) {
+                            //  if (obj.getJSONObject("found").has("QUERY")) {
+                            boolean found = obj.getBoolean("found");
+                            if (found==true) {
+                                //  JSONObject KYC = obj.getJSONObject("response").getJSONObject("success");
 
-                                JSONObject KYC = obj.getJSONObject("response").getJSONObject("QUERY").getJSONObject("data");
+                                JSONArray StandArray = obj.getJSONArray("market_fee");
 
-                                JSONArray KYCArray = KYC.getJSONArray("stands");
-
-                                if (KYCArray.length() > 0) {
+                                if (StandArray.length() > 0) {
                                     //   DialogBox.mLovelyStandardDialog(PayMarketFees.this, String.valueOf(KYCArray.length()));
 
-                                    for (int i = 0; i < KYCArray.length(); i++) {
+                                    for (int i = 0; i < StandArray.length(); i++) {
 
-                                        JSONObject currentStand = KYCArray.getJSONObject(i);
-                                        // DialogBox.mLovelyStandardDialog(PayMarketFees.this, currentStand.getString("stand_number"));
+                                        JSONObject currentStand = StandArray.getJSONObject(i);
+
+                                        // DialogBox.mLovelyStandardDialog(PayMarketFees.this, currentStand.getString("shop_number") + " " + String.valueOf(StandArray.length()));
 
                                         MarketStand ms = new MarketStand
                                                 (
@@ -214,34 +284,97 @@ public class PayMarketFees extends AppCompatActivity implements MarketStandAdapt
 
                                         mMarketStands.add(ms);
                                     }
-                                    mMarketStandAdapter.notifyDataSetChanged();
-                                }
-                                else{
-                                    DialogBox.mLovelyStandardDialog(PayMarketFees.this, " Zero KYC.");
-                                }
-                            }else{
 
-                                DialogBox.mLovelyStandardDialog(PayMarketFees.this, "No market stands for you.");
+                                    mMarketStandAdapter.notifyDataSetChanged();
+
+
+                                } else {
+//
+                                    progressBar.setVisibility(View.GONE);
+
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(PayMarketFees.this);
+                                    builder.setCancelable(false);
+                                    builder.setMessage("You currently have no fees to pay today.");
+                                    builder.setPositiveButton("Ok",
+                                            new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int id) {
+
+                                                    Intent intent = new Intent(PayMarketFees.this, MainActivity.class);
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            });
+                                    builder.create().show();
+                                }}
+                            else {
+
+                                progressBar.setVisibility(View.GONE);
+
+
+                                AlertDialog.Builder builder = new AlertDialog.Builder(PayMarketFees.this);
+                                builder.setCancelable(false);
+                                builder.setMessage("You currently have no fees to pay today.");
+                                builder.setPositiveButton("Ok",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+
+                                                Intent intent = new Intent(PayMarketFees.this, MainActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        });
+                                builder.create().show();
+
 
                             }
-
-
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            progressBar.setVisibility(View.GONE);
+//                            AlertDialog.Builder builder = new AlertDialog.Builder(PayMarketFees.this);
+//                            builder.setCancelable(false);
+//                            builder.setMessage("An error occured while trying to retrieve market stands, kindly check your internet connection and try again.");
+//                            builder.setPositiveButton("Ok",
+//                                    new DialogInterface.OnClickListener() {
+//                                        public void onClick(DialogInterface dialog, int id) {
+//
+//                                            Intent intent = new Intent(PayMarketFees.this, MainActivity.class);
+//                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                                            startActivity(intent);
+//                                            finish();
+//                                        }
+//                                    });
+//                            builder.create().show();
+
                         }
 
                     }
+
                 },
                 new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show()
-                        //Handle Errors here
-                        //   progressDialog.dismiss();
+                    public void onErrorResponse(VolleyError error)  {
                         Log.d("Error.Response", error.toString());
-                        //Log.d("Error.Response", error.getMessage());
-                        DialogBox.mLovelyStandardDialog(PayMarketFees.this, "Server unreachable");
-                        // startActivity(new Intent( BuyFromTrader.this,MainActivity.class));
+
+                        progressBar.setVisibility(View.GONE);
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(PayMarketFees.this);
+                        builder.setCancelable(false);
+                        builder.setMessage("Connection failure, kindly check your internet connection and try again and try again.");
+                        builder.setPositiveButton("Ok",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                        Intent intent = new Intent(PayMarketFees.this, MainActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                });
+                        builder.create().show();
+
+
                     }
                 }) {
             @Override
@@ -255,12 +388,16 @@ public class PayMarketFees extends AppCompatActivity implements MarketStandAdapt
             }
         };
 
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(KEY_VOLLEY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         //  VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
 
-    }
 
+    }
 
     public void sendInformation
             (
@@ -272,25 +409,38 @@ public class PayMarketFees extends AppCompatActivity implements MarketStandAdapt
                     String buyer_mobile_number,
                     double amount_due,
                     String device_serial
-            )
-    {
+            ) {
 
         //progressDialog.show();
 
         ///prepare your JSONObject which you want to send in your web service request
+        String transaction_date = SharedPrefManager.getInstance(PayMarketFees.this).getTranactionDate();
 
         JSONObject jsonObject = new JSONObject();
         try {
 
             jsonObject.put( "transaction_type_id",transaction_type_id);
-            jsonObject.put("stand_number",stand_number);
+            jsonObject.put("seller_id", seller_id);
+            jsonObject.put("seller_firstname",seller_first_name);
+            jsonObject.put("seller_lastname",seller_last_name);
+            jsonObject.put("seller_mobile_number",seller_mobile_number);
             jsonObject.put("buyer_id",buyer_id);
             jsonObject.put("buyer_firstname",buyer_first_name);
             jsonObject.put("buyer_lastname",buyer_last_name);
             jsonObject.put("buyer_mobile_number",buyer_mobile_number);
+            jsonObject.put("buyer_email", null);
             jsonObject.put("amount_due", amount_due);
             jsonObject.put("device_serial",device_serial);
-            jsonObject.put("transaction_date", Calendar.getInstance().getTime());
+            jsonObject.put("transaction_date",transaction_date);
+            jsonObject.put( "route_code",null);
+            jsonObject.put( "transaction_channel",KEY_TRANSACTION_CHANNEL);
+            jsonObject.put( "bus_schedule_id",null);
+            jsonObject.put( "id_type", null);
+            jsonObject.put( "passenger_id",null);
+            jsonObject.put( "travel_date",null);
+            jsonObject.put("travel_time",null);
+            jsonObject.put("stand_number", stand_number);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -304,10 +454,24 @@ public class PayMarketFees extends AppCompatActivity implements MarketStandAdapt
                         // display response
                         //  progressDialog.dismiss();
                         Log.d("Response", response.toString());
+                        progressBar.setVisibility(View.GONE);
+
                         try {
                             // etAmount.requestFocus();
-                            DialogBox.mLovelyStandardDialog(PayMarketFees.this, response.getString(KEY_MESSAGE));
-                            //startActivity(new Intent( MakeSell.this,MainActivity.class));
+                            Log.d("Response", response.getString(KEY_MESSAGE));
+//                            AlertDialog.Builder builder = new AlertDialog.Builder(PayMarketFees.this);
+//
+//                            builder.setMessage("Check your phone to approve the payment. An SMS will notify you of the transaction status.");
+//                            builder.setPositiveButton("Ok",
+//                                    new DialogInterface.OnClickListener() {
+//                                        public void onClick(DialogInterface dialog, int id) {
+//                                            Intent intent = new Intent(PayMarketFees.this, MainActivity.class);
+//                                            startActivity(intent);
+//                                        }
+//                                    });
+//                            builder.create().show();
+//                            //DialogBox.mLovelyStandardDialog(PayMarketFees.this, response.getString(KEY_MESSAGE));
+//                            //startActivity(new Intent( MakeSell.this,MainActivity.class));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -321,9 +485,20 @@ public class PayMarketFees extends AppCompatActivity implements MarketStandAdapt
                 //Handle Errors here
                 //progressDialog.dismiss();
                 Log.d("Error.Response", error.toString());
-                Log.d("Error.Response", error.getMessage());
+               // Log.d("Error.Response", error.getMessage());
 
-                //  DialogBox.mLovelyStandardDialog( MakeSell.this, error.toString());
+//                AlertDialog.Builder builder = new AlertDialog.Builder(PayMarketFees.this);
+//                builder.setMessage("Connection failure, kindly check your internet connection.");
+//                builder.setPositiveButton("Ok",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int id) {
+//                                Intent intent = new Intent(PayMarketFees.this, MainActivity.class);
+//                                startActivity(intent);
+//                            }
+//                        });
+//                builder.create().show();
+//                //DialogBox.mLovelyStandardDialog(PayMarketFees.this, response.getString(KEY_MESSAGE));
+//                //startActivity(new Intent( MakeSell.this,MainActivity.class));
             }
         }) {
 
@@ -337,11 +512,16 @@ public class PayMarketFees extends AppCompatActivity implements MarketStandAdapt
             }
 
         };
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(KEY_VOLLEY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
+        //  VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
         // add it to the RequestQueue
-        queue.add(jsonObjectRequest);
+       // queue.add(jsonObjectRequest);
     }
-
 
 
 }
