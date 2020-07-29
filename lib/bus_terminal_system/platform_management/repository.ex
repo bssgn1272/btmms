@@ -686,7 +686,7 @@ defmodule BusTerminalSystem.RepoManager do
     {:ok, agent} = Agent.start_link fn  -> [] end
 
     #    {YYYY}-{0M}-{0D}
-    query = from r in TblEdReservations , where: r.reserved_time >= ^Timex.parse!(date, "{0D}/{0M}/{YYYY}")
+    query = from r in TblEdReservations , where: r.reserved_time >= ^Timex.parse!(date, "{0D}/{0M}/{YYYY}") and r.status == "A"
     #    query = from r in TblEdReservations, where: fragment("?::date_time", r.reserved_time) >= ^Timex.parse!(date, "{YYYY}-{0M}-{0D}") and
     #                                                fragment("?::date_time", r.reserved_time) <= ^Timex.parse!(date, "{YYYY}-{0M}-{0D}")
     {st, data} = Repo.all(query) |> Poison.encode
@@ -728,19 +728,18 @@ defmodule BusTerminalSystem.RepoManager do
       {:ok, date} = Map.fetch(e,"reserved_time")
       {:ok, slot} = Map.fetch(e,"slot")
 
-      IO.inspect "start route #{queried_route.start_route} : end route #{queried_route.end_route}"
       if queried_route.start_route == start_route and queried_route.end_route == end_route do
         Agent.update(agent, fn list -> [
-                                         %{
-                                           "available_seats" => available_seats(capacity,schedule_ticket_count(Utility.int_to_string(route_uid))),
-                                           "bus_schedule_id" => route_uid |> to_string,
-                                           "route" => route,
-                                           "bus" => bus,
-                                           "fare" => fare,
-                                           "slot" => slot,
-                                           "departure_time" => time,
-                                           "departure_date" => date
-                                         } | list ] end)
+           %{
+             "available_seats" => available_seats(capacity,schedule_ticket_count(Utility.int_to_string(route_uid))),
+             "bus_schedule_id" => route_uid |> to_string,
+             "route" => route,
+             "bus" => bus,
+             "fare" => fare,
+             "slot" => slot,
+             "departure_time" => time,
+             "departure_date" => date
+           } | list ] end)
       end
 
 
@@ -754,10 +753,11 @@ defmodule BusTerminalSystem.RepoManager do
     {:ok, agent} = Agent.start_link fn  -> [] end
 
 #    {YYYY}-{0M}-{0D}
-    query = from r in TblEdReservations , where: r.reserved_time >= ^Timex.parse!(date, "{YYYY}-{0M}-{0D}")
+    query = from r in TblEdReservations , where: r.reserved_time >= ^Timex.parse!(date, "{YYYY}-{0M}-{0D}") and r.status == "A"
 #    query = from r in TblEdReservations, where: fragment("?::date_time", r.reserved_time) >= ^Timex.parse!(date, "{YYYY}-{0M}-{0D}") and
 #                                                fragment("?::date_time", r.reserved_time) <= ^Timex.parse!(date, "{YYYY}-{0M}-{0D}")
     {st, data} = Repo.all(query) |> Poison.encode
+#    {st, data} = TblEdReservations.where([status: "B", reserved_time: Timex.parse!(date, "{0D}/{0M}/{YYYY}")]) |> Poison.encode
 
 
     IO.inspect data

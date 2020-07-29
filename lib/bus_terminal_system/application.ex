@@ -17,7 +17,7 @@ defmodule BusTerminalSystem.Application do
       # Starts a worker by calling: BusTerminalSystem.Worker.start_link(arg)
       # {BusTerminalSystem.Worker, arg},
       # SMS job
-       BusTerminalSystem.Job.Sms
+#       BusTerminalSystem.Job.Sms
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

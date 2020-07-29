@@ -64,7 +64,6 @@ defmodule BusTerminalSystemWeb.TicketController do
     users = AccountManager.list_users()
     tickets = RepoManager.list_tickets()
 
-
     ticket_params = Map.put(ticket_params, "class", "TICKET")
     ticket_params = Map.put(ticket_params, "route_information", ticket_params["route_information"]) #route_information
 

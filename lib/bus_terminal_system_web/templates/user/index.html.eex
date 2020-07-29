@@ -1569,7 +1569,7 @@ toolbar -->
 
                                                 <div class="form-group">
                                                       <label>Company:</label>
-                                                      <input name="payload[company]" disabled id="vehicleCompany" class="form-control" placeholder="Enter Company Number" type="text" required>
+                                                      <input name="payload[company]" readonly id="vehicleCompany" class="form-control" placeholder="Enter Company Number" type="text" required>
                                                 </div>
 
                                                 <div class="form-group">
