@@ -1,14 +1,15 @@
 package controllers
 
 import (
-	"../models"
-	u "../utils"
 	"encoding/json"
-	"github.com/gorilla/mux"
+	"fmt"
 	"log"
 	"net/http"
-)
 
+	"../models"
+	u "../utils"
+	"github.com/gorilla/mux"
+)
 
 // Function retrieving Reservations requests Admin side
 var GetReservationsRequestsController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -59,17 +60,16 @@ var UpdateReservationController = http.HandlerFunc(func(w http.ResponseWriter, r
 		u.Respond(w, u.Message(false, "Error while decoding request body"))
 		return
 	}
-
+	fmt.Print("Reservation Cancellation: ")
+	fmt.Println(reservation.CancellationReason)
 	resp := reservation.Update(id)
 	u.Respond(w, resp)
-
 })
-
 
 // Function for closing slot
 var CloseReservationController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
-	slot :=&models.EdSlot{}
+	slot := &models.EdSlot{}
 
 	err := json.NewDecoder(r.Body).Decode(slot)
 	if err != nil {

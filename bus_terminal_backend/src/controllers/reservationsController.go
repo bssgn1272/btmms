@@ -1,19 +1,19 @@
 package controllers
 
 import (
-	"../models"
-	u "../utils"
 	"encoding/json"
 	"fmt"
-	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"strconv"
+
+	"../models"
+	u "../utils"
+	"github.com/gorilla/mux"
 )
 
-// Function for reservation request function
+// CreateReservationController Function for reservation request function
 var CreateReservationController http.HandlerFunc = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
 
 	reservation := &models.EdReservation{}
 
@@ -28,7 +28,7 @@ var CreateReservationController http.HandlerFunc = http.HandlerFunc(func(w http.
 	_ = json.NewEncoder(w).Encode(resp)
 })
 
-// Function for retrieving reservation requests for the day
+// GetReservationsController Function for retrieving reservation requests for the day
 var GetReservationsController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	data := models.GetReservations()
@@ -38,7 +38,7 @@ var GetReservationsController = http.HandlerFunc(func(w http.ResponseWriter, r *
 	u.Respond(w, resp)
 })
 
-// Function for retrieving reservations for a particular user
+// GetReservationsForController Function for retrieving reservations for a particular user
 var GetReservationsForController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
@@ -57,8 +57,7 @@ var GetReservationsForController = http.HandlerFunc(func(w http.ResponseWriter, 
 	u.Respond(w, resp)
 })
 
-
-// Function for retrieving reservations for a particular user
+// GetReservationsHistoryForController Function for retrieving reservations for a particular user
 var GetReservationsHistoryForController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)

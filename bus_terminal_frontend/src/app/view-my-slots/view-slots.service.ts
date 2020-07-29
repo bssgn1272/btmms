@@ -13,6 +13,8 @@ export class ViewSlotsService {
 
   private url = "/api/reservation/get";
   private urlh = "/api/reservation/history/get";
+  private arUrl = "/api/arreservation/get";
+  private arUrlh = "/api/arreservation/history/get";
 
   constructor(private http: HttpClient, private authService: AuthService) {
     this.currentUser = this.authService.currentUserValue;
@@ -25,6 +27,16 @@ export class ViewSlotsService {
 
   async getHistoryList(id): Promise<any> {
     const url = `${this.urlh}/${id}`;
+    return await this.http.get(url).toPromise().catch(this.handleError);
+  }
+
+  async arGetList(id: number): Promise<any> {
+    const url = `${this.arUrl}/${id}`;
+    return await this.http.get(url).toPromise().catch(this.handleError);
+  }
+
+  async arGetHistoryList(id): Promise<any> {
+    const url = `${this.arUrlh}/${id}`;
     return await this.http.get(url).toPromise().catch(this.handleError);
   }
 

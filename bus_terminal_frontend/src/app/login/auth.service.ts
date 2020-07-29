@@ -3,13 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user';
 import { map } from 'rxjs/operators';
-// import { Billing } from './billing';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private url = '/api/login';
+  private urlRP = "/api/auth/resetpassword";
 
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
@@ -46,5 +46,16 @@ export class AuthService {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+  }
+
+  async resetPassword(username: string){
+    const urlRP = `${this.urlRP}`;
+    const jsonStr = `{"username":"${username}","password":"none"}`;
+    return await this.http.post(urlRP, jsonStr).toPromise().catch(this.handleError);
+  }
+  
+  // handler for error in URL
+  private handleError(error: any): Promise<any> {
+    return Promise.reject(error.message || error);
   }
 }

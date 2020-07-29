@@ -1,18 +1,18 @@
 package controllers
 
 import (
-	"../models"
-	u "../utils"
 	"encoding/json"
-	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"strconv"
+
+	"../models"
+	u "../utils"
+	"github.com/gorilla/mux"
 )
 
 // Function for time request function
 var CreatePenaltyTimeController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
 
 	time := &models.EdPenaltyInterval{}
 

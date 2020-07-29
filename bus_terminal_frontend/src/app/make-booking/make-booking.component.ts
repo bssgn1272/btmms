@@ -7,6 +7,7 @@ import { FormGroup, Validators, FormBuilder } from "@angular/forms";
 import { Location } from "@angular/common";
 import { v4 } from "uuid";
 import { ViewSlotsService } from "app/view-my-slots/view-slots.service";
+import { SettingsService } from "app/settings/settings.service";
 
 export interface Slot {
   value: string;
@@ -42,8 +43,13 @@ export class MakeBookingComponent implements OnInit {
   slot_three = "";
   slot_four = "";
   slot_five = "";
+  slot_six = "";
+  slot_seven = "";
+  slot_eight = "";
+  slot_nine = "";
   returnUrl: "";
   userItems: any;
+  charge: any;
   _id: any;
   public destinations: [];
   submitted = false;
@@ -61,7 +67,8 @@ export class MakeBookingComponent implements OnInit {
     private makeBookingService: MakeBookingService,
     private _formBuilder: FormBuilder,
     private _location: Location,
-    private reservationService: ViewSlotsService
+    private reservationService: ViewSlotsService,
+    private settings: SettingsService
   ) {
     this.bookingForm = this._formBuilder.group({
       slot: ["", Validators.required],
@@ -141,6 +148,50 @@ export class MakeBookingComponent implements OnInit {
       this.closed = false;
     }
 
+    this.slot_six = this.data.row.slot_six;
+    if (this.slot_six !== "open") {
+      this.closed = true;
+      this.open = false;
+    }
+
+    if (this.slot_six === "open") {
+      this.open = true;
+      this.closed = false;
+    }
+
+    this.slot_seven = this.data.row.slot_seven;
+    if (this.slot_seven !== "open") {
+      this.closed = true;
+      this.open = false;
+    }
+
+    if (this.slot_seven === "open") {
+      this.open = true;
+      this.closed = false;
+    }
+
+    this.slot_eight = this.data.row.slot_eight;
+    if (this.slot_eight !== "open") {
+      this.closed = true;
+      this.open = false;
+    }
+
+    if (this.slot_eight === "open") {
+      this.open = true;
+      this.closed = false;
+    }
+
+    this.slot_nine = this.data.row.slot_nine;
+    if (this.slot_nine !== "open") {
+      this.closed = true;
+      this.open = false;
+    }
+
+    if (this.slot_nine === "open") {
+      this.open = true;
+      this.closed = false;
+    }
+
     this.user_id = this.data.row.id;
     this.time = this.data.row.time;
     // this.reserved_time = this.data.row.reserved_time;
@@ -173,16 +224,23 @@ export class MakeBookingComponent implements OnInit {
 
       this.reservationService.getList(this._id).then((rese) => {
         this.reservedBus = rese.data;
+        var operatingDate = (new Date(sessionStorage.getItem('operatingDate'))).toISOString().split('T')[0];
 
         this.buses = this.busesFilter.filter(
           (o) =>
             !this.reservedBus.find(
-              (o2) => o.id === o2.bus_id && o2.status === "A"
+              (o2) => o.id === o2.bus_id && o2.status === "A" && o2.reserved_time.split('T')[0] == operatingDate
             )
         );
       });
 
       console.log(this.buses);
+    });
+  }
+
+  async getCharge(event) {
+    await this.settings.getBookingCharge(event.value).then((res) => {
+      this.charge = res.data[0];
     });
   }
 
@@ -201,6 +259,8 @@ export class MakeBookingComponent implements OnInit {
 
     this.status = "A";
     this.time = this.data.row.time;
+    var reservation_time = (new Date(sessionStorage.getItem('operatingDate'))).toISOString().split('.')[0]+"Z";
+    console.log(reservation_time);
 
     this.httpClient
       .post("/api/reservation/requests/create", {
@@ -210,7 +270,7 @@ export class MakeBookingComponent implements OnInit {
         user_id: this._id,
         res_uuid: v4(),
         time: this.data.row.time,
-        reserved_time: this.data.row.reservation_time,
+        reserved_time: reservation_time, //this.data.row.reservation_time
         bus_id: this.f.bus.value,
       })
       .subscribe(
@@ -252,6 +312,38 @@ export class MakeBookingComponent implements OnInit {
               .put("/api/slots/close", {
                 time: this.time,
                 slot_five: this.user,
+              })
+              .toPromise();
+          }
+          if (this.f.slot.value === "slot_six") {
+            this.httpClient
+              .put("/api/slots/close", {
+                time: this.time,
+                slot_six: this.user,
+              })
+              .toPromise();
+          }
+          if (this.f.slot.value === "slot_seven") {
+            this.httpClient
+              .put("/api/slots/close", {
+                time: this.time,
+                slot_seven: this.user,
+              })
+              .toPromise();
+          }
+          if (this.f.slot.value === "slot_eight") {
+            this.httpClient
+              .put("/api/slots/close", {
+                time: this.time,
+                slot_eight: this.user,
+              })
+              .toPromise();
+          }
+          if (this.f.slot.value === "slot_nine") {
+            this.httpClient
+              .put("/api/slots/close", {
+                time: this.time,
+                slot_nine: this.user,
               })
               .toPromise();
           }

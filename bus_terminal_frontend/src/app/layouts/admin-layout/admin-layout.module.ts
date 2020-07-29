@@ -33,6 +33,7 @@ import {
   MatSlideToggleModule,
 } from "@angular/material";
 import { MakeBookingComponent } from "app/make-booking/make-booking.component";
+import { ArMakeBookingComponent } from "app/ar-make-booking/ar-make-booking.component";
 import { ViewMySlotsComponent } from "app/view-my-slots/view-my-slots.component";
 import { RoservationRequestsComponent } from "app/roservation-requests/roservation-requests.component";
 import { AlertsComponent } from "app/alert/alerts.component";
@@ -81,6 +82,7 @@ import { DueTimeComponent } from "../../settings/components/due-time/due-time.co
     DashboardComponent,
     UserProfileComponent,
     MakeBookingComponent,
+    ArMakeBookingComponent,
     ViewMySlotsComponent,
     RoservationRequestsComponent,
     AlertsComponent,

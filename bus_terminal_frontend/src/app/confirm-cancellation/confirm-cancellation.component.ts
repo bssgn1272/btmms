@@ -16,6 +16,10 @@ export class ConfirmCancellationComponent implements OnInit {
   slot_three = "open";
   slot_four = "open";
   slot_five = "open";
+  slot_six = "open";
+  slot_seven = "open";
+  slot_eight = "open";
+  slot_nine = "open";
   time = "";
   id: any;
   status: string;
@@ -72,6 +76,34 @@ export class ConfirmCancellationComponent implements OnInit {
         .put("/api/slots/close", {
           time: this.time,
           slot_five: this.slot_five,
+        })
+        .toPromise();
+    } else if (this.slot === "slot_six") {
+      this.httpClient
+        .put("/api/slots/close", {
+          time: this.time,
+          slot_six: this.slot_six,
+        })
+        .toPromise();
+    } else if (this.slot === "slot_seven") {
+      this.httpClient
+        .put("/api/slots/close", {
+          time: this.time,
+          slot_seven: this.slot_seven,
+        })
+        .toPromise();
+    } else if (this.slot === "slot_eight") {
+      this.httpClient
+        .put("/api/slots/close", {
+          time: this.time,
+          slot_eight: this.slot_eight,
+        })
+        .toPromise();
+    } else if (this.slot === "slot_nine") {
+      this.httpClient
+        .put("/api/slots/close", {
+          time: this.time,
+          slot_nine: this.slot_nine,
         })
         .toPromise();
     }

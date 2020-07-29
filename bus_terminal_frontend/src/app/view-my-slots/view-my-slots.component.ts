@@ -29,6 +29,10 @@ export class ViewMySlotsComponent implements OnInit {
   slot_three = "open";
   slot_four = "open";
   slot_five = "open";
+  slot_six = "open";
+  slot_seven = "open";
+  slot_eight = "open";
+  slot_nine = "open";
   time = "";
   from: any;
   to: any;
@@ -47,9 +51,13 @@ export class ViewMySlotsComponent implements OnInit {
   ];
 
   dataSource = new MatTableDataSource([]);
+  arDataSource = new MatTableDataSource([]);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+
+  @ViewChild(MatPaginator) arPaginator: MatPaginator;
+  @ViewChild(MatSort) arSort: MatSort;
   userItems: any;
 
   displayedHistoryColumns: string[] = [
@@ -66,7 +74,9 @@ export class ViewMySlotsComponent implements OnInit {
   @ViewChild("HistoryPaginator") paginatorHistory: MatPaginator;
   @ViewChild("HistorySort") sortHistory: MatSort;
   displayData: any;
+  arDisplayData: any;
   filterDataSource: any;
+  arFilterDataSource: any;
   rStatus: string;
   displayDataHistory: any;
   filterDataSourceHistory: any;
@@ -99,6 +109,15 @@ export class ViewMySlotsComponent implements OnInit {
       this.dataSource.sort = this.sort;
     });
 
+    this.viewSlots.arGetList(_id).then((res) => {
+      console.log("MY SLOTS>>>>", res.data);
+      this.arDisplayData = res.data;
+      this.filterDataSource = this.arDisplayData;
+      this.arDataSource = new MatTableDataSource(this.arDisplayData);
+      this.arDataSource.paginator = this.arPaginator;
+      this.arDataSource.sort = this.arSort;
+    });
+
     this.viewSlots.getHistoryList(_id).then((res) => {
       this.displayDataHistory = res.data;
       this.filterDataSourceHistory = this.displayDataHistory;
@@ -112,6 +131,10 @@ export class ViewMySlotsComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  arApplyFilter(filterValue: string) {
+    this.arDataSource.filter = filterValue.trim().toLowerCase();
   }
 
   applyHistoryFilter(filterValue: string) {
@@ -131,7 +154,7 @@ export class ViewMySlotsComponent implements OnInit {
     console.log("Row clicked: ", row);
   }
 
-  log(value) {
+  log(value: any) {
     // this.requests.getList().then((res) => {
     if (value === "All") {
       this.filterDataSource = this.displayData;
@@ -153,6 +176,41 @@ export class ViewMySlotsComponent implements OnInit {
         this.rStatus = "A";
       } else if (value === "PC") {
         this.rStatus = "PC";
+      } else if (value === "DL") {
+        this.rStatus = "DL";
+      } else if (value === "D") {
+        this.rStatus = "D";
+      }
+    }
+    // });
+  }
+
+  arLog(value: any) {
+    // this.requests.getList().then((res) => {
+    if (value === "All") {
+      this.arFilterDataSource = this.arDisplayData;
+      this.arDataSource = new MatTableDataSource(this.arFilterDataSource);
+      this.arDataSource.paginator = this.arPaginator;
+      this.arDataSource.sort = this.arSort;
+    } else {
+      this.filterDataSource = this.arDisplayData.filter(
+        (x) => x.status === value
+      );
+      this.arDataSource = new MatTableDataSource(this.arFilterDataSource);
+      this.arDataSource.paginator = this.arPaginator;
+      this.arDataSource.sort = this.arSort;
+      if (value === "All") {
+        this.rStatus = "All";
+      } else if (value === "C") {
+        this.rStatus = "C";
+      } else if (value === "A") {
+        this.rStatus = "A";
+      } else if (value === "PC") {
+        this.rStatus = "PC";
+      } else if (value === "DL") {
+        this.rStatus = "DL";
+      } else if (value === "D") {
+        this.rStatus = "D";
       }
     }
     // });
@@ -188,7 +246,37 @@ export class ViewMySlotsComponent implements OnInit {
     );
   }
 
-  logHistory(value) {
+  arDateRange() {
+    console.log(this.from, this.to);
+    if (this.rStatus !== "All") {
+      this.arFilterDataSource = this.arDisplayData.filter(
+        (x) =>
+          x.reserved_time >
+            formatDate(this.from, "yyy-MM-dd hh:mm:ss", "en-US", "+0530") &&
+          x.reserved_time <
+            formatDate(this.to, "yyy-MM-dd hh:mm:ss", "en-US", "+0530") &&
+          x.status === this.rStatus
+      );
+    } else {
+      this.arFilterDataSource = this.arDisplayData.filter(
+        (x) =>
+          x.reserved_time >
+            formatDate(this.from, "yyy-MM-dd hh:mm:ss", "en-US", "+0530") &&
+          x.reserved_time <
+            formatDate(this.to, "yyy-MM-dd hh:mm:ss", "en-US", "+0530")
+      );
+    }
+
+    this.arDataSource = new MatTableDataSource(this.arFilterDataSource);
+    this.arDataSource.paginator = this.arPaginator;
+    this.arDataSource.sort = this.arSort;
+    console.log(
+      this.arDisplayData,
+      formatDate(this.from, "yyy-MM-dd hh:mm:ss", "en-US", "+0530")
+    );
+  }
+
+  logHistory(value: any) {
     // this.requests.getList().then((res) => {
     if (value === "All") {
       this.filterDataSourceHistory = this.displayDataHistory;

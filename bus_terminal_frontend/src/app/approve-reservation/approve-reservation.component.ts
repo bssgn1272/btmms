@@ -18,6 +18,10 @@ export class ApproveReservationComponent implements OnInit {
   slot_three = "open";
   slot_four = "open";
   slot_five = "open";
+  slot_six = "open";
+  slot_seven = "open";
+  slot_eight = "open";
+  slot_nine = "open";
   user = "";
   time = "";
   slot_status: any;

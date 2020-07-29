@@ -5,8 +5,11 @@ import {
   LocationStrategy,
   PathLocationStrategy
 } from '@angular/common';
+import { MatDialog } from "@angular/material";
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'app/login/auth.service';
+import { SettingsService } from "app/settings/settings.service";
+import { ChangePasswordComponent } from "app/change-password/change-password.component";
 
 @Component({
   selector: 'app-navbar',
@@ -19,19 +22,25 @@ export class NavbarComponent implements OnInit {
   mobile_menu_visible: any = 0;
   private toggleButton: any;
   private sidebarVisible: boolean;
+  activated = false;
+  dialogRef: any;
+  currentUser: any;
 
   constructor(
     location: Location,
     private element: ElementRef,
     private router: Router,
     private route: ActivatedRoute,
-    private auth: AuthService
+    private auth: AuthService,
+    private dialog: MatDialog,
+    private settings: SettingsService,
   ) {
     this.location = location;
     this.sidebarVisible = false;
   }
 
   ngOnInit() {
+    this.currentUser = this.getFromLocalStorage();
     this.listTitles = ROUTES.filter(listTitle => listTitle);
     const navbar: HTMLElement = this.element.nativeElement;
     this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
@@ -43,6 +52,14 @@ export class NavbarComponent implements OnInit {
         this.mobile_menu_visible = 0;
       }
     });
+    
+    if(this.currentUser.account_status === 'ACTIVE'){
+      this.activated = true;
+    }
+
+    if(!this.activated){
+      this.changePasswordDialog();
+    }
   }
 
   sidebarOpen() {
@@ -139,5 +156,28 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.auth.logout();
     this.router.navigate(['login']);
+  }
+
+  changePasswordDialog(): void {
+    console.log(this.currentUser);
+    this.dialogRef = this.dialog.open(ChangePasswordComponent, {
+      width: '60%',
+      data: {activated: this.activated}
+    });
+
+    if(!this.activated){
+      this.dialogRef.disableClose = true;
+    }
+    this.dialogRef.afterClosed().subscribe(result => {
+      this.currentUser = this.getFromLocalStorage();
+      if(this.currentUser.account_status === 'ACTIVE'){
+        this.activated = true;
+      }
+    });
+  }
+
+  public getFromLocalStorage() {
+    const users = JSON.parse(localStorage.getItem("currentUser"));
+    return users;
   }
 }

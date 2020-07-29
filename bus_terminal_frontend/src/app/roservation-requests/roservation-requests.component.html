@@ -200,7 +200,11 @@
                         Status
                       </th>
                       <td mat-cell *matCellDef="let element">
-                        {{ element.status }}
+                        <div *ngIf="element.status == 'A'">Approved</div>
+                        <div *ngIf="element.status == 'PC'">Pending Cancellation</div>
+                        <div *ngIf="element.status == 'C'">Cancelled</div>
+                        <div *ngIf="element.status == 'DL'">Delayed</div>
+                        <div *ngIf="element.status == 'D'">Departed</div>
                       </td>
                     </ng-container>
 
@@ -211,6 +215,15 @@
                       </th>
                       <td mat-cell *matCellDef="let element">
                         {{ element.reserved_time | date: "dd/MM/yyyy" }}
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="cancellation_reason">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Cancellation Reason
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.cancellation_reason }}
                       </td>
                     </ng-container>
 
@@ -405,7 +418,11 @@
                         Status
                       </th>
                       <td mat-cell *matCellDef="let element">
-                        {{ element.status }}
+                        <div *ngIf="element.status == 'A'">Approved</div>
+                        <div *ngIf="element.status == 'PC'">Pending Cancellation</div>
+                        <div *ngIf="element.status == 'C'">Cancelled</div>
+                        <div *ngIf="element.status == 'DL'">Delayed</div>
+                        <div *ngIf="element.status == 'D'">Departed</div>
                       </td>
                     </ng-container>
 

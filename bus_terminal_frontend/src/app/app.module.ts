@@ -11,6 +11,7 @@ import { AppComponent } from "./app.component";
 import { AgmCoreModule } from "@agm/core";
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { LoginComponent } from "./login/login.component";
+import { PasswordResetComponent } from "./login/password-reset.component";
 import { AlertComponent } from "./alert/alert.component";
 import { MatDialogModule } from "@angular/material";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -37,6 +38,7 @@ import { JwtInterceptor, ErrorInterceptor } from "./interceptor";
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
+    PasswordResetComponent,
     AlertComponent,
   ],
   providers: [

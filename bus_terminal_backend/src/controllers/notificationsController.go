@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"net/smtp"
 	"net/url"
-	"os"
 	"strings"
 )
 
@@ -16,7 +15,6 @@ var GetEmailController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Re
 	w.Header().Set("content-type", "application/json")
 	queryValues := r.URL.Query()
 	_, _ = fmt.Fprintf(w, "hello, %s!\n", queryValues.Get("email"))
-
 
 	email := queryValues.Get("email")
 	user := queryValues.Get("user")
@@ -45,12 +43,11 @@ Subject: %s
 
 	message := fmt.Sprintf(mess, user, email, subject, text)
 
-
 	log.Println(message)
 
 	if err := smtp.SendMail(host+":587", auth, from, []string{to}, []byte(message)); err != nil {
 		fmt.Println("Error SendMail: ", err)
-		os.Exit(1)
+		return
 	}
 	fmt.Println("Email Sent!")
 	//data := d
@@ -80,13 +77,12 @@ var GetSMSController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Requ
 	//msg = strings.Replace(msg, "%0A", "", -1)
 	log.Println(msg)
 
-
 	//uri := "http://10.8.0.10/sms/index.php?sender=" + sender + "&msisdn=" + msisdn + "&" + msg
 
 	var Url *url.URL
-	Url, err := url.Parse("http://196.46.196.38:13013/napsamobile/pushsms")
+	Url, err := url.Parse("http://10.10.1.43:13013/napsamobile/pushsms")
 	if err != nil {
-		panic("boom")
+		return
 	}
 
 	parameters := url.Values{}
@@ -96,7 +92,6 @@ var GetSMSController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Requ
 	parameters.Add("from", "BTMMS")
 	parameters.Add("to", receiver)
 	parameters.Add("text", msg)
-
 
 	Url.RawQuery = parameters.Encode()
 

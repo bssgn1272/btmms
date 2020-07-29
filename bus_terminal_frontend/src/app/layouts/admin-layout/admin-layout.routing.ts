@@ -4,6 +4,7 @@ import { DashboardComponent } from "../../dashboard/dashboard.component";
 import { UserProfileComponent } from "../../user-profile/user-profile.component";
 import { DispatchComponent } from "../../components/dispatch-details/dispatch-details.component";
 import { MakeBookingComponent } from "app/make-booking/make-booking.component";
+import { ArMakeBookingComponent } from "app/ar-make-booking/ar-make-booking.component";
 import { ViewMySlotsComponent } from "app/view-my-slots/view-my-slots.component";
 import { Role } from "app/models/role";
 import { RoservationRequestsComponent } from "app/roservation-requests/roservation-requests.component";
@@ -14,7 +15,6 @@ import { SlotTimeComponent } from "../../slot-time/slot-time.component";
 import { UpdateSlotTimeComponent } from "../../update-slot-time/update-slot-time.component";
 import { RejectComponent } from "../../reject/reject.component";
 import { CancelReservationComponent } from "../../cancel-reservation/cancel-reservation.component";
-
 import { CancellationRequestComponent } from "../../cancellation-request/cancellation-request.component";
 import { ConfirmCancellationComponent } from "../../confirm-cancellation/confirm-cancellation.component";
 import { ModesComponent } from "../../settings/components/modes/modes.component";
@@ -31,6 +31,11 @@ export const AdminLayoutRoutes: Routes = [
   {
     path: "make-booking",
     component: MakeBookingComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "ar-make-booking",
+    component: ArMakeBookingComponent,
     canActivate: [AuthGuard],
   },
   {

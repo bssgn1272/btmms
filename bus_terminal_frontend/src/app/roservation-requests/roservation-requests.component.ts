@@ -32,6 +32,10 @@ export class RoservationRequestsComponent implements OnInit {
   slot_three = "open";
   slot_four = "open";
   slot_five = "open";
+  slot_six = "open";
+  slot_seven = "open";
+  slot_eight = "open";
+  slot_nine = "open";
   user = "";
   time = "";
   returnUrl: string;
@@ -100,6 +104,10 @@ export class RoservationRequestsComponent implements OnInit {
     "slot_three",
     "slot_four",
     "slot_five",
+    "slot_six",
+    "slot_seven",
+    "slot_eight",
+    "slot_nine",
   ];
 
   dataSourceSlot = new MatTableDataSource([]);

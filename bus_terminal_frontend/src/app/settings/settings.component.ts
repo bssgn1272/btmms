@@ -68,6 +68,10 @@ export class SettingsComponent implements OnInit {
     "slot_three",
     "slot_four",
     "slot_five",
+    "slot_six",
+    "slot_seven",
+    "slot_eight",
+    "slot_nine",
     "action",
   ];
   slotDataSource = new MatTableDataSource([]);
@@ -136,7 +140,7 @@ export class SettingsComponent implements OnInit {
       this.dataSource.sort = this.sort;
     });
 
-    this.settings.getDUeTimes().then((res) => {
+    this.settings.getDueTimes().then((res) => {
       this.dueTime = res.data;
       console.log(this.dueTime);
 

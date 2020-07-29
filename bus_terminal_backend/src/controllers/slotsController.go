@@ -1,14 +1,15 @@
 package controllers
 
 import (
-	"../models"
-	u "../utils"
 	"encoding/json"
-	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"strconv"
 	"time"
+
+	"../models"
+	u "../utils"
+	"github.com/gorilla/mux"
 )
 
 // Function for Creating Slots
@@ -26,7 +27,6 @@ var CreateSlotController = http.HandlerFunc(func(w http.ResponseWriter, r *http.
 	u.Respond(w, resp)
 })
 
-
 // Function for retrieving Slots
 var GetSlotsController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
@@ -37,6 +37,16 @@ var GetSlotsController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Re
 	u.Respond(w, resp)
 })
 
+var GetSlotsByDateController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+	params := mux.Vars(r)
+	date, _ := params["date"]
+	data := models.GetSlotsByDate(date)
+	resp := u.Message(true, "success")
+	resp["data"] = data
+	log.Println(resp)
+	u.Respond(w, resp)
+})
 
 // Function for openning slots at midnight
 func InitMidNight() {

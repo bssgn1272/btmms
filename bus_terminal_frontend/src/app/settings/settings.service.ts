@@ -8,7 +8,11 @@ export class SettingsService {
   private url = "/api/destination/time";
   private urlb = "/api/day";
   private urlM = "/api/workflow";
-  private urlT = "/api/penalty/time";
+  private urlT = "/api/options/get";
+  private urlC = "/api/penalty/charge";
+  private urlB = "/api/slots/charge";
+  private urlP = "/api/penalty/time";
+  private urlCP = "/api/auth/changepassword";
 
   constructor(private http: HttpClient) {}
 
@@ -35,10 +39,32 @@ export class SettingsService {
     return this.http.put("/api/penalty/time/" + id, status).toPromise();
   }
 
-  async getDUeTimes(): Promise<any> {
+  async getOptions(): Promise<any> {
     const urlT = `${this.urlT}`;
     return await this.http.get(urlT).toPromise().catch(this.handleError);
   }
+
+  async getLateCancellationCharge(id: any): Promise<any> {
+    const urlC = `${this.urlC}/${id}`;
+    return await this.http.get(urlC).toPromise().catch(this.handleError);
+  }
+
+  async getBookingCharge(id: any): Promise<any> {
+    const urlB = `${this.urlB}/${id}`;
+    return await this.http.get(urlB).toPromise().catch(this.handleError);
+  }
+
+  async getDueTimes(): Promise<any> {
+    const urlP = `${this.urlP}`;
+    return await this.http.get(urlP).toPromise().catch(this.handleError);
+  }
+
+  async changePassword(username: string, password: string): Promise<any> {
+    const urlCP = `${this.urlCP}`;
+    const jsonStr = `{"username":"${username}","password":"${password}"}`;
+    return await this.http.post(urlCP, jsonStr).toPromise().catch(this.handleError);
+  }
+
   // handler for error in URL
   private handleError(error: any): Promise<any> {
     return Promise.reject(error.message || error);
