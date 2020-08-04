@@ -686,6 +686,65 @@ function updateAccountStatus(state) {
     })
 }
 
+
+function bus_info_edit_model(id){
+    let json_request = JSON.stringify({
+        payload: {
+            bus_id: id
+        }
+    });
+
+
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/query/bus',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request,
+        success: function (response) {
+            let data = JSON.parse(JSON.stringify(response));
+            console.log(data)
+            $('#modal_form_horizontal_bus').modal('show');
+
+            $('#model_bus_name').val(data.response.QUERY.data.make);
+            $('#model_bus_number_plate').val(data.response.QUERY.data.license_plate);
+            $('#model_bus_color').val(data.response.QUERY.data.color);
+            $('#model_bus_capacity').val(data.response.QUERY.data.vehicle_capacity);
+            $('#model_bus_model').val(data.response.QUERY.data.model);
+            $('#model_bus_serial').val(data.response.QUERY.data.serial_number);
+            $('#model_bus_uuid').val(data.response.QUERY.data.uid);
+            // $('#model_bus_operator').val(operator);
+            // $('#model_bus_company').val(company);
+
+        }
+    });
+}
+
+function bus_model_update_bus() {
+    let json_request = JSON.stringify({
+        payload: {
+            bus_uid: $('#model_bus_uuid').val(),
+            license_plate: $('#model_bus_number_plate').val(),
+            color: $('#model_bus_color').val(),
+            vehicle_capacity: $('#model_bus_capacity').val()
+        }
+    });
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/update/bus',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request,
+        success: function (response) {
+            let data = JSON.parse(JSON.stringify(response));
+            console.log(data)
+            window.location.reload();
+        }
+    })
+}
+
 function user_edit_model(id) {
 
     let json_request = JSON.stringify({
@@ -720,7 +779,6 @@ function user_edit_model(id) {
             $('#model_user_id').val(id);
         }
     });
-
 
 }
 

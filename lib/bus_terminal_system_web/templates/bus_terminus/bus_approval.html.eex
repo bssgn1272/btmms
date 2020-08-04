@@ -55,7 +55,7 @@
                                         <td><%= bus.make %></td>
                                         <td><%= bus.license_plate %></td>
                                         <td><%= BusTerminalSystem.AccountManager.get_user!(bus.operator_id).username %></td>
-                                        <td><%= bus.company %></td>
+                                        <td><%= BusTerminalSystem.AccountManager.get_user!(bus.operator_id).company %></td>
 
                                         <td><%= bus.vehicle_capacity %></td>
                                         <td><%= bus.state_of_registration %></td>
@@ -73,7 +73,8 @@
                                                     </a>
 
                                                     <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#" data-toggle="modal" data-target="#edit"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Edit</a></li>
+
+                                                        <li><a onclick="bus_info_edit_model(<%= bus.id%>)"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Edit</a></li>
                                                         <li><a href="#"><img src="https://img.icons8.com/material/24/000000/cancel--v1.png"> Deactivate</a></li>
                                                     </ul>
                                                 </li>
@@ -146,25 +147,113 @@
 
 
 <!-------------------------- Edit Modal ------------------------------------------------------------------------------------------------------------>
-<div id="edit" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+<div id="modal_form_horizontal_bus" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header w3-indigo">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Edit KYC</h4>
+        <h4 class="modal-title">Manage Bus</h4>
       </div>
      
       <div class="modal-body">
-           <!--
-            INFORMATION TO BE ADDED
-            -->
+           <!-- Profile info -->
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h6 class="panel-title"></h6>
+                    <div class="heading-elements">
+
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <form id="infoForm">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Bus Name</label>
+                                    <input type="text" id="model_bus_name" value="" class="form-control">
+                                    <input type="text" hidden="hidden" readonly="readonly" id="model_bus_id" value="" class="form-control">
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Number Plate</label>
+                                    <input type="text" id="model_bus_number_plate" value="" class="form-control">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label>Color</label>
+                                    <input type="text" id="model_bus_color" value="" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Capacity</label>
+                                    <input type="text" id="model_bus_capacity" value="" class="form-control">
+                                </div>
+
+                                <div class="col-md-6">
+                                     <label>Model</label>
+                                     <input type="text" id="model_bus_model" value="" class="form-control">
+                                 </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                             <div class="row">
+                                 <div class="col-md-6">
+                                     <label>Serial Number</label>
+                                     <input type="text" id="model_bus_serial" value="" class="form-control">
+                                 </div>
+
+                                 <div class="col-md-6">
+                                      <label>UID</label>
+                                      <input type="text" readonly="readonly" id="model_bus_uuid" value="" class="form-control">
+                                  </div>
+
+                             </div>
+                         </div>
+
+                         <div hidden class="form-group">
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <label>Operator</label>
+                                      <input type="text" readonly="readonly" id="model_bus_operator" value="" class="form-control">
+                                  </div>
+
+                                  <div class="col-md-6">
+                                       <label>Company</label>
+                                       <input type="text" readonly="readonly" id="model_bus_company" value="" class="form-control">
+                                   </div>
+
+                              </div>
+                          </div>
+
+
+
+                         <div class="row">
+                           <div class="col-2">
+
+                           </div>
+                         </div>
+                        <div class="text-right">
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+           <!-- /profile info -->
       </div>
       <hr>
-                <div class="modal-footer">
-                    <button type="button" class="w3-btn w3-grey w3-round" data-dismiss="modal">Close</button>
-                </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>
+            <button class="btn btn-primary" onclick="bus_model_update_bus()">UPDATE <i class="icon-arrow-right14 position-right"></i></button>
+        </div>
     </div>
   </div>
   <!------------------------------------------------------------------------------------------------------------------------------------------------------->

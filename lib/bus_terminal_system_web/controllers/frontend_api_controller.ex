@@ -158,7 +158,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
             conn
             |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_query,"SUCCESS",0,
               %{
-                "license_plate" => bus.liscense_plate,
+                "license_plate" => bus.license_plate,
                 "uid" => bus.uid,
                 "engine_type" => bus.engine_type,
                 "model" => bus.model,
@@ -173,7 +173,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
                 "vehicle_class" => bus.vehicle_class,
                 "company" => bus.company,
                 "company_info" => bus.company_info,
-                "fitness_license" => bus.fitness_liscence,
+                "fitness_license" => bus.fitness_license,
                 "vehicle_capacity" => bus.vehicle_capacity
               }))
           _value ->
@@ -205,6 +205,9 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
     bus_uid  = payload["bus_uid"]
 
+    "######################" |> IO.inspect
+    payload |> IO.inspect
+
     if bus_uid == nil do
       json(conn,ApiManager.api_error_handler(conn,ApiManager.definition_query,[
         "bus_uid can not be blank"
@@ -221,7 +224,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
                   conn
                   |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_authentication,"SUCCESS",0,
                     %{
-                      "license_plate" => bus.liscense_plate,
+                      "license_plate" => bus.license_plate,
                       "uid" => bus.uid,
                       "engine_type" => bus.engine_type,
                       "model" => bus.model,
@@ -236,7 +239,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
                       "vehicle_class" => bus.vehicle_class,
                       "company" => bus.company,
                       "company_info" => bus.company_info,
-                      "fitness_license" => bus.fitness_liscence,
+                      "fitness_license" => bus.fitness_license,
                       "vehicle_capacity" => bus.vehicle_capacity
                     }))
                 {:error, %Ecto.Changeset{} = changeset} ->

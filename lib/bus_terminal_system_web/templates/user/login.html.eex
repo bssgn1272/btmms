@@ -77,7 +77,7 @@
 					<div class="panel panel-body login-form" style="margin-top: 100px">
 						<div class="text-center">
 							<div class="icon-object border-slate-100 text-slate-100 w3-orange">
-								<img src="<%= Routes.static_path(@conn, "/images/logo/1.png") %>" width="120" height="120" alt="NapsaLogo">
+								<img src="<%= Routes.static_path(@conn, "/images/logo/2.png") %>" width="120" height="120" alt="NapsaLogo">
 							</div>
 							<h5 class="content-group">Login to your account <small class="display-block">Enter your credentials below</small></h5>
 						</div>
@@ -147,7 +147,7 @@
 
 		<div class="navbar-collapse collapse" id="footer">
 			<div class="navbar-text">
-				&copy; 2019. <a href="#" class="navbar-link">Bus Terminus System</a> by <a href="http://www.probasegroup.com" class="navbar-link" target="_blank"><e style="color:orange;">Pro</e><e style="color:black;">BASE</e></a>
+				&copy; 2019. <a href="#" class="navbar-link"> Livingstone Market & Bus Management Company Limited</a> by <a href="http://www.probasegroup.com" class="navbar-link" target="_blank"><e style="color:orange;">Pro</e><e style="color:black;">BASE</e></a>
 			</div>
 
 			<div class="navbar-right">

@@ -147,7 +147,7 @@
 									    <!-- Wrapper for slides -->
 									    <div class="carousel-inner">
 									      <div class="item active">
-									        <img src="<%= Routes.static_path(@conn, "/images/Ads/1.jpg") %>" style="width: 100%; height: 100%;" alt="NapsaLogo">
+									        <img src="<%= Routes.static_path(@conn, "/images/Ads/2.jpg") %>" style="width: 100%; height: 100%;" alt="NapsaLogo">
 									        <div class="carousel-caption">
 									          <h3>Recommended Tourist Destinations</h3>
 									        </div>
@@ -429,8 +429,8 @@
 
 							<div class="col-md-6 col-lg-6">
 								<div class="text-center">
-									<div class="icon-object border-slate-100 text-slate-100 w3-orange">
-										<img src="<%= Routes.static_path(@conn, "/images/logo/1.png") %>" width="120" height="120" alt="NapsaLogo">
+									<div class="icon-object  w3-white">
+										<img src="<%= Routes.static_path(@conn, "/images/Logo.gif") %>" width="150" height="150" alt="NapsaLogo">
 									</div>
 									<h5 class="content-group">Login to your account <small class="display-block">Enter your credentials below</small></h5>
 								</div>
@@ -882,7 +882,7 @@
 	<div id="footer" class="w3-indigo">
   		<div class="container">
             <h5 id="busStatement">
-            	&copy; 2019. <a href="#" class="navbar-link" target="_blank">Bus Terminus System</a> 
+            	&copy; 2020. <a href="#" class="navbar-link" target="_blank">Livingstone Market & Bus Management Company Limited</a>
             </h5>
         </div>
 	</div>

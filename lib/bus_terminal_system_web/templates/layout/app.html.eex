@@ -22,6 +22,9 @@
     <!-- /global stylesheets -->
   </head>
 
+<style>
+
+</style>
 
   <body class="navbar-bottom">
 
@@ -29,7 +32,7 @@
     <div class="navbar navbar-inverse bg-indigo navbar-fixed-top">
     	<div class="navbar-header">
     		<a class="navbar-brand" href="#">
-                <img src="<%= Routes.static_path(@conn, "/images/logo/2.png") %>" class="img-fluid" style="width:150px;height:30px" alt="NapsaLogo">
+                <img src="<%= Routes.static_path(@conn, "/images/logo/2.png") %>" class="img-fluid" style="width:150px;height:80px;margin-bottom: 50px" alt="NapsaLogo">
             </a>
              
     		<ul class="nav navbar-nav visible-xs-block">
@@ -49,7 +52,7 @@
     		</ul>
             <% end %>
 
-    		<ul class="nav navbar-nav navbar-right">
+    		<ul class="nav navbar-nav navbar-right" >
     			<li class="dropdown dropdown-user">
     				<a class="dropdown-toggle" data-toggle="dropdown">
     					<img src="<%= Routes.static_path(@conn, "/images/material/avatar/1.png") %>" alt="">
@@ -82,7 +85,7 @@
 
                 <!-- ############# ADMIN SIDE-BAR ########### -->
                 <%= if @user.role == "ADMIN" do %>
-    			<div class="sidebar sidebar-main sidebar-default" >
+    			<div class="sidebar sidebar-main sidebar-default" style="height: 100%" >
     				<div class="sidebar-content">
 
     					<!-- Main navigation -->
@@ -395,7 +398,7 @@
 
     		<div class="navbar-collapse collapse">
     			<div class="navbar-text">
-                    &copy; <%= Date.utc_today.year %> Bus Terminus System
+                    &copy; <%= Date.utc_today.year %> Livingstone Market & Bus Management Company Limited
                 </div>
 
     			<div class="navbar-right">
