@@ -69,7 +69,9 @@ var AuthenticateUserController = http.HandlerFunc(func(w http.ResponseWriter, r 
 	hash.Write([]byte(auth.Password))
 	hashedPassword := hex.EncodeToString(hash.Sum(nil))
 
-	fmt.Println(subtle.ConstantTimeCompare([]byte(check.Password), []byte(hashedPassword)))
+	subtle.ConstantTimeCompare([]byte(check.Password), []byte(hashedPassword))
+	//fmt.Print("Subtle said: ")
+	//fmt.Println(rtrn)
 	fmt.Print("DB Hash: ")
 	fmt.Println(check.Password)
 	fmt.Print("User Hash: ")

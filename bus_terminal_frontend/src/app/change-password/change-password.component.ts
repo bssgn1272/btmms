@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
 import { FormGroup, Validators, FormBuilder, ValidatorFn, ValidationErrors } from "@angular/forms";
 import { SettingsService } from "app/settings/settings.service";
+import { containsElement } from "@angular/animations/browser/src/render/shared";
 
 @Component({
   selector: "app-change-password",
@@ -69,6 +70,9 @@ export class ChangePasswordComponent implements OnInit {
       return;
     }
     await this.settings.changePassword(this.currentUser.username, this.passwordForm.get('password').value).then((res) => {
+      console.log("Username>>> ", this.currentUser.username);
+      console.log("Password>>> ", this.passwordForm.get('password').value);
+      console.log(res);
       this.currentUser.account_status = res.data.response.AUTHENTICATION.data.account_status;
       localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
       console.log(res.data.response.AUTHENTICATION.data.account_status);
