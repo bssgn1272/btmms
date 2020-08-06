@@ -449,7 +449,7 @@ function passenger_ticket_logic() {
 
                     console.log(single_object)
 
-                    let value = single_object.bus.company.replaceAll(" ","").trim().toString() + "-" + single_object.route.start_route + "-"
+                    let value = single_object.bus.company.trim().split(" ").join("").toString() + "-" + single_object.route.start_route + "-"
                         + single_object.route.end_route + "-"  +  single_object.departure_time + "-" + single_object.fare + "-" + single_object.bus.id + "-"
                         + single_object.slot + "-" + single_object.bus_schedule_id;
                     value = value.toString();
