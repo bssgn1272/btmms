@@ -1,17 +1,16 @@
 package controllers
 
-import(
-	"../models"
-	u "../utils"
+import (
 	"encoding/json"
 	"log"
 	"net/http"
+
+	"../models"
+	u "../utils"
 )
 
-
-// Function for town request function
+// CreateTownController Function for town request function
 var CreateTownController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
 
 	town := &models.EdTown{}
 
@@ -25,7 +24,7 @@ var CreateTownController = http.HandlerFunc(func(w http.ResponseWriter, r *http.
 	u.Respond(w, resp)
 })
 
-// Function for retrieving town requests for the day
+// GetTownsController Function for retrieving town requests for the day
 var GetTownsController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	data := models.GetTowns()
@@ -34,8 +33,6 @@ var GetTownsController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Re
 	log.Println(resp)
 	u.Respond(w, resp)
 })
-
-
 
 // Function for Destination and time request function
 //var CreateDestinationDayTimesController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -53,8 +50,7 @@ var GetTownsController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Re
 //	u.Respond(w, resp)
 //})
 
-
-// Function for retrieving Destination and time requests for the day
+// GetDestinationDayTimesController Function for retrieving Destination and time requests for the day
 var GetDestinationDayTimesController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	data := models.GetDestinationDayTimes()

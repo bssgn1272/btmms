@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-// Function for retrieving town requests for the day
+// GetEmailController Function for retrieving town requests for the day
 var GetEmailController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("content-type", "application/json")
 	queryValues := r.URL.Query()
@@ -57,6 +57,7 @@ Subject: %s
 	//u.Respond(w, resp)
 })
 
+// GetSMSController blah blah
 var GetSMSController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("content-type", "application/json")
@@ -79,8 +80,8 @@ var GetSMSController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Requ
 
 	//uri := "http://10.8.0.10/sms/index.php?sender=" + sender + "&msisdn=" + msisdn + "&" + msg
 
-	var Url *url.URL
-	Url, err := url.Parse("http://10.10.1.43:13013/napsamobile/pushsms")
+	var URL *url.URL
+	URL, err := url.Parse("http://10.10.1.43:13013/napsamobile/pushsms")
 	if err != nil {
 		return
 	}
@@ -93,13 +94,13 @@ var GetSMSController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Requ
 	parameters.Add("to", receiver)
 	parameters.Add("text", msg)
 
-	Url.RawQuery = parameters.Encode()
+	URL.RawQuery = parameters.Encode()
 
-	uri := Url.String()
+	uri := URL.String()
 
 	//uri = strings.Replace(uri, "%0A", "", -1)
 
-	fmt.Printf("Encoded URL is %q\n", Url.String())
+	fmt.Printf("Encoded URL is %q\n", URL.String())
 
 	//uri, _ = url.QueryUnescape(uri)
 	log.Println(uri)

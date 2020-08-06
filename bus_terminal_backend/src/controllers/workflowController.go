@@ -1,18 +1,18 @@
 package controllers
 
 import (
-	"../models"
-	u "../utils"
 	"encoding/json"
-	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"strconv"
+
+	"../models"
+	u "../utils"
+	"github.com/gorilla/mux"
 )
 
-// Function for time request function
+// CreateModeController Function for time request function
 var CreateModeController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
 
 	mode := &models.EdWorkFlow{}
 
@@ -26,7 +26,7 @@ var CreateModeController = http.HandlerFunc(func(w http.ResponseWriter, r *http.
 	u.Respond(w, resp)
 })
 
-// Function for retrieving mode requests for the day
+// GetModesController Function for retrieving mode requests for the day
 var GetModesController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	data := models.GetModes()
@@ -36,8 +36,7 @@ var GetModesController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Re
 	u.Respond(w, resp)
 })
 
-
-// Function for updating Mode status
+// UpdateWorkFlowStatusController Function for updating Mode status
 var UpdateWorkFlowStatusController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)

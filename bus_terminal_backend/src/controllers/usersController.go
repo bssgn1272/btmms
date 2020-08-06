@@ -2,16 +2,15 @@ package controllers
 
 import (
 	"bytes"
-	"crypto/hmac"
 	"crypto/sha512"
 	"crypto/subtle"
-	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
+	"strings"
 
 	"../../src/models"
 	u "../../src/utils"
@@ -64,23 +63,13 @@ var AuthenticateUserController = http.HandlerFunc(func(w http.ResponseWriter, r 
 		return
 	}
 
-	hash := hmac.New(sha512.New, []byte(os.Getenv("secretKey")))
+	sha512hash := sha512.Sum512([]byte(auth.Password))
+	hashedPassword := fmt.Sprintf("%x", sha512hash)
 
-	hash.Write([]byte(auth.Password))
-	hashedPassword := hex.EncodeToString(hash.Sum(nil))
+	rtrn := subtle.ConstantTimeCompare([]byte(strings.ToUpper(check.Password)), []byte(strings.ToUpper(hashedPassword)))
 
-	subtle.ConstantTimeCompare([]byte(check.Password), []byte(hashedPassword))
-	//fmt.Print("Subtle said: ")
-	//fmt.Println(rtrn)
-	fmt.Print("DB Hash: ")
-	fmt.Println(check.Password)
-	fmt.Print("User Hash: ")
-	fmt.Println(hashedPassword)
-
-	//err = bcrypt.CompareHashAndPassword([]byte(check.Password), []byte(auth.Password))
-
-	if err != nil {
-		// res.Error = "Invalid password"
+	if rtrn != 1 {
+		res.Error = "Invalid password"
 		w.WriteHeader(http.StatusUnauthorized)
 		_ = json.NewEncoder(w).Encode(res)
 		return
@@ -94,8 +83,6 @@ var AuthenticateUserController = http.HandlerFunc(func(w http.ResponseWriter, r 
 	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), tk)
 	tokenString, _ := token.SignedString([]byte(os.Getenv("token_password")))
 	check.Token = tokenString //Store the token in the response
-
-	//_ = json.NewEncoder(w).Encode(check)
 
 	_ = json.NewEncoder(w).Encode(check)
 

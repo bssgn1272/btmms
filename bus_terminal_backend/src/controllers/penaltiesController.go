@@ -10,7 +10,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// Function for time request function
+// CreatePenaltyController Function for time request function
 var CreatePenaltyController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	penalty := &models.EdPenalty{}
@@ -25,7 +25,7 @@ var CreatePenaltyController = http.HandlerFunc(func(w http.ResponseWriter, r *ht
 	u.Respond(w, resp)
 })
 
-// Function for retrieving penalty requests for the day
+// GetPenaltiesController Function for retrieving penalty requests for the day
 var GetPenaltiesController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	data := models.GetPenalties()
@@ -35,7 +35,7 @@ var GetPenaltiesController = http.HandlerFunc(func(w http.ResponseWriter, r *htt
 	u.Respond(w, resp)
 })
 
-// Function for retrieving time requests for the day
+// GetLatestPenaltyController Function for retrieving time requests for the day
 var GetLatestPenaltyController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	data := models.GetLatestPenalty()

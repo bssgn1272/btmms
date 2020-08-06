@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   returnUrl: string;
   userItems: any;
+  error: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -62,15 +63,26 @@ export class LoginComponent implements OnInit {
       return;
     }
 
+    this.error = "";
     this.loading = true;
     this.authenticationService
       .login(this.f.username.value, this.f.password.value)
       .pipe(first())
       .subscribe(
         data => {
-          this.router.navigate([this.returnUrl]);
+          if(data.error === "Invalid password"){
+            localStorage.removeItem('currentUser');
+            console.log("Console Data>>> ", data);
+            this.error = "Invalid Username/Password"
+            this.alertService.error("Invalid Username/Password");
+            this.loading = false;
+          }
+          else{
+            this.router.navigate([this.returnUrl]);
+          }
         },
         error => {
+          console.log(error);
           this.alertService.error(error);
           this.loading = false;
         }

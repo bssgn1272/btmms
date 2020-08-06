@@ -11,7 +11,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// Function for time request function
+// CreatePenaltyTimeController Function for time request function
 var CreatePenaltyTimeController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	time := &models.EdPenaltyInterval{}
@@ -26,7 +26,7 @@ var CreatePenaltyTimeController = http.HandlerFunc(func(w http.ResponseWriter, r
 	u.Respond(w, resp)
 })
 
-// Function for retrieving time requests for the day
+// GetPenaltyTimesController Function for retrieving time requests for the day
 var GetPenaltyTimesController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	data := models.GetPenaltyTimes()
@@ -36,7 +36,7 @@ var GetPenaltyTimesController = http.HandlerFunc(func(w http.ResponseWriter, r *
 	u.Respond(w, resp)
 })
 
-// Function for retrieving time requests for the day
+// GetLatestPenaltyTimesController Function for retrieving time requests for the day
 var GetLatestPenaltyTimesController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	data := models.GetLatestPenaltyTimes()
@@ -46,7 +46,7 @@ var GetLatestPenaltyTimesController = http.HandlerFunc(func(w http.ResponseWrite
 	u.Respond(w, resp)
 })
 
-// Function for updating Mode status
+// UpdateDueTimeStatusController Function for updating Mode status
 var UpdateDueTimeStatusController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)

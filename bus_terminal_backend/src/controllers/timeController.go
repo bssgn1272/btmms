@@ -1,18 +1,16 @@
-
 package controllers
 
-import(
-"../models"
-u "../utils"
-"encoding/json"
-"log"
-"net/http"
+import (
+	"encoding/json"
+	"log"
+	"net/http"
+
+	"../models"
+	u "../utils"
 )
 
-
-// Function for time request function
+// CreateTimeController Function for time request function
 var CreateTimeController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
 
 	time := &models.EdTime{}
 
@@ -26,7 +24,7 @@ var CreateTimeController = http.HandlerFunc(func(w http.ResponseWriter, r *http.
 	u.Respond(w, resp)
 })
 
-// Function for retrieving time requests for the day
+// GetTimesController Function for retrieving time requests for the day
 var GetTimesController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	data := models.GetTimes()
@@ -35,4 +33,3 @@ var GetTimesController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Re
 	log.Println(resp)
 	u.Respond(w, resp)
 })
-

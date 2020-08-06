@@ -12,7 +12,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// Function for Creating Slots
+// CreateSlotController Function for Creating Slots
 var CreateSlotController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	slot := &models.EdSlot{}
@@ -27,7 +27,7 @@ var CreateSlotController = http.HandlerFunc(func(w http.ResponseWriter, r *http.
 	u.Respond(w, resp)
 })
 
-// Function for retrieving Slots
+// GetSlotsController Function for retrieving Slots
 var GetSlotsController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	data := models.GetSlots()
@@ -37,6 +37,7 @@ var GetSlotsController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Re
 	u.Respond(w, resp)
 })
 
+// GetSlotsByDateController blah blah
 var GetSlotsByDateController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
@@ -48,7 +49,7 @@ var GetSlotsByDateController = http.HandlerFunc(func(w http.ResponseWriter, r *h
 	u.Respond(w, resp)
 })
 
-// Function for openning slots at midnight
+// InitMidNight Function for openning slots at midnight
 func InitMidNight() {
 	t := time.Now()
 	n := time.Date(t.Year(), t.Month(), t.Day(), 24, 00, 0, 0, t.Location())
@@ -69,7 +70,7 @@ func InitMidNight() {
 	}
 }
 
-// Function for Creating Slots
+// UpdateSlotController Function for Creating Slots
 var UpdateSlotController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)

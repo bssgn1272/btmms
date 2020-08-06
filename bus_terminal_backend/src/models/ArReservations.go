@@ -10,7 +10,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-//a struct for reservation model
+// EdArReservationa struct for reservation model
 type EdArReservation struct {
 	gorm.Model
 	Slot         string    `json:"slot"`
@@ -23,7 +23,7 @@ type EdArReservation struct {
 	ReservedTime time.Time ` json:"reserved_time"`
 }
 
-// join reservation and reservation struct
+// EdArResult join reservation and reservation struct
 type EdArResult struct {
 	EdArReservation
 	ProbaseTblTravelRoutes
@@ -65,7 +65,7 @@ func (reservation *EdArReservation) ArValidate() url.Values {
 	return errs
 }
 
-// create reservation
+// ArCreate create reservation
 func (reservation *EdArReservation) ArCreate() map[string]interface{} {
 
 	if validErrs := reservation.ArValidate(); len(validErrs) > 0 {
@@ -81,7 +81,7 @@ func (reservation *EdArReservation) ArCreate() map[string]interface{} {
 	return resp
 }
 
-// get reservation
+// ArGetReservation get reservation
 func ArGetReservation(id uint) []*EdResult {
 
 	t := time.Now()
@@ -99,7 +99,7 @@ func ArGetReservation(id uint) []*EdResult {
 	return result
 }
 
-// get reservation
+// ArGetReservationOperatorHistory get reservation
 func ArGetReservationOperatorHistory(id uint) []*EdResult {
 
 	reservations := make([]*EdResult, 0)
@@ -112,7 +112,7 @@ func ArGetReservationOperatorHistory(id uint) []*EdResult {
 	return reservations
 }
 
-// get reservations
+// ArGetReservations get reservations
 func ArGetReservations() []*EdReservation {
 
 	reservations := make([]*EdReservation, 0)
@@ -140,8 +140,7 @@ func ArGetReservations() []*EdReservation {
 //	return result
 //}
 
-// get reservations for a particular day
-
+// ArGetCurrentReservation get reservations for a particular day
 func ArGetCurrentReservation() []*EdResult {
 
 	t := time.Now()
@@ -158,6 +157,7 @@ func ArGetCurrentReservation() []*EdResult {
 	return result
 }
 
+// ArGetReservationHistory blah blah
 func ArGetReservationHistory() []*EdResult {
 	result := make([]*EdResult, 0)
 	err := GetDB().Table("ed_ar_reservations").Select("ed_ar_reservations.*, ed_ar_reservations.id, probase_tbl_users.username, probase_tbl_bus.company, probase_tbl_bus.license_plate").Joins("left join probase_tbl_users on ed_ar_reservations.user_id = probase_tbl_users.id").Joins("left join probase_tbl_bus on ed_ar_reservations.bus_id=probase_tbl_bus.id").Find(&result).Error
@@ -170,7 +170,7 @@ func ArGetReservationHistory() []*EdResult {
 	return result
 }
 
-// Approve or reject reservation
+// Update Approve or reject reservation
 func (reservation *EdArReservation) Update(id string) map[string]interface{} {
 
 	db.Model(&reservation).Where("res_uuid = ?", id).Updates(EdReservation{Status: reservation.Status})

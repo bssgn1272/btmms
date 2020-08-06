@@ -11,7 +11,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// Function retrieving Reservations requests Admin side
+// GetReservationsRequestsController Function retrieving Reservations requests Admin side
 var GetReservationsRequestsController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	data := models.GetCurrentReservation()
@@ -21,6 +21,7 @@ var GetReservationsRequestsController = http.HandlerFunc(func(w http.ResponseWri
 	u.Respond(w, resp)
 })
 
+// GetReservationsRequestsHistoryController blah blah
 var GetReservationsRequestsHistoryController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	data := models.GetReservationHistory()
@@ -48,7 +49,7 @@ var GetReservationsRequestsHistoryController = http.HandlerFunc(func(w http.Resp
 //	u.Respond(w, resp)
 //})
 
-// Function for Approving reservations requests
+// UpdateReservationController Function for Approving reservations requests
 var UpdateReservationController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
@@ -66,7 +67,7 @@ var UpdateReservationController = http.HandlerFunc(func(w http.ResponseWriter, r
 	u.Respond(w, resp)
 })
 
-// Function for closing slot
+// CloseReservationController Function for closing slot
 var CloseReservationController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	slot := &models.EdSlot{}

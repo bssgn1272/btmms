@@ -1,17 +1,16 @@
 package controllers
 
-import(
-	"../models"
-	u "../utils"
+import (
 	"encoding/json"
 	"log"
 	"net/http"
+
+	"../models"
+	u "../utils"
 )
 
-
-// Function for days request function
+// CreateDayController Function for days request function
 var CreateDayController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
 
 	day := &models.EdDay{}
 
@@ -25,7 +24,7 @@ var CreateDayController = http.HandlerFunc(func(w http.ResponseWriter, r *http.R
 	u.Respond(w, resp)
 })
 
-// Function for retrieving days requests for the day
+// GetDaysController Function for retrieving days requests for the day
 var GetDaysController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	data := models.GetDays()
