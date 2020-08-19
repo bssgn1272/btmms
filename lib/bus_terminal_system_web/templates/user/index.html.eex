@@ -565,22 +565,27 @@
 
                               <td><%= ticket.first_name %></td>
                               <td><%= ticket.last_name %></td>
-                              <td class="text-center">
-                                <ul class="icons-list">
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                            <i class="icon-menu9"></i>
-                                        </a>
+                                <td class="text-center">
+                                 <%= if BusTerminalSystem.TicketManagement.Ticket.find(ticket.id).activation_status != "CANCELED" do %>
+                                     <ul class="icons-list">
+                                         <li class="dropdown">
+                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                 <i class="icon-menu9"></i>
+                                             </a>
 
-                                        <ul class="dropdown-menu dropdown-menu-right">
-                                            <li><button style="margin-left: 10px" type="button" class="btn btn-default btn-sm" data-user-id="" data-toggle="modal" data-target="#modal_form_horizontal_user">
-                                            Info <i class="icon-user position-right"></i></button></li>
+                                             <ul class="dropdown-menu dropdown-menu-right">
+                                                  <li><%= link to: "/platform/secure/commercial/services/users/management", class: "btn btn-default btn-sm" do
+                                                       BusTerminalSystem.TicketManagement.Ticket.update(ticket, activation_status: "CANCELED")
+                                                       "CANCLE"
+                                                     end %>
+                                                  </li>
+                                             </ul>
+                                         </li>
+                                     </ul>
+                                 <% end %>
 
-                                            <!--<li><%= link "Edit", class: "icon-pencil", to: Routes.ticket_path(@conn, :edit, ticket) %></li> -->
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </td>
+                                </td>
+
                             </tr>
                         <% end %>
                         </tbody>

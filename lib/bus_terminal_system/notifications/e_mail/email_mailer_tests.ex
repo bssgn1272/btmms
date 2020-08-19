@@ -4,14 +4,14 @@ defmodule BusTerminalSystem.EmailSender do
   alias BusTerminalSystem.Mailer
 
   def test do
-     Task.async(fn  ->
+#     Task.async(fn  ->
       new()
       |> to("philip@probasegroup.com")
       |> from("BTMS@probasemail.test.com")
       |> subject("NAPSA BTMS")
       |> text_body("NAPSA\n")
       |> Mailer.deliver
-    end)
+#    end)
   end
 
   def composer_html(to,subject,html) do
