@@ -4,46 +4,14 @@
              border-radius: 25px;
              border:1px solid orange;
          }
+         body {
+             margin: 0;            /* Reset default margin */
+         }
          </style>
     <div class="container-fluid">
         <div class="row">
 
-            <div>
-                <!--<div class="panel panel-flat" style="width: auto; padding: 9px">
-                    <div class="panel-heading">
-                        <h5 class="panel-title">Users</h5>
-                        <div class="heading-elements">
-                            <ul class="icons-list">
-                                <li><a data-action="collapse"></a></li>
-                                <li><a data-action="reload"></a></li>
-                                <li><a data-action="close"></a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div style="overflow-x:auto;">
-                    <table class="table table-striped table-bordered" id="dataTableId">
-                              <thead>
-                                <tr>
-                                  <th>Name</th>
-                                  <th>Destination</th>
-                                  <th>Luggage</th>
-                                  <th>Fare</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-
-                              </tbody>
-                            </table>
-                        </div>
-
-                    <span>
-                        <%= link "Back" , class: "w3-btn w3-indigo w3-hover-orange", style: "border-radius: 12px", type: "submit",to: Routes.user_path(@conn, :index) %>
-                    </span>
-                </div> -->
-
-                <iframe width="1300" height="600" src="http://10.10.1.57:8080/pentaho/api/repos/%3Ahome%3Aadmin%3AManifest.prpt/viewer?userid=admin&password=password&departure_date=2020-06-30" />
-            </div>
+            <%= raw BusTerminalSystem.Reporting.Report.find_by(name: "byBus").iframe %>
 
         </div>
     </div>
