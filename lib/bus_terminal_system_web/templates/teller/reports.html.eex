@@ -9,13 +9,95 @@
          }
          </style>
     <div class="container-fluid">
-        <div class="row">
+        <div class="row" id="reports_card_row">
+            <div class="col-lg-3">
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Report By Bus</h2>
+                    </div>
+                    <div class="container-fluid">
+                       <button onclick="reportByBus()" style="margin-bottom: 10px; float: right; margin-right: 10px" class="btn btn-primary btn-sm">OPEN</button>
+                    </div>
+                </div>
+            </div>
 
-            <%= raw BusTerminalSystem.Reporting.Report.find_by(name: "byBus").iframe %>
+             <div class="col-lg-3">
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Report By Teller</h2>
+                    </div>
+                    <div class="container-fluid">
+                       <button onclick="reportByTeller()" style="margin-bottom: 10px; float: right; margin-right: 10px" class="btn btn-primary btn-sm">OPEN</button>
+                    </div>
+                </div>
+             </div>
+
+             <div class="col-lg-3">
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Report By Operator</h2>
+                    </div>
+                    <div class="container-fluid">
+                       <button onclick="reportByOperator()" style="margin-bottom: 10px; float: right; margin-right: 10px" class="btn btn-primary btn-sm">OPEN</button>
+                    </div>
+                </div>
+             </div>
+
+             <div class="col-lg-3">
+                 <div class="panel panel-flat">
+                     <div class="panel-heading">
+                         <h2 class="panel-title">Passenger Manifest</h2>
+                     </div>
+                     <div class="container-fluid">
+                        <button onclick="reportPassengerManifest()" style="margin-bottom: 10px; float: right; margin-right: 10px" class="btn btn-primary btn-sm">OPEN</button>
+                     </div>
+                 </div>
+             </div>
 
         </div>
+
+        <div id="reportByBusView" class="row">
+            <%=
+            try do
+              raw BusTerminalSystem.Reporting.Report.find_by(name: "byBus").iframe
+            rescue
+               _ -> raw "<h3>REPORT VIEW NOT CONFIGURED</h3>"
+            end
+             %>
+        </div>
+
+        <div id="reportByTellerView" class="row">
+           <%=
+           try do
+             raw BusTerminalSystem.Reporting.Report.find_by(name: "byTeller").iframe
+           rescue
+              _ -> raw "<h3>REPORT BY TELLER NOT CONFIGURED</h3>"
+           end
+            %>
+        </div>
+
+        <div id="reportByOperatorView" class="row">
+            <%=
+            try do
+              raw BusTerminalSystem.Reporting.Report.find_by(name: "byOperator").iframe
+            rescue
+               _ -> raw "<h3>REPORT BY OPERATOR NOT CONFIGURED</h3>"
+            end
+             %>
+        </div>
+
+        <div id="reportPassengerManifestView" class="row">
+            <%=
+            try do
+              raw BusTerminalSystem.Reporting.Report.find_by(name: "passengerManifest").iframe
+            rescue
+               _ -> raw "<h3>PASSENGER MANIFEST VIEW NOT CONFIGURED</h3>"
+            end
+             %>
+        </div>
+
     </div>
-<!--#####-- TOP_TICKET_SALES --#####-->
+<!--#####-- TOP_TICKET_SALES  --#####-->
 
 <!--#####-- TOP_AVAILABLE OPERATORS --#######-->
 

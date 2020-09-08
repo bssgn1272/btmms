@@ -140,6 +140,10 @@
                                             </li>
                                         </ul>
                                     </li>
+
+                                    <li>
+                                        <%= link "Reports", to: Routes.teller_path(@conn, :reports) %>
+                                    </li>
     								<% end %>
 
                                     <%= if @user.role == "BOP" or @user.role == "ADMIN" do %>
@@ -443,6 +447,7 @@
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/datatables/js/jquery.datatables.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/appMechanics.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/market.js") %>"></script>
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/reporting.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/ticketing.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/AjaxCall.js") %>"></script>
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
