@@ -96,6 +96,7 @@ func main() {
 
 	// Buses routes
 	router.Handle("/api/buses/{id}", c.GetBusesController).Methods("GET")
+	router.Handle("/api/available/buses/{id}", c.GetAvailableBusesController).Methods("GET")
 
 	// Workflow Routes
 	router.Handle("/api/workflow", c.GetModesController).Methods("GET")

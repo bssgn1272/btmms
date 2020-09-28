@@ -27,3 +27,16 @@ func GetBuses(id string) ([]*ProbaseTblBus) {
 
 	return buses
 }
+
+func GetAvailableBuses(id string) ([]*ProbaseTblBus) {
+
+	buses := make([]*ProbaseTblBus, 0)
+	err := GetDB().Raw("CALL ed_get_available_buses(?)", id).Scan(&buses).Error
+	log.Println("ID-------", id)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+
+	return buses
+}

@@ -1,0 +1,77 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card card-plain">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Change Booked Bus</h4>
+      </div>
+      <p></p>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-body">
+            <mat-dialog-content>
+              <div class="col-md-12">
+                <div class="card-body">
+                  <h3>Please select a bus below to update your reservation</h3>
+                  <form [formGroup]="reasonForm" novalidate>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                          <mat-label>Bus</mat-label>
+                          <!-- 
+                            ngModel="reserveBu"
+                            tight underr formcontrolName="bus"
+                          -->
+                          <mat-select
+                            formControlName="bus"
+                            [ngClass]="{ 'is-invalid': submitted &amp;&amp; f.bus.errors }"
+                            required
+                          >
+                            <div *ngFor="let bus of buses">
+                              <mat-option [value]="bus.id">
+                                {{ bus.company }} {{ bus.license_plate }}
+                              </mat-option>
+                            </div>
+                          </mat-select>
+                          <div
+                            *ngIf="submitted &amp;&amp; f.bus.errors"
+                            class="text-danger"
+                          >
+                            <div *ngIf="f.bus.errors.required">
+                              Bus is required
+                            </div>
+                          </div>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </mat-dialog-content>
+
+            <mat-dialog-actions>
+              <button class="mat-raised-button" (click)="close()">Close</button>
+              <div *ngIf="workFlow.mode === 'NWF'">
+                <button
+                  mat-raised-button
+                  class="btn btn-info"
+                  (click)="update()"
+                >
+                  Confirm
+                </button>
+              </div>
+              <div *ngIf="workFlow.mode === 'WF'">
+                <button
+                  mat-raised-button
+                  class="btn btn-info"
+                  (click)="update()"
+                >
+                  Request Cancellation
+                </button>
+              </div>
+            </mat-dialog-actions>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

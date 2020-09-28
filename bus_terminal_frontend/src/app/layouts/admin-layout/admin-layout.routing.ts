@@ -15,6 +15,8 @@ import { SlotTimeComponent } from "../../slot-time/slot-time.component";
 import { UpdateSlotTimeComponent } from "../../update-slot-time/update-slot-time.component";
 import { RejectComponent } from "../../reject/reject.component";
 import { CancelReservationComponent } from "../../cancel-reservation/cancel-reservation.component";
+import { ChangeBusComponent } from "../../change-bus/change-bus.component";
+import { ChangeVehicleComponent } from "../../change-vehicle/change-vehicle.component";
 import { CancellationRequestComponent } from "../../cancellation-request/cancellation-request.component";
 import { ConfirmCancellationComponent } from "../../confirm-cancellation/confirm-cancellation.component";
 import { ModesComponent } from "../../settings/components/modes/modes.component";
@@ -79,6 +81,15 @@ export const AdminLayoutRoutes: Routes = [
   {
     path: "cancel",
     component: CancelReservationComponent,
+    canActivate: [AuthGuard],
+  },{
+    path: "change-bus",
+    component: ChangeBusComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "change-vehicle",
+    component: ChangeVehicleComponent,
     canActivate: [AuthGuard],
   },
   {

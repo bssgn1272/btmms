@@ -45,6 +45,8 @@ import { SlotTimeComponent } from "app/slot-time/slot-time.component";
 import { UpdateSlotTimeComponent } from "../../update-slot-time/update-slot-time.component";
 import { RejectComponent } from "../../reject/reject.component";
 import { CancelReservationComponent } from "../../cancel-reservation/cancel-reservation.component";
+import { ChangeBusComponent } from "../../change-bus/change-bus.component";
+import { ChangeVehicleComponent } from "../../change-vehicle/change-vehicle.component";
 import { CancellationRequestComponent } from "../../cancellation-request/cancellation-request.component";
 import { ConfirmCancellationComponent } from "../../confirm-cancellation/confirm-cancellation.component";
 import { ModesComponent } from "../../settings/components/modes/modes.component";
@@ -92,6 +94,8 @@ import { DueTimeComponent } from "../../settings/components/due-time/due-time.co
     UpdateSlotTimeComponent,
     RejectComponent,
     CancelReservationComponent,
+    ChangeBusComponent,
+    ChangeVehicleComponent,
     CancellationRequestComponent,
     ConfirmCancellationComponent,
     ModesComponent,

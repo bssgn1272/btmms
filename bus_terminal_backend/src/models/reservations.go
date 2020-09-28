@@ -174,7 +174,7 @@ func GetReservationHistory() []*EdResult {
 // Update Approve or reject reservation
 func (reservation *EdReservation) Update(id string) map[string]interface{} {
 
-	db.Model(&reservation).Where("res_uuid = ?", id).Updates(EdReservation{Status: reservation.Status, CancellationReason: reservation.CancellationReason})
+	db.Model(&reservation).Where("res_uuid = ?", id).Updates(EdReservation{Status: reservation.Status, CancellationReason: reservation.CancellationReason, BusId: reservation.BusId})
 
 	log.Println(reservation.Status)
 
