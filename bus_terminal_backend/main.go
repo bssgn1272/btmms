@@ -119,6 +119,7 @@ func main() {
 
 	// Penalty Due Times Routes
 	router.Handle("/api/penalty", controllers.CreatePenaltyController).Methods("POST")
+	router.Handle("/api/penalty/{id}", controllers.UpdatePenaltyController).Methods("POST")
 	router.Handle("/api/penalty", controllers.GetPenaltiesController).Methods("GET")
 	router.Handle("/api/latest/penalty", controllers.GetLatestPenaltyController).Methods("GET")
 	router.Handle("/api/accumulated/penalties/{id}", controllers.GetAccumulatedPenaltiesController).Methods("GET")

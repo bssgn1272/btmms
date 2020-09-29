@@ -80,3 +80,18 @@ var GetAccumulatedPenaltiesController = http.HandlerFunc(func(w http.ResponseWri
 	log.Println(resp)
 	utils.Respond(w, resp)
 })
+
+var UpdatePenaltyController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+	params := mux.Vars(r)
+	id := params["id"]
+	penalty := &models.EdPenalty{}
+
+	err := json.NewDecoder(r.Body).Decode(penalty)
+	if err != nil {
+		utils.Respond(w, utils.Message(false, "Error while decoding request body"))
+		return
+	}
+	resp := penalty.UpdatePenalty(id)
+	utils.Respond(w, resp)
+})
