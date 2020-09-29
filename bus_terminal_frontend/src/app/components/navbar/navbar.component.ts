@@ -5,11 +5,11 @@ import {
   LocationStrategy,
   PathLocationStrategy
 } from '@angular/common';
-import { MatDialog } from "@angular/material";
+import { MatDialog } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'app/login/auth.service';
-import { SettingsService } from "app/settings/settings.service";
-import { ChangePasswordComponent } from "app/change-password/change-password.component";
+import { SettingsService } from 'app/settings/settings.service';
+import { ChangePasswordComponent } from 'app/change-password/change-password.component';
 
 @Component({
   selector: 'app-navbar',
@@ -52,8 +52,8 @@ export class NavbarComponent implements OnInit {
         this.mobile_menu_visible = 0;
       }
     });
-    
-    if(this.currentUser.account_status === 'ACTIVE'){
+
+    if (this.currentUser.account_status === 'ACTIVE') {
       this.activated = true;
     }
 
@@ -170,14 +170,14 @@ export class NavbarComponent implements OnInit {
     }
     this.dialogRef.afterClosed().subscribe(result => {
       this.currentUser = this.getFromLocalStorage();
-      if(this.currentUser.account_status === 'ACTIVE'){
+      if (this.currentUser.account_status === 'ACTIVE') {
         this.activated = true;
       }
     });
   }
 
   public getFromLocalStorage() {
-    const users = JSON.parse(localStorage.getItem("currentUser"));
+    const users = JSON.parse(localStorage.getItem('currentUser'));
     return users;
   }
 }

@@ -9,6 +9,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 export class ReservationRequestsService {
   private url = "/api/reservations/requests";
   private urlh = "/api/reservations/requests/history";
+  private urlaR = "/api/arreservations/requests";
+  private urlhaR = "/api/arreservations/requests/history";
 
   constructor(private http: HttpClient) {}
 
@@ -19,6 +21,17 @@ export class ReservationRequestsService {
 
   async getHistoryList(): Promise<any> {
     const url = `${this.urlh}`;
+    return await this.http.get(url).toPromise().catch(this.handleError);
+  }
+
+
+  async getARList(): Promise<any> {
+    const url = `${this.urlaR}`;
+    return await this.http.get(url).toPromise().catch(this.handleError);
+  }
+
+  async getARHistoryList(): Promise<any> {
+    const url = `${this.urlhaR}`;
     return await this.http.get(url).toPromise().catch(this.handleError);
   }
 

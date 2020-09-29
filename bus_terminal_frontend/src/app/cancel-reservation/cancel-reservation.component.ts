@@ -41,7 +41,7 @@ export class CancelReservationComponent implements OnInit {
   reasonForm: FormGroup;
   submitted = false;
   constructor(
-    public dialogRef: MatDialogRef<RejectComponent>,
+    public dialogRef: MatDialogRef<CancelReservationComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
     private httpClient: HttpClient,
     private route: ActivatedRoute,
@@ -126,7 +126,8 @@ export class CancelReservationComponent implements OnInit {
           type: "Late Cancellation",
         })
         .subscribe((x) => {
-          const message = "Late Cancellation Penalty";
+          const message = 'Late Cancellation of' + ' ' + this.data.row.slot + 'reservation. ' + 'Destination: ' + this.data.row.end_route +
+              ' Bus Registration: ' + this.data.row.license_plate;
 
           let body = new HttpParams();
           body = body.set("receiver", this.userItems.mobile);
@@ -136,7 +137,8 @@ export class CancelReservationComponent implements OnInit {
             (error) => {}
           );
 
-          const subject = "Late Cancellation Penalty";
+          const subject = 'Late Cancellation of' + ' ' + this.data.row.slot + 'reservation. ' + 'Destination: ' + this.data.row.end_route +
+              ' Bus Registration: ' + this.data.row.license_plate;
           let bodyc = new HttpParams();
           bodyc = bodyc.set("email", this.userItems.email);
           bodyc = bodyc.set("user", this.userItems.username);
@@ -221,7 +223,8 @@ export class CancelReservationComponent implements OnInit {
       })
       .subscribe(
         (data) => {
-          const message = "Reservation Cancelled Successfully";
+          const message = 'Cancellation of' + ' ' + this.data.row.slot + 'reservation. ' + 'Destination: ' + this.data.row.end_route +
+              ' Bus Registration: ' + this.data.row.license_plate;
 
           let body = new HttpParams();
           body = body.set("receiver", this.userItems.mobile);
@@ -231,7 +234,8 @@ export class CancelReservationComponent implements OnInit {
             (error) => {}
           );
 
-          const subject = "Reservation Cancellation";
+          const subject = 'Cancellation of' + ' ' + this.data.row.slot + 'reservation. ' + 'Destination: ' + this.data.row.end_route +
+              ' Bus Registration: ' + this.data.row.license_plate;
           let bodyc = new HttpParams();
           bodyc = bodyc.set("email", this.userItems.email);
           bodyc = bodyc.set("user", this.userItems.username);
@@ -313,7 +317,7 @@ export class CancelReservationComponent implements OnInit {
       })
       .subscribe(
         (data) => {
-          const message = "Reservation Cancelled Successfully";
+          const message = "Cancellation Request Made Successfully";
 
           let body = new HttpParams();
           body = body.set("receiver", this.userItems.mobile);

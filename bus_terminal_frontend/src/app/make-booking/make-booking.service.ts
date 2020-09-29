@@ -17,10 +17,10 @@ export class MakeBookingService {
     console.log(this.url);
   }
 
-  async getBusList(id: string): Promise<any> {
+  async getBusList(id: number): Promise<any> {
     const url = `${this.uri}`;
     return await this.http
-      .get(url + "/" + id)
+      .get(url + '/' + id)
       .toPromise()
       .catch(this.handleError);
   }

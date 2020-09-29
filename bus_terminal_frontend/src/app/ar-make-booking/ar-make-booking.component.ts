@@ -1,12 +1,12 @@
-import { Component, OnInit, Optional, Inject } from "@angular/core";
-import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from "@angular/material";
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { ActivatedRoute, Router } from "@angular/router";
-import { ArMakeBookingService } from "./ar-make-booking.service";
-import { FormGroup, Validators, FormBuilder } from "@angular/forms";
-import { Location } from "@angular/common";
-import { v4 } from "uuid";
-import { ViewSlotsService } from "app/view-my-slots/view-slots.service";
+import { Component, OnInit, Optional, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ArMakeBookingService } from './ar-make-booking.service';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Location } from '@angular/common';
+import { v4 } from 'uuid';
+import { ViewSlotsService } from 'app/view-my-slots/view-slots.service';
 
 export interface Slot {
   value: string;
@@ -19,34 +19,34 @@ export interface Destination {
 }
 
 @Component({
-  selector: "app-ar-make-booking",
-  templateUrl: "./make-booking.component.html",
-  styleUrls: ["./make-booking.component.scss"],
+  selector: 'app-ar-make-booking',
+  templateUrl: './make-booking.component.html',
+  styleUrls: ['./make-booking.component.scss'],
 })
 export class ArMakeBookingComponent implements OnInit {
   // Booking formGroup
   bookingForm: FormGroup;
   // slot = '';
-  status = "A";
+  status = 'A';
   // route = '';
-  time = "";
+  time = '';
   user_id = 0;
-  user = "";
+  user = '';
   // reserved_time = '';
 
   open = false;
   closed = false;
 
-  slot_one = "";
-  slot_two = "";
-  slot_three = "";
-  slot_four = "";
-  slot_five = "";
-  slot_six = "";
-  slot_seven = "";
-  slot_eight = "";
-  slot_nine = "";
-  returnUrl: "";
+  slot_one = '';
+  slot_two = '';
+  slot_three = '';
+  slot_four = '';
+  slot_five = '';
+  slot_six = '';
+  slot_seven = '';
+  slot_eight = '';
+  slot_nine = '';
+  returnUrl: '';
   userItems: any;
   _id: any;
   public sources: [];
@@ -68,9 +68,9 @@ export class ArMakeBookingComponent implements OnInit {
     private reservationService: ViewSlotsService
   ) {
     this.bookingForm = this._formBuilder.group({
-      slot: ["", Validators.required],
-      route: ["", Validators.required],
-      bus: ["", Validators.required],
+      slot: ['', Validators.required],
+      route: ['', Validators.required],
+      bus: ['', Validators.required],
     });
   }
 
@@ -80,7 +80,7 @@ export class ArMakeBookingComponent implements OnInit {
   };
 
   public getFromLocalStrorage() {
-    const users = JSON.parse(localStorage.getItem("currentUser"));
+    const users = JSON.parse(localStorage.getItem('currentUser'));
     return users;
   }
 
@@ -91,100 +91,100 @@ export class ArMakeBookingComponent implements OnInit {
 
     this.slot_one = this.data.row.slot_one;
 
-    if (this.slot_one !== "open") {
+    if (this.slot_one !== 'open') {
       this.closed = true;
       this.open = false;
     }
 
-    if (this.slot_one === "open") {
+    if (this.slot_one === 'open') {
       this.open = true;
       this.closed = false;
     }
 
     this.slot_two = this.data.row.slot_two;
-    if (this.slot_two !== "open") {
+    if (this.slot_two !== 'open') {
       this.closed = true;
       this.open = false;
     }
 
-    if (this.slot_two === "open") {
+    if (this.slot_two === 'open') {
       this.open = true;
       this.closed = false;
     }
 
     this.slot_three = this.data.row.slot_three;
-    if (this.slot_three !== "open") {
+    if (this.slot_three !== 'open') {
       this.closed = true;
       this.open = false;
     }
 
-    if (this.slot_three === "open") {
+    if (this.slot_three === 'open') {
       this.open = true;
       this.closed = false;
     }
 
     this.slot_four = this.data.row.slot_four;
-    if (this.slot_four !== "open") {
+    if (this.slot_four !== 'open') {
       this.closed = true;
       this.open = false;
     }
 
-    if (this.slot_four === "open") {
+    if (this.slot_four === 'open') {
       this.open = true;
       this.closed = false;
     }
 
     this.slot_five = this.data.row.slot_five;
-    if (this.slot_five !== "open") {
+    if (this.slot_five !== 'open') {
       this.closed = true;
       this.open = false;
     }
 
-    if (this.slot_five === "open") {
+    if (this.slot_five === 'open') {
       this.open = true;
       this.closed = false;
     }
 
     this.slot_six = this.data.row.slot_six;
-    if (this.slot_six !== "open") {
+    if (this.slot_six !== 'open') {
       this.closed = true;
       this.open = false;
     }
 
-    if (this.slot_six === "open") {
+    if (this.slot_six === 'open') {
       this.open = true;
       this.closed = false;
     }
 
     this.slot_seven = this.data.row.slot_seven;
-    if (this.slot_seven !== "open") {
+    if (this.slot_seven !== 'open') {
       this.closed = true;
       this.open = false;
     }
 
-    if (this.slot_seven === "open") {
+    if (this.slot_seven === 'open') {
       this.open = true;
       this.closed = false;
     }
 
     this.slot_eight = this.data.row.slot_eight;
-    if (this.slot_eight !== "open") {
+    if (this.slot_eight !== 'open') {
       this.closed = true;
       this.open = false;
     }
 
-    if (this.slot_eight === "open") {
+    if (this.slot_eight === 'open') {
       this.open = true;
       this.closed = false;
     }
 
     this.slot_nine = this.data.row.slot_nine;
-    if (this.slot_nine !== "open") {
+    if (this.slot_nine !== 'open') {
       this.closed = true;
       this.open = false;
     }
 
-    if (this.slot_nine === "open") {
+    if (this.slot_nine === 'open') {
       this.open = true;
       this.closed = false;
     }
@@ -197,7 +197,7 @@ export class ArMakeBookingComponent implements OnInit {
     await this.loadSources();
     // get return url from route parameters or default to '/'
     this.returnUrl =
-      this.routes.snapshot.queryParams["returnUrl"] || "/dashboard";
+      this.routes.snapshot.queryParams['returnUrl'] || '/dashboard';
 
     this.loadBuses();
 
@@ -207,7 +207,7 @@ export class ArMakeBookingComponent implements OnInit {
   // fetch routes
   async loadSources() {
     this.makeBookingService.getList().then((res) => {
-      console.log("SOURCES>>>>>", res);
+      console.log('SOURCES>>>>>', res);
 
       this.sources = res.data;
     });
@@ -217,21 +217,21 @@ export class ArMakeBookingComponent implements OnInit {
   async loadBuses() {
     await this.makeBookingService.getBusList(this._id).then((res) => {
       this.busesFilter = res.data;
-      console.log("=========================>>>", this.busesFilter);
+      console.log('=========================>>>', this.busesFilter);
 
       this.reservationService.arGetList(this._id).then((rese) => {
         this.reservedBus = rese.data;
-        var arOperatingDate = (new Date(sessionStorage.getItem('arOperatingDate'))).toISOString().split('T')[0];
+        let arOperatingDate = (new Date(sessionStorage.getItem('arOperatingDate'))).toISOString().split('T')[0];
 
         this.buses = this.busesFilter.filter(
           (o) =>
             !this.reservedBus.find(
-              (o2) => o.id === o2.bus_id && o2.status === "A" && o2.reserved_time.split('T')[0] == arOperatingDate
+              (o2) => o.id === o2.bus_id && o2.status === 'A' && o2.reserved_time.split('T')[0] == arOperatingDate
             )
         );
       });
 
-      console.log("Buses>>>>>", this.buses);
+      console.log('Buses>>>>>', this.buses);
     });
   }
 
@@ -248,24 +248,35 @@ export class ArMakeBookingComponent implements OnInit {
     }
     console.log(this.f.route.value);
 
-    this.status = "A";
+    this.status = 'A';
+    let message = 'Slot Successfully Reserved';
     this.time = this.data.row.time;
-    var reservation_time = (new Date(sessionStorage.getItem('arOperatingDate'))).toISOString().split('.')[0]+"Z";
+    const reservation_time = (new Date(sessionStorage.getItem('arOperatingDate'))).toISOString().split('.')[0] + 'Z';
     console.log(reservation_time);
+    if (this.data.row.slot_one === this.user || this.data.row.slot_two === this.user || this.data.row.slot_three === this.user ||
+        this.data.row.slot_four === this.user || this.data.row.slot_five === this.user || this.data.row.slot_six === this.user ||
+        this.data.row.slot_seven === this.user || this.data.row.slot_eight === this.user || this.data.row.slot_nine === this.user) {
+      this.status = 'P'
+    }
+
+    const reserv = {
+      slot: this.f.slot.value,
+      status: this.status,
+      route: this.f.route.value,
+      user_id: this._id,
+      res_uuid: v4(),
+      time: this.data.row.time,
+      reserved_time: reservation_time, // this.data.row.reservation_time
+      bus_id: this.f.bus.value,
+    }
 
     this.httpClient
-      .post("/api/arreservation/requests/create", {
-        slot: this.f.slot.value,
-        status: this.status,
-        route: this.f.route.value,
-        user_id: this._id,
-        res_uuid: v4(),
-        time: this.data.row.time,
-        reserved_time: reservation_time, //this.data.row.reservation_time
-        bus_id: this.f.bus.value,
-      })
+      .post('/api/arreservation/requests/create', reserv)
       .subscribe(
         (data) => {
+          if (this.status === 'P') {
+            message = 'Slot Reservation Pending Approval';
+          }
           /*if (this.f.slot.value === "slot_one") {
             this.httpClient
               .put("/api/slots/close", {
@@ -339,40 +350,40 @@ export class ArMakeBookingComponent implements OnInit {
               .toPromise();
           }*/
 
-          const message = "Slot Successfully Reserved";
+
 
           let body = new HttpParams();
-          body = body.set("receiver", this.userItems.mobile);
-          body = body.set("msg", message);
-          this.httpClient.get("/api/sms", { params: body }).subscribe(
+          body = body.set('receiver', this.userItems.mobile);
+          body = body.set('msg', message);
+          this.httpClient.get('/api/sms', { params: body }).subscribe(
             (data) => {},
             (error) => {}
           );
 
-          const subject = "Reservation";
+          const subject = 'Reservation';
           let bodyc = new HttpParams();
-          bodyc = bodyc.set("email", this.userItems.email);
-          bodyc = bodyc.set("user", this.userItems.username);
-          bodyc = bodyc.set("subject", subject);
-          bodyc = bodyc.set("msg", message);
-          this.httpClient.get("/api/email", { params: bodyc }).subscribe(
+          bodyc = bodyc.set('email', this.userItems.email);
+          bodyc = bodyc.set('user', this.userItems.username);
+          bodyc = bodyc.set('subject', subject);
+          bodyc = bodyc.set('msg', message);
+          this.httpClient.get('/api/email', { params: bodyc }).subscribe(
             (data) => {},
             (error) => {}
           );
           this._location.back();
-          this._snackBar.open("Successfully Created", null, {
+          this._snackBar.open(message, null, {
             duration: 1000,
-            horizontalPosition: "center",
-            panelClass: ["blue-snackbar"],
-            verticalPosition: "top",
+            horizontalPosition: 'center',
+            panelClass: ['blue-snackbar'],
+            verticalPosition: 'top',
           });
         },
         (error) => {
-          this._snackBar.open("Failed", null, {
+          this._snackBar.open('Failed', null, {
             duration: 2000,
-            horizontalPosition: "center",
-            panelClass: ["background-red"],
-            verticalPosition: "top",
+            horizontalPosition: 'center',
+            panelClass: ['background-red'],
+            verticalPosition: 'top',
           });
         }
       );

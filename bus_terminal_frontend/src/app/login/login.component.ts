@@ -73,7 +73,13 @@ export class LoginComponent implements OnInit {
           if(data.error === "Invalid password"){
             localStorage.removeItem('currentUser');
             console.log("Console Data>>> ", data);
-            this.error = "Invalid Username/Password"
+            this.error = "Invalid Password"
+            this.alertService.error("Invalid Username/Password");
+            this.loading = false;
+          } else if(data.error === "Invalid Username"){
+            localStorage.removeItem('currentUser');
+            console.log("Console Data>>> ", data);
+            this.error = "Invalid Username"
             this.alertService.error("Invalid Username/Password");
             this.loading = false;
           }

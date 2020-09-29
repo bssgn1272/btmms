@@ -9,6 +9,8 @@ import {
 import { MakeBookingComponent } from 'app/make-booking/make-booking.component';
 import { ArMakeBookingComponent } from 'app/ar-make-booking/ar-make-booking.component';
 import { OpenSlotsService } from './user-profile.service';
+import {DpEditReservationComponent} from '../dp-edit-reservation/dp-edit-reservation.component';
+import {ArEditResevertionComponent} from '../ar-edit-resevertion/ar-edit-resevertion.component';
 
 
 @Component({
@@ -43,6 +45,7 @@ export class UserProfileComponent implements OnInit {
   user: any;
   operatingDate: any;
   arOperatingDate: any;
+  selectedSlot: any
   constructor(
     private dialog: MatDialog,
     private el: ElementRef,
@@ -61,7 +64,8 @@ export class UserProfileComponent implements OnInit {
     this.minDate.setDate(this.minDate.getDate() + 1);
     this.maxDate.setDate(this.maxDate.getDate() + 7);
 
-    this.slots.getList().then(res => {
+    this.slots.getList().then((res) => {
+      console.log('Slots', res)
       this.dataSource = new MatTableDataSource(res.data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -89,8 +93,10 @@ export class UserProfileComponent implements OnInit {
   }
 
   public onChange(event): void {
-    var dt = this.convertDate(event.value);
+    const dt = this.convertDate(event.value);
+    console.log('DATE>>>', dt);
 
+    // this.slots.testSlots().subscribe((res: any) => {
     this.slots.getList(dt).then(res => {
       this.dataSource = new MatTableDataSource(res.data);
       this.dataSource.paginator = this.paginator;
@@ -99,7 +105,7 @@ export class UserProfileComponent implements OnInit {
 
     this.operatingDate = dt;
     sessionStorage.setItem('operatingDate', this.operatingDate);
-    console.log(dt);
+
   }
 
   public onArChange(event): void {
@@ -128,6 +134,21 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  onOpenEditDialog(user, slot, time, reserved_date): void {
+    let row = {user: user, slot: slot, time: time, reserved_date: reserved_date}
+    if (this.user === user) {
+      sessionStorage.setItem('mode', 'DEP');
+      const dialogRef = this.dialog.open(DpEditReservationComponent, {
+        width: '60%',
+        data: { row }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        row = result;
+      });
+    }
+
+  }
+
   arOnOpenDialog(row): void {
     sessionStorage.setItem('mode', 'ARR');
     const dialogRef = this.dialog.open(ArMakeBookingComponent, {
@@ -137,6 +158,22 @@ export class UserProfileComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       row = result;
     });
+  }
+
+
+  onOpenEditDialogAR(user, slot, time, reserved_date): void {
+    let row = {user: user, slot: slot, time: time, reserved_date: reserved_date}
+    if (this.user === user) {
+      sessionStorage.setItem('mode', 'DEP');
+      const dialogRef = this.dialog.open(ArEditResevertionComponent, {
+        width: '60%',
+        data: { row }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        row = result;
+      });
+    }
+
   }
 
   convertDate(d: Date): String {

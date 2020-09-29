@@ -14,7 +14,6 @@ import { AuthService } from "app/login/auth.service";
 import { Location, formatDate } from "@angular/common";
 import { CancelReservationComponent } from "../cancel-reservation/cancel-reservation.component";
 import { ChangeBusComponent } from "../change-bus/change-bus.component";
-import { ChangeVehicleComponent } from "../change-vehicle/change-vehicle.component";
 import * as moment from "moment";
 
 @Component({

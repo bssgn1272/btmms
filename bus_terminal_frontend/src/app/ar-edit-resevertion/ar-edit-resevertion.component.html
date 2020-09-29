@@ -1,0 +1,110 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card card-plain">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Edit Arrival Booking</h4>
+      </div>
+      <p></p>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-body">
+            <mat-dialog-content>
+              <form [formGroup]="bookingForm" novalidate>
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field>
+                      <mat-label>Select Slots</mat-label>
+                      <input matInput formControlName="slot" readonly>
+                      <!-- error -->
+                      <!-- <mat-error *ngIf="errorHandling('slot', 'required')">
+                        You must provide a<strong>slot</strong>
+                    </mat-error> -->
+                      <div
+                              *ngIf="submitted &amp;&amp; f.slot.errors"
+                              class="text-danger"
+                      >
+                        <div *ngIf="f.slot.errors.required">
+                          Slot is required
+                        </div>
+                      </div>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Destination</mat-label>
+                      <mat-select
+                              (change)="loadSources()"
+                              formControlName="route"
+                              [ngClass]="{ 'is-invalid': submitted &amp;&amp; f.route.errors }"
+                              required
+                      >
+                        <div *ngFor="let source of sources">
+                          <!-- <div *ngIf="destination.time_of_day == time"> -->
+                          <mat-option [value]="source.ID">
+                            {{ source.end_route }}
+                          </mat-option>
+                          <!-- </div> -->
+                        </div>
+                      </mat-select>
+                      <div
+                              *ngIf="submitted &amp;&amp; f.route.errors"
+                              class="text-danger"
+                      >
+                        <div *ngIf="f.route.errors.required">
+                          Route is required
+                        </div>
+                      </div>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Bus</mat-label>
+                      <mat-select
+                              formControlName="bus"
+                              [ngClass]="{ 'is-invalid': submitted &amp;&amp; f.bus.errors }"
+                              required
+                      >
+                        <div *ngFor="let bus of buses">
+                          <!-- <div *ngIf="destination.time_of_day == time"> -->
+                          <mat-option [value]="bus.id">
+                            {{ bus.company }} {{ bus.license_plate }}
+                          </mat-option>
+                          <!-- </div> -->
+                        </div>
+                      </mat-select>
+                      <div
+                              *ngIf="submitted &amp;&amp; f.bus.errors"
+                              class="text-danger"
+                      >
+                        <div *ngIf="f.bus.errors.required">
+                          Bus is required
+                        </div>
+                      </div>
+<!--                      <div *ngIf="charge" class="text-info"><i class="material-icons">info</i> Booking Fee: K{{ charge.charge_amount }}.</div>-->
+                    </mat-form-field>
+                  </div>
+                </div>
+              </form>
+            </mat-dialog-content>
+
+            <mat-dialog-actions>
+              <button class="mat-raised-button" (click)="close()">Close</button>
+              <button
+                      mat-raised-button
+                      class="btn btn-primary"
+                      (click)="editReservation()"
+              >
+                Edit Booking
+              </button>
+            </mat-dialog-actions>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
