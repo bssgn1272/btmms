@@ -108,12 +108,6 @@ func (penalty *EdPenalty) UpdatePenalty(id string) map[string]interface{} {
 
 // create town
 func (penalty *EdPenalty) CreatePenalty() map[string]interface{} {
-
-	/*if validErrs := time.Validate(); len(validErrs) > 0 {
-		err := map[string]interface{}{"validationError": validErrs}
-		return err
-	}*/
-
 	GetDB().Create(penalty)
 
 	resp := utils.Message(true, "success")
