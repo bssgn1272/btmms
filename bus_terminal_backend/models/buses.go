@@ -18,7 +18,7 @@ type ProbaseTblBus struct {
 func GetBuses(id string) ([]*ProbaseTblBus) {
 
 	buses := make([]*ProbaseTblBus, 0)
-	err := GetDB().Table("probase_tbl_buses").Where("operator_id = ? ", id).Find(&buses).Error
+	err := GetDB().Table("probase_tbl_bus").Where("operator_id = ? ", id).Find(&buses).Error
 	log.Println("ID-------", id)
 	if err != nil {
 		log.Println(err)

@@ -24,7 +24,7 @@ var GetEmailController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Re
 	// user we are authorizing as
 	from := "changalesa8@gmail.com"
 
-	// use we are sending email to
+	// user we are sending email to
 	to := email
 
 	// server we are authorized to send email through
@@ -50,35 +50,22 @@ Subject: %s
 		return
 	}
 	fmt.Println("Email Sent!")
-	//data := d
-	//resp := utils.Message(true, "success")
-	//resp["data"] = data
-	//log.Println(resp)
-	//utils.Respond(w, resp)
 })
 
 // GetSMSController blah blah
 var GetSMSController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("content-type", "application/json")
+
 	queryValues := r.URL.Query()
+
 	_, _ = fmt.Fprintf(w, "hello, %s!\n", queryValues.Get("receiver"))
 
 	receiver := queryValues.Get("receiver")
-
 	msg := queryValues.Get("msg")
 
 	msg = strings.Replace(msg, " ", "_", -1)
-
-	//
-	//msgs := url.Values{"msg": {msg}}
-	//
-	//msg = msgs.Encode()
-	//
-	//msg = strings.Replace(msg, "%0A", "", -1)
 	log.Println(msg)
-
-	//uri := "http://10.8.0.10/sms/index.php?sender=" + sender + "&msisdn=" + msisdn + "&" + msg
 
 	var URL *url.URL
 	URL, err := url.Parse("http://10.10.1.43:13013/napsamobile/pushsms")
@@ -97,20 +84,8 @@ var GetSMSController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Requ
 	URL.RawQuery = parameters.Encode()
 
 	uri := URL.String()
-
-	//uri = strings.Replace(uri, "%0A", "", -1)
-
 	fmt.Printf("Encoded URL is %q\n", URL.String())
-
-	//uri, _ = url.QueryUnescape(uri)
 	log.Println(uri)
-
-	//req, _ := http.NewRequest("GET", uri, nil)
-	//
-	//res, err := http.DefaultClient.Do(req)
-	//
-	//defer res.Body.Close()
-	//body, err := ioutil.ReadAll(res.Body)
 
 	resp, err := http.Get(uri)
 	if err != nil {

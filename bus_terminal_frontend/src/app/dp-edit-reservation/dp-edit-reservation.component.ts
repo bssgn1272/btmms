@@ -129,31 +129,21 @@ export class DpEditReservationComponent implements OnInit {
         this.reservedBus = rese.data;
         const operatingDate = (new Date(sessionStorage.getItem('operatingDate'))).toISOString().split('T')[0];
 
-        this.buses = this.busesFilter.filter(
-          (o) =>
-            !this.reservedBus.find(
-              (o2) => o.ID === o2.bus_id && o2.status === 'A' && o2.reserved_time.split('T')[0] === operatingDate
-            )
-        );
-
-        // this.buses = this.busesFilter;
-        //     .filter(
-        //     (o) =>
-        //         !this.reservedBus.find(
-        //             (o2) => o.id === o2.bus_id && o2.status === 'A'
-        //         )
-        // );
-
         this.selectedR = rese.data;
 
         this.selectedRole = this.selectedR.filter((x) => x.time === this.data.row.time &&
             x.reserved_time.split('T')[0] === this.data.row.reserved_date.split('T')[0] && x.slot === this.data.row.slot)[0];
         console.log('=========================>>>', this.selectedRole);
 
+        this.buses = this.busesFilter.filter(
+          (o) =>
+            !this.reservedBus.find(
+              (o2) => o.id === o2.bus_id && o.id !== this.selectedRole.bus_id && (o2.status === 'A' || o2.status === 'P') && o2.reserved_time.split('T')[0] === operatingDate
+            )
+        );
+
         this.bookingForm.get('route').setValue(this.selectedRole.route)
         this.bookingForm.get('bus').setValue(this.selectedRole.bus_id)
-
-        // this.loadReservations(this.slot);
       });
 
       this.slotInteravlService.getList().then((slots) => {
@@ -193,8 +183,8 @@ export class DpEditReservationComponent implements OnInit {
         .subscribe(
             () => {
               // this._location.back();
-              this._snackBar.open('Successfully Updated', null, {
-                duration: 1000,
+              this._snackBar.open('Slot Successfully Updated', null, {
+                duration: 2000,
                 horizontalPosition: 'center',
                 panelClass: ['blue-snackbar'],
                 verticalPosition: 'top',
@@ -209,9 +199,6 @@ export class DpEditReservationComponent implements OnInit {
               });
             }
         );
-
-    // this.slot = '';
-    // this.route = '';
     this.dialogRef.close();
   }
 

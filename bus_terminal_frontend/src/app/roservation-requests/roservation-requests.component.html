@@ -14,7 +14,7 @@
                       href="#view"
                       data-toggle="tab"
                     >
-                      <i class="material-icons">list</i> Requests
+                      <i class="material-icons">list</i> Departure Requests
                       <div class="ripple-container"></div>
                     </a>
                   </li>
@@ -128,37 +128,6 @@
                     </mat-form-field>
                   </div>
                   <div class="col-md-6">
-                    <!-- <form class="date-block" [formGroup]="filterForm">
-                      <div class="row">
-                        <div class="col-md-3">
-                          <div class="date-block__list">
-                            <mat-form-field>
-                              <input matInput 
-                                [matDatepicker]="fromDate" 
-                                placeholder="From Date" 
-                                formControlName="fromDate">
-                              <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
-                              <mat-datepicker #fromDate></mat-datepicker>
-                            </mat-form-field>
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-                          <div class="date-block__list">
-                              <mat-form-field>
-                                <input matInput 
-                                  [matDatepicker]="toDate" 
-                                  placeholder="To Date" 
-                                  formControlName="toDate">
-                                <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
-                                <mat-datepicker #toDate></mat-datepicker>
-                              </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                          <button mat-button color="primary" class="primary" (click)="getDateRange(filterForm.value)">Submit</button>
-                        </div>
-                      </div>
-                    </form> -->
                   </div>
                 </div>
                 <div class="mat-elevation-z8">
@@ -281,7 +250,7 @@
                             Cancel Request
                           </button>
                           <button
-                            *ngIf="role === 'ADMIN'"
+                            *ngIf="role === 'ADMIN' && row.status === 'PC'"
                             (click)="confirmCancellationRequest(row)"
                             mat-menu-item
                           >
@@ -385,37 +354,6 @@
                     </mat-form-field>
                   </div>
                   <div class="col-md-6">
-                    <!-- <form class="date-block" [formGroup]="filterForm">
-                      <div class="row">
-                        <div class="col-md-3">
-                          <div class="date-block__list">
-                            <mat-form-field>
-                              <input matInput
-                                [matDatepicker]="fromDate"
-                                placeholder="From Date"
-                                formControlName="fromDate">
-                              <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
-                              <mat-datepicker #fromDate></mat-datepicker>
-                            </mat-form-field>
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-                          <div class="date-block__list">
-                              <mat-form-field>
-                                <input matInput
-                                  [matDatepicker]="toDate"
-                                  placeholder="To Date"
-                                  formControlName="toDate">
-                                <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
-                                <mat-datepicker #toDate></mat-datepicker>
-                              </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                          <button mat-button color="primary" class="primary" (click)="getDateRange(filterForm.value)">Submit</button>
-                        </div>
-                      </div>
-                    </form> -->
                   </div>
                 </div>
                 <div class="mat-elevation-z8">
@@ -538,7 +476,7 @@
                             Cancel Request
                           </button>
                           <button
-                                  *ngIf="role === 'ADMIN'"
+                                  *ngIf="role === 'ADMIN' && row.status === 'PC'"
                                   (click)="confirmCancellationRequest(row)"
                                   mat-menu-item
                           >

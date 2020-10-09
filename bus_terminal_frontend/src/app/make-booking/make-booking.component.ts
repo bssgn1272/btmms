@@ -229,23 +229,15 @@ export class MakeBookingComponent implements OnInit {
 
       this.reservationService.getList(this._id).then((rese) => {
         this.reservedBus = rese.data;
-          console.log('BUSES>>>>>', rese.data)
+        console.log('BUSES>>>>>', rese.data)
         const operatingDate = (new Date(sessionStorage.getItem('operatingDate'))).toISOString().split('T')[0];
 
         this.buses = this.busesFilter.filter(
           (o) =>
             !this.reservedBus.find(
-              (o2) => o.ID === o2.bus_id && o2.status === 'A' && o2.reserved_time.split('T')[0] === operatingDate
+              (o2) => o.id === o2.bus_id && (o2.status === 'A' || o2.status === 'P') && o2.reserved_time.split('T')[0] === operatingDate
             )
         );
-
-          // this.buses = this.busesFilter;
-          //     .filter(
-          //     (o) =>
-          //         !this.reservedBus.find(
-          //             (o2) => o.id === o2.bus_id && o2.status === 'A'
-          //         )
-          // );
       });
 
         this.slotInteravlService.getList().then((slots) => {
@@ -297,93 +289,20 @@ export class MakeBookingComponent implements OnInit {
         bus_id: this.f.bus.value,
     }
 
-      let message = '';
+    let message = 'Slot Successfully Reserved';
+    let popup = 'Slot Successfully Reserved';
 
     this.httpClient
       .post('/api/reservation/requests/create', reserv)
       .subscribe(
         (data) => {
-            console.log('Slot>>>>', this.user, this.status)
+          console.log('Slot>>>>', this.user, this.status)
 
-            if (this.status === 'P') {
-                message = 'Slot Reservation Pending Approval';
-            }
-    // else {
-    //             if (this.f.slot.value === 'slot_one') {
-    //                 this.httpClient
-    //                     .put('/api/slots/close', {
-    //                         time: this.time,
-    //                         slot_one: this.user,
-    //                     })
-    //                     .toPromise();
-    //             }
-    //             if (this.f.slot.value === 'slot_two') {
-    //                 this.httpClient
-    //                     .put('/api/slots/close', {
-    //                         time: this.time,
-    //                         slot_two: this.user,
-    //                     })
-    //                     .toPromise();
-    //             }
-    //             if (this.f.slot.value === 'slot_three') {
-    //                 this.httpClient
-    //                     .put('/api/slots/close', {
-    //                         time: this.time,
-    //                         slot_three: this.user,
-    //                     })
-    //                     .toPromise();
-    //             }
-    //             if (this.f.slot.value === 'slot_four') {
-    //                 this.httpClient
-    //                     .put('/api/slots/close', {
-    //                         time: this.time,
-    //                         slot_four: this.user,
-    //                     })
-    //                     .toPromise();
-    //             }
-    //             if (this.f.slot.value === 'slot_five') {
-    //                 this.httpClient
-    //                     .put('/api/slots/close', {
-    //                         time: this.time,
-    //                         slot_five: this.user,
-    //                     })
-    //                     .toPromise();
-    //             }
-    //             if (this.f.slot.value === 'slot_six') {
-    //                 this.httpClient
-    //                     .put('/api/slots/close', {
-    //                         time: this.time,
-    //                         slot_six: this.user,
-    //                     })
-    //                     .toPromise();
-    //             }
-    //             if (this.f.slot.value === 'slot_seven') {
-    //                 this.httpClient
-    //                     .put('/api/slots/close', {
-    //                         time: this.time,
-    //                         slot_seven: this.user,
-    //                     })
-    //                     .toPromise();
-    //             }
-    //             if (this.f.slot.value === 'slot_eight') {
-    //                 this.httpClient
-    //                     .put('/api/slots/close', {
-    //                         time: this.time,
-    //                         slot_eight: this.user,
-    //                     })
-    //                     .toPromise();
-    //             }
-    //             if (this.f.slot.value === 'slot_nine') {
-    //                 this.httpClient
-    //                     .put('/api/slots/close', {
-    //                         time: this.time,
-    //                         slot_nine: this.user,
-    //                     })
-    //                     .toPromise();
-    //             }
-    //
-    //             message = 'Slot Successfully Reserved';
-    //         }
+          if (this.status === 'P') {
+              message = 'Slot Reservation Pending Approval';
+              popup = 'Slot Reservation Pending Approval';
+          }
+    
           let body = new HttpParams();
           body = body.set('receiver', this.userItems.mobile);
           body = body.set('msg', message);
@@ -402,9 +321,9 @@ export class MakeBookingComponent implements OnInit {
             (data) => {},
             (error) => {}
           );
-          // this._location.back();
-          this._snackBar.open('Successfully Created', null, {
-            duration: 1000,
+          this._location.back();
+          this._snackBar.open(popup, null, {
+            duration: 2000,
             horizontalPosition: 'center',
             panelClass: ['blue-snackbar'],
             verticalPosition: 'top',
@@ -419,10 +338,8 @@ export class MakeBookingComponent implements OnInit {
           });
         }
       );
-
-    // this.slot = '';
-    // this.route = '';
     this.dialogRef.close();
+    //Insert logic to navigate to view slots page
   }
 
   close() {

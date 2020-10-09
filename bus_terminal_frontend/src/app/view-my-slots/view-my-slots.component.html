@@ -62,6 +62,7 @@
                         <mat-option value="C">Cancelled</mat-option>
                         <mat-option value="DL">Delayed</mat-option>
                         <mat-option value="D">Departed</mat-option>
+                        <mat-option value="P">Pending Approval</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -158,7 +159,7 @@
                     <!-- Bus # Column -->
                     <ng-container matColumnDef="route">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Registration
+                        Destination
                       </th>
                       <td mat-cell *matCellDef="let element">
                         {{ element.end_route }}
@@ -176,6 +177,7 @@
                         <div *ngIf="element.status == 'C'">Cancelled</div>
                         <div *ngIf="element.status == 'DL'">Delayed</div>
                         <div *ngIf="element.status == 'D'">Departed</div>
+                        <div *ngIf="element.status == 'P'">Pending Approval</div>
                         <!-- {{ element.status }} -->
                       </td>
                     </ng-container>
@@ -193,7 +195,7 @@
                     <ng-container matColumnDef="action">
                       <th mat-header-cell *matHeaderCellDef>Action</th>
                       <td mat-cell *matCellDef="let row">
-                        <div *ngIf="row.status == 'A'">
+                        <div *ngIf="row.status == 'A' || row.status == 'P'">
                           <button
                             mat-raised-button
                             (click)="onOpenCancelDialog(row)"
@@ -244,6 +246,8 @@
                         <mat-option value="A">Approved</mat-option>
                         <mat-option value="PC">Pending Cancellation</mat-option>
                         <mat-option value="C">Cancelled</mat-option>
+                        <mat-option value="DL">Departed</mat-option>
+                        <mat-option value="P">Pending Approval</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -340,7 +344,7 @@
                     <!-- Bus # Column -->
                     <ng-container matColumnDef="route">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Registration
+                        Source
                       </th>
                       <td mat-cell *matCellDef="let element">
                         {{ element.end_route }}
@@ -358,6 +362,7 @@
                         <div *ngIf="element.status == 'C'">Cancelled</div>
                         <div *ngIf="element.status == 'DL'">Delayed</div>
                         <div *ngIf="element.status == 'D'">Departed</div>
+                        <div *ngIf="element.status == 'P'">Pending  Approval</div>
                       </td>
                     </ng-container>
 
@@ -377,7 +382,7 @@
                         <div *ngIf="row.status == 'A'">
                           <button
                             mat-raised-button
-                            (click)="onOpenCancelDialog(row)"
+                            (click)="onOpenCancelDialogAr(row)"
                             matTooltip="Cancel Request"
                             aria-label="Button that displays a tooltip when focused or hovered over"
                             class="btn btn-primary btn-link btn-sm btn-just-icon"
@@ -418,6 +423,7 @@
                         <mat-option value="C">Cancelled</mat-option>
                         <mat-option value="DL">Delayed</mat-option>
                         <mat-option value="D">Departed</mat-option>
+                        <mat-option value="P">Pending Approval</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -514,7 +520,7 @@
                     <!-- Bus # Column -->
                     <ng-container matColumnDef="route">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Route
+                        Destination
                       </th>
                       <td mat-cell *matCellDef="let element">
                         {{ element.end_route }}
@@ -532,6 +538,7 @@
                         <div *ngIf="element.status == 'C'">Cancelled</div>
                         <div *ngIf="element.status == 'DL'">Delayed</div>
                         <div *ngIf="element.status == 'D'">Departed</div>
+                        <div *ngIf="element.status == 'P'">Pending  Approval</div>
                       </td>
                     </ng-container>
 

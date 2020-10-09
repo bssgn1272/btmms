@@ -77,10 +77,10 @@ port Number
 
 # Database
 
-for the DB postgreSQL was used
+The application runs with the MySQL database.
 
  
-To install follow the process from [w3resource](https://www.w3resource.com/PostgreSQL/install-postgresql-on-linux-and-windows.php) 
+To install follow the process from [MySQL](https://www.mysql.org) 
 
 
 # Credentials
@@ -89,6 +89,8 @@ To create user postman can be used
 
 URL 
 > localhost:7080/api/user/register
+> Method: POST
+> Application/JSON
 
 
 Bus Operator
@@ -116,6 +118,8 @@ Admin
 To create Slots postman can be used
 
 > localhost:7080/api/slots/create
+> Method: POST
+> Application/JSON
 
 {
     "slot_one": "open",
@@ -133,6 +137,17 @@ To create Slots postman can be used
 Date format
 > 2019-12-04T21:38:02.2869463+02:00
 
+# Penalties API
+> localhost:7080/api/penalties/{id}
+> Method: POST
+> Application/JSON
+
+{
+    "status": "Paid"
+}
+
+Statuses: Paid, Waived, Cancelled
+Where {id} is the penalty ID to be updated.
 
 
 
@@ -150,7 +165,7 @@ Build Instructions:
              - MAMP Version 4.2.1.
                On macOS, download MAMP https://www.mamp.info/en/downloads/
 
-             - XAMP Version 7.3.9.
+             - XAMPP Version 7.3.9.
                On Windows, download XAMP https://www.apachefriends.org/index.html
 
     •  Install Text-Editor
@@ -159,6 +174,8 @@ Build Instructions:
 
              - Sublime Version 3.0
                Download for macOS and Windows https://www.sublimetext.com/
+               
+             - Or your prefered editor.
 
     • Download zip or Clone the source repository from Github.
               On the command line enter https://github.com/napsa-4805/btmms.git
@@ -181,17 +198,18 @@ Software Requirements:
     • Text Editor
             - Atom free open source-code editor.
             - Sublime cross-platform source code editor.
+            - Or your prefered editor.
 
 
 Description:
 
-The Public Announcement System displays a Departures screen with 20 Buses scheduled for the given day.
+The Public Announcement System displays a Departures and Arrivals screen with scheduled buses for the given day.
 
 The user logins in with username and password to enter The Public Announcement System.
 
 The Public Announcement System displays Bus information by Bus License (Number), Time, Company, Bay and Status.
- - Status column include; Boarding, Canceled, On Time, Delayed and Canceled.
- - Bay Column include 5 Bays; A, B, C, D and E.
+ - Status column include; Boarding, Cancelled, Delayed and Departed.
+ - Gate Column includes 9 gates; From 1 to 9.
 
 
 

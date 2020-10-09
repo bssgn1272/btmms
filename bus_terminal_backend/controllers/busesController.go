@@ -9,7 +9,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// GetBusesController Function for retrieving days requests for the day
+// GetBusesController Function for retrieving buses by operator ID
 var GetBusesController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, _ := params["id"]
@@ -21,7 +21,7 @@ var GetBusesController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Re
 	utils.Respond(w, resp)
 })
 
-// GetAvailableBusesController ...
+// GetAvailableBusesController Function for retrieving available buses by operator ID
 var GetAvailableBusesController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, _ := params["id"]

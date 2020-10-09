@@ -222,20 +222,19 @@ export class ArEditResevertionComponent implements OnInit {
         this.reservedBus = rese.data;
         const arOperatingDate = (new Date(sessionStorage.getItem('arOperatingDate'))).toISOString().split('T')[0];
 
-        this.buses = this.busesFilter.filter(
-            (o) =>
-                !this.reservedBus.find(
-                    (o2) => o.id === o2.bus_id && o2.status === 'A' && o2.reserved_time.split('T')[0] === arOperatingDate
-                )
-        );
-
-
         this.selectedR = rese.data;
 
         this.selectedRole = this.selectedR.filter((x) => x.time === this.data.row.time &&
             x.reserved_time.split('T')[0] === this.data.row.reserved_date.split('T')[0] && x.slot === this.data.row.slot)[0];
 
-        console.log('BUSSES>>>>>', this.selectedR, this.selectedRole)
+        console.log('BUSES>>>>>', this.selectedR, this.selectedRole)
+
+        this.buses = this.busesFilter.filter(
+          (o) =>
+            !this.reservedBus.find(
+              (o2) => o.id === o2.bus_id && o.id !== this.selectedRole.bus_id && (o2.status === 'A' || o2.status === 'P') && o2.reserved_time.split('T')[0] === arOperatingDate
+            )
+        );
 
         this.bookingForm.get('route').setValue(this.selectedRole.route)
         this.bookingForm.get('bus').setValue(this.selectedRole.bus_id)
@@ -266,7 +265,7 @@ export class ArEditResevertionComponent implements OnInit {
             () => {
               // this._location.back();
               this._snackBar.open('Successfully Updated', null, {
-                duration: 1000,
+                duration: 2000,
                 horizontalPosition: 'center',
                 panelClass: ['blue-snackbar'],
                 verticalPosition: 'top',

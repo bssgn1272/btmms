@@ -13,6 +13,7 @@ import { ViewSlotsService } from "./view-slots.service";
 import { AuthService } from "app/login/auth.service";
 import { Location, formatDate } from "@angular/common";
 import { CancelReservationComponent } from "../cancel-reservation/cancel-reservation.component";
+import { CancelArrivalReservationComponent } from "../cancel-arrival-reservation/cancel-arrival-reservation.component";
 import { ChangeBusComponent } from "../change-bus/change-bus.component";
 import * as moment from "moment";
 
@@ -145,6 +146,18 @@ export class ViewMySlotsComponent implements OnInit {
   // add Open Dialog
   onOpenCancelDialog(row): void {
     const dialogRef = this.dialog.open(CancelReservationComponent, {
+      width: "60%",
+      // height: "850",
+      data: { row },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      row = result;
+    });
+    console.log("Row clicked: ", row);
+  }
+
+  onOpenCancelDialogAr(row): void {
+    const dialogRef = this.dialog.open(CancelArrivalReservationComponent, {
       width: "60%",
       // height: "850",
       data: { row },
