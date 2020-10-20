@@ -16,6 +16,13 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateRouteTable do
 
       add :source_state, :string
       add :route_uuid, :string
+      add :auth_status, :integer, default: 0
+      add :maker, :integer
+      add :checker, :integer
+      add :maker_date_time, :naive_datetime
+      add :checker_date_time, :naive_datetime
+      add :user_description, :string
+      add :system_description, :string
 
       timestamps()
     end

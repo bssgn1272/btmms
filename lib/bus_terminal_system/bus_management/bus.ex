@@ -22,6 +22,13 @@ defmodule BusTerminalSystem.BusManagement.Bus do
     field :company, :string
     field :company_info, :string
     field :vehicle_capacity, :string
+    field :auth_status, :integer
+    field :maker, :integer
+    field :checker, :integer
+    field :maker_date_time, :naive_datetime
+    field :checker_date_time, :naive_datetime
+    field :user_description, :string
+    field :system_description, :string
 
     timestamps()
   end
@@ -31,7 +38,8 @@ defmodule BusTerminalSystem.BusManagement.Bus do
     bus_terminus
     |> cast(attrs, [:license_plate, :fitness_license, :uid, :engine_type, :model, :make, :year, :color,
       :state_of_registration, :company, :operator_id, :vin_number, :serial_number, :hull_number, :vehicle_class,
-    :company_info, :vehicle_capacity])
+      :company_info, :vehicle_capacity, :auth_status, :maker, :checker,
+      :maker_date_time,:checker_date_time, :user_description, :system_description])
     |> validate_required([:license_plate, :company, :operator_id])
   end
 

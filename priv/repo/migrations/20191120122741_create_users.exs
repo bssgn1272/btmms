@@ -26,12 +26,20 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateUsers do
       add :account_type, :string
       add :account_number, :string
 
+      add :auth_status, :integer, default: 0
+      add :maker, :integer
+      add :checker, :integer
+      add :maker_date_time, :naive_datetime
+      add :checker_date_time, :naive_datetime
+      add :user_description, :string
+      add :system_description, :string
+
       timestamps()
     end
 
-    execute("INSERT INTO probase_tbl_users (username, password, first_name, last_name, ssn, role, email, mobile,nrc, account_status, operator_role, inserted_at, updated_at)
+    execute("INSERT INTO probase_tbl_users (username, password, first_name, last_name, ssn, role, email, mobile,nrc, account_status, operator_role, inserted_at, updated_at, auth_status)
                                 VALUES ('manager',UPPER(SHA2('password', 512)),'probase','zambia','NOT AVAILABLE','ADMIN','admin@probasegroup.com','+260950773797','000000/00/0','ACTIVE',
-                                        'ADMINISTRATOR',current_date,current_date)")
+                                        'ADMINISTRATOR',current_date,current_date, true)")
 
     execute("INSERT INTO probase_tbl_users (username, password, first_name, last_name, ssn, role, email, mobile,nrc, account_status, operator_role, company,inserted_at, updated_at)
                                 VALUES ('bop',UPPER(SHA2('password', 512)),'operator','zambia','NOT AVAILABLE','BOP','operator@btmsnapsa.com','+260950773797','000000/00/0','ACTIVE',

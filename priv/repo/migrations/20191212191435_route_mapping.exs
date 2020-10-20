@@ -16,6 +16,7 @@ defmodule BusTerminalSystem.Repo.Migrations.RouteMapping do
       add :time, :string
 
       add :route_uid, :integer
+      add :auth_status, :boolean
 
       timestamps()
     end

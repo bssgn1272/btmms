@@ -107,6 +107,11 @@
                                                 <label>Fare:</label>
                                                 <input id="route_fare" name="payload[route_fare]" class="form-control" placeholder="To" type="number" required="required">
                                             </div>
+
+                                            <div class="form-group">
+                                                <label>User Description:</label>
+                                                <textarea id="route_fare" name="payload[user_description]" class="form-control" placeholder="Description" type="text" required="required"></textarea>
+                                            </div>
 		                                </div>
 		                            </div>     
 		                    </div>

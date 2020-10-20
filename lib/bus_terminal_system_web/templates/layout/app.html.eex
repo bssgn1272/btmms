@@ -142,7 +142,12 @@
                                     </li>
 
                                     <li>
-                                        <%= link "Reports", to: Routes.teller_path(@conn, :reports) %>
+                                        <a href="#"><i style="color:orange;" class="icon-envelop2"></i> <span>Reports</span></a>
+                                         <ul>
+                                               <li>
+                                                    <%= link "Reports", to: Routes.teller_path(@conn, :reports) %>
+                                               </li>
+                                         </ul>
                                     </li>
     								<% end %>
 
@@ -152,11 +157,10 @@
                                         <a href="#"><i style="color:orange;" class="icon-bus"></i> <span>Bus Management</span></a>
                                         <ul>
                                             <li>
-                                                <%= link "List Buses", to: Routes.bus_terminus_path(@conn, :bus_approval) %>
+                                                <%= link "Manage Buses", to: Routes.bus_terminus_path(@conn, :bus_approval) %>
                                             </li>
                                         </ul>
                                     </li>
-
 
 
 
@@ -176,6 +180,14 @@
                                             <li><%= link "Stand Allocation", to: Routes.marketer_path(@conn, :standallocation) %></li>
                                         </ul>
                                     </li>
+                                    <% end %>
+                                    <%= if @user.role == "ADMIN" do %>
+                                         <li>
+                                            <a href="<%= Routes.maker_checker_path(@conn, :index) %>">
+
+                                                <i style="color:orange;" class="icon-key"></i> <span>Authorisation</span>
+                                            </a>
+                                        </li>
                                     <% end %>
     								<!-- /main -->
     							</ul>

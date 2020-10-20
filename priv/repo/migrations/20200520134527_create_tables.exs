@@ -11,7 +11,7 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
   end
 
   def down do
-    #drop_tables()
+    drop_tables()
   end
 
   def drop_tables do
@@ -32,6 +32,39 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
   end
 
   def create_tables() do
+
+    create_if_not_exists table(:probase_roles) do
+      add :permissions, :string
+      add :role, :string
+      add :auth_status, :integer, default: 0
+      add :maker_id, :integer
+      add :checker_id, :integer
+      add :maker_date_time, :naive_datetime
+      add :checker_date_time, :naive_datetime
+      add :user_description, :string
+      add :system_description, :string
+    end
+
+    create_if_not_exists table(:probase_user_role) do
+      add :role, :integer
+      add :user, :integer
+      add :auth_status, :integer, default: 0
+      add :maker, :integer
+      add :checker, :integer
+      add :maker_date_time, :naive_datetime
+      add :checker_date_time, :naive_datetime
+      add :user_description, :string
+      add :system_description, :string
+
+      timestamps()
+    end
+
+    create_if_not_exists table(:probase_permissions) do
+      add :name, :string
+      add :code, :string
+
+      timestamps
+    end
 
     create_if_not_exists table(:probase_tbl_tickets) do
       add :reference_number, :string
@@ -60,6 +93,7 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
       add :luggage_total, :float, default: 0.00, precision: 13, scale: 2
       add :info, :string
 
+
       timestamps()
     end
 
@@ -71,6 +105,7 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
       add :request, :string, size: 2000
       add :response, :string, size: 2000
       add :sent, :boolean
+
 
       timestamps
     end

@@ -1566,6 +1566,10 @@ toolbar -->
                                                       <label>Serial Number:</label>
                                                       <input name="payload[serial_number]" id="vehicleSerialNumber" class="form-control" placeholder="Enter Serial Number" type="text" required>
                                                 </div>
+                                                <div class="form-group">
+                                                          <label>User Description:</label>
+                                                          <textarea name="payload[user_description]" id="user_description" class="form-control" placeholder="User Description" type="text" required> </textarea>
+                                                    </div>
 
                                                 <div class="form-group">
                                                       <label>Hull Number:</label>

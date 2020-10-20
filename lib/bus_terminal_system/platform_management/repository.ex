@@ -480,10 +480,38 @@ defmodule BusTerminalSystem.RepoManager do
 
   def get_route_mapping(id), do: Repo.get!(RouteMapping, id)
   def get_route(id), do: Repo.get!(TravelRoutes, id)
-  def list_routes(), do: Repo.all(TravelRoutes)
+#  def list_routes(), do: Repo.all(TravelRoutes)
+  def list_routes() do
+    TravelRoutes.where(auth_status: true)
+  end
   def list_schedules(), do: Repo.all(RouteMapping)
   def list_ed_schedules(), do: Repo.all(TblEdReservations)
-  def create_route(attrs \\ %{}), do: %TravelRoutes{} |> TravelRoutes.changeset(attrs) |> Repo.insert()
+#  def create_route(attrs \\ %{}), do: %TravelRoutes{} |> TravelRoutes.changeset(attrs) |> Repo.insert()
+  def create_route(conn, payload) do
+    IO.inspect payload, label: "payload data"
+    TravelRoutes.create(
+            route_name: payload["route_name"],
+            start_route: "Livingstone",
+            end_route: payload["end_route"],
+            route_code: payload["route_code"],
+            source_state: payload["source_state"],
+            route_uuid: payload["route_uuid"],
+            route_fare: payload["route_fare"],
+            auth_status: false,
+            maker: conn.assigns.user.id,
+            checker: nil,
+            maker_date_time: Timex.now() |> NaiveDateTime.truncate(:second) |> Timex.to_naive_datetime(),
+            checker_date_time: nil ,
+            user_description: payload["user_description"],
+            system_description: "Request to approve a route. request created by: #{conn.assigns.user.username}. on: #{Timex.today()}"
+    )
+    |> case  do
+         {:ok, _}->
+           {:ok, "route created successfully"}
+         {:error, error}->
+            {:error, error}
+       end
+  end
   def delete_route(%TravelRoutes{} = route), do: Repo.delete(route)
 
   #---------------------------------------------------------------------------------------------------------------------

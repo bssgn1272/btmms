@@ -16,10 +16,9 @@ defmodule BusTerminalSystemWeb.RouteController do
   end
 
   def create(conn, %{"payload" => payload} = params) do
-
     payload = Map.put(payload,"start_route","Livingstone")
 
-    case RepoManager.create_route(payload) do
+    case RepoManager.create_route(conn, payload) do
       {:ok, route} ->
         conn
         |> put_flash(:info, "Route created successfully.")

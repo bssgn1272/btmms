@@ -43,6 +43,7 @@ defmodule BusTerminalSystemWeb.Router do
     get "/Create_Bus_Station", BusTerminusController, :form_station
     get "/Assign_Gate", BusTerminusController, :form_gate
     get "/bus_approval", BusTerminusController, :bus_approval
+    get "/bus/register", BusTerminusController, :register
 
     # MARKETER_CONTROLLER_______________________________________________________________________________________
     resources "/platform/secure/commercial/services/marketer/market", MarketerController
@@ -86,6 +87,13 @@ defmodule BusTerminalSystemWeb.Router do
     get "/bookings", BookingsController, :index
     get "/scheduling", BookingsController, :schedule
     post "/create_mapping", BookingsController, :create_schedule
+
+
+    scope "/Checker" do
+      get "/", MakerCheckerController, :index
+      post "/reject", MakerCheckerController, :reject
+      post "/approve", MakerCheckerController, :approve
+    end
   end
 
   scope "/", BusTerminalSystemWeb do
@@ -111,6 +119,8 @@ defmodule BusTerminalSystemWeb.Router do
   # Other scopes may use custom stacks.
   scope "/api/v1", BusTerminalSystemWeb do
     pipe_through :api
+
+    post "/btms/Dashboard/Checker/View", MakerCheckerController, :view
 
     post "/btms/tickets/secured/board_ticket", TicketController, :ticket_board_passenger
     post "/btms/tickets/secured/submit_ledger_transaction", TicketController, :transaction_post_to_ledger
@@ -172,6 +182,13 @@ defmodule BusTerminalSystemWeb.Router do
 
     post "/internal/markets", FrontendApiController, :modules
   end
+
+  # Maker checker implementation
+  scope "/authorisation", BusTerminalSystemWeb do
+    pipe_through :browser
+    get "/btms", MakerCheckerController, :index
+  end
+
 
   def swagger_info do
     %{

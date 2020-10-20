@@ -26,7 +26,7 @@ defmodule BusTerminalSystemWeb.UserController do
 
   def index(conn, _params) do
     routes = RepoManager.list_routes()
-    users = AccountManager.list_users()
+    users = BusTerminalSystem.AccountManager.User.where(auth_status: true)
     f = Timex.today |> Timex.to_datetime
     tickets =  BusTerminalSystem.TicketManagement.Ticket.where(travel_date: Timex.today() |> to_string)
     buses = RepoManager.list_buses()
@@ -162,7 +162,7 @@ defmodule BusTerminalSystemWeb.UserController do
   end
 
   def table_users(conn, _params) do
-    users = AccountManager.list_users()
+    users = BusTerminalSystem.AccountManager.User.where(auth_status: true)
     render(conn, "TableUsers.html", users: users)
   end
 

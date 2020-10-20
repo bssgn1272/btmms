@@ -13,7 +13,8 @@ defmodule BusTerminalSystemWeb.BusTerminusController do
            :show,
            :edit,
            :update,
-           :delete
+           :delete,
+           :register,
          ]
   )
 
@@ -37,15 +38,16 @@ defmodule BusTerminalSystemWeb.BusTerminusController do
          |> put_flash(:error, "This Bus is already registered.")
          |> redirect(to: Routes.user_path(conn, :index))
       :ok ->
-        case BusManagement.create_bus_terminus(bus_terminus_params) do
+        case BusManagement.create_bus_terminus(conn, bus_terminus_params) do
           {:ok, bus_terminus} ->
             conn
-            |> put_flash(:info, "Bus Created Successfully.")
-            |> redirect(to: Routes.user_path(conn, :index))
+            |> put_flash(:info, bus_terminus)
+            |> redirect(to: Routes.bus_terminus_path(conn, :bus_approval))
 
-          {:error, %Ecto.Changeset{} = changeset} ->
-            IO.inspect changeset
-            render(conn, "new.html", changeset: changeset)
+          {:error, changeset} ->
+            conn
+            |> put_flash(:error, changeset)
+            |> redirect(to: Routes.bus_terminus_path(conn, :bus_approval))
         end
     end
 
@@ -116,5 +118,10 @@ defmodule BusTerminalSystemWeb.BusTerminusController do
   def bus_approval(conn, _params) do
     bus_terminus = BusManagement.list_bus_terminus()
     render(conn, "bus_approval.html", bus_terminus: bus_terminus)
+  end
+
+  def register(conn, _params) do
+    conn
+    |> render("register_bus.html")
   end
 end

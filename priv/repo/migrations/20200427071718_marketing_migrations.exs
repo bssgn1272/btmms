@@ -13,6 +13,13 @@ defmodule BusTerminalSystem.Repo.Migrations.MarketingMigrations do
       add :market_uid, :string
       add :city_town, :string
       add :estimated_population, :string
+      add :auth_status, :boolean, default: false
+      add :maker, :integer
+      add :checker, :integer
+      add :maker_date_time, :naive_datetime
+      add :checker_date_time, :naive_datetime
+      add :user_description, :string
+      add :system_description, :string
 
       timestamps()
     end
@@ -22,6 +29,13 @@ defmodule BusTerminalSystem.Repo.Migrations.MarketingMigrations do
       add :section_lable, :string
       add :number_of_shops, :integer
       add :market_id, :integer
+      add :auth_status, :integer, default: 0
+      add :maker, :integer
+      add :checker, :integer
+      add :maker_date_time, :naive_datetime
+      add :checker_date_time, :naive_datetime
+      add :user_description, :string
+      add :system_description, :string
 
       timestamps()
     end
@@ -32,7 +46,13 @@ defmodule BusTerminalSystem.Repo.Migrations.MarketingMigrations do
       add :maketeer_id, :integer
       add :shop_number, :integer
       add :shop_price, :integer
-
+      add :auth_status, :boolean, default: false
+      add :maker, :integer
+      add :checker, :integer
+      add :maker_date_time, :naive_datetime
+      add :checker_date_time, :naive_datetime
+      add :user_description, :string
+      add :system_description, :string
       timestamps()
     end
 
