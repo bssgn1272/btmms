@@ -36,6 +36,9 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
     create_if_not_exists table(:probase_roles) do
       add :permissions, :string
       add :role, :string
+    end
+
+    alter table(:probase_roles) do
       add :auth_status, :integer, default: 0
       add :maker_id, :integer
       add :checker_id, :integer
@@ -48,6 +51,10 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
     create_if_not_exists table(:probase_user_role) do
       add :role, :integer
       add :user, :integer
+      timestamps()
+    end
+
+    alter table(:probase_user_role) do
       add :auth_status, :integer, default: 0
       add :maker, :integer
       add :checker, :integer
@@ -55,8 +62,6 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
       add :checker_date_time, :naive_datetime
       add :user_description, :string
       add :system_description, :string
-
-      timestamps()
     end
 
     create_if_not_exists table(:probase_permissions) do

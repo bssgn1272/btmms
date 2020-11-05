@@ -26,15 +26,21 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateUsers do
       add :account_type, :string
       add :account_number, :string
 
-      add :auth_status, :integer, default: 0
-      add :maker, :integer
-      add :checker, :integer
-      add :maker_date_time, :naive_datetime
-      add :checker_date_time, :naive_datetime
-      add :user_description, :string
-      add :system_description, :string
-
       timestamps()
+    end
+
+    try do
+      alter table(:probase_tbl_users) do
+        add :auth_status, :integer, default: 0
+        add :maker, :integer
+        add :checker, :integer
+        add :maker_date_time, :naive_datetime
+        add :checker_date_time, :naive_datetime
+        add :user_description, :string
+        add :system_description, :string
+      end
+    rescue
+      _ -> ""
     end
 
     execute("INSERT INTO probase_tbl_users (username, password, first_name, last_name, ssn, role, email, mobile,nrc, account_status, operator_role, inserted_at, updated_at, auth_status)

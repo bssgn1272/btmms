@@ -13,6 +13,11 @@ defmodule BusTerminalSystem.Repo.Migrations.MarketingMigrations do
       add :market_uid, :string
       add :city_town, :string
       add :estimated_population, :string
+
+      timestamps()
+    end
+
+    alter table(:probase_tbl_market) do
       add :auth_status, :boolean, default: false
       add :maker, :integer
       add :checker, :integer
@@ -20,8 +25,6 @@ defmodule BusTerminalSystem.Repo.Migrations.MarketingMigrations do
       add :checker_date_time, :naive_datetime
       add :user_description, :string
       add :system_description, :string
-
-      timestamps()
     end
 
     create_if_not_exists table(:probase_tbl_market_section) do
@@ -29,6 +32,11 @@ defmodule BusTerminalSystem.Repo.Migrations.MarketingMigrations do
       add :section_lable, :string
       add :number_of_shops, :integer
       add :market_id, :integer
+
+      timestamps()
+    end
+
+    alter table(:probase_tbl_market_section) do
       add :auth_status, :integer, default: 0
       add :maker, :integer
       add :checker, :integer
@@ -36,8 +44,6 @@ defmodule BusTerminalSystem.Repo.Migrations.MarketingMigrations do
       add :checker_date_time, :naive_datetime
       add :user_description, :string
       add :system_description, :string
-
-      timestamps()
     end
 
     create_if_not_exists table(:probase_tbl_market_section_shop) do
@@ -46,6 +52,11 @@ defmodule BusTerminalSystem.Repo.Migrations.MarketingMigrations do
       add :maketeer_id, :integer
       add :shop_number, :integer
       add :shop_price, :integer
+
+      timestamps()
+    end
+
+    alter table(:probase_tbl_market_section_shop) do
       add :auth_status, :boolean, default: false
       add :maker, :integer
       add :checker, :integer
@@ -53,7 +64,6 @@ defmodule BusTerminalSystem.Repo.Migrations.MarketingMigrations do
       add :checker_date_time, :naive_datetime
       add :user_description, :string
       add :system_description, :string
-      timestamps()
     end
 
   end

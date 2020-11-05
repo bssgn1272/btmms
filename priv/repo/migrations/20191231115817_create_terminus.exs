@@ -9,6 +9,10 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTerminus do
       add :estimated_buses, :integer
       add :city_town, :string
 
+      timestamps()
+    end
+
+    alter table(:probase_tbl_terminus) do
       add :auth_status, :integer, default: 0
       add :maker, :integer
       add :checker, :integer
@@ -16,9 +20,8 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTerminus do
       add :checker_date_time, :naive_datetime
       add :user_description, :string
       add :system_description, :string
-
-      timestamps()
     end
+
   end
 
   def down do

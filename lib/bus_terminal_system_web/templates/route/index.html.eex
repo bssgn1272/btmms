@@ -77,19 +77,19 @@
 		                            <div class="row">
 		                                <div class="col-md-12">
 		                                    <div class="form-group">
-		                                        <label>Route Name:</label>
+		                                        <label>Route Name: <span style="color: red;">*</span></label>
 		                                        <input id="route_name" name="payload[route_name]" class="form-control" placeholder="Route Name" type="text" required="required">
 		                                        <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
 		                                        <input type="hidden" name="payload[route_uuid]" value="<%= BusTerminalSystem.Randomizer.randomizer(16,:all) %>">
 		                                    </div>
 
 		                                    <div class="form-group" hidden>
-		                                        <label>Source State:</label>
+		                                        <label>Source State: <span style="color: red;">*</span></label>
 		                                        <input id="source_kilo" name="payload[source_state]" value="Livingstone" class="form-control" placeholder="Source State" type="text" required="required">
 		                                    </div>
 
 		                                    <div class="form-group">
-                                                <label>Route Code:</label>
+                                                <label>Route Code: <span style="color: red;">*</span></label>
                                                 <input id="route_code" name="payload[route_code]" class="form-control" placeholder="Route Code" type="text" required="required">
                                             </div>
 
@@ -99,17 +99,29 @@
 		                                    </div>
 
 		                                    <div class="form-group">
-		                                        <label>To:</label>
+		                                        <label>To: <span style="color: red;">*</span></label>
 		                                        <input id="route_to" name="payload[end_route]" class="form-control" placeholder="To" type="text" required="required">
 		                                    </div>
 
+                                            <div class="form-group">
+                                                <label class="form-label">Parent Route <span style="color: red;">*</span></label>
+                                                <div class="input-group">
+                                                    <select class="custom-select form-control" name="payload[parent_route]" required>
+                                                        <option value="" disabled selected hidden> -- Select Parent Route --</option>
+                                                        <%= for route <- BusTerminalSystem.TravelRoutes.all() do %>
+                                                        <option value="<%= route.id %>"><%= route.route_name %></option>
+                                                        <% end %>
+                                                    </select>
+                                                </div>
+                                            </div>
+
 		                                    <div class="form-group">
-                                                <label>Fare:</label>
-                                                <input id="route_fare" name="payload[route_fare]" class="form-control" placeholder="To" type="number" required="required">
+                                                <label>Fare: <span style="color: red;">*</span></label>
+                                                <input id="route_fare" name="payload[route_fare]" class="form-control" placeholder="Bus Fare" type="number" required="required">
                                             </div>
 
                                             <div class="form-group">
-                                                <label>User Description:</label>
+                                                <label>User Description: <span style="color: red;">*</span></label>
                                                 <textarea id="route_fare" name="payload[user_description]" class="form-control" placeholder="Description" type="text" required="required"></textarea>
                                             </div>
 		                                </div>

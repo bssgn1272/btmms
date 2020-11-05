@@ -496,8 +496,9 @@ defmodule BusTerminalSystem.RepoManager do
             route_code: payload["route_code"],
             source_state: payload["source_state"],
             route_uuid: payload["route_uuid"],
-            route_fare: payload["route_fare"],
+            route_fare: (payload["route_fare"] |> String.to_integer),
             auth_status: false,
+            parent: (payload["parent_route"] |> String.to_integer),
             maker: conn.assigns.user.id,
             checker: nil,
             maker_date_time: Timex.now() |> NaiveDateTime.truncate(:second) |> Timex.to_naive_datetime(),
@@ -598,7 +599,9 @@ defmodule BusTerminalSystem.RepoManager do
   def list_routes_json() do
     {status, travel_routes} = Repo.all(TravelRoutes) |> Poison.encode()
     {decode_status, routes_map} = JSON.decode(travel_routes)
-    %{ "travel_routes" => routes_map }
+    %{
+      "travel_routes" => routes_map
+    }
   end
 
   def route_search(start_route,end_route) do
@@ -809,10 +812,29 @@ defmodule BusTerminalSystem.RepoManager do
       {:ok, capacity} = Map.fetch(bus,"vehicle_capacity")
       IO.inspect Utility.string_to_int(capacity)
 
-      {:ok, route_id} = Map.fetch(e,"route")
+      route_id = Map.fetch!(e,"route")
       {route_id_int, _route_id_string} = Integer.parse(route_id)
       {route_json_status, route_json} = get_route(route_id_int) |> Poison.encode
       {route_status, route} = JSON.decode(route_json)
+
+       stops = Enum.map(BusTerminalSystem.TravelRoutes.all(), fn route ->
+#        for found_route <- 1..BusTerminalSystem.TravelRoutes.count() do
+          try do
+#            if route_id == 1 do
+#              if BusTerminalSystem.TravelRoutes.find_by([parent: route_id]).parent == route.id and BusTerminalSystem.TravelRoutes.find_by([parent: route_id]) != route do
+#                route |> Poison.encode!
+#              end
+#            else
+              if BusTerminalSystem.TravelRoutes.find_by([parent: route.id]).parent == route_id and BusTerminalSystem.TravelRoutes.find_by([parent: route.id]) != route do
+                route |> Poison.encode!
+              end
+#            end
+
+          rescue
+            _ -> nil
+          end
+#        end
+      end) |> List.flatten() |> Enum.filter(& !is_nil(&1)) |> IO.inspect(label: "TREE")
 
       queried_route = get_route(route_id_int)
 
@@ -824,7 +846,8 @@ defmodule BusTerminalSystem.RepoManager do
       {:ok, date} = Map.fetch(e,"reserved_time")
       {:ok, slot} = Map.fetch(e,"slot")
 
-      IO.inspect "start route #{queried_route.start_route} : end route #{queried_route.end_route}"
+#      IO.inspect "start route #{queried_route.start_route} : end route #{queried_route.end_route}"
+      route_stops = stops(route_id, []) |> Enum.sort_by( fn(r) -> r["order"] end)
       if queried_route.start_route == start_route and queried_route.end_route == end_route do
         Agent.update(agent, fn list -> [
            %{
@@ -833,6 +856,7 @@ defmodule BusTerminalSystem.RepoManager do
              "route" => route,
              "bus" => bus,
              "fare" => fare,
+             "route_stops" => route_stops,
              "slot" => slot,
              "departure_time" => time,
              "departure_date" => date
@@ -843,6 +867,26 @@ defmodule BusTerminalSystem.RepoManager do
     end)
 
     {:ok, agent, Agent.get(agent, fn list -> list end) }
+  end
+
+  def stops(r_id, result) do
+    r = BusTerminalSystem.TravelRoutes.find_by([parent: r_id])
+    if r == nil do
+      result
+    else
+      result = [ %{
+        "route_name" => r.route_name,
+        "start_route" => r.start_route,
+        "end_route" => r.end_route,
+        "route_code" => r.route_code,
+        "route_fare" => r.route_fare,
+        "route_uuid" => r.route_uuid,
+        "source_state" => r.source_state,
+        "order" => r.parent
+       } | result]
+      IO.inspect(result)
+      stops(r.id, result)
+    end
   end
 
   def route_mapping_by_location_(date \\ "01/01/2019", start_route \\ "Livingstone", end_route) do

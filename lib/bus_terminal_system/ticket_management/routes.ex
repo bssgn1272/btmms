@@ -3,8 +3,7 @@ defmodule BusTerminalSystem.TravelRoutes do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @db_columns [:route_name, :start_route, :end_route, :route_code, :source_state, :route_uuid, :route_fare,
-    :auth_status, :maker, :checker, :maker_date_time, :checker_date_time, :user_description, :system_description]
+  @db_columns [:route_name, :start_route, :end_route, :route_code, :source_state, :route_uuid, :route_fare]
 
   @derive {Poison.Encoder, only: @db_columns ++ [:id]}
 
@@ -23,15 +22,16 @@ defmodule BusTerminalSystem.TravelRoutes do
     field :checker_date_time, :naive_datetime
     field :user_description, :string
     field :system_description, :string
+    field :parent, :integer
 
     timestamps()
   end
 
-  @doc false
-  def changeset(route, attrs) do
-    route
-    |> cast(attrs, @db_columns)
-#    |> validate_required(@db_columns)
-  end
+#  @doc false
+#  def changeset(route, attrs) do
+#    route
+#    |> cast(attrs, @db_columns)
+##    |> validate_required(@db_columns)
+#  end
 
 end
