@@ -476,8 +476,48 @@ defmodule BusTerminalSystemWeb.TicketController do
     json(conn,schedules)
   end
 
-  def get_travel_routes(conn,_params) do
-    json(conn, RepoManager.list_routes_json())
+  @validation_param %{ "auth" => %{ "username" => :string, "service_token" => :string }, "payload" => %{ "route_code" => :string }}
+  def get_travel_routes(conn, params) do
+    IO.inspect(params)
+    if Enum.empty?(params) == true do
+      json(conn, RepoManager.list_routes_json())
+    else
+      Skooma.valid?(params,@validation_param)
+      |> case do
+        :ok ->
+
+          route = fn route_code ->
+
+            route = BusTerminalSystem.TravelRoutes.find_by(route_code: route_code) |> Poison.encode!() |> Poison.decode!()
+
+            if route == nil do
+                %{status: "FAILED", message: "ROUTE NOT FOUND"}
+             else
+              sub_routes = BusTerminalSystem.RepoManager.stops(route["id"], []) |> Enum.sort_by( fn(r) -> r["order"] end)
+              %{ status: "SUCCESS", travel_route: route |> Map.put("sub_routes", sub_routes)}
+              end
+          end
+
+          json(conn, route.(params["payload"]["route_code"]))
+        {:error, message} ->
+          error = %{
+            :status => "FAILED",
+            :error => message,
+            :request_structure_required => %{
+              :auth => %{
+                :username => "<USER_NAME>",
+                :service_key => "<SERVICE_KEY>"
+              },
+              :payload => %{
+                :route_code => "<ROUTE_CODE>"
+              }
+            }
+          }
+          json(conn, error)
+      end
+
+    end
+
   end
 
   def get_luggage_weight(conn,_params) do

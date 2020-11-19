@@ -88,6 +88,10 @@ defmodule BusTerminalSystemWeb.Router do
     get "/scheduling", BookingsController, :schedule
     post "/create_mapping", BookingsController, :create_schedule
 
+    # USER_MANAGEMENT_AND_AUTHORIZATION
+
+    match :*, "/btmms/service/user/management", UserManagementController, :redirect
+
 
     scope "/Checker" do
       get "/", MakerCheckerController, :index
@@ -143,7 +147,7 @@ defmodule BusTerminalSystemWeb.Router do
 
     post "/btms/plvPM5f+H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hICn", TicketController, :create_ticket_payload
 
-    get "/btms/travel/secured/routes", TicketController, :get_travel_routes
+    match :*, "/btms/travel/secured/routes", TicketController, :get_travel_routes
     get "/btms/tickets/secured/list", TicketController, :list_tickets
 
 

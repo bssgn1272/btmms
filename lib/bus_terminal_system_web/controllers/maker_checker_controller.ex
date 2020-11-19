@@ -9,7 +9,7 @@ defmodule BusTerminalSystemWeb.MakerCheckerController do
 
   def index(conn, _params) do
     conn
-    |> render("index.html", list: MakerChecker.maker_checker())
+    |> render("index.html", list: MakerChecker.maker_checker() |> IO.inspect(label: "PENDING LIST"))
   end
 
   def view(conn, params) do

@@ -1,0 +1,118 @@
+
+<div class="row">
+    <div class="col-md-12 col-lg-offset-2">
+        <div class="form-group">
+            <%= if get_flash(@conn, :info) do %>
+            <div class="alert alert-success alert-styled-left">
+                <button type="button" class="close" data-dismiss="alert">&times; <span class="sr-only">Close</span></button>
+                <%= get_flash(@conn, :info) %>
+            </div>
+            <% end %>
+            <%= if get_flash(@conn, :error) do %>
+            <div class="alert alert-danger alert-styled-left">
+                <button type="button" class="close" data-dismiss="alert">&times; <span class="sr-only">Close</span></button>
+                Opps! <%= get_flash(@conn, :error) %>
+            </div>
+            <% end %>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <div class="w3-card-2 w3-white" style="width: 50%;">
+            <div class="w3-container">
+                <div class="chart-container" style="margin-top: 2%;">
+                    <div style="overflow-x:auto;">
+                        <table class="table table-striped table-bordered" id="routes_table">
+                            <thead>
+                            <tr>
+                                <th>Role</th>
+                                <th>Permissions</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%= for route <- []do %>
+                            <tr></tr>
+                            <tr>
+                                <td class="text-center">
+                                    <ul class="icons-list">
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                <i class="icon-menu9"></i>
+                                            </a>
+
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <li><a href="#" data-toggle="modal"  data-target="#edit"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Edit</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <% end %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div><br>
+        <button class="w3-btn w3-indigo w3-hover-orange w3-left" style="border-radius: 18px;" onclick="open_role_modal()">Add Role</button>
+    </div>
+
+</div>
+
+<div id="new_role" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-blue" style="color: #0000cc">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">Create Role</h6>
+            </div>
+
+            <form class="form-horizontal" action="<%= Routes.user_management_path(@conn, :create) %>" method="POST">
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label>Role: <span style="color: red;">*</span></label>
+                        <input id="role_name" name="role_name" class="form-control" placeholder="Role Name" type="text" required="required">
+                    </div>
+                    <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button"  class="btn btn-primary">Create Role</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script src="<%= Routes.static_path(@conn, "/js/jquery.js") %>"></script>
+<script>
+
+    function open_role_modal(){
+        $('#new_role').modal("show");
+    }
+
+    $(document).ready(function(){
+
+//Deactivate msg Account
+        $('#edit').on('show.bs.modal', function (event){
+
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
+            var profile = button.data('profile')
+            var role = button.data('role')
+
+            var modal = $(this)
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #profile').val(profile);
+            modal.find('.modal-body #role').val(role);
+        });
+    });
+</script>

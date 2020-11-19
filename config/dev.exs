@@ -2,14 +2,14 @@ use Mix.Config
 
 # Configure your database
 config :bus_terminal_system, BusTerminalSystem.Repo,
-  username: "probase",
-  password: "V1neyard",
-  database: "btmms",
-  hostname: "10.10.1.88",
-#  username: "root",
-#  password: "Qwerty12",
+#  username: "probase",
+#  password: "V1neyard",
 #  database: "btmms",
-#  hostname: "localhost",
+#  hostname: "10.70.3.55",
+  username: "root",
+  password: "Qwerty12",
+  database: "btmms",
+  hostname: "localhost",
 
   timeout: :infinity,
   port: 3306,

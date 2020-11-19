@@ -5,7 +5,7 @@ defmodule BusTerminalSystem.MakerCheckModule do
   alias BusTerminalSystem.AccountManager.User
 
   defp tables do
-    Repo.query!("select TABLE_NAME from information_schema.TABLES where TABLE_SCHEMA='bus_terminal_system_dev' and TABLE_NAME LIKE 'probase_%'").rows
+    Repo.query!("select TABLE_NAME from information_schema.TABLES where TABLE_SCHEMA='btmms' and TABLE_NAME LIKE 'probase_%'").rows |> IO.inspect(lable: "ROWS")
   end
 
 #  def unauthorised_records() do

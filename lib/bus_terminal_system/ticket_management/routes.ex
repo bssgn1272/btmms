@@ -3,7 +3,7 @@ defmodule BusTerminalSystem.TravelRoutes do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @db_columns [:route_name, :start_route, :end_route, :route_code, :source_state, :route_uuid, :route_fare]
+  @db_columns [:route_name, :start_route, :end_route, :route_code, :source_state, :route_uuid, :route_fare, :parent]
 
   @derive {Poison.Encoder, only: @db_columns ++ [:id]}
 
