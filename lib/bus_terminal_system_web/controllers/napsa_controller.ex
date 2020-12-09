@@ -30,7 +30,7 @@ defmodule BusTerminalSystemWeb.NapsaController do
       :ok ->
 
         result = BusTerminalSystem.Napsa.NapsaContribution.connect(conn, params)["{http://schemas.xmlsoap.org/soap/envelope/}Envelope"]["{http://schemas.xmlsoap.org/soap/envelope/}Body"]["ResultWithRef"]
-        json(conn, %{status: 0, message: "SUCCESS", reason: "", response: result})
+        json(conn, result)
       {:error, message} -> json(conn, %{status: 1, message: "FAILED", reason: message})
     end
   end
