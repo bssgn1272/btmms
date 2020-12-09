@@ -27,7 +27,10 @@ defmodule BusTerminalSystemWeb.NapsaController do
 
   def connect(conn, params \\ %{}) do
     Skooma.valid?(params, @valid_contribution_params) |> case do
-      :ok -> json(conn, %{status: 0, message: "SUCCESS", reason: ""})
+      :ok ->
+
+        result = BusTerminalSystem.Napsa.NapsaContribution.connect(conn, params)["{http://schemas.xmlsoap.org/soap/envelope/}Envelope"]["{http://schemas.xmlsoap.org/soap/envelope/}Body"]["ResultWithRef"]
+        json(conn, %{status: 0, message: "SUCCESS", reason: "", response: result})
       {:error, message} -> json(conn, %{status: 1, message: "FAILED", reason: message})
     end
   end

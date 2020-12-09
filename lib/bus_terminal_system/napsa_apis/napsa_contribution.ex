@@ -1,13 +1,7 @@
 defmodule BusTerminalSystem.Napsa.NapsaContribution do
 
   def connect(conn \\ %{}, params \\ %{}) do
-#    contribution_xml_request |> XmlToMap.naive_map
-    wsdl_path = "http://10.10.1.114:8738/eNapsaExternalAPI/2018/04/?singleWsdl"
-    {:ok, wsdl} = Soap.init_model(wsdl_path, :url)
-#    {"wsdl", Soap.operations(wsdl)}
-    parameters = %{}
-    {:ok, response} = Soap.call(wsdl_path, "ReturnUpload", parameters)
-
+    params |> contribution_xml_request |> submit_request
   end
 
   def contribution_xml_request(args \\ %{}) do
@@ -19,46 +13,46 @@ defmodule BusTerminalSystem.Napsa.NapsaContribution do
          <!--Optional:-->
          <ns:ReturnHeader>
             <!--Optional:-->
-            <ns:ProviderID>?</ns:ProviderID>
+            <ns:ProviderID>#{args["provider_id"]}</ns:ProviderID>
             <!--Optional:-->
-            <ns:EmployerAccountNumber>?</ns:EmployerAccountNumber>
+            <ns:EmployerAccountNumber>#{args["employer_account_number"]}</ns:EmployerAccountNumber>
             <!--Optional:-->
-            <ns:Year>?</ns:Year>
+            <ns:Year>#{args["year"]}</ns:Year>
             <!--Optional:-->
-            <ns:Month>?</ns:Month>
+            <ns:Month>#{args["month"]}</ns:Month>
             <!--Optional:-->
-            <ns:PrincipalAmount>?</ns:PrincipalAmount>
+            <ns:PrincipalAmount>#{args["principal_amount"]}</ns:PrincipalAmount>
             <!--Optional:-->
-            <ns:PenaltyAmount>?</ns:PenaltyAmount>
+            <ns:PenaltyAmount>#{args["penalty_amount"]}</ns:PenaltyAmount>
             <!--Optional:-->
-            <ns:TotalAmount>?</ns:TotalAmount>
+            <ns:TotalAmount>#{args["total_amount"]}</ns:TotalAmount>
             <!--Optional:-->
-            <ns:NumberOfEmployees>?</ns:NumberOfEmployees>
+            <ns:NumberOfEmployees>#{args["number_of_employees"]}</ns:NumberOfEmployees>
          </ns:ReturnHeader>
          <!--Optional:-->
          <ns:contributions>
             <!--Zero or more repetitions:-->
             <ns:Contributions>
                <!--Optional:-->
-               <ns:SSN>?</ns:SSN>
+               <ns:SSN>#{args["ssn"]}</ns:SSN>
                <!--Optional:-->
-               <ns:NationalID>?</ns:NationalID>
+               <ns:NationalID>#{args["national_id"]}</ns:NationalID>
                <!--Optional:-->
-               <ns:Surname>?</ns:Surname>
+               <ns:Surname>#{args["surname"]}</ns:Surname>
                <!--Optional:-->
-               <ns:FirstName>?</ns:FirstName>
+               <ns:FirstName>#{args["firstname"]}</ns:FirstName>
                <!--Optional:-->
-               <ns:OtherName>?</ns:OtherName>
+               <ns:OtherName>#{args["othername"]}</ns:OtherName>
                <!--Optional:-->
-               <ns:DOB>?</ns:DOB>
+               <ns:DOB>#{args["date_of_birth"]}</ns:DOB>
                <!--Optional:-->
-               <ns:GrossWage>?</ns:GrossWage>
+               <ns:GrossWage>#{args["gross_wage"]}</ns:GrossWage>
                <!--Optional:-->
-               <ns:EmployeeShare>?</ns:EmployeeShare>
+               <ns:EmployeeShare>#{args["employee_share"]}</ns:EmployeeShare>
                <!--Optional:-->
-               <ns:EmployerShare>?</ns:EmployerShare>
+               <ns:EmployerShare>#{args["employer_share"]}</ns:EmployerShare>
                <!--Optional:-->
-               <ns:SiebelID>?</ns:SiebelID>
+               <ns:SiebelID>#{args["siebel_id"]}</ns:SiebelID>
             </ns:Contributions>
          </ns:contributions>
       </ns:ReturnUploadRequest>
@@ -70,13 +64,14 @@ defmodule BusTerminalSystem.Napsa.NapsaContribution do
   defp submit_request(request) do
     headers = [
       {"Content-Type", "text/xml"},
+      {"SOAPAction", "http://enapsa.napsa.co.zm/eNAPSAServicesLibrary/2016/11/IeNAPSAExternalAPI/ReturnUpload"},
     ]
 
-    endpoint = "http://enapsa.napsa.co.zm/eNAPSAServicesLibrary/2016/11/IeNAPSAExternalAPI/ReturnUpload"
+    endpoint = "http://napsa-enapsauatsvr:8738/eNAPSAExternalAPI/2018/04/NPSService"
 
     case HTTPoison.post(endpoint, request, headers) do
       {status, %HTTPoison.Response{body: body, status_code: status_code}} ->
-        body
+        body |> XmlToMap.naive_map
       {_status, %HTTPoison.Error{reason: reason}} ->
         %{"message" => reason}
     end
