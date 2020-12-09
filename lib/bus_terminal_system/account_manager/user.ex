@@ -5,7 +5,7 @@ defmodule BusTerminalSystem.AccountManager.User do
   # alias Argon2
 
   @derive {Poison.Encoder,only: [:id,:account_type,:username,:first_name,:last_name,:ssn,:nrc,:email,:mobile,:account_status,:operator_role,:role,:company,:account_number,
-  :auth_status, :maker, :checker, :maker_date_time,:checker_date_time,:user_description, :system_description]}
+  :auth_status, :maker, :checker, :maker_date_time,:checker_date_time, :role_id, :user_description, :system_description]}
 
   schema "probase_tbl_users" do
     field :password, :string
@@ -33,6 +33,7 @@ defmodule BusTerminalSystem.AccountManager.User do
     field :checker_date_time, :naive_datetime
     field :user_description, :string
     field :system_description, :string
+    field :role_id, :string
 
     timestamps()
   end
@@ -64,7 +65,8 @@ defmodule BusTerminalSystem.AccountManager.User do
       :maker_date_time,
       :checker_date_time,
       :user_description,
-      :system_description
+      :system_description,
+      :role_id
     ])
     |> validate_required([
       :username,
@@ -93,4 +95,5 @@ defmodule BusTerminalSystem.AccountManager.User do
   defp put_password_hash(changeset), do: changeset
 
   defp harsh_password_pin(changeset), do: changeset
+
 end

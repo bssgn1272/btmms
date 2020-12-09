@@ -51,21 +51,7 @@
         </div>
     	</div>
     </div>
-    <div class="row" style="margin-top: 15px">
-        <div class="col-1">
-            <button type="submit" id="" style="border-radius: 18px;" class="w3-btn w3-indigo w3-hover-orange w3-left">
-                <b><i class="icon-checkmark2"></i></b>Manage Roles
-            </button>
 
-            <%= link("Manage Roles", to: "/Checker", method: "get", style: "border-radius: 18px;", class: "w3-btn w3-indigo w3-hover-orange w3-left") %>
-        </div>
-
-        <div class="col-1">
-            <button type="submit" id="" style="border-radius: 18px; margin-left: 10px" class="w3-btn w3-indigo w3-hover-orange w3-left">
-                <b><i class="icon-checkmark2"></i></b>Manage Permissions
-            </button>
-        </div>
-    </div>
 </div><br>
 
 <script src="<%= Routes.static_path(@conn, "/bower_components/jquery/dist/jquery.min.js") %>"></script>
@@ -126,12 +112,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
 
 <script>
     //Deactivate msg Account

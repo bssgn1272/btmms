@@ -20,7 +20,7 @@ defmodule BusTerminalSystem.MixProject do
   def application do
     [
       mod: {BusTerminalSystem.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :elixir_xml_to_map, :soap]
     ]
   end
 
@@ -39,7 +39,7 @@ defmodule BusTerminalSystem.MixProject do
       {:endon, "~> 1.0"},
       {:ecto_sql, "~> 3.1"},
       {:myxql, ">= 0.0.0"},
-      {:phoenix_html, "~> 2.11"},
+      {:phoenix_html, "~> 2.13.4"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
@@ -62,7 +62,10 @@ defmodule BusTerminalSystem.MixProject do
       {:toolshed, "~> 0.2.13"},
       {:chartkick, "~>0.4.0"},
       {:distillery, "~> 2.0"},
-      { :uuid, "~> 1.1.8" }
+      { :uuid, "~> 1.1.8" },
+      {:atomic_map, "~> 0.9.3"},
+      {:elixir_xml_to_map, "~> 2.0"},
+      {:soap, "~> 1.0.1"}
     ]
   end
 

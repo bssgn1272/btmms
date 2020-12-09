@@ -10,6 +10,8 @@ use Mix.Config
 config :bus_terminal_system,
   ecto_repos: [BusTerminalSystem.Repo]
 
+config :soap, :globals, version: "1.1"
+
 # Configures the endpoint
 config :bus_terminal_system, BusTerminalSystemWeb.Endpoint,
   url: [host: "localhost"],

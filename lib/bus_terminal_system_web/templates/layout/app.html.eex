@@ -186,8 +186,7 @@
                                             <a href="#"><i style="color:orange;" class="icon-stack2"></i> <span>Authorization</span></a>
                                             <ul>
                                                 <li><%= link "M/C Operations", to: Routes.maker_checker_path(@conn, :index) %></li>
-                                                <li><%= link "User Roles", to: Routes.user_management_path(@conn, :redirect, view: "22K2yQRYjgb4i") %></li>
-                                                <li><%= link "User Permissions", to: Routes.user_management_path(@conn, :redirect, view: "t5BhuRXFRxqyv") %></li>
+                                                <li><%= link "User Roles", to: Routes.user_management_path(@conn, :redirect, view: "22K2yQRYjgb4i" ,sigma: :kenos) %></li>
                                             </ul>
                                         </li>
                                     <% end %>
@@ -432,6 +431,7 @@
     	<!-- /footer -->
 
     <!-- Core JS files -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/loaders/pace.min.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/jquery.min.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/core/libraries/bootstrap.min.js") %>"></script>

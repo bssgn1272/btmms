@@ -5,9 +5,12 @@ defmodule BusTerminalSystemWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
-    plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug(BusTerminalSystemWeb.Plugs.SetUser)
+  end
+
+  pipeline :csrf do
+    plug :protect_from_forgery
   end
 
   # Our pipeline implements "maybe" authenticated. We'll use the `:ensure_auth` below for when we need to make sure someone is logged in.
@@ -24,9 +27,16 @@ defmodule BusTerminalSystemWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/", BusTerminalSystemWeb do
+    pipe_through [:browser]
+
+    match :*, "/btmms/service/user/management", UserManagementController, :redirect
+
+  end
+
   # Maybe logged in routes
   scope "/", BusTerminalSystemWeb do
-    pipe_through [:browser, :auth]
+    pipe_through [:browser, :auth, :csrf]
 
     # PAGE_CONTROLLER
     get "/platform/secure/commercial/services/management/dashboard", PageController, :index
@@ -90,7 +100,7 @@ defmodule BusTerminalSystemWeb.Router do
 
     # USER_MANAGEMENT_AND_AUTHORIZATION
 
-    match :*, "/btmms/service/user/management", UserManagementController, :redirect
+
 
 
     scope "/Checker" do
@@ -120,6 +130,13 @@ defmodule BusTerminalSystemWeb.Router do
     forward "/", Absinthe.Plug,
             schema: BusTerminalSystemWeb.Schema
   end
+
+  scope "/btmms/api/napsa", BusTerminalSystemWeb do
+    pipe_through :api
+
+    match :*, "/contributions", NapsaController, :connect
+
+  end
   # Other scopes may use custom stacks.
   scope "/api/v1", BusTerminalSystemWeb do
     pipe_through :api
@@ -148,6 +165,7 @@ defmodule BusTerminalSystemWeb.Router do
     post "/btms/plvPM5f+H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hICn", TicketController, :create_ticket_payload
 
     match :*, "/btms/travel/secured/routes", TicketController, :get_travel_routes
+
     get "/btms/tickets/secured/list", TicketController, :list_tickets
 
 

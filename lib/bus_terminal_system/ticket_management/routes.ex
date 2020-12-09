@@ -27,11 +27,11 @@ defmodule BusTerminalSystem.TravelRoutes do
     timestamps()
   end
 
-#  @doc false
-#  def changeset(route, attrs) do
-#    route
-#    |> cast(attrs, @db_columns)
-##    |> validate_required(@db_columns)
-#  end
+  @doc false
+  def changeset(route, attrs) do
+    route
+    |> cast(attrs, @db_columns)
+#    |> validate_required(@db_columns)
+  end
 
 end

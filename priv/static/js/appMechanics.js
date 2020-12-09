@@ -889,7 +889,7 @@ function route_edit_model_manage(route) {
         data: json_request,
         success: function (response) {
             let data = JSON.parse(JSON.stringify(response));
-            console.log(response)
+            console.log(data)
             $('#edit_route_name').val(response.route_name);
             $('#edit_route_route_fare').val(response.route_fare);
             $('#edit_route_from').val(response.start_route);

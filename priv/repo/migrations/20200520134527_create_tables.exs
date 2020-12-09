@@ -38,15 +38,15 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
       add :role, :string
     end
 
-    alter table(:probase_roles) do
-      add :auth_status, :integer, default: 0
-      add :maker_id, :integer
-      add :checker_id, :integer
-      add :maker_date_time, :naive_datetime
-      add :checker_date_time, :naive_datetime
-      add :user_description, :string
-      add :system_description, :string
-    end
+#    alter table(:probase_roles) do
+#      add :auth_status, :integer, default: 0
+#      add :maker_id, :integer
+#      add :checker_id, :integer
+#      add :maker_date_time, :naive_datetime
+#      add :checker_date_time, :naive_datetime
+#      add :user_description, :string
+#      add :system_description, :string
+#    end
 
     create_if_not_exists table(:probase_user_role) do
       add :role, :integer
@@ -54,19 +54,26 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
       timestamps()
     end
 
-    alter table(:probase_user_role) do
-      add :auth_status, :integer, default: 0
-      add :maker, :integer
-      add :checker, :integer
-      add :maker_date_time, :naive_datetime
-      add :checker_date_time, :naive_datetime
-      add :user_description, :string
-      add :system_description, :string
-    end
+#    alter table(:probase_user_role) do
+#      add :auth_status, :integer, default: 0
+#      add :maker, :integer
+#      add :checker, :integer
+#      add :maker_date_time, :naive_datetime
+#      add :checker_date_time, :naive_datetime
+#      add :user_description, :string
+#      add :system_description, :string
+#    end
 
     create_if_not_exists table(:probase_permissions) do
       add :name, :string
       add :code, :string
+
+      timestamps
+    end
+
+    create_if_not_exists table(:probase_audit_log) do
+      add :operation, :string
+      add :log, :string
 
       timestamps
     end

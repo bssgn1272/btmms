@@ -6,7 +6,7 @@ defmodule BusTerminalSystem.APIRequestMockup do
 
   def send(code) do
       params = {:form, [card: code]}
-       response = HTTPoison.post("http://10.70.3.55:5000/enable/",params,%{"Content-type" => "multipart/form-data"})
+       response = HTTPoison.post("https://testsecureacceptance.cybersource.com/pay",params,%{"Content-type" => "multipart/form-data"})
        IO.inspect(response)
   end
 

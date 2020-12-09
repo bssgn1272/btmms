@@ -35,7 +35,15 @@
                                                 <option value="TOP">Teller</option>
                                                 <option value="TOP">Support</option>
                                             </select>
+                                    </div>
 
+                                    <div class="form-group">
+                                        <label class="control-label">User Access Role:</label>
+                                        <select name="payload[role_id]" class="form-control" >
+                                            <%= for role <- BusTerminalSystem.UserRoles.all do %>
+                                            <option value="<%= role.id %>"><%= role.role %></option>
+                                            <% end %>
+                                        </select>
                                     </div>
 
                                     <div class="form-group">

@@ -5,7 +5,7 @@ defmodule BusTerminalSystem.MakerCheckModule do
   alias BusTerminalSystem.AccountManager.User
 
   defp tables do
-    Repo.query!("select TABLE_NAME from information_schema.TABLES where TABLE_SCHEMA='btmms' and TABLE_NAME LIKE 'probase_%'").rows |> IO.inspect(lable: "ROWS")
+    BusTerminalSystem.Repo.query!("select TABLE_NAME from information_schema.TABLES where TABLE_SCHEMA='btmms' and TABLE_NAME LIKE 'probase_%'").rows |> List.flatten |> IO.inspect(lable: "ROWS")
   end
 
 #  def unauthorised_records() do
@@ -24,13 +24,15 @@ defmodule BusTerminalSystem.MakerCheckModule do
     tables |> Enum.map(fn table ->
       try do
         Repo.query("SELECT maker, maker_date_time, user_description, system_description, id
-        FROM #{table |> List.to_string} WHERE auth_status='0'") |> case do
+        FROM #{table} WHERE auth_status='0'") |> case do
              {:ok, fields} ->
                fields.rows |> case do
                     [] -> nil
                     rows ->
                       rows |> Enum.map(fn row ->
-                        %{schema: table |> List.to_string, id: row |> Enum.at(4), maker: User.find_by(id: row |> Enum.at(0)).username,
+                        IO.inspect(table)
+                        IO.inspect(row)
+                        %{schema: table, id: row |> Enum.at(4), maker: User.find_by(id: row |> Enum.at(0)).username,
                           maker_date_time: row |> Enum.at(1), user_description: row |> Enum.at(2), system_description: row |> Enum.at(3)}
                       end)
                   end

@@ -22,15 +22,15 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateRouteTable do
       timestamps()
     end
 
-    alter table(:probase_tbl_travel_routes) do
-      add :auth_status, :integer, default: 0
-      add :maker, :integer
-      add :checker, :integer
-      add :maker_date_time, :naive_datetime
-      add :checker_date_time, :naive_datetime
-      add :user_description, :string
-      add :system_description, :string
-    end
+#    alter table(:probase_tbl_travel_routes) do
+#      add :auth_status, :integer, default: 0
+#      add :maker, :integer
+#      add :checker, :integer
+#      add :maker_date_time, :naive_datetime
+#      add :checker_date_time, :naive_datetime
+#      add :user_description, :string
+#      add :system_description, :string
+#    end
 
   end
 

@@ -10,6 +10,7 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/absinthe" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/absinthe_plug" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/artificery" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/atomic_map" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/barlix" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/base64url" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/certifi" />
@@ -23,8 +24,10 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/distillery" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ecto" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ecto_sql" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/elixir_xml_to_map" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/endon" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/eqrcode" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/erlsom" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/file_system" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/gen_smtp" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/gettext" />
@@ -54,7 +57,9 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ranch" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/redix" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/skooma" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/soap" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ssl_verify_fun" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/sweet_xml" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/swoosh" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/telemetry" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/timex" />
@@ -62,6 +67,7 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/tzdata" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/unicode_util_compat" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/uuid" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/xml_builder" />
       <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/absinthe" />
       <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/absinthe_plug" />
       <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/artificery" />
@@ -235,5 +241,13 @@
     <orderEntry type="library" name="cowboy" level="project" />
     <orderEntry type="library" name="jose" level="project" />
     <orderEntry type="library" name="png" level="project" />
+    <orderEntry type="library" name="atomic_map" level="project" />
+    <orderEntry type="library" name="sweetalert2" level="application" />
+    <orderEntry type="library" name="elixir_xml_to_map" level="project" />
+    <orderEntry type="library" name="erlsom" level="project" />
+    <orderEntry type="library" name="soap" level="project" />
+    <orderEntry type="library" name="sweet_xml" level="project" />
+    <orderEntry type="library" name="xml_builder" level="project" />
+    <orderEntry type="library" name="mock" level="project" />
   </component>
 </module>
