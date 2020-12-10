@@ -24,14 +24,26 @@ defmodule BusTerminalSystemWeb.NapsaController do
       "siebel_id" => :string
 
   }
-
-  def connect(conn, params \\ %{}) do
+  def return_upload(conn, params \\ %{}) do
     Skooma.valid?(params, @valid_contribution_params) |> case do
       :ok ->
-
         result = BusTerminalSystem.Napsa.NapsaContribution.connect(conn, params)["{http://schemas.xmlsoap.org/soap/envelope/}Envelope"]["{http://schemas.xmlsoap.org/soap/envelope/}Body"]["ResultWithRef"]
-        json(conn, result)
-      {:error, message} -> json(conn, %{status: 1, message: "FAILED", reason: message})
+        json(conn, %{status: 0, response: result})
+       {:error, error_message} ->
+         [message] = error_message
+         json(conn, %{status: 1, response: message})
+    end
+  end
+
+  @deposit_params %{"id" => :string, "mno" => :string, "mobile" => :string, "amount" => :string}
+  def contribute(conn, params) do
+    Skooma.valid?(params, @deposit_params) |> case do
+      :ok ->
+        result = BusTerminalSystem.Napsa.MobileContribution.connect(params)
+        json(conn, %{status: 0, response: result})
+      {:error, error_message} ->
+        [message] = error_message
+        json(conn, %{status: 1, response: message})
     end
   end
   

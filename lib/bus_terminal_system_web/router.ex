@@ -134,7 +134,8 @@ defmodule BusTerminalSystemWeb.Router do
   scope "/btmms/api/napsa", BusTerminalSystemWeb do
     pipe_through :api
 
-    match :*, "/contributions", NapsaController, :connect
+    match :*, "/contributions", NapsaController, :contribute
+    match :*, "/contributions/returns", NapsaController, :return_upload
 
   end
   # Other scopes may use custom stacks.
