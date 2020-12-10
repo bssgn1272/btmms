@@ -712,138 +712,78 @@ defmodule BusTerminalSystem.RepoManager do
     Utility.string_to_int(capacity) - ticket_count
   end
 
-  def route_mapping_by_location_eye_d() do
+  defp routes_request(end_route) do
+    case HTTPoison.get("http://10.10.1.88:4200/main/api/destinations/#{BusTerminalSystem.TravelRoutes.find_by([start_route: "Livingstone", end_route: end_route]).route_code}") do
+      {status, %HTTPoison.Response{body: body, status_code: status_code}} ->
+        try do
+          response = body |> Poison.decode!
+          [schedule] = response["data"]
+          schedule
+        rescue
+          _ -> %{}
+        end
 
-    schedule = %{
-      "CreatedAt" => "2020-12-01T07:21:03.321Z",
-      "DeletedAt" => nil,
-      "EdSlotMapping" => %{
-        "CreatedAt" => "0001-01-01T00:00:00Z",
-        "DeletedAt" => nil,
-        "ID" => 0,
-        "UpdatedAt" => "0001-01-01T00:00:00Z",
-        "gate" => "",
-        "slot" => ""
-      },
-      "ID" => 208,
-      "UpdatedAt" => "2020-12-01T07:21:03.321Z",
-      "bus_id" => 9,
-      "cancellation_reason" => "",
-      "ed_bus_route" => %{
-        "CreatedAt" => "2020-12-01T07:21:02Z",
-        "DeletedAt" => nil,
-        "ID" => 5,
-        "Parent" => 0,
-        "UpdatedAt" => "2020-12-01T07:21:02Z",
-        "end_route" => "Lusaka",
-        "route_code" => "LVLSK",
-        "route_fare" => 1,
-        "route_name" => "Livingstone Lusaka",
-        "route_uuid" => "ksdkjshdksj",
-        "source_state" => "Livingstone",
-        "start_route" => "Livingstone",
-        "sub_routes" => [
-          %{
-            "CreatedAt" => "2020-12-01T07:21:02Z",
-            "DeletedAt" => nil,
-            "ID" => 6,
-            "UpdatedAt" => "2020-12-01T07:21:02Z",
-            "ed_bus_route_id" => 5,
-            "end_route" => "CHOMA",
-            "order" => 1,
-            "route_fair" => 0,
-            "route_name" => "LIVINGSTONE CHOMA",
-            "route_uuid" => "UdSRDauS2w2RZMJj",
-            "source_slate" => "",
-            "start_route" => "Livingstone"
-          },
-          %{
-            "CreatedAt" => "2020-12-01T07:21:02Z",
-            "DeletedAt" => nil,
-            "ID" => 7,
-            "UpdatedAt" => "2020-12-01T07:21:02Z",
-            "ed_bus_route_id" => 5,
-            "end_route" => "Batoka",
-            "order" => 2,
-            "route_fair" => 0,
-            "route_name" => "Livingstone Batoka",
-            "route_uuid" => "DqHu87ZbMHXrZXsK",
-            "source_slate" => "",
-            "start_route" => "Livingstone"
-          }
-        ]
-      },
-      "ed_bus_route_id" => 5,
-      "res_uuid" => "cf3e844d-a967-4b6a-904a-65936b19a230",
-      "reservation_status" => "A",
-      "reserved_time" => "2020-12-02T20:00:00Z",
-      "slot" => "slot_one",
-      "time" => "10:00",
-      "user_id" => 2
-    }
+      {_status, %HTTPoison.Error{reason: reason}} ->
+        %{"message" => reason}
+    end
+  end
 
-      operator = BusTerminalSystem.AccountManager.User.find(schedule["user_id"])
+#  BusTerminalSystem.RepoManager.route_mapping_by_location_eye_d
 
-      bus = BusTerminalSystem.BusManagement.Bus.find(schedule["bus_id"])
+  def route_mapping_by_location_internal(date \\ "01/01/2019", start_route \\ "Livingstone", end_route) do
 
-      capacity = bus.vehicle_capacity
+      schedule = routes_request(end_route)
 
+      if Enum.empty?(schedule) == true do
+        {:ok, agent} = Agent.start_link fn  -> [] end
+        {:ok, agent, [] }
+      else
+        operator = BusTerminalSystem.AccountManager.User.find(schedule["user_id"])
+        bus = BusTerminalSystem.BusManagement.Bus.find(schedule["bus_id"])
+        capacity = bus.vehicle_capacity
+        route = BusTerminalSystem.TravelRoutes.find_by([route_code: schedule["ed_bus_routes"]["route_code"]])
+        queried_route = get_route_by_route_code(schedule["ed_bus_routes"]["route_code"])
 
-      route = BusTerminalSystem.TravelRoutes.find(schedule["ed_bus_route_id"])
+        route_uid = schedule["ID"]
+        fare = queried_route.route_fare
+        time = schedule["time"]
+        date = schedule["reserved_time"]
+        slot = schedule["slot"]
 
-      queried_route = get_route(schedule["ed_bus_route_id"])
+        seats = available_seats(capacity,schedule_ticket_count(Utility.int_to_string(route_uid)))
 
-      route_uid = schedule["ID"]
-      fare = queried_route.route_fare
-      time = schedule["time"]
-      date = schedule["reserved_time"]
-      slot = schedule["slot"]
-
-      seats = available_seats(capacity,schedule_ticket_count(Utility.int_to_string(route_uid)))
-
-      start_route = %{
-        "available_seats" => available_seats(capacity, schedule_ticket_count(Utility.int_to_string(route_uid))),
-        "bus_schedule_id" => route_uid |> to_string,
-        "route" => route |> Poison.encode! |> Poison.decode!,
-        "bus" => bus |> Poison.encode! |> Poison.decode!,
-        "fare" => fare,
-        "slot" => slot,
-        "departure_time" => time,
-        "departure_date" => date
-      }
-
-      subroutes = Enum.map(schedule["ed_bus_route"]["sub_routes"], fn sub_route ->
-        %{
-          "available_seats" => seats,
+        start_route = %{
+          "available_seats" => available_seats(capacity, schedule_ticket_count(Utility.int_to_string(route_uid))),
           "bus_schedule_id" => route_uid |> to_string,
-          "route" => BusTerminalSystem.TravelRoutes.find(sub_route["ID"]) |> Poison.encode! |> Poison.decode!,
+          "route" => route |> Poison.encode! |> Poison.decode!,
           "bus" => bus |> Poison.encode! |> Poison.decode!,
           "fare" => fare,
           "slot" => slot,
           "departure_time" => time,
           "departure_date" => date
         }
-      end) |> List.flatten()
 
-      subroutes ++ [start_route]
+        subroutes = Enum.map(schedule["ed_bus_routes"]["sub_routes"], fn sub_route ->
+          %{
+            "available_seats" => seats,
+            "bus_schedule_id" => route_uid |> to_string,
+            "route" => sub_route,
+            "bus" => bus |> Poison.encode! |> Poison.decode!,
+            "fare" => fare,
+            "slot" => slot,
+            "departure_time" => time,
+            "departure_date" => date
+          }
+        end) |> List.flatten()
 
-#      if queried_route.start_route == start_route and queried_route.end_route == end_route do
-#        Agent.update(agent, fn list -> [
-#           %{
-#             "available_seats" => available_seats(capacity,schedule_ticket_count(Utility.int_to_string(route_uid))),
-#             "bus_schedule_id" => route_uid |> to_string,
-#             "route" => route,
-#             "bus" => bus,
-#             "fare" => fare,
-#             "slot" => slot,
-#             "departure_time" => time,
-#             "departure_date" => date
-#           } | list ] end)
-#      end
+
+        {:ok, agent} = Agent.start_link fn  -> [] end
+        {:ok, agent, subroutes ++ [start_route] }
+      end
 
   end
 
-  def route_mapping_by_location_internal(date \\ "01/01/2019", start_route \\ "Livingstone", end_route) do
+  def route_mapping_by_location_internal_v1(date \\ "01/01/2019", start_route \\ "Livingstone", end_route) do
     IO.inspect "DATE: #{date}"
     {:ok, agent} = Agent.start_link fn  -> [] end
 
