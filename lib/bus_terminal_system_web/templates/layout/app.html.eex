@@ -27,7 +27,6 @@
 </style>
 
   <body class="navbar-bottom">
-
     <!-- Main navbar -->
     <div class="navbar navbar-inverse bg-indigo navbar-fixed-top">
     	<div class="navbar-header">
@@ -104,7 +103,7 @@
     						<div class="category-content no-padding">
     							<ul class="navigation navigation-main navigation-accordion">
 
-    								<%= if @user.role == "ADMIN" do %>
+                                    <%= if @user.role == "ADMIN" do %>
                                     <li>
     								    <a href="<%= Routes.user_path(@conn, :index)%>">
 
@@ -464,6 +463,7 @@
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/reporting.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/ticketing.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/AjaxCall.js") %>"></script>
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/napsa.js") %>"></script>
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
 
 

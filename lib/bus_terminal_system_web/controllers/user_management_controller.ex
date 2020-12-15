@@ -157,4 +157,10 @@ defmodule BusTerminalSystemWeb.UserManagementController do
          |> render("user_role.html", roles: BusTerminalSystem.UserRoles.all())
      end
   end
+
+  def search_permission(user_id, permission) do
+    BusTerminalSystem.UserRoles.find(BusTerminalSystem.AccountManager.User.find_by(id: user_id).role_id).permissions
+    |> Poison.decode!()
+    |> Enum.member?(permission)
+  end
 end

@@ -408,7 +408,7 @@ function unattended_luggage_logic() {
 $("#unattended_layout_view").hide();
 function passenger_ticket_logic() {
     $("#unattended_view").hide();
-
+co
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
     let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!

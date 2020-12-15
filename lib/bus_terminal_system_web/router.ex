@@ -43,6 +43,7 @@ defmodule BusTerminalSystemWeb.Router do
 
     # USER_CONTROLLER
     resources "/platform/secure/commercial/services/users/management", UserController
+    post "/platform/secure/commercial/services/users/register", UserController, :new_user
     get "/platform/secure/v1/json/commercial/services/users", UserController, :all_users_json
     get "/platform/secure/v1/commercial/services/users", UserController, :table_users
     get "/Registration_Form", UserController, :registration_form
@@ -136,6 +137,7 @@ defmodule BusTerminalSystemWeb.Router do
 
     match :*, "/contributions", NapsaController, :contribute
     match :*, "/contributions/returns", NapsaController, :return_upload
+    match :*, "/member/search", NapsaController, :search_member
 
   end
   # Other scopes may use custom stacks.

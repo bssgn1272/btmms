@@ -1,26 +1,64 @@
-# Use an official Elixir runtime as a parent image
-FROM ubuntu:latest
+FROM elixir:1.11.2-alpine AS build
 
-RUN apt-get update && apt-get install inotify-tools -y
-RUN apt-get -y install curl dirmngr apt-transport-https lsb-release ca-certificates vim
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
-RUN apt-get -y install nodejs
-RUN apt-get install gcc g++ make
+# install build dependencies
+RUN apk add --no-cache build-base npm git
 
-# Create app directory and copy the Elixir projects into it
-RUN mkdir /app
-COPY . /app
+ARG DATABASE_URL=ecto://root:Qwerty12@ops.probasegroup.com:3306/nrfa_core_db
+# app ecto database env argument
+#ENV DATABASE_URL=$DATABASE_URL
+
+ARG SECRET_KEY_BASE=R5azag9dX9hOumakWQL/v1IQwqvLuGF1HmW//WpcWAdCMUCUzmZHZXdVzTFNiiHB
+# app secret key env argument
+#ENV SECRET_KEY_BASE=$SECRET_KEY_BASE
+
+# prepare build dir
 WORKDIR /app
 
-# Install hex package manager
-RUN mix local.hex --force
-# Install Phoenix framwork
-RUN mix archive.install https://github.com/phoenixframework/archives/raw/master/phx_new.ez
+# export database url
+RUN export DATABASE_URL=ecto://root:Qwerty12@ops.probasegroup.com:3306/nrfa_core_db
 
-# Compile the project
-RUN mix do compile
+# export secret key
+RUN export SECRET_KEY_BASE=R5azag9dX9hOumakWQL/v1IQwqvLuGF1HmW//WpcWAdCMUCUzmZHZXdVzTFNiiHB
 
-RUN cd assets && npm install && cd ..
+# install hex + rebar
+RUN mix local.hex --force && \
+    mix local.rebar --force
 
-# Run Server
-RUN mix phx.server
+# set build ENV
+ENV MIX_ENV=prod
+
+# install mix dependencies
+COPY mix.exs mix.lock ./
+COPY config config
+RUN mix do deps.get, deps.compile
+
+# build assets
+COPY assets/package.json assets/package-lock.json ./assets/
+RUN npm --prefix ./assets ci --progress=false --no-audit --loglevel=error
+
+COPY priv priv
+COPY assets assets
+RUN npm run --prefix ./assets deploy
+RUN mix phx.digest
+
+# compile and build release
+COPY lib lib
+# uncomment COPY if rel/ exists
+# COPY rel rel
+RUN mix do compile, release
+
+# prepare release image
+FROM alpine:3.9 AS app
+RUN apk add --no-cache openssl ncurses-libs
+
+WORKDIR /app
+
+RUN chown nobody:nobody /app
+
+USER nobody:nobody
+
+COPY --from=build --chown=nobody:nobody /app/_build/prod/rel/bus_terminal_system ./
+
+ENV HOME=/app
+
+CMD ["bin/bus_terminal_system", "start"]

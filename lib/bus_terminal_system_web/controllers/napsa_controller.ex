@@ -46,5 +46,17 @@ defmodule BusTerminalSystemWeb.NapsaController do
         json(conn, %{status: 1, response: message})
     end
   end
+
+  @user_details_params %{"id" => :string}
+  def search_member(conn, params) do
+    Skooma.valid?(params, @user_details_params) |> case do
+      :ok ->
+        result = BusTerminalSystem.Napsa.NapsaQueryDetails.connect(params)
+        json(conn, %{status: 0, response: result})
+      {:error, error_message} ->
+        [message] = error_message
+        json(conn, %{status: 1, response: message})
+    end
+  end
   
 end

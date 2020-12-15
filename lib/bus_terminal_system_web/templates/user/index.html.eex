@@ -344,7 +344,7 @@
                     </div>
                 </div>
 
-            <div class="row">
+                <div class="row">
                 <div class="col-lg-6">
                     <div class="panel border-left-lg border-left-danger invoice-grid timeline-content">
                         <div class="panel-body">
@@ -398,6 +398,13 @@
 <% end %>
 <!--############# ADMIN ################-->
 
+<form hidden id="new_user_redirect_form" method="post" action="<%= Routes.user_path(@conn, :new_user) %>">
+    <div class="form-group">
+        <input type="text" hidden class="form-control" name="napsa_member" id="napsa_member">
+        <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+    </div>
+</form>
+
 <!--########################### NAPSA SEARCH ###########################-->
 <!-- NEW MARKETEER MODAL -->
   <div class="modal fade" id="regSystemUser" role="dialog">
@@ -410,18 +417,15 @@
           <hr>
         </div>
         <div class="modal-body">
-          <form action="/action_page.php">admin
+          <div>
+
               <div class="form-group">
-                <label for="ssn">SSN:</label>
-                <input type="number" class="form-control" id="ssn" placeholder="Social Security Number">
-                <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                <label for="nrc">NRC | SSN:</label>
+
+                <input type="text" class="form-control" id="napsa_search_id" placeholder="Enter ID here">
               </div>
-              <div class="form-group">
-                <label for="nrc">NRC:</label>
-                <input type="text" class="form-control" id="nrc" placeholder="National Registration Card Number">
-              </div>
-              <%= link "Search", to: Routes.user_path(@conn, :new), class: "w3-btn w3-indigo w3-hover-orange w3-round" %>
-            </form>
+              <button class="w3-btn w3-indigo w3-hover-orange w3-round" onclick="search_napsa_member()" >Search</button>
+            </div>
         </div>
         <hr>
         <div class="modal-footer">
@@ -1863,7 +1867,7 @@ toolbar -->
           <hr>
         </div>
         <div class="modal-body">
-          <form action="/action_page.php">
+          <form action="">
               <div class="form-group">
                 <label for="ssn">SSN:</label>
                 <input type="number" class="form-control" id="ssn" placeholder="Social Security Number">

@@ -39,6 +39,13 @@ defmodule BusTerminalSystemWeb.UserController do
     render(conn, "new.html", changeset: changeset)
   end
 
+  def new_user(conn, params) do
+    changeset = AccountManager.change_user(%User{})
+    napsa_user = BusTerminalSystem.Napsa.NapsaQueryDetails.connect(%{"id" => params["napsa_member"]})
+    IO.inspect(napsa_user["payload"])
+    render(conn, "new.html", changeset: changeset, napsa_user: napsa_user["payload"])
+  end
+
   def create(conn, %{"payload" => payload} = user_params) do
     IO.inspect payload
 

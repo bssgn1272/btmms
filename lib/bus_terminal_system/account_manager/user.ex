@@ -4,8 +4,13 @@ defmodule BusTerminalSystem.AccountManager.User do
   import Ecto.Changeset
   # alias Argon2
 
+  @db_columns [:username, :password, :first_name, :last_name, :ssn, :role, :nrc, :email, :mobile, :account_number, :tel, :uuid, :account_status, :operator_role,
+    :pin, :tmp_pin, :company, :auth_status, :maker, :checker, :maker_date_time, :checker_date_time, :user_description, :system_description, :role_id]
+
+  @validate_columns [:username, :account_number, :nrc, :mobile, :ssn, :password, :role, :account_status, :operator_role, :role_id]
+
   @derive {Poison.Encoder,only: [:id,:account_type,:username,:first_name,:last_name,:ssn,:nrc,:email,:mobile,:account_status,:operator_role,:role,:company,:account_number,
-  :auth_status, :maker, :checker, :maker_date_time,:checker_date_time, :role_id, :user_description, :system_description]}
+  :auth_status, :maker, :checker, :maker_date_time,:checker_date_time, :role_id, :user_description, :system_description, :role_id]}
 
   schema "probase_tbl_users" do
     field :password, :string
@@ -41,44 +46,8 @@ defmodule BusTerminalSystem.AccountManager.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [
-      :username,
-      :password,
-      :first_name,
-      :last_name,
-      :ssn,
-      :role,
-      :nrc,
-      :email,
-      :mobile,
-      :account_number,
-      :tel,
-      :uuid,
-      :account_status,
-      :operator_role,
-      :pin,
-      :tmp_pin,
-      :company,
-      :auth_status,
-      :maker,
-      :checker,
-      :maker_date_time,
-      :checker_date_time,
-      :user_description,
-      :system_description,
-      :role_id
-    ])
-    |> validate_required([
-      :username,
-      :account_number,
-      :nrc,
-      :mobile,
-      :ssn,
-      :password,
-      :role,
-      :account_status,
-      :operator_role
-    ])
+    |> cast(attrs, @db_columns)
+    |> validate_required(@validate_columns)
     # |> unique_constraint([:ssn])
     |> put_password_hash()
     |> harsh_password_pin()
@@ -95,5 +64,7 @@ defmodule BusTerminalSystem.AccountManager.User do
   defp put_password_hash(changeset), do: changeset
 
   defp harsh_password_pin(changeset), do: changeset
+
+#  BusTerminalSystemWeb.UserManagementController.search_permission(@user.id, 100)
 
 end

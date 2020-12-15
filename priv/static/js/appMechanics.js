@@ -634,7 +634,8 @@ function updateUser() {
             ssn: $('#model_ssn').val(),
             account_status: $('#model_account_status').val(),
             operator_role: $('#model_operator_role').val(),
-            email: $('#model_email').val()
+            email: $('#model_email').val(),
+            role_id: $("#modal_update_role_id").val()
         }
     });
 
