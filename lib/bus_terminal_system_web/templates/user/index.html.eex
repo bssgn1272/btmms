@@ -579,7 +579,7 @@
 
                                              <ul class="dropdown-menu dropdown-menu-right">
                                                   <li><%= link to: "/platform/secure/commercial/services/users/management", class: "btn btn-default btn-sm" do
-                                                       BusTerminalSystem.TicketManagement.Ticket.update(ticket, activation_status: "CANCELED")
+#                                                       BusTerminalSystem.TicketManagement.Ticket.update(ticket, activation_status: "CANCELED")
                                                        "CANCEL"
                                                      end %>
                                                   </li>

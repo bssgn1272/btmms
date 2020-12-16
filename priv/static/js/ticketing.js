@@ -16,7 +16,7 @@ function luggage_group_code() {
 }
 
 function checkinAction(){
-
+    $('#checkin_results_view').hide();
     var ticketID = $("#checkin_ticket_id_1").val();
     console.log(ticketID);
 
@@ -408,7 +408,7 @@ function unattended_luggage_logic() {
 $("#unattended_layout_view").hide();
 function passenger_ticket_logic() {
     $("#unattended_view").hide();
-co
+
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
     let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -559,6 +559,9 @@ function purchase_ticket_internal() {
             let single_object = JSON.parse(data_response);
             console.log(single_object)
             $('#modal_theme_primary').modal("hide");
+            $('#passenger_view').hide();
+            $("#results_view").hide();
+            $("#passenger_ticket_view").hide();
 
             let status = single_object.status
             if(status == 200){
