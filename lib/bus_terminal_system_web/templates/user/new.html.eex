@@ -41,6 +41,7 @@
                                     <div class="form-group" hidden>
                                         <label class="control-label">User Access Role:</label>
                                         <select name="payload[role_id]" class="form-control" >
+                                            <option value="0">Select Access Role</option>
                                             <%= for role <- BusTerminalSystem.UserRoles.all do %>
                                             <option value="<%= role.id %>"><%= role.role %></option>
                                             <% end %>
@@ -67,12 +68,12 @@
 
                                     <div class="form-group" id="user_first_name" >
                                           <label>First Name:</label>
-                                          <input name="payload[first_name]"  class="form-control" readonly value="<%= @napsa_user["firstName"] %>" placeholder="Enter First Name" type="text">
+                                          <input name="payload[first_name]"  class="form-control" readonly value="<%= (@napsa_user["firstName"] || "") %>" placeholder="Enter First Name" type="text">
                                     </div>
 
                                     <div class="form-group" id="user_last_name" >
                                           <label>Last Name:</label>
-                                          <input name="payload[last_name]"  class="form-control" readonly value="<%= @napsa_user["lastName"] %>" placeholder="Enter Last Name" type="text">
+                                          <input name="payload[last_name]"  class="form-control" readonly value="<%= (@napsa_user["lastName"] || "") %>" placeholder="Enter Last Name" type="text">
                                     </div>
 
                                     <div class="form-group" id="user_last_name" >
@@ -82,7 +83,7 @@
 
                                     <div class="form-group">
                                           <label>NRC:</label>
-                                          <input name="payload[nrc]" class="form-control" required readonly value="<%= @napsa_user["nrc"] %>" placeholder="Enter Nrc Number" type="text">
+                                          <input name="payload[nrc]" class="form-control" required readonly value="<%= (@napsa_user["nrc"] || "") %>" placeholder="Enter Nrc Number" type="text">
                                     </div>
 
                                     <div class="form-group">

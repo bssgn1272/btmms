@@ -34,7 +34,7 @@ defmodule BusTerminalSystemWeb.UserController do
     |> render("index.html", users: users, tickets: tickets, buses: buses, routes: routes)
   end
 
-  def new(conn, _params) do
+  def new(conn, params) do
     changeset = AccountManager.change_user(%User{})
     render(conn, "new.html", changeset: changeset)
   end
@@ -112,19 +112,33 @@ defmodule BusTerminalSystemWeb.UserController do
 
   defp user_create_payload(conn, payload) do
 
-    case AccountManager.create_user(payload) do
+    napsa_user = %{
+      "first_name" => payload["first_name"],
+      "last_name" => payload["last_name"],
+      "nrc" => payload["nrc"],
+      "ssn" => payload["ssn"],
+    }
+
+    case AccountManager.create_user(payload) |> IO.inspect(label: "returned error") do
       {:ok, user} ->
+
+#        conn
+#        |> put_flash(:info, "User created successfully.")
+#        |> redirect(to: Routes.user_path(conn, :new, [napsa_user: napsa_user]))
+
+        changeset = AccountManager.change_user(%User{})
+
         conn
         |> put_flash(:info, "User created successfully.")
-        |> redirect(to: Routes.user_path(conn, :new))
+        |> render("new.html", [changeset: changeset, napsa_user: napsa_user])
 
       {:error, %Ecto.Changeset{} = changeset} ->
 
-        IO.inspect ApiManager.translate_error(changeset)
+        IO.inspect(ApiManager.translate_error(changeset), label: "Error ____________________________")
 
         conn
         |> put_flash(:error,"Failed To Create User")
-        |> render("new.html", changeset: changeset)
+        |> render("new.html", [changeset: changeset, napsa_user: napsa_user])
 
     end
   end

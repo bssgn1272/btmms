@@ -713,12 +713,13 @@ defmodule BusTerminalSystem.RepoManager do
   end
 
   defp routes_request(end_route) do
-    case HTTPoison.get("http://10.10.1.88:4200/main/api/destinations/#{BusTerminalSystem.TravelRoutes.find_by([start_route: "Livingstone", end_route: end_route]).route_code}") do
+    IO.inspect(BusTerminalSystem.TravelRoutes.find_by([start_route: "Livingstone", end_route: end_route]).route_code, label: "END ROUTE _____________")
+    case HTTPoison.get("http://10.70.3.55:4200/main/api/destinations/#{BusTerminalSystem.TravelRoutes.find_by([start_route: "Livingstone", end_route: end_route]).route_code}") do
       {status, %HTTPoison.Response{body: body, status_code: status_code}} ->
         try do
           response = body |> Poison.decode!
-          [schedule] = response["data"]
-          schedule
+          [schedule, _] = response["data"]
+          schedule |> IO.inspect(label: "ROUTES____________")
         rescue
           _ -> %{}
         end
