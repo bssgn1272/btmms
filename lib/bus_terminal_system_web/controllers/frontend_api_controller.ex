@@ -586,6 +586,31 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
   #---------------------------------------TICKETS-----------------------------------------------------------------------
 
+  def update_ticket(conn, %{"ticket" => %{"id" => id}, "params" => params} = paramz) do
+    IO.inspect(paramz)
+    route = BusTerminalSystem.TravelRoutes.find_by([start_route: params["start_route"], end_route: params["end_route"]])
+    params = Map.put(params, "route", route.id)
+    BusTerminalSystem.TicketManagement.Ticket.find(id) |> case do
+      nil -> json(conn,  %{status: "FAILED", response: %{}})
+      ticket ->
+        {_, ticket} = BusTerminalSystem.TicketManagement.Ticket.update(ticket, params)
+        json(conn,  %{status: "SUCCESS", response: ticket |> Poison.encode!})
+    end
+  end
+
+  def cancel_ticket(conn, ticket_params) do
+    BusTerminalSystem.TicketManagement.Ticket.find(ticket_params["ticket_id"]) |> case do
+      nil -> json(conn,  %{status: "FAILED", response: %{}})
+      ticket ->
+        {_, ticket} = BusTerminalSystem.TicketManagement.Ticket.update(ticket, [activation_status: "CANCELED"])
+        spawn(fn ->
+          BusTerminalSystem.APIRequestMockup.send_disable(ticket.id |> to_string |> String.pad_leading(4,"0"))
+        end)
+        json(conn,  %{status: "SUCCESS", response: ticket |> Poison.encode!})
+    end
+
+  end
+
   def create_virtual_luggage_ticket(conn, ticket_params) do
     IO.inspect("---------------------------VIRTUAL------------------------------------------------------")
     route = BusTerminalSystem.TravelRoutes.find_by([start_route: Map.fetch!(ticket_params, "source"), end_route: Map.fetch!(ticket_params, "destination")])

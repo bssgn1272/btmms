@@ -5,7 +5,7 @@ defmodule BusTerminalSystem.TicketManagement.Ticket do
 
   alias BusTerminalSystem.TravelRoutes
 
-  @derive {Poison.Encoder, only: [:id, :maker,:reference_number, :serial_number, :external_ref, :inserted_at, :bus_no, :class, :activation_status,:bus_schedule_id,
+  @derive {Poison.Encoder, only: [:id, :maker,:reference_number, :serial_number, :external_ref, :inserted_at, :bus_no, :class, :activation_status,:bus_schedule_id, :route,
                              :first_name, :payment_mode, :amount, :last_name, :other_name, :id_type, :passenger_id, :mobile_number, :email_address, :transaction_channel, :route_information]}
 
   schema "probase_tbl_tickets" do

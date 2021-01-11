@@ -29,6 +29,7 @@ defmodule BusTerminalSystemWeb.UserController do
     users = BusTerminalSystem.AccountManager.User.where(auth_status: true)
     f = Timex.today |> Timex.to_datetime
     tickets =  BusTerminalSystem.TicketManagement.Ticket.where(travel_date: Timex.today() |> to_string)
+    IO.inspect(tickets)
     buses = RepoManager.list_buses()
     conn
     |> render("index.html", users: users, tickets: tickets, buses: buses, routes: routes)

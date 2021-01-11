@@ -556,10 +556,14 @@
                               <%
                                 operator_id = BusTerminalSystem.BusManagement.Bus.find(ticket.bus_no).operator_id
                                 operator = BusTerminalSystem.AccountManager.User.find(operator_id)
+                                route = BusTerminalSystem.TravelRoutes.find(ticket.route)
+                                route_name = route.route_name
+                                start_route = route.start_route
+                                end_route = route.end_route
                               %>
                               <td><%= operator.company %></td>
                               <td><%= ticket.travel_date %></td>
-                              <td><%= BusTerminalSystem.TravelRoutes.find(ticket.route).route_name%></td>
+                              <td><%= route_name %></td>
                               <td><%= ticket.mobile_number %></td>
                               <%= if ticket.activation_status == "VALID" do %>
                                 <td>NOT CHECKED IN</td>
@@ -578,12 +582,14 @@
                                              </a>
 
                                              <ul class="dropdown-menu dropdown-menu-right">
-                                                  <li><%= link to: "/platform/secure/commercial/services/users/management", class: "btn btn-default btn-sm" do
-#                                                       BusTerminalSystem.TicketManagement.Ticket.update(ticket, activation_status: "CANCELED")
-                                                       "CANCEL"
-                                                     end %>
+                                                  <li>
+                                                      <button type="button" onclick="cancel_ticket(<%= ticket.id %>)" id="cancel_button" style="width: 100%" class="btn btn-danger btn-lg">CANCEL</button>
+                                                      <button type="button" onclick="reschedule_ticket(<%= %{
+                                                        start_route: start_route, end_route: end_route
+                                                      } |> Map.merge(ticket) |> IO.inspect |> JSON.encode! %>)" id="cancel_button" style="width: 100%" class="btn btn-success btn-lg">RE-SCHEDULE</button>
                                                   </li>
                                              </ul>
+
                                          </li>
                                      </ul>
                                  <% end %>
@@ -3147,4 +3153,48 @@ function openCity(cityName) {
   <!------------------------------------------------------------------------------------------------------------------------------------------------------->
     </div>
 </div>
+
+    <!-------------------------- Re-schedule Modal ------------------------------------------------------------------------------------------------------------>
+<div id="rescheduleModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header w3-indigo">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">RE-SCHEDULE TICKET</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div id="results_view" class="container-fluid">
+                        <div class="table-responsive">
+                            <table id="routes_dataTable"  class="table table-striped table-bordered" >
+                                <thead class="text-uppercase">
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Operator</th>
+                                    <th scope="col">Destination</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Travel Date</th>
+                                    <th scope="col">Seats Left</th>
+                                    <th scope="col">Price</th>
+                                </tr>
+                                </thead>
+                                <tbody id="reschedule_trips_form"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            <div class="modal-footer">
+                <button id="add_luggage_button" onclick="add_luggage_button()" type="button" class="w3-btn w3-indigo w3-hover-orange w3-round w3-left">Add</button>
+                <button type="button" class="w3-btn w3-red w3-round" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    <!------------------------------------------------------------------------------------------------------------------------------------------------------->
 </div>
+

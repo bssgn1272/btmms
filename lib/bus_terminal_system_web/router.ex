@@ -204,6 +204,8 @@ defmodule BusTerminalSystemWeb.Router do
     post "/internal/get_luggage_by_ticket_id_total_cost", FrontendApiController, :get_luggage_by_ticket_total_cost
     post "/internal/add_luggage", FrontendApiController, :add_luggage
     post "/internal/checkin", FrontendApiController, :checkin_passenger
+    post "/internal/tickets/cancel", FrontendApiController, :cancel_ticket
+    post "/internal/tickets/update", FrontendApiController, :update_ticket
 
     post "/internal/markets", FrontendApiController, :modules
   end

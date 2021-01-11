@@ -15,6 +15,74 @@ function luggage_group_code() {
     return code
 }
 
+function cancel_ticket(ticket_id) {
+
+    // $("#cancel_button").onclick(function () {
+    //     console.log("canceled")
+    // })
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: true
+    })
+
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You are about to cancel this ticket!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, Cancel it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            $.ajax({
+                method: 'post',
+                url: '/api/v1/internal/tickets/cancel',
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (response) {
+
+                    if(response.status !== "SUCCESS"){
+                        swal({
+                            title: "Error!",
+                            text: "Could not Connect to server",
+                            type: "error"
+                        });
+                    }else{
+                        swal({
+                            title: "Completed!",
+                            text: "Ticket Canceled Successfully",
+                            type: "success"
+                        });
+                    }
+                },
+                error: function (response){
+                    Swal.fire(
+                        'Error!',
+                        'Failed to Cancel Ticket!',
+                        'error'
+                    )
+                },
+                data: JSON.stringify({ticket_id: ticket_id,})
+            })
+
+        } else if (
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire(
+                'Cancelled',
+                'Request Canceled',
+                'error'
+            )
+        }
+    })
+}
+
 function checkinAction(){
     $('#checkin_results_view').hide();
     var ticketID = $("#checkin_ticket_id_1").val();
@@ -586,4 +654,154 @@ function purchase_ticket_internal() {
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+let selected_ticket;
+function reschedule_ticket(ticket) {
+    console.log(ticket)
+    $('#rescheduleModal').modal("show");
+
+     selected_ticket = ticket
+
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+
+    today = dd + "/" + mm + "/" + yyyy;
+
+    let json_request = JSON.stringify({
+        payload: {
+            date: today,
+            start_route: "Livingstone",
+            end_route: ticket.end_route
+        }
+    });
+    let json_data = {};
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/btms/travel/secured/internal/locations/destinations/internal',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request,
+        success: function (response) {
+            let data_object = JSON.parse(JSON.stringify(response));
+            json_data = data_object;
+            console.log(data_object);
+            if (data_object.length < 1){
+                alert("No Routes Found");
+            } else {
+
+                let trips_html = '';
+
+                $.each(response, function (k,v) {
+                    let single_object = JSON.parse(JSON.stringify(v));
+
+                    console.log(single_object)
+
+                    let value = single_object.bus.company.trim().split(" ").join("").toString() + "-" + single_object.route.start_route + "-"
+                        + single_object.route.end_route + "-"  +  single_object.departure_time + "-" + single_object.fare + "-" + single_object.bus.id + "-"
+                        + single_object.slot + "-" + single_object.bus_schedule_id;
+                    value = value.toString();
+
+                    //trips_html += '<div class="radio"><label><input type="radio" onclick="ticket_purchase(this.value)" value="'+value+'" name="opt_radio" />';
+                    //trips_html += "\n" + value ;
+                    //trips_html += '</label></div';
+                    //trips_html += "\n";
+
+                    date_obj = single_object.departure_date.split("T")[0]
+                    date_arr = date_obj.split("-")
+                    date = date_arr[2] + "/" + date_arr[1] + "/" + date_arr[0]
+
+
+                    trips_html += '<tr>' + '<th scope="row"><input type="radio" onclick="reschedule_logic(this.value, selected_ticket)" value="'+value+'" name="opt_radio"></th>'+
+                        '<td>' + single_object.bus.company +'</td>' + '<td>' + single_object.route.start_route + " -> "+
+                        single_object.route.end_route +'</td>' + '<td>' + single_object.departure_time +'</td>' + '<td>' + date +'</td>' + '<td>' + single_object.available_seats +'</td>' + '<td>' + single_object.fare
+                        +'</td>' + '</tr>';
+                });
+
+                // $("#results_view").show();
+                // $("#passenger_ticket_view").show();
+                // $('#trips_form').empty();
+                $('#reschedule_trips_form').html(trips_html);
+            }
+        }
+    });
+}
+
+function reschedule_logic(value, ticket) {
+    console.log(value)
+    console.log(ticket)
+
+    console.log(value.split(/-/g));
+    let rd = value.split(/-/g);
+
+    let info = "OPERATOR: " + rd[0] + "\t START: " + rd[1] + "\t END: " + rd[2] + "\t DEPARTURE: " + rd[3] + "\t PRICE: K" + rd[4] + "\t GATE: " + rd[6] + "\t SCHEDULE: " + rd[7];
+    console.log(info)
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: true
+    })
+
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You are about to reschedule this ticket!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, Reschedule !',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            let payload = JSON.stringify({
+                ticket: {
+                    id: ticket.id
+                },
+                params: {
+                    route_information: info,
+                    activation_status: "VALID",
+                    start_route: rd[1],
+                    end_route: rd[2]
+                }
+            });
+
+            $.ajax({
+                method: 'post',
+                url: '/api/v1/internal/tickets/update',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: payload,
+                success: function (response) {
+                    if(response.status !== "SUCCESS"){
+                        swal({
+                            title: "Error!",
+                            text: "Failed to Reschedule Ticket",
+                            type: "error"
+                        });
+                    }else{
+                        swal({
+                            title: "Completed!",
+                            text: "Ticket Rescheduled Successfully",
+                            type: "success"
+                        });
+                    }
+                }
+            })
+
+        } else if (
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire(
+                'Cancelled',
+                'Reschedule Request Canceled',
+                'error'
+            )
+        }
+    })
 }
