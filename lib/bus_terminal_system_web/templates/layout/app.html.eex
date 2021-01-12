@@ -321,7 +321,7 @@
                 <!-- ############ END BOP-SIDE-BAR ######### -->
 
                 <!-- ############# TOP SIDE-BAR ########### -->
-                <%= if @user.role == "TOP" do %>
+                <%= if @user.role == "TOP" or @user.role == "CCOP" do %>
                 <div class="sidebar sidebar-main sidebar-default">
                     <div class="sidebar-content">
 
@@ -341,7 +341,7 @@
                             <div class="category-content no-padding">
                                 <ul class="navigation navigation-main navigation-accordion">
 
-                                    <%= if @user.role == "TOP" do %>
+                                    <%= if @user.role == "TOP" or @user.role == "CCOP" do %>
                                     <li>
                                     
                                         <%= link "Dashboard", to: Routes.user_path(@conn, :index) %>

@@ -439,7 +439,7 @@
 <!--########################### NAPSA SEARCH ###########################-->
 
 <!-- ########################################## TELLER MODULE ########################################-->
-<%= if @user.role == "TOP" do %>
+<%= if @user.role == "TOP" or @user.role == "CCOP" do %>
 <!--
 <div class="container-fluid">
     <div class="container">
@@ -467,61 +467,72 @@
 
 <div class="container-fluid" style="padding: 40px">
     <div class="row">
-        <div class="col-md-3">
-            <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
+        <%= if @user.role == "TOP" or @user.role == "CCOP" do %>
+            <div class="col-md-3">
+                <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
-                <header class="w3-container w3-indigo w3-center" id="heed">
-                  <h3>Tickets</h3>
-                </header>
+                    <header class="w3-container w3-indigo w3-center" id="heed">
+                        <h3>Tickets</h3>
+                    </header>
 
-                <div class="w3-container"><br>
-                  <p>To query tickets, & check for past tickets click the button below.<br><br></p>
-                  <p style="width:50%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="reload_page()">Query Ticket</button></p>
+                    <div class="w3-container"><br>
+                        <p>To query tickets, & check for past tickets click the button below.<br><br></p>
+                        <p style="width:50%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="reload_page()">Query Ticket</button></p>
+                    </div>
                 </div>
             </div>
-        </div>
+        <% end %>
 
-        <div class="col-md-3">
-            <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
+        <%= if @user.role == "TOP" or @user.role == "CCOP" do %>
+            <div class="col-md-3">
+                <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
-                <header class="w3-container w3-indigo w3-center" id="heed">
-                  <h3>Booking </h3>
-                </header>
+                    <header class="w3-container w3-indigo w3-center" id="heed">
+                        <h3>Booking </h3>
+                    </header>
 
-                <div class="w3-container rounded"><br>
-                  <p>To book for a trip, & view details about the route click the button below.</p>
-                  <p style="width:50%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('bookings')">Book</button></p>
+                    <div class="w3-container rounded"><br>
+                        <p>To book for a trip, & view details about the route click the button below.</p>
+                        <p style="width:50%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('bookings')">Book</button></p>
+                    </div>
                 </div>
             </div>
-        </div>
+        <% end %>
 
-        <div class="col-md-3" >
-            <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
-                <header class="w3-container w3-indigo w3-center" id="heed">
-                  <h3>Routes</h3>
-                </header>
+        <%= if @user.role == "TOP" or @user.role == "CCOP" do %>
+            <div class="col-md-3" >
+                <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
-                <div class="w3-container"><br>
-                  <p>To view available routes, and destinations click the button below.<br><br></p>
-                  <p style="width:50%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('routes')">Routes</button></p>
+                    <header class="w3-container w3-indigo w3-center" id="heed">
+                        <h3>Routes</h3>
+                    </header>
+
+                    <div class="w3-container"><br>
+                        <p>To view available routes, and destinations click the button below.<br><br></p>
+                        <p style="width:50%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('routes')">Routes</button></p>
+                    </div>
                 </div>
             </div>
-        </div>
+        <% end %>
 
-        <div class="col-md-3" style="height: 15px">
-            <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
-                <header class="w3-container w3-indigo w3-center" id="heed">
-                  <h3>Check In</h3>
-                </header>
+        <%= if @user.role == "TOP" do %>
+            <div class="col-md-3" style="height: 15px">
+                <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
-                <div class="w3-container"><br>
-                  <p>To check in a luggage and make payments for it, click the button below.</p>
-                  <p style="width:65%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('checkin')">Check In</button></p>
+                    <header class="w3-container w3-indigo w3-center" id="heed">
+                        <h3>Check In</h3>
+                    </header>
+
+                    <div class="w3-container"><br>
+                        <p>To check in a luggage and make payments for it, click the button below.</p>
+                        <p style="width:65%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('checkin')">Check In</button></p>
+                    </div>
                 </div>
             </div>
-        </div>
+        <% end %>
+
 
         <div class="col-md-12 bus" id="dueToToday">
             <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
@@ -776,117 +787,120 @@
                 <!-------------------------------END--------------------------->
 
                 <!----------------------- PASSENGER KYC ----------------------->
-                <div id="passenger_view" class="container-fluid">
-                    <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
-                        <header class="w3-container w3-indigo w3-center" id="heed">
-                            <h3>PASSENGER INFORMATION</h3>
-                        </header>
+                <%= if @user.role == "TOP" do %>
+                    <div id="passenger_view" class="container-fluid">
+                        <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
+                            <header class="w3-container w3-indigo w3-center" id="heed">
+                                <h3>PASSENGER INFORMATION</h3>
+                            </header>
 
-                        <div class="container">
-                        <!--####################-- NAPSA TICKET PURCHASE --####################-->
-                            <div class="col-lg-12">
-                                <div class="container-fluid">
-
-
-                                <div class="text-center" style="height: 5%">
-                                    <div class="icon-object border-slate-100 text-slate-100 w3-orange">
-                                        <img src="<%= Routes.static_path(@conn, "/images/logo/1.png") %>" width="90" height="70" alt="NapsaLogo">
-                                    </div>
-
-                                    <h5 class="content-group">To PurchaseTicket <small class="display-block">Fill Form Below</small></h5>
-                                </div>
+                            <div class="container">
+                                <!--####################-- NAPSA TICKET PURCHASE --####################-->
+                                <div class="col-lg-12">
+                                    <div class="container-fluid">
 
 
-                            <form method="post" >
-                                <div class="row">
-                                    <div hidden="hidden" class="col-md-6">
-                                        <div class="form-group has-feedback has-feedback-left">
-                                            <input type="date" id="date" name="bday" min="2015-10-28" class="form-control" onchange="GetSelectedDate()">
-                                            <div class="form-control-feedback">
-                                                <i class="icon-table text-muted"></i>
+                                        <div class="text-center" style="height: 5%">
+                                            <div class="icon-object border-slate-100 text-slate-100 w3-orange">
+                                                <img src="<%= Routes.static_path(@conn, "/images/logo/1.png") %>" width="90" height="70" alt="NapsaLogo">
                                             </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group has-feedback has-feedback-left">
-                                            <input name="payload[first_name]" id="First_Name" type="text" required class="form-control" placeholder="Passenger First Name">
-
-                                            <div class="form-control-feedback">
-                                                <i class="icon-user text-muted"></i>
-                                            </div>
-                                            <span class="asterisk_input">  </span>
+                                            <h5 class="content-group">To PurchaseTicket <small class="display-block">Fill Form Below</small></h5>
                                         </div>
-                                    </div>
 
-                                    <div class="col-md-6">
-                                        <div class="form-group has-feedback has-feedback-left">
-                                            <input name="payload[mobile_number]" id="Contact_Number" required type="text" class="form-control" placeholder="Passenger Cell">
-                                            <div class="form-control-feedback">
-                                                <i class="icon-phone text-muted"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                        <div class="form-group has-feedback has-feedback-left">
-                                            <input name="payload[last_name]" id="Last_Name" required type="text" class="form-control" placeholder="Passenger Last Name">
-                                            <div class="form-control-feedback">
-                                                <i class="icon-user text-muted"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group has-feedback has-feedback-left">
-                                                    <select class="w3-select" name="option" id="id_type2" onchange="GetSelectedTime()">
-                                                        <option value="" disabled selected>ID Type</option>
-                                                        <option value="NRC">NRC</option>
-                                                        <option value="Passport">Passport</option>
-                                                        <option value="Drivers License">Drivers License</option>
-                                                    </select>
+                                        <form method="post" >
+                                            <div class="row">
+                                                <div hidden="hidden" class="col-md-6">
+                                                    <div class="form-group has-feedback has-feedback-left">
+                                                        <input type="date" id="date" name="bday" min="2015-10-28" class="form-control" onchange="GetSelectedDate()">
+                                                        <div class="form-control-feedback">
+                                                            <i class="icon-table text-muted"></i>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="col-md-6">
-                                                <div class="form-group has-feedback has-feedback-left">
-                                                    <input name="payload[passenger_id]" id="ID" type="text" required class="form-control required" placeholder="ID Number">
-                                                    <span class="asterisk_input">  </span>
-                                                    <div class="form-control-feedback">
-                                                        <i class="icon-credit-card text-muted"></i>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group has-feedback has-feedback-left">
+                                                            <input name="payload[first_name]" id="First_Name" type="text" required class="form-control" placeholder="Passenger First Name">
+
+                                                            <div class="form-control-feedback">
+                                                                <i class="icon-user text-muted"></i>
+                                                            </div>
+                                                            <span class="asterisk_input">  </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group has-feedback has-feedback-left">
+                                                            <input name="payload[mobile_number]" id="Contact_Number" required type="text" class="form-control" placeholder="Passenger Cell">
+                                                            <div class="form-control-feedback">
+                                                                <i class="icon-phone text-muted"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group has-feedback has-feedback-left">
+                                                        <input name="payload[last_name]" id="Last_Name" required type="text" class="form-control" placeholder="Passenger Last Name">
+                                                        <div class="form-control-feedback">
+                                                            <i class="icon-user text-muted"></i>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group has-feedback has-feedback-left">
-                                            <input name="payload[route_information]" id="route_information" readonly type="text" class="form-control" placeholder="Route Info">
-                                        </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group has-feedback has-feedback-left">
+                                                        <select class="w3-select" name="option" id="id_type2" onchange="GetSelectedTime()">
+                                                            <option value="" disabled selected>ID Type</option>
+                                                            <option value="NRC">NRC</option>
+                                                            <option value="Passport">Passport</option>
+                                                            <option value="Drivers License">Drivers License</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group has-feedback has-feedback-left">
+                                                        <input name="payload[passenger_id]" id="ID" type="text" required class="form-control required" placeholder="ID Number">
+                                                        <span class="asterisk_input">  </span>
+                                                        <div class="form-control-feedback">
+                                                            <i class="icon-credit-card text-muted"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group has-feedback has-feedback-left">
+                                                        <input name="payload[route_information]" id="route_information" readonly type="text" class="form-control" placeholder="Route Info">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <button type="button" data-toggle="modal" data-target="#modal_theme_primary" onClick="ticket_confirmation()" style="border-radius: 12px; margin-bottom: 10px" class="w3-btn w3-indigo w3-hover-orange w3-left">
+                                                    <b><i class="icon-checkmark2"></i></b>Purchase Ticket
+                                                </button>
+                                            </div>
+
+                                        </form>
+
+
+
+                                        <!--####################-- NAPSA TICKET PURCHASE --####################-->
                                     </div>
+
                                 </div>
-
-                                <div class="form-group">
-                                    <button type="button" data-toggle="modal" data-target="#modal_theme_primary" onClick="ticket_confirmation()" style="border-radius: 12px; margin-bottom: 10px" class="w3-btn w3-indigo w3-hover-orange w3-left">
-                                        <b><i class="icon-checkmark2"></i></b>Purchase Ticket
-                                    </button>
-                                </div>
-
-                            </form>
-
-
-
-                        <!--####################-- NAPSA TICKET PURCHASE --####################-->
-                    </div>
-
-                        </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                <% end %>
+
                 <!-------------------------------END--------------------------->
 
                 <!------------------------UNATTENDED KYC----------------------->

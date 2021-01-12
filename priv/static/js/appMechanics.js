@@ -746,6 +746,10 @@ function bus_model_update_bus() {
     })
 }
 
+function discounts_modal(id) {
+    $('#modal_form_discounts').modal('show');
+}
+
 function user_edit_model(id) {
 
     let json_request = JSON.stringify({
