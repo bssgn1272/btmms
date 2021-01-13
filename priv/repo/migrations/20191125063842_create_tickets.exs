@@ -29,6 +29,9 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTickets do
       add :route_information, :string
       add :amount, :float, default: 0, precision: 10, scale: 2
       add :payment_mode, :string
+      add :discount_applied, :boolean
+      add :discount_amount, :float
+      add :discount_original_amount, :float
 
       add :has_luggage, :boolean
       add :luggage_total, :float

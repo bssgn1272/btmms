@@ -207,6 +207,10 @@ defmodule BusTerminalSystemWeb.Router do
     post "/internal/tickets/cancel", FrontendApiController, :cancel_ticket
     post "/internal/tickets/update", FrontendApiController, :update_ticket
 
+    post "/internal/discounts/operator", FrontendApiController, :discount_operator
+    post "/internal/discounts/enable", FrontendApiController, :enable_discount
+    post "/internal/discounts/set", FrontendApiController, :set_discount
+
     post "/internal/markets", FrontendApiController, :modules
   end
 

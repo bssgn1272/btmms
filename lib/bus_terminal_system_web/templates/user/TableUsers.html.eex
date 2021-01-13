@@ -282,17 +282,14 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <label>Current Applied Discount</label>
-                                    <input type="text" readonly="readonly" id="model_username" value="" class="form-control">
-                                    <input type="text" hidden="hidden" readonly="readonly" id="model_user_id" value="" class="form-control">
-                                </div>
-                                <div class="col-md-4">
-                                    <label>Expiry Date</label>
-                                    <input type="text" id="model_first_name" value="" class="form-control">
+                                    <input type="text" readonly="readonly" id="discount_model_current_discount" value="" class="form-control">
+                                    <input type="text" hidden="hidden"  id="discount_model_user_id" value="" class="form-control">
                                 </div>
 
                                 <div class="col-md-4">
                                     <label>Discount Status</label>
-                                    <input type="text" id="model_last_name" value="" class="form-control">
+                                    <input type="text" id="discount_model_status" readonly value="" class="form-control">
+                                    <input type="text" id="discount_model_status_value" hidden readonly value="" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -321,29 +318,21 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>Discount Percentage</label>
-                                    <input type="text" value="" id="model_pwd_username" class="form-control">
+                                    <label>Discount amount</label>
+                                    <input type="text" value="" id="modal_discount_value" class="form-control">
                                 </div>
 
-                                <div class="col-md-6">
-                                    <label>Expiry Date</label>
-                                    <input type="date" id="model_password" value="" class="form-control">
-                                </div>
                             </div>
                         </div>
 
                         <div class="text-left" style="margin-bottom: 10px">
-                            <button type="submit" onclick="updateAccountStatus(2)" id="user_deactivate_account" style="border-radius: 12px;" class="btn btn-primary">Update Discount<i class="icon-arrow-right14 position-right"></i></button>
+                            <button type="submit" onclick="set_discount()" id="user_deactivate_account" style="border-radius: 12px;" class="btn btn-primary">Update Discount<i class="icon-arrow-right14 position-right"></i></button>
                         </div>
 
                         <div class="text-left">
-                            <button type="submit" onclick="updateAccountStatus(1)" id="user_deactivate_account" style="border-radius: 12px;" class="btn btn-primary">Enable/Disable<i class="icon-arrow-right14 position-right"></i></button>
+                            <button type="submit" onclick="enable_discount()" id="user_deactivate_account" style="border-radius: 12px;" class="btn btn-primary">Enable/Disable<i class="icon-arrow-right14 position-right"></i></button>
                         </div>
 
-                        <div class="text-right">
-
-                            <button type="submit" style="border-radius: 12px;" onclick="reset_password()" id="reset_account_password" class="btn btn-primary">Clear Discount <i class="icon-arrow-right14 position-right"></i></button>
-                        </div>
                     </form>
                 </div>
             </div>

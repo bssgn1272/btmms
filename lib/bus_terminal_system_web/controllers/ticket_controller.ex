@@ -36,8 +36,6 @@ defmodule BusTerminalSystemWeb.TicketController do
     ticket_params = Map.put(ticket_params, "route", route.id)
     ticket_params = Map.put(ticket_params, "bus_schedule_id", bus_schedule_id)
 
-    IO.inspect(ticket_params)
-
     case TicketManagement.create_ticket(ticket_params) do
       {:ok, ticket} ->
 
@@ -70,12 +68,60 @@ defmodule BusTerminalSystemWeb.TicketController do
     [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot, _, bus_schedule_id] = ticket_params["route_information"] |> String.split()
     route = BusTerminalSystem.TravelRoutes.find_by(start_route: start_route, end_route: end_route)
 
-    ticket_params = Map.put(ticket_params, "amount", price |> String.replace("K",""))
+    price = price |> String.replace("K","")
+
+    ticket_params = Map.put(ticket_params, "amount", price)
     ticket_params = Map.put(ticket_params, "route", route.id)
     ticket_params = Map.put(ticket_params, "bus_schedule_id", bus_schedule_id)
 
     IO.inspect(ticket_params)
 
+    operator = BusTerminalSystem.BusManagement.Bus.find(ticket_params["bus_no"]).operator_id
+              |> BusTerminalSystem.AccountManager.User.find
+
+    if operator.apply_discount == false do
+      ticket_params = Map.put(ticket_params, "discount_applied", false)
+      ticket_params = Map.put(ticket_params, "discount_amount", 0)
+      ticket_purchase(conn, ticket_params)
+    else
+      operator.apply_discount |> case do
+        nil ->
+          ticket_params = Map.put(ticket_params, "discount_applied", true)
+          ticket_params = Map.put(ticket_params, "discount_amount", 0.0)
+          ticket_purchase(conn, ticket_params)
+        false ->
+          ticket_params = Map.put(ticket_params, "discount_applied", true)
+          ticket_params = Map.put(ticket_params, "discount_amount", 0.0)
+          ticket_purchase(conn, ticket_params)
+        true ->
+
+          discount_calculated = (fn original_amount, discount_amount ->
+            parse_float(original_amount) - discount_amount
+          end)
+
+          ticket_params = Map.put(ticket_params, "amount", discount_calculated.(price, operator.discount_amount))
+          ticket_params = Map.put(ticket_params, "discount_applied", true)
+          ticket_params = Map.put(ticket_params, "discount_amount", operator.discount_amount)
+          ticket_params = Map.put(ticket_params, "discount_original_amount", price)
+          ticket_purchase(conn, ticket_params)
+      end
+    end
+
+
+
+  end
+
+  defp parse_int(str) do
+    {int, _} = Integer.parse(str)
+    int
+  end
+
+  defp parse_float(str) do
+    {flt, _} = Float.parse(str)
+    flt
+  end
+
+  defp ticket_purchase(conn, ticket_params) do
     case TicketManagement.create_ticket(ticket_params) do
       {:ok, ticket} ->
 

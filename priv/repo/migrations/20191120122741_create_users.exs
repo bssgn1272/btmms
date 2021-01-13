@@ -26,6 +26,8 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateUsers do
       add :account_type, :string
       add :account_number, :string
       add :role_id, :string
+      add :apply_discount, :boolean
+      add :discount_amount, :float
 
       timestamps()
     end

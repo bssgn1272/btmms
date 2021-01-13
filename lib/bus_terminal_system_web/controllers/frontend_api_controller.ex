@@ -449,8 +449,6 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
       serial_number: ext_luggage_serial
     ])
 
-    IO.inspect(ticket_update)
-
     spawn(fn ->
       %{
         "refNumber" => reference_number,
@@ -636,6 +634,31 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
         conn
         |> json(%{})
     end
+  end
+
+
+#  ---------------------- Discounts ------------------------------------
+
+  def discount_operator(conn, %{ "id" => operator_id } = params) do
+    json(conn, BusTerminalSystem.AccountManager.User.find(operator_id) |> Poison.encode!())
+  end
+
+  def enable_discount(conn, %{ "id" => operator_id, "status" => discount_status } = params) do
+    operator = BusTerminalSystem.AccountManager.User.find(operator_id)
+    status = (fn state, saved_state -> if state == "true", do: false, else: true end)
+    operator |> BusTerminalSystem.AccountManager.User.update([apply_discount: status.(discount_status, operator.apply_discount)])
+    |> case do
+         {_, operator} -> json(conn, operator |> Poison.encode!())
+    end
+  end
+
+  def set_discount(conn, %{ "id" => operator_id, "discount" => discount_value } = params) do
+    BusTerminalSystem.AccountManager.User.find(operator_id)
+    |> BusTerminalSystem.AccountManager.User.update([discount_amount: discount_value])
+    |> case do
+         {_, operator} -> json(conn, operator |> Poison.encode!())
+       end
+
   end
 
 end

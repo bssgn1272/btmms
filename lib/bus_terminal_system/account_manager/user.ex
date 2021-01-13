@@ -5,12 +5,13 @@ defmodule BusTerminalSystem.AccountManager.User do
   # alias Argon2
 
   @db_columns [:username, :password, :first_name, :last_name, :ssn, :role, :nrc, :email, :mobile, :account_number, :tel, :uuid, :account_status, :operator_role,
-    :pin, :tmp_pin, :company, :auth_status, :maker, :checker, :maker_date_time, :checker_date_time, :user_description, :system_description, :role_id]
+    :pin, :tmp_pin, :company, :auth_status, :maker, :checker, :maker_date_time, :checker_date_time, :user_description, :system_description, :role_id, :apply_discount,
+    :discount_amount]
 
   @validate_columns [:username, :account_number, :nrc, :mobile, :ssn, :password, :role, :account_status, :operator_role]
 
   @derive {Poison.Encoder,only: [:id,:account_type,:username,:first_name,:last_name,:ssn,:nrc,:email,:mobile,:account_status,:operator_role,:role,:company,:account_number,
-  :auth_status, :maker, :checker, :maker_date_time,:checker_date_time, :role_id, :user_description, :system_description, :role_id]}
+  :auth_status, :maker, :checker, :maker_date_time,:checker_date_time, :role_id, :user_description, :system_description, :role_id, :apply_discount, :discount_amount]}
 
   schema "probase_tbl_users" do
     field :password, :string
@@ -39,6 +40,8 @@ defmodule BusTerminalSystem.AccountManager.User do
     field :user_description, :string
     field :system_description, :string
     field :role_id, :string
+    field :apply_discount, :boolean
+    field :discount_amount, :float
 
     timestamps()
   end
