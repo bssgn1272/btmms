@@ -652,9 +652,10 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     end
   end
 
-  def set_discount(conn, %{ "id" => operator_id, "discount" => discount_value } = params) do
-    BusTerminalSystem.AccountManager.User.find(operator_id)
-    |> BusTerminalSystem.AccountManager.User.update([discount_amount: discount_value])
+  def set_discount(conn, %{ "id" => operator_id, "discount" => discount_value, "discount_reason" => discount_reason } = params) do
+    bus_operator = BusTerminalSystem.AccountManager.User.find(operator_id)
+    reason = (fn d_reason, op -> if d_reason == "", do: op.discount_reason, else: d_reason end)
+     BusTerminalSystem.AccountManager.User.update(bus_operator, [discount_amount: discount_value, discount_reason: reason.(discount_reason, bus_operator)])
     |> case do
          {_, operator} -> json(conn, operator |> Poison.encode!())
        end

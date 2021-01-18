@@ -519,7 +519,7 @@ function passenger_ticket_logic() {
 
                     let value = single_object.bus.company.trim().split(" ").join("").toString() + "-" + single_object.route.start_route + "-"
                         + single_object.route.end_route + "-"  +  single_object.departure_time + "-" + single_object.fare + "-" + single_object.bus.id + "-"
-                        + single_object.slot + "-" + single_object.bus_schedule_id;
+                        + single_object.slot + "-" + single_object.bus_schedule_id + "-" + single_object.discount_amount + "-" + single_object.discount_status;
                     value = value.toString();
 
                     //trips_html += '<div class="radio"><label><input type="radio" onclick="ticket_purchase(this.value)" value="'+value+'" name="opt_radio" />';
@@ -549,21 +549,40 @@ function passenger_ticket_logic() {
 
 function ticket_purchase(value){
 
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: true
+    })
+
     console.log(value.split(/-/g));
     let rd = value.split(/-/g);
 
     switch ($('#ticket_type').val()) {
+
         case "passenger_ticket":
-            $('#passenger_view').show();
-            let info = "OPERATOR: " + rd[0] + "\t START: " + rd[1] + "\t END: " + rd[2] + "\t DEPARTURE: " + rd[3] + "\t PRICE: K" + rd[4] + "\t GATE: " + rd[6] + "\t SCHEDULE: " + rd[7];
-            $('#route_information').val(info);
 
-            $('#operator_Model').val(rd[0]);
-            $('#start_Model').val(rd[1]);
-            $('#end_Model').val(rd[2]);
-            $('#time_Model').val(rd[3]);
+            if (rd[8] >= rd[4] && rd[9] === "true"){
+                swalWithBootstrapButtons.fire(
+                    'Invalid Route',
+                    'Discount Amount Higher than Fare',
+                    'error'
+                )
+            }else{
+                $('#passenger_view').show();
+                let info = "OPERATOR: " + rd[0] + "\t START: " + rd[1] + "\t END: " + rd[2] + "\t DEPARTURE: " + rd[3] + "\t PRICE: K" + rd[4] + "\t GATE: " + rd[6] + "\t SCHEDULE: " + rd[7];
+                $('#route_information').val(info);
 
-            $('#bus_id_input').val(rd[5]);
+                $('#operator_Model').val(rd[0]);
+                $('#start_Model').val(rd[1]);
+                $('#end_Model').val(rd[2]);
+                $('#time_Model').val(rd[3]);
+
+                $('#bus_id_input').val(rd[5]);
+            }
+
             break
         case "unattended_luggage":
             $('#passenger_view').hide();

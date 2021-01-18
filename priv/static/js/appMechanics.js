@@ -773,11 +773,13 @@ function set_discount() {
             contentType: 'application/json',
             data: JSON.stringify({
                 id: $('#discount_model_user_id').val(),
-                discount: $("#modal_discount_value").val()
+                discount: $("#modal_discount_value").val(),
+                discount_reason: $("#modal_discount_reason").val()
             }),
             success: function (response) {
                 response = JSON.parse(response)
                 $('#discount_model_current_discount').val(response.discount_amount)
+                $('#discount_model_discount_reason').val(response.discount_reason)
             }
         })
     })
@@ -845,6 +847,7 @@ function discounts_modal(id) {
             $('#discount_model_user_id').val(operator.id)
             $('#discount_model_current_discount').val(operator.discount_amount)
             $('#discount_model_status_value').val(operator.apply_discount)
+            $('#discount_model_discount_reason').val(operator.discount_reason)
             if (operator.apply_discount) {
                 $('#discount_model_status').val("ENABLED")
             }else {

@@ -715,6 +715,7 @@ defmodule BusTerminalSystem.RepoManager do
   defp merge_routes(reserve_list) do
 
     Enum.map(reserve_list, fn schedule ->
+
       operator = BusTerminalSystem.AccountManager.User.find(schedule["user_id"])
       bus = BusTerminalSystem.BusManagement.Bus.find(schedule["bus_id"])
       capacity = bus.vehicle_capacity
@@ -736,6 +737,8 @@ defmodule BusTerminalSystem.RepoManager do
         "bus" => bus |> Poison.encode! |> Poison.decode!,
         "fare" => fare,
         "slot" => slot,
+        "discount_amount" => operator.discount_amount || 0,
+        "discount_status" => operator.apply_discount || 0,
         "departure_time" => time,
         "departure_date" => date
       }
@@ -748,6 +751,8 @@ defmodule BusTerminalSystem.RepoManager do
           "bus" => bus |> Poison.encode! |> Poison.decode!,
           "fare" => fare,
           "slot" => slot,
+          "discount_amount" => operator.discount_amount || 0,
+          "discount_status" => operator.apply_discount || 0,
           "departure_time" => time,
           "departure_date" => date
         }
