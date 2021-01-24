@@ -210,6 +210,7 @@ defmodule BusTerminalSystemWeb.Router do
     post "/internal/discounts/operator", FrontendApiController, :discount_operator
     post "/internal/discounts/enable", FrontendApiController, :enable_discount
     post "/internal/discounts/set", FrontendApiController, :set_discount
+    get "/internal/routes/threshold", FrontendApiController, :minimum_route_price
 
     post "/internal/markets", FrontendApiController, :modules
   end

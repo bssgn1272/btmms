@@ -756,32 +756,55 @@ function set_discount() {
         buttonsStyling: true
     })
 
-    swalWithBootstrapButtons.fire({
-        title: 'Are you sure?',
-        text: "Update Discount!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, Update!',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: true
-    }).then((result) => {
+    $.ajax({
+        method: 'get',
+        url: '/api/v1/internal/routes/threshold',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (threshold_response) {
 
-        $.ajax({
-            method: 'post',
-            url: '/api/v1/internal/discounts/set',
-            dataType: 'json',
-            contentType: 'application/json',
-            data: JSON.stringify({
-                id: $('#discount_model_user_id').val(),
-                discount: $("#modal_discount_value").val(),
-                discount_reason: $("#modal_discount_reason").val()
-            }),
-            success: function (response) {
-                response = JSON.parse(response)
-                $('#discount_model_current_discount').val(response.discount_amount)
-                $('#discount_model_discount_reason').val(response.discount_reason)
+            if ($("#modal_discount_value").val() > threshold_response.threshold){
+                swalWithBootstrapButtons.fire(
+                    'Failed to configure Discount',
+                    'Discount amount above threshold K' + threshold_response.threshold,
+                    'error'
+                )
+            }else{
+                swalWithBootstrapButtons.fire({
+                    title: 'Are you sure?',
+                    text: "Update Discount!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, Update!',
+                    cancelButtonText: 'No, cancel!',
+                    reverseButtons: true
+                }).then((result) => {
+
+                    $.ajax({
+                        method: 'post',
+                        url: '/api/v1/internal/discounts/set',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            id: $('#discount_model_user_id').val(),
+                            discount: $("#modal_discount_value").val(),
+                            discount_reason: $("#modal_discount_reason").val()
+                        }),
+                        success: function (response) {
+                            response = JSON.parse(response)
+                            $('#discount_model_current_discount').val(response.discount_amount)
+                            $('#discount_model_discount_reason').val(response.discount_reason)
+
+                            swalWithBootstrapButtons.fire(
+                                'Done',
+                                'Discount Updated',
+                                'success'
+                            )
+                        }
+                    })
+                })
             }
-        })
+        }
     })
 }
 

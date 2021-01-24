@@ -662,4 +662,8 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
   end
 
+  def minimum_route_price(conn, _params) do
+    json(conn, %{threshold: BusTerminalSystem.TravelRoutes.min(:route_fare)})
+  end
+
 end
