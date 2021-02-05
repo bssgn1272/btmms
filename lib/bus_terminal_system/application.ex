@@ -14,6 +14,7 @@ defmodule BusTerminalSystem.Application do
       BusTerminalSystem.Repo,
       # Start the endpoint when the application starts
       BusTerminalSystemWeb.Endpoint,
+      BusTerminalSystem.Scheduler
       # Starts a worker by calling: BusTerminalSystem.Worker.start_link(arg)
       # {BusTerminalSystem.Worker, arg},
       # SMS job

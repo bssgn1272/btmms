@@ -28,6 +28,8 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateUsers do
       add :role_id, :string
       add :apply_discount, :boolean
       add :discount_amount, :float
+      add :compliance, :boolean
+      add :employer_number, :string
 
       timestamps()
     end

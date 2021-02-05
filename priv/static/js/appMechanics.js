@@ -898,7 +898,7 @@ function user_edit_model(id) {
         data: json_request,
         success: function (response) {
             let data = JSON.parse(JSON.stringify(response));
-
+            console.log(data)
             $('#modal_form_horizontal_user').modal('show');
 
             $('#model_username').val(data.response.QUERY.data.username);
@@ -914,6 +914,14 @@ function user_edit_model(id) {
             $('#model_operator_role').val(data.response.QUERY.data.operator_role);
             $('#model_password').val("0123456789");
             $('#model_user_id').val(id);
+
+            if (data.response.QUERY.data.compliance === true) {
+                $('#model_compliance_status').val("COMPLIANT");
+                document.getElementById("model_compliance_status").style.color = 'green';
+            } else {
+                $('#model_compliance_status').val("NOT COMPLIANT");
+                document.getElementById("model_compliance_status").style.color = 'red';
+            }
         }
     });
 
@@ -1002,11 +1010,13 @@ function user_type_selection(role){
             $('#user_company_name').show();
             $('#user_first_name').hide();
             $('#user_last_name').hide();
+            $('#user_employer_number').show();
             break;
         default:
             $('#user_company_name').hide();
             $('#user_first_name').show();
             $('#user_last_name').show();
+            $('#user_employer_number').hide();
     }
 }
 

@@ -65,7 +65,8 @@ defmodule BusTerminalSystem.MixProject do
       { :uuid, "~> 1.1.8" },
       {:atomic_map, "~> 0.9.3"},
       {:elixir_xml_to_map, "~> 2.0"},
-      {:soap, "~> 1.0.1"}
+      {:soap, "~> 1.0.1"},
+      {:quantum, "~> 3.0"}
     ]
   end
 

@@ -6,12 +6,13 @@ defmodule BusTerminalSystem.AccountManager.User do
 
   @db_columns [:username, :password, :first_name, :last_name, :ssn, :role, :nrc, :email, :mobile, :account_number, :tel, :uuid, :account_status, :operator_role,
     :pin, :tmp_pin, :company, :auth_status, :maker, :checker, :maker_date_time, :checker_date_time, :user_description, :system_description, :role_id, :apply_discount,
-    :discount_amount, :discount_reason]
+    :discount_amount, :discount_reason, :compliance, :employer_number]
 
   @validate_columns [:username, :account_number, :nrc, :mobile, :ssn, :password, :role, :account_status, :operator_role]
 
-  @derive {Poison.Encoder,only: [:id,:account_type,:username,:first_name,:last_name,:ssn,:nrc,:email,:mobile,:account_status,:operator_role,:role,:company,:account_number,
-  :auth_status, :maker, :checker, :maker_date_time,:checker_date_time, :role_id, :user_description, :system_description, :role_id, :apply_discount, :discount_amount, :discount_reason]}
+  @derive {Poison.Encoder,only: [:id,:account_type,:username,:first_name,:last_name,:ssn,:nrc,:email,:mobile,:account_status,:operator_role,:role,:company,:account_number, :compliance,
+  :auth_status, :maker, :checker, :maker_date_time,:checker_date_time, :role_id, :user_description, :system_description, :role_id, :apply_discount, :discount_amount, :discount_reason,
+  :employer_number ]}
 
   schema "probase_tbl_users" do
     field :password, :string
@@ -43,6 +44,8 @@ defmodule BusTerminalSystem.AccountManager.User do
     field :apply_discount, :boolean
     field :discount_amount, :float
     field :discount_reason, :string
+    field :compliance, :boolean
+    field :employer_number, :string
 
     timestamps()
   end

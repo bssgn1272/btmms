@@ -25,6 +25,7 @@
                   <th>NID</th>
                   <th>Email</th>
                   <th>Mobile</th>
+                  <th>Compliance Status</th>
                   <th>Account Status</th>
                   <th>Actions</th>
                 </tr>
@@ -41,6 +42,11 @@
                   <td><%= user.nrc %></td>
                   <td><%= user.email %></td>
                   <td><%= user.mobile %></td>
+                  <%= if user.compliance == true do %>
+                    <td> <b style="color: green"> COMPLIANT </b>  </td>
+                  <% else %>
+                    <td> <b style="color: red"> NOT COMPLIANT </b> </td>
+                  <% end %>
                   <td><%= user.account_status %></td>
                   <td class="text-center">
                     <ul class="icons-list">
@@ -116,15 +122,20 @@
 
                          <div class="form-group">
                              <div class="row">
-                                 <div class="col-md-6">
+                                 <div class="col-md-4">
                                      <label>Email</label>
                                      <input type="text" id="model_email" value="" class="form-control">
                                  </div>
 
-                                 <div class="col-md-6">
+                                  <div class="col-md-4">
                                       <label>Phone</label>
                                       <input type="text" id="model_phone" value="" class="form-control">
                                   </div>
+
+                                 <div class="col-md-4">
+                                     <label>Compliance Status</label>
+                                     <input type="text" readonly id="model_compliance_status" value="" class="form-control">
+                                 </div>
 
                              </div>
                          </div>

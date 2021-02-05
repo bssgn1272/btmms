@@ -54,6 +54,15 @@ config :bus_terminal_system, BusTerminalSystemWeb.Guardian,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :bus_terminal_system, BusTerminalSystem.Scheduler,
+ overlap: false,
+ timeout: 30_000,
+ jobs: [
+   check_compliance: [
+     schedule:  "* * * * *", task: {BusTerminalSystem.CheckCompliance, :run, []}
+   ],
+ ]
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

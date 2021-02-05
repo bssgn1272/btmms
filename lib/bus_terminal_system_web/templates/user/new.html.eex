@@ -91,6 +91,11 @@
                                         <input name="payload[ssn]" class="form-control" required readonly value="<%= @napsa_user["ssn"] %>" placeholder="Enter SSN Number" type="text">
                                     </div>
 
+                                    <div class="form-group" id="user_employer_number">
+                                        <label>Employer Number:</label>
+                                        <input name="payload[employer_number]" class="form-control" required readonly value="" placeholder="Enter Employer Number" type="text">
+                                    </div>
+
                                     <div class="form-group">
                                           <input  name="payload[uuid]" class="form-control" readonly="readonly"
                                            value="<%=DateTime.utc_now.year%>-<%=BusTerminalSystem.Randomizer.randomizer(10,:numeric)%>-<%=DateTime.utc_now.month %>-<%= BusTerminalSystem.Randomizer.randomizer(4,:numeric) %>-<%=DateTime.utc_now.day%>"

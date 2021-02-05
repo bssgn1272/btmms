@@ -466,6 +466,85 @@ function toggle_route_search(){
     }
 }
 
+function transfer_ticket_logic(){
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: true
+    })
+
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+
+    today = dd + "/" + mm + "/" + yyyy;
+
+    let json_request = JSON.stringify({
+        payload: {
+            date: today,
+            start_route: "Livingstone",
+            end_route: $('#transfer_destination_option_select').val()
+        }
+    });
+    let json_data = {};
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/btms/travel/secured/internal/locations/destinations/internal',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request,
+        success: function (response) {
+            let data_object = JSON.parse(JSON.stringify(response));
+            json_data = data_object;
+            console.log(data_object);
+            if (data_object.length < 1){
+                swalWithBootstrapButtons.fire(
+                    'No Route(s) Found',
+                    'Route(S) could not be found for Livingstone to ' + $('#transfer_destination_option_select').val(),
+                    'error'
+                )
+            } else {
+
+                let trips_html = '';
+
+                $.each(response, function (k,v) {
+                    let single_object = JSON.parse(JSON.stringify(v));
+
+                    console.log(single_object)
+
+                    let value = single_object.bus.company.trim().split(" ").join("").toString() + "-" + single_object.route.start_route + "-"
+                        + single_object.route.end_route + "-"  +  single_object.departure_time + "-" + single_object.fare + "-" + single_object.bus.id + "-"
+                        + single_object.slot + "-" + single_object.bus_schedule_id + "-" + single_object.discount_amount + "-" + single_object.discount_status;
+                    value = value.toString();
+
+                    //trips_html += '<div class="radio"><label><input type="radio" onclick="ticket_purchase(this.value)" value="'+value+'" name="opt_radio" />';
+                    //trips_html += "\n" + value ;
+                    //trips_html += '</label></div';
+                    //trips_html += "\n";
+
+                    date_obj = single_object.departure_date.split("T")[0]
+                    date_arr = date_obj.split("-")
+                    date = date_arr[2] + "/" + date_arr[1] + "/" + date_arr[0]
+
+
+                    trips_html += '<tr>' + '<th scope="row"><input type="radio" onclick="ticket_purchase(this.value)" value="'+value+'" name="opt_radio"></th>'+
+                        '<td>' + single_object.bus.company +'</td>' + '<td>' + single_object.route.start_route + " -> "+
+                        single_object.route.end_route +'</td>' + '<td>' + single_object.departure_time +'</td>' + '<td>' + date +'</td>' + '<td>' + single_object.available_seats +'</td>' + '<td>' + single_object.fare
+                        +'</td>' + '</tr>';
+                });
+
+                $('#transfer_trips_form').empty();
+                $('#transfer_trips_form').html(trips_html);
+            }
+        }
+    });
+}
+
 function unattended_luggage_logic() {
     $("#results_view").show();
     $("#unattended_view").show();
@@ -476,6 +555,14 @@ function unattended_luggage_logic() {
 $("#unattended_layout_view").hide();
 function passenger_ticket_logic() {
     $("#unattended_view").hide();
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: true
+    })
 
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
@@ -507,7 +594,12 @@ function passenger_ticket_logic() {
                 $('#passenger_view').hide();
                 $("#results_view").hide();
                 $("#passenger_ticket_view").hide();
-                alert("No Routes Found");
+
+                swalWithBootstrapButtons.fire(
+                    'No Route(s) Found',
+                    'Route(S) could not be found for Livingstone to ' + $('#destination_option_select').val(),
+                    'error'
+                )
             } else {
 
                 let trips_html = '';
@@ -747,6 +839,39 @@ function reschedule_ticket(ticket) {
             }
         }
     });
+}
+
+function transfer_ticket(ticket) {
+
+    console.log(ticket)
+    $('#transferModal').modal("show");
+
+    selected_ticket = ticket
+
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+
+    today = dd + "/" + mm + "/" + yyyy;
+
+    $.ajax({
+        method: 'get',
+        url: '/api/v1/btms/travel/secured/routes',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (response) {
+
+            let data = JSON.parse(JSON.stringify(response));
+            var list = distinct_destination(data.travel_routes);
+
+            options = list;
+            $('#transfer_destination_option_select').empty();
+            $.each(options, function(i, p) {
+                $('#transfer_destination_option_select').append($('<option></option>').val(p).html(p));
+            });
+        }
+    })
 }
 
 function reschedule_logic(value, ticket) {
