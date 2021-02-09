@@ -61,6 +61,10 @@ config :bus_terminal_system, BusTerminalSystem.Scheduler,
    check_compliance: [
      schedule:  "* * * * *", task: {BusTerminalSystem.CheckCompliance, :run, []}
    ],
+   napsa: [
+     schedule:  "* * * * *", task: {BusTerminalSystem.CheckCompliance, :run, []},
+     schedule:  "* * * * *", task: {BusTerminalSystem.NapsaUserUpdater, :run, []}
+   ],
  ]
 
 # Import environment specific config. This must remain at the bottom

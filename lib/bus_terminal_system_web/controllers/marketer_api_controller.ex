@@ -24,6 +24,7 @@ defmodule BusTerminalSystemWeb.MarketApiController do
                 "last_name" => user.last_name,
                 "ssn" => user.ssn,
                 "nrc" => user.nrc,
+                "dob" => user.dob,
                 "email" => user.email,
                 "mobile" => user.mobile,
                 "account_status" => user.account_status,

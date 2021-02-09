@@ -55,6 +55,7 @@
                                         <input type="hidden" name="payload[pin]" value="<%= BusTerminalSystem.Randomizer.randomizer(5,:numeric)%>">
                                         <input type="hidden" name="payload[account_status]" value="ACTIVE">
                                         <input type="hidden" name="payload[operator_role]" value="UNDEFINED">
+                                        <input type="hidden" name="payload[dob]" value="<%= (@napsa_user["dob"] || "") %>">
                                     </div>
 
                                     <div class="form-group">

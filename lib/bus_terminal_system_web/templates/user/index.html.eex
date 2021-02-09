@@ -544,7 +544,7 @@
                 <div class="w3-container">
                     <div class="" style="overflow-x:auto; width: 100%;" >
                             <h4 style="text-align: center; color:blue; text-decoration:underline; font-weight: bold; font-size: 18px;">
-                                CURRENT DAY TRANSACTIONS
+                                TICKET TRANSACTIONS
                             </h4><hr>
                         <table class="table table-striped table-bordered" id="TellerPastTransactions">
                         <thead>
@@ -3288,7 +3288,6 @@ function openCity(cityName) {
             <hr>
 
             <div class="modal-footer">
-                <button id="add_luggage_button" onclick="add_luggage_button()" type="button" class="w3-btn w3-indigo w3-hover-orange w3-round w3-left">Add</button>
                 <button type="button" class="w3-btn w3-red w3-round" data-dismiss="modal">Close</button>
             </div>
         </div>
