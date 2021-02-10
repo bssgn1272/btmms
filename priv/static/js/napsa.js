@@ -2,6 +2,17 @@
 function search_napsa_member() {
     let search_id = $("#napsa_search_id").val()
 
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: true
+    });
+
+    swalWithBootstrapButtons.fire('Please wait')
+    swalWithBootstrapButtons.showLoading();
+
     if (search_id === ""){
         swal({
             title: "Error!",
@@ -17,6 +28,7 @@ function search_napsa_member() {
             success: function (response) {
 
                 if(response.response.statusCode !== "SUCCESS"){
+                    swalWithBootstrapButtons.close();
                     swal({
                         title: "Error!",
                         text: "Could not Connect to server",
@@ -29,6 +41,7 @@ function search_napsa_member() {
 
             },
             error: function (response){
+                swalWithBootstrapButtons.close();
                 Swal.fire(
                     'Error!',
                     'Failed to Search Member!',
