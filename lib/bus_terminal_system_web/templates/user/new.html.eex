@@ -35,6 +35,7 @@
                                                 <option value="MOP">Marketeer</option>
                                                 <option value="TOP">Teller</option>
                                                 <option value="CCOP">Customer Care</option>
+                                                <option value="CCOP">Agent</option>
                                             </select>
                                     </div>
 

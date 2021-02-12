@@ -67,6 +67,7 @@ defmodule BusTerminalSystem.MixProject do
       {:elixir_xml_to_map, "~> 2.0"},
       {:soap, "~> 1.0.1"},
       {:quantum, "~> 3.0"}
+
     ]
   end
 
