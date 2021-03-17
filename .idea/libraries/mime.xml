@@ -1,8 +1,6 @@
 <component name="libraryTable">
   <library name="mime" type="mix">
-    <CLASSES>
-      <root url="file://$PROJECT_DIR$/_build/dev/lib/mime/ebin" />
-    </CLASSES>
+    <CLASSES />
     <JAVADOC />
     <SOURCES>
       <root url="file://$PROJECT_DIR$/deps/mime/lib" />

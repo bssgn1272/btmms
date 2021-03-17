@@ -554,8 +554,10 @@
                         <thead>
                             <tr style="font-size: 12px;">
                                 <th>Ticket Reference No.</th>
+                                <th>Ticket ID</th>
                                 <th>Bus Operator</th>
                                 <th>Depature Date</th>
+                                <th>Depature Time</th>
                                 <th>Route</th>
                                 <th>Mobile</th>
                                 <th>Status</th>
@@ -570,6 +572,7 @@
                             <%= for ticket <- @tickets do %>
                             <tr>
                               <td><%= ticket.reference_number %></td>
+                              <td><%= ticket.id %></td>
                               <%
                                 operator_id = BusTerminalSystem.BusManagement.Bus.find(ticket.bus_no).operator_id
                                 operator = BusTerminalSystem.AccountManager.User.find(operator_id)
@@ -580,6 +583,7 @@
                               %>
                               <td><%= operator.company %></td>
                               <td><%= ticket.travel_date %></td>
+                              <td><%= ticket.date %></td>
                               <td><%= route_name %></td>
                               <td><%= ticket.mobile_number %></td>
                               <%= if ticket.activation_status == "VALID" do %>
@@ -3110,7 +3114,7 @@ function openCity(cityName) {
                     <input id="operator_Model" readonly type="text" class="form-control" placeholder="Route Info">
                     <input id="start_Model" readonly type="text" class="form-control" placeholder="Route Info">
                     <input id="end_Model" readonly type="text" class="form-control" placeholder="Route Info">
-                    <input id="time_Model" readonly type="text" class="form-control" placeholder="Route Info">
+                    <input id="time_Model" readonly type="text" class="form-control" name="payload[time]" placeholder="Route Info">
 
 
                 </div>

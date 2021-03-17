@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="gmail" type="mix">
-    <CLASSES />
-    <JAVADOC />
-    <SOURCES>
-      <root url="file://$PROJECT_DIR$/deps/gmail/lib" />
-    </SOURCES>
-  </library>
-</component>

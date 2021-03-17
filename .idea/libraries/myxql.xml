@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="myxql" type="mix">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/deps/myxql/lib" />
+    </SOURCES>
+  </library>
+</component>

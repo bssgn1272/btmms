@@ -8,7 +8,7 @@ defmodule BusTerminalSystem.TicketManagement.Ticket do
   @derive {Poison.Encoder, only: [:id, :maker,:reference_number, :serial_number, :external_ref, :inserted_at, :bus_no,
                              :class, :activation_status,:bus_schedule_id, :route, :first_name, :payment_mode, :amount,
                              :last_name, :other_name, :id_type, :passenger_id, :mobile_number, :email_address,
-                             :transaction_channel, :route_information, :ticket_description]}
+                             :transaction_channel, :route_information, :ticket_description, :date]}
 
   schema "probase_tbl_tickets" do
     field :reference_number, :string
@@ -54,7 +54,7 @@ defmodule BusTerminalSystem.TicketManagement.Ticket do
     |> cast(attrs, [:reference_number, :maker, :external_ref, :bus_no, :class, :serial_number, :route, :activation_status, :first_name, :bus_schedule_id,
       :last_name, :other_name, :id_type, :payment_mode, :amount, :passenger_id, :mobile_number, :email_address, :transaction_channel, :travel_date,
       :has_luggage, :luggage_total, :info, :route_information, :discount_applied, :discount_amount, :discount_original_amount,
-      :maker, :ticket_description])
+      :maker, :ticket_description, :date])
 
     |> validate_required([:reference_number, :external_ref, :amount, :serial_number, :route, :activation_status, :first_name,
       :last_name, :id_type, :passenger_id, :mobile_number, :transaction_channel, :travel_date])

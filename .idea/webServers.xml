@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="b8840d0f-b647-435b-af0c-fadbcd6c83fe" name="btmms.57">
+        <fileTransfer rootFolder="/home/probase/btmms" accessType="SFTP" host="10.10.1.57" port="22" sshConfigId="8310e368-3644-4a93-85e2-62b9eef00543" sshConfig="probase@10.10.1.57:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

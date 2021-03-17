@@ -620,8 +620,8 @@ function ticket_transfer(route, ticket) {
     }).then((result) => {
 
         console.log(rd[4].toString())
-        console.log(ticket.discount_original_amount.toString())
-        if (rd[4].toString() !== ticket.discount_original_amount.toString()){
+        console.log(ticket.amount.toString())
+        if (rd[4].toString() !== ticket.amount.toString()){
             swal({
                 title: "Transfer Failed!",
                 text: "Amount is not valid for transfer, Please cancel and rebook new ticket with new amount",
@@ -645,7 +645,8 @@ function ticket_transfer(route, ticket) {
                         end_route: rd[2],
                         bus_no: rd[10],
                         route: rd[11],
-                        ticket_description: "Ticket transferred from (Livingstone to " + ticket.end_route + ") to " + "(Livingstone to " + rd[2] + ")"
+                        date: rd[3],
+                        ticket_description: "Ticket transferred from (Livingstone to " + ticket.end_route + ") to " + "(Livingstone to " + rd[2] + ") at " + new Date().toLocaleString().replace(",","").replace(/:.. /," ")
                     }
                 });
 
@@ -873,7 +874,10 @@ function purchase_ticket_internal() {
             last_name: $('#Last_Name_Model').val(),
             mobile_number: $('#Contact_Number_Model').val(),
             passenger_id: $('#ID_Model').val(),
-            route_information: $('#route_information_Model').val()
+            route_information: $('#route_information_Model').val(),
+            date: $('#time_Model').val(),
+            ticket_description: "Ticket Purchased from (Livingstone to " + $('#end_Model').val() + ")"
+
         }
     });
 
@@ -894,20 +898,37 @@ function purchase_ticket_internal() {
             $("#passenger_ticket_view").hide();
 
             let status = single_object.status
-            if(status == 200){
+            if(status === 200){
+                // swal({
+                //     title: "Done!",
+                //     text: "Ticket Purchase Successful! ID: " + single_object.id,
+                //     icon: "success",
+                //     button: "Ok",
+                // });
+
                 swal({
-                    title: "Done!",
+                    title: "Purchase Complete",
                     text: "Ticket Purchase Successful! ID: " + single_object.id,
-                    icon: "success",
-                    button: "Ok",
+                    type: "success"
                 });
             }else{
+                // swal({
+                //     title: "Done!",
+                //     text: "Ticket Purchase Successful! ID: " + single_object.id,
+                //     icon: "success",
+                //     button: "Ok",
+                // });
                 swal({
-                    title: "Done!",
+                    title: "Purchase Complete",
                     text: "Ticket Purchase Successful! ID: " + single_object.id,
-                    icon: "success",
-                    button: "Ok",
+                    type: "success"
                 });
+
+                // swal({
+                //     title: "Purchase Failed",
+                //     text: "Ticket Purchase Failed! ",
+                //     type: "error"
+                // });
             }
         }
     });

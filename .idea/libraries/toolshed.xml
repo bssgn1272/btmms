@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="toolshed" type="mix">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/toolshed/ebin" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/deps/toolshed/lib" />
+    </SOURCES>
+  </library>
+</component>

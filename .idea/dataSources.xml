@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="@localhost" uuid="de93fa8f-ed49-4776-9569-32707cd27f84">
-      <driver-ref>postgresql</driver-ref>
+    <data-source source="LOCAL" name="dev.napsa.database" uuid="2fdec4fc-bab3-4e98-9e2e-8f1d0096e722">
+      <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/</jdbc-url>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://10.10.1.88:3306/btmms</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="btmms_local" uuid="8338953c-bb92-4e05-9b87-930423b2e59c">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Livingstone" uuid="c1c72e88-893e-4b9c-8606-19c1e549c57c">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://10.70.3.55:3306/btmms</jdbc-url>
     </data-source>
   </component>
 </project>

@@ -338,7 +338,11 @@ defmodule BusTerminalSystemWeb.TicketController do
                     teller = BusTerminalSystem.AccountManager.User.find_by(username: teller_username)
                     serial_number = Randomizer.randomizer(7, :numeric)
 
+                    IO.inspect("--------------------------")
+                    IO.inspect(payload)
+
                     map = Map.put(payload, "reference_number", generate_reference_number(route))
+#                    map = Map.put(map, "date", payload["date"])
                     map = Map.put(map, "serial_number", serial_number)
                     map = Map.put(map, "activation_status", "VALID")
                     map = Map.put(map, "route", route.id)
@@ -349,7 +353,6 @@ defmodule BusTerminalSystemWeb.TicketController do
                     bus = BusTerminalSystem.BusManagement.Bus.find_by(id: schedule.bus_id)
                     operator = BusTerminalSystem.AccountManager.User.find_by(id: bus.operator_id)
 
-                    IO.inspect bus
 
                     map = Map.put(map, "bus_no", bus.id |> to_string)
                     r_info = "OPERATOR: #{operator.company |> String.replace(" ","_")}: START: #{route.start_route} END: #{route.end_route}	 DEPARTURE: #{schedule.time} PRICE: K#{route.route_fare} GATE: #{schedule.slot}"
