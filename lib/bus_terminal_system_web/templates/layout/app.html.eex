@@ -83,7 +83,7 @@
     		<div class="page-content" >
 
                 <!-- ############# ADMIN SIDE-BAR ########### -->
-                <%= if @user.role == "ADMIN" do %>
+                <%= if @user.role == "ADMIN" or @user.role == "SADMIN" do %>
     			<div class="sidebar sidebar-main sidebar-default" style="height: 100%" >
     				<div class="sidebar-content">
 
@@ -103,7 +103,7 @@
     						<div class="category-content no-padding">
     							<ul class="navigation navigation-main navigation-accordion">
 
-                                    <%= if @user.role == "ADMIN" do %>
+                                    <%= if @user.role == "ADMIN" or @user.role == "SADMIN" do %>
                                     <li>
     								    <a href="<%= Routes.user_path(@conn, :index)%>">
 
@@ -123,11 +123,6 @@
                                         </a>
                                     </li>
 
-                                    <li>
-                                        <a href="<%= Routes.bookings_path(@conn, :schedule)%>">
-                                            <i style="color:orange;" onclick="get_buses()" class="icon-watch"></i> <span>Schedules</span>
-                                        </a>
-                                    </li>
 
                                     <li hidden>
                                         <a href="#"><i style="color:orange;" class="icon-user"></i> <span>Teller</span></a>
@@ -148,6 +143,33 @@
                                                </li>
                                          </ul>
                                     </li>
+
+                                        <%= if @user.role == "SADMIN" do %>
+                                            <li>
+                                                <a href="#"><i style="color:orange;" class="icon-bus"></i> <span>Bus Management</span></a>
+                                                <ul>
+                                                    <li>
+                                                        <%= link "Manage Buses", to: Routes.bus_terminus_path(@conn, :bus_approval) %>
+                                                    </li>
+                                                </ul>
+                                            </li>
+
+                                            <li>
+                                                <a href="#"><i style="color:orange;" class="icon-stack2"></i> <span>Market Operations</span></a>
+                                                <ul>
+                                                    <li><%= link "Management", to: Routes.marketer_path(@conn, :index) %></li>
+                                                    <li><%= link "Stand Allocation", to: Routes.marketer_path(@conn, :standallocation) %></li>
+                                                </ul>
+                                            </li>
+
+                                        <li>
+                                            <a href="#"  onclick="ticketing_container()"><i style="color:orange;" class="icon-ticket" onclick="ticketing_container()"></i> <span onclick="ticketing_container()">Ticketing</span></a>
+                                        </li>
+
+                                        <% end %>
+
+
+
     								<% end %>
 
                                     <%= if @user.role == "BOP" or @user.role == "ADMIN" do %>
@@ -171,7 +193,7 @@
     								</li>
     								<% end %>
 
-    								<%= if @user.role == "MOP" or @user.role == "ADMIN" do %>
+    								<%= if @user.role == "MOP" or @user.role == "SADMIN" do %>
     								<li>
                                         <a href="#"><i style="color:orange;" class="icon-stack2"></i> <span>Market Operations</span></a>
                                         <ul>
@@ -180,7 +202,7 @@
                                         </ul>
                                     </li>
                                     <% end %>
-                                    <%= if @user.role == "ADMIN" do %>
+                                    <%= if @user.role == "ADMIN" or @user.role == "SADMIN" do %>
                                         <li>
                                             <a href="#"><i style="color:orange;" class="icon-stack2"></i> <span>Authorization</span></a>
                                             <ul>
@@ -188,6 +210,7 @@
                                                 <li><%= link "User Roles", to: Routes.user_management_path(@conn, :redirect, view: "22K2yQRYjgb4i" ,sigma: :kenos) %></li>
                                             </ul>
                                         </li>
+
                                     <% end %>
     								<!-- /main -->
     							</ul>
@@ -321,7 +344,7 @@
                 <!-- ############ END BOP-SIDE-BAR ######### -->
 
                 <!-- ############# TOP SIDE-BAR ########### -->
-                <%= if @user.role == "TOP" or @user.role == "CCOP" do %>
+                <%= if @user.role == "TOP" or @user.role == "CCOP" or @user.role == "CCOP"  do %>
                 <div class="sidebar sidebar-main sidebar-default">
                     <div class="sidebar-content">
 
@@ -458,6 +481,7 @@
 
     	<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/plugins/ui/ripple.min.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/datatables/js/jquery.datatables.js") %>"></script>
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/dashboard.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/appMechanics.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/market.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/reporting.js") %>"></script>

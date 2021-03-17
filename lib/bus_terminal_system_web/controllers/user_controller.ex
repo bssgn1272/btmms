@@ -94,6 +94,16 @@ defmodule BusTerminalSystemWeb.UserController do
 
             payload = Map.put(payload, "operator_role", "TELLER")
             user_create_payload(conn, payload)
+
+          "SADMIN" ->
+
+            spawn(fn ->
+              message = " Hello #{first_name}, \n Your BTMMS SUPER ADMINISTRATIVE ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{password}"
+              NapsaSmsGetway.send_sms(mobile_number,message)
+            end)
+
+            payload = Map.put(payload, "operator_role", "SUPER_ADMINISTRATOR")
+            user_create_payload(conn, payload)
           _ ->
 
             spawn(fn ->

@@ -67,13 +67,15 @@
         .button:hover {background-color: seagreen;}
         td {text-align: center;}
         th {color: maroon; text-decoration-line: underline;}
+         <h1 style="text-align:center; color:blue; text-decoration:underline;"><strong>DASHBOARD</strong></h1><hr style="border-top: 1px solid orange;">
         */
 </style>
 
 <!--############# ADMIN ################-->
-<%= if @user.role == "ADMIN" do %>
-    <h1 style="text-align:center; color:blue; text-decoration:underline;"><strong>DASHBOARD</strong></h1><hr style="border-top: 1px solid orange;">
-    <div class="timeline timeline-left content-group" style="margin-top: 2%;">
+<%= if @user.role == "ADMIN" or @user.role == "SADMIN" do %>
+
+    <div onload="admin_container()" id="dashboard_container" class="timeline timeline-left content-group" style="margin-top: 2%;">
+        <input type="text" value="<%= @user.role %>" hidden class="form-control"  id="dashboard_container_id">
         <div class="timeline-container">
 
             <div class="timeline-row">
@@ -439,7 +441,7 @@
 <!--########################### NAPSA SEARCH ###########################-->
 
 <!-- ########################################## TELLER MODULE ########################################-->
-<%= if @user.role == "TOP" or @user.role == "CCOP" do %>
+<%= if @user.role == "TOP" or @user.role == "CCOP" or @user.role == "SADMIN" do %>
 <!--
 <div class="container-fluid">
     <div class="container">
@@ -465,9 +467,11 @@
     }
 </style>
 
-<div class="container-fluid" style="padding: 40px">
-    <div class="row">
-        <%= if @user.role == "TOP" or @user.role == "CCOP" do %>
+<div  class="container-fluid" style="padding: 40px">
+
+    <input type="text" value="<%= @user.role %>" hidden class="form-control"  id="ticket_container_id">
+    <div id="ticket_container" class="row">
+        <%= if @user.role == "TOP" or @user.role == "CCOP" or @user.role == "SADMIN" do %>
             <div class="col-md-3">
                 <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
@@ -483,7 +487,7 @@
             </div>
         <% end %>
 
-        <%= if @user.role == "TOP" or @user.role == "CCOP" do %>
+        <%= if @user.role == "TOP" or @user.role == "CCOP" or @user.role == "SADMIN" do %>
             <div class="col-md-3">
                 <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
@@ -500,7 +504,7 @@
         <% end %>
 
 
-        <%= if @user.role == "TOP" or @user.role == "CCOP" do %>
+        <%= if @user.role == "TOP" or @user.role == "CCOP" or @user.role == "SADMIN" do %>
             <div class="col-md-3" >
                 <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
@@ -517,7 +521,7 @@
         <% end %>
 
 
-        <%= if @user.role == "TOP" do %>
+        <%= if @user.role == "TOP" or @user.role == "SADMIN" do %>
             <div class="col-md-3" style="height: 15px">
                 <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
@@ -557,7 +561,9 @@
                                 <th>Status</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
-                            <th></th>
+                                <th>Description</th>
+                                <th>Options</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -584,6 +590,7 @@
 
                               <td><%= ticket.first_name %></td>
                               <td><%= ticket.last_name %></td>
+                              <td><%= ticket.ticket_description %></td>
                                 <td class="text-center">
                                  <%= if BusTerminalSystem.TicketManagement.Ticket.find(ticket.id).activation_status != "CANCELED" do %>
                                      <ul class="icons-list">
@@ -599,7 +606,7 @@
                                                         start_route: start_route, end_route: end_route
                                                       } |> Map.merge(ticket) |> IO.inspect |> JSON.encode! %>)" id="cancel_button" style="width: 100%" class="btn btn-success btn-lg">RE-SCHEDULE</button>
                                                       <button type="button" onclick="transfer_ticket(<%= %{
-                                                        start_route: start_route, end_route: end_route
+                                                        start_route: start_route, end_route: end_route, operator: operator
                                                       } |> Map.merge(ticket) |> IO.inspect |> JSON.encode! %>)" id="cancel_button" style="width: 100%" class="btn btn-warning btn-lg">TRANSFER</button>
                                                   </li>
                                              </ul>
@@ -3294,4 +3301,3 @@ function openCity(cityName) {
     </div>
     <!------------------------------------------------------------------------------------------------------------------------------------------------------->
 </div>
-

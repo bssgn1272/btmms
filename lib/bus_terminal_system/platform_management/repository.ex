@@ -716,61 +716,88 @@ defmodule BusTerminalSystem.RepoManager do
 
     Enum.map(reserve_list, fn schedule ->
 
-      operator = BusTerminalSystem.AccountManager.User.find(schedule["user_id"])
+      route_uid = schedule["ID"]
       bus = BusTerminalSystem.BusManagement.Bus.find(schedule["bus_id"])
       capacity = bus.vehicle_capacity
-      route = BusTerminalSystem.TravelRoutes.find_by([route_code: schedule["ed_bus_routes"]["route_code"]])
-      queried_route = get_route_by_route_code(schedule["ed_bus_routes"]["route_code"])
-
-      route_uid = schedule["ID"]
-      fare = queried_route.route_fare
-      time = schedule["time"]
-      date = schedule["reserved_time"]
-      slot = schedule["slot"]
-
       seats = available_seats(capacity,schedule_ticket_count(Utility.int_to_string(route_uid)))
 
-      start_route = %{
-        "available_seats" => available_seats(capacity, schedule_ticket_count(Utility.int_to_string(route_uid))),
-        "bus_schedule_id" => route_uid |> to_string,
-        "route" => route |> Poison.encode! |> Poison.decode!,
-        "bus" => bus |> Poison.encode! |> Poison.decode!,
-        "fare" => fare,
-        "slot" => slot,
-        "discount_amount" => operator.discount_amount || 0,
-        "discount_status" => operator.apply_discount || 0,
-        "departure_time" => time,
-        "departure_date" => date
-      }
+#      IO.inspect(seats, label: "SEATS")
 
-      subroutes = Enum.map(schedule["ed_bus_routes"]["sub_routes"], fn sub_route ->
-        %{
-          "available_seats" => seats,
-          "bus_schedule_id" => route_uid |> to_string,
-          "route" => sub_route,
-          "bus" => bus |> Poison.encode! |> Poison.decode!,
-          "fare" => fare,
-          "slot" => slot,
-          "discount_amount" => operator.discount_amount || 0,
-          "discount_status" => operator.apply_discount || 0,
-          "departure_time" => time,
-          "departure_date" => date
-        }
-      end) |> List.flatten()
+      if seats >= 1 do
 
-       routes = subroutes ++ [start_route]
+        operator = BusTerminalSystem.AccountManager.User.find(schedule["user_id"])
 
-       routes |> List.flatten()
+        route = BusTerminalSystem.TravelRoutes.find_by([route_code: schedule["ed_bus_routes"]["route_code"]])
+        queried_route = get_route_by_route_code(schedule["ed_bus_routes"]["route_code"])
+
+        fare = queried_route.route_fare
+        time = schedule["time"]
+        date = schedule["reserved_time"]
+        slot = schedule["slot"]
+
+
+
+        start_route = (fn operator_a, route_a, fare_a, time_a, date_a, slot_a, capacity_a, route_uid_a, bus_a  ->
+          if seats >= 1 do
+            %{
+              "available_seats" => available_seats(capacity_a, schedule_ticket_count(Utility.int_to_string(route_uid))),
+              "bus_schedule_id" => route_uid_a |> to_string,
+              "route" => route_a |> Poison.encode! |> Poison.decode!,
+              "root_route" => route_a |> Poison.encode! |> Poison.decode!,
+              "bus" => bus_a |> Poison.encode! |> Poison.decode!,
+              "fare" => fare_a,
+              "slot" => slot_a,
+              "discount_amount" => operator_a.discount_amount || 0,
+              "discount_status" => operator_a.apply_discount || 0,
+              "departure_time" => time_a,
+              "departure_date" => date_a
+            }
+          else
+            %{}
+          end
+
+        end)
+
+        start_route = start_route.(operator, route, fare, time, date, slot, capacity, route_uid, bus)
+
+
+          subroutes = Enum.map(schedule["ed_bus_routes"]["sub_routes"], fn sub_route ->
+            if seats >= 1 do
+              %{
+                "available_seats" => seats,
+                "bus_schedule_id" => route_uid |> to_string,
+                "route" => sub_route,
+                "root_route" => BusTerminalSystem.TravelRoutes.find_by([route_code: sub_route["route_code"]]) |> Poison.encode! |> Poison.decode!,
+                "bus" => bus |> Poison.encode! |> Poison.decode!,
+                "fare" => fare,
+                "slot" => slot,
+                "discount_amount" => operator.discount_amount || 0,
+                "discount_status" => operator.apply_discount || 0,
+                "departure_time" => time,
+                "departure_date" => date
+              }
+            end
+          end) |> List.flatten()
+
+          routes = subroutes ++ [start_route]
+
+          routes |> List.flatten()
+
+
+      end
+
+
 
     end) |> List.flatten()
   end
 
   defp routes_request(end_route) do
 
+#    case HTTPoison.get("http://10.70.3.55:4200/main/api/destinations/#{BusTerminalSystem.TravelRoutes.find_by([start_route: "Livingstone", end_route: end_route]).route_code}") do
     case HTTPoison.get("http://10.10.1.88:4200/main/api/destinations/#{BusTerminalSystem.TravelRoutes.find_by([start_route: "Livingstone", end_route: end_route]).route_code}") do
       {status, %HTTPoison.Response{body: body, status_code: status_code}} ->
         try do
-          response = body |> Poison.decode!
+          response = body |> Poison.decode! |> IO.inspect
           response["data"]
         rescue
           _ -> %{}

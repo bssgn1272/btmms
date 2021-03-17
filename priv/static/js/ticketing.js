@@ -561,7 +561,8 @@ function transfer_ticket_logic(){
 
                     let value = single_object.bus.company.trim().split(" ").join("").toString() + "-" + single_object.route.start_route + "-"
                         + single_object.route.end_route + "-"  +  single_object.departure_time + "-" + single_object.fare + "-" + single_object.bus.id + "-"
-                        + single_object.slot + "-" + single_object.bus_schedule_id + "-" + single_object.discount_amount + "-" + single_object.discount_status;
+                        + single_object.slot + "-" + single_object.bus_schedule_id + "-" + single_object.discount_amount + "-" + single_object.discount_status + "-"
+                        + single_object.bus.id + "-" + single_object.root_route.id;
                     value = value.toString();
 
                     //trips_html += '<div class="radio"><label><input type="radio" onclick="ticket_purchase(this.value)" value="'+value+'" name="opt_radio" />';
@@ -572,6 +573,10 @@ function transfer_ticket_logic(){
                     date_obj = single_object.departure_date.split("T")[0]
                     date_arr = date_obj.split("-")
                     date = date_arr[2] + "/" + date_arr[1] + "/" + date_arr[0]
+
+                    console.log("---")
+                    console.log(single_object)
+
 
                     trips_html += '<tr>' + '<th scope="row"><input type="radio" onclick="ticket_transfer(this.value, ticket_to_transfer)" value="'+value+'" name="opt_radio"></th>'+
                         '<td>' + single_object.bus.company +'</td>' + '<td>' + single_object.route.start_route + " -> "+
@@ -614,58 +619,73 @@ function ticket_transfer(route, ticket) {
         reverseButtons: true
     }).then((result) => {
 
-        swalWithBootstrapButtons.fire('Please wait')
-        swalWithBootstrapButtons.showLoading();
-
-        if (result.isConfirmed) {
-
-            let payload = JSON.stringify({
-                ticket: {
-                    id: ticket.id
-                },
-                params: {
-                    route_information: info,
-                    activation_status: "TRANSFER",
-                    start_route: rd[1],
-                    end_route: rd[2],
-                    ticket_description: "Ticket transferred from (Livingstone to " + ticket.end_route + ") to " + "(Livingstone to " + rd[2] + ")"
-                }
+        console.log(rd[4].toString())
+        console.log(ticket.discount_original_amount.toString())
+        if (rd[4].toString() !== ticket.discount_original_amount.toString()){
+            swal({
+                title: "Transfer Failed!",
+                text: "Amount is not valid for transfer, Please cancel and rebook new ticket with new amount",
+                type: "error"
             });
+        }else {
 
-            $.ajax({
-                method: 'post',
-                url: '/api/v1/internal/tickets/update',
-                dataType: 'json',
-                contentType: 'application/json',
-                data: payload,
-                success: function (response) {
-                    if(response.status !== "SUCCESS"){
-                        swalWithBootstrapButtons.close();
-                        swal({
-                            title: "Error!",
-                            text: "Failed to Transfer Ticket",
-                            type: "error"
-                        });
-                    }else{
-                        swalWithBootstrapButtons.close();
-                        swal({
-                            title: "Completed!",
-                            text: "Ticket Transferred Successfully",
-                            type: "success"
-                        });
+            swalWithBootstrapButtons.fire('Please wait')
+            swalWithBootstrapButtons.showLoading();
+
+            if (result.isConfirmed) {
+
+                let payload = JSON.stringify({
+                    ticket: {
+                        id: ticket.id
+                    },
+                    params: {
+                        route_information: info,
+                        activation_status: "TRANSFER",
+                        start_route: rd[1],
+                        end_route: rd[2],
+                        bus_no: rd[10],
+                        route: rd[11],
+                        ticket_description: "Ticket transferred from (Livingstone to " + ticket.end_route + ") to " + "(Livingstone to " + rd[2] + ")"
                     }
-                }
-            })
+                });
 
-        } else if (
-            result.dismiss === Swal.DismissReason.cancel
-        ) {
-            swalWithBootstrapButtons.fire(
-                'Cancelled',
-                'Ticket Transfer Canceled',
-                'error'
-            )
+                $.ajax({
+                    method: 'post',
+                    url: '/api/v1/internal/tickets/update',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: payload,
+                    success: function (response) {
+                        if(response.status !== "SUCCESS"){
+                            swalWithBootstrapButtons.close();
+                            swal({
+                                title: "Error!",
+                                text: "Failed to Transfer Ticket",
+                                type: "error"
+                            });
+                        }else{
+                            $('#transferModal').modal("hide");
+                            swalWithBootstrapButtons.close();
+                            swal({
+                                title: "Completed!",
+                                text: "Ticket Transferred Successfully",
+                                type: "success"
+                            });
+                        }
+                    }
+                })
+
+            } else if (
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Ticket Transfer Canceled',
+                    'error'
+                )
+            }
         }
+
     })
 }
 
