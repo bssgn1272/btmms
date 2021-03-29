@@ -221,20 +221,41 @@ defmodule BusTerminalSystemWeb.Router do
     get "/btms", MakerCheckerController, :index
   end
 
+  scope "/api/swagger" do
+    forward "/", PhoenixSwagger.Plug.SwaggerUI, otp_app: :bus_terminal_system, swagger_file: "swagger.json"
+  end
 
   def swagger_info do
     %{
+      schemes: ["http"],
       info: %{
         version: "1.0",
-        title: "BTMS",
+        title: "BTMMS",
+        description: "API Documentation for BTMMS v1",
+        termsOfService: "Open for public",
         contact: %{
           name: "Philip Chani",
           email: "philip@probasegroup.com"
         }
       },
-      definitions: %{
-        "/pets": %{}
-      }
+      consumes: ["application/json"],
+      produces: ["application/json"],
+      tags: [
+        %{name: "Users", description: "User resources"},
+      ]
     }
   end
+
+#  def swagger_info() do
+#    %{
+#      info: %{
+#        version: "1.0",
+#        title: "BTMMS",
+#        contact: %{
+#          name: "Philip Chani",
+#          email: "philip@probasegroup.com"
+#        }
+#      }
+#    }
+#  end
 end

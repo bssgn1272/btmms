@@ -408,7 +408,6 @@
 </form>
 
 <!--########################### NAPSA SEARCH ###########################-->
-<!-- NEW MARKETEER MODAL -->
   <div class="modal fade" id="regSystemUser" role="dialog">
     <div class="modal-dialog">
 
@@ -439,6 +438,280 @@
   </div>
 <!-- END -->
 <!--########################### NAPSA SEARCH ###########################-->
+
+    <!--########################### REGISTER NAPSA USER ###########################-->
+    <div class="modal fade" id="register_napsa_member" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title">Register Napsa Member</h5>
+                </div>
+
+                <!-- Profile info -->
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h6 class="panel-title"></h6>
+                        <div class="heading-elements">
+
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <form id="infoForm2">
+
+                            <div class="row">
+
+                                <div class="col-md-6" style="padding: 10px">
+
+                                    <div class="row">
+                                        <fieldset>
+
+                                            <legend class="text-semibold"><i class="icon-reading position-left"></i> MEMBER DETAILS</legend>
+
+                                            <div>
+                                                <label>First Name</label>
+                                                <input type="text" id="member_first_name" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Middle Name</label>
+                                                <input type="text" id="member_middel_name" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Last Name</label>
+                                                <input type="text" id="member_last_name" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Email</label>
+                                                <input type="text" id="member_email" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Mobile</label>
+                                                <input type="text" id="member_mobile" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>National ID</label>
+                                                <input type="text" id="member_national_id" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Title</label>
+                                                <input type="text" id="member_title" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Date of Birth</label>
+                                                <input type="text" id="member_dob" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Gender</label>
+                                                <input type="text" id="member_gender" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Marital Status</label>
+                                                <input type="text" id="member_marital_status" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Date Joined</label>
+                                                <input type="text" id="member_date_joined" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Member Fax</label>
+                                                <input type="text" id="member_fax" value="" class="form-control">
+                                            </div>
+
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="row">
+                                        <fieldset>
+                                            <legend class="text-semibold"><i class="icon-reading position-left"></i> ADDRESS</legend>
+
+                                            <div>
+                                                <label>Address Line 1</label>
+                                                <input type="text" id="member_address_line1" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Address Line 2</label>
+                                                <input type="text" id="member_address_line2" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Address Line 3</label>
+                                                <input type="text" readonly id="member_address_line3" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Address Line 4</label>
+                                                <input type="text" id="member_address_line4" value="" class="form-control">
+                                            </div>
+
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="row">
+                                        <fieldset>
+                                            <legend class="text-semibold"><i class="icon-reading position-left"></i> POSTAL INFORMATION</legend>
+
+                                            <div>
+                                                <label>Postal Address Line 1</label>
+                                                <input type="text" id="member_postal_address_line1" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Postal Address Line 2</label>
+                                                <input type="text" id="member_postal_address_line2" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Postal Address Line 3</label>
+                                                <input type="text" id="member_postal_address_line3" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Postal Address Line 4</label>
+                                                <input type="text" id="member_postal_address_line4" value="" class="form-control">
+                                            </div>
+
+                                        </fieldset>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="col-md-6" style="padding: 10px">
+
+                                    <div class="row">
+                                        <fieldset>
+
+                                            <legend class="text-semibold"><i class="icon-reading position-left"></i> PARENTS</legend>
+
+                                            <div>
+                                                <label>Father Username</label>
+                                                <input type="text" id="member_father_surname" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Father First Name</label>
+                                                <input type="text" id="member_father_first_name" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Mother Username</label>
+                                                <input type="text" id="member_mother_surname" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Mother First Name</label>
+                                                <input type="text" id="member_mother_first_name" value="" class="form-control">
+                                            </div>
+
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="row">
+                                        <fieldset>
+
+                                            <legend class="text-semibold"><i class="icon-reading position-left"></i> BENEFICIARIES </legend>
+
+                                            <div>
+                                                <label>First Name</label>
+                                                <input type="text" id="member_bene_first_name" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Middle Name</label>
+                                                <input type="text" id="member_bene_middel_name" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Last Name</label>
+                                                <input type="text" id="member_bene_last_name" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>National ID</label>
+                                                <input type="text" id="member_bene_national_id" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Date Of Birth</label>
+                                                <input type="text" id="member_bene_dob" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Gender</label>
+                                                <input type="text" id="member_bene_gender" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Relationship Code</label>
+                                                <input type="text" id="member_bene_relationship_code" value="" class="form-control">
+                                            </div>
+
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="row">
+                                        <fieldset>
+
+                                            <legend class="text-semibold"><i class="icon-reading position-left"></i> OTHER </legend>
+
+                                            <div>
+                                                <label>Province Code</label>
+                                                <input type="text" id="member_province_code" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Attachment URL</label>
+                                                <input type="text" id="member_attachment_url" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Employer Account Number</label>
+                                                <input type="text" id="member_employer_account_number" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Occupation Code</label>
+                                                <input type="text" id="member_occupation_code" value="" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label>Center Code</label>
+                                                <input type="text" id="member_center_code" value="" class="form-control">
+                                            </div>
+
+                                        </fieldset>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="text-right">
+                                <button onclick="confirm_registration()" class="btn btn-primary"> SUBMIT <i class="icon-arrow-right14 position-right"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- /profile info -->
+
+            </div>
+        </div>
+    </div>
+    <!-- END -->
+    <!--########################### REGISTER NAPSA USER ###########################-->
 
 <!-- ########################################## TELLER MODULE ########################################-->
 <%= if @user.role == "TOP" or @user.role == "CCOP" or @user.role == "SADMIN" do %>

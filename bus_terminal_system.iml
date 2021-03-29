@@ -29,6 +29,7 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/endon" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/eqrcode" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/erlsom" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ex_json_schema" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/file_system" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/gen_smtp" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/gen_stage" />

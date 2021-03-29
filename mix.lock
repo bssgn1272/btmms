@@ -26,6 +26,7 @@
   "endon": {:hex, :endon, "1.0.0", "9918bdfce898bf4e5a713033f707cdb9cbe0bf1716a370c568bd42f0d68d685b", [:mix], [{:ecto, "~> 3.0", [hex: :ecto, repo: "hexpm", optional: false]}], "hexpm", "7dd549a79607c08d5c5526727bc9979cb8e13db9675dd67b0ef688ca4daf2c8e"},
   "eqrcode": {:hex, :eqrcode, "0.1.6", "79428f1101411ed85995c722136f0159c73b6b7d8c36cbf1095ba64b443996c1", [:mix], [], "hexpm", "962aa27e837da06fcde867fd06500f553da1be2d718847ba071d46bbadc00753"},
   "erlsom": {:hex, :erlsom, "1.5.0", "c5a5cdd0ee0e8dca62bcc4b13ff08da24fdefc16ccd8b25282a2fda2ba1be24a", [:rebar3], [], "hexpm", "55a9dbf9cfa77fcfc108bd8e2c4f9f784dea228a8f4b06ea10b684944946955a"},
+  "ex_json_schema": {:hex, :ex_json_schema, "0.7.4", "09eb5b0c8184e5702bc89625a9d0c05c7a0a845d382e9f6f406a0fc1c9a8cc3f", [:mix], [], "hexpm", "45c67fa840f0d719a2b5578126dc29bcdc1f92499c0f61bcb8a3bcb5935f9684"},
   "file_system": {:hex, :file_system, "0.2.7", "e6f7f155970975789f26e77b8b8d8ab084c59844d8ecfaf58cbda31c494d14aa", [:mix], [], "hexpm", "b4cfa2d69c7f0b18fd06db222b2398abeef743a72504e6bd7df9c52f171b047f"},
   "gen_smtp": {:hex, :gen_smtp, "0.14.0", "39846a03522456077c6429b4badfd1d55e5e7d0fdfb65e935b7c5e38549d9202", [:rebar3], [], "hexpm", "d32d796c947fa35dc5e8f20706877bb8c8584b16c4eedf3315083f983959d82b"},
   "gen_stage": {:hex, :gen_stage, "1.0.0", "51c8ae56ff54f9a2a604ca583798c210ad245f415115453b773b621c49776df5", [:mix], [], "hexpm", "1d9fc978db5305ac54e6f5fec7adf80cd893b1000cf78271564c516aa2af7706"},

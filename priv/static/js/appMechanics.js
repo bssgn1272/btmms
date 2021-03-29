@@ -912,8 +912,10 @@ function user_edit_model(id) {
             $('#model_uuid').val(data.response.QUERY.data.uuid);
             $('#model_pwd_username').val(data.response.QUERY.data.username);
             $('#model_operator_role').val(data.response.QUERY.data.operator_role);
-            $('#model_password').val("0123456789");
+            // $('#model_password').val("0123456789");
             $('#model_user_id').val(id);
+
+            document.getElementById("modal_user_role").innerHTML = "CURRENT USER ROLE: " + data.response.QUERY.data.role_name;
 
             if (data.response.QUERY.data.compliance === true) {
                 $('#model_compliance_status').val("COMPLIANT");

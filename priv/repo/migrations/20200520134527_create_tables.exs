@@ -51,6 +51,7 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTables do
     create_if_not_exists table(:probase_user_role) do
       add :role, :integer
       add :user, :integer
+      add :permission, :string
       timestamps()
     end
 

@@ -12,6 +12,16 @@ config :bus_terminal_system,
 
 config :soap, :globals, version: "1.1"
 
+config :bus_terminal_system, :phoenix_swagger,
+   swagger_files: %{
+     "priv/static/swagger.json" => [
+       router: BusTerminalSystemWeb.Router,     # phoenix routes will be converted to swagger paths
+       endpoint: BusTerminalSystemWeb.Endpoint  # (optional) endpoint config used to set host, port and https schemes.
+     ]
+   },  json_library: Jason
+
+#config :phoenix_swagger, json_library: Jason
+
 # Configures the endpoint
 config :bus_terminal_system, BusTerminalSystemWeb.Endpoint,
   url: [host: "localhost"],
@@ -19,13 +29,6 @@ config :bus_terminal_system, BusTerminalSystemWeb.Endpoint,
   render_errors: [view: BusTerminalSystemWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: BusTerminalSystem.PubSub, adapter: Phoenix.PubSub.PG2]
 
-config :bus_terminal_system, :phoenix_swagger,
-       swagger_files: %{
-         "priv/static/swagger.json" => [
-           router: BusTerminalSystemWeb.Router,     # phoenix routes will be converted to swagger paths
-           endpoint: BusTerminalSystemWeb.Endpoint  # (optional) endpoint config used to set host, port and https schemes.
-         ]
-       }
 
 # Configures Elixir's Logger
 config :logger, :console,

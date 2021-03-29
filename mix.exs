@@ -7,7 +7,7 @@ defmodule BusTerminalSystem.MixProject do
       version: "0.1.0",
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext, :phoenix_swagger] ++ Mix.compilers(),
+      compilers: [:phoenix, :gettext, :phoenix_swagger] ++ Mix.compilers ++ [:phoenix_swagger],
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
@@ -49,7 +49,6 @@ defmodule BusTerminalSystem.MixProject do
       {:json, "~> 1.3.0"},
       {:eqrcode, "~> 0.1.6"},
       {:barlix, "~> 0.6.0"},
-      {:phoenix_swagger, "~> 0.8"},
       {:swoosh, "~> 0.24"},
       {:gen_smtp, "~> 0.13"},
       {:skooma, "~> 0.2.0"},
@@ -66,7 +65,9 @@ defmodule BusTerminalSystem.MixProject do
       {:atomic_map, "~> 0.9.3"},
       {:elixir_xml_to_map, "~> 2.0"},
       {:soap, "~> 1.0.1"},
-      {:quantum, "~> 3.0"}
+      {:quantum, "~> 3.0"},
+      {:phoenix_swagger, "~> 0.8"},
+      {:ex_json_schema, "~> 0.5"}
 
     ]
   end

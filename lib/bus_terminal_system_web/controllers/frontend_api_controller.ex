@@ -1,5 +1,6 @@
 defmodule BusTerminalSystemWeb.FrontendApiController do
   use BusTerminalSystemWeb, :controller
+  use PhoenixSwagger
 
   alias BusTerminalSystem.RepoManager
   alias BusTerminalSystem.ApiManager
@@ -7,8 +8,20 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   alias BusTerminalSystem.TicketManagement
   alias BusTerminalSystem.NapsaSmsGetway
   alias BusTerminalSystem.TicketManagement.Ticket
+  alias BusTerminalSystem.AccountManager.User
+  alias BusTerminalSystem.UserRole
 
   #---------------------------------------USER--------------------------------------------------------------------------
+
+  def swagger_definitions do
+    %{}
+  end
+
+  swagger_path :list_bus_operators do
+    get "/api/v1/users"
+    paging size: "page[size]", number: "page[number]"
+    response 200, "OK"
+  end
 
   def list_bus_operators(conn, _params) do
     operators = RepoManager.list_bus_operators()
@@ -52,7 +65,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   end
 
   def query_user(conn, params) do
-
+    IO.inspect(params)
     user_id = params["payload"]["user_id"]
     case user_id do
       nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
@@ -60,8 +73,6 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
         case user_id |> RepoManager.find_user_by_id do
           nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
           user ->
-
-            IO.inspect user
 
             conn
             |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_query,"SUCCESS",0,
@@ -76,8 +87,10 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
                 "mobile" => user.mobile,
                 "account_status" => user.account_status,
                 "uuid" => user.uuid,
-                "operator_role" => user.operator_role
-              }))
+                "operator_role" => user.operator_role,
+                "role_id" => user.role_id,
+                "role_name" => BusTerminalSystem.UserRoles.find(user.id).role
+              } |> IO.inspect()))
           _value ->
             IO.inspect _value
             json conn, ["hello"]
@@ -105,6 +118,8 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
     username = payload["username"]
 
+    IO.inspect params
+
     if username == nil do
       json(conn,ApiManager.api_error_handler(conn,ApiManager.definition_query,[
         "username can not be blank"
@@ -116,6 +131,16 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
           case username |> RepoManager.find_user_by_username do
             nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
             user ->
+              IO.inspect(user)
+              if params["role_id"] != "0" do
+                UserRole.find_or_create_by(user: user.id)
+                |> IO.inspect()
+                |> case do
+                     {:ok, user_role} -> user_role |> UserRole.update([role: params["role_id"]])
+                     _ -> ""
+                   end
+              end
+
               case RepoManager.update_user(user,payload) do
                 {:ok, user} ->
                   conn
@@ -132,8 +157,10 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
                       "account_status" => user.account_status,
                       "uuid" => user.uuid,
                       "operator_role" => user.operator_role,
-                      "account_status" => user.account_status
-                    }))
+                      "account_status" => user.account_status,
+                      "role_id" => user.role_id,
+                      "role_name" => BusTerminalSystem.UserRoles.find(user.role_id).role
+                    } |> IO.inspect()))
                 {:error, %Ecto.Changeset{} = changeset} ->
                   conn
                   |> json(ApiManager.api_error_handler(ApiManager.definition_accounts(),ApiManager.translate_error(changeset)))

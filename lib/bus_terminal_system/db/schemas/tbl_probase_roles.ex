@@ -17,7 +17,6 @@ defmodule BusTerminalSystem.UserRoles do
     field :checker_date_time, :naive_datetime
     field :user_description, :string
     field :system_description, :string
-
   end
 
   #  @doc false

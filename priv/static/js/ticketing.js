@@ -881,7 +881,16 @@ function purchase_ticket_internal() {
         }
     });
 
-    console.log(json_request)
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: true
+    })
+
+    swalWithBootstrapButtons.fire('Processing,   Please wait.')
+    swalWithBootstrapButtons.showLoading();
 
     $.ajax({
         method: 'post',
@@ -899,6 +908,7 @@ function purchase_ticket_internal() {
 
             let status = single_object.status
             if(status === 200){
+                swalWithBootstrapButtons.close();
                 // swal({
                 //     title: "Done!",
                 //     text: "Ticket Purchase Successful! ID: " + single_object.id,
@@ -912,6 +922,7 @@ function purchase_ticket_internal() {
                     type: "success"
                 });
             }else{
+                swalWithBootstrapButtons.close();
                 // swal({
                 //     title: "Done!",
                 //     text: "Ticket Purchase Successful! ID: " + single_object.id,

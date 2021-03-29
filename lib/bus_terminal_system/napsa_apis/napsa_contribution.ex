@@ -1,7 +1,14 @@
 defmodule BusTerminalSystem.Napsa.NapsaContribution do
 
+  import BusTerminalSystem.Napsa.Connector
+
   def connect(conn \\ %{}, params \\ %{}) do
-    params |> contribution_xml_request |> submit_request
+    params
+    |> contribution_xml_request
+    |> submit_request(
+         "http://napsa-enapsauatsvr:8738/eNAPSAExternalAPI/2018/04/NPSService",
+        "http://enapsa.napsa.co.zm/eNAPSAServicesLibrary/2016/11/IeNAPSAExternalAPI/ReturnUpload"
+       )
   end
 
   def contribution_xml_request(args \\ %{}) do
@@ -59,22 +66,6 @@ defmodule BusTerminalSystem.Napsa.NapsaContribution do
     </soapenv:Body>
     </soapenv:Envelope>
     """
-  end
-
-  defp submit_request(request) do
-    headers = [
-      {"Content-Type", "text/xml"},
-      {"SOAPAction", "http://enapsa.napsa.co.zm/eNAPSAServicesLibrary/2016/11/IeNAPSAExternalAPI/ReturnUpload"},
-    ]
-
-    endpoint = "http://napsa-enapsauatsvr:8738/eNAPSAExternalAPI/2018/04/NPSService"
-
-    case HTTPoison.post(endpoint, request, headers) do
-      {status, %HTTPoison.Response{body: body, status_code: status_code}} ->
-        body |> XmlToMap.naive_map
-      {_status, %HTTPoison.Error{reason: reason}} ->
-        %{"message" => reason}
-    end
   end
 
 end
