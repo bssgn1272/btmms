@@ -68,9 +68,6 @@ var GetLoadingFeeController = http.HandlerFunc(func(w http.ResponseWriter, r *ht
 	utils.Respond(w, resp)
 })
 
-
-
-
 var GetAccumulatedPenaltiesController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, _ := strconv.Atoi(params["id"])
@@ -78,5 +75,20 @@ var GetAccumulatedPenaltiesController = http.HandlerFunc(func(w http.ResponseWri
 	resp := utils.Message(true, "success")
 	resp["data"] = data
 	log.Println(resp)
+	utils.Respond(w, resp)
+})
+
+var UpdatePenaltyController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+	params := mux.Vars(r)
+	id := params["id"]
+	penalty := &models.EdPenalty{}
+
+	err := json.NewDecoder(r.Body).Decode(penalty)
+	if err != nil {
+		utils.Respond(w, utils.Message(false, "Error while decoding request body"))
+		return
+	}
+	resp := penalty.UpdatePenalty(id)
 	utils.Respond(w, resp)
 })

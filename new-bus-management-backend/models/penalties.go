@@ -21,6 +21,7 @@ type EdPenalty struct {
 	DateBooked    time.Time `json:"date_booked"`
 	DatePaid      time.Time `json:"date_paid"`
 	PenaltyStatus        string    `json:"penalty_status"`
+	Status        string    `json:"status"`
 	Type          string    `json:"type"`
 }
 
@@ -180,4 +181,15 @@ func GetAccumulatedPenalties(id uint) []*EdPenaltyResult {
 	}
 
 	return result
+}
+
+func (penalty *EdPenalty) UpdatePenalty(id string) map[string]interface{} {
+	db.Model(&penalty).Where("id = ?", id).Updates(EdPenalty{BusOperatorID: penalty.BusOperatorID, BusID: penalty.BusID, DateBooked: penalty.DateBooked, DatePaid: time.Now(), Status: penalty.Status, Type: penalty.Type})
+
+	log.Println(penalty.Status)
+
+	resp := utils.Message(true, "success")
+	resp["penalty"] = penalty
+	log.Println(resp)
+	return resp
 }
