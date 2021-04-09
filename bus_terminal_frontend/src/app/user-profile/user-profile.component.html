@@ -1,0 +1,423 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-tabs card-header-primary">
+            <div class="nav-tabs-navigation">
+              <div class="nav-tabs-wrapper">
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                  <li *ngIf="userItems.role === 'BOP'" class="nav-item">
+                    <a
+                      mat-button
+                      class="nav-link active"
+                      href="#view"
+                      data-toggle="tab"
+                    >
+                      <i class="material-icons">departure_board</i> Book Departure Slots
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                  <li *ngIf="userItems.role === 'BOP'" class="nav-item">
+                    <a
+                      mat-button
+                      class="nav-link"
+                      href="#arrivals"
+                      data-toggle="tab"
+                    >
+                      <i class="material-icons">departure_board</i> Book Arrival Slots
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                  <li *ngIf="userItems.role === 'FOP'" class="nav-item">
+                    <a
+                      mat-button
+                      class="nav-link active"
+                      href="#arrivals"
+                      data-toggle="tab"
+                    >
+                      <i class="material-icons">departure_board</i> Book Arrival Slots
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="tab-content">
+              <div *ngIf="userItems.role === 'BOP'" class="tab-pane active" id="view">
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Showing Departures For:</mat-label>
+                      <input matInput [matDatepicker]="picker1" [formControl]="date" [name]="ddate"
+                        [value]="minDate" [min]="minDate" [max]="maxDate"
+                        (dateChange)="onChange($event)">
+                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                      <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Filter:</mat-label>
+                      <input
+                        matInput
+                        (keyup)="applyFilter($event.target.value)"
+                        placeholder="Filter"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="mat-elevation-z8">
+                      <table class="table" mat-table [dataSource]="dataSource">
+                        <!-- time Column -->
+                        <ng-container matColumnDef="time">
+                          <th mat-header-cell *matHeaderCellDef>Time</th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.time }}
+                          </td>
+                        </ng-container>
+
+                        <!-- slot1 Column -->
+                        <ng-container matColumnDef="slot_one">
+                          <th mat-header-cell *matHeaderCellDef>Slot One</th>
+
+                          <td mat-cell *matCellDef="let element" style="cursor: pointer" (click)="onOpenEditDialog(element.slot_one, 'slot_one', element.time, element.reservation_time)">
+                            {{ element.slot_one }}
+                            <span *ngIf="element.slot_one !== 'open'"><i
+                                    class="material-icons"
+                                    matTooltip="Edit Slot Details"
+                                    aria-label="Button that displays a tooltip when focused or hovered over"
+                            >edit</i></span>
+                          </td>
+                        </ng-container>
+
+
+                        <!-- slot2 Column -->
+                        <ng-container matColumnDef="slot_two">
+                          <th mat-header-cell *matHeaderCellDef>Slot Two</th>
+                          <td mat-cell *matCellDef="let element" style="cursor: pointer" (click)="onOpenEditDialog(element.slot_two, 'slot_two', element.time, element.reservation_time)">
+                            {{ element.slot_two }}
+                            <span *ngIf="element.slot_two !== 'open'"><i
+                                    class="material-icons"
+                                    matTooltip="Edit Slot Details"
+                                    aria-label="Button that displays a tooltip when focused or hovered over"
+                            >edit</i></span>
+                          </td>
+                        </ng-container>
+
+                        <!-- slot3 Column -->
+                        <ng-container matColumnDef="slot_three">
+                          <th mat-header-cell *matHeaderCellDef>Slot Three</th>
+                          <td mat-cell *matCellDef="let element" style="cursor: pointer" (click)="onOpenEditDialog(element.slot_three, 'slot_three', element.time, element.reservation_time)">
+                            {{ element.slot_three }}
+                            <span *ngIf="element.slot_three !== 'open'"><i
+                                    class="material-icons"
+                                    matTooltip="Edit Slot Details"
+                                    aria-label="Button that displays a tooltip when focused or hovered over"
+                            >edit</i></span>
+                          </td>
+                        </ng-container>
+
+                        <!-- slot4 Column -->
+                        <ng-container matColumnDef="slot_four">
+                          <th mat-header-cell *matHeaderCellDef>Slot Four</th>
+                          <td mat-cell *matCellDef="let element" style="cursor: pointer" (click)="onOpenEditDialog(element.slot_four, 'slot_four', element.time, element.reservation_time)">
+                            {{ element.slot_four }}
+                            <span *ngIf="element.slot_four !== 'open'"><i
+                                    class="material-icons"
+                                    matTooltip="Edit Slot Details"
+                                    aria-label="Button that displays a tooltip when focused or hovered over"
+                            >edit</i></span>
+                          </td>
+                        </ng-container>
+
+                        <!-- slot5 Column -->
+                        <ng-container matColumnDef="slot_five">
+                          <th mat-header-cell *matHeaderCellDef>Slot Five</th>
+                          <td mat-cell *matCellDef="let element" style="cursor: pointer" (click)="onOpenEditDialog(element.slot_five, 'slot_five', element.time, element.reservation_time)">
+                            {{ element.slot_five }}
+                            <span *ngIf="element.slot_five !== 'open'"><i
+                                    class="material-icons"
+                                    matTooltip="Edit Slot Details"
+                                    aria-label="Button that displays a tooltip when focused or hovered over"
+                            >edit</i></span>
+                          </td>
+                        </ng-container>
+
+                        <!-- slot6 Column -->
+                        <ng-container matColumnDef="slot_six">
+                          <th mat-header-cell *matHeaderCellDef>Slot Six</th>
+                          <td mat-cell *matCellDef="let element" style="cursor: pointer" (click)="onOpenEditDialog(element.slot_six, 'slot_six', element.time, element.reservation_time)">
+                            {{ element.slot_six }}
+                            <span *ngIf="element.slot_six !== 'open'"><i
+                                    class="material-icons"
+                                    matTooltip="Edit Slot Details"
+                                    aria-label="Button that displays a tooltip when focused or hovered over"
+                            >edit</i></span>
+                          </td>
+                        </ng-container>
+
+                        <!-- slot7 Column -->
+                        <ng-container matColumnDef="slot_seven">
+                          <th mat-header-cell *matHeaderCellDef>Slot Seven</th>
+                          <td mat-cell *matCellDef="let element" style="cursor: pointer" (click)="onOpenEditDialog(element.slot_seven, 'slot_seven', element.time, element.reservation_time)">
+                            {{ element.slot_seven }}
+                            <span *ngIf="element.slot_seven !== 'open'"><i
+                                    class="material-icons"
+                                    matTooltip="Edit Slot Details"
+                                    aria-label="Button that displays a tooltip when focused or hovered over"
+                            >edit</i></span>
+                          </td>
+                        </ng-container>
+
+                        <!-- slot8 Column -->
+                        <ng-container matColumnDef="slot_eight">
+                          <th mat-header-cell *matHeaderCellDef>Slot Eight</th>
+                          <td mat-cell *matCellDef="let element" style="cursor: pointer" (click)="onOpenEditDialog(element.slot_eight, 'slot_eight', element.time, element.reservation_time)">
+                            {{ element.slot_eight }}
+                            <span *ngIf="element.slot_eight !== 'open'"><i
+                                    class="material-icons"
+                                    matTooltip="Edit Slot Details"
+                                    aria-label="Button that displays a tooltip when focused or hovered over"
+                            >edit</i></span>
+                          </td>
+                        </ng-container>
+
+                        <!-- slot9 Column -->
+                        <ng-container matColumnDef="slot_nine">
+                          <th mat-header-cell *matHeaderCellDef>Slot Nine</th>
+                          <td mat-cell *matCellDef="let element" style="cursor: pointer" (click)="onOpenEditDialog(element.slot_nine, 'slot_nine', element.time, element.reservation_time)">
+                            {{ element.slot_nine }}
+                            <span *ngIf="element.slot_nine !== 'open'"><i
+                                    class="material-icons"
+                                    matTooltip="Edit Slot Details"
+                                    aria-label="Button that displays a tooltip when focused or hovered over"
+                            >edit</i></span>
+                          </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="action">
+                          <th mat-header-cell *matHeaderCellDef>Action</th>
+                          <td mat-cell *matCellDef="let row">
+                            <button
+                              mat-raised-button
+                              (click)="onOpenDialog(row)"
+                              matTooltip="Book Departure Slot"
+                              aria-label="Button that displays a tooltip when focused or hovered over"
+                              class="btn btn-primary btn-link btn-sm btn-just-icon"
+                            >
+                              <i class="material-icons">commute</i>
+                            </button>
+                          </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr
+                          mat-row
+                          *matRowDef="let row; columns: displayedColumns"
+                        ></tr>
+                      </table>
+
+                      <mat-paginator
+                        [pageSizeOptions]="[10, 20, 30]"
+                        showFirstLastButtons
+                      ></mat-paginator>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="userItems.role === 'FOP'" class="tab-pane active" id="arrivals">
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Showing Arrivals For:</mat-label>
+                      <input matInput [matDatepicker]="picker2" [formControl]="date" [name]="adate"
+                        [value]="minDate" [min]="minDate" [max]="maxDate"
+                        (dateChange)="onArChange($event)">
+                      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                      <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Filter:</mat-label>
+                      <input
+                        matInput
+                        (keyup)="arApplyFilter($event.target.value)"
+                        placeholder="Filter"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="mat-elevation-z8">
+                      <table class="table" mat-table [dataSource]="arDataSource">
+                        <!-- time Column -->
+                        <ng-container matColumnDef="time">
+                          <th mat-header-cell *matHeaderCellDef>Time</th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element?.time }}
+                          </td>
+                        </ng-container>
+
+                        <!-- slot1 Column -->
+                        <ng-container matColumnDef="slot_one">
+                          <th mat-header-cell *matHeaderCellDef>Slot One</th>
+                          <td mat-cell *matCellDef="let element" style="cursor: pointer" (click)="onOpenEditDialogAR(element?.slot_one, 'slot_one', element.time, element.reservation_time)">
+                            {{ element?.slot_one }}
+                            <span *ngIf="element.slot_one !== 'open'"><i
+                                    class="material-icons"
+                                    matTooltip="Edit Slot Details"
+                                    aria-label="Button that displays a tooltip when focused or hovered over"
+                            >edit</i></span>
+                          </td>
+                        </ng-container>
+
+                        <!-- slot2 Column -->
+                        <ng-container matColumnDef="slot_two">
+                          <th mat-header-cell *matHeaderCellDef>Slot Two</th>
+                          <td mat-cell *matCellDef="let element" style="cursor: pointer" (click)="onOpenEditDialogAR(element?.slot_two, 'slot_two', element.time, element.reservation_time)">
+                            {{ element?.slot_two }}
+                            <span *ngIf="element.slot_two !== 'open'"><i
+                                    class="material-icons"
+                                    matTooltip="Edit Slot Details"
+                                    aria-label="Button that displays a tooltip when focused or hovered over"
+                            >edit</i></span>
+                          </td>
+                        </ng-container>
+
+                        <!-- slot3 Column -->
+                        <ng-container matColumnDef="slot_three">
+                          <th mat-header-cell *matHeaderCellDef>Slot Three</th>
+                          <td mat-cell *matCellDef="let element" style="cursor: pointer" (click)="onOpenEditDialogAR(element?.slot_three, 'slot_three', element.time, element.reservation_time)">
+                            {{ element?.slot_three }}
+                            <span *ngIf="element.slot_three !== 'open'"><i
+                                    class="material-icons"
+                                    matTooltip="Edit Slot Details"
+                                    aria-label="Button that displays a tooltip when focused or hovered over"
+                            >edit</i></span>
+                          </td>
+                        </ng-container>
+
+                        <!-- slot4 Column -->
+                        <ng-container matColumnDef="slot_four">
+                          <th mat-header-cell *matHeaderCellDef>Slot Four</th>
+                          <td mat-cell *matCellDef="let element" style="cursor: pointer" (click)="onOpenEditDialogAR(element?.slot_four, 'slot_four', element.time, element.reservation_time)">
+                            {{ element?.slot_four }}
+                            <span *ngIf="element.slot_four !== 'open'"><i
+                                    class="material-icons"
+                                    matTooltip="Edit Slot Details"
+                                    aria-label="Button that displays a tooltip when focused or hovered over"
+                            >edit</i></span>
+                          </td>
+                        </ng-container>
+
+                        <!-- slot5 Column -->
+                        <ng-container matColumnDef="slot_five">
+                          <th mat-header-cell *matHeaderCellDef>Slot Five</th>
+                          <td mat-cell *matCellDef="let element" style="cursor: pointer" (click)="onOpenEditDialogAR(element?.slot_five, 'slot_five', element.time, element.reservation_time)">
+                            {{ element?.slot_five }}
+                            <span *ngIf="element.slot_five !== 'open'"><i
+                                    class="material-icons"
+                                    matTooltip="Edit Slot Details"
+                                    aria-label="Button that displays a tooltip when focused or hovered over"
+                            >edit</i></span>
+                          </td>
+                        </ng-container>
+
+                        <!-- slot6 Column -->
+                        <ng-container matColumnDef="slot_six">
+                          <th mat-header-cell *matHeaderCellDef>Slot Six</th>
+                          <td mat-cell *matCellDef="let element" style="cursor: pointer" (click)="onOpenEditDialogAR(element?.slot_six, 'slot_six', element.time, element.reservation_time)">
+                            {{ element?.slot_six }}
+                            <span *ngIf="element.slot_six !== 'open'"><i
+                                    class="material-icons"
+                                    matTooltip="Edit Slot Details"
+                                    aria-label="Button that displays a tooltip when focused or hovered over"
+                            >edit</i></span>
+                          </td>
+                        </ng-container>
+
+                        <!-- slot7 Column -->
+                        <ng-container matColumnDef="slot_seven">
+                          <th mat-header-cell *matHeaderCellDef>Slot Seven</th>
+                          <td mat-cell *matCellDef="let element" style="cursor: pointer" (click)="onOpenEditDialogAR(element?.slot_seven, 'slot_seven', element.time, element.reservation_time)">
+                            {{ element?.slot_seven }}
+                            <span *ngIf="element.slot_seven !== 'open'"><i
+                                    class="material-icons"
+                                    matTooltip="Edit Slot Details"
+                                    aria-label="Button that displays a tooltip when focused or hovered over"
+                            >edit</i></span>
+                          </td>
+                        </ng-container>
+
+                        <!-- slot8 Column -->
+                        <ng-container matColumnDef="slot_eight">
+                          <th mat-header-cell *matHeaderCellDef>Slot Eight</th>
+                          <td mat-cell *matCellDef="let element" style="cursor: pointer" (click)="onOpenEditDialogAR(element?.slot_eight, 'slot_eight', element.time, element.reservation_time)">
+                            {{ element?.slot_eight }}
+                            <span *ngIf="element.slot_eight !== 'open'"><i
+                                    class="material-icons"
+                                    matTooltip="Edit Slot Details"
+                                    aria-label="Button that displays a tooltip when focused or hovered over"
+                            >edit</i></span>
+                          </td>
+                        </ng-container>
+
+                        <!-- slot9 Column -->
+                        <ng-container matColumnDef="slot_nine">
+                          <th mat-header-cell *matHeaderCellDef>Slot Nine</th>
+                          <td mat-cell *matCellDef="let element" style="cursor: pointer" (click)="onOpenEditDialogAR(element?.slot_nine, 'slot_nine', element.time, element.reservation_time)">
+                            {{ element?.slot_nine }}
+                            <span *ngIf="element.slot_nine !== 'open'"><i
+                                    class="material-icons"
+                                    matTooltip="Edit Slot Details"
+                                    aria-label="Button that displays a tooltip when focused or hovered over"
+                            >edit</i></span>
+                          </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="action">
+                          <th mat-header-cell *matHeaderCellDef>Action</th>
+                          <td mat-cell *matCellDef="let row">
+                            <button
+                              mat-raised-button
+                              (click)="arOnOpenDialog(row)"
+                              matTooltip="Book Arrival Slot"
+                              aria-label="Button that displays a tooltip when focused or hovered over"
+                              class="btn btn-primary btn-link btn-sm btn-just-icon"
+                            >
+                              <i class="material-icons">commute</i>
+                            </button>
+                          </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr
+                          mat-row
+                          *matRowDef="let row; columns: displayedColumns"
+                        ></tr>
+                      </table>
+
+                      <mat-paginator
+                        [pageSizeOptions]="[10, 20, 30]"
+                        showFirstLastButtons
+                      ></mat-paginator>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

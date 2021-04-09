@@ -1,0 +1,178 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-tabs card-header-primary">
+            <div class="nav-tabs-navigation">
+              <div class="nav-tabs-wrapper">
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                  <li class="nav-item">
+                    <a
+                            mat-button
+                            class="nav-link active"
+                            href="#view"
+                            data-toggle="tab"
+                    >
+                      <i class="material-icons">list</i> Accumulated Penalties
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="tab-content">
+              <div class="tab-pane active" id="view">
+                <div class="row">
+<!--                  <div class="col-md-3">-->
+<!--                    <mat-form-field>-->
+<!--                      <mat-label>Select an option</mat-label>-->
+<!--                      <mat-select-->
+<!--                              [(ngModel)]="selectedFilter"-->
+<!--                              (ngModelChange)="log($event)"-->
+<!--                      >-->
+<!--                        <mat-option>None</mat-option>-->
+<!--                        <mat-option value="All">All</mat-option>-->
+<!--                        <mat-option value="P">Pending Approval</mat-option>-->
+<!--                        <mat-option value="A">Approved</mat-option>-->
+<!--                        <mat-option value="PC">Pending Cancellation</mat-option>-->
+<!--                        <mat-option value="C">Cancelled</mat-option>-->
+<!--                        <mat-option value="DL">Delayed</mat-option>-->
+<!--                        <mat-option value="D">Departed</mat-option>-->
+<!--                        <mat-option value="R">Rejected</mat-option>-->
+<!--                      </mat-select>-->
+<!--                    </mat-form-field>-->
+<!--                  </div>-->
+                  <div class="col-md-3">
+                    <mat-form-field>
+                      <mat-label>Start Date</mat-label>
+                      <input
+                              [(ngModel)]="from"
+                              matInput
+                              [matDatepicker]="fromDate"
+                      />
+                      <mat-datepicker-toggle
+                              matSuffix
+                              [for]="fromDate"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #fromDate></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field>
+                      <mat-label>End Date</mat-label>
+                      <input
+                              [(ngModel)]="to"
+                              matInput
+                              [matDatepicker]="toDate"
+                      />
+                      <mat-datepicker-toggle
+                              matSuffix
+                              [for]="toDate"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #toDate></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <button
+                            mat-raised-button
+                            color="primary"
+                            aria-label="filter date"
+                            (click)="dateRange()"
+                    >
+                      Filter
+                    </button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field>
+                      <input
+                              matInput
+                              (keyup)="applyFilter($event.target.value)"
+                              placeholder="Filter"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="mat-elevation-z8">
+                  <table
+                          class="table"
+                          mat-table
+                          [dataSource]="dataSource"
+                          matSort
+                  >
+                    <!-- time Column -->
+                    <ng-container matColumnDef="username">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Username
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.username }}
+                      </td>
+                    </ng-container>
+
+                    <!-- slot Column -->
+                    <ng-container matColumnDef="type">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Penalty Type
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.type }}
+                      </td>
+                    </ng-container>
+
+                    <!-- slot Column -->
+                    <ng-container matColumnDef="date_booked">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Date Booked
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.date_booked | date}}
+                      </td>
+                    </ng-container>
+
+                    <!-- Bus # Column -->
+                    <ng-container matColumnDef="date_paid">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Date_paid
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.date_paid | date }}
+                      </td>
+                    </ng-container>
+
+                    <!-- status Column -->
+                    <ng-container matColumnDef="status">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Status
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                         {{ element.penalty_status }}
+                      </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr
+                            mat-row
+                            *matRowDef="let row; columns: displayedColumns"
+                    ></tr>
+                  </table>
+
+                  <mat-paginator
+                          [pageSizeOptions]="[10, 20, 30]"
+                          showFirstLastButtons
+                  ></mat-paginator>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

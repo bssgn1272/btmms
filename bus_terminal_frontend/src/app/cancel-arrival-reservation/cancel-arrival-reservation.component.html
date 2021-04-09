@@ -1,0 +1,59 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card card-plain">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Arrival Reservation Cancellation</h4>
+      </div>
+      <p></p>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-body">
+            <mat-dialog-content>
+              <div class="col-md-12">
+                <div class="card-body">
+                  <h1>Please confirm to proceed</h1>
+                  <form [formGroup]="reasonForm" novalidate>
+                    <mat-form-field>
+                      <input matInput [(ngModel)]="cancellationReason" formControlName="reason" placeholder="Enter reason for cancellation">
+                      <div
+                              *ngIf="submitted &amp;&amp; f.reason.errors"
+                              class="text-danger"
+                      >
+                        <div *ngIf="f.reason.errors.required">
+                          Cancellation reason is required
+                        </div>
+                      </div>
+                    </mat-form-field>
+                  </form>
+                  <div *ngIf="late" class="text-danger"><i class="material-icons">warning</i> Cancelling at this time will incur a penalty fee of K{{ charge.charge_amount }}.</div>
+                </div>
+              </div>
+            </mat-dialog-content>
+
+            <mat-dialog-actions>
+              <button class="mat-raised-button" (click)="close()">Close</button>
+              <div *ngIf="workFlow.mode === 'NWF'">
+                <button
+                        mat-raised-button
+                        class="btn btn-danger"
+                        (click)="cancel()"
+                >
+                  Confirm
+                </button>
+              </div>
+              <div *ngIf="workFlow.mode === 'WF'">
+                <button
+                        mat-raised-button
+                        class="btn btn-danger"
+                        (click)="requestCancellation()"
+                >
+                  Request Cancellation
+                </button>
+              </div>
+            </mat-dialog-actions>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

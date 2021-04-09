@@ -1,0 +1,149 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card card-plain">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Make Departure Booking</h4>
+      </div>
+      <p></p>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-body">
+            <mat-dialog-content>
+              <form [formGroup]="bookingForm" novalidate>
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field>
+                      <mat-label>Select Slots</mat-label>
+                      <mat-select
+                        id="name"
+                        formControlName="slot"
+                        [ngClass]="{ 'is-invalid': submitted &amp;&amp; f.slot.errors }"
+                        required
+                      >
+                        <mat-option>None</mat-option>
+                        <div *ngIf="slot_one == 'open' && slot_one != user">
+                          <mat-option value="slot_one">Slot One</mat-option>
+                        </div>
+                        <div *ngIf="slot_two == 'open' && slot_two != user">
+                          <mat-option value="slot_two">Slot Two</mat-option>
+                        </div>
+                        <div *ngIf="slot_three == 'open' && slot_three != user">
+                          <mat-option value="slot_three">Slot Three</mat-option>
+                        </div>
+                        <div *ngIf="slot_four == 'open' && slot_four != user">
+                          <mat-option value="slot_four">Slot Four</mat-option>
+                        </div>
+                        <div *ngIf="slot_five == 'open' && slot_five != user">
+                          <mat-option value="slot_five">Slot Five</mat-option>
+                        </div>
+                        <div *ngIf="slot_six == 'open' && slot_six != user">
+                          <mat-option value="slot_six">Slot Six</mat-option>
+                        </div>
+                        <div *ngIf="slot_seven == 'open' && slot_seven != user">
+                          <mat-option value="slot_seven">Slot Seven</mat-option>
+                        </div>
+                        <div *ngIf="slot_eight == 'open' && slot_eight != user">
+                          <mat-option value="slot_eight">Slot Eight</mat-option>
+                        </div>
+                        <div *ngIf="slot_nine == 'open' && slot_nine != user">
+                          <mat-option value="slot_nine">Slot Nine</mat-option>
+                        </div>
+                      </mat-select>
+                      <!-- error -->
+                      <!-- <mat-error *ngIf="errorHandling('slot', 'required')">
+                        You must provide a<strong>slot</strong>
+                    </mat-error> -->
+                      <div
+                        *ngIf="submitted &amp;&amp; f.slot.errors"
+                        class="text-danger"
+                      >
+                        <div *ngIf="f.slot.errors.required">
+                          Slot is required
+                        </div>
+                      </div>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Destination</mat-label>
+                      <mat-select
+                        (ngModelChange)="getSubRoutes($event)"
+                        formControlName="route"
+                        [ngClass]="{ 'is-invalid': submitted &amp;&amp; f.route.errors }"
+                        required
+                      >
+                        <div *ngFor="let destination of destinations">
+                          <!-- <div *ngIf="destination.time_of_day == time"> -->
+                          <mat-option [value]="destination">
+                            {{ destination.end_route }}
+                          </mat-option>
+                          <!-- </div> -->
+                        </div>
+                      </mat-select>
+                      <div
+                        *ngIf="submitted &amp;&amp; f.route.errors"
+                        class="text-danger"
+                      >
+                        <div *ngIf="f.route.errors.required">
+                          Destination is required
+                        </div>
+                      </div>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Bus</mat-label>
+                      <!-- 
+                        ngModel="reserveBu"
+                        tight underr formcontrolName="bus"
+                      -->
+                      <mat-select
+                        (selectionChange)="getCharge($event)"
+                        formControlName="bus"
+                        [ngClass]="{ 'is-invalid': submitted &amp;&amp; f.bus.errors }"
+                        required
+                      >
+                        <div *ngFor="let bus of buses">
+                          <!-- <div *ngIf="destination.time_of_day == time"> -->
+                          <mat-option [value]="bus.id">
+                            {{ bus.company }} {{ bus.license_plate }}
+                          </mat-option>
+                          <!-- </div> -->
+                        </div>
+                      </mat-select>
+                      <div
+                        *ngIf="submitted &amp;&amp; f.bus.errors"
+                        class="text-danger"
+                      >
+                        <div *ngIf="f.bus.errors.required">
+                          Bus is required
+                        </div>
+                      </div>
+                      <div *ngIf="charge" class="text-info"><i class="material-icons">info</i> Booking Fee: K{{ charge.charge_amount }}.</div>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </form>
+            </mat-dialog-content>
+
+            <mat-dialog-actions>
+              <button class="mat-raised-button" (click)="close()">Close</button>
+              <button
+                mat-raised-button
+                class="btn btn-primary"
+                (click)="save()"
+              >
+                Make Booking
+              </button>
+            </mat-dialog-actions>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

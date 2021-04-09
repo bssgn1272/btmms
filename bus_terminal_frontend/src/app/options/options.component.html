@@ -1,0 +1,93 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-tabs card-header-primary">
+            <div class="nav-tabs-navigation">
+              <div class="nav-tabs-wrapper">
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                  <li class="nav-item">
+                    <a
+                            mat-button
+                            class="nav-link active"
+                            href="#view"
+                            data-toggle="tab"
+                    >
+                      <i class="material-icons">list</i> Options
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="tab-content">
+              <div class="tab-pane active" id="view">
+                <div class="mat-elevation-z8">
+                  <table
+                          class="table"
+                          mat-table
+                          [dataSource]="dataSource"
+                          matSort
+                  >
+                    <!-- time Column -->
+                    <ng-container matColumnDef="optionName">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Option Name
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.option_name }}
+                      </td>
+                    </ng-container>
+
+                    <!-- slot Column -->
+                    <ng-container matColumnDef="optionValue">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Option Value
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.option_value }}
+                      </td>
+                    </ng-container>
+
+                    <!-- status Column -->
+                    <ng-container matColumnDef="actions">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Actions
+                      </th>
+                      <td mat-cell *matCellDef="let row">
+                        <button
+                            mat-raised-button
+                            (click)="onChangeOption(row)"
+                            matTooltip="Change Option Value"
+                            aria-label="Button that displays a tooltip when focused or hovered over"
+                            class="btn btn-primary btn-link btn-sm btn-just-icon"
+                          >
+                            <i class="material-icons">edit</i>
+                          </button>
+                      </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr
+                            mat-row
+                            *matRowDef="let row; columns: displayedColumns"
+                    ></tr>
+                  </table>
+
+                  <mat-paginator
+                          [pageSizeOptions]="[10, 20, 30]"
+                          showFirstLastButtons
+                  ></mat-paginator>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

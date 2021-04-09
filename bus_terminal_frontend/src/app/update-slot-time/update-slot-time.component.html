@@ -1,0 +1,44 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card card-plain">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Edit Time</h4>
+      </div>
+      <p></p>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-body">
+            <form [formGroup]="timeForm">
+            <mat-dialog-content>
+              <div class="row">
+                <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-12">
+                    <div class="example-container">
+                      <mat-form-field class="example-full-width">
+                        <input matInput type="time" formControlName="time" placeholder="Time" value="{{time_of_day}}">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                    </div>
+                </div>
+              </div>
+            </mat-dialog-content>
+
+            <mat-dialog-actions>
+              <button class="mat-raised-button" (click)="close()">Close</button>
+              <button
+                mat-raised-button
+                class="btn btn-primary"
+                (click)="update()"
+              >
+                Update Time
+              </button>
+            </mat-dialog-actions>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

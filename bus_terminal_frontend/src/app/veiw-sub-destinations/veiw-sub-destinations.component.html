@@ -1,0 +1,14 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <mat-card style="width: 100%">
+        <mat-card-title>Booked Route</mat-card-title>
+        <mat-card-subtitle><h2>{{destinationRoutes?.ed_bus_routes?.end_route}}</h2></mat-card-subtitle>
+        <mat-card-content>
+          <h3>Sub Routes</h3>
+          <p *ngFor="let subRoute of destinationRoutes?.ed_bus_routes?.sub_routes">{{subRoute.end_route}}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
