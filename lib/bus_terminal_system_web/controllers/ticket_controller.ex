@@ -9,6 +9,7 @@ defmodule BusTerminalSystemWeb.TicketController do
   alias BusTerminalSystem.AccountManager
   alias BusTerminalSystem.NapsaSmsGetway
   alias BusTerminalSystem.APIRequestMockup
+  alias BusTerminalSystem.TravelRoutes
 
   def index(conn, _params) do
     tickets = TicketManagement.list_tickets()
@@ -630,6 +631,53 @@ defmodule BusTerminalSystemWeb.TicketController do
 
   def add_luggage(conn, _params) do
 
+  end
+
+  def cancel_trip(conn, %{"bus_no" => bus_no, "route_code" => route_id, "schedule_id" => bus_schedule_id} = params) do
+
+#    %{"bus_no" => bus_no, "route_code" => route_code, "schedule_id" => schedule_id} = params
+#    BusTerminalSystem.TicketManagement.Ticket.find_by([bus_no: bus_no, bus_schedule_id: schedule_id])
+
+    route_code = (fn r ->
+      case TravelRoutes.find_by(route_code: r) do
+        nil -> 0
+        route -> route.id
+      end
+    end)
+
+    tickets = Ticket.where([bus_no: bus_no, bus_schedule_id: bus_schedule_id, route: route_code.(route_id)])
+
+    if Enum.count(tickets) < 1 do
+      conn |> json(%{
+        "tickets_canceled" => Enum.count(tickets),
+        "status" => 1,
+        "message" => "No Tickets Found",
+      })
+    else
+
+      tickets |> Task.async_stream(
+                   fn ticket ->
+                     if ticket.activation_status != "CANCELED" do
+                       BusTerminalSystem.TicketManagement.Ticket.update(ticket, [activation_status: "CANCELED"])
+                     end
+                   end, max_concurrency: 20, timeout: 50_000, on_timeout: :kill_task)
+      |> Stream.run()
+      |> case do
+           :ok ->
+             conn |> json(%{
+               "tickets_canceled" => Enum.count(tickets),
+               "status" => 0,
+               "message" => "Tickets Successfully canceled",
+             })
+           _ ->
+             conn |> json(%{
+               "tickets_canceled" => Enum.count(tickets),
+               "status" => 1,
+               "message" => "Failed to Cancel Tickets",
+             })
+         end
+
+    end
   end
 
 end

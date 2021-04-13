@@ -31,16 +31,14 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
   def query_user_by_id(conn, params) do
 
-    user_id = params["user_id"]
+
+    user_id = params["selected_user"]
     case user_id do
       nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
       _ ->
         case user_id |> RepoManager.find_user_by_id do
           nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
           user ->
-
-            IO.inspect user
-
             conn
             |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_query,"SUCCESS",0,
               %{
@@ -66,13 +64,19 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
   def query_user(conn, params) do
     IO.inspect(params)
-    user_id = params["payload"]["user_id"]
+    user_id = params["payload"]["selected_user"]
     case user_id do
       nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
       _ ->
         case user_id |> RepoManager.find_user_by_id do
           nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
           user ->
+
+            try do
+              Cachex.put(:tmp, params["logged_in_user"], user.id) |> IO.inspect()
+            rescue
+              _ -> ""
+            end
 
             conn
             |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_query,"SUCCESS",0,

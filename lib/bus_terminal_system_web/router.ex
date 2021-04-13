@@ -153,6 +153,7 @@ defmodule BusTerminalSystemWeb.Router do
     post "/btms/tickets/secured/find/serial", TicketController, :find_ticket_serial
     post "/btms/tickets/secured/purchase", TicketController, :purchase_ticket
     get "/btms/travel/secured/destinations", TicketController, :get_schedules
+    post "/btms/travel/secured/cancel_trip", TicketController, :cancel_trip
     post "/btms/travel/secured/internal/destinations", TicketController, :get_schedules_internal
     get "/btms/tickets/secured/internal/get_luggage_weight", TicketController, :get_luggage_weight
     post "/btms/operator/reset_password", FrontendApiController, :reset_password

@@ -125,7 +125,7 @@
                             </a>
 
                             <ul class="dropdown-menu dropdown-menu-right">
-                                <li><button style="margin-left: 10px" type="button" class="btn btn-default btn-sm" onclick="user_edit_model(<%=user.id%>)">
+                                <li><button style="margin-left: 10px" type="button" class="btn btn-default btn-sm" onclick="user_edit_model(<%= @conn.assigns.user |> Map.put(:selected_user, user.id) |> JSON.encode!() |> IO.inspect %> )">
                                 Info <i class="icon-user position-right"></i></button></li>
 
                                 <%= if user.role == "BOP" do %>
@@ -264,12 +264,33 @@
                               </div>
                           </div>
 
-                         <%= for role <- BusTerminalSystem.UserRoles.all do %>
-                             <label class="custom_container"> <%= role.role %>
-                                 <input type="checkbox" value="<%= role.id %>">
-                                 <span class="checkmark"></span>
-                             </label>
-                         <% end %>
+
+
+                         <div class="panel panel-flat" >
+                             <div class="panel-heading">
+                                 <h6 class="panel-title">User Permissions</h6>
+                                 <div class="heading-elements">
+                                     <ul class="icons-list">
+                                         <li><a data-action="collapse"></a></li>
+                                         <li><a data-action="reload"></a></li>
+                                         <li><a data-action="close"></a></li>
+                                     </ul>
+                                 </div>
+                             </div>
+
+                             <div class="panel-body">
+                                 <div id="permissions_html">
+                                     <%= for role <- permissions(@conn) do %>
+                                     <label class="custom_container"> <%= role.role %>
+                                         <input type="checkbox" value="<%= role.id %>">
+                                         <span class="checkmark"></span>
+                                     </label>
+                                     <% end %>
+                                 </div>
+
+                             </div>
+
+                         </div>
 
                          <div class="text-right">
 

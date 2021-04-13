@@ -882,11 +882,12 @@ function discounts_modal(id) {
 
 }
 
-function user_edit_model(id) {
-
+function user_edit_model(user) {
+    console.log(user)
     let json_request = JSON.stringify({
         payload: {
-            user_id: id
+            selected_user: user.selected_user,
+            logged_in_user: user.id
         }
     });
 

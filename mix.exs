@@ -54,7 +54,7 @@ defmodule BusTerminalSystem.MixProject do
       {:skooma, "~> 0.2.0"},
       {:httpoison, "~> 1.6"},
       #{:circuits_uart, "~> 1.4"},
-      {:redix, ">= 0.10.4"},
+#      {:redix, ">= 0.10.4"},
       {:timex, "~> 3.5"},
       {:absinthe, "~> 1.4"},
       {:absinthe_plug, "~> 1.4"},
@@ -67,8 +67,11 @@ defmodule BusTerminalSystem.MixProject do
       {:soap, "~> 1.0.1"},
       {:quantum, "~> 3.0"},
       {:phoenix_swagger, "~> 0.8"},
-      {:ex_json_schema, "~> 0.5"}
-
+      {:ex_json_schema, "~> 0.5"},
+      {:cachex, "~> 3.3"},
+      {:ets, "~> 0.8.1"}
+#      {:redix, ">= 0.0.0"},
+#      {:castore, ">= 0.0.0"}
     ]
   end
 

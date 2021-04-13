@@ -13,6 +13,8 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/atomic_map" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/barlix" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/base64url" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/cachex" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/castore" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/certifi" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/chartkick" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/combine" />
@@ -29,6 +31,8 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/endon" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/eqrcode" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/erlsom" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/eternal" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ets" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ex_json_schema" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/file_system" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/gen_smtp" />
@@ -41,6 +45,7 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/jason" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/jose" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/json" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/jumper" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/metrics" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/mime" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/mimerl" />
@@ -61,6 +66,7 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ranch" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/redix" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/skooma" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/sleeplocks" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/soap" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ssl_verify_fun" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/sweet_xml" />
@@ -70,6 +76,7 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/toolshed" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/tzdata" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/unicode_util_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/unsafe" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/uuid" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/xml_builder" />
       <excludeFolder url="file://$MODULE_DIR$/_build/prod/lib/absinthe" />
@@ -256,5 +263,14 @@
     <orderEntry type="library" name="quantum" level="project" />
     <orderEntry type="library" name="crontab" level="project" />
     <orderEntry type="library" name="gen_stage" level="project" />
+    <orderEntry type="library" name="cachex" level="project" />
+    <orderEntry type="library" name="eternal" level="project" />
+    <orderEntry type="library" name="jumper" level="project" />
+    <orderEntry type="library" name="sleeplocks" level="project" />
+    <orderEntry type="library" name="unsafe" level="project" />
+    <orderEntry type="library" name="local_cluster" level="project" />
+    <orderEntry type="library" name="benchee_html" level="project" />
+    <orderEntry type="library" name="ets" level="project" />
+    <orderEntry type="library" name="ex_unit_notifier" level="project" />
   </component>
 </module>

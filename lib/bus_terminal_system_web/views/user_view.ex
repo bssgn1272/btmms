@@ -17,5 +17,19 @@ defmodule BusTerminalSystemWeb.UserView do
     |> User.find
   end
 
+  def permissions(conn) do
+    id = Cachex.get(:tmp, conn.assigns.user.id)
+    try do
+      IO.inspect("Done")
+      BusTerminalSystem.UserRole.find([user: id])
+      BusTerminalSystem.UserRoles.all
+    rescue
+      _ ->
+        IO.inspect("Failed")
+        []
+    end
+
+  end
+
 end
 
