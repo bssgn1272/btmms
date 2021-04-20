@@ -8,9 +8,7 @@
          </style>
         <div class="container-fluid">
             <ul class="nav nav-tabs">
-                <li ><a data-toggle="tab" href="#home">Manage</a></li>
-                   <li class="active"> <a href="<%= Routes.bus_terminus_path(@conn, :register) %>">Register Bus </a>
-                        </li>
+                <li class="active"><a data-toggle="tab" href="#home">Manage</a></li>
             </ul>
 
             <div class="tab-content">

@@ -25,27 +25,18 @@ defmodule BusTerminalSystemWeb.UserController do
   )
 
   def index(conn, _params) do
-
     routes = RepoManager.list_routes()
     users = BusTerminalSystem.AccountManager.User.where(auth_status: true)
     f = Timex.today |> Timex.to_datetime
     tickets =  BusTerminalSystem.TicketManagement.Ticket.where(travel_date: Timex.today() |> to_string)
-    IO.inspect(tickets)
     buses = RepoManager.list_buses()
     conn
     |> render("index.html", users: users, tickets: tickets, buses: buses, routes: routes)
   end
 
-  def new(conn, params) do
+  def new(conn, _params) do
     changeset = AccountManager.change_user(%User{})
     render(conn, "new.html", changeset: changeset)
-  end
-
-  def new_user(conn, params) do
-    changeset = AccountManager.change_user(%User{})
-    napsa_user = BusTerminalSystem.Napsa.NapsaQueryDetails.connect(%{"id" => params["napsa_member"]})
-    IO.inspect(napsa_user["payload"])
-    render(conn, "new.html", changeset: changeset, napsa_user: napsa_user["payload"])
   end
 
   def create(conn, %{"payload" => payload} = user_params) do
@@ -95,16 +86,6 @@ defmodule BusTerminalSystemWeb.UserController do
 
             payload = Map.put(payload, "operator_role", "TELLER")
             user_create_payload(conn, payload)
-
-          "SADMIN" ->
-
-            spawn(fn ->
-              message = " Hello #{first_name}, \n Your BTMMS SUPER ADMINISTRATIVE ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{password}"
-              NapsaSmsGetway.send_sms(mobile_number,message)
-            end)
-
-            payload = Map.put(payload, "operator_role", "SUPER_ADMINISTRATOR")
-            user_create_payload(conn, payload)
           _ ->
 
             spawn(fn ->
@@ -124,33 +105,19 @@ defmodule BusTerminalSystemWeb.UserController do
 
   defp user_create_payload(conn, payload) do
 
-    napsa_user = %{
-      "first_name" => payload["first_name"],
-      "last_name" => payload["last_name"],
-      "nrc" => payload["nrc"],
-      "ssn" => payload["ssn"],
-    }
-
-    case AccountManager.create_user(payload) |> IO.inspect(label: "returned error") do
+    case AccountManager.create_user(payload) do
       {:ok, user} ->
-
-#        conn
-#        |> put_flash(:info, "User created successfully.")
-#        |> redirect(to: Routes.user_path(conn, :new, [napsa_user: napsa_user]))
-
-        changeset = AccountManager.change_user(%User{})
-
         conn
         |> put_flash(:info, "User created successfully.")
-        |> render("new.html", [changeset: changeset, napsa_user: napsa_user])
+        |> redirect(to: Routes.user_path(conn, :new))
 
       {:error, %Ecto.Changeset{} = changeset} ->
 
-        IO.inspect(ApiManager.translate_error(changeset), label: "Error ____________________________")
+        IO.inspect ApiManager.translate_error(changeset)
 
         conn
         |> put_flash(:error,"Failed To Create User")
-        |> render("new.html", [changeset: changeset, napsa_user: napsa_user])
+        |> render("new.html", changeset: changeset)
 
     end
   end

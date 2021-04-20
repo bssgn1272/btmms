@@ -24,7 +24,6 @@ defmodule BusTerminalSystemWeb.MarketApiController do
                 "last_name" => user.last_name,
                 "ssn" => user.ssn,
                 "nrc" => user.nrc,
-                "dob" => user.dob,
                 "email" => user.email,
                 "mobile" => user.mobile,
                 "account_status" => user.account_status,
@@ -113,7 +112,6 @@ defmodule BusTerminalSystemWeb.MarketApiController do
               "pin" => "[HIDDEN]"
             }))
           user ->
-          IO.inspect(user)
             conn
             |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_authentication,"SUCCESS",0,
               %{
@@ -122,7 +120,6 @@ defmodule BusTerminalSystemWeb.MarketApiController do
                 "first_name" => user.first_name,
                 "last_name" => user.last_name,
                 "ssn" => user.ssn,
-                "dob" => user.dob,
                 "nrc" => user.nrc,
                 "email" => user.email,
                 "mobile" => user.mobile,

@@ -9,7 +9,6 @@ defmodule BusTerminalSystemWeb.TicketController do
   alias BusTerminalSystem.AccountManager
   alias BusTerminalSystem.NapsaSmsGetway
   alias BusTerminalSystem.APIRequestMockup
-  alias BusTerminalSystem.TravelRoutes
 
   def index(conn, _params) do
     tickets = TicketManagement.list_tickets()
@@ -36,6 +35,8 @@ defmodule BusTerminalSystemWeb.TicketController do
     ticket_params = Map.put(ticket_params, "amount", price |> String.replace("K",""))
     ticket_params = Map.put(ticket_params, "route", route.id)
     ticket_params = Map.put(ticket_params, "bus_schedule_id", bus_schedule_id)
+
+    IO.inspect(ticket_params)
 
     case TicketManagement.create_ticket(ticket_params) do
       {:ok, ticket} ->
@@ -69,60 +70,12 @@ defmodule BusTerminalSystemWeb.TicketController do
     [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot, _, bus_schedule_id] = ticket_params["route_information"] |> String.split()
     route = BusTerminalSystem.TravelRoutes.find_by(start_route: start_route, end_route: end_route)
 
-    price = price |> String.replace("K","")
-
-    ticket_params = Map.put(ticket_params, "amount", price)
+    ticket_params = Map.put(ticket_params, "amount", price |> String.replace("K",""))
     ticket_params = Map.put(ticket_params, "route", route.id)
     ticket_params = Map.put(ticket_params, "bus_schedule_id", bus_schedule_id)
 
     IO.inspect(ticket_params)
 
-    operator = BusTerminalSystem.BusManagement.Bus.find(ticket_params["bus_no"]).operator_id
-              |> BusTerminalSystem.AccountManager.User.find
-
-    if operator.apply_discount == false do
-      ticket_params = Map.put(ticket_params, "discount_applied", false)
-      ticket_params = Map.put(ticket_params, "discount_amount", 0)
-      ticket_purchase(conn, ticket_params)
-    else
-      operator.apply_discount |> case do
-        nil ->
-          ticket_params = Map.put(ticket_params, "discount_applied", true)
-          ticket_params = Map.put(ticket_params, "discount_amount", 0.0)
-          ticket_purchase(conn, ticket_params)
-        false ->
-          ticket_params = Map.put(ticket_params, "discount_applied", true)
-          ticket_params = Map.put(ticket_params, "discount_amount", 0.0)
-          ticket_purchase(conn, ticket_params)
-        true ->
-
-          discount_calculated = (fn original_amount, discount_amount ->
-            parse_float(original_amount) - discount_amount
-          end)
-
-          ticket_params = Map.put(ticket_params, "amount", discount_calculated.(price, operator.discount_amount))
-          ticket_params = Map.put(ticket_params, "discount_applied", true)
-          ticket_params = Map.put(ticket_params, "discount_amount", operator.discount_amount)
-          ticket_params = Map.put(ticket_params, "discount_original_amount", price)
-          ticket_purchase(conn, ticket_params)
-      end
-    end
-
-
-
-  end
-
-  defp parse_int(str) do
-    {int, _} = Integer.parse(str)
-    int
-  end
-
-  defp parse_float(str) do
-    {flt, _} = Float.parse(str)
-    flt
-  end
-
-  defp ticket_purchase(conn, ticket_params) do
     case TicketManagement.create_ticket(ticket_params) do
       {:ok, ticket} ->
 
@@ -339,11 +292,7 @@ defmodule BusTerminalSystemWeb.TicketController do
                     teller = BusTerminalSystem.AccountManager.User.find_by(username: teller_username)
                     serial_number = Randomizer.randomizer(7, :numeric)
 
-                    IO.inspect("--------------------------")
-                    IO.inspect(payload)
-
                     map = Map.put(payload, "reference_number", generate_reference_number(route))
-#                    map = Map.put(map, "date", payload["date"])
                     map = Map.put(map, "serial_number", serial_number)
                     map = Map.put(map, "activation_status", "VALID")
                     map = Map.put(map, "route", route.id)
@@ -354,6 +303,7 @@ defmodule BusTerminalSystemWeb.TicketController do
                     bus = BusTerminalSystem.BusManagement.Bus.find_by(id: schedule.bus_id)
                     operator = BusTerminalSystem.AccountManager.User.find_by(id: bus.operator_id)
 
+                    IO.inspect bus
 
                     map = Map.put(map, "bus_no", bus.id |> to_string)
                     r_info = "OPERATOR: #{operator.company |> String.replace(" ","_")}: START: #{route.start_route} END: #{route.end_route}	 DEPARTURE: #{schedule.time} PRICE: K#{route.route_fare} GATE: #{schedule.slot}"
@@ -501,7 +451,7 @@ defmodule BusTerminalSystemWeb.TicketController do
   end
 
   def get_schedules_buses(conn, %{"payload" => %{ "date" => date, "start_route" => start_route, "end_route" => end_route}} = params) do
-    {:ok,agent,schedules} = RepoManager.route_mapping_by_location_internal(date, start_route,end_route)
+    {:ok,agent,schedules} = RepoManager.route_mapping_by_location(date, start_route,end_route)
     Agent.stop(agent)
     json(conn, schedules)
   end
@@ -526,48 +476,8 @@ defmodule BusTerminalSystemWeb.TicketController do
     json(conn,schedules)
   end
 
-  @validation_param %{ "auth" => %{ "username" => :string, "service_token" => :string }, "payload" => %{ "route_code" => :string }}
-  def get_travel_routes(conn, params) do
-    IO.inspect(params)
-    if Enum.empty?(params) == true do
-      json(conn, RepoManager.list_routes_json())
-    else
-      Skooma.valid?(params,@validation_param)
-      |> case do
-        :ok ->
-
-          route = fn route_code ->
-
-            route = BusTerminalSystem.TravelRoutes.find_by(route_code: route_code) |> Poison.encode!() |> Poison.decode!()
-
-            if route == nil do
-                %{status: "FAILED", message: "ROUTE NOT FOUND"}
-             else
-              sub_routes = BusTerminalSystem.RepoManager.stops(route["id"], []) |> Enum.sort_by( fn(r) -> r["order"] end)
-              %{ status: "SUCCESS", travel_route: route |> Map.put("sub_routes", sub_routes)}
-              end
-          end
-
-          json(conn, route.(params["payload"]["route_code"]))
-        {:error, message} ->
-          error = %{
-            :status => "FAILED",
-            :error => message,
-            :request_structure_required => %{
-              :auth => %{
-                :username => "<USER_NAME>",
-                :service_key => "<SERVICE_KEY>"
-              },
-              :payload => %{
-                :route_code => "<ROUTE_CODE>"
-              }
-            }
-          }
-          json(conn, error)
-      end
-
-    end
-
+  def get_travel_routes(conn,_params) do
+    json(conn, RepoManager.list_routes_json())
   end
 
   def get_luggage_weight(conn,_params) do
@@ -631,53 +541,6 @@ defmodule BusTerminalSystemWeb.TicketController do
 
   def add_luggage(conn, _params) do
 
-  end
-
-  def cancel_trip(conn, %{"bus_no" => bus_no, "route_code" => route_id, "schedule_id" => bus_schedule_id} = params) do
-
-#    %{"bus_no" => bus_no, "route_code" => route_code, "schedule_id" => schedule_id} = params
-#    BusTerminalSystem.TicketManagement.Ticket.find_by([bus_no: bus_no, bus_schedule_id: schedule_id])
-
-    route_code = (fn r ->
-      case TravelRoutes.find_by(route_code: r) do
-        nil -> 0
-        route -> route.id
-      end
-    end)
-
-    tickets = Ticket.where([bus_no: bus_no, bus_schedule_id: bus_schedule_id, route: route_code.(route_id)])
-
-    if Enum.count(tickets) < 1 do
-      conn |> json(%{
-        "tickets_canceled" => Enum.count(tickets),
-        "status" => 1,
-        "message" => "No Tickets Found",
-      })
-    else
-
-      tickets |> Task.async_stream(
-                   fn ticket ->
-                     if ticket.activation_status != "CANCELED" do
-                       BusTerminalSystem.TicketManagement.Ticket.update(ticket, [activation_status: "CANCELED"])
-                     end
-                   end, max_concurrency: 20, timeout: 50_000, on_timeout: :kill_task)
-      |> Stream.run()
-      |> case do
-           :ok ->
-             conn |> json(%{
-               "tickets_canceled" => Enum.count(tickets),
-               "status" => 0,
-               "message" => "Tickets Successfully canceled",
-             })
-           _ ->
-             conn |> json(%{
-               "tickets_canceled" => Enum.count(tickets),
-               "status" => 1,
-               "message" => "Failed to Cancel Tickets",
-             })
-         end
-
-    end
   end
 
 end

@@ -10,18 +10,6 @@ use Mix.Config
 config :bus_terminal_system,
   ecto_repos: [BusTerminalSystem.Repo]
 
-config :soap, :globals, version: "1.1"
-
-config :bus_terminal_system, :phoenix_swagger,
-   swagger_files: %{
-     "priv/static/swagger.json" => [
-       router: BusTerminalSystemWeb.Router,     # phoenix routes will be converted to swagger paths
-       endpoint: BusTerminalSystemWeb.Endpoint  # (optional) endpoint config used to set host, port and https schemes.
-     ]
-   },  json_library: Jason
-
-#config :phoenix_swagger, json_library: Jason
-
 # Configures the endpoint
 config :bus_terminal_system, BusTerminalSystemWeb.Endpoint,
   url: [host: "localhost"],
@@ -29,6 +17,13 @@ config :bus_terminal_system, BusTerminalSystemWeb.Endpoint,
   render_errors: [view: BusTerminalSystemWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: BusTerminalSystem.PubSub, adapter: Phoenix.PubSub.PG2]
 
+config :bus_terminal_system, :phoenix_swagger,
+       swagger_files: %{
+         "priv/static/swagger.json" => [
+           router: BusTerminalSystemWeb.Router,     # phoenix routes will be converted to swagger paths
+           endpoint: BusTerminalSystemWeb.Endpoint  # (optional) endpoint config used to set host, port and https schemes.
+         ]
+       }
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -56,19 +51,6 @@ config :bus_terminal_system, BusTerminalSystemWeb.Guardian,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
-
-config :bus_terminal_system, BusTerminalSystem.Scheduler,
- overlap: false,
- timeout: 30_000,
- jobs: [
-   check_compliance: [
-     schedule:  "* * * * *", task: {BusTerminalSystem.CheckCompliance, :run, []}
-   ],
-   napsa: [
-     schedule:  "* * * * *", task: {BusTerminalSystem.CheckCompliance, :run, []},
-     schedule:  "* * * * *", task: {BusTerminalSystem.NapsaUserUpdater, :run, []}
-   ],
- ]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

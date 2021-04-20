@@ -41,7 +41,7 @@ defmodule BusTerminalSystem.NapsaSmsGetway do
   def send_ticket_sms(ticket) do
       bus = BusTerminalSystem.BusManagement.Bus.find_by(id: ticket.bus_no)
       schedule = BusTerminalSystem.TblEdReservations.find_by(id: ticket.bus_schedule_id)
-      route = BusTerminalSystem.TravelRoutes.find(ticket.route)
+      route = BusTerminalSystem.TravelRoutes.find(schedule.route)
       [date, _] = schedule.reserved_time |> to_string |> String.split(" ")
       [year, month, day] = date |> String.split("-")
       date = "#{day}-#{month}-#{year}"

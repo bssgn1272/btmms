@@ -1,31 +1,16 @@
 {
-  "tags": [
-    {
-      "name": "Users",
-      "description": "User resources"
-    }
-  ],
   "swagger": "2.0",
-  "schemes": [
-    "http"
-  ],
-  "produces": [
-    "application/json"
-  ],
   "paths": {},
   "info": {
     "version": "1.0",
-    "title": "BTMMS",
-    "termsOfService": "Open for public",
-    "description": "API Documentation for BTMMS v1",
+    "title": "BTMS",
     "contact": {
       "name": "Philip Chani",
       "email": "philip@probasegroup.com"
     }
   },
   "host": "localhost:4000",
-  "definitions": {},
-  "consumes": [
-    "application/json"
-  ]
+  "definitions": {
+    "/pets": {}
+  }
 }

@@ -14,8 +14,6 @@ defmodule BusTerminalSystem.Application do
       BusTerminalSystem.Repo,
       # Start the endpoint when the application starts
       BusTerminalSystemWeb.Endpoint,
-      BusTerminalSystem.Scheduler,
-      Supervisor.child_spec({Cachex, name: :tmp}, id: :tmp)
       # Starts a worker by calling: BusTerminalSystem.Worker.start_link(arg)
       # {BusTerminalSystem.Worker, arg},
       # SMS job

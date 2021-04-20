@@ -7,7 +7,7 @@ defmodule BusTerminalSystem.MixProject do
       version: "0.1.0",
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext, :phoenix_swagger] ++ Mix.compilers ++ [:phoenix_swagger],
+      compilers: [:phoenix, :gettext, :phoenix_swagger] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
@@ -20,7 +20,7 @@ defmodule BusTerminalSystem.MixProject do
   def application do
     [
       mod: {BusTerminalSystem.Application, []},
-      extra_applications: [:logger, :runtime_tools, :elixir_xml_to_map, :soap]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
@@ -49,29 +49,20 @@ defmodule BusTerminalSystem.MixProject do
       {:json, "~> 1.3.0"},
       {:eqrcode, "~> 0.1.6"},
       {:barlix, "~> 0.6.0"},
+      {:phoenix_swagger, "~> 0.8"},
       {:swoosh, "~> 0.24"},
       {:gen_smtp, "~> 0.13"},
       {:skooma, "~> 0.2.0"},
       {:httpoison, "~> 1.6"},
       #{:circuits_uart, "~> 1.4"},
-#      {:redix, ">= 0.10.4"},
+      {:redix, ">= 0.10.4"},
       {:timex, "~> 3.5"},
       {:absinthe, "~> 1.4"},
       {:absinthe_plug, "~> 1.4"},
       {:toolshed, "~> 0.2.13"},
       {:chartkick, "~>0.4.0"},
       {:distillery, "~> 2.0"},
-      { :uuid, "~> 1.1.8" },
-      {:atomic_map, "~> 0.9.3"},
-      {:elixir_xml_to_map, "~> 2.0"},
-      {:soap, "~> 1.0.1"},
-      {:quantum, "~> 3.0"},
-      {:phoenix_swagger, "~> 0.8"},
-      {:ex_json_schema, "~> 0.5"},
-      {:cachex, "~> 3.3"},
-      {:ets, "~> 0.8.1"}
-#      {:redix, ">= 0.0.0"},
-#      {:castore, ">= 0.0.0"}
+      { :uuid, "~> 1.1.8" }
     ]
   end
 

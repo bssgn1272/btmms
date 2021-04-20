@@ -1,9 +1,0 @@
-X:\Mac Documents\Work\Projects\Bus Tickets Mgmt System\Applications\EPSON_PRINT_SERVER\src\EPSON_PRINT_SERVER\bin\Release\EPSON_PRINT_SERVER.exe.config
-X:\Mac Documents\Work\Projects\Bus Tickets Mgmt System\Applications\EPSON_PRINT_SERVER\src\EPSON_PRINT_SERVER\bin\Release\EPSON_PRINT_SERVER.exe
-X:\Mac Documents\Work\Projects\Bus Tickets Mgmt System\Applications\EPSON_PRINT_SERVER\src\EPSON_PRINT_SERVER\bin\Release\Newtonsoft.Json.dll
-X:\Mac Documents\Work\Projects\Bus Tickets Mgmt System\Applications\EPSON_PRINT_SERVER\src\EPSON_PRINT_SERVER\bin\Release\PrinterUtility.dll
-X:\Mac Documents\Work\Projects\Bus Tickets Mgmt System\Applications\EPSON_PRINT_SERVER\src\EPSON_PRINT_SERVER\bin\Release\Newtonsoft.Json.xml
-X:\Mac Documents\Work\Projects\Bus Tickets Mgmt System\Applications\EPSON_PRINT_SERVER\src\EPSON_PRINT_SERVER\obj\Release\EPSON_PRINT_SERVER.csprojAssemblyReference.cache
-X:\Mac Documents\Work\Projects\Bus Tickets Mgmt System\Applications\EPSON_PRINT_SERVER\src\EPSON_PRINT_SERVER\obj\Release\EPSON_PRINT_SERVER.csproj.CoreCompileInputs.cache
-X:\Mac Documents\Work\Projects\Bus Tickets Mgmt System\Applications\EPSON_PRINT_SERVER\src\EPSON_PRINT_SERVER\obj\Release\EPSON_PRINT_SERVER.csproj.CopyComplete
-X:\Mac Documents\Work\Projects\Bus Tickets Mgmt System\Applications\EPSON_PRINT_SERVER\src\EPSON_PRINT_SERVER\obj\Release\EPSON_PRINT_SERVER.exe

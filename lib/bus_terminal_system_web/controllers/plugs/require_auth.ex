@@ -7,11 +7,9 @@ defmodule BusTerminalSystemWeb.Plugs.RequireAuth do
   end
 
   def call(conn, _params) do
-
     if get_session(conn, :current_user) do
       conn
     else
-
       conn
       |> put_flash(:error, "Login Failed. Invalid username or password")
       |> redirect(to: BusTerminalSystemWeb.Router.Helpers.session_path(conn, :new))

@@ -634,8 +634,7 @@ function updateUser() {
             ssn: $('#model_ssn').val(),
             account_status: $('#model_account_status').val(),
             operator_role: $('#model_operator_role').val(),
-            email: $('#model_email').val(),
-            role_id: $("#modal_update_role_id").val()
+            email: $('#model_email').val()
         }
     });
 
@@ -746,148 +745,11 @@ function bus_model_update_bus() {
     })
 }
 
-function set_discount() {
+function user_edit_model(id) {
 
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-            confirmButton: 'btn btn-success',
-            cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: true
-    })
-
-    $.ajax({
-        method: 'get',
-        url: '/api/v1/internal/routes/threshold',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (threshold_response) {
-
-            if ($("#modal_discount_value").val() > threshold_response.threshold){
-                swalWithBootstrapButtons.fire(
-                    'Failed to configure Discount',
-                    'Discount amount above threshold K' + threshold_response.threshold,
-                    'error'
-                )
-            }else{
-                swalWithBootstrapButtons.fire({
-                    title: 'Are you sure?',
-                    text: "Update Discount!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes, Update!',
-                    cancelButtonText: 'No, cancel!',
-                    reverseButtons: true
-                }).then((result) => {
-
-                    $.ajax({
-                        method: 'post',
-                        url: '/api/v1/internal/discounts/set',
-                        dataType: 'json',
-                        contentType: 'application/json',
-                        data: JSON.stringify({
-                            id: $('#discount_model_user_id').val(),
-                            discount: $("#modal_discount_value").val(),
-                            discount_reason: $("#modal_discount_reason").val()
-                        }),
-                        success: function (response) {
-                            response = JSON.parse(response)
-                            $('#discount_model_current_discount').val(response.discount_amount)
-                            $('#discount_model_discount_reason').val(response.discount_reason)
-
-                            swalWithBootstrapButtons.fire(
-                                'Done',
-                                'Discount Updated',
-                                'success'
-                            )
-                        }
-                    })
-                })
-            }
-        }
-    })
-}
-
-function enable_discount() {
-
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-            confirmButton: 'btn btn-success',
-            cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: true
-    })
-
-    swalWithBootstrapButtons.fire({
-        title: 'Are you sure?',
-        text: "Enable/Disable Discount!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, Enable/Disable !',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: true
-    }).then((result) => {
-        $.ajax({
-            method: 'post',
-            url: '/api/v1/internal/discounts/enable',
-            dataType: 'json',
-            contentType: 'application/json',
-            data: JSON.stringify({
-                id: $('#discount_model_user_id').val(),
-                status: $('#discount_model_status_value').val()
-            }),
-            success: function (response) {
-                response = JSON.parse(response)
-
-                $('#discount_model_status_value').val(response.apply_discount)
-                if (response.apply_discount === true) {
-                    $('#discount_model_status').val("ENABLED")
-                }else {
-                    $('#discount_model_status').val("DISABLED")
-                }
-            }
-        })
-    })
-
-
-}
-
-function discounts_modal(id) {
-    $('#modal_form_discounts').modal('show');
-    // $('#discount_model_user_id').modal('show');
-
-    $.ajax({
-        method: 'post',
-        url: '/api/v1/internal/discounts/operator',
-        dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify({
-            id: id
-        }),
-        success: function (response) {
-            let operator = JSON.parse(response)
-            console.log(operator)
-            $('#discount_model_user_id').val(operator.id)
-            $('#discount_model_current_discount').val(operator.discount_amount)
-            $('#discount_model_status_value').val(operator.apply_discount)
-            $('#discount_model_discount_reason').val(operator.discount_reason)
-            if (operator.apply_discount) {
-                $('#discount_model_status').val("ENABLED")
-            }else {
-                $('#discount_model_status').val("DISABLED")
-            }
-
-        }
-    })
-
-}
-
-function user_edit_model(user) {
-    console.log(user)
     let json_request = JSON.stringify({
         payload: {
-            selected_user: user.selected_user,
-            logged_in_user: user.id
+            user_id: id
         }
     });
 
@@ -899,7 +761,7 @@ function user_edit_model(user) {
         data: json_request,
         success: function (response) {
             let data = JSON.parse(JSON.stringify(response));
-            console.log(data)
+
             $('#modal_form_horizontal_user').modal('show');
 
             $('#model_username').val(data.response.QUERY.data.username);
@@ -913,18 +775,8 @@ function user_edit_model(user) {
             $('#model_uuid').val(data.response.QUERY.data.uuid);
             $('#model_pwd_username').val(data.response.QUERY.data.username);
             $('#model_operator_role').val(data.response.QUERY.data.operator_role);
-            // $('#model_password').val("0123456789");
+            $('#model_password').val("0123456789");
             $('#model_user_id').val(id);
-
-            document.getElementById("modal_user_role").innerHTML = "CURRENT USER ROLE: " + data.response.QUERY.data.role_name;
-
-            if (data.response.QUERY.data.compliance === true) {
-                $('#model_compliance_status').val("COMPLIANT");
-                document.getElementById("model_compliance_status").style.color = 'green';
-            } else {
-                $('#model_compliance_status').val("NOT COMPLIANT");
-                document.getElementById("model_compliance_status").style.color = 'red';
-            }
         }
     });
 
@@ -1013,13 +865,11 @@ function user_type_selection(role){
             $('#user_company_name').show();
             $('#user_first_name').hide();
             $('#user_last_name').hide();
-            $('#user_employer_number').show();
             break;
         default:
             $('#user_company_name').hide();
             $('#user_first_name').show();
             $('#user_last_name').show();
-            $('#user_employer_number').hide();
     }
 }
 
@@ -1039,7 +889,7 @@ function route_edit_model_manage(route) {
         data: json_request,
         success: function (response) {
             let data = JSON.parse(JSON.stringify(response));
-            console.log(data)
+            console.log(response)
             $('#edit_route_name').val(response.route_name);
             $('#edit_route_route_fare').val(response.route_fare);
             $('#edit_route_from').val(response.start_route);

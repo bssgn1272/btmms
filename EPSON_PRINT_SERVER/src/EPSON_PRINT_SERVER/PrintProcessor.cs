@@ -42,7 +42,6 @@ namespace EPSON_PRINT_SERVER
             public string ticketNumber { get; set; }
             public string depatureTime { get; set; }
             public string Bus { get; set; }
-            public string gate { get; set; }
         }
 
 
@@ -106,9 +105,6 @@ namespace EPSON_PRINT_SERVER
                     string request = Encoding.UTF8.GetString(buffer, 0, recv);
                     JObject json = JObject.Parse(request);
                     ticket ticketObj = JsonConvert.DeserializeObject<ticket>(request);
-                    
-                 
-
                     //  Console.WriteLine("request FNAME  "+ ticketObj.fName);
                     sw.WriteLine("{ \"Message\":\"Successfully Printed\" }");
                     sw.Flush();
@@ -142,35 +138,22 @@ namespace EPSON_PRINT_SERVER
                     BytesValue = PrintExtensions.AddBytes(BytesValue, obj.Separator());*/
                     BytesValue = PrintExtensions.AddBytes(BytesValue, obj.CharSize.Nomarl());
                     BytesValue = PrintExtensions.AddBytes(BytesValue, obj.Alignment.Center());
-                    BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("BTMMS BOARDING PASS \n"));
+                    BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("BTMMS TICKET \n"));
                     BytesValue = PrintExtensions.AddBytes(BytesValue, obj.Lf());
                     BytesValue = PrintExtensions.AddBytes(BytesValue, obj.Lf());
                     BytesValue = PrintExtensions.AddBytes(BytesValue, obj.Alignment.Left());
                     BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("     TICKET REF.       :" + ticketObj.refNumber + "\n"));
-                   // BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("     Print Date        :" + strDate + "\n"));
+                    BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("     Print Date        :" + strDate + "\n"));
                     BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("     First Name        :" + ticketObj.fName + " \n"));
                     BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("     Last Name         :" + ticketObj.sName + "\n"));
                     BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("     From              :" + ticketObj.from + "\n"));
                     BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("     To                :" + ticketObj.to + "\n"));
-                    BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("     Departure         :" + ticketObj.depatureTime + "\n"));
-                    BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("     Bus               :" + ticketObj.Bus + "\n"));
-                    BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("     Gate              :" + ticketObj.gate + "\n"));
-                    BytesValue = PrintExtensions.AddBytes(BytesValue, obj.Separator());
+                    BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("     Depature                :" + ticketObj.depatureTime + "\n"));
+                    BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("     Bus                :" + ticketObj.Bus + "\n"));
                     BytesValue = PrintExtensions.AddBytes(BytesValue, obj.CharSize.Nomarl());
-                    BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("     Itm                                          Total\n"));
+                    BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("     Itm                      Qty        Total\n"));
                     BytesValue = PrintExtensions.AddBytes(BytesValue, obj.Separator());
-                    foreach (var item in ticketObj.items)
-                    {
-                        string[] words = item.Split(':');
-
-
-                        item.Replace(":", "                  ");
-
-                        Console.WriteLine("Arrray items:" + item.Replace(":", "                   "));
-                        BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(item.Replace(":", "                   ") + "\n"));
-                    }
-                   // BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("     TICKET                   1                  "+ ticketObj.Price+"\n"));
-                    // BytesValue = PrintExtensions.AddBytes(BytesValue, string.Format("{0,-40}{1,6}{2,9}{3,9:N2}\n", "TICKET", 1, "", ticketObj.Price));
+                    BytesValue = PrintExtensions.AddBytes(BytesValue, string.Format("{0,-40}{1,6}{2,9}{3,9:N2}\n", "TICKET", 1, "", ticketObj.Price));
                     //BytesValue = PrintExtensions.AddBytes(BytesValue, string.Format("{0,-40}{1,6}{2,9}{3,9:N2}\n", "item 2", 2, 0, ticketObj.Price));
                     BytesValue = PrintExtensions.AddBytes(BytesValue, obj.Alignment.Right());
                     BytesValue = PrintExtensions.AddBytes(BytesValue, obj.Separator());
@@ -184,7 +167,6 @@ namespace EPSON_PRINT_SERVER
                     BytesValue = PrintExtensions.AddBytes(BytesValue, obj.QrCode.Print(ticketObj.ticketNumber, PrinterUtility.Enums.QrCodeSize.Gigante));
                     BytesValue = PrintExtensions.AddBytes(BytesValue, obj.Lf());
                     BytesValue = PrintExtensions.AddBytes(BytesValue, "-------------------      Thank you    ------------------------\n");
-                   // BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("     Print Date        :" + strDate + "\n"));
                     BytesValue = PrintExtensions.AddBytes(BytesValue, obj.Alignment.Left());
                     BytesValue = PrintExtensions.AddBytes(BytesValue, CutPage());
 
@@ -198,7 +180,7 @@ namespace EPSON_PRINT_SERVER
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Something went wrong stack." + e.Message+" "+e.StackTrace);
+                    Console.WriteLine("Something went wrong." + e.Message);
                     sw.WriteLine(e.ToString());
                 }
             }

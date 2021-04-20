@@ -10,93 +10,57 @@ defmodule BusTerminalSystem.Repo.Migrations.DatabaseMods do
 
   def add_columns do
     alter table(:probase_tbl_bus) do
-      add :auth_status, :integer, default: 0
+      add :auth_status, :boolean, default: false
       add :maker, :integer
       add :checker, :integer
-      add :maker_date_time, :naive_datetime
-      add :checker_date_time, :naive_datetime
-      add :user_description, :string
-      add :system_description, :string
     end
 
     alter table(:probase_tbl_luggage_tarrifs) do
-      add :auth_status, :integer, default: 0
+      add :auth_status, :boolean, default: false
       add :maker, :integer
       add :checker, :integer
-      add :maker_date_time, :naive_datetime
-      add :checker_date_time, :naive_datetime
-      add :user_description, :string
-      add :system_description, :string
     end
 
     alter table(:probase_tbl_market) do
-      add :auth_status, :integer, default: 0
+      add :auth_status, :boolean, default: false
       add :maker, :integer
       add :checker, :integer
-      add :maker_date_time, :naive_datetime
-      add :checker_date_time, :naive_datetime
-      add :user_description, :string
-      add :system_description, :string
     end
 
     alter table(:probase_tbl_market_section) do
-      add :auth_status, :integer, default: 0
+      add :auth_status, :boolean, default: false
       add :maker, :integer
       add :checker, :integer
-      add :maker_date_time, :naive_datetime
-      add :checker_date_time, :naive_datetime
-      add :user_description, :string
-      add :system_description, :string
     end
 
     alter table(:probase_tbl_market_section_shop) do
-      add :auth_status, :integer, default: 0
+      add :auth_status, :boolean, default: false
       add :maker, :integer
       add :checker, :integer
-      add :maker_date_time, :naive_datetime
-      add :checker_date_time, :naive_datetime
-      add :user_description, :string
-      add :system_description, :string
     end
 
     alter table(:probase_tbl_reports) do
-      add :auth_status, :integer, default: 0
+      add :auth_status, :boolean, default: false
       add :maker, :integer
       add :checker, :integer
-      add :maker_date_time, :naive_datetime
-      add :checker_date_time, :naive_datetime
-      add :user_description, :string
-      add :system_description, :string
     end
 
     alter table(:probase_tbl_terminus) do
-      add :auth_status, :integer, default: 0
+      add :auth_status, :boolean, default: false
       add :maker, :integer
       add :checker, :integer
-      add :maker_date_time, :naive_datetime
-      add :checker_date_time, :naive_datetime
-      add :user_description, :string
-      add :system_description, :string
     end
 
     alter table(:probase_tbl_travel_routes) do
-      add :auth_status, :integer, default: 0
+      add :auth_status, :boolean, default: false
       add :maker, :integer
       add :checker, :integer
-      add :maker_date_time, :naive_datetime
-      add :checker_date_time, :naive_datetime
-      add :user_description, :string
-      add :system_description, :string
     end
 
     alter table(:probase_tbl_users) do
-      add :auth_status, :integer, default: 0
+      add :auth_status, :boolean, default: false
       add :maker, :integer
       add :checker, :integer
-      add :maker_date_time, :naive_datetime
-      add :checker_date_time, :naive_datetime
-      add :user_description, :string
-      add :system_description, :string
     end
   end
 
