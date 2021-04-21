@@ -10,7 +10,7 @@ defmodule BusTerminalSystem.Repo.Migrations.Reports do
   end
 
   def down do
-
+    drop()
   end
 
   def drop do

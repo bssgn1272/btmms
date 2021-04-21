@@ -1,5 +1,6 @@
 defmodule BusTerminalSystemWeb.FrontendApiController do
   use BusTerminalSystemWeb, :controller
+  use PhoenixSwagger
 
   alias BusTerminalSystem.RepoManager
   alias BusTerminalSystem.ApiManager
@@ -7,8 +8,20 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   alias BusTerminalSystem.TicketManagement
   alias BusTerminalSystem.NapsaSmsGetway
   alias BusTerminalSystem.TicketManagement.Ticket
+  alias BusTerminalSystem.AccountManager.User
+  alias BusTerminalSystem.UserRole
 
   #---------------------------------------USER--------------------------------------------------------------------------
+
+  def swagger_definitions do
+    %{}
+  end
+
+  swagger_path :list_bus_operators do
+    get "/api/v1/users"
+    paging size: "page[size]", number: "page[number]"
+    response 200, "OK"
+  end
 
   def list_bus_operators(conn, _params) do
     operators = RepoManager.list_bus_operators()
@@ -18,16 +31,13 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
   def query_user_by_id(conn, params) do
 
-    user_id = params["user_id"]
+    user_id = params["selected_user"]
     case user_id do
       nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
       _ ->
         case user_id |> RepoManager.find_user_by_id do
           nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
           user ->
-
-            IO.inspect user
-
             conn
             |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_query,"SUCCESS",0,
               %{
@@ -36,6 +46,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
                 "last_name" => user.last_name,
                 "ssn" => user.ssn,
                 "nrc" => user.nrc,
+                "compliance" => user.compliance,
                 "email" => user.email,
                 "mobile" => user.mobile,
                 "company" => user.company,
@@ -50,7 +61,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     end
   end
 
-  def query_operator_by_id(conn, params) do
+  def find_operator(conn, params) do
 
     user_id = params["payload"]["operator_id"]
     case user_id do
@@ -86,8 +97,8 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   end
 
   def query_user(conn, params) do
-
-    user_id = params["payload"]["user_id"]
+    IO.inspect(params)
+    user_id = params["payload"]["selected_user"]
     case user_id do
       nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
       _ ->
@@ -95,7 +106,11 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
           nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
           user ->
 
-            IO.inspect user
+            try do
+              Cachex.put(:tmp, params["logged_in_user"], user.id) |> IO.inspect()
+            rescue
+              _ -> ""
+            end
 
             conn
             |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_query,"SUCCESS",0,
@@ -105,12 +120,15 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
                 "last_name" => user.last_name,
                 "ssn" => user.ssn,
                 "nrc" => user.nrc,
+                "compliance" => user.compliance,
                 "email" => user.email,
                 "mobile" => user.mobile,
                 "account_status" => user.account_status,
                 "uuid" => user.uuid,
-                "operator_role" => user.operator_role
-              }))
+                "operator_role" => user.operator_role,
+                "role_id" => user.role_id,
+                "role_name" => BusTerminalSystem.UserRoles.find(user.id).role
+              } |> IO.inspect()))
           _value ->
             IO.inspect _value
             json conn, ["hello"]
@@ -138,6 +156,8 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
     username = payload["username"]
 
+    IO.inspect params
+
     if username == nil do
       json(conn,ApiManager.api_error_handler(conn,ApiManager.definition_query,[
         "username can not be blank"
@@ -149,6 +169,16 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
           case username |> RepoManager.find_user_by_username do
             nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
             user ->
+              IO.inspect(user)
+              if params["role_id"] != "0" do
+                UserRole.find_or_create_by(user: user.id)
+                |> IO.inspect()
+                |> case do
+                     {:ok, user_role} -> user_role |> UserRole.update([role: params["role_id"]])
+                     _ -> ""
+                   end
+              end
+
               case RepoManager.update_user(user,payload) do
                 {:ok, user} ->
                   conn
@@ -165,8 +195,10 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
                       "account_status" => user.account_status,
                       "uuid" => user.uuid,
                       "operator_role" => user.operator_role,
-                      "account_status" => user.account_status
-                    }))
+                      "account_status" => user.account_status,
+                      "role_id" => user.role_id,
+                      "role_name" => BusTerminalSystem.UserRoles.find(user.role_id).role
+                    } |> IO.inspect()))
                 {:error, %Ecto.Changeset{} = changeset} ->
                   conn
                   |> json(ApiManager.api_error_handler(ApiManager.definition_accounts(),ApiManager.translate_error(changeset)))
@@ -339,7 +371,8 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
   def query_route(conn, params) do
     route_id = params["payload"]["route_id"]
-    conn |> json(RepoManager.route_by_id_json(1))
+    IO.inspect params
+    conn |> json(RepoManager.route_by_id_json(route_id))
   end
 
   def update_route_bus_route(conn, %{"payload" => %{ "route_id" => route_id } = payload} = params) do
@@ -347,7 +380,6 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     RepoManager.find_route_by_id(route_id)
     |> case do
          route ->
-
           RepoManager.update_route(route, payload)
           conn |> json(%{})
 
@@ -484,8 +516,6 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
       serial_number: ext_luggage_serial
     ])
 
-    IO.inspect(ticket_update)
-
     spawn(fn ->
       %{
         "refNumber" => reference_number,
@@ -621,6 +651,31 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
   #---------------------------------------TICKETS-----------------------------------------------------------------------
 
+  def update_ticket(conn, %{"ticket" => %{"id" => id}, "params" => params} = paramz) do
+    IO.inspect(paramz)
+    route = BusTerminalSystem.TravelRoutes.find_by([start_route: params["start_route"], end_route: params["end_route"]])
+    params = Map.put(params, "route", route.id)
+    BusTerminalSystem.TicketManagement.Ticket.find(id) |> case do
+      nil -> json(conn,  %{status: "FAILED", response: %{}})
+      ticket ->
+        {_, ticket} = BusTerminalSystem.TicketManagement.Ticket.update(ticket, params)
+        json(conn,  %{status: "SUCCESS", response: ticket |> Poison.encode!})
+    end
+  end
+
+  def cancel_ticket(conn, ticket_params) do
+    BusTerminalSystem.TicketManagement.Ticket.find(ticket_params["ticket_id"]) |> case do
+      nil -> json(conn,  %{status: "FAILED", response: %{}})
+      ticket ->
+        {_, ticket} = BusTerminalSystem.TicketManagement.Ticket.update(ticket, [activation_status: "CANCELED"])
+        spawn(fn ->
+          BusTerminalSystem.APIRequestMockup.send_disable(ticket.id |> to_string |> String.pad_leading(4,"0"))
+        end)
+        json(conn,  %{status: "SUCCESS", response: ticket |> Poison.encode!})
+    end
+
+  end
+
   def create_virtual_luggage_ticket(conn, ticket_params) do
     IO.inspect("---------------------------VIRTUAL------------------------------------------------------")
     route = BusTerminalSystem.TravelRoutes.find_by([start_route: Map.fetch!(ticket_params, "source"), end_route: Map.fetch!(ticket_params, "destination")])
@@ -646,6 +701,56 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
         conn
         |> json(%{})
     end
+  end
+
+
+#  ---------------------- Discounts ------------------------------------
+
+  def discount_operator(conn, %{ "id" => operator_id } = params) do
+    json(conn, BusTerminalSystem.AccountManager.User.find(operator_id) |> Poison.encode!())
+  end
+
+  def enable_discount(conn, %{ "id" => operator_id, "status" => discount_status } = params) do
+    operator = BusTerminalSystem.AccountManager.User.find(operator_id)
+    status = (fn state, saved_state -> if state == "true", do: false, else: true end)
+    operator |> BusTerminalSystem.AccountManager.User.update([apply_discount: status.(discount_status, operator.apply_discount)])
+    |> case do
+         {_, operator} -> json(conn, operator |> Poison.encode!())
+    end
+  end
+
+  def set_discount(conn, %{ "id" => operator_id, "discount" => discount_value, "discount_reason" => discount_reason } = params) do
+    bus_operator = BusTerminalSystem.AccountManager.User.find(operator_id)
+    reason = (fn d_reason, op -> if d_reason == "", do: op.discount_reason, else: d_reason end)
+     BusTerminalSystem.AccountManager.User.update(bus_operator, [discount_amount: discount_value, discount_reason: reason.(discount_reason, bus_operator)])
+    |> case do
+         {_, operator} -> json(conn, operator |> Poison.encode!())
+       end
+
+  end
+
+  def minimum_route_price(conn, _params) do
+    json(conn, %{threshold: BusTerminalSystem.TravelRoutes.min(:route_fare)})
+  end
+
+  def add_beneficiary(conn, params) do
+    conn |> json(add_to_list( params["member_id"], params["beneficiary"]))
+  end
+
+  def list_beneficiaries(conn, params) do
+    conn |> json(Cachex.get!(:tmp, params["member_id"]) || [])
+  end
+
+  def clear_beneficiaries(conn, params) do
+    Cachex.put!(:tmp, params["member_id"], [])
+    conn |> json(Cachex.get!(:tmp, params["member_id"]) || [])
+  end
+
+  def add_to_list(id, map) do
+    Cachex.put(:tmp, id, ((Cachex.get!(:tmp, id) || []) ++ [map]))
+    Cachex.put(:tmp, id, (Cachex.get!(:tmp, id) |> Enum.uniq()))
+    Cachex.expire(:my_cache, "key", :timer.seconds(120))
+    Cachex.get!(:tmp, id)
   end
 
 end

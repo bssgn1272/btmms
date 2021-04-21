@@ -5,9 +5,12 @@ defmodule BusTerminalSystemWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
-    plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug(BusTerminalSystemWeb.Plugs.SetUser)
+  end
+
+  pipeline :csrf do
+    plug :protect_from_forgery
   end
 
   # Our pipeline implements "maybe" authenticated. We'll use the `:ensure_auth` below for when we need to make sure someone is logged in.
@@ -24,15 +27,23 @@ defmodule BusTerminalSystemWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/", BusTerminalSystemWeb do
+    pipe_through [:browser]
+
+    match :*, "/btmms/service/user/management", UserManagementController, :redirect
+
+  end
+
   # Maybe logged in routes
   scope "/", BusTerminalSystemWeb do
-    pipe_through [:browser, :auth]
+    pipe_through [:browser, :auth, :csrf]
 
     # PAGE_CONTROLLER
     get "/platform/secure/commercial/services/management/dashboard", PageController, :index
 
     # USER_CONTROLLER
     resources "/platform/secure/commercial/services/users/management", UserController
+    post "/platform/secure/commercial/services/users/register", UserController, :new_user
     get "/platform/secure/v1/json/commercial/services/users", UserController, :all_users_json
     get "/platform/secure/v1/commercial/services/users", UserController, :table_users
     get "/Registration_Form", UserController, :registration_form
@@ -43,6 +54,7 @@ defmodule BusTerminalSystemWeb.Router do
     get "/Create_Bus_Station", BusTerminusController, :form_station
     get "/Assign_Gate", BusTerminusController, :form_gate
     get "/bus_approval", BusTerminusController, :bus_approval
+    get "/bus/register", BusTerminusController, :register
 
     # MARKETER_CONTROLLER_______________________________________________________________________________________
     resources "/platform/secure/commercial/services/marketer/market", MarketerController
@@ -86,6 +98,17 @@ defmodule BusTerminalSystemWeb.Router do
     get "/bookings", BookingsController, :index
     get "/scheduling", BookingsController, :schedule
     post "/create_mapping", BookingsController, :create_schedule
+
+    # USER_MANAGEMENT_AND_AUTHORIZATION
+
+
+
+
+    scope "/Checker" do
+      get "/", MakerCheckerController, :index
+      post "/reject", MakerCheckerController, :reject
+      post "/approve", MakerCheckerController, :approve
+    end
   end
 
   scope "/", BusTerminalSystemWeb do
@@ -108,9 +131,20 @@ defmodule BusTerminalSystemWeb.Router do
     forward "/", Absinthe.Plug,
             schema: BusTerminalSystemWeb.Schema
   end
+
+  scope "/btmms/api/napsa", BusTerminalSystemWeb do
+    pipe_through :api
+
+    match :*, "/contributions", NapsaController, :contribute
+    match :*, "/contributions/returns", NapsaController, :return_upload
+    match :*, "/member/search", NapsaController, :search_member
+
+  end
   # Other scopes may use custom stacks.
   scope "/api/v1", BusTerminalSystemWeb do
     pipe_through :api
+
+    post "/btms/Dashboard/Checker/View", MakerCheckerController, :view
 
     post "/btms/tickets/secured/board_ticket", TicketController, :ticket_board_passenger
     post "/btms/tickets/secured/submit_ledger_transaction", TicketController, :transaction_post_to_ledger
@@ -119,6 +153,7 @@ defmodule BusTerminalSystemWeb.Router do
     post "/btms/tickets/secured/find/serial", TicketController, :find_ticket_serial
     post "/btms/tickets/secured/purchase", TicketController, :purchase_ticket
     get "/btms/travel/secured/destinations", TicketController, :get_schedules
+    post "/btms/travel/secured/cancel_trip", TicketController, :cancel_trip
     post "/btms/travel/secured/internal/destinations", TicketController, :get_schedules_internal
     get "/btms/tickets/secured/internal/get_luggage_weight", TicketController, :get_luggage_weight
     post "/btms/operator/reset_password", FrontendApiController, :reset_password
@@ -134,7 +169,8 @@ defmodule BusTerminalSystemWeb.Router do
 
     post "/btms/plvPM5f+H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hICn", TicketController, :create_ticket_payload
 
-    get "/btms/travel/secured/routes", TicketController, :get_travel_routes
+    match :*, "/btms/travel/secured/routes", TicketController, :get_travel_routes
+
     get "/btms/tickets/secured/list", TicketController, :list_tickets
 
 
@@ -160,7 +196,6 @@ defmodule BusTerminalSystemWeb.Router do
     get "/internal/list/bus_operators", FrontendApiController, :list_bus_operators
     post "/internal/query/user", FrontendApiController, :query_user
     post "/internal/query/user/id", FrontendApiController, :query_user_by_id
-    post "/internal/query/operator", FrontendApiController, :query_operator_by_id
     post "/internal/update/user", FrontendApiController, :update_user
     post "/internal/query/bus", FrontendApiController, :query_bus
     post "/internal/update/bus", FrontendApiController, :update_bus
@@ -171,23 +206,61 @@ defmodule BusTerminalSystemWeb.Router do
     post "/internal/get_luggage_by_ticket_id_total_cost", FrontendApiController, :get_luggage_by_ticket_total_cost
     post "/internal/add_luggage", FrontendApiController, :add_luggage
     post "/internal/checkin", FrontendApiController, :checkin_passenger
+    post "/internal/tickets/cancel", FrontendApiController, :cancel_ticket
+    post "/internal/tickets/update", FrontendApiController, :update_ticket
+
+    post "/internal/napsa/add_member_beneficiary", FrontendApiController, :add_beneficiary
+    post "/internal/napsa/clear_member_beneficiaries", FrontendApiController, :clear_beneficiaries
+
+    post "/internal/discounts/operator", FrontendApiController, :discount_operator
+    post "/internal/discounts/enable", FrontendApiController, :enable_discount
+    post "/internal/discounts/set", FrontendApiController, :set_discount
+    get "/internal/routes/threshold", FrontendApiController, :minimum_route_price
 
     post "/internal/markets", FrontendApiController, :modules
   end
 
+  # Maker checker implementation
+  scope "/authorisation", BusTerminalSystemWeb do
+    pipe_through :browser
+    get "/btms", MakerCheckerController, :index
+  end
+
+  scope "/api/swagger" do
+    forward "/", PhoenixSwagger.Plug.SwaggerUI, otp_app: :bus_terminal_system, swagger_file: "swagger.json"
+  end
+
   def swagger_info do
     %{
+      schemes: ["http"],
       info: %{
         version: "1.0",
-        title: "BTMS",
+        title: "BTMMS",
+        description: "API Documentation for BTMMS v1",
+        termsOfService: "Open for public",
         contact: %{
           name: "Philip Chani",
           email: "philip@probasegroup.com"
         }
       },
-      definitions: %{
-        "/pets": %{}
-      }
+      consumes: ["application/json"],
+      produces: ["application/json"],
+      tags: [
+        %{name: "Users", description: "User resources"},
+      ]
     }
   end
+
+#  def swagger_info() do
+#    %{
+#      info: %{
+#        version: "1.0",
+#        title: "BTMMS",
+#        contact: %{
+#          name: "Philip Chani",
+#          email: "philip@probasegroup.com"
+#        }
+#      }
+#    }
+#  end
 end

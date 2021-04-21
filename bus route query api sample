@@ -1,0 +1,78 @@
+
+Request
+
+
+{
+    "end_route": "Lusaka"
+}
+
+
+Response
+
+{
+            "ID": 209,
+            "CreatedAt": "2020-12-01T19:36:28.976Z",
+            "UpdatedAt": "2020-12-01T19:36:28.976Z",
+            "DeletedAt": null,
+            "slot": "slot_one",
+            "res_uuid": "7e05d2e6-b0bf-4efd-bd70-f1db9564e63f",
+            "reservation_status": "A",
+            "ed_bus_route_id": 15,
+            "user_id": 6,
+            "bus_id": 6,
+            "time": "11:00",
+            "reserved_time": "2020-12-02T20:00:00Z",
+            "cancellation_reason": "",
+            "ed_bus_route": {
+                "ID": 15,
+                "CreatedAt": "2020-12-01T19:36:29Z",
+                "UpdatedAt": "2020-12-01T19:36:29Z",
+                "DeletedAt": null,
+                "end_route": "Lusaka",
+                "start_route": "Livingstone",
+                "route_code": "LVLSK",
+                "route_fare": 1,
+                "route_name": "Livingstone Lusaka",
+                "route_uuid": "ksdkjshdksj",
+                "source_state": "Livingstone",
+                "Parent": 0,
+                "sub_routes": [
+                    {
+                        "ID": 30,
+                        "CreatedAt": "2020-12-01T19:36:29Z",
+                        "UpdatedAt": "2020-12-01T19:36:29Z",
+                        "DeletedAt": null,
+                        "end_route": "CHOMA",
+                        "order": 1,
+                        "route_name": "LIVINGSTONE CHOMA",
+                        "route_fair": 0,
+                        "route_uuid": "UdSRDauS2w2RZMJj",
+                        "source_slate": "",
+                        "start_route": "Livingstone",
+                        "ed_bus_route_id": 15
+                    },
+                    {
+                        "ID": 31,
+                        "CreatedAt": "2020-12-01T19:36:29Z",
+                        "UpdatedAt": "2020-12-01T19:36:29Z",
+                        "DeletedAt": null,
+                        "end_route": "Batoka",
+                        "order": 2,
+                        "route_name": "Livingstone Batoka",
+                        "route_fair": 0,
+                        "route_uuid": "DqHu87ZbMHXrZXsK",
+                        "source_slate": "",
+                        "start_route": "Livingstone",
+                        "ed_bus_route_id": 15
+                    }
+                ]
+            },
+            "EdSlotMapping": {
+                "ID": 0,
+                "CreatedAt": "0001-01-01T00:00:00Z",
+                "UpdatedAt": "0001-01-01T00:00:00Z",
+                "DeletedAt": null,
+                "slot": "",
+                "gate": ""
+            }
+        }

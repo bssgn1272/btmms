@@ -480,10 +480,39 @@ defmodule BusTerminalSystem.RepoManager do
 
   def get_route_mapping(id), do: Repo.get!(RouteMapping, id)
   def get_route(id), do: Repo.get!(TravelRoutes, id)
-  def list_routes(), do: Repo.all(TravelRoutes)
+#  def list_routes(), do: Repo.all(TravelRoutes)
+  def list_routes() do
+    TravelRoutes.where(auth_status: true)
+  end
   def list_schedules(), do: Repo.all(RouteMapping)
   def list_ed_schedules(), do: Repo.all(TblEdReservations)
-  def create_route(attrs \\ %{}), do: %TravelRoutes{} |> TravelRoutes.changeset(attrs) |> Repo.insert()
+#  def create_route(attrs \\ %{}), do: %TravelRoutes{} |> TravelRoutes.changeset(attrs) |> Repo.insert()
+  def create_route(conn, payload) do
+    IO.inspect payload, label: "payload data"
+    TravelRoutes.create(
+            route_name: payload["route_name"],
+            start_route: "Livingstone",
+            end_route: payload["end_route"],
+            route_code: payload["route_code"],
+            source_state: payload["source_state"],
+            route_uuid: payload["route_uuid"],
+            route_fare: (payload["route_fare"] |> String.to_integer),
+            auth_status: false,
+            parent: (payload["parent_route"] |> String.to_integer),
+            maker: conn.assigns.user.id,
+            checker: nil,
+            maker_date_time: Timex.now() |> NaiveDateTime.truncate(:second) |> Timex.to_naive_datetime(),
+            checker_date_time: nil ,
+            user_description: payload["user_description"],
+            system_description: "Request to approve a route. request created by: #{conn.assigns.user.username}. on: #{Timex.today()}"
+    )
+    |> case  do
+         {:ok, _}->
+           {:ok, "route created successfully"}
+         {:error, error}->
+            {:error, error}
+       end
+  end
   def delete_route(%TravelRoutes{} = route), do: Repo.delete(route)
 
   #---------------------------------------------------------------------------------------------------------------------
@@ -570,7 +599,9 @@ defmodule BusTerminalSystem.RepoManager do
   def list_routes_json() do
     {status, travel_routes} = Repo.all(TravelRoutes) |> Poison.encode()
     {decode_status, routes_map} = JSON.decode(travel_routes)
-    %{ "travel_routes" => routes_map }
+    %{
+      "travel_routes" => routes_map
+    }
   end
 
   def route_search(start_route,end_route) do
@@ -681,7 +712,119 @@ defmodule BusTerminalSystem.RepoManager do
     Utility.string_to_int(capacity) - ticket_count
   end
 
+  defp merge_routes(reserve_list) do
+
+    Enum.map(reserve_list, fn schedule ->
+
+      route_uid = schedule["ID"]
+      bus = BusTerminalSystem.BusManagement.Bus.find(schedule["bus_id"])
+      capacity = bus.vehicle_capacity
+      seats = available_seats(capacity,schedule_ticket_count(Utility.int_to_string(route_uid)))
+
+#      IO.inspect(seats, label: "SEATS")
+
+      if seats >= 1 do
+
+        operator = BusTerminalSystem.AccountManager.User.find(schedule["user_id"])
+
+        route = BusTerminalSystem.TravelRoutes.find_by([route_code: schedule["ed_bus_routes"]["route_code"]])
+        queried_route = get_route_by_route_code(schedule["ed_bus_routes"]["route_code"])
+
+        fare = queried_route.route_fare
+        time = schedule["time"]
+        date = schedule["reserved_time"]
+        slot = schedule["slot"]
+
+
+
+        start_route = (fn operator_a, route_a, fare_a, time_a, date_a, slot_a, capacity_a, route_uid_a, bus_a  ->
+          if seats >= 1 do
+            %{
+              "available_seats" => available_seats(capacity_a, schedule_ticket_count(Utility.int_to_string(route_uid))),
+              "bus_schedule_id" => route_uid_a |> to_string,
+              "route" => route_a |> Poison.encode! |> Poison.decode!,
+              "root_route" => route_a |> Poison.encode! |> Poison.decode!,
+              "bus" => bus_a |> Poison.encode! |> Poison.decode!,
+              "fare" => fare_a,
+              "slot" => slot_a,
+              "discount_amount" => operator_a.discount_amount || 0,
+              "discount_status" => operator_a.apply_discount || 0,
+              "departure_time" => time_a,
+              "departure_date" => date_a
+            }
+          else
+            %{}
+          end
+
+        end)
+
+        start_route = start_route.(operator, route, fare, time, date, slot, capacity, route_uid, bus)
+
+
+          subroutes = Enum.map(schedule["ed_bus_routes"]["sub_routes"], fn sub_route ->
+            if seats >= 1 do
+              %{
+                "available_seats" => seats,
+                "bus_schedule_id" => route_uid |> to_string,
+                "route" => sub_route,
+                "root_route" => BusTerminalSystem.TravelRoutes.find_by([route_code: sub_route["route_code"]]) |> Poison.encode! |> Poison.decode!,
+                "bus" => bus |> Poison.encode! |> Poison.decode!,
+                "fare" => fare,
+                "slot" => slot,
+                "discount_amount" => operator.discount_amount || 0,
+                "discount_status" => operator.apply_discount || 0,
+                "departure_time" => time,
+                "departure_date" => date
+              }
+            end
+          end) |> List.flatten()
+
+          routes = subroutes ++ [start_route]
+
+          routes |> List.flatten()
+
+
+      end
+
+
+
+    end) |> List.flatten()
+  end
+
+  defp routes_request(end_route) do
+
+#    case HTTPoison.get("http://10.70.3.55:4200/main/api/destinations/#{BusTerminalSystem.TravelRoutes.find_by([start_route: "Livingstone", end_route: end_route]).route_code}") do
+    case HTTPoison.get("http://10.10.1.88:4200/main/api/destinations/#{BusTerminalSystem.TravelRoutes.find_by([start_route: "Livingstone", end_route: end_route]).route_code}") do
+      {status, %HTTPoison.Response{body: body, status_code: status_code}} ->
+        try do
+          response = body |> Poison.decode! |> IO.inspect
+          response["data"]
+        rescue
+          _ -> %{}
+        end
+
+      {_status, %HTTPoison.Error{reason: reason}} ->
+        %{"message" => reason}
+    end
+  end
+
+#  BusTerminalSystem.RepoManager.route_mapping_by_location_eye_d
+
   def route_mapping_by_location_internal(date \\ "01/01/2019", start_route \\ "Livingstone", end_route) do
+
+      schedule = routes_request(end_route) |> merge_routes()
+
+      if Enum.empty?(schedule) == true do
+        {:ok, agent} = Agent.start_link fn  -> [] end
+        {:ok, agent, [] }
+      else
+        {:ok, agent} = Agent.start_link fn  -> [] end
+        {:ok, agent, schedule }
+      end
+
+  end
+
+  def route_mapping_by_location_internal_v1(date \\ "01/01/2019", start_route \\ "Livingstone", end_route) do
     IO.inspect "DATE: #{date}"
     {:ok, agent} = Agent.start_link fn  -> [] end
 
@@ -781,10 +924,29 @@ defmodule BusTerminalSystem.RepoManager do
       {:ok, capacity} = Map.fetch(bus,"vehicle_capacity")
       IO.inspect Utility.string_to_int(capacity)
 
-      {:ok, route_id} = Map.fetch(e,"route")
+      route_id = Map.fetch!(e,"route")
       {route_id_int, _route_id_string} = Integer.parse(route_id)
       {route_json_status, route_json} = get_route(route_id_int) |> Poison.encode
       {route_status, route} = JSON.decode(route_json)
+
+       stops = Enum.map(BusTerminalSystem.TravelRoutes.all(), fn route ->
+#        for found_route <- 1..BusTerminalSystem.TravelRoutes.count() do
+          try do
+#            if route_id == 1 do
+#              if BusTerminalSystem.TravelRoutes.find_by([parent: route_id]).parent == route.id and BusTerminalSystem.TravelRoutes.find_by([parent: route_id]) != route do
+#                route |> Poison.encode!
+#              end
+#            else
+              if BusTerminalSystem.TravelRoutes.find_by([parent: route.id]).parent == route_id and BusTerminalSystem.TravelRoutes.find_by([parent: route.id]) != route do
+                route |> Poison.encode!
+              end
+#            end
+
+          rescue
+            _ -> nil
+          end
+#        end
+      end) |> List.flatten() |> Enum.filter(& !is_nil(&1)) |> IO.inspect(label: "TREE")
 
       queried_route = get_route(route_id_int)
 
@@ -796,7 +958,8 @@ defmodule BusTerminalSystem.RepoManager do
       {:ok, date} = Map.fetch(e,"reserved_time")
       {:ok, slot} = Map.fetch(e,"slot")
 
-      IO.inspect "start route #{queried_route.start_route} : end route #{queried_route.end_route}"
+#      IO.inspect "start route #{queried_route.start_route} : end route #{queried_route.end_route}"
+      route_stops = stops(route_id, []) |> Enum.sort_by( fn(r) -> r["order"] end)
       if queried_route.start_route == start_route and queried_route.end_route == end_route do
         Agent.update(agent, fn list -> [
            %{
@@ -805,6 +968,7 @@ defmodule BusTerminalSystem.RepoManager do
              "route" => route,
              "bus" => bus,
              "fare" => fare,
+             "route_stops" => route_stops,
              "slot" => slot,
              "departure_time" => time,
              "departure_date" => date
@@ -815,6 +979,26 @@ defmodule BusTerminalSystem.RepoManager do
     end)
 
     {:ok, agent, Agent.get(agent, fn list -> list end) }
+  end
+
+  def stops(r_id, result) do
+    r = BusTerminalSystem.TravelRoutes.find_by([parent: r_id])
+    if r == nil do
+      result
+    else
+      result = [ %{
+        "route_name" => r.route_name,
+        "start_route" => r.start_route,
+        "end_route" => r.end_route,
+        "route_code" => r.route_code,
+        "route_fare" => r.route_fare,
+        "route_uuid" => r.route_uuid,
+        "source_state" => r.source_state,
+        "order" => r.parent
+       } | result]
+      IO.inspect(result)
+      stops(r.id, result)
+    end
   end
 
   def route_mapping_by_location_(date \\ "01/01/2019", start_route \\ "Livingstone", end_route) do

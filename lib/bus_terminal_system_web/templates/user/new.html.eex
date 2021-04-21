@@ -31,11 +31,23 @@
                                                 <option value="4">Unassigned Operator</option>
                                                 <option value="ADMIN">Administrator</option>
                                                 <option value="BOP">Bus Operator</option>
+                                                <option value="BOP">Flex Bus Operator</option>
                                                 <option value="MOP">Marketeer</option>
                                                 <option value="TOP">Teller</option>
-                                                <option value="TOP">Support</option>
+                                                <option value="CCOP">Customer Care</option>
+                                                <option value="CCOP">Agent</option>
+                                                <option value="SADMIN">Super Manager</option>
                                             </select>
+                                    </div>
 
+                                    <div class="form-group" hidden>
+                                        <label class="control-label">User Access Role:</label>
+                                        <select name="payload[role_id]" class="form-control" >
+                                            <option value="0">Select Access Role</option>
+                                            <%= for role <- BusTerminalSystem.UserRoles.all do %>
+                                            <option value="<%= role.id %>"><%= role.role %></option>
+                                            <% end %>
+                                        </select>
                                     </div>
 
                                     <div class="form-group">
@@ -45,7 +57,7 @@
                                         <input type="hidden" name="payload[pin]" value="<%= BusTerminalSystem.Randomizer.randomizer(5,:numeric)%>">
                                         <input type="hidden" name="payload[account_status]" value="ACTIVE">
                                         <input type="hidden" name="payload[operator_role]" value="UNDEFINED">
-                                        <input type="hidden" name="payload[ssn]" value="-">
+                                        <input type="hidden" name="payload[dob]" value="<%= (@napsa_user["dob"] || "") %>">
                                     </div>
 
                                     <div class="form-group">
@@ -59,12 +71,12 @@
 
                                     <div class="form-group" id="user_first_name" >
                                           <label>First Name:</label>
-                                          <input name="payload[first_name]"  class="form-control" placeholder="Enter First Name" type="text">
+                                          <input name="payload[first_name]"  class="form-control" readonly value="<%= (@napsa_user["firstName"] || "") %>" placeholder="Enter First Name" type="text">
                                     </div>
 
                                     <div class="form-group" id="user_last_name" >
                                           <label>Last Name:</label>
-                                          <input name="payload[last_name]"  class="form-control" placeholder="Enter Last Name" type="text">
+                                          <input name="payload[last_name]"  class="form-control" readonly value="<%= (@napsa_user["lastName"] || "") %>" placeholder="Enter Last Name" type="text">
                                     </div>
 
                                     <div class="form-group" id="user_last_name" >
@@ -74,7 +86,17 @@
 
                                     <div class="form-group">
                                           <label>NRC:</label>
-                                          <input name="payload[nrc]" class="form-control" required placeholder="Enter Nrc Number" type="text">
+                                          <input name="payload[nrc]" class="form-control" required readonly value="<%= (@napsa_user["nrc"] || "") %>" placeholder="Enter Nrc Number" type="text">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>SSN:</label>
+                                        <input name="payload[ssn]" class="form-control" required readonly value="<%= @napsa_user["ssn"] %>" placeholder="Enter SSN Number" type="text">
+                                    </div>
+
+                                    <div class="form-group" id="user_employer_number">
+                                        <label>Employer Number:</label>
+                                        <input name="payload[employer_number]" class="form-control" required readonly value="" placeholder="Enter Employer Number" type="text">
                                     </div>
 
                                     <div class="form-group">

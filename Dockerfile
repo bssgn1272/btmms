@@ -54,3 +54,4 @@ COPY --from=build /app/_build/prod/rel/bus_terminal_system ./
 ENV HOME=/app
 
 CMD ["bin/bus_terminal_system", "start"]
+

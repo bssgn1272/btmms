@@ -4,7 +4,16 @@ defmodule BusTerminalSystem.AccountManager.User do
   import Ecto.Changeset
   # alias Argon2
 
-  @derive {Poison.Encoder,only: [:id,:account_type,:username,:first_name,:last_name,:ssn,:nrc,:email,:mobile,:account_status,:operator_role,:role,:company,:account_number]}
+  @db_columns [:username, :password, :first_name, :last_name, :ssn, :role, :nrc, :email, :mobile, :account_number, :tel, :uuid, :account_status, :operator_role,
+    :pin, :tmp_pin, :company, :auth_status, :maker, :checker, :maker_date_time, :checker_date_time, :user_description, :system_description, :role_id, :apply_discount,
+    :discount_amount, :discount_reason, :compliance, :employer_number, :dob]
+
+  @validate_columns [:username, :account_number, :nrc, :mobile, :ssn, :password, :role, :account_status, :operator_role]
+
+  @derive {Poison.Encoder,only: [:id,:account_type,:username,:first_name,:last_name,:ssn,:nrc,:email,:mobile,:account_status,:operator_role,:role,:company,:account_number, :compliance,
+  :auth_status, :maker, :checker, :maker_date_time,:checker_date_time, :role_id, :user_description, :system_description, :role_id, :apply_discount, :discount_amount, :discount_reason,
+  :employer_number, :dob ]}
+
   schema "probase_tbl_users" do
     field :password, :string
     field :username, :string
@@ -24,9 +33,20 @@ defmodule BusTerminalSystem.AccountManager.User do
     field :company, :string
     field :account_number, :string
     field :account_type, :string
+    field :auth_status, :boolean, default: false
     field :maker, :integer
     field :checker, :integer
-    field :auth_status, :boolean
+    field :maker_date_time, :naive_datetime
+    field :checker_date_time, :naive_datetime
+    field :user_description, :string
+    field :system_description, :string
+    field :role_id, :string
+    field :apply_discount, :boolean
+    field :discount_amount, :float
+    field :discount_reason, :string
+    field :compliance, :boolean
+    field :employer_number, :string
+    field :dob, :string
 
     timestamps()
   end
@@ -34,36 +54,8 @@ defmodule BusTerminalSystem.AccountManager.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [
-      :username,
-      :password,
-      :first_name,
-      :last_name,
-      :ssn,
-      :role,
-      :nrc,
-      :email,
-      :mobile,
-      :account_number,
-      :tel,
-      :uuid,
-      :account_status,
-      :operator_role,
-      :pin,
-      :tmp_pin,
-      :company
-    ])
-    |> validate_required([
-      :username,
-      :account_number,
-      :nrc,
-      :mobile,
-      :ssn,
-      :password,
-      :role,
-      :account_status,
-      :operator_role
-    ])
+    |> cast(attrs, @db_columns)
+    |> validate_required(@validate_columns)
     # |> unique_constraint([:ssn])
     |> put_password_hash()
     |> harsh_password_pin()
@@ -80,4 +72,7 @@ defmodule BusTerminalSystem.AccountManager.User do
   defp put_password_hash(changeset), do: changeset
 
   defp harsh_password_pin(changeset), do: changeset
+
+#  BusTerminalSystemWeb.UserManagementController.search_permission(@user.id, 100)
+
 end

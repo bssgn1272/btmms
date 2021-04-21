@@ -1,6 +1,8 @@
 <component name="libraryTable">
   <library name="db_connection" type="mix">
-    <CLASSES />
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/db_connection/ebin" />
+    </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="file://$PROJECT_DIR$/deps/db_connection/lib" />

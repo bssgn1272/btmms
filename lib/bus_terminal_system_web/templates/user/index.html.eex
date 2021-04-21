@@ -67,13 +67,15 @@
         .button:hover {background-color: seagreen;}
         td {text-align: center;}
         th {color: maroon; text-decoration-line: underline;}
+         <h1 style="text-align:center; color:blue; text-decoration:underline;"><strong>DASHBOARD</strong></h1><hr style="border-top: 1px solid orange;">
         */
 </style>
 
 <!--############# ADMIN ################-->
-<%= if @user.role == "ADMIN" do %>
-    <h1 style="text-align:center; color:blue; text-decoration:underline;"><strong>DASHBOARD</strong></h1><hr style="border-top: 1px solid orange;">
-    <div class="timeline timeline-left content-group" style="margin-top: 2%;">
+<%= if @user.role == "ADMIN" or @user.role == "SADMIN" do %>
+
+    <div onload="admin_container()" id="dashboard_container" class="timeline timeline-left content-group" style="margin-top: 2%;">
+        <input type="text" value="<%= @user.role %>" hidden class="form-control"  id="dashboard_container_id">
         <div class="timeline-container">
 
             <div class="timeline-row">
@@ -344,7 +346,7 @@
                     </div>
                 </div>
 
-            <div class="row">
+                <div class="row">
                 <div class="col-lg-6">
                     <div class="panel border-left-lg border-left-danger invoice-grid timeline-content">
                         <div class="panel-body">
@@ -398,8 +400,14 @@
 <% end %>
 <!--############# ADMIN ################-->
 
+<form hidden id="new_user_redirect_form" method="post" action="<%= Routes.user_path(@conn, :new_user) %>">
+    <div class="form-group">
+        <input type="text" hidden class="form-control" name="napsa_member" id="napsa_member">
+        <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+    </div>
+</form>
+
 <!--########################### NAPSA SEARCH ###########################-->
-<!-- NEW MARKETEER MODAL -->
   <div class="modal fade" id="regSystemUser" role="dialog">
     <div class="modal-dialog">
 
@@ -410,18 +418,14 @@
           <hr>
         </div>
         <div class="modal-body">
-          <form action="/action_page.php">admin
+          <div>
+
               <div class="form-group">
-                <label for="ssn">SSN:</label>
-                <input type="number" class="form-control" id="ssn" placeholder="Social Security Number">
-                <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                <label for="nrc">National ID:</label>
+
+                <input type="text" oninput="search_napsa_member()" class="form-control" id="napsa_search_id" placeholder="Enter ID here">
               </div>
-              <div class="form-group">
-                <label for="nrc">NRC:</label>
-                <input type="text" class="form-control" id="nrc" placeholder="National Registration Card Number">
-              </div>
-              <%= link "Search", to: Routes.user_path(@conn, :new), class: "w3-btn w3-indigo w3-hover-orange w3-round" %>
-            </form>
+            </div>
         </div>
         <hr>
         <div class="modal-footer">
@@ -434,8 +438,306 @@
 <!-- END -->
 <!--########################### NAPSA SEARCH ###########################-->
 
+    <!--########################### REGISTER NAPSA USER ###########################-->
+    <div class="modal fade" id="register_napsa_member" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title">Register Napsa Member</h5>
+                </div>
+
+                <!-- Profile info -->
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h6 class="panel-title"></h6>
+                        <div class="heading-elements">
+
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+
+
+                        <div class="row">
+
+                            <div class="col-md-6" style="padding: 10px">
+
+                                <div class="row">
+                                    <fieldset>
+
+                                        <legend class="text-semibold"><i class="icon-reading position-left"></i> MEMBER DETAILS</legend>
+
+                                        <div>
+                                            <label>First Name</label>
+                                            <input type="text" id="member_first_name" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Middle Name</label>
+                                            <input type="text" id="member_middel_name" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Last Name</label>
+                                            <input type="text" id="member_last_name" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Email</label>
+                                            <input type="text" id="member_email" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Mobile</label>
+                                            <input type="text" id="member_mobile" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>National ID</label>
+                                            <input type="text" id="member_national_id" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Title</label>
+                                            <input type="text" id="member_title" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Date of Birth</label>
+                                            <input type="text" id="member_dob" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Gender</label>
+                                            <input type="text" id="member_gender" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Marital Status</label>
+                                            <input type="text" id="member_marital_status" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Date Joined</label>
+                                            <input type="text" id="member_date_joined" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Member Fax</label>
+                                            <input type="text" id="member_fax" value="" class="form-control">
+                                        </div>
+
+                                    </fieldset>
+                                </div>
+
+                                <div class="row">
+                                    <fieldset>
+                                        <legend class="text-semibold"><i class="icon-reading position-left"></i> ADDRESS</legend>
+
+                                        <div>
+                                            <label>Address Line 1</label>
+                                            <input type="text" id="member_address_line1" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Address Line 2</label>
+                                            <input type="text" id="member_address_line2" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Address Line 3</label>
+                                            <input type="text" readonly id="member_address_line3" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Address Line 4</label>
+                                            <input type="text" id="member_address_line4" value="" class="form-control">
+                                        </div>
+
+                                    </fieldset>
+                                </div>
+
+                                <div class="row">
+                                    <fieldset>
+                                        <legend class="text-semibold"><i class="icon-reading position-left"></i> POSTAL INFORMATION</legend>
+
+                                        <div>
+                                            <label>Postal Address Line 1</label>
+                                            <input type="text" id="member_postal_address_line1" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Postal Address Line 2</label>
+                                            <input type="text" id="member_postal_address_line2" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Postal Address Line 3</label>
+                                            <input type="text" id="member_postal_address_line3" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Postal Address Line 4</label>
+                                            <input type="text" id="member_postal_address_line4" value="" class="form-control">
+                                        </div>
+
+                                    </fieldset>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6" style="padding: 10px">
+
+                                <div class="row">
+                                    <fieldset>
+
+                                        <legend class="text-semibold"><i class="icon-reading position-left"></i> PARENTS</legend>
+
+                                        <div>
+                                            <label>Father Username</label>
+                                            <input type="text" id="member_father_surname" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Father First Name</label>
+                                            <input type="text" id="member_father_first_name" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Mother Username</label>
+                                            <input type="text" id="member_mother_surname" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Mother First Name</label>
+                                            <input type="text" id="member_mother_first_name" value="" class="form-control">
+                                        </div>
+
+                                    </fieldset>
+                                </div>
+
+                                <div class="row">
+                                    <fieldset>
+
+                                        <legend class="text-semibold"><i class="icon-reading position-left"></i> BENEFICIARIES </legend>
+
+                                        <div class="input-group">
+
+                                            <div class="form-group" id="" style="margin-right: 5px;">
+                                                <label>Saved Beneficiaries</label>
+                                                <select id="member_bene_members" class="w3-select w3-border" name="">
+                                                    <option value="" disabled selected>No Beneficiaries:</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="input-group-btn" style="height: 50%;">
+                                                <button onClick="add_beneficiary()"  class="btn btn-primary" style="height: 50%;"> Add </button>
+                                            </div>
+
+                                            <div class="input-group-btn" style="height: 50%;">
+                                                <button class="btn btn-primary" style="height: 50%;"> Remove </button>
+                                            </div>
+
+                                            <div class="input-group-btn" style="height: 50%;">
+                                                <button class="btn btn-primary" onclick="clear_beneficiaries()" style="height: 50%;"> Clear </button>
+                                            </div>
+
+                                        </div>
+
+                                        <hr>
+
+                                        <div>
+                                            <label>National ID</label>
+                                            <input type="text" oninput="validate_member_bene_national_id()" id="member_bene_national_id" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>First Name</label>
+                                            <input type="text" id="member_bene_first_name" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Middle Name</label>
+                                            <input type="text" id="member_bene_middle_name" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Last Name</label>
+                                            <input type="text" id="member_bene_last_name" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Date Of Birth</label>
+                                            <input type="text" id="member_bene_dob" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Gender</label>
+                                            <input type="text" id="member_bene_gender" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Relationship Code</label>
+                                            <input type="text" id="member_bene_relationship_code" value="" class="form-control">
+                                        </div>
+
+                                    </fieldset>
+                                </div>
+
+                                <div class="row">
+                                    <fieldset>
+
+                                        <legend class="text-semibold"><i class="icon-reading position-left"></i> OTHER </legend>
+
+                                        <div>
+                                            <label>Province Code</label>
+                                            <input type="text" id="member_province_code" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Attachment URL</label>
+                                            <input type="text" id="member_attachment_url" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Employer Account Number</label>
+                                            <input type="text" id="member_employer_account_number" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Occupation Code</label>
+                                            <input type="text" id="member_occupation_code" value="" class="form-control">
+                                        </div>
+
+                                        <div>
+                                            <label>Center Code</label>
+                                            <input type="text" id="member_center_code" value="" class="form-control">
+                                        </div>
+
+                                    </fieldset>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="text-right">
+                            <button onclick="confirm_registration()" class="btn btn-primary"> SUBMIT <i class="icon-arrow-right14 position-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /profile info -->
+
+            </div>
+        </div>
+    </div>
+    <!-- END -->
+    <!--########################### REGISTER NAPSA USER ###########################-->
+
 <!-- ########################################## TELLER MODULE ########################################-->
-<%= if @user.role == "TOP" do %>
+<%= if @user.role == "TOP" or @user.role == "CCOP" or @user.role == "SADMIN" do %>
 <!--
 <div class="container-fluid">
     <div class="container">
@@ -461,63 +763,76 @@
     }
 </style>
 
-<div class="container-fluid" style="padding: 40px">
-    <div class="row">
-        <div class="col-md-3">
-            <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
+<div  class="container-fluid" style="padding: 40px">
 
-                <header class="w3-container w3-indigo w3-center" id="heed">
-                  <h3>Tickets</h3>
-                </header>
+    <input type="text" value="<%= @user.role %>" hidden class="form-control"  id="ticket_container_id">
+    <div id="ticket_container" class="row">
+        <%= if @user.role == "TOP" or @user.role == "CCOP" or @user.role == "SADMIN" do %>
+            <div class="col-md-3">
+                <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
-                <div class="w3-container"><br>
-                  <p>To query tickets, & check for past tickets click the button below.<br><br></p>
-                  <p style="width:50%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="reload_page()">Query Ticket</button></p>
+                    <header class="w3-container w3-indigo w3-center" id="heed">
+                        <h3>Tickets</h3>
+                    </header>
+
+                    <div class="w3-container"><br>
+                        <p>To query tickets, & check for past tickets click the button below.<br><br></p>
+                        <p style="width:50%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="reload_page()">Query Ticket</button></p>
+                    </div>
                 </div>
             </div>
-        </div>
+        <% end %>
 
-        <div class="col-md-3">
-            <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
+        <%= if @user.role == "TOP" or @user.role == "CCOP" or @user.role == "SADMIN" do %>
+            <div class="col-md-3">
+                <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
-                <header class="w3-container w3-indigo w3-center" id="heed">
-                  <h3>Booking </h3>
-                </header>
+                    <header class="w3-container w3-indigo w3-center" id="heed">
+                        <h3>Booking </h3>
+                    </header>
 
-                <div class="w3-container rounded"><br>
-                  <p>To book for a trip, & view details about the route click the button below.</p>
-                  <p style="width:50%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('bookings')">Book</button></p>
+                    <div class="w3-container rounded"><br>
+                        <p>To book for a trip, & view details about the route click the button below.</p>
+                        <p style="width:50%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('bookings')">Book</button></p>
+                    </div>
                 </div>
             </div>
-        </div>
+        <% end %>
 
-        <div class="col-md-3" >
-            <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
-                <header class="w3-container w3-indigo w3-center" id="heed">
-                  <h3>Routes</h3>
-                </header>
+        <%= if @user.role == "TOP" or @user.role == "CCOP" or @user.role == "SADMIN" do %>
+            <div class="col-md-3" >
+                <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
-                <div class="w3-container"><br>
-                  <p>To view available routes, and destinations click the button below.<br><br></p>
-                  <p style="width:50%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('routes')">Routes</button></p>
+                    <header class="w3-container w3-indigo w3-center" id="heed">
+                        <h3>Routes</h3>
+                    </header>
+
+                    <div class="w3-container"><br>
+                        <p>To view available routes, and destinations click the button below.<br><br></p>
+                        <p style="width:50%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('routes')">Routes</button></p>
+                    </div>
                 </div>
             </div>
-        </div>
+        <% end %>
 
-        <div class="col-md-3" style="height: 15px">
-            <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
-                <header class="w3-container w3-indigo w3-center" id="heed">
-                  <h3>Check In</h3>
-                </header>
+        <%= if @user.role == "TOP" or @user.role == "SADMIN" do %>
+            <div class="col-md-3" style="height: 15px">
+                <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
-                <div class="w3-container"><br>
-                  <p>To check in a luggage and make payments for it, click the button below.</p>
-                  <p style="width:65%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('checkin')">Check In</button></p>
+                    <header class="w3-container w3-indigo w3-center" id="heed">
+                        <h3>Check In</h3>
+                    </header>
+
+                    <div class="w3-container"><br>
+                        <p>To check in a luggage and make payments for it, click the button below.</p>
+                        <p style="width:65%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('checkin')">Check In</button></p>
+                    </div>
                 </div>
             </div>
-        </div>
+        <% end %>
+
 
         <div class="col-md-12 bus" id="dueToToday">
             <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
@@ -529,42 +844,53 @@
                 <div class="w3-container">
                     <div class="" style="overflow-x:auto; width: 100%;" >
                             <h4 style="text-align: center; color:blue; text-decoration:underline; font-weight: bold; font-size: 18px;">
-                                TODAYS TRANSACTION
+                                TICKET TRANSACTIONS
                             </h4><hr>
                         <table class="table table-striped table-bordered" id="TellerPastTransactions">
                         <thead>
                             <tr style="font-size: 12px;">
                                 <th>Ticket Reference No.</th>
+                                <th>Ticket ID</th>
                                 <th>Bus Operator</th>
                                 <th>Depature Date</th>
+                                <th>Depature Time</th>
                                 <th>Route</th>
                                 <th>Mobile</th>
                                 <th>Status</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
-                            <th></th>
+                                <th>Description</th>
+                                <th>Options</th>
+
                             </tr>
                         </thead>
                         <tbody>
                             <%= for ticket <- @tickets do %>
                             <tr>
                               <td><%= ticket.reference_number %></td>
+                              <td><%= ticket.id %></td>
                               <%
                                 operator_id = BusTerminalSystem.BusManagement.Bus.find(ticket.bus_no).operator_id
                                 operator = BusTerminalSystem.AccountManager.User.find(operator_id)
+                                route = BusTerminalSystem.TravelRoutes.find(ticket.route)
+                                route_name = route.route_name
+                                start_route = route.start_route
+                                end_route = route.end_route
                               %>
                               <td><%= operator.company %></td>
                               <td><%= ticket.travel_date %></td>
-                              <td><%= BusTerminalSystem.TravelRoutes.find(ticket.route).route_name%></td>
+                              <td><%= ticket.date %></td>
+                              <td><%= route_name %></td>
                               <td><%= ticket.mobile_number %></td>
                               <%= if ticket.activation_status == "VALID" do %>
                                 <td>NOT CHECKED IN</td>
-                              <% else %>
+                             <% else %>
                                 <td><%= ticket.activation_status %></td>
                               <% end %>
 
                               <td><%= ticket.first_name %></td>
                               <td><%= ticket.last_name %></td>
+                              <td><%= ticket.ticket_description %></td>
                                 <td class="text-center">
                                  <%= if BusTerminalSystem.TicketManagement.Ticket.find(ticket.id).activation_status != "CANCELED" do %>
                                      <ul class="icons-list">
@@ -574,12 +900,17 @@
                                              </a>
 
                                              <ul class="dropdown-menu dropdown-menu-right">
-                                                  <li><%= link to: "/platform/secure/commercial/services/users/management", class: "btn btn-default btn-sm" do
-                                                       BusTerminalSystem.TicketManagement.Ticket.update(ticket, activation_status: "CANCELED")
-                                                       "CANCEL"
-                                                     end %>
+                                                  <li>
+                                                      <button type="button" onclick="cancel_ticket(<%= ticket.id %>)" id="cancel_button" style="width: 100%" class="btn btn-danger btn-lg">CANCEL</button>
+                                                      <button type="button" onclick="reschedule_ticket(<%= %{
+                                                        start_route: start_route, end_route: end_route
+                                                      } |> Map.merge(ticket) |> IO.inspect |> JSON.encode! %>)" id="cancel_button" style="width: 100%" class="btn btn-success btn-lg">RE-SCHEDULE</button>
+                                                      <button type="button" onclick="transfer_ticket(<%= %{
+                                                        start_route: start_route, end_route: end_route, operator: operator
+                                                      } |> Map.merge(ticket) |> IO.inspect |> JSON.encode! %>)" id="cancel_button" style="width: 100%" class="btn btn-warning btn-lg">TRANSFER</button>
                                                   </li>
                                              </ul>
+
                                          </li>
                                      </ul>
                                  <% end %>
@@ -766,117 +1097,120 @@
                 <!-------------------------------END--------------------------->
 
                 <!----------------------- PASSENGER KYC ----------------------->
-                <div id="passenger_view" class="container-fluid">
-                    <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
-                        <header class="w3-container w3-indigo w3-center" id="heed">
-                            <h3>PASSENGER INFORMATION</h3>
-                        </header>
+                <%= if @user.role == "TOP" do %>
+                    <div id="passenger_view" class="container-fluid">
+                        <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
+                            <header class="w3-container w3-indigo w3-center" id="heed">
+                                <h3>PASSENGER INFORMATION</h3>
+                            </header>
 
-                        <div class="container">
-                        <!--####################-- NAPSA TICKET PURCHASE --####################-->
-                            <div class="col-lg-12">
-                                <div class="container-fluid">
-
-
-                                <div class="text-center" style="height: 5%">
-                                    <div class="icon-object border-slate-100 text-slate-100 w3-orange">
-                                        <img src="<%= Routes.static_path(@conn, "/images/logo/1.png") %>" width="90" height="70" alt="NapsaLogo">
-                                    </div>
-
-                                    <h5 class="content-group">To PurchaseTicket <small class="display-block">Fill Form Below</small></h5>
-                                </div>
+                            <div class="container">
+                                <!--####################-- NAPSA TICKET PURCHASE --####################-->
+                                <div class="col-lg-12">
+                                    <div class="container-fluid">
 
 
-                            <form method="post" >
-                                <div class="row">
-                                    <div hidden="hidden" class="col-md-6">
-                                        <div class="form-group has-feedback has-feedback-left">
-                                            <input type="date" id="date" name="bday" min="2015-10-28" class="form-control" onchange="GetSelectedDate()">
-                                            <div class="form-control-feedback">
-                                                <i class="icon-table text-muted"></i>
+                                        <div class="text-center" style="height: 5%">
+                                            <div class="icon-object border-slate-100 text-slate-100 w3-orange">
+                                                <img src="<%= Routes.static_path(@conn, "/images/logo/1.png") %>" width="90" height="70" alt="NapsaLogo">
                                             </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group has-feedback has-feedback-left">
-                                            <input name="payload[first_name]" id="First_Name" type="text" required class="form-control" placeholder="Passenger First Name">
-
-                                            <div class="form-control-feedback">
-                                                <i class="icon-user text-muted"></i>
-                                            </div>
-                                            <span class="asterisk_input">  </span>
+                                            <h5 class="content-group">To PurchaseTicket <small class="display-block">Fill Form Below</small></h5>
                                         </div>
-                                    </div>
 
-                                    <div class="col-md-6">
-                                        <div class="form-group has-feedback has-feedback-left">
-                                            <input name="payload[mobile_number]" id="Contact_Number" required type="text" class="form-control" placeholder="Passenger Cell">
-                                            <div class="form-control-feedback">
-                                                <i class="icon-phone text-muted"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                        <div class="form-group has-feedback has-feedback-left">
-                                            <input name="payload[last_name]" id="Last_Name" required type="text" class="form-control" placeholder="Passenger Last Name">
-                                            <div class="form-control-feedback">
-                                                <i class="icon-user text-muted"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group has-feedback has-feedback-left">
-                                                    <select class="w3-select" name="option" id="id_type2" onchange="GetSelectedTime()">
-                                                        <option value="" disabled selected>ID Type</option>
-                                                        <option value="NRC">NRC</option>
-                                                        <option value="Passport">Passport</option>
-                                                        <option value="Drivers License">Drivers License</option>
-                                                    </select>
+                                        <form method="post" >
+                                            <div class="row">
+                                                <div hidden="hidden" class="col-md-6">
+                                                    <div class="form-group has-feedback has-feedback-left">
+                                                        <input type="date" id="date" name="bday" min="2015-10-28" class="form-control" onchange="GetSelectedDate()">
+                                                        <div class="form-control-feedback">
+                                                            <i class="icon-table text-muted"></i>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="col-md-6">
-                                                <div class="form-group has-feedback has-feedback-left">
-                                                    <input name="payload[passenger_id]" id="ID" type="text" required class="form-control required" placeholder="ID Number">
-                                                    <span class="asterisk_input">  </span>
-                                                    <div class="form-control-feedback">
-                                                        <i class="icon-credit-card text-muted"></i>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group has-feedback has-feedback-left">
+                                                            <input name="payload[first_name]" id="First_Name" type="text" required class="form-control" placeholder="Passenger First Name">
+
+                                                            <div class="form-control-feedback">
+                                                                <i class="icon-user text-muted"></i>
+                                                            </div>
+                                                            <span class="asterisk_input">  </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group has-feedback has-feedback-left">
+                                                            <input name="payload[mobile_number]" id="Contact_Number" required type="text" class="form-control" placeholder="Passenger Cell">
+                                                            <div class="form-control-feedback">
+                                                                <i class="icon-phone text-muted"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group has-feedback has-feedback-left">
+                                                        <input name="payload[last_name]" id="Last_Name" required type="text" class="form-control" placeholder="Passenger Last Name">
+                                                        <div class="form-control-feedback">
+                                                            <i class="icon-user text-muted"></i>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group has-feedback has-feedback-left">
-                                            <input name="payload[route_information]" id="route_information" readonly type="text" class="form-control" placeholder="Route Info">
-                                        </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group has-feedback has-feedback-left">
+                                                        <select class="w3-select" name="option" id="id_type2" onchange="GetSelectedTime()">
+                                                            <option value="" disabled selected>ID Type</option>
+                                                            <option value="NRC">NRC</option>
+                                                            <option value="Passport">Passport</option>
+                                                            <option value="Drivers License">Drivers License</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group has-feedback has-feedback-left">
+                                                        <input name="payload[passenger_id]" id="ID" type="text" required class="form-control required" placeholder="ID Number">
+                                                        <span class="asterisk_input">  </span>
+                                                        <div class="form-control-feedback">
+                                                            <i class="icon-credit-card text-muted"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group has-feedback has-feedback-left">
+                                                        <input name="payload[route_information]" id="route_information" readonly type="text" class="form-control" placeholder="Route Info">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <button type="button" data-toggle="modal" data-target="#modal_theme_primary" onClick="ticket_confirmation()" style="border-radius: 12px; margin-bottom: 10px" class="w3-btn w3-indigo w3-hover-orange w3-left">
+                                                    <b><i class="icon-checkmark2"></i></b>Purchase Ticket
+                                                </button>
+                                            </div>
+
+                                        </form>
+
+
+
+                                        <!--####################-- NAPSA TICKET PURCHASE --####################-->
                                     </div>
+
                                 </div>
-
-                                <div class="form-group">
-                                    <button type="button" data-toggle="modal" data-target="#modal_theme_primary" onClick="ticket_confirmation()" style="border-radius: 12px; margin-bottom: 10px" class="w3-btn w3-indigo w3-hover-orange w3-left">
-                                        <b><i class="icon-checkmark2"></i></b>Purchase Ticket
-                                    </button>
-                                </div>
-
-                            </form>
-
-
-
-                        <!--####################-- NAPSA TICKET PURCHASE --####################-->
-                    </div>
-
-                        </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                <% end %>
+
                 <!-------------------------------END--------------------------->
 
                 <!------------------------UNATTENDED KYC----------------------->
@@ -1566,6 +1900,10 @@ toolbar -->
                                                       <label>Serial Number:</label>
                                                       <input name="payload[serial_number]" id="vehicleSerialNumber" class="form-control" placeholder="Enter Serial Number" type="text" required>
                                                 </div>
+                                                <div class="form-group">
+                                                          <label>User Description:</label>
+                                                          <textarea name="payload[user_description]" id="user_description" class="form-control" placeholder="User Description" type="text" required> </textarea>
+                                                    </div>
 
                                                 <div class="form-group">
                                                       <label>Hull Number:</label>
@@ -1859,7 +2197,7 @@ toolbar -->
           <hr>
         </div>
         <div class="modal-body">
-          <form action="/action_page.php">
+          <form action="">
               <div class="form-group">
                 <label for="ssn">SSN:</label>
                 <input type="number" class="form-control" id="ssn" placeholder="Social Security Number">
@@ -3072,7 +3410,7 @@ function openCity(cityName) {
                     <input id="operator_Model" readonly type="text" class="form-control" placeholder="Route Info">
                     <input id="start_Model" readonly type="text" class="form-control" placeholder="Route Info">
                     <input id="end_Model" readonly type="text" class="form-control" placeholder="Route Info">
-                    <input id="time_Model" readonly type="text" class="form-control" placeholder="Route Info">
+                    <input id="time_Model" readonly type="text" class="form-control" name="payload[time]" placeholder="Route Info">
 
 
                 </div>
@@ -3139,4 +3477,127 @@ function openCity(cityName) {
   <!------------------------------------------------------------------------------------------------------------------------------------------------------->
     </div>
 </div>
+
+    <!-------------------------- Re-schedule Modal ------------------------------------------------------------------------------------------------------------>
+<div id="rescheduleModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header w3-indigo">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">RE-SCHEDULE TICKET</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div id="results_view" class="container-fluid">
+                        <div class="table-responsive">
+                            <table id="routes_dataTable"  class="table table-striped table-bordered" >
+                                <thead class="text-uppercase">
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Operator</th>
+                                    <th scope="col">Destination</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Travel Date</th>
+                                    <th scope="col">Seats Left</th>
+                                    <th scope="col">Price</th>
+                                </tr>
+                                </thead>
+                                <tbody id="reschedule_trips_form"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            <div class="modal-footer">
+                <button id="add_luggage_button" onclick="add_luggage_button()" type="button" class="w3-btn w3-indigo w3-hover-orange w3-round w3-left">Add</button>
+                <button type="button" class="w3-btn w3-red w3-round" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    <!------------------------------------------------------------------------------------------------------------------------------------------------------->
+</div>
+
+<div id="transferModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header w3-indigo">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">TRANSFER TICKET</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="container-fluid">
+
+                    <div class="row">
+
+                        <div class="col-md-2"><br>
+                            <div class="form-group">
+                                <label for="text">
+                                    <strong>From:</strong>
+                                </label>
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <select class="w3-select" name="option">
+                                        <option value="" disabled selected>Livingstone</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2"><br>
+                            <div class="form-group">
+                                <label for="text">
+                                    <strong>To:</strong>
+                                </label>
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <select class="w3-select" id="transfer_destination_option_select" name="destination_option_select">
+                                        <option value="" disabled selected>Destination:</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <button type="submit" onClick="transfer_ticket_logic()" style="margin-top: 40px; background-color: green" class="w3-btn w3-light-grey w3-hover-white w3-round pull-right">
+                                    <img src="<%= Routes.static_path(@conn, "/images/1.png") %>" class="img-fluid" style="width:30px;height:30px" alt="search">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="results_view" class="container-fluid">
+                        <div class="table-responsive">
+                            <table id="routes_dataTable"  class="table table-striped table-bordered" >
+                                <thead class="text-uppercase">
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Operator</th>
+                                    <th scope="col">Destination</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Travel Date</th>
+                                    <th scope="col">Seats Left</th>
+                                    <th scope="col">Price</th>
+                                </tr>
+                                </thead>
+                                <tbody id="transfer_trips_form"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            <div class="modal-footer">
+                <button type="button" class="w3-btn w3-red w3-round" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    <!------------------------------------------------------------------------------------------------------------------------------------------------------->
 </div>

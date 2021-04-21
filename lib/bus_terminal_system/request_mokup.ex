@@ -10,6 +10,12 @@ defmodule BusTerminalSystem.APIRequestMockup do
        IO.inspect(response)
   end
 
+  def send_disable(code) do
+    params = {:form, [card: code]}
+    response = HTTPoison.post("http://10.70.3.55:5000/disable/",params,%{"Content-type" => "multipart/form-data"})
+    IO.inspect(response)
+  end
+
   def cosec_add_user(bus_plate_number) do
 
     #Task.async(fn ->

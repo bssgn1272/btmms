@@ -21,7 +21,7 @@ defmodule BusTerminalSystemWeb.SessionController do
 
   def login(conn, %{"user" => %{"username" => username, "password" => password}}) do
     # UserManager.authenticate_user(username, password)
-    Repo.get_by(User, username: username)
+    Repo.get_by(User, username: username) |> IO.inspect(label: "USER")
     |> BusTerminalSystem.Auth.confirm_password(password)
     |> login_reply(conn)
   end
@@ -51,4 +51,6 @@ defmodule BusTerminalSystemWeb.SessionController do
     |> put_flash(:error, to_string(reason))
     |> new(%{})
   end
+
+
 end

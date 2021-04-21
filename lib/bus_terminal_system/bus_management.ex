@@ -2,7 +2,6 @@ defmodule BusTerminalSystem.BusManagement do
   @moduledoc """
   The BusManagement context.
   """
-
   import Ecto.Query, warn: false
   alias BusTerminalSystem.Repo
 
@@ -18,7 +17,7 @@ defmodule BusTerminalSystem.BusManagement do
 
   """
   def list_bus_terminus do
-    Repo.all(Bus)
+    Repo.all(from t in Bus, where: [auth_status: 1])
   end
 
   @doc """
@@ -58,10 +57,39 @@ defmodule BusTerminalSystem.BusManagement do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_bus_terminus(attrs \\ %{}) do
-    %Bus{}
-    |> Bus.changeset(attrs)
-    |> Repo.insert()
+  def create_bus_terminus(conn, params) do
+    Bus.create(
+      vehicle_capacity: params["vehicle_capacity"],
+      fitness_license: params["fitness_license"],
+      license_plate: params["license_plate"],
+      uid: params["uid"],
+      engine_type: params["engine_type"],
+      model: params["model"],
+      make: params["make"],
+      year: params["year"],
+      color: params["color"],
+      state_of_registration: params["state_of_registration"],
+      vin_number: params["vin_number"],
+      serial_number: params["serial_number"],
+      hull_number: params["hull_number"],
+      vehicle_class: params["vehicle_class"],
+      operator_id: params["bus_operator"],
+      company: params["company"],
+      company_info: params["company_info"],
+      auth_status: 0,
+      maker: conn.assigns.user.id,
+      maker_date_time: Timex.now() |> NaiveDateTime.truncate(:second) |> Timex.to_naive_datetime(),
+      user_description: params["user_description"],
+      system_description: "Request to add bus by #{conn.assigns.user.first_name} #{conn.assigns.user.last_name} at #{Timex.today()}")
+    |> case do
+         {:ok, _} ->
+           IO.inspect "passed"
+           {:ok, "Add New Bus Request Sent"}
+         {:error, error} ->
+           IO.inspect "failed"
+           IO.inspect error.errors
+           {:error, "Please insert all fields!"}
+       end
   end
 
   @doc """

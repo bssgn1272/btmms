@@ -54,6 +54,28 @@
                  </div>
              </div>
 
+            <div class="col-lg-3">
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Ticket Status</h2>
+                    </div>
+                    <div class="container-fluid">
+                        <button onclick="ticketStatus()" style="margin-bottom: 10px; float: right; margin-right: 10px" class="btn btn-primary btn-sm">OPEN</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Luggage Manifest</h2>
+                    </div>
+                    <div class="container-fluid">
+                        <button onclick="luggageManifest()" style="margin-bottom: 10px; float: right; margin-right: 10px" class="btn btn-primary btn-sm">OPEN</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <div id="reportByBusView" class="row">
@@ -92,6 +114,26 @@
               raw BusTerminalSystem.Reporting.Report.find_by(name: "passengerManifest").iframe
             rescue
                _ -> raw "<h3>PASSENGER MANIFEST VIEW NOT CONFIGURED</h3>"
+            end
+             %>
+        </div>
+
+        <div id="reportTicketStatusManifestView" class="row">
+            <%=
+            try do
+              raw BusTerminalSystem.Reporting.Report.find_by(name: "TicketStatus").iframe
+            rescue
+               _ -> raw "<h3>TICKET STATUS VIEW NOT CONFIGURED</h3>"
+            end
+             %>
+        </div>
+
+        <div id="reportLuggageManifestView" class="row">
+            <%=
+            try do
+              raw BusTerminalSystem.Reporting.Report.find_by(name: "LuggageManifest").iframe
+            rescue
+               _ -> raw "<h3>LUGGAGE MANIFEST VIEW NOT CONFIGURED</h3>"
             end
              %>
         </div>

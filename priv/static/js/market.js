@@ -240,7 +240,7 @@ function allocate_stand() {
 
     $.ajax({
         method: 'post',
-        url: "/api/v1/internal/query/user/id",
+        url: MARKET_URL,
         dataType: 'json',
         contentType: 'application/json',
         data: json_request,

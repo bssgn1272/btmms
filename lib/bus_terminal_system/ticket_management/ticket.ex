@@ -5,8 +5,10 @@ defmodule BusTerminalSystem.TicketManagement.Ticket do
 
   alias BusTerminalSystem.TravelRoutes
 
-  @derive {Poison.Encoder, only: [:id, :maker,:reference_number, :serial_number, :external_ref, :inserted_at, :bus_no, :class, :activation_status,:bus_schedule_id,
-                             :first_name, :payment_mode, :amount, :last_name, :other_name, :id_type, :passenger_id, :mobile_number, :email_address, :transaction_channel, :route_information]}
+  @derive {Poison.Encoder, only: [:id, :maker,:reference_number, :serial_number, :external_ref, :inserted_at, :bus_no,
+                             :class, :activation_status,:bus_schedule_id, :route, :first_name, :payment_mode, :amount,
+                             :last_name, :other_name, :id_type, :passenger_id, :mobile_number, :email_address,
+                             :transaction_channel, :route_information, :ticket_description, :date]}
 
   schema "probase_tbl_tickets" do
     field :reference_number, :string
@@ -25,6 +27,8 @@ defmodule BusTerminalSystem.TicketManagement.Ticket do
     field :passenger_id, :string
     field :mobile_number, :string
     field :email_address, :string
+    field :ticket_description, :string
+
 
     field :bus_schedule_id, :string
     field :transaction_channel, :string
@@ -36,6 +40,9 @@ defmodule BusTerminalSystem.TicketManagement.Ticket do
     field :has_luggage, :boolean
     field :luggage_total, :float
     field :info, :string
+    field :discount_applied, :boolean
+    field :discount_amount, :float
+    field :discount_original_amount, :float
 
     timestamps()
   end
@@ -46,7 +53,8 @@ defmodule BusTerminalSystem.TicketManagement.Ticket do
     ticket
     |> cast(attrs, [:reference_number, :maker, :external_ref, :bus_no, :class, :serial_number, :route, :activation_status, :first_name, :bus_schedule_id,
       :last_name, :other_name, :id_type, :payment_mode, :amount, :passenger_id, :mobile_number, :email_address, :transaction_channel, :travel_date,
-      :has_luggage, :luggage_total, :info, :route_information])
+      :has_luggage, :luggage_total, :info, :route_information, :discount_applied, :discount_amount, :discount_original_amount,
+      :maker, :ticket_description, :date])
 
     |> validate_required([:reference_number, :external_ref, :amount, :serial_number, :route, :activation_status, :first_name,
       :last_name, :id_type, :passenger_id, :mobile_number, :transaction_channel, :travel_date])

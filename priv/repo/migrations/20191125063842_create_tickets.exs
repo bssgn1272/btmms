@@ -29,10 +29,14 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTickets do
       add :route_information, :string
       add :amount, :float, default: 0, precision: 10, scale: 2
       add :payment_mode, :string
-      add :auth_status, :boolean
-      add :auth_status, :boolean
-      add :maker, :integer
-      add :checker, :integer
+      add :discount_applied, :boolean
+      add :discount_amount, :float
+      add :discount_original_amount, :float
+      add :ticket_description, :string
+
+      add :has_luggage, :boolean
+      add :luggage_total, :float
+      add :info, :string
 
       timestamps()
     end
@@ -44,7 +48,7 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateTickets do
   end
 
   def down do
-    #drop_if_exists table(:probase_tbl_tickets)
+    drop_if_exists table(:probase_tbl_tickets)
   end
 
 

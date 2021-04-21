@@ -1,0 +1,531 @@
+
+<style>
+    /* Solid border */
+    hr.solid {
+        border-top: 3px solid #bbb;
+    }
+</style>
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div class="col-md-6 panel panel-flat" style="padding: 9px">
+            <div class="panel-heading">
+                <h5 class="panel-title" style="text-align:center; text-decoration: underline; color:blue;">ROLES</h5>
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a data-action="collapse"></a></li>
+                        <li><a data-action="reload"></a></li>
+                        <li><a data-action="close"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="overflow-x:auto;">
+                <table class="table table-striped table-bordered" id="routes_table">
+                    <thead>
+                    <tr>
+                        <th>Role</th>
+                        <th>Permissions</th>
+                        <th>Actions</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <%= for role <- @roles do %>
+
+                    <tr>
+                        <td><%= role.role %></td>
+                        <td><%= (role.permissions |> Poison.decode! |> Enum.count) %></td>
+                        <td class="text-center">
+                            <ul class="icons-list">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <i class="icon-menu9"></i>
+                                    </a>
+
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a href="#" onclick="edit_role_modal(<%=  role |> Poison.encode! %>)"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Edit</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <% end %>
+                    </tbody>
+                </table>
+            </div>
+            <button class="w3-btn w3-indigo w3-hover-orange w3-left" style="border-radius: 18px;" onclick="open_role_modal()">Add Role</button>
+        </div>
+
+
+
+        <div class="col-md-6">
+            <div class="panel panel-flat" style="padding: 9px">
+                <div class="panel-heading">
+                    <h5 class="panel-title" style="text-align:center; text-decoration: underline; color:blue;">PERMISSIONS</h5>
+                    <div class="heading-elements">
+                        <ul class="icons-list">
+                            <li><a data-action="collapse"></a></li>
+                            <li><a data-action="reload"></a></li>
+                            <li><a data-action="close"></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="overflow-x:auto;">
+                    <table class="table table-striped table-bordered" id="gates">
+                        <thead>
+                        <tr>
+                            <th>PERMISSION</th>
+                            <th>CODE</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%= for permission <- BusTerminalSystem.Permissions.all do %>
+
+                        <tr>
+                            <td><%= permission.name %></td>
+                            <td><%= permission.code %></td>
+                        </tr>
+                        <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div id="new_role" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-blue" style="color: #0000cc">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">Create Role</h6>
+            </div>
+
+            <form class="form-horizontal" action="<%= Routes.user_management_path(@conn, :redirect, view: :kenos, sigma: :haHGTyutuK) %>" method="POST">
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label>Role: <span style="color: red;">*</span></label>
+                        <input id="role" name="role" class="form-control" placeholder="Role Name" type="text" required="required">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description: <span style="color: red;">*</span></label>
+                        <input id="user_description" name="user_description" class="form-control" placeholder="Description" type="text" required="required">
+                    </div>
+
+                    <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="submit"  class="btn btn-primary">Create Role</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div id="edit_role_modal" class="modal fade">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header bg-orange" style="color: #ffffff">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">Edit Role</h6>
+            </div>
+
+            <div class="panel-body">
+                <div >
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Role Name</label>
+                                <input type="text" id="role_name" name="role_name" value="" class="form-control">
+                                <input type="text" hidden="hidden" readonly="readonly" id="model_role_id" name="model_role_id" value="" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label>Permissions Count</label>
+                                <input readonly type="text" id="role_permissions_count" value="" class="form-control">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <hr class="solid">
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <button id="role_selected_to_add_button" onclick="add_permission()" style="border-radius: 18px;" class="btn btn-success">Add Permission <i class="icon-arrow-right14 position-right"></i></button>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <select class="custom-select form-control" id="role_selected_to_add" required>
+                                            <option value="" disabled selected hidden> -- Select Permission to add --</option>
+                                            <%= for permission <- BusTerminalSystem.Permissions.all do %>
+                                                <option onclick="add_permission()" value="<%= permission.name %>"><%= permission.name %></option>
+                                            <% end %>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <hr class="solid">
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <button id="role_selected_to_remove_button" onclick="remove_permission()" style="border-radius: 18px;" class="btn btn-danger">Remove Permission <i class="icon-arrow-right14 position-right"></i></button>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <select class="custom-select form-control" id="role_selected_to_remove"  required>
+                                            <option value="" disabled selected hidden> -- Select Permission to remove --</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <hr class="solid">
+
+                    <div class="text-right" style="margin-top: 40px;">
+
+                        <button id="role_update_role" class="btn btn-primary" onclick="update_role()" style="border-radius: 18px;">UPDATE ROLE </button>
+                        <button id="role_delete_role" class="btn btn-danger" onclick="delete_role()" style="border-radius: 18px;">DELETE ROLE </button>
+                        <button class="btn btn-default" style="border-radius: 18px;" data-dismiss="modal">CLOSE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="<%= Routes.static_path(@conn, "/js/jquery.js") %>"></script>
+<script>
+
+    function delete_role() {
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: true
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let role_name = $("#role_name").val();
+
+                let json_request = JSON.stringify({
+                    role: role_name,
+                    view: "",
+                    sigma: "mIcCqAlJJo8TJJ6Q"
+                });
+
+                $.ajax({
+                    method: 'post',
+                    url: '/btmms/service/user/management',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (response) {
+                        console.log(response)
+                        if(response.status === 1){
+                            swal({
+                                title: "Error!",
+                                text: response.message,
+                                type: "error"
+                            }, function() {
+                                window.location = "/btmms/service/user/management?view=22K2yQRYjgb4i&sigma=kenos";
+                            });
+                        }else{
+                            swal({
+                                title: "Done!",
+                                text: response.message,
+                                type: "success"
+                            }, function() {
+                                window.location = "/btmms/service/user/management?view=22K2yQRYjgb4i&sigma=kenos";
+                            });
+                        }
+
+                    },
+                    error: function (response){
+                        Swal.fire(
+                            'Error!',
+                            'Failed to Delete Role!',
+                            'error'
+                        )
+                    },
+                    data: json_request
+                })
+
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Delete Request Canceled',
+                    'error'
+                )
+            }
+        })
+
+    }
+
+    function add_permission() {
+        let permission = $("#role_selected_to_add")
+        let role = $('#model_role_id')
+
+        let json_request = JSON.stringify({
+            role_id: role.val(),
+            view: "",
+            permission: permission.val(),
+            sigma: "iajumdnuyjyciaca"
+        });
+
+        $.ajax({
+            method: 'post',
+            url: '/btmms/service/user/management',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: json_request,
+            success: function (response) {
+                console.log(response)
+                if(response.status === 1){
+                    swal({
+                        title: "Error!",
+                        text: response.message,
+                        type: "error"
+                    }, function() {
+                        window.location = "/btmms/service/user/management?view=22K2yQRYjgb4i&sigma=kenos";
+                    });
+                }else{
+                    swal({
+                        title: "Done!",
+                        text: response.message,
+                        type: "success"
+                    }, function() {
+                        window.location = "/btmms/service/user/management?view=22K2yQRYjgb4i&sigma=kenos";
+                    });
+                }
+            },
+            error: function (response){  },
+        })
+    }
+
+    function remove_permission() {
+        let permission = $("#role_selected_to_remove")
+        let role = $('#model_role_id')
+
+        let json_request = JSON.stringify({
+            role_id: role.val(),
+            view: "",
+            permission: permission.val(),
+            sigma: "ashuncianjsakdmia"
+        });
+
+        $.ajax({
+            method: 'post',
+            url: '/btmms/service/user/management',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: json_request,
+            success: function (response) {
+                console.log(response)
+                if(response.status === 1){
+                    swal({
+                        title: "Error!",
+                        text: response.message,
+                        type: "error"
+                    }, function() {
+                        window.location = "/btmms/service/user/management?view=22K2yQRYjgb4i&sigma=kenos";
+                    });
+                }else{
+                    swal({
+                        title: "Done!",
+                        text: response.message,
+                        type: "success"
+                    }, function() {
+                        window.location = "/btmms/service/user/management?view=22K2yQRYjgb4i&sigma=kenos";
+                    });
+                }
+            },
+            error: function (response){
+
+            },
+        })
+    }
+
+    function update_role() {
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: true
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You are about to update this role!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Update it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let role_name = $("#role_name").val();
+                let role_id = $('#model_role_id').val();
+
+                let json_request = JSON.stringify({
+                    role: role_name,
+                    role_id: role_id,
+                    view: "",
+                    sigma: "akjhksdakjdlaskji"
+                });
+
+                $.ajax({
+                    method: 'post',
+                    url: '/btmms/service/user/management',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (response) {
+                        console.log(response)
+                        if(response.status === 1){
+                            swal({
+                                title: "Error!",
+                                text: response.message,
+                                type: "error"
+                            }, function() {
+                                window.location = "/btmms/service/user/management?view=22K2yQRYjgb4i&sigma=kenos";
+                            });
+                        }else{
+                            swal({
+                                title: "Done!",
+                                text: response.message,
+                                type: "success"
+                            }, function() {
+                                window.location = "/btmms/service/user/management?view=22K2yQRYjgb4i&sigma=kenos";
+                            });
+                        }
+
+                    },
+                    error: function (response){
+                        Swal.fire(
+                            'Error!',
+                            'Failed to Delete Role!',
+                            'error'
+                        )
+                    },
+                    data: json_request
+                })
+
+
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Delete Request Canceled',
+                    'error'
+                )
+            }
+        })
+    }
+
+    function permission_name(role_id) {
+        return list_response
+    }
+
+    function edit_role_modal(role){
+        $('#edit_role_modal').modal("show");
+        $('#role_name').val(role.role)
+        $('#model_role_id').val(role.id)
+        $('#role_permissions_count').val(JSON.parse(role.permissions).length)
+        console.log(JSON.parse(role.permissions))
+
+        let json_request = JSON.stringify({
+            role_id: role.id,
+            view: "",
+            sigma: "Hkiismijmsihiasdd"
+        });
+
+        $.ajax({
+            method: 'post',
+            url: '/btmms/service/user/management',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (response) {
+                console.log(response.length)
+                let role_permissions_html = '';
+                for (let i = 0; i < response.length; i++) {
+                    role_permissions_html += '<option onclick="remove_permission()" value="'+response[i]+'" >';
+                    role_permissions_html += response[i];
+                    role_permissions_html += '</option>';
+                }
+
+                $('#role_selected_to_remove').html(role_permissions_html);
+            },
+            error: function (response){
+
+
+            },
+            data: json_request
+        })
+    }
+
+    function open_role_modal(){
+        $('#new_role').modal("show");
+    }
+
+    $(document).ready(function(){
+
+//Deactivate msg Account
+        $('#edit').on('show.bs.modal', function (event){
+
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
+            var profile = button.data('profile')
+            var role = button.data('role')
+
+            var modal = $(this)
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #profile').val(profile);
+            modal.find('.modal-body #role').val(role);
+        });
+    });
+</script>

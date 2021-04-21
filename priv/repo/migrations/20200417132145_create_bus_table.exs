@@ -21,11 +21,19 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateBusTable do
       add :company_info, :string
       add :fitness_license, :string
       add :vehicle_capacity, :string
-      add :auth_status, :boolean, default: false
-      add :maker, :integer
-      add :checker, :integer
+
       timestamps()
     end
+
+#    alter table(:probase_tbl_bus) do
+#      add :auth_status, :integer, default: 0
+#      add :maker, :integer
+#      add :checker, :integer
+#      add :maker_date_time, :naive_datetime
+#      add :checker_date_time, :naive_datetime
+#      add :user_description, :string
+#      add :system_description, :string
+#    end
 
   end
 

@@ -14,14 +14,23 @@ defmodule BusTerminalSystem.Repo.Migrations.CreateRouteTable do
       add :ticket_id, :int
       add :route_fare, :int
 
+      add :parent, :integer
+
       add :source_state, :string
       add :route_uuid, :string
-      add :auth_status, :boolean, default: false
-      add :maker, :integer
-      add :checker, :integer
 
       timestamps()
     end
+
+#    alter table(:probase_tbl_travel_routes) do
+#      add :auth_status, :integer, default: 0
+#      add :maker, :integer
+#      add :checker, :integer
+#      add :maker_date_time, :naive_datetime
+#      add :checker_date_time, :naive_datetime
+#      add :user_description, :string
+#      add :system_description, :string
+#    end
 
   end
 

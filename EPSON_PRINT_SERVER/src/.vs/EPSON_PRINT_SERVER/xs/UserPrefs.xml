@@ -1,0 +1,26 @@
+﻿<Properties StartupConfiguration="{22E1596D-EE11-4F80-9A9B-A110E3C818D4}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="EPSON_PRINT_SERVER/PrintProcessor.cs">
+    <Files>
+      <File FileName="EPSON_PRINT_SERVER/PrinterService.cs" Line="1" Column="1" />
+      <File FileName="EPSON_PRINT_SERVER/PrintProcessor.cs" Line="158" Column="88" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="EPSON_PRINT_SERVER" expanded="True">
+            <Node name="EPSON_PRINT_SERVER" expanded="True">
+              <Node name="PrinterService.cs" expanded="True" />
+              <Node name="PrintProcessor.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|anycpu" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

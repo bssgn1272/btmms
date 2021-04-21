@@ -1,4 +1,73 @@
 <!-- Basic datatable -->
+<style>
+    /* The container */
+    .custom_container {
+        display: inline;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 16px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    /* Hide the browser's default checkbox */
+    .custom_container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .custom_container:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .custom_container input:checked ~ .checkmark {
+        background-color: #2196F3;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .custom_container input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .custom_container .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+</style>
 <div style="margin-top: 5%;">
 <div class="panel panel-flat" style="padding: 9px">
     <div class="panel-heading">
@@ -25,41 +94,53 @@
                   <th>NID</th>
                   <th>Email</th>
                   <th>Mobile</th>
+                  <th>Compliance Status</th>
                   <th>Account Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <%= for user <- @users do %>
-                    <tr>
-                      <td><%= user.id %></td>
-                      <td><%= user.username %></td>
-                      <td><%= user.first_name %></td>
-                      <td><%= user.last_name %></td>
-                      <td><%= user.role %></td>
-                      <td><%= user.ssn %></td>
-                      <td><%= user.nrc %></td>
-                      <td><%= user.email %></td>
-                      <td><%= user.mobile %></td>
-                      <td><%= user.account_status %></td>
-                      <td class="text-center">
-                        <ul class="icons-list">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="icon-menu9"></i>
-                                </a>
+            <%= for user <- @users do %>
+                <tr>
+                  <td><%= user.id %></td>
+                  <td><%= user.username %></td>
+                  <td><%= user.first_name %></td>
+                  <td><%= user.last_name %></td>
+                  <td><%= user.role %></td>
+                  <td><%= user.ssn %></td>
+                  <td><%= user.nrc %></td>
+                  <td><%= user.email %></td>
+                  <td><%= user.mobile %></td>
+                  <%= if user.compliance == true do %>
+                    <td> <b style="color: green"> COMPLIANT </b>  </td>
+                  <% else %>
+                    <td> <b style="color: red"> NOT COMPLIANT </b> </td>
+                  <% end %>
+                  <td><%= user.account_status %></td>
+                  <td class="text-center">
+                    <ul class="icons-list">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="icon-menu9"></i>
+                            </a>
 
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><button style="margin-left: 10px" type="button" class="btn btn-default btn-sm" onclick="user_edit_model(<%=user.id%>)">
-                                    Info <i class="icon-user position-right"></i></button></li>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><button style="margin-left: 10px" type="button" class="btn btn-default btn-sm" onclick="user_edit_model(<%= @conn.assigns.user |> Map.put(:selected_user, user.id) |> JSON.encode!() |> IO.inspect %> )">
+                                Info <i class="icon-user position-right"></i></button></li>
 
-                                    <!--<li><%= link "Edit", class: "icon-pencil", to: Routes.user_path(@conn, :edit, user) %></li> -->
-                                </ul>
-                            </li>
-                        </ul>
-                    </td>
-                    </tr>
-                <% end %>
+                                <%= if user.role == "BOP" do %>
+                                    <li><button style="margin-left: 10px" type="button" class="btn btn-default btn-sm" onclick="discounts_modal(<%=user.id%>)">
+                                    Discounts <i class="icon-cash position-right"></i></button></li>
+                                <% end %>
+
+
+                                <!--<li><%= link "Edit", class: "icon-pencil", to: Routes.user_path(@conn, :edit, user) %></li> -->
+                            </ul>
+                        </li>
+                    </ul>
+                </td>
+                </tr>
+            <% end %>
               </tbody>
             </table>
         </div>
@@ -89,6 +170,9 @@
                  <div class="panel-body">
                      <form id="infoForm">
                          <div class="form-group">
+                             <div>
+                                   <h5 id="modal_user_role" style="padding-bottom: 20px"></h5>
+                             </div>
                              <div class="row">
                                  <div class="col-md-4">
                                      <label>Username</label>
@@ -110,15 +194,20 @@
 
                          <div class="form-group">
                              <div class="row">
-                                 <div class="col-md-6">
+                                 <div class="col-md-4">
                                      <label>Email</label>
                                      <input type="text" id="model_email" value="" class="form-control">
                                  </div>
 
-                                 <div class="col-md-6">
+                                  <div class="col-md-4">
                                       <label>Phone</label>
                                       <input type="text" id="model_phone" value="" class="form-control">
                                   </div>
+
+                                 <div class="col-md-4">
+                                     <label>Compliance Status</label>
+                                     <input type="text" readonly id="model_compliance_status" value="" class="form-control">
+                                 </div>
 
                              </div>
                          </div>
@@ -160,14 +249,49 @@
                                       <input type="text" readonly="readonly" id="model_operator_role" value="" class="form-control">
                                   </div>
 
+                                  <div class="form-group">
+                                      <div class="col-md-6">
+                                          <label class="control-label">User Access Role:</label>
+                                          <select id="modal_update_role_id" class="form-control" >
+                                              <option value="0">Select Role</option>
+                                              <%= for role <- BusTerminalSystem.UserRoles.all do %>
+                                              <option value="<%= role.id %>"><%= role.role %></option>
+                                              <% end %>
+                                          </select>
+                                      </div>
+
+                                  </div>
                               </div>
                           </div>
 
-                          <div class="row">
-                            <div class="col-2">
 
-                            </div>
-                          </div>
+
+                         <div class="panel panel-flat" >
+                             <div class="panel-heading">
+                                 <h6 class="panel-title">User Permissions</h6>
+                                 <div class="heading-elements">
+                                     <ul class="icons-list">
+                                         <li><a data-action="collapse"></a></li>
+                                         <li><a data-action="reload"></a></li>
+                                         <li><a data-action="close"></a></li>
+                                     </ul>
+                                 </div>
+                             </div>
+
+                             <div class="panel-body">
+                                 <div id="permissions_html">
+                                     <%= for role <- permissions(@conn) do %>
+                                     <label class="custom_container"> <%= role.role %>
+                                         <input type="checkbox" value="<%= role.id %>">
+                                         <span class="checkmark"></span>
+                                     </label>
+                                     <% end %>
+                                 </div>
+
+                             </div>
+
+                         </div>
+
                          <div class="text-right">
 
                              <button onclick="updateUser()" class="btn btn-primary">UPDATE <i class="icon-arrow-right14 position-right"></i></button>
@@ -241,5 +365,105 @@
      </div>
  </div>
  <!-- /horizontal form modal -->
+ <div id="modal_form_discounts" class="modal fade">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Manage Discounts</h5>
+            </div>
+
+            <!-- Profile info -->
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h6 class="panel-title"></h6>
+                    <div class="heading-elements">
+
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <form id="infoForm">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Current Applied Discount</label>
+                                    <input type="text" readonly="readonly" id="discount_model_current_discount" value="" class="form-control">
+                                    <input type="text" hidden="hidden"  id="discount_model_user_id" value="" class="form-control">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label>Discount Status</label>
+                                    <input type="text" id="discount_model_status" readonly value="" class="form-control">
+                                    <input type="text" id="discount_model_status_value" hidden readonly value="" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Discount Config Reason</label>
+                                    <input type="text" readonly="readonly" id="discount_model_discount_reason" value="" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <!-- /profile info -->
+
+
+            <!-- Account settings -->
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h6 class="panel-title">Configure Discounts</h6>
+                    <div class="heading-elements">
+                        <ul class="icons-list">
+                            <li><a data-action="collapse"></a></li>
+                            <li><a data-action="reload"></a></li>
+                            <li><a data-action="close"></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <form action="#">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Discount amount</label>
+                                    <input type="text" value="" id="modal_discount_value" class="form-control">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Discount Reason</label>
+                                    <input type="text" value="" id="modal_discount_reason" class="form-control">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="text-left" style="margin-bottom: 10px">
+                            <button type="submit" onclick="set_discount()" id="user_deactivate_account" style="border-radius: 12px;" class="btn btn-primary">Update Discount<i class="icon-arrow-right14 position-right"></i></button>
+                        </div>
+
+                        <div class="text-left">
+                            <button type="submit" onclick="enable_discount()" id="user_deactivate_account" style="border-radius: 12px;" class="btn btn-primary">Enable/Disable<i class="icon-arrow-right14 position-right"></i></button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <!-- /account settings -->
+        </div>
+    </div>
+</div>
 <!-- /basic datatable -->
 </div>
