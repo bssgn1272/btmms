@@ -162,9 +162,13 @@
                                                 </ul>
                                             </li>
 
-                                        <li>
-                                            <a href="#"  onclick="ticketing_container()"><i style="color:orange;" class="icon-ticket" onclick="ticketing_container()"></i> <span onclick="ticketing_container()">Ticketing</span></a>
-                                        </li>
+
+                                            <%= if @user.role == "SADMIN" do %>
+                                                <li>
+                                                    <a href="#"  onclick="ticketing_container()"><i style="color:orange;" class="icon-ticket" onclick="ticketing_container()"></i> <span onclick="ticketing_container()">Ticketing</span></a>
+                                                </li>
+                                            <% end %>
+
 
                                         <% end %>
 
@@ -182,9 +186,6 @@
                                             </li>
                                         </ul>
                                     </li>
-
-
-
     								<li hidden>
     									<a href="#"><i style="color:orange;" class="icon-stop    "></i> <span>Terminus</span></a>
     									<ul>
@@ -211,8 +212,23 @@
                                             </ul>
                                         </li>
 
+                                    <li>
+                                        <a href="#"><i style="color:orange;" class="icon-home5"></i> <span>Till Management</span></a>
+                                        <ul>
+                                            <li><%= link "Tellers", to: Routes.teller_path(@conn, :till_teller_manage, view: "22K2yQRYjgb4i", sigma: :kenos) %></li>
+
+                                            <li>
+                                                <%= link "Register Teller", to: Routes.user_path(@conn, :new_teller) %>
+                                            </li>
+                                        </ul>
+
+
+                                    </li>
+
                                     <% end %>
-    								<!-- /main -->
+    								<!--
+    								    /main
+    								 -->
     							</ul>
     						</div>
     					</div>
@@ -413,7 +429,7 @@
                               Opps! <%= get_flash(@conn, :error) %>
                               </div>
                           <% end %>
-
+                      <input type="hidden" name="_csrf_token" id="csrf" value="<%= Plug.CSRFProtection.get_csrf_token() %>">
                       <%= render @view_module, @view_template, assigns %>
                   </main>
 
@@ -488,6 +504,7 @@
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/ticketing.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/AjaxCall.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/napsa.js") %>"></script>
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/bank.js") %>"></script>
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
 
 

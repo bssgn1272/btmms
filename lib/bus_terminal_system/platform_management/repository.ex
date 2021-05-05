@@ -4,6 +4,7 @@ defmodule BusTerminalSystem.RepoManager do
 
   alias BusTerminalSystem.Repo
   alias BusTerminalSystem.Randomizer
+  alias BusTerminalSystem.Settings
 
   alias BusTerminalSystem.Market.Market
   alias BusTerminalSystem.Market.Section
@@ -716,7 +717,9 @@ defmodule BusTerminalSystem.RepoManager do
 
     Enum.map(reserve_list, fn schedule ->
 
-      route_uid = schedule["ID"]
+
+    IO.inspect schedule
+      route_uid = schedule["ID"] |> IO.inspect
       bus = BusTerminalSystem.BusManagement.Bus.find(schedule["bus_id"])
       capacity = bus.vehicle_capacity
       seats = available_seats(capacity,schedule_ticket_count(Utility.int_to_string(route_uid)))
@@ -786,18 +789,16 @@ defmodule BusTerminalSystem.RepoManager do
 
       end
 
-
-
-    end) |> List.flatten()
+    end) |> List.flatten() |> IO.inspect
   end
 
   defp routes_request(end_route) do
 
 #    case HTTPoison.get("http://10.70.3.55:4200/main/api/destinations/#{BusTerminalSystem.TravelRoutes.find_by([start_route: "Livingstone", end_route: end_route]).route_code}") do
-    case HTTPoison.get("http://10.10.1.88:4200/main/api/destinations/#{BusTerminalSystem.TravelRoutes.find_by([start_route: "Livingstone", end_route: end_route]).route_code}") do
+    case HTTPoison.get("#{Settings.find_by(key: "EYED_BUS_ROUTES_URL").value}#{BusTerminalSystem.TravelRoutes.find_by([start_route: "Livingstone", end_route: end_route]).route_code}") do
       {status, %HTTPoison.Response{body: body, status_code: status_code}} ->
         try do
-          response = body |> Poison.decode! |> IO.inspect
+          response = body |> Poison.decode!
           response["data"]
         rescue
           _ -> %{}

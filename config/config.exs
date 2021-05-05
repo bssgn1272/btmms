@@ -68,6 +68,9 @@ config :bus_terminal_system, BusTerminalSystem.Scheduler,
      schedule:  "* * * * *", task: {BusTerminalSystem.CheckCompliance, :run, []},
      schedule:  "* * * * *", task: {BusTerminalSystem.NapsaUserUpdater, :run, []}
    ],
+  bank: [
+    schedule:  "* * * * *", task: {BusTerminalSystem.Service.Zicb.AccountOpening, :run, []}
+  ]
  ]
 
 # Import environment specific config. This must remain at the bottom

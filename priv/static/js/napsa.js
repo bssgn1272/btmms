@@ -31,49 +31,39 @@ function search_napsa_member() {
 
                     console.log(response);
 
-                    if (response.response.message === "timeout"){
-                        swalWithBootstrapButtons.fire(
-                            'Connection Failed',
-                            'Could Not Connect to Napsa',
-                            'error'
-                        )
+                    if(response.response.statusCode !== "SUCCESS"){
+                        swalWithBootstrapButtons.close();
+
+                        swalWithBootstrapButtons.fire({
+                            title: 'Search Failed',
+                            text: "No Member with ID: " + search_id + " Found. Do you want to begin registration for this id?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Yes, Register',
+                            cancelButtonText: 'No, cancel!',
+                            reverseButtons: true
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+
+                                // $("#regSystemUser").modal("hide");
+                                $("#register_napsa_member").modal("show");
+                                $("#member_national_id").val(search_id);
+
+                            } else if (
+                                result.dismiss === Swal.DismissReason.cancel
+                            ) {
+                                // $("#regSystemUser").modal("hide");
+                                swalWithBootstrapButtons.fire(
+                                    'Cancelled',
+                                    'Registration Canceled',
+                                    'error'
+                                )
+                            }
+                        })
                     }else{
-                        if(response.response.statusCode !== "SUCCESS"){
-                            swalWithBootstrapButtons.close();
-
-                            swalWithBootstrapButtons.fire({
-                                title: 'Search Failed',
-                                text: "No Member with ID: " + search_id + " Found. Do you want to begin registration for this id?",
-                                icon: 'warning',
-                                showCancelButton: true,
-                                confirmButtonText: 'Yes, Register',
-                                cancelButtonText: 'No, cancel!',
-                                reverseButtons: true
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-
-                                    // $("#regSystemUser").modal("hide");
-                                    $("#register_napsa_member").modal("show");
-                                    $("#member_national_id").val(search_id);
-
-                                } else if (
-                                    result.dismiss === Swal.DismissReason.cancel
-                                ) {
-                                    // $("#regSystemUser").modal("hide");
-                                    swalWithBootstrapButtons.fire(
-                                        'Cancelled',
-                                        'Registration Canceled',
-                                        'error'
-                                    )
-                                }
-                            })
-                        }else{
-                            $("#napsa_member").val(search_id);
-                            $("#new_user_redirect_form").submit();
-                        }
+                        $("#napsa_member").val(search_id);
+                        $("#new_user_redirect_form").submit();
                     }
-
-
 
                 },
                 error: function (response){

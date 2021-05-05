@@ -1,9 +1,11 @@
 defmodule BusTerminalSystem.NapsaSmsGetway do
 
+  alias BusTerminalSystem.Settings
+
   def send_sms(phone,message) do
 
     Task.async(fn ->
-      response = HTTPoison.get("http://196.46.196.38:13013/napsamobile/pushsms",[],
+      response = HTTPoison.get(Settings.find_by(key: "SMS_GATEWAY").value,[],
       params: %{
         smsc: "zamtelsmsc",
         username: "napsamobile",

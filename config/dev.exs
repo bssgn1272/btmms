@@ -3,9 +3,12 @@ use Mix.Config
 # Configure your database
 config :bus_terminal_system, BusTerminalSystem.Repo,
   username: "probase",
+#  username: "sa",
   password: "V1neyard",
+#  password: "Qwerty12",
   database: "btmms",
 #  hostname: "10.70.3.55",
+#  hostname: "localhost",
   hostname: "10.10.1.88",
 #  username: "root",
 #  password: "Qwerty12",
@@ -13,7 +16,7 @@ config :bus_terminal_system, BusTerminalSystem.Repo,
 #  hostname: "localhost",
 
   timeout: :infinity,
-  port: 3306,
+#  port: 1434,
   show_sensitive_data_on_connection_error: false,
   pool_size: 10
 

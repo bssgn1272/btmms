@@ -1,0 +1,219 @@
+<h1 style="text-align:center; color:blue; text-decoration:underline;"><strong>Manage Tellers on Till</strong></h1><hr style="border-top: 1px solid orange;">
+<style>
+    .panel{
+        border-radius: 25px;
+        border:1px solid orange;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <div class="" max-width="500px">
+                <div class="panel border-left-lg border-left-danger">
+                    <div class="panel-body">
+                        <h4 style="text-align:center; color:blue;"><strong><b>Collections Account</b></strong></h4>
+                        <p style="text-align:center;"><strong><b>K <%= @user.bank_account_balance |> Decimal.from_float() |> Decimal.round(2) %></b></strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a data-toggle="tab" href="#home">Available Tellers</a>
+        </li>
+        <li>
+            <a data-toggle="tab" href="#transaction">Tellers Transactions</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+
+        <div id="home" class="tab-pane fade in active">
+            <div class="timeline-container">
+
+                <div class="timeline-row">
+                    <div class="panel border-left-lg border-left-danger timeline-content">
+                        <div class="panel-heading">
+                            <h6 class="panel-title" style="color:blue; text-align:center; text-decoration:underline;">Tellers</h6>
+                        </div>
+                        <hr>
+
+                        <div class="panel-body">
+                            <div class="chart-container">
+                                <div style="overflow-x:auto;">
+                                    <table id="busTerminusDT" class="table table-striped table-bordered" >
+                                        <thead>
+                                        <tr>
+                                            <th>Till Number</th>
+                                            <th>Username</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Status</th>
+                                            <th>Account Number</th>
+                                            <th>Till Balance</th>
+                                            <th>Wallet Balance</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        <%= for teller <- @teller do %>
+                                        <tr>
+                                        <td><%= teller.id %></td>
+                                        <td><%= teller.username %></td>
+                                        <td><%= teller.first_name %></td>
+                                        <td><%= teller.last_name %></td>
+                                        <td><%= teller.account_status %></td>
+                                        <td><%= teller.account_number %></td>
+                                        <td><%= teller.bank_account_balance |> Decimal.from_float() |> Decimal.round(2) %></td>
+                                        <td><%= teller.bank_account_balance |> Decimal.from_float() |> Decimal.round(2) %></td>
+                                        <td class="text-center">
+                                            <ul class="icons-list">
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                        <i class="icon-menu9"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-right">
+                                                        <li><a href="#" class="fund_teller_user" onclick="fund_teller_modal(<%= teller |> Poison.encode!() %>)"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Fund Wallet</a></li>
+                                                        <li><a href="#" class="fund_swept_user" data-form="ELX-qA1yK3jeb6RTlaOoPDlCpapxdRcds0MiXvlZpqqjaNjwQU" data-id="<%= teller.id %>"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Sweep Fund</a></li>
+                                                        <%= if "INACTIVE" == teller.account_status do %>
+                                                            <li><a href="#" class="enable_teller_user" data-username="<%= teller.username %>" data-form="4fmiiEabJx9REm8HwTzryIzyXyN5WEFE-TfpOce0AtF4k6QGpK" data-id="<%= teller.id %>"><img src="https://img.icons8.com/material/24/000000/mark.png"> Enable </a></li>
+                                                        <% end %>
+                                                        <%= if "ACTIVE" == teller.account_status do %>
+                                                            <li><a href="#" class="disable_teller_user" data-username="<%= teller.username %>" data-form="o-O0uvssIvTRqCQws1J6dSfuYmS-nnrK5qz-pn3D9RooOrsbc5" data-id="<%= teller.id %>"><img src="https://img.icons8.com/material/24/000000/cancel--v1.png"> Deactivate </a></li>
+                                                        <% end %>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        </tr>
+                                        <% end %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="transaction" class="tab-pane fade">
+            <div class="timeline-container">
+
+                <div class="timeline-row">
+                    <div class="panel border-left-lg border-left-danger timeline-content">
+                        <div class="panel-heading">
+                            <h6 class="panel-title" style="color:blue; text-align:center; text-decoration:underline;">Transactions</h6>
+                        </div>
+                        <hr>
+
+                        <div class="panel-body">
+                            <div class="chart-container">
+                                <div style="overflow-x:auto;">
+                                    <table class="table table-striped table-bordered" id="dataTableTellers">
+                                        <thead>
+                                        <tr>
+                                            <th>Source Account</th>
+                                            <th>Destination Account</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                            <th>Extra Data</th>
+                                            <th>Bank Reference Number</th>
+                                            <th>Reference Number</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <%= for trans <- @transactions do %>
+                                        <tr>
+                                            <td><%= trans.srcAcc %></td>
+                                            <td><%= trans.destAcc %></td>
+                                            <td><%= trans.amount %></td>
+                                            <td><%= trans.status %></td>
+                                            <td><%= trans.extraData %></td>
+                                            <td><%= trans.hostrefno %></td>
+                                            <td><%= trans.referenceNo %></td>
+                                            <td class="text-center">
+                                                <ul class="icons-list">
+                                                    <li class="dropdown">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                            <i class="icon-menu9"></i>
+                                                        </a>
+                                                        <ul class="dropdown-menu dropdown-menu-right">
+                                                            <li><a href="#" ><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Fund Wallet</a></li>
+                                                            <li><a href="#"><img src="https://img.icons8.com/material/24/000000/cancel--v1.png"> Deactivate</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <% end %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="fund_till_account_by_manager" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header w3-indigo">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Fund Teller</h4>
+            </div>
+
+
+            <div class="modal-body">
+                    <table class="table table-striped table-bordered">
+                        <tr>
+                            <th>Name</th>
+                            <td><input id="teller_name" readonly name="teller_name" required style="border: 0px none;"></td>
+                            <input type="hidden" value="TiqnDuGp8-dG0WY2nWzMxi2CXV0GF8ivD-4ocEhRA_w-CR1uqx" readonly name="sigma" required>
+                            <input type="hidden" value="" readonly name="view" required>
+                            <input type="hidden" id="destBranch" value="" readonly name="destBranch" required>
+                        </tr>
+                        <tr hidden>
+                            <th>Collections Account Balance</th>
+                            <td><input id="collection_account" readonly name="collection_account" style="border: 0px none;" required></td>
+                        </tr>
+                        <tr>
+                            <th>Account Number</th>
+                            <td><input id="fund_account_account_number" readonly name="fund_account_account_number" style="border: 0px none;" required></td>
+                        </tr>
+                        <tr>
+                            <th>Till Balance</th>
+                            <td><input id="fund_account_till_balance" readonly name="fund_account_till_balance" style="border: 0px none;" required></td>
+                        </tr>
+                        <tr>
+                            <th>Wallet Balance</th>
+                            <td><input id="fund_account_wallet_balance" readonly name="fund_account_wallet_balance" style="border: 0px none;" required></td>
+                        </tr>
+                        <tr>
+                            <th>Fund Amount</th>
+                            <td><input id="fund_amount" name="fund_amount" type="number" class="form-control" placeholder="Enter fund amount" required></td>
+                        </tr>
+                    </table>
+
+            </div>
+            <hr>
+            <div class="modal-footer">
+                <button type="button" class="w3-btn w3-grey w3-round" data-dismiss="modal">Close</button> <button type="submit" onclick="fund_account()" class="w3-btn w3-green w3-round">Fund</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/jquery.min.js") %>"></script>

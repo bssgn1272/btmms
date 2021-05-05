@@ -58,5 +58,10 @@ defmodule BusTerminalSystemWeb.NapsaController do
         json(conn, %{status: 1, response: message})
     end
   end
+
+  def register_member(conn, params) do
+    IO.inspect(params)
+    conn |> json(BusTerminalSystem.Napsa.RegisterMember.connect(params))
+  end
   
 end

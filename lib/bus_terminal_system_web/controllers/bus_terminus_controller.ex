@@ -43,7 +43,6 @@ defmodule BusTerminalSystemWeb.BusTerminusController do
             conn
             |> put_flash(:info, bus_terminus)
             |> redirect(to: Routes.bus_terminus_path(conn, :bus_approval))
-
           {:error, changeset} ->
             conn
             |> put_flash(:error, changeset)

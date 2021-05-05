@@ -31,6 +31,9 @@ defmodule BusTerminalSystemWeb.Router do
     pipe_through [:browser]
 
     match :*, "/btmms/service/user/management", UserManagementController, :redirect
+    scope "/api" do
+      match :*, "/btmms/service/till/management", TellerController, :redirect_process
+    end
 
   end
 
@@ -43,9 +46,15 @@ defmodule BusTerminalSystemWeb.Router do
 
     # USER_CONTROLLER
     resources "/platform/secure/commercial/services/users/management", UserController
+
     post "/platform/secure/commercial/services/users/register", UserController, :new_user
+    post "/platform/secure/commercial/services/users/register/teller", UserController, :create_teller
+    get "/platform/secure/commercial/services/teller/register", UserController, :new_teller
     get "/platform/secure/v1/json/commercial/services/users", UserController, :all_users_json
     get "/platform/secure/v1/commercial/services/users", UserController, :table_users
+    get "/Registration_Form", UserController, :registration_form
+
+    #Till Management
     get "/Registration_Form", UserController, :registration_form
 
     # BUSTERMINUS_CONTROLLER
@@ -90,6 +99,8 @@ defmodule BusTerminalSystemWeb.Router do
     get "/btmms/service/teller/display", TellerController, :index
     get "/btmms/service/teller/documentation", TellerController, :documentation
     get "/btmms/service/teller/reports", TellerController, :reports
+
+    get "/btmms/service/teller/till/management", TellerController, :till_teller_manage
 
     # VISA_CONTROLLER
     get "/payment", VisaController, :index
@@ -138,6 +149,7 @@ defmodule BusTerminalSystemWeb.Router do
     match :*, "/contributions", NapsaController, :contribute
     match :*, "/contributions/returns", NapsaController, :return_upload
     match :*, "/member/search", NapsaController, :search_member
+    match :*, "/member/register", NapsaController, :register_member
 
   end
   # Other scopes may use custom stacks.
@@ -218,6 +230,9 @@ defmodule BusTerminalSystemWeb.Router do
     get "/internal/routes/threshold", FrontendApiController, :minimum_route_price
 
     post "/internal/markets", FrontendApiController, :modules
+
+    post "/internal/transaction/deposit", TellerController, :deposit
+    post "/internal/transaction/withdraw", TellerController, :withdraw
   end
 
   # Maker checker implementation

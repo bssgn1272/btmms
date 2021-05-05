@@ -9,7 +9,7 @@ defmodule BusTerminalSystem.Napsa.Connector do
 
     case HTTPoison.post(soap_endpoint, request, headers) do
       {status, %HTTPoison.Response{body: body, status_code: status_code}} ->
-        body |> XmlToMap.naive_map
+        body |> XmlToMap.naive_map |> IO.inspect()
       {_status, %HTTPoison.Error{reason: reason}} ->
         %{"message" => reason}
     end

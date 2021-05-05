@@ -17,6 +17,19 @@ defmodule BusTerminalSystemWeb do
   and import those modules here.
   """
 
+  def universal do
+    quote do
+#      Scheme
+      alias BusTerminalSystem.AccountManager.User
+
+#      DB
+      alias BusTerminalSystem.Repo
+      alias Ecto.Multi
+      import Ecto.Changeset
+      import Ecto.Query
+    end
+  end
+
   def controller do
     quote do
       use Phoenix.Controller, namespace: BusTerminalSystemWeb

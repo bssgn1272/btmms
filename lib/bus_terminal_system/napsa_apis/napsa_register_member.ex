@@ -65,85 +65,85 @@ defmodule BusTerminalSystem.Napsa.RegisterMember do
     <soapenv:Body>
       <ns:EmployeeRegistrationRequest>
          <!--Optional:-->
-          <ns:ProviderID>#{args.member_provider_id}</ns:ProviderID>
+          <ns:ProviderID>3002</ns:ProviderID>
          <!--Optional:-->
          <ns:MemberDetails>
             <!--Optional:-->
-            <enap:first_name>#{args.member_first_name}</enap:first_name>
+            <enap:first_name>#{args["member_first_name"]}</enap:first_name>
             <!--Optional:-->
-            <enap:last_name>#{args.member_last_name}</enap:last_name>
+            <enap:last_name>#{args["member_last_name"]}</enap:last_name>
             <!--Optional:-->
-            <enap:middel_name>#{args.member_middel_name}</enap:middel_name>
+            <enap:middel_name>#{args["member_middel_name"]}</enap:middel_name>
             <!--Optional:-->
-            <enap:national_id>#{args.member_national_id}</enap:national_id>
+            <enap:national_id>#{args["member_national_id"]}</enap:national_id>
             <!--Optional:-->
-            <enap:mobile>#{args.member_mobile}</enap:mobile>
+            <enap:mobile>#{args["member_mobile"]}</enap:mobile>
             <!--Optional:-->
-            <enap:email>#{args.email}</enap:email>
+            <enap:email>#{args["email"]}</enap:email>
             <!--Optional:-->
-            <enap:title>#{args.member_title}</enap:title>
+            <enap:title>#{args["member_title"]}</enap:title>
             <!--Optional:-->
-            <enap:DOB>#{args.member_dob}</enap:DOB>
+            <enap:DOB>#{args["member_dob"]}</enap:DOB>
             <!--Optional:-->
-            <enap:gender>#{args.member_gender}</enap:gender>
+            <enap:gender>#{args["member_gender"]}</enap:gender>
             <!--Optional:-->
-            <enap:marital_status>#{args.member_marital_status}</enap:marital_status>
+            <enap:marital_status>#{args["member_marital_status"]}</enap:marital_status>
             <!--Optional:-->
-            <enap:center_code>#{args.member_center_code}</enap:center_code>
+            <enap:center_code>#{args["member_center_code"]}</enap:center_code>
             <!--Optional:-->
-            <enap:date_joined>#{args.member_date_joined}</enap:date_joined>
+            <enap:date_joined>#{args["member_date_joined"]}</enap:date_joined>
             <!--Optional:-->
-            <enap:address_line1>#{args.member_address_line1}</enap:address_line1>
+            <enap:address_line1>#{args["member_address_line1"]}</enap:address_line1>
             <!--Optional:-->
-            <enap:address_line2>#{args.member_address_line2}</enap:address_line2>
+            <enap:address_line2>#{args["member_address_line2"]}</enap:address_line2>
             <!--Optional:-->
-            <enap:address_line3>#{args.member_address_line3}</enap:address_line3>
+            <enap:address_line3>#{args["member_address_line3"]}</enap:address_line3>
             <!--Optional:-->
-            <enap:address_line4>#{args.member_address_line4}</enap:address_line4>
+            <enap:address_line4>#{args["member_address_line4"]}</enap:address_line4>
             <!--Optional:-->
-            <enap:fax>#{args.member_fax}</enap:fax>
-             <enap:postal_address_line1>#{args.member_postal_address_line1}</enap:postal_address_line1>
+            <enap:fax>#{args["member_fax"]}</enap:fax>
+             <enap:postal_address_line1>#{args["member_postal_address_line1"]}</enap:postal_address_line1>
             <!--Optional:-->
-            <enap:postal_address_line2>#{args.member_postal_address_line2}</enap:postal_address_line2>
+            <enap:postal_address_line2>#{args["member_postal_address_line2"]}</enap:postal_address_line2>
             <!--Optional:-->
-            <enap:postal_address_line3>#{args.member_postal_address_line3}</enap:postal_address_line3>
+            <enap:postal_address_line3>#{args["member_postal_address_line3"]}</enap:postal_address_line3>
             <!--Optional:-->
-            <enap:postal_address_line4>#{args.member_postal_address_line4}</enap:postal_address_line4>
+            <enap:postal_address_line4>#{args["member_postal_address_line4"]}</enap:postal_address_line4>
             <!--Optional:-->
-            <enap:father_surname>#{args.member_father_surname}</enap:father_surname>
+            <enap:father_surname>#{args["member_father_surname"]}</enap:father_surname>
             <!--Optional:-->
-            <enap:father_first_name>#{args.member_father_first_name}</enap:father_first_name>
+            <enap:father_first_name>#{args["member_father_first_name"]}</enap:father_first_name>
             <!--Optional:-->
-            <enap:mother_surname>#{args.member_mother_surname}</enap:mother_surname>
+            <enap:mother_surname>#{args["member_mother_surname"]}</enap:mother_surname>
             <!--Optional:-->
-            <enap:mother_first_name>#{args.member_mother_first_name}</enap:mother_first_name>
+            <enap:mother_first_name>#{args["member_mother_first_name"]}</enap:mother_first_name>
             <!--Optional:-->
-            <enap:occupation_code>#{args.member_occupation_code}</enap:occupation_code>
+            <enap:occupation_code>#{args["member_occupation_code"]}</enap:occupation_code>
             <!--Optional:-->
-            <enap:province_code>#{args.member_province_code}</enap:province_code>
+            <enap:province_code>#{args["member_province_code"]}</enap:province_code>
             <!--Optional:-->
-            <enap:attachment_url>#{args.member_attachment_url}</enap:attachment_url>
+            <enap:attachment_url>#{args["member_attachment_url"]}</enap:attachment_url>
             <!--Optional:-->
-            <enap:employer_account_number>#{args.member_employer_account_number}</enap:employer_account_number>
+            <enap:employer_account_number>#{args["member_employer_account_number"]}</enap:employer_account_number>
          </ns:MemberDetails>
          <!--Optional:-->
          <ns:BeneficiaryEntries>
             <!--Zero or more repetitions:-->
             <enap:Beneficiaries>
                <!--Optional:-->
-               <enap:first_name>#{args.member_bene_first_name}</enap:first_name>
+               <enap:first_name>#{args["member_bene_first_name"]}</enap:first_name>
                <!--Optional:-->
-               <enap:last_name>#{args.member_bene_last_name}</enap:last_name>
+               <enap:last_name>#{args["member_bene_last_name"]}</enap:last_name>
                <!--Optional:-->
-               <enap:middel_name>#{args.member_bene_middel_name}</enap:middel_name>
+               <enap:middel_name>#{args["member_bene_middel_name"]}</enap:middel_name>
                <!--Optional:-->
-               <enap:national_id>#{args.member_bene_national_id}</enap:national_id>
+               <enap:national_id>#{args["member_bene_national_id"]}</enap:national_id>
                <!--Optional:-->
-               <enap:DOB>#{args.member_bene_dob}</enap:DOB>
+               <enap:DOB>#{args["member_bene_dob"]}</enap:DOB>
                <!--Optional:-->
-               <enap:gender>#{args.member_bene_gender}</enap:gender>
+               <enap:gender>#{args["member_bene_gender"]}</enap:gender>
                <!--Optional:-->
-               <enap:relationship_code>#{args.member_bene_relationship_code}</enap:relationship_code>
+               <enap:relationship_code>#{args["member_bene_relationship_code"]}</enap:relationship_code>
             </enap:Beneficiaries>
          </ns:BeneficiaryEntries>
       </ns:EmployeeRegistrationRequest>

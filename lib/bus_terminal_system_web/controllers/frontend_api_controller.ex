@@ -652,7 +652,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   #---------------------------------------TICKETS-----------------------------------------------------------------------
 
   def update_ticket(conn, %{"ticket" => %{"id" => id}, "params" => params} = paramz) do
-    IO.inspect(paramz)
+
     route = BusTerminalSystem.TravelRoutes.find_by([start_route: params["start_route"], end_route: params["end_route"]])
     params = Map.put(params, "route", route.id)
     BusTerminalSystem.TicketManagement.Ticket.find(id) |> case do

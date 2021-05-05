@@ -414,14 +414,14 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title" style="font-size: 20px; font-weight: bold;">Social Security Number Search</h4>
+          <h4 class="modal-title" style="font-size: 20px; font-weight: bold;">NAPSA SEARCH</h4>
           <hr>
         </div>
         <div class="modal-body">
           <div>
 
               <div class="form-group">
-                <label for="nrc">National ID:</label>
+                <label for="nrc">NRC/SSN:</label>
 
                 <input type="text" oninput="search_napsa_member()" class="form-control" id="napsa_search_id" placeholder="Enter ID here">
               </div>
@@ -766,76 +766,117 @@
 <div  class="container-fluid" style="padding: 40px">
 
     <input type="text" value="<%= @user.role %>" hidden class="form-control"  id="ticket_container_id">
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="" max-width="500px">
+                <div class="panel border-left-lg border-left-primary">
+                    <div class="panel-body">
+                        <h4 style="text-align:center; color:blue;"><strong>Opening Balance</strong></h4>
+                        <p style="text-align:center;">NOT CONFIGURED</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="" max-width="500px">
+                <div class="panel border-left-lg border-left-primary">
+                    <div class="panel-body">
+                        <h4 style="text-align:center; color:blue;"><strong>Total</strong></h4>
+                        <p style="text-align:center;">NOT CONFIGURED</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="" max-width="500px">
+                <div class="panel border-left-lg border-left-primary">
+                    <div class="panel-body">
+                        <h4 style="text-align:center; color:blue;"><strong>Sales</strong></h4>
+                        <p style="text-align:center;">NOT CONFIGURED</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="" max-width="500px">
+                <div class="panel border-left-lg border-left-primary">
+                    <div class="panel-body">
+                        <h4 style="text-align:center; color:blue;"><strong>Balance</strong></h4>
+                        <p id="bank_account_balance" style="text-align:center;">K <%= @user.bank_account_balance |> Decimal.from_float() |> Decimal.round(2) %></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="ticket_container" class="row">
         <%= if @user.role == "TOP" or @user.role == "CCOP" or @user.role == "SADMIN" do %>
+
             <div class="col-md-3">
-                <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
-
-                    <header class="w3-container w3-indigo w3-center" id="heed">
-                        <h3>Tickets</h3>
-                    </header>
-
-                    <div class="w3-container"><br>
-                        <p>To query tickets, & check for past tickets click the button below.<br><br></p>
-                        <p style="width:50%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="reload_page()">Query Ticket</button></p>
+                <div class="" max-width="500px">
+                    <div class="panel border-left-lg border-left-primary">
+                        <div class="panel-body">
+                            <h6 style="text-align:center; color:blue;"><strong>TICKET PURCHASE HISTORY</strong></h6>
+                            <p style=""><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="reload_page()">Query Ticket</button></p>
+                        </div>
                     </div>
                 </div>
             </div>
+
         <% end %>
 
         <%= if @user.role == "TOP" or @user.role == "CCOP" or @user.role == "SADMIN" do %>
-            <div class="col-md-3">
-                <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
-                    <header class="w3-container w3-indigo w3-center" id="heed">
-                        <h3>Booking </h3>
-                    </header>
-
-                    <div class="w3-container rounded"><br>
-                        <p>To book for a trip, & view details about the route click the button below.</p>
-                        <p style="width:50%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('bookings')">Book</button></p>
+        <div class="col-md-3">
+            <div class="" max-width="500px">
+                <div class="panel border-left-lg border-left-primary">
+                    <div class="panel-body">
+                        <h6 style="text-align:center; color:blue;"><strong>TICKET BOOKING</strong></h6>
+                        <p style="text-align:center; "><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('bookings')">Book</button></p>
                     </div>
                 </div>
             </div>
+        </div>
+
         <% end %>
 
 
         <%= if @user.role == "TOP" or @user.role == "CCOP" or @user.role == "SADMIN" do %>
-            <div class="col-md-3" >
-                <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
-                    <header class="w3-container w3-indigo w3-center" id="heed">
-                        <h3>Routes</h3>
-                    </header>
-
-                    <div class="w3-container"><br>
-                        <p>To view available routes, and destinations click the button below.<br><br></p>
-                        <p style="width:50%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('routes')">Routes</button></p>
+            <div class="col-md-3">
+                <div class="" max-width="500px">
+                    <div class="panel border-left-lg border-left-primary">
+                        <div class="panel-body">
+                            <h6 style="text-align:center; color:blue;"><strong>TRAVEL ROUTES</strong></h6>
+                            <p style=""><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('routes')">Routes</button></p>
+                        </div>
                     </div>
                 </div>
             </div>
+
         <% end %>
 
 
         <%= if @user.role == "TOP" or @user.role == "SADMIN" do %>
-            <div class="col-md-3" style="height: 15px">
-                <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
 
-                    <header class="w3-container w3-indigo w3-center" id="heed">
-                        <h3>Check In</h3>
-                    </header>
-
-                    <div class="w3-container"><br>
-                        <p>To check in a luggage and make payments for it, click the button below.</p>
-                        <p style="width:65%;"><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('checkin')">Check In</button></p>
+        <div class="col-md-3">
+            <div class="" max-width="500px">
+                <div class="panel border-left-lg border-left-primary">
+                    <div class="panel-body">
+                        <h6 style="text-align:center; color:blue;"><strong>TICKET CHECK IN</strong></h6>
+                        <p style=""><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="openCity('checkin')">Check In</button></p>
                     </div>
                 </div>
             </div>
+        </div>
+
+
         <% end %>
 
 
         <div class="col-md-12 bus" id="dueToToday">
-            <div class="w3-card-4 w3-margin w3-white" style="width:100%;" id="rcorners1">
+            <div class="w3-white" style="width:100%;" id="rcorners1">
 
                 <header class="w3-container w3-indigo w3-center" id="heed">
                   <h3>Tickets Due Today</h3>
@@ -1193,6 +1234,11 @@
                                             </div>
 
                                             <div class="form-group">
+
+                                                <button type="button" onClick="ticket_back_to_routes()" style="margin-right: 20px;  border-radius: 12px; margin-bottom: 10px" class="w3-btn w3-indigo w3-hover-orange w3-left">
+                                                    Back to Routes
+                                                </button>
+
                                                 <button type="button" data-toggle="modal" data-target="#modal_theme_primary" onClick="ticket_confirmation()" style="border-radius: 12px; margin-bottom: 10px" class="w3-btn w3-indigo w3-hover-orange w3-left">
                                                     <b><i class="icon-checkmark2"></i></b>Purchase Ticket
                                                 </button>
@@ -2193,7 +2239,7 @@ toolbar -->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title" style="font-size: 20px; font-weight: bold;">Social Security Number Search</h4>
+          <h4 class="modal-title" style="font-size: 20px; font-weight: bold;">NAPSA MEMBER SEARCH</h4>
           <hr>
         </div>
         <div class="modal-body">
@@ -3385,6 +3431,7 @@ function openCity(cityName) {
                     <p>First Name</p>
                     <input name="payload[first_name]" id="First_Name_Model" readonly type="text" required class="form-control" placeholder="Passenger First Name">
                     <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                    <input type="hidden" id="session_user_id" value="<%= @user.id %>">
                     <input type="hidden" id="reference_number_Model" name="payload[reference_number]" value="<%= BusTerminalSystemWeb.TicketController.generate_reference_number(0)%>">
                     <input type="hidden" id="external_ref_Model" name="payload[external_ref]" value="<%= BusTerminalSystem.Randomizer.randomizer(16)%>">
                     <input type="hidden" id="serial_number_Model" name="payload[serial_number]" value="<%= BusTerminalSystem.Randomizer.randomizer(7,:numeric)%>">

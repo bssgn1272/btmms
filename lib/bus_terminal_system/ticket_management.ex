@@ -5,6 +5,7 @@ defmodule BusTerminalSystem.TicketManagement do
 
   import Ecto.Query, warn: false
   alias BusTerminalSystem.Repo
+  alias BusTerminalSystem.Service.Zicb.Funding, as: Zicb
 
   alias BusTerminalSystem.TicketManagement.Ticket
 
@@ -50,6 +51,7 @@ defmodule BusTerminalSystem.TicketManagement do
 
   """
   def create_ticket(attrs \\ %{}) do
+
     %Ticket{} |> Ticket.changeset(attrs) |> Repo.insert()
   end
 

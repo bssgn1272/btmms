@@ -1,128 +1,72 @@
 <h1 style="text-align:center; color:blue; text-decoration:underline;"><strong>Manage Buses</strong></h1><hr style="border-top: 1px solid orange;">
 
 <style>
-         .panel{
-             border-radius: 25px;
-             border:1px solid orange;
-         }
-         </style>
-        <div class="container-fluid">
-            <ul class="nav nav-tabs">
-                <li ><a data-toggle="tab" href="#home">Manage</a></li>
-                   <li class="active"> <a href="<%= Routes.bus_terminus_path(@conn, :register) %>">Register Bus </a>
-                        </li>
-            </ul>
+    .panel{
+        border-radius: 25px;
+        border:1px solid orange;
+    }
+</style>
+<div class="container-fluid">
+    <ul class="nav nav-tabs">
+        <li ><a data-toggle="tab" href="#home">Manage</a></li>
+        <li class="active"> <a href="<%= Routes.bus_terminus_path(@conn, :register) %>">Register Bus </a>
+        </li>
+    </ul>
 
-            <div class="tab-content">
+    <div class="tab-content">
 
-                <div id="home" class="tab-pane fade in active">
-                    <div class="panel panel-flat" style="padding: 9px">
-                        <div class="panel-heading">
-                            <h5 class="panel-title" style="text-align:center; font-weight: bold; color:blue; text-decoration:underline;">BUSES</h5>
-                            <div class="heading-elements">
-                                <ul class="icons-list">
-                                    <li><a data-action="collapse"></a></li>
-                                    <li><a data-action="reload"></a></li>
-                                    <li><a data-action="close"></a></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div style="overflow-x:auto;">
-                            <table class="table table-striped table-bordered" id="ManageBus">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Bus Name</th>
-                                    <th>Bus Number Plate</th>
-                                    <th>Operator</th>
-                                    <th>Company</th>
-
-                                    <th>Capacity</th>
-                                    <th>State. Reg</th>
-                                    <th>Color</th>
-                                    <th>Class</th>
-                                    <th>Model</th>
-                                    <th>Serial</th>
-                                    <th>UID</th>
-
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <%= for bus <- @bus_terminus do %>
-                                    <tr>
-                                        <td><%= bus.id %></td>
-                                        <td><%= bus.make %></td>
-                                        <td><%= bus.license_plate %></td>
-                                        <td><%= BusTerminalSystem.AccountManager.get_user!(bus.operator_id).username %></td>
-                                        <td><%= BusTerminalSystem.AccountManager.get_user!(bus.operator_id).company %></td>
-
-                                        <td><%= bus.vehicle_capacity %></td>
-                                        <td><%= bus.state_of_registration %></td>
-                                        <td><%= bus.color %></td>
-                                        <td><%= bus.vehicle_class %></td>
-                                        <td><%= bus.model %></td>
-                                        <td><%= bus.serial_number %></td>
-                                        <td><%= bus.uid %></td>
-
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                        <i class="icon-menu9"></i>
-                                                    </a>
-
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-
-                                                        <li><a onclick="bus_info_edit_model(<%= bus.id%>)"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Edit</a></li>
-                                                        <li><a href="#"><img src="https://img.icons8.com/material/24/000000/cancel--v1.png"> Deactivate</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                <% end %>
-                            </tbody>
-
-                            </table>
-                        </div>
+        <div id="home" class="tab-pane fade in active">
+            <div class="panel panel-flat" style="padding: 9px">
+                <div class="panel-heading">
+                    <h5 class="panel-title" style="text-align:center; font-weight: bold; color:blue; text-decoration:underline;">BUSES</h5>
+                    <div class="heading-elements">
+                        <ul class="icons-list">
+                            <li><a data-action="collapse"></a></li>
+                            <li><a data-action="reload"></a></li>
+                            <li><a data-action="close"></a></li>
+                        </ul>
                     </div>
-                </div>                           
+                </div>
 
+                <div style="overflow-x:auto;">
+                    <table class="table table-striped table-bordered" id="ManageBus">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Bus Name</th>
+                                <th>Bus Number Plate</th>
+                                <th>Operator</th>
+                                <th>Company</th>
 
-                <div id="menu1" class="tab-pane fade">
-                    <div class="panel panel-flat" style="padding: 9px">
-                        <div class="panel-heading">
-                            <h5 class="panel-title" style="text-align:center; font-weight: bold; color:blue; text-decoration:underline;">PENDING APPROVAL</h5>
-                            <div class="heading-elements">
-                                <ul class="icons-list">
-                                    <li><a data-action="collapse"></a></li>
-                                    <li><a data-action="reload"></a></li>
-                                    <li><a data-action="close"></a></li>
-                                </ul>
-                            </div>
-                        </div>
+                                <th>Capacity</th>
+                                <th>State. Reg</th>
+                                <th>Color</th>
+                                <th>Class</th>
+                                <th>Model</th>
+                                <th>Serial</th>
+                                <th>UID</th>
 
-                        <div style="overflow-x:auto;">
-                            <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
-                                <thead>
-                                    <tr>
-                                        <th>Bus Name</th>
-                                        <th>Bus Number Plate</th>
-                                        <th>BOP</th>
-                                        <th>Town</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
 
-                                <tbody>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                        <tbody>
+                            <%= for bus <- @bus_terminus do %>
+                                <tr>
+                                    <td><%= bus.id %></td>
+                                    <td><%= bus.make %></td>
+                                    <td><%= bus.license_plate %></td>
+                                    <td><%= BusTerminalSystem.AccountManager.get_user!(bus.operator_id).username %></td>
+                                    <td><%= BusTerminalSystem.AccountManager.get_user!(bus.operator_id).company %></td>
+
+                                    <td><%= bus.vehicle_capacity %></td>
+                                    <td><%= bus.state_of_registration %></td>
+                                    <td><%= bus.color %></td>
+                                    <td><%= bus.vehicle_class %></td>
+                                    <td><%= bus.model %></td>
+                                    <td><%= bus.serial_number %></td>
+                                    <td><%= bus.uid %></td>
+
                                     <td class="text-center">
                                         <ul class="icons-list">
                                             <li class="dropdown">
@@ -131,19 +75,74 @@
                                                 </a>
 
                                                 <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li><a href="#" data-toggle="modal" data-target="#edit"><i class="icon-check"></i> Approve</a></li>
-                                                    <li><a href="#" data-toggle="modal" data-target="#edit"><i class="icon-cross"></i> Decline</a></li>
+
+                                                    <li><a onclick="bus_info_edit_model(<%= bus.id%>)"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Edit</a></li>
+                                                    <li><a href="#"><img src="https://img.icons8.com/material/24/000000/cancel--v1.png"> Deactivate</a></li>
                                                 </ul>
                                             </li>
                                         </ul>
                                     </td>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                                </tr>
+
+                            <% end %>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+
+
+        <div id="menu1" class="tab-pane fade">
+            <div class="panel panel-flat" style="padding: 9px">
+                <div class="panel-heading">
+                    <h5 class="panel-title" style="text-align:center; font-weight: bold; color:blue; text-decoration:underline;">PENDING APPROVAL</h5>
+                    <div class="heading-elements">
+                        <ul class="icons-list">
+                            <li><a data-action="collapse"></a></li>
+                            <li><a data-action="reload"></a></li>
+                            <li><a data-action="close"></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="overflow-x:auto;">
+                    <table class="table table-striped table-bordered" id="dataTableBusTerminusId">
+                        <thead>
+                            <tr>
+                                <th>Bus Name</th>
+                                <th>Bus Number Plate</th>
+                                <th>BOP</th>
+                                <th>Town</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-center">
+                                <ul class="icons-list">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            <i class="icon-menu9"></i>
+                                        </a>
+
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li><a href="#" data-toggle="modal" data-target="#edit"><i class="icon-check"></i> Approve</a></li>
+                                            <li><a href="#" data-toggle="modal" data-target="#edit"><i class="icon-cross"></i> Decline</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -258,4 +257,4 @@
         </div>
     </div>
   </div>
-  <!------------------------------------------------------------------------------------------------------------------------------------------------------->
+  <!--------------------------------------------- END ---------------------------------------------------------------------------------------------------------->

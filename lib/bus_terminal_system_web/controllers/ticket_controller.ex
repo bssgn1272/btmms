@@ -23,92 +23,136 @@ defmodule BusTerminalSystemWeb.TicketController do
 
   def create(conn, %{"payload" => ticket_params}) do
 
-    users = AccountManager.list_users()
-    tickets = RepoManager.list_tickets()
-
-
-    ticket_params = Map.put(ticket_params, "class", "TICKET")
-    ticket_params = Map.put(ticket_params, "route_information", ticket_params["route_information"]) #route_information
-
     [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot, _, bus_schedule_id] = ticket_params["route_information"] |> String.split()
-    route = BusTerminalSystem.TravelRoutes.find_by(start_route: start_route, end_route: end_route)
 
-    ticket_params = Map.put(ticket_params, "amount", price |> String.replace("K",""))
-    ticket_params = Map.put(ticket_params, "route", route.id)
-    ticket_params = Map.put(ticket_params, "bus_schedule_id", bus_schedule_id)
+    bank_transaction = %{
+      "srcAcc" => conn.assigns.user.account_number,
+      "srcBranch" => conn.assigns.user.bank_srcBranch,
+      "amount" => (price |> String.replace("K","")),
+      "payDate" => "2019-08-16",
+      "srcCurrency" => "ZMW",
+      "remarks" => "TICKET PURCHASE",
+      "referenceNo" => ticket_params["external_ref"],
+      "transferRef" => ticket_params["external_ref"],
+      "request_reference" => ticket_params["external_ref"],
+      "service" => "TICKET_PURCHASE",
+      "op_description" => "CLIENT TICKET PURCHASE",
+    } |> BusTerminalSystem.Service.Zicb.Funding.withdraw()
 
-    case TicketManagement.create_ticket(ticket_params) do
-      {:ok, ticket} ->
-
-        spawn(fn ->
-          BusTerminalSystem.Notification.Table.Sms.create!([recipient: ticket.mobile_number, message: NapsaSmsGetway.send_ticket_sms(ticket), sent: false])
-        end)
-
-        conn
-        |> put_flash(:info, "Ticket Purchased Successfully.")
-        |> redirect(to: Routes.user_path(conn, :index))
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-
-      IO.inspect changeset
-
+    if bank_transaction.status != "SUCCESS" do
       conn
       |> put_flash(:info, "Failed To Purchase Ticket.")
       |> redirect(to: Routes.user_path(conn, :index))
+    else
+      users = AccountManager.list_users()
+      tickets = RepoManager.list_tickets()
+
+      ticket_params = Map.put(ticket_params, "class", "TICKET")
+      ticket_params = Map.put(ticket_params, "route_information", ticket_params["route_information"]) #route_information
+
+
+      route = BusTerminalSystem.TravelRoutes.find_by(start_route: start_route, end_route: end_route)
+
+      ticket_params = Map.put(ticket_params, "amount", price |> String.replace("K",""))
+      ticket_params = Map.put(ticket_params, "route", route.id)
+      ticket_params = Map.put(ticket_params, "bus_schedule_id", bus_schedule_id)
+
+      case TicketManagement.create_ticket(ticket_params) do
+        {:ok, ticket} ->
+
+          spawn(fn ->
+            BusTerminalSystem.Notification.Table.Sms.create!([recipient: ticket.mobile_number, message: NapsaSmsGetway.send_ticket_sms(ticket), sent: false])
+          end)
+
+          conn
+          |> put_flash(:info, "Ticket Purchased Successfully.")
+          |> redirect(to: Routes.user_path(conn, :index))
+
+        {:error, %Ecto.Changeset{} = changeset} ->
+
+          conn
+          |> put_flash(:info, "Failed To Purchase Ticket.")
+          |> redirect(to: Routes.user_path(conn, :index))
+      end
     end
   end
 
   def create_ticket_payload(conn, %{"payload" => ticket_params}) do
 
-    users = AccountManager.list_users()
-    tickets = RepoManager.list_tickets()
 
-    ticket_params = Map.put(ticket_params, "class", "TICKET")
-    ticket_params = Map.put(ticket_params, "route_information", ticket_params["route_information"]) #route_information
+    case BusTerminalSystem.AccountManager.User.find(ticket_params["session_user_id"]) do
+      nil -> conn |> json(%{"message" => "Failed", "status" => 400} )
+      session_user ->
 
     [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot, _, bus_schedule_id] = ticket_params["route_information"] |> String.split()
-    route = BusTerminalSystem.TravelRoutes.find_by(start_route: start_route, end_route: end_route)
 
-    price = price |> String.replace("K","")
+    bank_transaction = %{
+       "srcAcc" => session_user.account_number,
+       "srcBranch" => session_user.bank_srcBranch,
+       "amount" => (price |> String.replace("K","")),
+       "payDate" => ticket_params["travel_date"],
+       "srcCurrency" => "ZMW",
+       "remarks" => "TICKET PURCHASE",
+       "referenceNo" => ticket_params["external_ref"],
+       "transferRef" => ticket_params["external_ref"],
+       "request_reference" => ticket_params["external_ref"],
+       "service" => "TICKET_PURCHASE",
+       "op_description" => "CLIENT TICKET PURCHASE",
+     } |> BusTerminalSystem.Service.Zicb.Funding.withdraw()
 
-    ticket_params = Map.put(ticket_params, "amount", price)
-    ticket_params = Map.put(ticket_params, "route", route.id)
-    ticket_params = Map.put(ticket_params, "bus_schedule_id", bus_schedule_id)
+        if bank_transaction.status != "SUCCESS" do
+          conn
+          |> json(%{"message" => "Failed", "status" => 400} )
+        else
+      BusTerminalSystem.Service.Zicb.AccountOpening.account_balance_inquiry(session_user.account_number)
 
-    IO.inspect(ticket_params)
+          users = AccountManager.list_users()
+          tickets = RepoManager.list_tickets()
 
-    operator = BusTerminalSystem.BusManagement.Bus.find(ticket_params["bus_no"]).operator_id
-              |> BusTerminalSystem.AccountManager.User.find
+          ticket_params = Map.put(ticket_params, "class", "TICKET")
+          ticket_params = Map.put(ticket_params, "route_information", ticket_params["route_information"]) #route_information
 
-    if operator.apply_discount == false do
-      ticket_params = Map.put(ticket_params, "discount_applied", false)
-      ticket_params = Map.put(ticket_params, "discount_amount", 0)
-      ticket_purchase(conn, ticket_params)
-    else
-      operator.apply_discount |> case do
-        nil ->
-          ticket_params = Map.put(ticket_params, "discount_applied", true)
-          ticket_params = Map.put(ticket_params, "discount_amount", 0.0)
-          ticket_purchase(conn, ticket_params)
-        false ->
-          ticket_params = Map.put(ticket_params, "discount_applied", true)
-          ticket_params = Map.put(ticket_params, "discount_amount", 0.0)
-          ticket_purchase(conn, ticket_params)
-        true ->
+          [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot, _, bus_schedule_id] = ticket_params["route_information"] |> String.split()
+          route = BusTerminalSystem.TravelRoutes.find_by(start_route: start_route, end_route: end_route)
 
-          discount_calculated = (fn original_amount, discount_amount ->
-            parse_float(original_amount) - discount_amount
-          end)
+          price = price |> String.replace("K","")
 
-          ticket_params = Map.put(ticket_params, "amount", discount_calculated.(price, operator.discount_amount))
-          ticket_params = Map.put(ticket_params, "discount_applied", true)
-          ticket_params = Map.put(ticket_params, "discount_amount", operator.discount_amount)
-          ticket_params = Map.put(ticket_params, "discount_original_amount", price)
-          ticket_purchase(conn, ticket_params)
+          ticket_params = Map.put(ticket_params, "amount", price)
+          ticket_params = Map.put(ticket_params, "route", route.id)
+          ticket_params = Map.put(ticket_params, "bus_schedule_id", bus_schedule_id)
+
+          operator = BusTerminalSystem.BusManagement.Bus.find(ticket_params["bus_no"]).operator_id
+                     |> BusTerminalSystem.AccountManager.User.find
+
+          if operator.apply_discount == false do
+            ticket_params = Map.put(ticket_params, "discount_applied", false)
+            ticket_params = Map.put(ticket_params, "discount_amount", 0)
+            ticket_purchase(conn, ticket_params, session_user)
+          else
+            operator.apply_discount |> case do
+             nil ->
+               ticket_params = Map.put(ticket_params, "discount_applied", true)
+               ticket_params = Map.put(ticket_params, "discount_amount", 0.0)
+               ticket_purchase(conn, ticket_params, session_user)
+             false ->
+               ticket_params = Map.put(ticket_params, "discount_applied", true)
+               ticket_params = Map.put(ticket_params, "discount_amount", 0.0)
+               ticket_purchase(conn, ticket_params, session_user)
+             true ->
+
+               discount_calculated = (fn original_amount, discount_amount ->
+                 parse_float(original_amount) - discount_amount
+                                      end)
+
+               ticket_params = Map.put(ticket_params, "amount", discount_calculated.(price, operator.discount_amount))
+               ticket_params = Map.put(ticket_params, "discount_applied", true)
+               ticket_params = Map.put(ticket_params, "discount_amount", operator.discount_amount)
+               ticket_params = Map.put(ticket_params, "discount_original_amount", price)
+               ticket_purchase(conn, ticket_params,session_user)
+           end
       end
+        end
     end
-
-
 
   end
 
@@ -122,7 +166,7 @@ defmodule BusTerminalSystemWeb.TicketController do
     flt
   end
 
-  defp ticket_purchase(conn, ticket_params) do
+  defp ticket_purchase(conn, ticket_params, session_user) do
     case TicketManagement.create_ticket(ticket_params) do
       {:ok, ticket} ->
 
@@ -131,14 +175,23 @@ defmodule BusTerminalSystemWeb.TicketController do
         end)
 
         conn
-        |> json(ticket |> Map.merge(%{"status" => 200}) |> Poison.encode!())
+        |> json(
+        %{
+          "ticket" => ticket |> Poison.encode!(),
+          "status" => 200,
+          "bank_account_balance" => session_user.bank_account_balance
+        })
 
       {:error, %Ecto.Changeset{} = changeset} ->
 
-        IO.inspect changeset
-
         conn
-        |> json(%{"message" => "Failed", "status" => 400} )
+        |> json(
+             %{
+               "ticket" => %{},
+                "message" => "Failed",
+               "status" => 400,
+               "bank_account_balance" => session_user.bank_account_balance
+             })
     end
   end
 

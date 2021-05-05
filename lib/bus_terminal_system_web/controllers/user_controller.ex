@@ -20,7 +20,8 @@ defmodule BusTerminalSystemWeb.UserController do
            :show,
            :edit,
            :update,
-           :delete
+           :delete,
+           :new_teller
          ]
   )
 
@@ -39,6 +40,11 @@ defmodule BusTerminalSystemWeb.UserController do
   def new(conn, params) do
     changeset = AccountManager.change_user(%User{})
     render(conn, "new.html", changeset: changeset)
+  end
+
+  def new_teller(conn, params) do
+    changeset = AccountManager.change_user(%User{})
+    render(conn, "new_teller.html", changeset: changeset)
   end
 
   def new_user(conn, params) do
@@ -122,6 +128,79 @@ defmodule BusTerminalSystemWeb.UserController do
 
   end
 
+  def create_teller(conn, %{"payload" => payload} = user_params) do
+
+    {s,first_name} = Map.fetch(payload,"first_name")
+    {s,password} = Map.fetch(payload,"password")
+    {s,username} = Map.fetch(payload,"username")
+    {s,email} = Map.fetch(payload,"email")
+    {s,mobile_number} = Map.fetch(payload,"mobile")
+    {s,role} = Map.fetch(payload,"role")
+    {s,pin} = Map.fetch(payload,"pin")
+
+    if User.find_by(account_number: Map.fetch!(payload, "account_number")) != nil do
+      conn
+      |> put_flash(:error, "Account Number #{Map.fetch!(payload, "account_number")} already exists")
+      |> redirect(to: Routes.user_path(conn, :new))
+    else
+      role |> case do
+                "MOP" ->
+
+                  spawn(fn ->
+                    message = " Hello #{first_name}, \n Your BTMMS ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{password} Pin for mobile #{mobile_number} is #{pin}"
+                    NapsaSmsGetway.send_sms(mobile_number,message)
+                  end)
+
+                  payload = Map.put(payload, "operator_role", "MARKETER")
+                  user_create_payload(conn, payload)
+
+                "BOP" ->
+
+                  spawn(fn ->
+                    message = " Hello #{first_name}, \n Your BTMMS BUS OPERATOR CREDENTIALS ARE .Username: #{username} Password: #{password}"
+                    NapsaSmsGetway.send_sms(mobile_number,message)
+                  end)
+
+                  payload = Map.put(payload, "operator_role", "BUS OPERATOR")
+                  payload = Map.put(payload, "account_status", "OTP")
+                  user_create_payload(conn, payload)
+
+                "TOP" ->
+
+                  spawn(fn ->
+                    message = " Hello #{first_name}, \n Your BTMMS TELLER ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{password}"
+                    NapsaSmsGetway.send_sms(mobile_number,message)
+                  end)
+
+                  payload = Map.put(payload, "operator_role", "TELLER")
+                  user_create_payload(conn, payload)
+
+                "SADMIN" ->
+
+                  spawn(fn ->
+                    message = " Hello #{first_name}, \n Your BTMMS SUPER ADMINISTRATIVE ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{password}"
+                    NapsaSmsGetway.send_sms(mobile_number,message)
+                  end)
+
+                  payload = Map.put(payload, "operator_role", "SUPER_ADMINISTRATOR")
+                  user_create_payload(conn, payload)
+                _ ->
+
+                  spawn(fn ->
+                    message = " Hello #{first_name}, \n Your BTMMS ADMINISTRATIVE ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{password}"
+                    NapsaSmsGetway.send_sms(mobile_number,message)
+                  end)
+
+                  payload = Map.put(payload, "operator_role", "ADMINISTRATOR")
+                  user_create_payload(conn, payload)
+              end
+
+      render(conn, "new_teller.html")
+    end
+
+
+  end
+
   defp user_create_payload(conn, payload) do
 
     napsa_user = %{
@@ -142,7 +221,7 @@ defmodule BusTerminalSystemWeb.UserController do
 
         conn
         |> put_flash(:info, "User created successfully.")
-        |> render("new.html", [changeset: changeset, napsa_user: napsa_user])
+        |> render("new_teller.html", [changeset: changeset, napsa_user: napsa_user])
 
       {:error, %Ecto.Changeset{} = changeset} ->
 
@@ -150,7 +229,7 @@ defmodule BusTerminalSystemWeb.UserController do
 
         conn
         |> put_flash(:error,"Failed To Create User")
-        |> render("new.html", [changeset: changeset, napsa_user: napsa_user])
+        |> render("new_teller.html", [changeset: changeset, napsa_user: napsa_user])
 
     end
   end

@@ -9,3 +9,16 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+
+alias BusTerminalSystem.Settings
+
+save = (fn key, value -> if Settings.find_by(key: key) == nil, do: Settings.create(key: key, value: value, status: true) end)
+
+save.("APPLICATION_NAME","BTMMS")
+save.("BANK_URL","http://41.175.13.198:7664//api/json/commercials/probase/zicb/fundsTransfer")
+save.("BANK_AUTH_KEY","NOT SET")
+save.("BANK_AUTH_SERVICE_KEY","NOT SET")
+save.("EYED_BUS_ROUTES_URL","NOT SET")
+save.("SMS_GATEWAY","NOT SET")
+

@@ -738,6 +738,7 @@ function passenger_ticket_logic() {
             let data_object = JSON.parse(JSON.stringify(response));
             json_data = data_object;
             console.log(data_object);
+            console.log("response");
             if (data_object.length < 1){
                 $('#passenger_view').hide();
                 $("#results_view").hide();
@@ -816,6 +817,7 @@ function ticket_purchase(value){
                 )
             }else{
                 $('#passenger_view').show();
+                $("#results_view").hide();
                 let info = "OPERATOR: " + rd[0] + "\t START: " + rd[1] + "\t END: " + rd[2] + "\t DEPARTURE: " + rd[3] + "\t PRICE: K" + rd[4] + "\t GATE: " + rd[6] + "\t SCHEDULE: " + rd[7];
                 $('#route_information').val(info);
 
@@ -861,6 +863,7 @@ function purchase_ticket_internal() {
     let json_request = JSON.stringify({
         payload: {
             first_name: $('#First_Name_Model').val(),
+            session_user_id: $('#session_user_id').val(),
             reference_number: $('#reference_number_Model').val(),
             external_ref: $('#external_ref_Model').val(),
             serial_number: $('#serial_number_Model').val(),
@@ -899,7 +902,9 @@ function purchase_ticket_internal() {
         contentType: 'application/json',
         data: json_request,
         success: function (data_response) {
-            let single_object = JSON.parse(data_response);
+            // let single_object = JSON.parse(data_response);
+            console.log(data_response)
+            let single_object = JSON.parse(data_response.ticket);
             console.log(single_object)
             $('#modal_theme_primary').modal("hide");
             $('#passenger_view').hide();
@@ -907,39 +912,32 @@ function purchase_ticket_internal() {
             $("#passenger_ticket_view").hide();
 
             let status = single_object.status
-            if(status === 200){
+            console.log(single_object)
+            if(data_response.status === 200){
                 swalWithBootstrapButtons.close();
-                // swal({
-                //     title: "Done!",
-                //     text: "Ticket Purchase Successful! ID: " + single_object.id,
-                //     icon: "success",
-                //     button: "Ok",
-                // });
 
-                swal({
-                    title: "Purchase Complete",
-                    text: "Ticket Purchase Successful! ID: " + single_object.id,
-                    type: "success"
-                });
+                document.getElementById("bank_account_balance").innerHTML = "K" + Math.round((data_response.bank_account_balance + Number.EPSILON) * 100) / 100;
+
+                ticket_back_to_routes2();
+
+                swal({title: "Purchase Complete", text: "Ticket Purchase Successful! ID: " + single_object.id, type: "success"},
+                    function(){
+                        ticket_back_to_routes2();
+                    }
+                );
             }else{
                 swalWithBootstrapButtons.close();
-                // swal({
-                //     title: "Done!",
-                //     text: "Ticket Purchase Successful! ID: " + single_object.id,
-                //     icon: "success",
-                //     button: "Ok",
-                // });
-                swal({
-                    title: "Purchase Complete",
-                    text: "Ticket Purchase Successful! ID: " + single_object.id,
-                    type: "success"
-                });
 
-                // swal({
-                //     title: "Purchase Failed",
-                //     text: "Ticket Purchase Failed! ",
-                //     type: "error"
-                // });
+                document.getElementById("bank_account_balance").innerHTML = "K" + Math.round((data_response.bank_account_balance + Number.EPSILON) * 100) / 100;
+
+                ticket_back_to_routes2();
+
+                swal({title: "Purchase Failed", text: "Could not complete request", type: "error"},
+                    function(){
+                        ticket_back_to_routes2();
+                    }
+                );
+
             }
         }
     });
@@ -1098,4 +1096,30 @@ function reschedule_logic(value, ticket) {
             )
         }
     })
+}
+
+function ticket_back_to_routes(){
+
+    $("#First_Name").val("");
+    $("#Last_Name").val("");
+    $("#Contact_Number").val("");
+    $("#id_type2").val("");
+    $("#ID").val("");
+    $("#route_information").val("");
+
+    $('#passenger_view').hide();
+    $("#results_view").show();
+}
+
+function ticket_back_to_routes2(){
+
+    $("#First_Name").val("");
+    $("#Last_Name").val("");
+    $("#Contact_Number").val("");
+    $("#id_type2").val("");
+    $("#ID").val("");
+    $("#route_information").val("");
+
+    $('#passenger_view').hide();
+    $("#results_view").hide();
 }

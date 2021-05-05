@@ -138,6 +138,11 @@
       <excludeFolder url="file://$MODULE_DIR$/deps" />
       <excludeFolder url="file://$MODULE_DIR$/doc" />
       <excludeFolder url="file://$MODULE_DIR$/logs" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/csv" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/xlsxir" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/parallel_stream" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/elixlsx" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/zombie" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="phoenix" level="project" />
@@ -272,5 +277,13 @@
     <orderEntry type="library" name="benchee_html" level="project" />
     <orderEntry type="library" name="ets" level="project" />
     <orderEntry type="library" name="ex_unit_notifier" level="project" />
+    <orderEntry type="library" name="xlsxir" level="project" />
+    <orderEntry type="library" name="csv" level="project" />
+    <orderEntry type="library" name="elixlsx" level="project" />
+    <orderEntry type="library" name="parallel_stream" level="project" />
+    <orderEntry type="library" name="ex_csv" level="project" />
+    <orderEntry type="library" name="csvlixir" level="project" />
+    <orderEntry type="library" name="cesso" level="project" />
+    <orderEntry type="library" name="zombie" level="project" />
   </component>
 </module>

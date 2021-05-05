@@ -1,0 +1,23 @@
+%{
+	"service" => "ZB0641",
+	"request" => %{
+		"srcAcc" => "1019000001189",
+		"srcBranch" => "101",
+		"amount" => "1.0",
+		"payDate" => "2019-08-16",
+		"srcCurrency" => "ZMW",
+		"remarks" => "Debit 5.0 From ",
+		"referenceNo" => "28249160848",
+		"transferRef" => "54445423232321"
+	}
+}
+
+%{
+    "destAcc" => "1019000001189",
+    "destBranch" => "101",
+    "amount" => "1",
+    "payDate" => "2019-08-16",
+    "payCurrency" => "ZMW",
+    "remarks" => "API test2",
+    "referenceNo" => "{{$timestamp}}"
+}

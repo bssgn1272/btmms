@@ -61,7 +61,7 @@ defmodule BusTerminalSystem.MixProject do
       {:toolshed, "~> 0.2.13"},
       {:chartkick, "~>0.4.0"},
       {:distillery, "~> 2.0"},
-      { :uuid, "~> 1.1.8" },
+      {:uuid, "~> 1.1.8" },
       {:atomic_map, "~> 0.9.3"},
       {:elixir_xml_to_map, "~> 2.0"},
       {:soap, "~> 1.0.1"},
@@ -69,7 +69,14 @@ defmodule BusTerminalSystem.MixProject do
       {:phoenix_swagger, "~> 0.8"},
       {:ex_json_schema, "~> 0.5"},
       {:cachex, "~> 3.3"},
-      {:ets, "~> 0.8.1"}
+      {:ets, "~> 0.8.1"},
+#      {:bamboo, "~> 2.0.1"},
+#      {:bamboo_smtp, "~> 4.0.0"},
+      {:xlsxir, "~> 1.6.4"},
+      {:csv, "~> 2.3"},
+      {:elixlsx, "~> 0.4.2"},
+      {:zombie, "~> 0.1.1"},
+#      {:scrivener_ecto, "~> 2.6.0"}
 #      {:redix, ">= 0.0.0"},
 #      {:castore, ">= 0.0.0"}
     ]
