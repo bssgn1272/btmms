@@ -1,12 +1,14 @@
 package controllers
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 	"new-bus-management-backend/models"
 	"new-bus-management-backend/utils"
+	"os"
 
 	"github.com/gorilla/mux"
 )
@@ -61,9 +63,26 @@ var UpdateReservationController = http.HandlerFunc(func(w http.ResponseWriter, r
 		utils.Respond(w, utils.Message(false, "Error while decoding request body"))
 		return
 	}
-	fmt.Print("Reservation Cancellation: ")
-	fmt.Println(reservation.CancellationReason)
+
 	resp := reservation.Update(id)
+	if reservation.ReservationStatus == "C" {
+		url := os.Getenv("probase_cancel_slot_url")
+		fmt.Println("URL:>", url)
+		var str = fmt.Sprintf(`{"payload":{"bus_no":"%d", "route_code":"%s", "schedule_id":"%d"}}`, reservation.BusId, reservation.EdBusRoute.RouteCode, reservation.ID)
+		var jsonStr = []byte(str)
+		req, _ := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
+		req.Header.Set("Content-Type", "application/json")
+
+		client := &http.Client{}
+		response, err := client.Do(req)
+
+		if err == nil {
+			resp := utils.Message(false, "success")
+			resp["data"] = err
+		}
+
+		defer response.Body.Close()
+	}
 	utils.Respond(w, resp)
 })
 

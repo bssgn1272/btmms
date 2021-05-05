@@ -102,7 +102,7 @@ export class SidebarComponent implements OnInit {
       this.returnUrl =
         this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
       this.router.navigate([this.returnUrl]);
-    } else if (_role === 'SOP') {
+    } else if (_role === 'CCOP') {
       this.menuItems = ROUTESFOUR.filter((menuItem) => menuItem);
       // get return url from route parameters or default to '/'
       this.returnUrl =

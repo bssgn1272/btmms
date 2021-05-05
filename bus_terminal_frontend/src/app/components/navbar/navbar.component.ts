@@ -159,21 +159,21 @@ export class NavbarComponent implements OnInit {
   }
 
   changePasswordDialog(): void {
-    // console.log(this.currentUser);
-    // this.dialogRef = this.dialog.open(ChangePasswordComponent, {
-    //   width: '60%',
-    //   data: {activated: this.activated}
-    // });
-    //
-    // if(!this.activated){
-    //   this.dialogRef.disableClose = true;
-    // }
-    // this.dialogRef.afterClosed().subscribe(result => {
-    //   this.currentUser = this.getFromLocalStorage();
-    //   if (this.currentUser.account_status === 'ACTIVE') {
-    //     this.activated = true;
-    //   }
-    // });
+    console.log(this.currentUser);
+    this.dialogRef = this.dialog.open(ChangePasswordComponent, {
+      width: '60%',
+      data: {activated: this.activated}
+    });
+    
+    if(!this.activated){
+      this.dialogRef.disableClose = true;
+    }
+    this.dialogRef.afterClosed().subscribe(result => {
+      this.currentUser = this.getFromLocalStorage();
+      if (this.currentUser.account_status === 'ACTIVE') {
+        this.activated = true;
+      }
+    });
   }
 
   public getFromLocalStorage() {

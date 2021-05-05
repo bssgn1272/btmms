@@ -218,7 +218,7 @@ export class CancelReservationComponent implements OnInit {
     console.log(this.id);
     this.httpClient
       .put("/main/api/approve/reservations/requests/" + this.data.row.res_uuid, {
-          reservation_status: this.status,
+        reservation_status: this.status,
         cancellation_reason: this.cancellationReason,
       })
       .subscribe(
