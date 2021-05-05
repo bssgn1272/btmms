@@ -112,7 +112,7 @@ defmodule BusTerminalSystemWeb.MarketApiController do
               "mobile" => mobile,
               "pin" => "[HIDDEN]"
             }))
-          user ->
+          [user] ->
           IO.inspect(user)
             conn
             |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_authentication,"SUCCESS",0,
@@ -123,6 +123,7 @@ defmodule BusTerminalSystemWeb.MarketApiController do
                 "last_name" => user.last_name,
                 "ssn" => user.ssn,
                 "dob" => user.dob,
+                "role" => user.role,
                 "nrc" => user.nrc,
                 "email" => user.email,
                 "mobile" => user.mobile,
