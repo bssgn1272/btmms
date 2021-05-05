@@ -2,36 +2,37 @@ package models
 
 import (
 	"fmt"
-	"github.com/jinzhu/gorm"
 	"log"
 	"new-bus-management-backend/utils"
 	"time"
+
+	"github.com/jinzhu/gorm"
 )
 
 type EdBusRoute struct {
 	gorm.Model
-	EndRoute string `json:"end_route"`
-	StartRoute string `json:"start_route"`
-	RouteCode string `json:"route_code"`
-	RouteFare int `json:"route_fare"`
-	RouteName string `json:"route_name"`
-	RouteUUID string `json:"route_uuid"`
-	SourceState string `json:"source_state"`
-	Parent int `gorm:"default: 0;"`
-	SubRoutes []*EdSubRoute `json:"sub_routes"`
+	EndRoute    string        `json:"end_route"`
+	StartRoute  string        `json:"start_route"`
+	RouteCode   string        `json:"route_code"`
+	RouteFare   int           `json:"route_fare"`
+	RouteName   string        `json:"route_name"`
+	RouteUUID   string        `json:"route_uuid"`
+	SourceState string        `json:"source_state"`
+	Parent      int           `gorm:"default: 0;"`
+	SubRoutes   []*EdSubRoute `json:"sub_routes"`
 }
 
 type EdSubRoute struct {
 	gorm.Model
-	EndRoute string `json:"end_route"`
-	Order int `json:"order"`
-	RouteName string `json:"route_name"`
-	RouteFare int `json:"route_fare"`
-	RouteCode string `json:"route_code"`
-	RouteUUID string `json:"route_uuid"`
-	SourceSlate string `json:"source_slate"`
-	StartRoute string `json:"start_route"`
-	EdBusRouteID uint `gorm:"ForeignKey: EdBusRouteID" json:"ed_bus_route_id"`
+	EndRoute     string `json:"end_route"`
+	Order        int    `json:"order"`
+	RouteName    string `json:"route_name"`
+	RouteFare    int    `json:"route_fare"`
+	RouteCode    string `json:"route_code"`
+	RouteUUID    string `json:"route_uuid"`
+	SourceSlate  string `json:"source_slate"`
+	StartRoute   string `json:"start_route"`
+	EdBusRouteID uint   `gorm:"ForeignKey: EdBusRouteID" json:"ed_bus_route_id"`
 }
 
 type EdSlotMapping struct {
@@ -86,7 +87,6 @@ func (edBusRoute *EdBusRoute) Update(id uint) map[string]interface{} {
 	//newRoute.StartRoute = edBusRoute.StartRoute
 	//newRoute.SubRoutes = edBusRoute.SubRoutes
 
-
 	//GetDB().Save(&newRoute)
 
 	err := GetDB().Model(EdBusRoute{}).Where("id = ?", id).Update(edBusRoute).Error
@@ -101,7 +101,6 @@ func (edBusRoute *EdBusRoute) Update(id uint) map[string]interface{} {
 	return resp
 }
 
-
 // get towns
 func GetRoutes() []*EdReservation {
 	//m := make(map[string]interface{})
@@ -114,7 +113,6 @@ func GetRoutes() []*EdReservation {
 	err := GetDB().Preload("EdBusRoute").Preload("EdBusRoute.SubRoutes").Preload("EdSlotMappings").Model(EdReservation{}).Where(EdReservation{ReservationStatus: "A"}).Find(&edBusRoutes).Error
 
 	//err := GetDB().Table("ed_reservations").Select("ed_bus_routes.*, ed_sub_routes.*, ed_reservations.reserved_time as reseved_date, ed_reservations.time, ed_slot_mappings.gate").Joins("left join ed_bus_routes on ed_bus_routes.id=ed_reservations.ed_bus_route_id").Joins("LEFT OUTER JOIN ed_sub_routes on ed_bus_routes.id = ed_sub_routes.ed_bus_route_id").Joins("left join ed_slot_mappings on ed_reservations.slot = ed_slot_mappings.slot").Order("ed_reservations.reserved_time ASC").Order("ed_reservations.time ASC").Find(&edBusRoutes).Error
-
 
 	//for  i := 0; i < len(edBusRoutes); i++ {
 	//	appendBusRoutes[i].EdReservation.EdSlotMapping, test[i].EdSlotMapping
@@ -129,17 +127,13 @@ func GetRoutes() []*EdReservation {
 	return edBusRoutes
 }
 
-
-
 func GetRouteByCode(code string) []*EdReservation {
 
-	log.Println("CHECKING>>>>>>>>>>>>>>",code)
+	log.Println("CHECKING>>>>>>>>>>>>>>", code)
 	t := time.Now()
 
 	edBusRoutes := make([]*EdReservation, 0)
-	err := GetDB().Joins("JOIN ed_bus_routes ON ed_reservations.ed_bus_route_id=ed_bus_routes.id").Joins("JOIN ed_slot_mappings ON ed_reservations.slot=ed_slot_mappings.slot").Preload("EdBusRoute" ).Preload("EdBusRoute.SubRoutes").Preload("EdSlotMappings").Model(EdReservation{}).Where("ed_reservations.reservation_status = ? AND ed_bus_routes.route_code = ? AND ed_reservations.reserved_time > ?","A", code, t).Find(&edBusRoutes).Error
-
-
+	err := GetDB().Joins("JOIN ed_bus_routes ON ed_reservations.ed_bus_route_id=ed_bus_routes.id").Joins("JOIN ed_slot_mappings ON ed_reservations.slot=ed_slot_mappings.slot").Preload("EdBusRoute").Preload("EdBusRoute.SubRoutes").Preload("EdSlotMappings").Model(EdReservation{}).Where("ed_reservations.reservation_status = ? AND ed_bus_routes.route_code = ? AND ed_reservations.reserved_time > ?", "A", code, t).Find(&edBusRoutes).Error
 
 	fmt.Println("TEST", err)
 	if err != nil {
@@ -150,10 +144,24 @@ func GetRouteByCode(code string) []*EdReservation {
 	return edBusRoutes
 }
 
+func GetRouteByCodeAndDate(code string, date string) []*EdReservation {
 
-func(edBusRoutes *EdReservation) GetRouteByRouteID(id uint) *EdReservation {
+	log.Println("CHECKING>>>>>>>>>>>>>>", code)
+	t := time.Now()
 
-	err := GetDB().Preload("EdBusRoute").Preload("EdBusRoute.SubRoutes").Preload("EdSlotMappings").Model(EdReservation{}).Where("reservation_status = ? AND ed_bus_route_id = ?","A", id).Find(&edBusRoutes).Error
+	edBusRoutes := make([]*EdReservation, 0)
+	err := GetDB().Joins("JOIN ed_bus_routes ON ed_reservations.ed_bus_route_id=ed_bus_routes.id").Joins("JOIN ed_slot_mappings ON ed_reservations.slot=ed_slot_mappings.slot").Preload("EdBusRoute").Preload("EdBusRoute.SubRoutes").Preload("EdSlotMappings").Model(EdReservation{}).Where("ed_reservations.reservation_status = ? AND ed_bus_routes.route_code = ? AND ed_reservations.reserved_time > ? AND DATE(ed_reservations.reserved_time) = ?", "A", code, t, date).Find(&edBusRoutes).Error
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+
+	return edBusRoutes
+}
+
+func (edBusRoutes *EdReservation) GetRouteByRouteID(id uint) *EdReservation {
+
+	err := GetDB().Preload("EdBusRoute").Preload("EdBusRoute.SubRoutes").Preload("EdSlotMappings").Model(EdReservation{}).Where("reservation_status = ? AND ed_bus_route_id = ?", "A", id).Find(&edBusRoutes).Error
 
 	log.Println("TEST", err)
 	if err != nil {
@@ -168,8 +176,7 @@ func GetRoutesByUserId(userId uint) []*EdReservation {
 
 	edBusRoutes := make([]*EdReservation, 0)
 
-	err := GetDB().Preload("EdBusRoute").Preload("EdBusRoute.SubRoutes").Preload("EdSlotMappings").Model(EdReservation{}).Where("reservation_status = ? AND user_id = ?","A", userId).Find(&edBusRoutes).Error
-
+	err := GetDB().Preload("EdBusRoute").Preload("EdBusRoute.SubRoutes").Preload("EdSlotMappings").Model(EdReservation{}).Where("reservation_status = ? AND user_id = ?", "A", userId).Find(&edBusRoutes).Error
 
 	log.Println("TEST", err)
 	if err != nil {

@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/gorilla/handlers"
-	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"new-bus-management-backend/controllers"
@@ -11,6 +9,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
 )
 
 func main() {
@@ -80,7 +80,6 @@ func main() {
 	router.Handle("/main/api/approve/reservations/requests/{id}", controllers.UpdateReservationController).Methods("PUT")
 	router.Handle("/main/api/slots/close", controllers.CloseReservationController).Methods("PUT")
 
-
 	// Arrival Reservations Approval routes
 	router.Handle("/main/api/arreservations/requests", controllers.GetARReservationsRequestsController).Methods("GET")
 	router.Handle("/main/api/arreservations/requests/history", controllers.GetARReservationsRequestsHistoryController).Methods("GET")
@@ -148,6 +147,7 @@ func main() {
 	router.Handle("/main/api/destinations/{id}", controllers.UpdateBusRoutesController).Methods("PUT")
 	router.Handle("/main/api/destinations", controllers.GetBusRoutesController).Methods("GET")
 	router.Handle("/main/api/destinations/{code}", controllers.GetBusRoutesByCodeController).Methods("GET")
+	router.Handle("/main/api/destinations/{code}/{date}", controllers.GetBusRoutesByCodeAndDateController).Methods("GET")
 	router.Handle("/main/api/destinations/user-id/{user_id}", controllers.GetBusRoutesByUserIdController).Methods("GET")
 	router.Handle("/main/api/destinations/route-id/{route_id}", controllers.GetBusRoutesByRouteIdController).Methods("GET")
 
@@ -171,4 +171,3 @@ func setTimezone(tz string) error {
 func getTime(t time.Time) time.Time {
 	return t.In(loc)
 }
-

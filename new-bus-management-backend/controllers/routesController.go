@@ -3,12 +3,13 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"new-bus-management-backend/models"
 	"new-bus-management-backend/utils"
 	"strconv"
+
+	"github.com/gorilla/mux"
 )
 
 // CreateTimeController Function for time request function
@@ -26,7 +27,6 @@ var CreateBusRoutesController = http.HandlerFunc(func(w http.ResponseWriter, r *
 	utils.Respond(w, resp)
 })
 
-
 var UpdateBusRoutesController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
@@ -39,7 +39,6 @@ var UpdateBusRoutesController = http.HandlerFunc(func(w http.ResponseWriter, r *
 		utils.Respond(w, utils.Message(false, "Error while decoding request body"))
 		return
 	}
-
 
 	resp := route.Update(uint(id))
 
@@ -65,7 +64,6 @@ var GetBusRoutesController = http.HandlerFunc(func(w http.ResponseWriter, r *htt
 	utils.Respond(w, resp)
 })
 
-
 // GetTimesController Function for retrieving time requests for the day
 var GetBusRoutesByCodeController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
@@ -79,7 +77,6 @@ var GetBusRoutesByCodeController = http.HandlerFunc(func(w http.ResponseWriter, 
 	//	return
 	//}
 
-
 	data := models.GetRouteByCode(code)
 	resp := utils.Message(true, "success")
 	resp["data"] = data
@@ -87,7 +84,19 @@ var GetBusRoutesByCodeController = http.HandlerFunc(func(w http.ResponseWriter, 
 	utils.Respond(w, resp)
 })
 
+// GetTimesController Function for retrieving time requests for the day
+var GetBusRoutesByCodeAndDateController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
+	params := mux.Vars(r)
+	code, _ := params["code"]
+	date, _ := params["date"]
+
+	data := models.GetRouteByCodeAndDate(code, date)
+	resp := utils.Message(true, "success")
+	resp["data"] = data
+	log.Println(resp)
+	utils.Respond(w, resp)
+})
 
 var GetBusRoutesByUserIdController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
@@ -100,14 +109,12 @@ var GetBusRoutesByUserIdController = http.HandlerFunc(func(w http.ResponseWriter
 		return
 	}
 
-	data := models.GetRoutesByUserId(uint(id));
+	data := models.GetRoutesByUserId(uint(id))
 	resp := utils.Message(true, "success")
 	resp["data"] = data
 	log.Println(resp)
 	utils.Respond(w, resp)
 })
-
-
 
 // GetTimesController Function for retrieving time requests for the day
 var GetBusRoutesByRouteIdController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
