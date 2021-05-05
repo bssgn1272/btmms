@@ -33,7 +33,6 @@ defmodule BusTerminalSystemWeb.MarketApiController do
                 "stands" => BusTerminalSystem.Market.MarketRepo.stand_details_list(user.id)
               }))
           _value ->
-          IO.inspect _value
             json conn, ["hello"]
         end
     end
@@ -60,7 +59,6 @@ defmodule BusTerminalSystemWeb.MarketApiController do
                 "stand_price" => -1#Map.get(BusTerminalSystem.Market.MarketRepo.stand_details_minimal(user.id), :shop_price) || -1
               }))
           _value ->
-            IO.inspect _value
             json conn, ["-"]
         end
     end
@@ -113,7 +111,6 @@ defmodule BusTerminalSystemWeb.MarketApiController do
               "pin" => "[HIDDEN]"
             }))
           [user] ->
-          IO.inspect(user)
             conn
             |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_authentication,"SUCCESS",0,
               %{
