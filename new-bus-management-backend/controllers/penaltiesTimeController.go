@@ -8,7 +8,6 @@ import (
 	"new-bus-management-backend/utils"
 	"strconv"
 
-
 	"github.com/gorilla/mux"
 )
 
@@ -51,10 +50,10 @@ var GetLatestPenaltyTimesController = http.HandlerFunc(func(w http.ResponseWrite
 var UpdateDueTimeStatusController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
-	id, err := strconv.Atoi(params["id"])
+	id, _ := strconv.Atoi(params["id"])
 	workFlow := &models.EdPenaltyInterval{}
 
-	err = json.NewDecoder(r.Body).Decode(workFlow)
+	err := json.NewDecoder(r.Body).Decode(workFlow)
 	if err != nil {
 		utils.Respond(w, utils.Message(false, "Error while decoding request body"))
 		return

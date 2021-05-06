@@ -6,7 +6,6 @@ import (
 	"crypto/subtle"
 	"encoding/json"
 	"fmt"
-	"github.com/gorilla/mux"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -15,7 +14,9 @@ import (
 	"os"
 	"strconv"
 	"strings"
+
 	"github.com/dgrijalva/jwt-go"
+	"github.com/gorilla/mux"
 )
 
 var (
@@ -105,7 +106,7 @@ var ChangePassword = http.HandlerFunc(func(w http.ResponseWriter, r *http.Reques
 	fmt.Println("URL:>", url)
 	var str = fmt.Sprintf(`{"auth":{"username":"%s","service_token":"%s"},"payload":{"username":"%s","password":"%s"}}`, manager, managerToken, auth.Username, auth.Password)
 	var jsonStr = []byte(str)
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
+	req, _ := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
 	req.Header.Set("Content-Type", "application/json")
 
 	client := &http.Client{}
@@ -145,7 +146,7 @@ var ResetPassword = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request
 	fmt.Println("URL:>", url)
 	var str = fmt.Sprintf(`{"payload":{"username":"%s"}}`, auth.Username)
 	var jsonStr = []byte(str)
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
+	req, _ := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
 	req.Header.Set("Content-Type", "application/json")
 
 	client := &http.Client{}
@@ -172,8 +173,6 @@ var ResetPassword = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request
 	utils.Respond(w, resp)
 })
 
-
-
 var UpdateAccessPermissionController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
@@ -188,7 +187,6 @@ var UpdateAccessPermissionController = http.HandlerFunc(func(w http.ResponseWrit
 	resp := reservation.UpdateAccessPermission(uint(id))
 	utils.Respond(w, resp)
 })
-
 
 // GetReservationsController Function for retrieving reservation requests for the day
 var GetAllUserController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

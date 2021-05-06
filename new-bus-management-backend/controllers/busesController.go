@@ -12,7 +12,7 @@ import (
 // GetBusesController Function for retrieving days requests for the day
 var GetBusesController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	id, _ := params["id"]
+	id := params["id"]
 
 	data := models.GetBuses(id)
 	resp := utils.Message(true, "success")
@@ -24,7 +24,7 @@ var GetBusesController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Re
 // GetAvailableBusesController Function for retrieving available buses by operator ID
 var GetAvailableBusesController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	id, _ := params["id"]
+	id := params["id"]
 
 	data := models.GetAvailableBuses(id)
 	resp := utils.Message(true, "success")

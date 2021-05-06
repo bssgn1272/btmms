@@ -68,7 +68,7 @@ var GetBusRoutesController = http.HandlerFunc(func(w http.ResponseWriter, r *htt
 var GetBusRoutesByCodeController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
-	code, _ := params["code"]
+	code := params["code"]
 
 	fmt.Print(code)
 	//if err != nil {
@@ -88,8 +88,8 @@ var GetBusRoutesByCodeController = http.HandlerFunc(func(w http.ResponseWriter, 
 var GetBusRoutesByCodeAndDateController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
-	code, _ := params["code"]
-	date, _ := params["date"]
+	code := params["code"]
+	date := params["date"]
 
 	data := models.GetRouteByCodeAndDate(code, date)
 	resp := utils.Message(true, "success")

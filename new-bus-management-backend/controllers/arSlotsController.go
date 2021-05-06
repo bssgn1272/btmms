@@ -9,7 +9,6 @@ import (
 	"strconv"
 	"time"
 
-
 	"github.com/gorilla/mux"
 )
 
@@ -42,7 +41,7 @@ var ArGetSlotsController = http.HandlerFunc(func(w http.ResponseWriter, r *http.
 var ArGetSlotsByDateController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
-	date, _ := params["date"]
+	date := params["date"]
 	data := models.ArGetSlotsByDate(date)
 	resp := utils.Message(true, "success")
 	resp["data"] = data

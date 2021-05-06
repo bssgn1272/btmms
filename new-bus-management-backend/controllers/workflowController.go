@@ -8,7 +8,6 @@ import (
 	"new-bus-management-backend/utils"
 	"strconv"
 
-
 	"github.com/gorilla/mux"
 )
 
@@ -41,10 +40,10 @@ var GetModesController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Re
 var UpdateWorkFlowStatusController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
-	id, err := strconv.Atoi(params["id"])
+	id, _ := strconv.Atoi(params["id"])
 	workFlow := &models.EdWorkFlow{}
 
-	err = json.NewDecoder(r.Body).Decode(workFlow)
+	err := json.NewDecoder(r.Body).Decode(workFlow)
 	if err != nil {
 		utils.Respond(w, utils.Message(false, "Error while decoding request body"))
 		return

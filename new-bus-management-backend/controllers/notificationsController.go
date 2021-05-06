@@ -8,6 +8,8 @@ import (
 	"net/smtp"
 	"net/url"
 	"strings"
+
+	"github.com/bhargav175/noop"
 )
 
 // GetEmailController Function for retrieving town requests for the day
@@ -114,7 +116,8 @@ var GetSMSController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Requ
 
 	resp, err := http.Get(uri)
 	if err != nil {
-		// handle error
+		noop := noop.Noop
+		noop()
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)

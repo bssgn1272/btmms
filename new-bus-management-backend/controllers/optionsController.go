@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"time"
 
-
+	"github.com/bhargav175/noop"
 	"github.com/gorilla/mux"
 )
 
@@ -99,15 +99,15 @@ func RunAccessControl() {
 			if err != nil {
 				print(err)
 			} else {
-				defer resp.Body.Close()
 				body, err := ioutil.ReadAll(resp.Body)
 				if err != nil {
 					print(err)
 				} else {
 					fmt.Print(string(body))
 					accessControl.Create()
-					fmt.Println(fmt.Sprintf("Activated: Bus Schedule ID: %d, Bus ID: %d", aReady.BusScheduleID, aReady.BusID))
+					fmt.Printf("Activated: Bus Schedule ID: %d, Bus ID: %d\n", aReady.BusScheduleID, aReady.BusID)
 				}
+				resp.Body.Close()
 			}
 		}
 
@@ -125,15 +125,16 @@ func RunAccessControl() {
 			if err != nil {
 				print(err)
 			} else {
-				defer resp.Body.Close()
+				resp.Body.Close()
 				body, err := ioutil.ReadAll(resp.Body)
 				if err != nil {
 					print(err)
 				} else {
 					fmt.Print(string(body))
 					accessControl.Update(dReady.ID)
-					fmt.Println(fmt.Sprintf("Deactivated: Bus Schedule ID: %d, Bus ID: %d", dReady.BusScheduleID, dReady.BusID))
+					fmt.Printf("Deactivated: Bus Schedule ID: %d, Bus ID: %d\n", dReady.BusScheduleID, dReady.BusID)
 				}
+				resp.Body.Close()
 			}
 		}
 
@@ -217,7 +218,8 @@ func sms(receiver string, msg string) {
 
 	resp, err := http.Get(uri)
 	if err != nil {
-		// handle error
+		noop := noop.Noop
+		noop()
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
