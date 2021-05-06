@@ -932,7 +932,7 @@ function purchase_ticket_internal() {
 
                 ticket_back_to_routes2();
 
-                swal({title: "Purchase Failed", text: "Could not complete request", type: "error"},
+                swal({title: "Purchase Failed", text: data_response.message, type: "error"},
                     function(){
                         ticket_back_to_routes2();
                     }

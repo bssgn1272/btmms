@@ -56,7 +56,7 @@ function fund_account(){
                         swalWithBootstrapButtons.close();
                         swal({
                             title: "Error!",
-                            text: "Failed to Transfer value",
+                            text: response.message,
                             type: "error"
                         },
                             function(){

@@ -86,7 +86,7 @@ defmodule BusTerminalSystemWeb.TicketController do
 
     [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot, _, bus_schedule_id] = ticket_params["route_information"] |> String.split()
 
-    ref = Timex.now |> Timex.to_unix |> to_string
+    ref = ticket_params["external_ref"]
 
     bank_transaction = %{
        "srcAcc" => session_user.account_number,
@@ -104,7 +104,7 @@ defmodule BusTerminalSystemWeb.TicketController do
 
         if bank_transaction.status != "SUCCESS" do
           conn
-          |> json(%{"message" => "Failed", "status" => 400} )
+          |> json(%{"message" => bank_transaction.message,"status" => 400} )
         else
       BusTerminalSystem.Service.Zicb.AccountOpening.account_balance_inquiry(session_user.account_number)
 

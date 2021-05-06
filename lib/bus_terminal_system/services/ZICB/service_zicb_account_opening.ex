@@ -160,7 +160,6 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
         case status do
           :ok ->
             try do
-
               body |> Poison.decode!()
             rescue
               _ -> %{ "response" => "An Internal Error Occurred (ERR 4-001)" }
