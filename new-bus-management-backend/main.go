@@ -142,6 +142,9 @@ func main() {
 	router.Handle("/main/api/options/{id}", controllers.GetOptionController).Methods("GET")
 	router.Handle("/main/api/options/{id}", controllers.UpdateOptionController).Methods("PUT")
 
+	// Charges
+	router.Handle("/main/api/charges", controllers.GetChargesController).Methods("GET")
+
 	// Destination routes
 	router.Handle("/main/api/destinations", controllers.CreateBusRoutesController).Methods("POST")
 	router.Handle("/main/api/destinations/{id}", controllers.UpdateBusRoutesController).Methods("PUT")
