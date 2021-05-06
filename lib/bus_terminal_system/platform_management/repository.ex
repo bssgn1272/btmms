@@ -714,53 +714,53 @@ defmodule BusTerminalSystem.RepoManager do
 
   defp merge_routes(reserve_list) do
 
-    Enum.map(reserve_list, fn schedule ->
+    IO.inspect reserve_list, label: "TASK"
+    try do
+      Enum.map(reserve_list, fn schedule ->
+
+        route_uid = schedule["ID"] |> IO.inspect
+        bus = BusTerminalSystem.BusManagement.Bus.find(schedule["bus_id"])
+        capacity = bus.vehicle_capacity
+        seats = available_seats(capacity,schedule_ticket_count(Utility.int_to_string(route_uid)))
+
+        #      IO.inspect(seats, label: "SEATS")
+
+        if seats >= 1 do
+
+          operator = BusTerminalSystem.AccountManager.User.find(schedule["user_id"])
+
+          route = BusTerminalSystem.TravelRoutes.find_by([route_code: schedule["ed_bus_routes"]["route_code"]])
+          queried_route = get_route_by_route_code(schedule["ed_bus_routes"]["route_code"])
+
+          fare = queried_route.route_fare
+          time = schedule["time"]
+          date = schedule["reserved_time"]
+          slot = schedule["slot"]
 
 
-    IO.inspect schedule
-      route_uid = schedule["ID"] |> IO.inspect
-      bus = BusTerminalSystem.BusManagement.Bus.find(schedule["bus_id"])
-      capacity = bus.vehicle_capacity
-      seats = available_seats(capacity,schedule_ticket_count(Utility.int_to_string(route_uid)))
 
-#      IO.inspect(seats, label: "SEATS")
+          start_route = (fn operator_a, route_a, fare_a, time_a, date_a, slot_a, capacity_a, route_uid_a, bus_a  ->
+            if seats >= 1 do
+              %{
+                "available_seats" => available_seats(capacity_a, schedule_ticket_count(Utility.int_to_string(route_uid))),
+                "bus_schedule_id" => route_uid_a |> to_string,
+                "route" => route_a |> Poison.encode! |> Poison.decode!,
+                "root_route" => route_a |> Poison.encode! |> Poison.decode!,
+                "bus" => bus_a |> Poison.encode! |> Poison.decode!,
+                "fare" => fare_a,
+                "slot" => slot_a,
+                "discount_amount" => operator_a.discount_amount || 0,
+                "discount_status" => operator_a.apply_discount || 0,
+                "departure_time" => time_a,
+                "departure_date" => date_a
+              }
+            else
+              %{}
+            end
 
-      if seats >= 1 do
+                         end)
 
-        operator = BusTerminalSystem.AccountManager.User.find(schedule["user_id"])
-
-        route = BusTerminalSystem.TravelRoutes.find_by([route_code: schedule["ed_bus_routes"]["route_code"]])
-        queried_route = get_route_by_route_code(schedule["ed_bus_routes"]["route_code"])
-
-        fare = queried_route.route_fare
-        time = schedule["time"]
-        date = schedule["reserved_time"]
-        slot = schedule["slot"]
-
-
-
-        start_route = (fn operator_a, route_a, fare_a, time_a, date_a, slot_a, capacity_a, route_uid_a, bus_a  ->
-          if seats >= 1 do
-            %{
-              "available_seats" => available_seats(capacity_a, schedule_ticket_count(Utility.int_to_string(route_uid))),
-              "bus_schedule_id" => route_uid_a |> to_string,
-              "route" => route_a |> Poison.encode! |> Poison.decode!,
-              "root_route" => route_a |> Poison.encode! |> Poison.decode!,
-              "bus" => bus_a |> Poison.encode! |> Poison.decode!,
-              "fare" => fare_a,
-              "slot" => slot_a,
-              "discount_amount" => operator_a.discount_amount || 0,
-              "discount_status" => operator_a.apply_discount || 0,
-              "departure_time" => time_a,
-              "departure_date" => date_a
-            }
-          else
-            %{}
-          end
-
-        end)
-
-        start_route = start_route.(operator, route, fare, time, date, slot, capacity, route_uid, bus)
+          start_route = start_route.(operator, route, fare, time, date, slot, capacity, route_uid, bus)
 
 
           subroutes = Enum.map(schedule["ed_bus_routes"]["sub_routes"], fn sub_route ->
@@ -786,9 +786,13 @@ defmodule BusTerminalSystem.RepoManager do
           routes |> List.flatten()
 
 
-      end
+        end
 
-    end) |> List.flatten() |> IO.inspect
+      end) |> List.flatten()
+    rescue
+      _ -> []
+    end
+
   end
 
   defp routes_request(end_route) do

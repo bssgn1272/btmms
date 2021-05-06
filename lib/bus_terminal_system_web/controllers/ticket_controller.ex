@@ -86,6 +86,8 @@ defmodule BusTerminalSystemWeb.TicketController do
 
     [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot, _, bus_schedule_id] = ticket_params["route_information"] |> String.split()
 
+    ref = Timex.now |> Timex.to_unix |> to_string
+
     bank_transaction = %{
        "srcAcc" => session_user.account_number,
        "srcBranch" => session_user.bank_srcBranch,
@@ -93,9 +95,9 @@ defmodule BusTerminalSystemWeb.TicketController do
        "payDate" => ticket_params["travel_date"],
        "srcCurrency" => "ZMW",
        "remarks" => "TICKET PURCHASE",
-       "referenceNo" => ticket_params["external_ref"],
-       "transferRef" => ticket_params["external_ref"],
-       "request_reference" => ticket_params["external_ref"],
+       "referenceNo" => ref,
+       "transferRef" => ref,
+       "request_reference" => ref,
        "service" => "TICKET_PURCHASE",
        "op_description" => "CLIENT TICKET PURCHASE",
      } |> BusTerminalSystem.Service.Zicb.Funding.withdraw()

@@ -80,7 +80,7 @@
                                                     </a>
                                                     <ul class="dropdown-menu dropdown-menu-right">
                                                         <li><a href="#" class="fund_teller_user" onclick="fund_teller_modal(<%= teller |> Poison.encode!() %>)"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Fund Wallet</a></li>
-                                                        <li><a href="#" class="fund_swept_user" data-form="ELX-qA1yK3jeb6RTlaOoPDlCpapxdRcds0MiXvlZpqqjaNjwQU" data-id="<%= teller.id %>"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Sweep Fund</a></li>
+                                                        <li><a href="#" class="fund_swept_user" onclick="fund_sweep(<%= teller |> Poison.encode!() %>)" ><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Sweep Fund</a></li>
                                                         <%= if "INACTIVE" == teller.account_status do %>
                                                             <li><a href="#" class="enable_teller_user" data-username="<%= teller.username %>" data-form="4fmiiEabJx9REm8HwTzryIzyXyN5WEFE-TfpOce0AtF4k6QGpK" data-id="<%= teller.id %>"><img src="https://img.icons8.com/material/24/000000/mark.png"> Enable </a></li>
                                                         <% end %>
@@ -210,6 +210,49 @@
             <hr>
             <div class="modal-footer">
                 <button type="button" class="w3-btn w3-grey w3-round" data-dismiss="modal">Close</button> <button type="submit" onclick="fund_account()" class="w3-btn w3-green w3-round">Fund</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="sweep_till_account_by_manager" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header w3-indigo">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Sweep  Funds</h4>
+            </div>
+
+
+            <div class="modal-body">
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <th>Name</th>
+                        <td><input id="sweep_teller_name" readonly name="sweep_teller_name" required style="border: 0px none;"></td>
+                        <input type="hidden" value="TiqnDuGp8-dG0WY2nWzMxi2CXV0GF8ivD-4ocEhRA_w-CR1uqx" readonly name="sigma" required>
+                        <input type="hidden" value="" readonly name="view" required>
+                        <input type="hidden" value="" readonly name="view" required>
+                        <input type="hidden" id="sweep_srcBranch" value="" readonly name="sweep_destBranch" required>
+                    </tr>
+
+                    <tr>
+                        <th>Account Number</th>
+                        <td><input id="sweep_account_account_number" readonly name="sweep_account_account_number" style="border: 0px none;" required></td>
+                    </tr>
+
+                    <tr>
+                        <th>Wallet Balance</th>
+                        <td><input id="sweep_account_wallet_balance" readonly name="sweep_account_wallet_balance" style="border: 0px none;" required></td>
+                    </tr>
+
+                </table>
+
+            </div>
+            <hr>
+            <div class="modal-footer">
+                <button type="button" class="w3-btn w3-grey w3-round" data-dismiss="modal">Close</button> <button type="submit" onclick="sweep_funds()" class="w3-btn w3-green w3-round">Sweep</button>
             </div>
 
         </div>
