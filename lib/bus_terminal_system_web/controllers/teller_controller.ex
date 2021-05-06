@@ -70,7 +70,6 @@ defmodule BusTerminalSystemWeb.TellerController do
     extras = %{
       "referenceNo" => ref,
       "transferRef" => ref,
-      "remarks" => "TICKET PURCHASE"
     }
 
     params = params |> Map.merge(extras)

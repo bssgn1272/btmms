@@ -42,7 +42,7 @@ function fund_account(){
                 amount: amount,
                 payDate: "2021-08-16",
                 payCurrency: "ZMW",
-                remarks: "",
+                remarks: "WALLET #NO (" + $("#fund_account_account_number").val() + ") FUNDED",
             });
 
             $.ajax({

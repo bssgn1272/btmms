@@ -86,7 +86,7 @@ defmodule BusTerminalSystemWeb.TicketController do
 
     [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot, _, bus_schedule_id] = ticket_params["route_information"] |> String.split()
 
-    ref = ticket_params["external_ref"]
+    ref = ticket_params["reference_number"]
 
     bank_transaction = %{
        "srcAcc" => session_user.account_number,
@@ -94,7 +94,7 @@ defmodule BusTerminalSystemWeb.TicketController do
        "amount" => (price |> String.replace("K","")),
        "payDate" => ticket_params["travel_date"],
        "srcCurrency" => "ZMW",
-       "remarks" => "TICKET PURCHASE",
+       "remarks" => ref,
        "referenceNo" => ref,
        "transferRef" => ref,
        "request_reference" => ref,
