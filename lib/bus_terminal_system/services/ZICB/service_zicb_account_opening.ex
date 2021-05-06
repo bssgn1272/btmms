@@ -162,7 +162,7 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
             try do
               body |> Poison.decode!()
             rescue
-              _ -> %{ "response" => "An Internal Error Occurred (ERR 4-001)" }
+              _ -> raise "An Internal Error Occurred (ERR 4-001)"
             end
         end
       {_status, %HTTPoison.Error{reason: reason}} ->
