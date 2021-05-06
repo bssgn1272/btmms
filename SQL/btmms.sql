@@ -2,7 +2,7 @@
 -- Host:                         10.70.3.55
 -- Server version:               8.0.20 - MySQL Community Server - GPL
 -- Server OS:                    Win64
--- HeidiSQL Version:             11.2.0.6213
+-- HeidiSQL Version:             11.1.0.6116
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `aauth_groups` (
 
 -- Dumping data for table btmms.aauth_groups: ~2 rows (approximately)
 /*!40000 ALTER TABLE `aauth_groups` DISABLE KEYS */;
-INSERT INTO `aauth_groups` (`id`, `name`, `definition`) VALUES
+INSERT IGNORE INTO `aauth_groups` (`id`, `name`, `definition`) VALUES
 	(1, 'Admin', 'Super Admin Group'),
 	(2, 'Public', 'Public Access Group'),
 	(3, 'Default', 'Default Access Group');
@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `aauth_users` (
 
 -- Dumping data for table btmms.aauth_users: ~0 rows (approximately)
 /*!40000 ALTER TABLE `aauth_users` DISABLE KEYS */;
-INSERT INTO `aauth_users` (`id`, `email`, `pass`, `username`, `banned`, `last_login`, `last_activity`, `date_created`, `forgot_exp`, `remember_time`, `remember_exp`, `verification_code`, `totp_secret`, `ip_address`) VALUES
+INSERT IGNORE INTO `aauth_users` (`id`, `email`, `pass`, `username`, `banned`, `last_login`, `last_activity`, `date_created`, `forgot_exp`, `remember_time`, `remember_exp`, `verification_code`, `totp_secret`, `ip_address`) VALUES
 	(1, 'admin@example.com', 'dd5073c93fb477a167fd69072e95455834acd93df8fed41a2c468c45b394bfe3', 'Admin', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0');
 /*!40000 ALTER TABLE `aauth_users` ENABLE KEYS */;
 
@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `aauth_user_to_group` (
 
 -- Dumping data for table btmms.aauth_user_to_group: ~2 rows (approximately)
 /*!40000 ALTER TABLE `aauth_user_to_group` DISABLE KEYS */;
-INSERT INTO `aauth_user_to_group` (`user_id`, `group_id`) VALUES
+INSERT IGNORE INTO `aauth_user_to_group` (`user_id`, `group_id`) VALUES
 	(1, 1),
 	(1, 3);
 /*!40000 ALTER TABLE `aauth_user_to_group` ENABLE KEYS */;
@@ -177,7 +177,7 @@ CREATE TABLE IF NOT EXISTS `ed_access_controls` (
 
 -- Dumping data for table btmms.ed_access_controls: ~51 rows (approximately)
 /*!40000 ALTER TABLE `ed_access_controls` DISABLE KEYS */;
-INSERT INTO `ed_access_controls` (`id`, `bus_schedule_id`, `created_at`, `updated_at`, `deleted_at`, `deactivated_at`, `status`) VALUES
+INSERT IGNORE INTO `ed_access_controls` (`id`, `bus_schedule_id`, `created_at`, `updated_at`, `deleted_at`, `deactivated_at`, `status`) VALUES
 	(1, 39, '2020-07-01 13:07:16', '2020-07-01 13:07:17', NULL, '2020-07-01 09:00:00', 'D'),
 	(2, 41, '2020-07-01 13:07:16', '2020-07-01 13:07:17', NULL, '2020-07-01 13:00:00', 'D'),
 	(3, 42, '2020-07-01 13:07:16', '2020-07-01 13:07:18', NULL, '2020-07-01 11:00:00', 'D'),
@@ -257,11 +257,11 @@ CREATE TABLE IF NOT EXISTS `ed_ar_reservations` (
   KEY `idx_ed_ar_reservations_deleted_at` (`deleted_at`),
   KEY `ed_ar_reservations_ed_bus_route_id_ed_bus_routes_id_foreign` (`ed_bus_route_id`),
   CONSTRAINT `ed_ar_reservations_ed_bus_route_id_ed_bus_routes_id_foreign` FOREIGN KEY (`ed_bus_route_id`) REFERENCES `ed_bus_routes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table btmms.ed_ar_reservations: ~29 rows (approximately)
 /*!40000 ALTER TABLE `ed_ar_reservations` DISABLE KEYS */;
-INSERT INTO `ed_ar_reservations` (`id`, `created_at`, `updated_at`, `deleted_at`, `slot`, `res_uuid`, `status`, `route`, `user_id`, `bus_id`, `time`, `reserved_time`, `cancellation_reason`, `reservation_status`, `ed_bus_route_id`, `bus_detail`) VALUES
+INSERT IGNORE INTO `ed_ar_reservations` (`id`, `created_at`, `updated_at`, `deleted_at`, `slot`, `res_uuid`, `status`, `route`, `user_id`, `bus_id`, `time`, `reserved_time`, `cancellation_reason`, `reservation_status`, `ed_bus_route_id`, `bus_detail`) VALUES
 	(1, '2020-07-10 06:54:38', '2020-07-10 06:54:38', NULL, 'slot_three', 'af8c9053-623f-4d46-82f5-42f2b4389b6f', 'A', '7', 2, 27, '08:00', '2021-02-17 20:00:00', NULL, 'p', NULL, NULL),
 	(2, '2020-07-10 06:55:41', '2020-07-10 06:55:41', NULL, 'slot_one', 'e767d74b-5a53-41d8-9bc4-ce149d58fd0e', 'A', '8', 2, 28, '08:30', '2021-02-17 20:00:00', NULL, 'p', NULL, NULL),
 	(3, '2020-09-24 08:00:34', '2020-09-24 08:00:34', NULL, 'slot_one', 'a9175467-8b35-4dbf-88e0-22344d73279b', 'A', '5', 2, 1, '10:00', '2021-02-17 20:00:00', NULL, 'p', NULL, NULL),
@@ -291,7 +291,9 @@ INSERT INTO `ed_ar_reservations` (`id`, `created_at`, `updated_at`, `deleted_at`
 	(27, '2020-12-17 08:32:31', '2020-12-17 08:32:31', NULL, 'slot_nine', '85e5bb83-7521-4b9a-a790-05f3fcb1b37f', 'p', NULL, 49, 30, '11:00', '2021-02-12 20:00:00', '', 'A', 38, ''),
 	(28, '2021-01-28 07:15:55', '2021-01-28 07:15:55', NULL, 'slot_one', '45d1726c-ad7a-4c51-9949-2047ad7bce74', 'p', NULL, 23, 10, '10:00', '2021-02-11 20:00:00', '', 'A', 44, ''),
 	(29, '2021-01-28 07:16:31', '2021-01-28 07:16:31', NULL, 'slot_one', '5403951f-1c75-46ff-b3a0-45ed721613ec', 'p', NULL, 23, 17, '11:00', '2021-02-11 20:00:00', '', 'A', 45, ''),
-	(30, '2021-01-28 07:16:57', '2021-01-28 07:16:57', NULL, 'slot_one', 'd62f0c0b-53d2-4a8f-8ce2-2f86a62c4ec9', 'p', NULL, 23, 18, '10:30', '2021-02-11 20:00:00', '', 'A', 46, '');
+	(30, '2021-01-28 07:16:57', '2021-01-28 07:16:57', NULL, 'slot_one', 'd62f0c0b-53d2-4a8f-8ce2-2f86a62c4ec9', 'p', NULL, 23, 18, '10:30', '2021-02-11 20:00:00', '', 'A', 46, ''),
+	(31, '2021-03-25 10:03:04', '2021-03-25 10:03:04', NULL, 'slot_one', 'c36114de-0732-48c2-a374-a5612e5d63c7', 'p', NULL, 49, 32, '08:00', '2021-03-26 18:00:00', '', 'A', 59, ''),
+	(32, '2021-03-31 09:02:29', '2021-03-31 09:02:29', NULL, 'slot_two', '3d8e7b7a-ba51-49b6-a307-d5c3dc95565b', 'p', NULL, 75, 40, '08:30', '2021-04-03 18:00:00', '', 'A', 65, '');
 /*!40000 ALTER TABLE `ed_ar_reservations` ENABLE KEYS */;
 
 -- Dumping structure for table btmms.ed_ar_slots
@@ -319,7 +321,7 @@ CREATE TABLE IF NOT EXISTS `ed_ar_slots` (
 
 -- Dumping data for table btmms.ed_ar_slots: ~6 rows (approximately)
 /*!40000 ALTER TABLE `ed_ar_slots` DISABLE KEYS */;
-INSERT INTO `ed_ar_slots` (`id`, `created_at`, `updated_at`, `deleted_at`, `slot_one`, `slot_two`, `slot_three`, `slot_four`, `slot_five`, `time`, `reservation_time`, `slot_six`, `slot_seven`, `slot_eight`, `slot_nine`) VALUES
+INSERT IGNORE INTO `ed_ar_slots` (`id`, `created_at`, `updated_at`, `deleted_at`, `slot_one`, `slot_two`, `slot_three`, `slot_four`, `slot_five`, `time`, `reservation_time`, `slot_six`, `slot_seven`, `slot_eight`, `slot_nine`) VALUES
 	(1, '2020-06-28 14:38:35', '2020-06-28 14:38:36', NULL, 'open', 'open', 'open', 'open', 'open', '08:00', '2020-06-28 14:38:46', 'open', 'open', 'open', 'open'),
 	(2, '2020-06-28 12:45:15', '2020-06-28 12:45:15', NULL, 'open', 'open', 'open', 'open', 'open', '08:30', '2020-06-28 19:38:02', 'open', 'open', 'open', 'open'),
 	(3, '2020-06-28 12:45:49', '2020-06-28 12:45:49', NULL, 'open', 'open', 'open', 'open', 'open', '09:00', '2020-06-28 19:38:02', 'open', 'open', 'open', 'open'),
@@ -345,11 +347,11 @@ CREATE TABLE IF NOT EXISTS `ed_bus_routes` (
   `parent` int DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_ed_bus_routes_deleted_at` (`deleted_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table btmms.ed_bus_routes: ~47 rows (approximately)
+-- Dumping data for table btmms.ed_bus_routes: ~56 rows (approximately)
 /*!40000 ALTER TABLE `ed_bus_routes` DISABLE KEYS */;
-INSERT INTO `ed_bus_routes` (`id`, `created_at`, `updated_at`, `deleted_at`, `end_route`, `start_route`, `route_code`, `route_fare`, `route_name`, `route_uuid`, `source_state`, `parent`) VALUES
+INSERT IGNORE INTO `ed_bus_routes` (`id`, `created_at`, `updated_at`, `deleted_at`, `end_route`, `start_route`, `route_code`, `route_fare`, `route_name`, `route_uuid`, `source_state`, `parent`) VALUES
 	(1, '2020-12-15 15:27:32', '2020-12-15 15:27:32', NULL, 'LUSAKA', 'Livingstone', 'LIVLUS', 1, 'LUSAKA', 'fIkaMWQ3w8vK7XWI', 'Livingstone', 0),
 	(2, '2020-12-15 15:29:07', '2020-12-15 15:29:07', NULL, 'LUSAKA', 'Livingstone', 'LIVLUS', 1, 'LUSAKA', 'fIkaMWQ3w8vK7XWI', 'Livingstone', 0),
 	(3, '2020-12-15 15:38:22', '2020-12-15 15:38:22', NULL, 'LUSAKA', 'Livingstone', 'LIVLUS', 1, 'LUSAKA', 'fIkaMWQ3w8vK7XWI', 'Livingstone', 0),
@@ -403,7 +405,32 @@ INSERT INTO `ed_bus_routes` (`id`, `created_at`, `updated_at`, `deleted_at`, `en
 	(51, '2021-03-23 08:58:18', '2021-03-23 08:58:18', NULL, 'LUSAKA', 'Livingstone', 'LIVLUS', 1, 'LUSAKA', 'fIkaMWQ3w8vK7XWI', 'Livingstone', 0),
 	(52, '2021-03-24 07:17:00', '2021-03-24 07:17:00', NULL, 'LUSAKA', 'Livingstone', 'LIVLUS', 1, 'LUSAKA', 'fIkaMWQ3w8vK7XWI', 'Livingstone', 0),
 	(53, '2021-03-24 07:17:19', '2021-03-24 07:17:19', NULL, 'MAZABUKA', 'Livingstone', 'LIVMAZ', 1, 'MAZABUKA', 'fCFMClJXxpGCbF6e', 'Livingstone', 0),
-	(54, '2021-03-24 10:30:27', '2021-03-24 10:30:27', NULL, 'LUSAKA', 'Livingstone', 'LIVLUS', 1, 'LUSAKA', 'fIkaMWQ3w8vK7XWI', 'Livingstone', 0);
+	(54, '2021-03-24 10:30:27', '2021-03-24 10:30:27', NULL, 'LUSAKA', 'Livingstone', 'LIVLUS', 1, 'LUSAKA', 'fIkaMWQ3w8vK7XWI', 'Livingstone', 0),
+	(55, '2021-03-25 08:15:42', '2021-03-25 08:15:42', NULL, 'LUSAKA', 'Livingstone', 'LIVLUS', 1, 'LUSAKA', 'fIkaMWQ3w8vK7XWI', 'Livingstone', 0),
+	(56, '2021-03-25 09:25:06', '2021-03-25 09:25:06', NULL, 'CHOMA', 'Livingstone', 'LIVCHO', 1, 'CHOMA', 'zIljJp2Ug9LfW9zP', 'Livingstone', 0),
+	(57, '2021-03-25 09:27:44', '2021-03-25 09:27:44', NULL, 'LUSAKA', 'Livingstone', 'LIVLUS', 1, 'LUSAKA', 'fIkaMWQ3w8vK7XWI', 'Livingstone', 0),
+	(58, '2021-03-25 09:51:15', '2021-03-25 09:51:15', NULL, 'LUSAKA', 'Livingstone', 'LIVLUS', 1, 'LUSAKA', 'fIkaMWQ3w8vK7XWI', 'Livingstone', 0),
+	(59, '2021-03-25 10:03:02', '2021-03-25 10:03:02', NULL, 'MAZABUKA', 'Livingstone', 'LIVMAZ', 1, 'MAZABUKA', 'fCFMClJXxpGCbF6e', 'Livingstone', 0),
+	(60, '2021-03-25 10:51:45', '2021-03-25 10:51:45', NULL, 'LUSAKA', 'Livingstone', 'LIVLUS', 1, 'LUSAKA', 'fIkaMWQ3w8vK7XWI', 'Livingstone', 0),
+	(61, '2021-03-30 09:46:20', '2021-03-30 09:46:20', NULL, 'LUSAKA', 'Livingstone', 'LIVLUS', 1, 'LUSAKA', 'fIkaMWQ3w8vK7XWI', 'Livingstone', 0),
+	(62, '2021-03-30 09:46:23', '2021-03-30 09:46:23', NULL, 'LUSAKA', 'Livingstone', 'LIVLUS', 1, 'LUSAKA', 'fIkaMWQ3w8vK7XWI', 'Livingstone', 0),
+	(63, '2021-03-31 09:01:54', '2021-03-31 09:01:54', NULL, 'LUSAKA', 'Livingstone', 'LIVLUS', 1, 'LUSAKA', 'fIkaMWQ3w8vK7XWI', 'Livingstone', 0),
+	(64, '2021-03-31 09:02:06', '2021-03-31 09:02:06', NULL, 'CHOMA', 'Livingstone', 'LIVCHO', 1, 'CHOMA', 'zIljJp2Ug9LfW9zP', 'Livingstone', 0),
+	(65, '2021-03-31 09:02:29', '2021-03-31 09:02:29', NULL, 'MAZABUKA', 'Livingstone', 'LIVMAZ', 1, 'MAZABUKA', 'fCFMClJXxpGCbF6e', 'Livingstone', 0),
+	(66, '2021-04-09 08:46:16', '2021-04-09 08:46:16', NULL, 'Lusaka', 'Livingstone', 'LVLSK', 1, 'Livingstone Lusaka', 'ksdkjshdksj', 'Livingstone', 0),
+	(67, '2021-04-09 09:04:13', '2021-04-09 09:04:13', NULL, 'Lusaka', 'Livingstone', 'LVLSK', 1, 'Livingstone Lusaka', 'ksdkjshdksj', 'Livingstone', 0),
+	(68, '2021-04-14 19:08:28', '2021-04-14 19:08:28', NULL, 'LUSAKA', 'Livingstone', 'LIVLUS', 1, 'LUSAKA', 'fIkaMWQ3w8vK7XWI', 'Livingstone', 0),
+	(69, '2021-04-26 07:22:57', '2021-04-26 07:22:57', NULL, 'LUSAKA', 'Livingstone', 'LIVLUS', 1, 'LUSAKA', 'fIkaMWQ3w8vK7XWI', 'Livingstone', 0),
+	(70, '2021-05-02 09:14:59', '2021-05-02 09:14:59', NULL, 'LUSAKA', 'Livingstone', 'LIVLUS', 1, 'LUSAKA', 'fIkaMWQ3w8vK7XWI', 'Livingstone', 0),
+	(71, '2021-05-04 10:54:00', '2021-05-04 10:54:00', NULL, 'LUSAKA', 'Livingstone', 'LIVLUS', 1, 'LUSAKA', 'fIkaMWQ3w8vK7XWI', 'Livingstone', 0),
+	(72, '2021-05-05 08:58:48', '2021-05-05 08:58:48', NULL, 'LUSAKA', 'Livingstone', 'LIVLUS', 1, 'LUSAKA', 'fIkaMWQ3w8vK7XWI', 'Livingstone', 0),
+	(73, '2021-05-05 12:57:41', '2021-05-05 12:57:41', NULL, 'LUSAKA', 'Livingstone', 'LIVLUS', 1, 'LUSAKA', 'fIkaMWQ3w8vK7XWI', 'Livingstone', 0),
+	(74, '2021-05-05 14:15:45', '2021-05-05 14:15:45', NULL, 'Tara', 'Livingstone', 'LVTARA', 1, 'Livingstone Tara', 'spvCqzqAbLRbNgIW', 'Livingstone', 0),
+	(75, '2021-05-05 16:49:40', '2021-05-05 16:49:40', NULL, 'Lusaka', 'Livingstone', 'LVLSK', 1, 'Livingstone Lusaka', 'ksdkjshdksj', 'Livingstone', 0),
+	(76, '2021-05-05 17:59:04', '2021-05-05 17:59:04', NULL, 'Senkobo', 'Livingstone', 'LVSNK', 1, 'Livingstone Senkobo', '7ofyh24r5rKFrrxH', 'Livingstone', 0),
+	(77, '2021-05-05 18:16:10', '2021-05-05 18:16:10', NULL, 'Lusaka', 'Livingstone', 'LVLSK', 1, 'Livingstone Lusaka', 'ksdkjshdksj', 'Livingstone', 0),
+	(78, '2021-05-06 08:50:15', '2021-05-06 08:50:15', NULL, 'LUSAKA', 'Livingstone', 'LIVLUS', 1, 'LUSAKA', 'fIkaMWQ3w8vK7XWI', 'Livingstone', 0),
+	(79, '2021-05-06 10:24:35', '2021-05-06 10:24:35', NULL, 'Lusaka', 'Livingstone', 'LVLSK', 1, 'Livingstone Lusaka', 'ksdkjshdksj', 'Livingstone', 0);
 /*!40000 ALTER TABLE `ed_bus_routes` ENABLE KEYS */;
 
 -- Dumping structure for table btmms.ed_days
@@ -432,9 +459,9 @@ CREATE TABLE IF NOT EXISTS `ed_eventholder` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=527 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table btmms.ed_eventholder: ~504 rows (approximately)
+-- Dumping data for table btmms.ed_eventholder: ~497 rows (approximately)
 /*!40000 ALTER TABLE `ed_eventholder` DISABLE KEYS */;
-INSERT INTO `ed_eventholder` (`id`, `cardNO`, `gateNO`, `_time`, `event_id`, `ed_date`) VALUES
+INSERT IGNORE INTO `ed_eventholder` (`id`, `cardNO`, `gateNO`, `_time`, `event_id`, `ed_date`) VALUES
 	(1, '1', '1', '21:32:43', NULL, NULL),
 	(2, '2', '1', '21:37:49', NULL, NULL),
 	(3, '2', '1', '19:11:23', 101, NULL),
@@ -975,16 +1002,20 @@ CREATE TABLE IF NOT EXISTS `ed_options` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `option_name` (`option_name`),
   KEY `idx_ed_options_deleted_at` (`deleted_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table btmms.ed_options: ~4 rows (approximately)
 /*!40000 ALTER TABLE `ed_options` DISABLE KEYS */;
-INSERT INTO `ed_options` (`id`, `option_name`, `option_value`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+INSERT IGNORE INTO `ed_options` (`id`, `option_name`, `option_value`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'minutes_before_entry', '5', 'A', '2020-07-01 11:02:28', '2020-07-01 11:02:28', NULL),
 	(2, 'minutes_after_exit', '5', 'A', '2020-07-01 11:02:28', '2020-07-01 11:02:28', NULL),
 	(3, 'minutes_before_entry_activation', '60', 'A', '2020-07-01 11:02:28', '2020-07-01 11:02:28', NULL),
 	(4, 'minutes_after_exit_deactivation', '60', 'A', '2020-07-01 11:02:28', '2020-07-01 11:02:28', NULL),
-	(5, 'minutes_after_to_allow_sales', '5', 'A', '2020-07-01 15:21:24', '2020-07-01 15:21:26', NULL);
+	(5, 'minutes_after_to_allow_sales', '5', 'A', '2020-07-01 15:21:24', '2020-07-01 15:21:26', NULL),
+	(6, 'minutes_before_cancellation', '1440', 'A', '2020-07-14 15:30:53', '2020-07-28 10:04:41', NULL),
+	(7, 'minutes_before_arrival_notification', '10', 'A', '2020-07-21 11:06:51', '2020-07-21 11:06:51', NULL),
+	(8, 'minutes_before_departure_notification', '1', 'A', '2020-07-21 11:07:11', '2020-07-21 11:07:11', NULL),
+	(9, 'allow_booking_with_pending_penalties', '1', 'A', '2021-05-06 12:10:41', '2021-05-06 12:10:41', NULL);
 /*!40000 ALTER TABLE `ed_options` ENABLE KEYS */;
 
 -- Dumping structure for table btmms.ed_penalties
@@ -1007,8 +1038,8 @@ CREATE TABLE IF NOT EXISTS `ed_penalties` (
 
 -- Dumping data for table btmms.ed_penalties: ~273 rows (approximately)
 /*!40000 ALTER TABLE `ed_penalties` DISABLE KEYS */;
-INSERT INTO `ed_penalties` (`id`, `created_at`, `updated_at`, `deleted_at`, `bus_operator_id`, `bus_id`, `date_booked`, `date_paid`, `status`, `type`, `penalty_type_id`, `penalty_status`) VALUES
-	(5, '2020-06-30 17:02:31', '2020-06-30 17:02:31', NULL, 34, 12, '2020-06-30 17:02:31', '0000-00-00 00:00:00', 'Unpaid', 'Late Entry for Departure', 2, NULL),
+INSERT IGNORE INTO `ed_penalties` (`id`, `created_at`, `updated_at`, `deleted_at`, `bus_operator_id`, `bus_id`, `date_booked`, `date_paid`, `status`, `type`, `penalty_type_id`, `penalty_status`) VALUES
+	(5, '2020-06-30 17:02:31', '2021-04-09 10:26:49', NULL, 34, 12, '2020-06-30 17:02:31', '2021-04-09 10:26:45', 'Waived', 'Late Entry for Departure', 2, NULL),
 	(6, '2020-06-30 17:04:17', '2020-06-30 17:04:17', NULL, 34, 12, '2020-06-30 17:04:17', '0000-00-00 00:00:00', 'Unpaid', 'Late Exit for Departure', 3, NULL),
 	(7, '2020-06-30 17:52:51', '2020-06-30 17:52:51', NULL, 34, 11, '2020-06-30 17:52:51', '0000-00-00 00:00:00', 'Unpaid', 'Late Entry for Departure', 2, NULL),
 	(8, '2020-06-30 17:53:06', '2020-06-30 17:53:06', NULL, 34, 11, '2020-06-30 17:53:06', '0000-00-00 00:00:00', 'Unpaid', 'Late Exit for Departure', 3, NULL),
@@ -1300,7 +1331,7 @@ CREATE TABLE IF NOT EXISTS `ed_penalty_intervals` (
 
 -- Dumping data for table btmms.ed_penalty_intervals: ~3 rows (approximately)
 /*!40000 ALTER TABLE `ed_penalty_intervals` DISABLE KEYS */;
-INSERT INTO `ed_penalty_intervals` (`id`, `created_at`, `updated_at`, `deleted_at`, `due_time`, `description`, `status`) VALUES
+INSERT IGNORE INTO `ed_penalty_intervals` (`id`, `created_at`, `updated_at`, `deleted_at`, `due_time`, `description`, `status`) VALUES
 	(9, '2020-05-16 09:44:44', '2020-05-16 10:56:10', NULL, '20:00', 'Due Time', 'Inactive'),
 	(10, '2020-05-16 09:46:28', '2020-05-16 10:56:10', NULL, '10:00', 'Cancellation period', 'Active'),
 	(11, '2020-05-16 10:54:23', '2020-05-16 10:56:11', NULL, '18:09', 'werwe', 'Inactive');
@@ -1315,7 +1346,7 @@ CREATE TABLE IF NOT EXISTS `ed_penalty_types` (
 
 -- Dumping data for table btmms.ed_penalty_types: ~2 rows (approximately)
 /*!40000 ALTER TABLE `ed_penalty_types` DISABLE KEYS */;
-INSERT INTO `ed_penalty_types` (`id`, `penalty_type`) VALUES
+INSERT IGNORE INTO `ed_penalty_types` (`id`, `penalty_type`) VALUES
 	(1, 'Late Cancellation for Booking'),
 	(2, 'Late Entry for Departure'),
 	(3, 'Late Exit for Departure');
@@ -1345,31 +1376,24 @@ CREATE TABLE IF NOT EXISTS `ed_reservations` (
   KEY `ed_reservations_ed_bus_route_id_ed_bus_routes_id_foreign` (`ed_bus_route_id`),
   CONSTRAINT `ed_reservations_ed_bus_route_id_ed_bus_routes_id_foreign` FOREIGN KEY (`ed_bus_route_id`) REFERENCES `ed_bus_routes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `ed_reservations_slot_ed_slot_mappings_slot_foreign` FOREIGN KEY (`slot`) REFERENCES `ed_slot_mappings` (`slot`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table btmms.ed_reservations: ~20 rows (approximately)
+-- Dumping data for table btmms.ed_reservations: ~5 rows (approximately)
 /*!40000 ALTER TABLE `ed_reservations` DISABLE KEYS */;
-INSERT INTO `ed_reservations` (`id`, `created_at`, `updated_at`, `deleted_at`, `slot`, `res_uuid`, `status`, `route`, `user_id`, `bus_id`, `time`, `reserved_time`, `cancellation_reason`, `reservation_status`, `ed_bus_route_id`) VALUES
-	(138, '2020-12-16 08:26:42', '2020-12-16 08:33:07', NULL, 'slot_two', 'f85a584f-61af-40be-8893-84e54c46d3c0', 'p', NULL, 2, 28, '08:00', '2021-02-11 20:00:00', '', 'D', 10),
-	(139, '2020-12-16 12:12:12', '2020-12-16 12:12:12', NULL, 'slot_three', '309cc6d4-1c9d-45a7-b320-b9a44ba97c97', 'p', NULL, 51, 35, '16:00', '2021-02-12 20:00:00', '', 'D', 15),
-	(140, '2020-12-16 12:13:08', '2020-12-16 12:13:08', NULL, 'slot_two', 'b5c8bb83-2f93-4fd4-a382-82027c839ef5', 'p', NULL, 2, 27, '16:00', '2021-02-11 20:00:00', '', 'D', 16),
-	(141, '2020-12-16 13:17:31', '2020-12-16 13:31:14', NULL, 'slot_three', '235882a7-bca1-4ea5-98bd-c1801a4149a5', 'p', NULL, 51, 35, '08:00', '2021-02-12 20:00:00', 'Bus Breakdown', 'C', 19),
-	(142, '2020-12-16 14:09:08', '2020-12-16 14:09:08', NULL, 'slot_one', '74502428-361a-41de-aa2c-71e17176509b', 'p', NULL, 58, 36, '17:00', '2021-02-11 20:00:00', '', 'D', 23),
-	(143, '2020-12-18 20:00:00', '2020-12-18 20:00:00', NULL, 'slot_one', '5a54495a-b760-423e-94e0-7d5aadf3a3d1', 'p', NULL, 58, 37, '12:00', '2021-02-11 20:00:00', '', 'D', 24),
-	(144, '2020-12-18 20:00:00', '2020-12-18 20:00:00', NULL, 'slot_one', 'd21e9d56-6d88-40a0-9328-22e8df4256aa', 'B', NULL, 49, 29, '17:00', '2021-02-11 20:00:00', '', 'D', 37),
-	(145, '2021-01-28 06:52:54', '2021-01-28 06:52:54', NULL, 'slot_one', '278ad41b-5199-40bd-a6e1-3d2718cf5fb1', 'p', NULL, 2, 27, '12:00', '2021-02-12 20:00:00', '', 'D', 39),
-	(146, '2021-01-28 06:55:28', '2021-01-28 06:55:28', NULL, 'slot_one', 'a587de8a-e330-4c8f-a42c-420aa5c083ba', 'p', NULL, 51, 35, '13:00', '2021-02-12 20:00:00', '', 'D', 40),
-	(147, '2021-01-28 06:56:44', '2021-01-28 06:56:44', NULL, 'slot_one', '5d7b52bb-6854-4e41-a45a-f0a068730573', 'p', NULL, 49, 29, '14:00', '2021-02-12 20:00:00', '', 'D', 41),
-	(148, '2021-01-28 06:58:02', '2021-01-28 06:58:02', NULL, 'slot_one', '5f3eeb83-9cb9-4c23-ad62-6a6bbcf3ae35', 'p', NULL, 23, 10, '15:00', '2021-02-12 20:00:00', '', 'D', 42),
-	(149, '2021-01-28 06:58:40', '2021-01-28 06:58:40', NULL, 'slot_one', 'f355887e-9ee0-4cb1-aaf6-ba82d10dd23a', 'p', NULL, 23, 17, '11:00', '2021-02-12 20:00:00', '', 'D', 43),
-	(150, '2021-02-15 14:54:38', '2021-02-15 14:54:38', NULL, 'slot_one', 'cf4b3a8c-8fa8-40e1-b555-230a5f8f464f', 'p', NULL, 49, 29, '08:00', '2021-02-16 20:00:00', '', 'D', 47),
-	(151, '2021-02-18 08:25:39', '2021-02-18 08:25:39', NULL, 'slot_two', '278cf54c-4a65-44c3-bc6e-0e7a84512f74', 'p', NULL, 49, 29, '09:00', '2021-02-19 20:00:00', '', 'D', 48),
-	(152, '2021-02-24 08:27:06', '2021-02-24 08:27:06', NULL, 'slot_one', 'f103181e-971a-4da0-88e7-d7dea9111434', 'p', NULL, 49, 33, '15:00', '2021-03-01 20:00:00', '', 'D', 49),
-	(153, '2021-03-15 04:37:51', '2021-03-15 04:37:51', NULL, 'slot_one', '4cec00f4-d6b2-4fde-af28-0ce89aed4d84', 'p', NULL, 49, 29, '12:00', '2021-03-15 04:00:00', '', 'D', 50),
-	(154, '2021-03-23 08:58:18', '2021-03-23 08:58:18', NULL, 'slot_one', 'c1d47a1d-ed46-483b-bc7f-45f5a1234f02', 'D', NULL, 49, 29, '15:00', '2021-03-23 20:00:00', '', 'D', 51),
-	(155, '2021-03-24 07:17:01', '2021-03-24 07:17:01', NULL, 'slot_one', 'd9af8357-dcea-407a-be1b-e450470c2c1f', 'p', NULL, 49, 29, '12:00', '2021-03-24 20:00:00', '', 'D', 52),
-	(156, '2021-03-24 07:17:20', '2021-03-24 07:17:20', NULL, 'slot_one', '4630424a-65ea-4174-913a-e2f3af1ea889', 'p', NULL, 49, 30, '13:00', '2021-03-24 20:00:00', '', 'DL', 53),
-	(157, '2021-03-24 10:30:28', '2021-03-24 10:34:27', NULL, 'slot_one', '25b93e3f-fe26-4515-a026-8789082cacd5', 'p', NULL, 75, 38, '08:00', '2021-03-25 20:00:00', 'Bus has broken down', 'C', 54);
+INSERT IGNORE INTO `ed_reservations` (`id`, `created_at`, `updated_at`, `deleted_at`, `slot`, `res_uuid`, `status`, `route`, `user_id`, `bus_id`, `time`, `reserved_time`, `cancellation_reason`, `reservation_status`, `ed_bus_route_id`) VALUES
+	(1, '2021-04-09 09:04:14', '2021-05-05 15:11:38', NULL, 'slot_one', 'e5fa0506-7b7d-43ca-9ea7-31fa5cb85acc', 'p', NULL, 2, 27, '08:00', '2021-04-10 20:00:00', 'Date passed.', 'C', 67),
+	(2, '2021-04-14 19:08:30', '2021-04-14 19:08:30', NULL, 'slot_one', 'fec2386a-1168-4964-8e24-04acae05a7b7', 'p', NULL, 49, 30, '08:00', '2021-04-15 20:00:00', '', 'D', 68),
+	(3, '2021-04-26 07:22:57', '2021-04-26 07:22:57', NULL, 'slot_one', '2a42108f-4cba-421c-ba36-2e3d64033dcf', 'p', NULL, 49, 29, '08:00', '2021-04-27 20:00:00', '', 'D', 69),
+	(4, '2021-05-02 09:14:59', '2021-05-02 09:14:59', NULL, 'slot_one', 'f514add7-4be3-466f-9f1e-80b7baf2c139', 'p', NULL, 49, 30, '08:00', '2021-05-03 20:00:00', '', 'D', 70),
+	(5, '2021-05-04 10:54:01', '2021-05-04 10:54:01', NULL, 'slot_one', '9d0def0e-f1ea-4604-bcf1-d4c93ec4cb0f', 'p', NULL, 49, 30, '20:00', '2021-05-05 20:00:00', '', 'D', 71),
+	(6, '2021-05-05 08:58:48', '2021-05-05 08:58:48', NULL, 'slot_one', '9f185dee-8a80-444e-89a8-8dd468dfe5d1', 'p', NULL, 49, 32, '21:00', '2021-05-05 20:00:00', '', 'D', 72),
+	(7, '2021-05-05 12:57:42', '2021-05-05 12:57:42', NULL, 'slot_one', 'ba9eeb77-163f-4729-b10d-257cf0b7c5d5', 'DL', NULL, 49, 34, '12:00', '2021-05-06 20:00:00', '', 'DL', 73),
+	(8, '2021-05-05 14:15:46', '2021-05-05 14:15:46', NULL, 'slot_two', '3e5ab105-7b77-4720-8e75-559d4500bf43', 'p', NULL, 2, 27, '10:00', '2021-05-06 20:00:00', '', 'D', 74),
+	(9, '2021-05-05 16:49:41', '2021-05-05 16:49:41', NULL, 'slot_one', '2d66f98a-0f86-4276-996b-8d3520f4fabc', 'p', NULL, 2, 28, '08:00', '2021-05-07 20:00:00', '', 'D', 75),
+	(10, '2021-05-05 17:59:04', '2021-05-05 18:41:13', NULL, 'slot_three', '9a90a444-41bb-4597-98b0-45ba5fc484e8', 'p', NULL, 2, 28, '08:00', '2021-05-06 20:00:00', 'Approval is taking too long.', 'C', 76),
+	(11, '2021-05-05 18:16:11', '2021-05-05 18:16:11', NULL, 'slot_five', '29f243e0-a100-4b37-91c5-145d31bc9479', 'p', NULL, 2, 27, '08:00', '2021-05-09 20:00:00', '', 'A', 77),
+	(12, '2021-05-06 08:50:15', '2021-05-06 08:50:15', NULL, 'slot_two', '89df088b-ee6f-45e3-bb71-af1ea4643fe6', 'p', NULL, 49, 33, '12:00', '2021-05-07 20:00:00', '', 'A', 78),
+	(13, '2021-05-06 10:24:36', '2021-05-06 10:24:36', NULL, 'slot_nine', 'ed1e9fdc-2da2-41ca-a492-2af215ebcd4a', 'p', NULL, 2, 28, '12:00', '2021-05-07 20:00:00', '', 'A', 79);
 /*!40000 ALTER TABLE `ed_reservations` ENABLE KEYS */;
 
 -- Dumping structure for table btmms.ed_slots
@@ -1396,17 +1420,17 @@ CREATE TABLE IF NOT EXISTS `ed_slots` (
 
 -- Dumping data for table btmms.ed_slots: ~8 rows (approximately)
 /*!40000 ALTER TABLE `ed_slots` DISABLE KEYS */;
-INSERT INTO `ed_slots` (`id`, `created_at`, `updated_at`, `deleted_at`, `slot_one`, `slot_two`, `slot_three`, `slot_four`, `slot_five`, `time`, `reservation_time`, `slot_six`, `slot_seven`, `slot_eight`, `slot_nine`) VALUES
-	(1, '2020-06-19 14:38:08', '2021-03-24 10:34:27', NULL, 'open', 'open', 'open', 'open', 'open', '08:00', '2021-03-24 21:59:59', 'open', 'open', 'open', 'open'),
-	(2, '2020-06-19 14:39:34', '2020-12-16 13:44:07', NULL, 'open', 'open', 'open', 'open', 'open', '09:00', '2021-03-24 21:59:59', 'open', 'open', 'open', 'open'),
-	(3, '2020-06-19 14:39:47', '2020-10-27 11:36:26', NULL, 'open', 'open', 'open', 'open', 'open', '10:00', '2021-03-24 21:59:59', 'open', 'open', 'open', 'open'),
-	(4, '2020-06-19 14:39:52', '2020-10-28 15:17:11', NULL, 'open', 'open', 'open', 'open', 'open', '11:00', '2021-03-24 21:59:59', 'open', 'open', 'open', 'open'),
-	(5, '2020-06-19 14:39:56', '2020-10-28 14:18:22', NULL, 'open', 'open', 'open', 'open', 'open', '12:00', '2021-03-24 21:59:59', 'open', 'open', 'open', 'open'),
-	(6, '2020-06-19 14:40:28', '2020-10-28 15:15:30', NULL, 'open', 'open', 'open', 'open', 'open', '13:00', '2021-03-24 21:59:59', 'open', 'open', 'open', 'open'),
-	(7, '2020-06-30 12:32:20', '2020-10-28 15:16:22', NULL, 'open', 'open', 'open', 'open', 'open', '14:00', '2021-03-24 21:59:59', 'open', 'open', 'open', 'open'),
-	(8, '2020-06-30 12:32:39', '2020-09-30 18:30:17', NULL, 'open', 'open', 'open', 'open', 'open', '15:00', '2021-03-24 21:59:59', 'open', 'open', 'open', 'open'),
-	(9, '2020-06-30 12:32:57', '2020-10-28 13:40:29', NULL, 'open', 'open', 'open', 'open', 'open', '16:00', '2021-03-24 21:59:59', 'open', 'open', 'open', 'open'),
-	(10, '2020-07-02 15:36:34', '2020-10-28 13:40:49', NULL, 'open', 'open', 'open', 'open', 'open', '17:00', '2021-03-24 21:59:59', 'open', 'open', 'open', 'open');
+INSERT IGNORE INTO `ed_slots` (`id`, `created_at`, `updated_at`, `deleted_at`, `slot_one`, `slot_two`, `slot_three`, `slot_four`, `slot_five`, `time`, `reservation_time`, `slot_six`, `slot_seven`, `slot_eight`, `slot_nine`) VALUES
+	(1, '2020-06-19 14:38:08', '2021-05-05 18:41:13', NULL, 'open', 'open', 'open', 'open', 'open', '08:00', '2021-05-05 21:59:49', 'open', 'open', 'open', 'open'),
+	(2, '2020-06-19 14:39:34', '2020-12-16 13:44:07', NULL, 'open', 'open', 'open', 'open', 'open', '09:00', '2021-05-05 21:59:49', 'open', 'open', 'open', 'open'),
+	(3, '2020-06-19 14:39:47', '2020-10-27 11:36:26', NULL, 'open', 'open', 'open', 'open', 'open', '10:00', '2021-05-05 21:59:49', 'open', 'open', 'open', 'open'),
+	(4, '2020-06-19 14:39:52', '2020-10-28 15:17:11', NULL, 'open', 'open', 'open', 'open', 'open', '11:00', '2021-05-05 21:59:49', 'open', 'open', 'open', 'open'),
+	(5, '2020-06-19 14:39:56', '2020-10-28 14:18:22', NULL, 'open', 'open', 'open', 'open', 'open', '12:00', '2021-05-05 21:59:49', 'open', 'open', 'open', 'open'),
+	(6, '2020-06-19 14:40:28', '2021-03-25 09:31:34', NULL, 'open', 'open', 'open', 'open', 'open', '13:00', '2021-05-05 21:59:49', 'open', 'open', 'open', 'open'),
+	(7, '2020-06-30 12:32:20', '2020-10-28 15:16:22', NULL, 'open', 'open', 'open', 'open', 'open', '14:00', '2021-05-05 21:59:49', 'open', 'open', 'open', 'open'),
+	(8, '2020-06-30 12:32:39', '2020-09-30 18:30:17', NULL, 'open', 'open', 'open', 'open', 'open', '15:00', '2021-05-05 21:59:49', 'open', 'open', 'open', 'open'),
+	(9, '2020-06-30 12:32:57', '2020-10-28 13:40:29', NULL, 'open', 'open', 'open', 'open', 'open', '16:00', '2021-05-05 21:59:49', 'open', 'open', 'open', 'open'),
+	(10, '2020-07-02 15:36:34', '2020-10-28 13:40:49', NULL, 'open', 'open', 'open', 'open', 'open', '17:00', '2021-05-05 21:59:49', 'open', 'open', 'open', 'open');
 /*!40000 ALTER TABLE `ed_slots` ENABLE KEYS */;
 
 -- Dumping structure for table btmms.ed_slot_mappings
@@ -1425,7 +1449,7 @@ CREATE TABLE IF NOT EXISTS `ed_slot_mappings` (
 
 -- Dumping data for table btmms.ed_slot_mappings: ~9 rows (approximately)
 /*!40000 ALTER TABLE `ed_slot_mappings` DISABLE KEYS */;
-INSERT INTO `ed_slot_mappings` (`id`, `slot`, `gate`, `created_at`, `updated_at`, `deleted_at`) VALUES
+INSERT IGNORE INTO `ed_slot_mappings` (`id`, `slot`, `gate`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'slot_one', '6', NULL, NULL, NULL),
 	(2, 'slot_two', '6', NULL, NULL, NULL),
 	(3, 'slot_three', '6', NULL, NULL, NULL),
@@ -1452,7 +1476,7 @@ CREATE TABLE IF NOT EXISTS `ed_sms_notifications` (
 
 -- Dumping data for table btmms.ed_sms_notifications: ~79 rows (approximately)
 /*!40000 ALTER TABLE `ed_sms_notifications` DISABLE KEYS */;
-INSERT INTO `ed_sms_notifications` (`id`, `bus_schedule_id`, `created_at`, `updated_at`, `deleted_at`, `deactivated_at`, `msisdn`, `status`) VALUES
+INSERT IGNORE INTO `ed_sms_notifications` (`id`, `bus_schedule_id`, `created_at`, `updated_at`, `deleted_at`, `deactivated_at`, `msisdn`, `status`) VALUES
 	(1, 87, '2020-07-21 13:09:37', '2020-07-21 14:56:31', NULL, '2020-07-21 15:19:00', '260977233220', 'D'),
 	(2, 60, '2020-07-21 14:56:36', '2020-07-21 14:59:05', NULL, '2020-07-21 16:59:00', '260977963982', 'D'),
 	(3, 75, '2020-07-21 14:56:37', '2020-07-21 14:59:06', NULL, '2020-07-21 16:59:00', '260977963982', 'D'),
@@ -1553,11 +1577,11 @@ CREATE TABLE IF NOT EXISTS `ed_sub_routes` (
   KEY `idx_ed_sub_routes_deleted_at` (`deleted_at`),
   KEY `ed_sub_routes_ed_bus_route_id_ed_bus_routes_id_foreign` (`ed_bus_route_id`),
   CONSTRAINT `ed_sub_routes_ed_bus_route_id_ed_bus_routes_id_foreign` FOREIGN KEY (`ed_bus_route_id`) REFERENCES `ed_bus_routes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=160 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=249 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table btmms.ed_sub_routes: ~133 rows (approximately)
+-- Dumping data for table btmms.ed_sub_routes: ~180 rows (approximately)
 /*!40000 ALTER TABLE `ed_sub_routes` DISABLE KEYS */;
-INSERT INTO `ed_sub_routes` (`id`, `created_at`, `updated_at`, `deleted_at`, `end_route`, `order`, `route_name`, `route_fare`, `route_code`, `route_uuid`, `source_slate`, `start_route`, `ed_bus_route_id`) VALUES
+INSERT IGNORE INTO `ed_sub_routes` (`id`, `created_at`, `updated_at`, `deleted_at`, `end_route`, `order`, `route_name`, `route_fare`, `route_code`, `route_uuid`, `source_slate`, `start_route`, `ed_bus_route_id`) VALUES
 	(1, '2020-12-15 15:27:32', '2020-12-15 15:27:32', NULL, 'CHOMA', 5, 'CHOMA', 1, 'LIVCHO', 'zIljJp2Ug9LfW9zP', '', 'Livingstone', 1),
 	(2, '2020-12-15 15:27:32', '2020-12-15 15:27:32', NULL, 'MAZABUKA', 6, 'MAZABUKA', 1, 'LIVMAZ', 'fCFMClJXxpGCbF6e', '', 'Livingstone', 1),
 	(3, '2020-12-15 15:27:32', '2020-12-15 15:27:32', NULL, 'KAFUE', 7, 'KAFUE', 1, 'LivKaf', 'Ko6WvJLmbCBpSEZF', '', 'Livingstone', 1),
@@ -1716,7 +1740,96 @@ INSERT INTO `ed_sub_routes` (`id`, `created_at`, `updated_at`, `deleted_at`, `en
 	(156, '2021-03-24 10:30:27', '2021-03-24 10:30:27', NULL, 'CHOMA', 5, 'CHOMA', 1, 'LIVCHO', 'zIljJp2Ug9LfW9zP', '', 'Livingstone', 54),
 	(157, '2021-03-24 10:30:27', '2021-03-24 10:30:27', NULL, 'MAZABUKA', 6, 'MAZABUKA', 1, 'LIVMAZ', 'fCFMClJXxpGCbF6e', '', 'Livingstone', 54),
 	(158, '2021-03-24 10:30:27', '2021-03-24 10:30:27', NULL, 'KAFUE', 7, 'KAFUE', 1, 'LivKaf', 'Ko6WvJLmbCBpSEZF', '', 'Livingstone', 54),
-	(159, '2021-03-24 10:30:27', '2021-03-24 10:30:27', NULL, 'MONZE', 8, 'MONZE', 1, 'LIVMON', 'FRULOoumGCp2c2JR', '', 'Livingstone', 54);
+	(159, '2021-03-24 10:30:27', '2021-03-24 10:30:27', NULL, 'MONZE', 8, 'MONZE', 1, 'LIVMON', 'FRULOoumGCp2c2JR', '', 'Livingstone', 54),
+	(160, '2021-03-25 08:15:42', '2021-03-25 08:15:42', NULL, 'CHOMA', 5, 'CHOMA', 1, 'LIVCHO', 'zIljJp2Ug9LfW9zP', '', 'Livingstone', 55),
+	(161, '2021-03-25 08:15:42', '2021-03-25 08:15:42', NULL, 'MAZABUKA', 6, 'MAZABUKA', 1, 'LIVMAZ', 'fCFMClJXxpGCbF6e', '', 'Livingstone', 55),
+	(162, '2021-03-25 08:15:42', '2021-03-25 08:15:42', NULL, 'KAFUE', 7, 'KAFUE', 1, 'LivKaf', 'Ko6WvJLmbCBpSEZF', '', 'Livingstone', 55),
+	(163, '2021-03-25 08:15:42', '2021-03-25 08:15:42', NULL, 'MONZE', 8, 'MONZE', 1, 'LIVMON', 'FRULOoumGCp2c2JR', '', 'Livingstone', 55),
+	(164, '2021-03-25 09:25:06', '2021-03-25 09:25:06', NULL, 'MAZABUKA', 6, 'MAZABUKA', 1, 'LIVMAZ', 'fCFMClJXxpGCbF6e', '', 'Livingstone', 56),
+	(165, '2021-03-25 09:25:07', '2021-03-25 09:25:07', NULL, 'KAFUE', 7, 'KAFUE', 1, 'LivKaf', 'Ko6WvJLmbCBpSEZF', '', 'Livingstone', 56),
+	(166, '2021-03-25 09:25:07', '2021-03-25 09:25:07', NULL, 'MONZE', 8, 'MONZE', 1, 'LIVMON', 'FRULOoumGCp2c2JR', '', 'Livingstone', 56),
+	(167, '2021-03-25 09:27:44', '2021-03-25 09:27:44', NULL, 'CHOMA', 5, 'CHOMA', 1, 'LIVCHO', 'zIljJp2Ug9LfW9zP', '', 'Livingstone', 57),
+	(168, '2021-03-25 09:27:44', '2021-03-25 09:27:44', NULL, 'MAZABUKA', 6, 'MAZABUKA', 1, 'LIVMAZ', 'fCFMClJXxpGCbF6e', '', 'Livingstone', 57),
+	(169, '2021-03-25 09:27:44', '2021-03-25 09:27:44', NULL, 'KAFUE', 7, 'KAFUE', 1, 'LivKaf', 'Ko6WvJLmbCBpSEZF', '', 'Livingstone', 57),
+	(170, '2021-03-25 09:27:44', '2021-03-25 09:27:44', NULL, 'MONZE', 8, 'MONZE', 1, 'LIVMON', 'FRULOoumGCp2c2JR', '', 'Livingstone', 57),
+	(171, '2021-03-25 09:51:15', '2021-03-25 09:51:15', NULL, 'CHOMA', 5, 'CHOMA', 1, 'LIVCHO', 'zIljJp2Ug9LfW9zP', '', 'Livingstone', 58),
+	(172, '2021-03-25 09:51:15', '2021-03-25 09:51:15', NULL, 'MAZABUKA', 6, 'MAZABUKA', 1, 'LIVMAZ', 'fCFMClJXxpGCbF6e', '', 'Livingstone', 58),
+	(173, '2021-03-25 09:51:16', '2021-03-25 09:51:16', NULL, 'KAFUE', 7, 'KAFUE', 1, 'LivKaf', 'Ko6WvJLmbCBpSEZF', '', 'Livingstone', 58),
+	(174, '2021-03-25 09:51:16', '2021-03-25 09:51:16', NULL, 'MONZE', 8, 'MONZE', 1, 'LIVMON', 'FRULOoumGCp2c2JR', '', 'Livingstone', 58),
+	(175, '2021-03-25 10:03:03', '2021-03-25 10:03:03', NULL, 'KAFUE', 7, 'KAFUE', 1, 'LivKaf', 'Ko6WvJLmbCBpSEZF', '', 'Livingstone', 59),
+	(176, '2021-03-25 10:03:03', '2021-03-25 10:03:03', NULL, 'MONZE', 8, 'MONZE', 1, 'LIVMON', 'FRULOoumGCp2c2JR', '', 'Livingstone', 59),
+	(177, '2021-03-25 10:51:45', '2021-03-25 10:51:45', NULL, 'CHOMA', 5, 'CHOMA', 1, 'LIVCHO', 'zIljJp2Ug9LfW9zP', '', 'Livingstone', 60),
+	(178, '2021-03-25 10:51:45', '2021-03-25 10:51:45', NULL, 'MAZABUKA', 6, 'MAZABUKA', 1, 'LIVMAZ', 'fCFMClJXxpGCbF6e', '', 'Livingstone', 60),
+	(179, '2021-03-25 10:51:45', '2021-03-25 10:51:45', NULL, 'KAFUE', 7, 'KAFUE', 1, 'LivKaf', 'Ko6WvJLmbCBpSEZF', '', 'Livingstone', 60),
+	(180, '2021-03-25 10:51:45', '2021-03-25 10:51:45', NULL, 'MONZE', 8, 'MONZE', 1, 'LIVMON', 'FRULOoumGCp2c2JR', '', 'Livingstone', 60),
+	(181, '2021-03-30 09:46:21', '2021-03-30 09:46:21', NULL, 'CHOMA', 5, 'CHOMA', 1, 'LIVCHO', 'zIljJp2Ug9LfW9zP', '', 'Livingstone', 61),
+	(182, '2021-03-30 09:46:21', '2021-03-30 09:46:21', NULL, 'MAZABUKA', 6, 'MAZABUKA', 1, 'LIVMAZ', 'fCFMClJXxpGCbF6e', '', 'Livingstone', 61),
+	(183, '2021-03-30 09:46:21', '2021-03-30 09:46:21', NULL, 'KAFUE', 7, 'KAFUE', 1, 'LivKaf', 'Ko6WvJLmbCBpSEZF', '', 'Livingstone', 61),
+	(184, '2021-03-30 09:46:21', '2021-03-30 09:46:21', NULL, 'MONZE', 8, 'MONZE', 1, 'LIVMON', 'FRULOoumGCp2c2JR', '', 'Livingstone', 61),
+	(185, '2021-03-30 09:46:23', '2021-03-30 09:46:23', NULL, 'CHOMA', 5, 'CHOMA', 1, 'LIVCHO', 'zIljJp2Ug9LfW9zP', '', 'Livingstone', 62),
+	(186, '2021-03-30 09:46:23', '2021-03-30 09:46:23', NULL, 'MAZABUKA', 6, 'MAZABUKA', 1, 'LIVMAZ', 'fCFMClJXxpGCbF6e', '', 'Livingstone', 62),
+	(187, '2021-03-30 09:46:23', '2021-03-30 09:46:23', NULL, 'KAFUE', 7, 'KAFUE', 1, 'LivKaf', 'Ko6WvJLmbCBpSEZF', '', 'Livingstone', 62),
+	(188, '2021-03-30 09:46:23', '2021-03-30 09:46:23', NULL, 'MONZE', 8, 'MONZE', 1, 'LIVMON', 'FRULOoumGCp2c2JR', '', 'Livingstone', 62),
+	(189, '2021-03-31 09:01:54', '2021-03-31 09:01:54', NULL, 'CHOMA', 5, 'CHOMA', 1, 'LIVCHO', 'zIljJp2Ug9LfW9zP', '', 'Livingstone', 63),
+	(190, '2021-03-31 09:01:54', '2021-03-31 09:01:54', NULL, 'MAZABUKA', 6, 'MAZABUKA', 1, 'LIVMAZ', 'fCFMClJXxpGCbF6e', '', 'Livingstone', 63),
+	(191, '2021-03-31 09:01:54', '2021-03-31 09:01:54', NULL, 'KAFUE', 7, 'KAFUE', 1, 'LivKaf', 'Ko6WvJLmbCBpSEZF', '', 'Livingstone', 63),
+	(192, '2021-03-31 09:01:54', '2021-03-31 09:01:54', NULL, 'MONZE', 8, 'MONZE', 1, 'LIVMON', 'FRULOoumGCp2c2JR', '', 'Livingstone', 63),
+	(193, '2021-03-31 09:02:06', '2021-03-31 09:02:06', NULL, 'MAZABUKA', 6, 'MAZABUKA', 1, 'LIVMAZ', 'fCFMClJXxpGCbF6e', '', 'Livingstone', 64),
+	(194, '2021-03-31 09:02:06', '2021-03-31 09:02:06', NULL, 'KAFUE', 7, 'KAFUE', 1, 'LivKaf', 'Ko6WvJLmbCBpSEZF', '', 'Livingstone', 64),
+	(195, '2021-03-31 09:02:06', '2021-03-31 09:02:06', NULL, 'MONZE', 8, 'MONZE', 1, 'LIVMON', 'FRULOoumGCp2c2JR', '', 'Livingstone', 64),
+	(196, '2021-03-31 09:02:29', '2021-03-31 09:02:29', NULL, 'KAFUE', 7, 'KAFUE', 1, 'LivKaf', 'Ko6WvJLmbCBpSEZF', '', 'Livingstone', 65),
+	(197, '2021-03-31 09:02:29', '2021-03-31 09:02:29', NULL, 'MONZE', 8, 'MONZE', 1, 'LIVMON', 'FRULOoumGCp2c2JR', '', 'Livingstone', 65),
+	(198, '2021-04-09 08:46:17', '2021-04-09 08:46:17', NULL, 'Senkobo', 1, 'Livingstone Senkobo', 1, 'LVSNK', '7ofyh24r5rKFrrxH', '', 'Livingstone', 66),
+	(199, '2021-04-09 08:46:18', '2021-04-09 08:46:18', NULL, 'ZIMBA', 5, 'Livingstone Zimba', 1, 'LVZMB', 'QBpBQTi2x5puHLOy', '', 'Livingstone', 66),
+	(200, '2021-04-09 08:46:18', '2021-04-09 08:46:18', NULL, 'Kalomo', 6, 'Livingstone Kalomo', 1, 'LVKLM', 'ADnixgtMhB18ntNl', '', 'Livingstone', 66),
+	(201, '2021-04-09 08:46:18', '2021-04-09 08:46:18', NULL, 'Tara', 7, 'Livingstone Tara', 1, 'LVTARA', 'spvCqzqAbLRbNgIW', '', 'Livingstone', 66),
+	(202, '2021-04-09 09:04:13', '2021-04-09 09:04:13', NULL, 'Senkobo', 1, 'Livingstone Senkobo', 1, 'LVSNK', '7ofyh24r5rKFrrxH', '', 'Livingstone', 67),
+	(203, '2021-04-09 09:04:13', '2021-04-09 09:04:13', NULL, 'ZIMBA', 5, 'Livingstone Zimba', 1, 'LVZMB', 'QBpBQTi2x5puHLOy', '', 'Livingstone', 67),
+	(204, '2021-04-09 09:04:13', '2021-04-09 09:04:13', NULL, 'Kalomo', 6, 'Livingstone Kalomo', 1, 'LVKLM', 'ADnixgtMhB18ntNl', '', 'Livingstone', 67),
+	(205, '2021-04-09 09:04:14', '2021-04-09 09:04:14', NULL, 'Tara', 7, 'Livingstone Tara', 1, 'LVTARA', 'spvCqzqAbLRbNgIW', '', 'Livingstone', 67),
+	(206, '2021-04-14 19:08:29', '2021-04-14 19:08:29', NULL, 'CHOMA', 5, 'CHOMA', 1, 'LIVCHO', 'zIljJp2Ug9LfW9zP', '', 'Livingstone', 68),
+	(207, '2021-04-14 19:08:29', '2021-04-14 19:08:29', NULL, 'MAZABUKA', 6, 'MAZABUKA', 1, 'LIVMAZ', 'fCFMClJXxpGCbF6e', '', 'Livingstone', 68),
+	(208, '2021-04-14 19:08:29', '2021-04-14 19:08:29', NULL, 'KAFUE', 7, 'KAFUE', 1, 'LivKaf', 'Ko6WvJLmbCBpSEZF', '', 'Livingstone', 68),
+	(209, '2021-04-14 19:08:29', '2021-04-14 19:08:29', NULL, 'MONZE', 8, 'MONZE', 1, 'LIVMON', 'FRULOoumGCp2c2JR', '', 'Livingstone', 68),
+	(210, '2021-04-26 07:22:57', '2021-04-26 07:22:57', NULL, 'CHOMA', 5, 'CHOMA', 1, 'LIVCHO', 'zIljJp2Ug9LfW9zP', '', 'Livingstone', 69),
+	(211, '2021-04-26 07:22:57', '2021-04-26 07:22:57', NULL, 'MAZABUKA', 6, 'MAZABUKA', 1, 'LIVMAZ', 'fCFMClJXxpGCbF6e', '', 'Livingstone', 69),
+	(212, '2021-04-26 07:22:57', '2021-04-26 07:22:57', NULL, 'KAFUE', 7, 'KAFUE', 1, 'LivKaf', 'Ko6WvJLmbCBpSEZF', '', 'Livingstone', 69),
+	(213, '2021-04-26 07:22:57', '2021-04-26 07:22:57', NULL, 'MONZE', 8, 'MONZE', 1, 'LIVMON', 'FRULOoumGCp2c2JR', '', 'Livingstone', 69),
+	(214, '2021-05-02 09:14:59', '2021-05-02 09:14:59', NULL, 'CHOMA', 5, 'CHOMA', 1, 'LIVCHO', 'zIljJp2Ug9LfW9zP', '', 'Livingstone', 70),
+	(215, '2021-05-02 09:14:59', '2021-05-02 09:14:59', NULL, 'MAZABUKA', 6, 'MAZABUKA', 1, 'LIVMAZ', 'fCFMClJXxpGCbF6e', '', 'Livingstone', 70),
+	(216, '2021-05-02 09:14:59', '2021-05-02 09:14:59', NULL, 'KAFUE', 7, 'KAFUE', 1, 'LivKaf', 'Ko6WvJLmbCBpSEZF', '', 'Livingstone', 70),
+	(217, '2021-05-02 09:14:59', '2021-05-02 09:14:59', NULL, 'MONZE', 8, 'MONZE', 1, 'LIVMON', 'FRULOoumGCp2c2JR', '', 'Livingstone', 70),
+	(218, '2021-05-04 10:54:00', '2021-05-04 10:54:00', NULL, 'CHOMA', 5, 'CHOMA', 1, 'LIVCHO', 'zIljJp2Ug9LfW9zP', '', 'Livingstone', 71),
+	(219, '2021-05-04 10:54:00', '2021-05-04 10:54:00', NULL, 'MAZABUKA', 6, 'MAZABUKA', 1, 'LIVMAZ', 'fCFMClJXxpGCbF6e', '', 'Livingstone', 71),
+	(220, '2021-05-04 10:54:00', '2021-05-04 10:54:00', NULL, 'KAFUE', 7, 'KAFUE', 1, 'LivKaf', 'Ko6WvJLmbCBpSEZF', '', 'Livingstone', 71),
+	(221, '2021-05-04 10:54:00', '2021-05-04 10:54:00', NULL, 'MONZE', 8, 'MONZE', 1, 'LIVMON', 'FRULOoumGCp2c2JR', '', 'Livingstone', 71),
+	(222, '2021-05-05 08:58:48', '2021-05-05 08:58:48', NULL, 'CHOMA', 5, 'CHOMA', 1, 'LIVCHO', 'zIljJp2Ug9LfW9zP', '', 'Livingstone', 72),
+	(223, '2021-05-05 08:58:48', '2021-05-05 08:58:48', NULL, 'MAZABUKA', 6, 'MAZABUKA', 1, 'LIVMAZ', 'fCFMClJXxpGCbF6e', '', 'Livingstone', 72),
+	(224, '2021-05-05 08:58:48', '2021-05-05 08:58:48', NULL, 'KAFUE', 7, 'KAFUE', 1, 'LivKaf', 'Ko6WvJLmbCBpSEZF', '', 'Livingstone', 72),
+	(225, '2021-05-05 08:58:48', '2021-05-05 08:58:48', NULL, 'MONZE', 8, 'MONZE', 1, 'LIVMON', 'FRULOoumGCp2c2JR', '', 'Livingstone', 72),
+	(226, '2021-05-05 12:57:41', '2021-05-05 12:57:41', NULL, 'CHOMA', 5, 'CHOMA', 1, 'LIVCHO', 'zIljJp2Ug9LfW9zP', '', 'Livingstone', 73),
+	(227, '2021-05-05 12:57:41', '2021-05-05 12:57:41', NULL, 'MAZABUKA', 6, 'MAZABUKA', 1, 'LIVMAZ', 'fCFMClJXxpGCbF6e', '', 'Livingstone', 73),
+	(228, '2021-05-05 12:57:41', '2021-05-05 12:57:41', NULL, 'KAFUE', 7, 'KAFUE', 1, 'LivKaf', 'Ko6WvJLmbCBpSEZF', '', 'Livingstone', 73),
+	(229, '2021-05-05 12:57:41', '2021-05-05 12:57:41', NULL, 'MONZE', 8, 'MONZE', 1, 'LIVMON', 'FRULOoumGCp2c2JR', '', 'Livingstone', 73),
+	(230, '2021-05-05 16:49:40', '2021-05-05 16:49:40', NULL, 'Senkobo', 1, 'Livingstone Senkobo', 1, 'LVSNK', '7ofyh24r5rKFrrxH', '', 'Livingstone', 75),
+	(231, '2021-05-05 16:49:40', '2021-05-05 16:49:40', NULL, 'ZIMBA', 5, 'Livingstone Zimba', 1, 'LVZMB', 'QBpBQTi2x5puHLOy', '', 'Livingstone', 75),
+	(232, '2021-05-05 16:49:40', '2021-05-05 16:49:40', NULL, 'Kalomo', 6, 'Livingstone Kalomo', 1, 'LVKLM', 'ADnixgtMhB18ntNl', '', 'Livingstone', 75),
+	(233, '2021-05-05 16:49:40', '2021-05-05 16:49:40', NULL, 'Tara', 7, 'Livingstone Tara', 1, 'LVTARA', 'spvCqzqAbLRbNgIW', '', 'Livingstone', 75),
+	(234, '2021-05-05 17:59:04', '2021-05-05 17:59:04', NULL, 'ZIMBA', 5, 'Livingstone Zimba', 1, 'LVZMB', 'QBpBQTi2x5puHLOy', '', 'Livingstone', 76),
+	(235, '2021-05-05 17:59:04', '2021-05-05 17:59:04', NULL, 'Kalomo', 6, 'Livingstone Kalomo', 1, 'LVKLM', 'ADnixgtMhB18ntNl', '', 'Livingstone', 76),
+	(236, '2021-05-05 17:59:04', '2021-05-05 17:59:04', NULL, 'Tara', 7, 'Livingstone Tara', 1, 'LVTARA', 'spvCqzqAbLRbNgIW', '', 'Livingstone', 76),
+	(237, '2021-05-05 18:16:10', '2021-05-05 18:16:10', NULL, 'Senkobo', 1, 'Livingstone Senkobo', 1, 'LVSNK', '7ofyh24r5rKFrrxH', '', 'Livingstone', 77),
+	(238, '2021-05-05 18:16:10', '2021-05-05 18:16:10', NULL, 'ZIMBA', 5, 'Livingstone Zimba', 1, 'LVZMB', 'QBpBQTi2x5puHLOy', '', 'Livingstone', 77),
+	(239, '2021-05-05 18:16:10', '2021-05-05 18:16:10', NULL, 'Kalomo', 6, 'Livingstone Kalomo', 1, 'LVKLM', 'ADnixgtMhB18ntNl', '', 'Livingstone', 77),
+	(240, '2021-05-05 18:16:10', '2021-05-05 18:16:10', NULL, 'Tara', 7, 'Livingstone Tara', 1, 'LVTARA', 'spvCqzqAbLRbNgIW', '', 'Livingstone', 77),
+	(241, '2021-05-06 08:50:15', '2021-05-06 08:50:15', NULL, 'CHOMA', 5, 'CHOMA', 1, 'LIVCHO', 'zIljJp2Ug9LfW9zP', '', 'Livingstone', 78),
+	(242, '2021-05-06 08:50:15', '2021-05-06 08:50:15', NULL, 'MAZABUKA', 6, 'MAZABUKA', 1, 'LIVMAZ', 'fCFMClJXxpGCbF6e', '', 'Livingstone', 78),
+	(243, '2021-05-06 08:50:15', '2021-05-06 08:50:15', NULL, 'KAFUE', 7, 'KAFUE', 1, 'LivKaf', 'Ko6WvJLmbCBpSEZF', '', 'Livingstone', 78),
+	(244, '2021-05-06 08:50:15', '2021-05-06 08:50:15', NULL, 'MONZE', 8, 'MONZE', 1, 'LIVMON', 'FRULOoumGCp2c2JR', '', 'Livingstone', 78),
+	(245, '2021-05-06 10:24:35', '2021-05-06 10:24:35', NULL, 'Senkobo', 1, 'Livingstone Senkobo', 1, 'LVSNK', '7ofyh24r5rKFrrxH', '', 'Livingstone', 79),
+	(246, '2021-05-06 10:24:35', '2021-05-06 10:24:35', NULL, 'ZIMBA', 5, 'Livingstone Zimba', 1, 'LVZMB', 'QBpBQTi2x5puHLOy', '', 'Livingstone', 79),
+	(247, '2021-05-06 10:24:35', '2021-05-06 10:24:35', NULL, 'Kalomo', 6, 'Livingstone Kalomo', 1, 'LVKLM', 'ADnixgtMhB18ntNl', '', 'Livingstone', 79),
+	(248, '2021-05-06 10:24:35', '2021-05-06 10:24:35', NULL, 'Tara', 7, 'Livingstone Tara', 1, 'LVTARA', 'spvCqzqAbLRbNgIW', '', 'Livingstone', 79);
 /*!40000 ALTER TABLE `ed_sub_routes` ENABLE KEYS */;
 
 -- Dumping structure for table btmms.ed_times
@@ -1764,9 +1877,9 @@ CREATE TABLE IF NOT EXISTS `ed_work_flows` (
 
 -- Dumping data for table btmms.ed_work_flows: ~2 rows (approximately)
 /*!40000 ALTER TABLE `ed_work_flows` DISABLE KEYS */;
-INSERT INTO `ed_work_flows` (`id`, `created_at`, `updated_at`, `deleted_at`, `mode`, `description`, `status`) VALUES
-	(1, '2020-05-11 20:27:32', '2020-05-16 10:53:47', NULL, 'WF', 'Workflow', 'Inactive'),
-	(4, '2020-05-11 20:35:31', '2020-05-16 10:53:47', NULL, 'NWF', 'Non-workflow', 'Active');
+INSERT IGNORE INTO `ed_work_flows` (`id`, `created_at`, `updated_at`, `deleted_at`, `mode`, `description`, `status`) VALUES
+	(1, '2020-05-11 20:27:32', '2021-03-25 09:54:18', NULL, 'WF', 'Workflow', 'Inactive'),
+	(4, '2020-05-11 20:35:31', '2021-03-25 09:54:18', NULL, 'NWF', 'Non-workflow', 'Active');
 /*!40000 ALTER TABLE `ed_work_flows` ENABLE KEYS */;
 
 -- Dumping structure for table btmms.probase_acc_gl_account
@@ -1792,7 +1905,7 @@ CREATE TABLE IF NOT EXISTS `probase_acc_gl_account` (
 
 -- Dumping data for table btmms.probase_acc_gl_account: ~65 rows (approximately)
 /*!40000 ALTER TABLE `probase_acc_gl_account` DISABLE KEYS */;
-INSERT INTO `probase_acc_gl_account` (`id`, `name`, `parent_id`, `hierarchy`, `gl_code`, `disabled`, `manual_journal_entries_allowed`, `account_usage`, `classification`, `tag_id`, `description`, `maker_id`, `checker_id`) VALUES
+INSERT IGNORE INTO `probase_acc_gl_account` (`id`, `name`, `parent_id`, `hierarchy`, `gl_code`, `disabled`, `manual_journal_entries_allowed`, `account_usage`, `classification`, `tag_id`, `description`, `maker_id`, `checker_id`) VALUES
 	(1, 'Equity', NULL, '.', 'EQ00000000', 0, 1, 2, '5', NULL, NULL, NULL, NULL),
 	(2, 'Share Capital', 1, '.2.', 'EQ00000001', 0, 1, 2, '5', NULL, NULL, NULL, NULL),
 	(3, 'Returned Earnings', 1, '.3.', 'EQ00000002', 0, 1, 2, '5', NULL, NULL, NULL, NULL),
@@ -1882,11 +1995,11 @@ CREATE TABLE IF NOT EXISTS `probase_audit_log` (
   `inserted_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=777 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1227 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table btmms.probase_audit_log: ~772 rows (approximately)
+-- Dumping data for table btmms.probase_audit_log: ~1,015 rows (approximately)
 /*!40000 ALTER TABLE `probase_audit_log` DISABLE KEYS */;
-INSERT INTO `probase_audit_log` (`id`, `operation`, `log`, `inserted_at`, `updated_at`) VALUES
+INSERT IGNORE INTO `probase_audit_log` (`id`, `operation`, `log`, `inserted_at`, `updated_at`) VALUES
 	(1, 'USER LOGIN', 'User Login. Username:manager', '2020-12-15 14:52:38', '2020-12-15 14:52:38'),
 	(2, 'USER LOGIN', 'User Login. Username:manager', '2020-12-15 14:52:44', '2020-12-15 14:52:44'),
 	(3, 'USER LOGIN', 'User Login. Username:manager', '2020-12-15 14:52:45', '2020-12-15 14:52:45'),
@@ -2662,7 +2775,457 @@ INSERT INTO `probase_audit_log` (`id`, `operation`, `log`, `inserted_at`, `updat
 	(773, 'USER LOGIN', 'User Login. Username:manager', '2021-03-24 12:35:39', '2021-03-24 12:35:39'),
 	(774, 'USER LOGIN', 'Login Failed', '2021-03-24 12:35:40', '2021-03-24 12:35:40'),
 	(775, 'USER LOGIN', 'Login Failed', '2021-03-24 12:35:45', '2021-03-24 12:35:45'),
-	(776, 'USER LOGIN', 'User Login. Username:teller', '2021-03-24 12:35:47', '2021-03-24 12:35:47');
+	(776, 'USER LOGIN', 'User Login. Username:teller', '2021-03-24 12:35:47', '2021-03-24 12:35:47'),
+	(777, 'USER LOGIN', 'Login Failed', '2021-03-24 16:45:40', '2021-03-24 16:45:40'),
+	(778, 'USER LOGIN', 'User Login. Username:manager', '2021-03-24 19:47:06', '2021-03-24 19:47:06'),
+	(779, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 07:11:03', '2021-03-25 07:11:03'),
+	(780, 'USER LOGIN', 'Login Failed', '2021-03-25 07:36:07', '2021-03-25 07:36:07'),
+	(781, 'USER LOGIN', 'Login Failed', '2021-03-25 07:36:25', '2021-03-25 07:36:25'),
+	(782, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 07:36:29', '2021-03-25 07:36:29'),
+	(783, 'USER LOGIN', 'Login Failed', '2021-03-25 07:38:10', '2021-03-25 07:38:10'),
+	(784, 'USER LOGIN', 'Login Failed', '2021-03-25 07:38:42', '2021-03-25 07:38:42'),
+	(785, 'USER LOGIN', 'Login Failed', '2021-03-25 07:38:42', '2021-03-25 07:38:42'),
+	(786, 'USER LOGIN', 'Login Failed', '2021-03-25 07:38:42', '2021-03-25 07:38:42'),
+	(787, 'USER LOGIN', 'Login Failed', '2021-03-25 07:38:51', '2021-03-25 07:38:51'),
+	(788, 'USER LOGIN', 'Login Failed', '2021-03-25 07:38:51', '2021-03-25 07:38:51'),
+	(789, 'USER LOGIN', 'Login Failed', '2021-03-25 07:38:52', '2021-03-25 07:38:52'),
+	(790, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 07:39:03', '2021-03-25 07:39:03'),
+	(791, 'USER LOGIN', 'Login Failed', '2021-03-25 07:39:11', '2021-03-25 07:39:11'),
+	(792, 'USER LOGIN', 'Login Failed', '2021-03-25 07:39:12', '2021-03-25 07:39:12'),
+	(793, 'USER LOGIN', 'Login Failed', '2021-03-25 07:39:12', '2021-03-25 07:39:12'),
+	(794, 'USER LOGIN', 'Login Failed', '2021-03-25 07:40:34', '2021-03-25 07:40:34'),
+	(795, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 07:40:34', '2021-03-25 07:40:34'),
+	(796, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 07:41:05', '2021-03-25 07:41:05'),
+	(797, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 07:46:45', '2021-03-25 07:46:45'),
+	(798, 'USER LOGIN', 'Login Failed', '2021-03-25 07:46:45', '2021-03-25 07:46:45'),
+	(799, 'USER LOGIN', 'Login Failed', '2021-03-25 07:47:03', '2021-03-25 07:47:03'),
+	(800, 'USER LOGIN', 'Login Failed', '2021-03-25 07:47:04', '2021-03-25 07:47:04'),
+	(801, 'USER LOGIN', 'Login Failed', '2021-03-25 07:47:04', '2021-03-25 07:47:04'),
+	(802, 'USER LOGIN', 'Login Failed', '2021-03-25 07:47:20', '2021-03-25 07:47:20'),
+	(803, 'USER LOGIN', 'Login Failed', '2021-03-25 07:47:20', '2021-03-25 07:47:20'),
+	(804, 'USER LOGIN', 'Login Failed', '2021-03-25 07:47:20', '2021-03-25 07:47:20'),
+	(805, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 07:56:41', '2021-03-25 07:56:41'),
+	(806, 'USER LOGIN', 'Login Failed', '2021-03-25 07:56:41', '2021-03-25 07:56:41'),
+	(807, 'USER LOGIN', 'Login Failed', '2021-03-25 07:56:50', '2021-03-25 07:56:50'),
+	(808, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 07:56:51', '2021-03-25 07:56:51'),
+	(809, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 07:56:56', '2021-03-25 07:56:56'),
+	(810, 'USER LOGIN', 'Login Failed', '2021-03-25 08:01:24', '2021-03-25 08:01:24'),
+	(811, 'USER LOGIN', 'Login Failed', '2021-03-25 08:02:41', '2021-03-25 08:02:41'),
+	(812, 'USER LOGIN', 'Login Failed', '2021-03-25 08:02:41', '2021-03-25 08:02:41'),
+	(813, 'USER LOGIN', 'Login Failed', '2021-03-25 08:02:41', '2021-03-25 08:02:41'),
+	(814, 'USER LOGIN', 'Login Failed', '2021-03-25 08:09:09', '2021-03-25 08:09:09'),
+	(815, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 08:09:10', '2021-03-25 08:09:10'),
+	(816, 'USER LOGIN', 'Login Failed', '2021-03-25 08:11:34', '2021-03-25 08:11:34'),
+	(817, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 08:11:36', '2021-03-25 08:11:36'),
+	(818, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 08:12:38', '2021-03-25 08:12:38'),
+	(819, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 08:17:20', '2021-03-25 08:17:20'),
+	(820, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 08:23:30', '2021-03-25 08:23:30'),
+	(821, 'USER LOGIN', 'Login Failed', '2021-03-25 08:23:34', '2021-03-25 08:23:34'),
+	(822, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 08:25:02', '2021-03-25 08:25:02'),
+	(823, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 08:25:02', '2021-03-25 08:25:02'),
+	(824, 'USER LOGIN', 'Login Failed', '2021-03-25 08:25:31', '2021-03-25 08:25:31'),
+	(825, 'USER LOGIN', 'Login Failed', '2021-03-25 08:25:32', '2021-03-25 08:25:32'),
+	(826, 'USER LOGIN', 'Login Failed', '2021-03-25 08:25:32', '2021-03-25 08:25:32'),
+	(827, 'USER LOGIN', 'Login Failed', '2021-03-25 08:25:45', '2021-03-25 08:25:45'),
+	(828, 'USER LOGIN', 'Login Failed', '2021-03-25 08:25:46', '2021-03-25 08:25:46'),
+	(829, 'USER LOGIN', 'Login Failed', '2021-03-25 08:25:47', '2021-03-25 08:25:47'),
+	(830, 'USER LOGIN', 'Login Failed', '2021-03-25 08:26:31', '2021-03-25 08:26:31'),
+	(831, 'USER LOGIN', 'Login Failed', '2021-03-25 08:26:32', '2021-03-25 08:26:32'),
+	(832, 'USER LOGIN', 'Login Failed', '2021-03-25 08:26:32', '2021-03-25 08:26:32'),
+	(833, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 08:27:36', '2021-03-25 08:27:36'),
+	(834, 'USER LOGIN', 'Login Failed', '2021-03-25 08:27:37', '2021-03-25 08:27:37'),
+	(835, 'USER LOGIN', 'Login Failed', '2021-03-25 08:28:16', '2021-03-25 08:28:16'),
+	(836, 'USER LOGIN', 'Login Failed', '2021-03-25 08:28:16', '2021-03-25 08:28:16'),
+	(837, 'USER LOGIN', 'Login Failed', '2021-03-25 08:28:17', '2021-03-25 08:28:17'),
+	(838, 'USER LOGIN', 'Login Failed', '2021-03-25 08:28:57', '2021-03-25 08:28:57'),
+	(839, 'USER LOGIN', 'Login Failed', '2021-03-25 08:28:58', '2021-03-25 08:28:58'),
+	(840, 'USER LOGIN', 'Login Failed', '2021-03-25 08:28:59', '2021-03-25 08:28:59'),
+	(841, 'USER LOGIN', 'Login Failed', '2021-03-25 08:29:31', '2021-03-25 08:29:31'),
+	(842, 'USER LOGIN', 'Login Failed', '2021-03-25 08:29:31', '2021-03-25 08:29:31'),
+	(843, 'USER LOGIN', 'Login Failed', '2021-03-25 08:29:31', '2021-03-25 08:29:31'),
+	(844, 'USER LOGIN', 'Login Failed', '2021-03-25 08:30:40', '2021-03-25 08:30:40'),
+	(845, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 08:30:41', '2021-03-25 08:30:41'),
+	(846, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 08:30:58', '2021-03-25 08:30:58'),
+	(847, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 08:30:58', '2021-03-25 08:30:58'),
+	(848, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 08:31:58', '2021-03-25 08:31:58'),
+	(849, 'USER LOGIN', 'Login Failed', '2021-03-25 08:31:59', '2021-03-25 08:31:59'),
+	(850, 'USER LOGIN', 'Login Failed', '2021-03-25 08:32:05', '2021-03-25 08:32:05'),
+	(851, 'USER LOGIN', 'Login Failed', '2021-03-25 08:32:05', '2021-03-25 08:32:05'),
+	(852, 'USER LOGIN', 'Login Failed', '2021-03-25 08:32:12', '2021-03-25 08:32:12'),
+	(853, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 08:32:12', '2021-03-25 08:32:12'),
+	(854, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 08:32:26', '2021-03-25 08:32:26'),
+	(855, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 08:32:26', '2021-03-25 08:32:26'),
+	(856, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 08:33:43', '2021-03-25 08:33:43'),
+	(857, 'USER LOGIN', 'Login Failed', '2021-03-25 08:38:03', '2021-03-25 08:38:03'),
+	(858, 'USER LOGIN', 'Login Failed', '2021-03-25 08:38:07', '2021-03-25 08:38:07'),
+	(859, 'USER LOGIN', 'Login Failed', '2021-03-25 08:38:07', '2021-03-25 08:38:07'),
+	(860, 'USER LOGIN', 'Login Failed', '2021-03-25 08:38:08', '2021-03-25 08:38:08'),
+	(861, 'USER LOGIN', 'Login Failed', '2021-03-25 08:38:52', '2021-03-25 08:38:52'),
+	(862, 'USER LOGIN', 'Login Failed', '2021-03-25 08:38:53', '2021-03-25 08:38:53'),
+	(863, 'USER LOGIN', 'Login Failed', '2021-03-25 08:38:53', '2021-03-25 08:38:53'),
+	(864, 'USER LOGIN', 'Login Failed', '2021-03-25 08:38:58', '2021-03-25 08:38:58'),
+	(865, 'USER LOGIN', 'Login Failed', '2021-03-25 08:38:59', '2021-03-25 08:38:59'),
+	(866, 'USER LOGIN', 'Login Failed', '2021-03-25 08:38:59', '2021-03-25 08:38:59'),
+	(867, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 08:44:33', '2021-03-25 08:44:33'),
+	(868, 'USER LOGIN', 'Login Failed', '2021-03-25 08:45:47', '2021-03-25 08:45:47'),
+	(869, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 08:45:47', '2021-03-25 08:45:47'),
+	(870, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 08:46:12', '2021-03-25 08:46:12'),
+	(871, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 08:46:36', '2021-03-25 08:46:36'),
+	(872, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 08:49:54', '2021-03-25 08:49:54'),
+	(873, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 08:50:44', '2021-03-25 08:50:44'),
+	(874, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 08:52:27', '2021-03-25 08:52:27'),
+	(875, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 08:58:53', '2021-03-25 08:58:53'),
+	(876, 'USER LOGIN', 'Login Failed', '2021-03-25 08:58:54', '2021-03-25 08:58:54'),
+	(877, 'USER LOGIN', 'Login Failed', '2021-03-25 08:59:06', '2021-03-25 08:59:06'),
+	(878, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 08:59:06', '2021-03-25 08:59:06'),
+	(879, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 08:59:35', '2021-03-25 08:59:35'),
+	(880, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 08:59:41', '2021-03-25 08:59:41'),
+	(881, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 09:01:03', '2021-03-25 09:01:03'),
+	(882, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 09:03:35', '2021-03-25 09:03:35'),
+	(883, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 09:03:51', '2021-03-25 09:03:51'),
+	(884, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 09:04:31', '2021-03-25 09:04:31'),
+	(885, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 09:05:46', '2021-03-25 09:05:46'),
+	(886, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 09:06:50', '2021-03-25 09:06:50'),
+	(887, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 09:07:30', '2021-03-25 09:07:30'),
+	(888, 'USER LOGIN', 'Login Failed', '2021-03-25 09:07:31', '2021-03-25 09:07:31'),
+	(889, 'USER LOGIN', 'Login Failed', '2021-03-25 09:07:50', '2021-03-25 09:07:50'),
+	(890, 'USER LOGIN', 'Login Failed', '2021-03-25 09:07:50', '2021-03-25 09:07:50'),
+	(891, 'USER LOGIN', 'Login Failed', '2021-03-25 09:07:50', '2021-03-25 09:07:50'),
+	(892, 'USER LOGIN', 'Login Failed', '2021-03-25 09:08:25', '2021-03-25 09:08:25'),
+	(893, 'USER LOGIN', 'Login Failed', '2021-03-25 09:08:25', '2021-03-25 09:08:25'),
+	(894, 'USER LOGIN', 'Login Failed', '2021-03-25 09:08:25', '2021-03-25 09:08:25'),
+	(895, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 09:08:54', '2021-03-25 09:08:54'),
+	(896, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 09:09:37', '2021-03-25 09:09:37'),
+	(897, 'USER LOGIN', 'Login Failed', '2021-03-25 09:11:30', '2021-03-25 09:11:30'),
+	(898, 'USER LOGIN', 'Login Failed', '2021-03-25 09:11:48', '2021-03-25 09:11:48'),
+	(899, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 09:11:49', '2021-03-25 09:11:49'),
+	(900, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 09:12:18', '2021-03-25 09:12:18'),
+	(901, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 09:12:31', '2021-03-25 09:12:31'),
+	(902, 'USER LOGIN', 'Login Failed', '2021-03-25 09:12:31', '2021-03-25 09:12:31'),
+	(903, 'USER LOGIN', 'Login Failed', '2021-03-25 09:13:36', '2021-03-25 09:13:36'),
+	(904, 'USER LOGIN', 'Login Failed', '2021-03-25 09:13:36', '2021-03-25 09:13:36'),
+	(905, 'USER LOGIN', 'Login Failed', '2021-03-25 09:13:36', '2021-03-25 09:13:36'),
+	(906, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 09:13:38', '2021-03-25 09:13:38'),
+	(907, 'USER LOGIN', 'Login Failed', '2021-03-25 09:13:50', '2021-03-25 09:13:50'),
+	(908, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 09:13:50', '2021-03-25 09:13:50'),
+	(909, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 09:22:05', '2021-03-25 09:22:05'),
+	(910, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:22:22', '2021-03-25 10:22:22'),
+	(911, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:24:16', '2021-03-25 10:24:16'),
+	(912, 'USER LOGIN', 'Login Failed', '2021-03-25 10:24:17', '2021-03-25 10:24:17'),
+	(913, 'USER LOGIN', 'Login Failed', '2021-03-25 10:25:15', '2021-03-25 10:25:15'),
+	(914, 'USER LOGIN', 'Login Failed', '2021-03-25 10:25:15', '2021-03-25 10:25:15'),
+	(915, 'USER LOGIN', 'Login Failed', '2021-03-25 10:25:16', '2021-03-25 10:25:16'),
+	(916, 'USER LOGIN', 'Login Failed', '2021-03-25 10:25:49', '2021-03-25 10:25:49'),
+	(917, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:25:50', '2021-03-25 10:25:50'),
+	(918, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:26:02', '2021-03-25 10:26:02'),
+	(919, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 10:31:14', '2021-03-25 10:31:14'),
+	(920, 'USER LOGIN', 'Login Failed', '2021-03-25 10:31:15', '2021-03-25 10:31:15'),
+	(921, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:36:19', '2021-03-25 10:36:19'),
+	(922, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:39:57', '2021-03-25 10:39:57'),
+	(923, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:40:15', '2021-03-25 10:40:15'),
+	(924, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:40:35', '2021-03-25 10:40:35'),
+	(925, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:41:11', '2021-03-25 10:41:11'),
+	(926, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:41:47', '2021-03-25 10:41:47'),
+	(927, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:42:52', '2021-03-25 10:42:52'),
+	(928, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:43:12', '2021-03-25 10:43:12'),
+	(929, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:43:19', '2021-03-25 10:43:19'),
+	(930, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:43:28', '2021-03-25 10:43:28'),
+	(931, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:43:35', '2021-03-25 10:43:35'),
+	(932, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:43:40', '2021-03-25 10:43:40'),
+	(933, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:43:56', '2021-03-25 10:43:56'),
+	(934, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:45:46', '2021-03-25 10:45:46'),
+	(935, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:45:46', '2021-03-25 10:45:46'),
+	(936, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:46:30', '2021-03-25 10:46:30'),
+	(937, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:48:38', '2021-03-25 10:48:38'),
+	(938, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:48:39', '2021-03-25 10:48:39'),
+	(939, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:49:29', '2021-03-25 10:49:29'),
+	(940, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:52:02', '2021-03-25 10:52:02'),
+	(941, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:52:41', '2021-03-25 10:52:41'),
+	(942, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:52:41', '2021-03-25 10:52:41'),
+	(943, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:53:31', '2021-03-25 10:53:31'),
+	(944, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:53:37', '2021-03-25 10:53:37'),
+	(945, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:55:54', '2021-03-25 10:55:54'),
+	(946, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:56:13', '2021-03-25 10:56:13'),
+	(947, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:57:05', '2021-03-25 10:57:05'),
+	(948, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:57:12', '2021-03-25 10:57:12'),
+	(949, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:57:14', '2021-03-25 10:57:14'),
+	(950, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:57:23', '2021-03-25 10:57:23'),
+	(951, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 10:57:34', '2021-03-25 10:57:34'),
+	(952, 'USER LOGIN', 'Login Failed', '2021-03-25 12:13:30', '2021-03-25 12:13:30'),
+	(953, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 12:13:31', '2021-03-25 12:13:31'),
+	(954, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 12:32:38', '2021-03-25 12:32:38'),
+	(955, 'USER LOGIN', 'User Login. Username:teller', '2021-03-25 12:32:48', '2021-03-25 12:32:48'),
+	(956, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 12:32:49', '2021-03-25 12:32:49'),
+	(957, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 12:33:00', '2021-03-25 12:33:00'),
+	(958, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 12:34:05', '2021-03-25 12:34:05'),
+	(959, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 12:34:19', '2021-03-25 12:34:19'),
+	(960, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 12:35:24', '2021-03-25 12:35:24'),
+	(961, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 12:35:41', '2021-03-25 12:35:41'),
+	(962, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 12:36:08', '2021-03-25 12:36:08'),
+	(963, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 12:36:38', '2021-03-25 12:36:38'),
+	(964, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 12:38:33', '2021-03-25 12:38:33'),
+	(965, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 12:38:59', '2021-03-25 12:38:59'),
+	(966, 'USER LOGIN', 'Login Failed', '2021-03-25 12:40:05', '2021-03-25 12:40:05'),
+	(967, 'USER LOGIN', 'Login Failed', '2021-03-25 12:40:14', '2021-03-25 12:40:14'),
+	(968, 'USER LOGIN', 'Login Failed', '2021-03-25 12:40:21', '2021-03-25 12:40:21'),
+	(969, 'USER LOGIN', 'Login Failed', '2021-03-25 12:40:25', '2021-03-25 12:40:25'),
+	(970, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 12:40:26', '2021-03-25 12:40:26'),
+	(971, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 12:40:33', '2021-03-25 12:40:33'),
+	(972, 'USER LOGIN', 'User Login. Username:manager', '2021-03-25 13:01:35', '2021-03-25 13:01:35'),
+	(973, 'USER LOGIN', 'Login Failed', '2021-03-25 13:01:35', '2021-03-25 13:01:35'),
+	(974, 'USER LOGIN', 'Login Failed', '2021-03-25 17:24:53', '2021-03-25 17:24:53'),
+	(975, 'USER LOGIN', 'Login Failed', '2021-03-25 19:43:15', '2021-03-25 19:43:15'),
+	(976, 'USER LOGIN', 'Login Failed', '2021-03-27 00:22:47', '2021-03-27 00:22:47'),
+	(977, 'USER LOGIN', 'Login Failed', '2021-03-28 03:05:10', '2021-03-28 03:05:10'),
+	(978, 'USER LOGIN', 'Login Failed', '2021-03-28 09:32:53', '2021-03-28 09:32:53'),
+	(979, 'USER LOGIN', 'Login Failed', '2021-03-28 18:30:31', '2021-03-28 18:30:31'),
+	(980, 'USER LOGIN', 'Login Failed', '2021-03-29 10:48:42', '2021-03-29 10:48:42'),
+	(981, 'USER LOGIN', 'Login Failed', '2021-03-29 23:21:03', '2021-03-29 23:21:03'),
+	(982, 'USER LOGIN', 'Login Failed', '2021-03-30 04:53:29', '2021-03-30 04:53:29'),
+	(983, 'USER LOGIN', 'Login Failed', '2021-03-30 08:28:15', '2021-03-30 08:28:15'),
+	(984, 'USER LOGIN', 'Login Failed', '2021-03-30 08:31:36', '2021-03-30 08:31:36'),
+	(985, 'USER LOGIN', 'User Login. Username:teller', '2021-03-30 08:31:42', '2021-03-30 08:31:42'),
+	(986, 'USER LOGIN', 'User Login. Username:teller', '2021-03-30 08:32:48', '2021-03-30 08:32:48'),
+	(987, 'USER LOGIN', 'User Login. Username:teller', '2021-03-30 08:33:56', '2021-03-30 08:33:56'),
+	(988, 'USER LOGIN', 'User Login. Username:teller', '2021-03-30 08:34:22', '2021-03-30 08:34:22'),
+	(989, 'USER LOGIN', 'User Login. Username:teller', '2021-03-30 08:37:04', '2021-03-30 08:37:04'),
+	(990, 'USER LOGIN', 'Login Failed', '2021-03-30 08:37:04', '2021-03-30 08:37:04'),
+	(991, 'USER LOGIN', 'Login Failed', '2021-03-30 08:37:08', '2021-03-30 08:37:08'),
+	(992, 'USER LOGIN', 'User Login. Username:manager', '2021-03-30 08:37:09', '2021-03-30 08:37:09'),
+	(993, 'USER LOGIN', 'User Login. Username:manager', '2021-03-30 08:37:18', '2021-03-30 08:37:18'),
+	(994, 'USER LOGIN', 'User Login. Username:manager', '2021-03-30 08:38:00', '2021-03-30 08:38:00'),
+	(995, 'USER LOGIN', 'User Login. Username:manager', '2021-03-30 09:13:35', '2021-03-30 09:13:35'),
+	(996, 'USER LOGIN', 'User Login. Username:manager', '2021-03-30 09:13:50', '2021-03-30 09:13:50'),
+	(997, 'USER LOGIN', 'User Login. Username:manager', '2021-03-30 09:14:39', '2021-03-30 09:14:39'),
+	(998, 'USER LOGIN', 'Login Failed', '2021-03-30 09:14:40', '2021-03-30 09:14:40'),
+	(999, 'USER LOGIN', 'Login Failed', '2021-03-30 09:14:44', '2021-03-30 09:14:44'),
+	(1000, 'USER LOGIN', 'User Login. Username:teller', '2021-03-30 09:14:45', '2021-03-30 09:14:45'),
+	(1001, 'USER LOGIN', 'User Login. Username:teller', '2021-03-30 09:16:04', '2021-03-30 09:16:04'),
+	(1002, 'USER LOGIN', 'User Login. Username:teller', '2021-03-30 09:17:17', '2021-03-30 09:17:17'),
+	(1003, 'USER LOGIN', 'User Login. Username:teller', '2021-03-30 09:24:59', '2021-03-30 09:24:59'),
+	(1004, 'USER LOGIN', 'User Login. Username:teller', '2021-03-30 09:27:07', '2021-03-30 09:27:07'),
+	(1005, 'USER LOGIN', 'User Login. Username:teller', '2021-03-30 09:32:19', '2021-03-30 09:32:19'),
+	(1006, 'USER LOGIN', 'Login Failed', '2021-03-30 09:32:50', '2021-03-30 09:32:50'),
+	(1007, 'USER LOGIN', 'Login Failed', '2021-03-30 09:33:09', '2021-03-30 09:33:09'),
+	(1008, 'USER LOGIN', 'Login Failed', '2021-03-30 09:33:21', '2021-03-30 09:33:21'),
+	(1009, 'USER LOGIN', 'Login Failed', '2021-03-30 09:33:40', '2021-03-30 09:33:40'),
+	(1010, 'USER LOGIN', 'Login Failed', '2021-03-30 09:34:12', '2021-03-30 09:34:12'),
+	(1011, 'USER LOGIN', 'User Login. Username:teller', '2021-03-30 09:34:14', '2021-03-30 09:34:14'),
+	(1012, 'USER LOGIN', 'User Login. Username:teller', '2021-03-30 09:34:37', '2021-03-30 09:34:37'),
+	(1013, 'USER LOGIN', 'Login Failed', '2021-03-30 09:34:59', '2021-03-30 09:34:59'),
+	(1014, 'USER LOGIN', 'User Login. Username:teller', '2021-03-30 09:35:00', '2021-03-30 09:35:00'),
+	(1015, 'USER LOGIN', 'User Login. Username:teller', '2021-03-30 09:35:09', '2021-03-30 09:35:09'),
+	(1016, 'USER LOGIN', 'User Login. Username:teller', '2021-03-30 09:50:03', '2021-03-30 09:50:03'),
+	(1017, 'USER LOGIN', 'User Login. Username:teller', '2021-03-30 09:50:43', '2021-03-30 09:50:43'),
+	(1018, 'USER LOGIN', 'User Login. Username:teller', '2021-03-30 09:51:10', '2021-03-30 09:51:10'),
+	(1019, 'USER LOGIN', 'User Login. Username:teller', '2021-03-30 09:51:46', '2021-03-30 09:51:46'),
+	(1020, 'USER LOGIN', 'User Login. Username:teller', '2021-03-30 09:53:01', '2021-03-30 09:53:01'),
+	(1021, 'USER LOGIN', 'User Login. Username:teller', '2021-03-30 09:53:24', '2021-03-30 09:53:24'),
+	(1022, 'USER LOGIN', 'User Login. Username:teller', '2021-03-30 09:54:25', '2021-03-30 09:54:25'),
+	(1023, 'USER LOGIN', 'Login Failed', '2021-03-30 09:54:26', '2021-03-30 09:54:26'),
+	(1024, 'USER LOGIN', 'Login Failed', '2021-03-30 09:54:32', '2021-03-30 09:54:32'),
+	(1025, 'USER LOGIN', 'User Login. Username:manager', '2021-03-30 09:54:36', '2021-03-30 09:54:36'),
+	(1026, 'USER LOGIN', 'User Login. Username:manager', '2021-03-30 09:55:33', '2021-03-30 09:55:33'),
+	(1027, 'USER LOGIN', 'User Login. Username:manager', '2021-03-30 09:55:48', '2021-03-30 09:55:48'),
+	(1028, 'USER LOGIN', 'Login Failed', '2021-03-31 03:06:09', '2021-03-31 03:06:09'),
+	(1029, 'USER LOGIN', 'Login Failed', '2021-03-31 07:23:49', '2021-03-31 07:23:49'),
+	(1030, 'USER LOGIN', 'Login Failed', '2021-03-31 07:23:50', '2021-03-31 07:23:50'),
+	(1031, 'USER LOGIN', 'User Login. Username:manager', '2021-03-31 08:39:08', '2021-03-31 08:39:08'),
+	(1032, 'USER LOGIN', 'User Login. Username:manager', '2021-03-31 08:39:19', '2021-03-31 08:39:19'),
+	(1033, 'USER LOGIN', 'User Login. Username:officer', '2021-03-31 08:39:19', '2021-03-31 08:39:19'),
+	(1034, 'USER LOGIN', 'User Login. Username:officer', '2021-03-31 08:41:20', '2021-03-31 08:41:20'),
+	(1035, 'USER LOGIN', 'Login Failed', '2021-03-31 08:41:21', '2021-03-31 08:41:21'),
+	(1036, 'USER LOGIN', 'Login Failed', '2021-03-31 08:41:25', '2021-03-31 08:41:25'),
+	(1037, 'USER LOGIN', 'User Login. Username:manager', '2021-03-31 08:41:25', '2021-03-31 08:41:25'),
+	(1038, 'USER LOGIN', 'Login Failed', '2021-04-08 15:09:17', '2021-04-08 15:09:17'),
+	(1039, 'USER LOGIN', 'Login Failed', '2021-04-08 15:09:54', '2021-04-08 15:09:54'),
+	(1040, 'USER LOGIN', 'Login Failed', '2021-04-10 05:20:33', '2021-04-10 05:20:33'),
+	(1041, 'USER LOGIN', 'Login Failed', '2021-04-10 20:18:27', '2021-04-10 20:18:27'),
+	(1042, 'USER LOGIN', 'Login Failed', '2021-04-11 11:09:58', '2021-04-11 11:09:58'),
+	(1043, 'USER LOGIN', 'Login Failed', '2021-04-12 07:47:47', '2021-04-12 07:47:47'),
+	(1044, 'USER LOGIN', 'Login Failed', '2021-04-12 19:42:38', '2021-04-12 19:42:38'),
+	(1045, 'USER LOGIN', 'Login Failed', '2021-04-14 06:12:33', '2021-04-14 06:12:33'),
+	(1046, 'USER LOGIN', 'Login Failed', '2021-04-14 21:04:24', '2021-04-14 21:04:24'),
+	(1047, 'USER LOGIN', 'User Login. Username:teller', '2021-04-16 13:16:28', '2021-04-16 13:16:28'),
+	(1048, 'USER LOGIN', 'User Login. Username:teller', '2021-04-16 13:16:35', '2021-04-16 13:16:35'),
+	(1049, 'USER LOGIN', 'User Login. Username:manager', '2021-04-16 13:16:36', '2021-04-16 13:16:36'),
+	(1050, 'USER LOGIN', 'User Login. Username:manager', '2021-04-16 13:16:44', '2021-04-16 13:16:44'),
+	(1051, 'USER LOGIN', 'Login Failed', '2021-04-16 13:27:30', '2021-04-16 13:27:30'),
+	(1052, 'USER LOGIN', 'Login Failed', '2021-04-16 13:27:53', '2021-04-16 13:27:53'),
+	(1053, 'USER LOGIN', 'User Login. Username:manager', '2021-04-16 13:27:53', '2021-04-16 13:27:53'),
+	(1054, 'USER LOGIN', 'Login Failed', '2021-04-16 19:41:53', '2021-04-16 19:41:53'),
+	(1055, 'USER LOGIN', 'Login Failed', '2021-04-17 04:22:37', '2021-04-17 04:22:37'),
+	(1056, 'USER LOGIN', 'Login Failed', '2021-04-18 04:17:28', '2021-04-18 04:17:28'),
+	(1057, 'USER LOGIN', 'Login Failed', '2021-04-18 07:20:25', '2021-04-18 07:20:25'),
+	(1058, 'USER LOGIN', 'Login Failed', '2021-04-18 07:20:34', '2021-04-18 07:20:34'),
+	(1059, 'USER LOGIN', 'Login Failed', '2021-04-19 21:18:16', '2021-04-19 21:18:16'),
+	(1060, 'USER LOGIN', 'Login Failed', '2021-04-20 12:10:15', '2021-04-20 12:10:15'),
+	(1061, 'USER LOGIN', 'Login Failed', '2021-04-21 23:59:57', '2021-04-21 23:59:57'),
+	(1062, 'USER LOGIN', 'Login Failed', '2021-04-22 00:00:00', '2021-04-22 00:00:00'),
+	(1063, 'USER LOGIN', 'User Login. Username:manager', '2021-04-22 09:06:13', '2021-04-22 09:06:13'),
+	(1064, 'USER LOGIN', 'Login Failed', '2021-04-22 11:48:14', '2021-04-22 11:48:14'),
+	(1065, 'USER LOGIN', 'User Login. Username:manager', '2021-04-23 09:33:53', '2021-04-23 09:33:53'),
+	(1066, 'USER LOGIN', 'Login Failed', '2021-04-23 23:36:15', '2021-04-23 23:36:15'),
+	(1067, 'USER LOGIN', 'Login Failed', '2021-04-24 10:35:25', '2021-04-24 10:35:25'),
+	(1068, 'USER LOGIN', 'Login Failed', '2021-04-25 11:15:32', '2021-04-25 11:15:32'),
+	(1069, 'USER LOGIN', 'Login Failed', '2021-04-25 11:15:41', '2021-04-25 11:15:41'),
+	(1070, 'USER LOGIN', 'Login Failed', '2021-04-25 11:15:50', '2021-04-25 11:15:50'),
+	(1071, 'USER LOGIN', 'Login Failed', '2021-04-25 17:02:47', '2021-04-25 17:02:47'),
+	(1072, 'USER LOGIN', 'Login Failed', '2021-04-27 07:16:53', '2021-04-27 07:16:53'),
+	(1073, 'USER LOGIN', 'Login Failed', '2021-04-27 20:44:17', '2021-04-27 20:44:17'),
+	(1074, 'USER LOGIN', 'Login Failed', '2021-04-28 07:46:44', '2021-04-28 07:46:44'),
+	(1075, 'USER LOGIN', 'Login Failed', '2021-04-28 07:46:54', '2021-04-28 07:46:54'),
+	(1076, 'USER LOGIN', 'User Login. Username:teller', '2021-04-28 07:46:55', '2021-04-28 07:46:55'),
+	(1077, 'USER LOGIN', 'User Login. Username:teller', '2021-04-28 07:47:01', '2021-04-28 07:47:01'),
+	(1078, 'USER LOGIN', 'Login Failed', '2021-04-28 11:36:57', '2021-04-28 11:36:57'),
+	(1079, 'USER LOGIN', 'User Login. Username:manager', '2021-04-29 10:26:38', '2021-04-29 10:26:38'),
+	(1080, 'USER LOGIN', 'User Login. Username:manager', '2021-04-29 10:26:42', '2021-04-29 10:26:42'),
+	(1081, 'USER LOGIN', 'User Login. Username:manager', '2021-04-29 10:26:42', '2021-04-29 10:26:42'),
+	(1082, 'USER LOGIN', 'User Login. Username:manager', '2021-04-29 10:26:53', '2021-04-29 10:26:53'),
+	(1083, 'USER LOGIN', 'Login Failed', '2021-04-30 03:03:29', '2021-04-30 03:03:29'),
+	(1084, 'USER LOGIN', 'Login Failed', '2021-04-30 03:03:31', '2021-04-30 03:03:31'),
+	(1085, 'USER LOGIN', 'Login Failed', '2021-04-30 11:30:43', '2021-04-30 11:30:43'),
+	(1086, 'USER LOGIN', 'Login Failed', '2021-05-01 03:58:09', '2021-05-01 03:58:09'),
+	(1087, 'USER LOGIN', 'Login Failed', '2021-05-03 08:49:49', '2021-05-03 08:49:49'),
+	(1088, 'USER LOGIN', 'Login Failed', '2021-05-03 08:49:50', '2021-05-03 08:49:50'),
+	(1089, 'USER LOGIN', 'User Login. Username:manager', '2021-05-04 08:46:21', '2021-05-04 08:46:21'),
+	(1090, 'USER LOGIN', 'User Login. Username:manager', '2021-05-04 08:46:31', '2021-05-04 08:46:31'),
+	(1091, 'USER LOGIN', 'User Login. Username:manager', '2021-05-04 08:46:31', '2021-05-04 08:46:31'),
+	(1092, 'USER LOGIN', 'Login Failed', '2021-05-04 09:22:52', '2021-05-04 09:22:52'),
+	(1093, 'USER LOGIN', 'Login Failed', '2021-05-04 09:23:01', '2021-05-04 09:23:01'),
+	(1094, 'USER LOGIN', 'User Login. Username:manager', '2021-05-04 09:23:02', '2021-05-04 09:23:02'),
+	(1095, 'USER LOGIN', 'Login Failed', '2021-05-04 09:32:25', '2021-05-04 09:32:25'),
+	(1096, 'USER LOGIN', 'Login Failed', '2021-05-04 09:34:24', '2021-05-04 09:34:24'),
+	(1097, 'USER LOGIN', 'User Login. Username:manager', '2021-05-04 09:38:27', '2021-05-04 09:38:27'),
+	(1098, 'USER LOGIN', 'Login Failed', '2021-05-04 09:51:52', '2021-05-04 09:51:52'),
+	(1099, 'USER LOGIN', 'Login Failed', '2021-05-04 09:52:18', '2021-05-04 09:52:18'),
+	(1100, 'USER LOGIN', 'User Login. Username:manager', '2021-05-04 09:52:18', '2021-05-04 09:52:18'),
+	(1101, 'USER LOGIN', 'Login Failed', '2021-05-04 11:47:45', '2021-05-04 11:47:45'),
+	(1102, 'USER LOGIN', 'User Login. Username:manager', '2021-05-04 13:07:50', '2021-05-04 13:07:50'),
+	(1103, 'USER LOGIN', 'User Login. Username:manager', '2021-05-04 13:08:18', '2021-05-04 13:08:18'),
+	(1104, 'USER LOGIN', 'User Login. Username:manager', '2021-05-04 13:08:24', '2021-05-04 13:08:24'),
+	(1105, 'USER LOGIN', 'User Login. Username:manager', '2021-05-04 13:08:24', '2021-05-04 13:08:24'),
+	(1106, 'USER LOGIN', 'User Login. Username:manager', '2021-05-04 13:08:30', '2021-05-04 13:08:30'),
+	(1107, 'USER LOGIN', 'Login Failed', '2021-05-04 13:08:30', '2021-05-04 13:08:30'),
+	(1108, 'USER LOGIN', 'Login Failed', '2021-05-04 13:08:34', '2021-05-04 13:08:34'),
+	(1109, 'USER LOGIN', 'User Login. Username:teller', '2021-05-04 13:08:34', '2021-05-04 13:08:34'),
+	(1110, 'USER LOGIN', 'User Login. Username:manager', '2021-05-04 14:48:18', '2021-05-04 14:48:18'),
+	(1111, 'USER LOGIN', 'Login Failed', '2021-05-05 10:54:53', '2021-05-05 10:54:53'),
+	(1112, 'USER LOGIN', 'Login Failed', '2021-05-05 11:08:20', '2021-05-05 11:08:20'),
+	(1113, 'USER LOGIN', 'Login Failed', '2021-05-05 11:15:15', '2021-05-05 11:15:15'),
+	(1114, 'USER LOGIN', 'Login Failed', '2021-05-05 11:15:48', '2021-05-05 11:15:48'),
+	(1115, 'USER LOGIN', 'Login Failed', '2021-05-05 11:16:26', '2021-05-05 11:16:26'),
+	(1116, 'USER LOGIN', 'Login Failed', '2021-05-05 11:19:19', '2021-05-05 11:19:19'),
+	(1117, 'USER LOGIN', 'Login Failed', '2021-05-05 11:23:00', '2021-05-05 11:23:00'),
+	(1118, 'USER LOGIN', 'Login Failed', '2021-05-05 11:23:23', '2021-05-05 11:23:23'),
+	(1119, 'USER LOGIN', 'Login Failed', '2021-05-05 11:24:00', '2021-05-05 11:24:00'),
+	(1120, 'USER LOGIN', 'Login Failed', '2021-05-05 15:30:10', '2021-05-05 15:30:10'),
+	(1121, 'USER LOGIN', 'Login Failed', '2021-05-05 15:30:34', '2021-05-05 15:30:34'),
+	(1122, 'USER LOGIN', 'User Login. Username:manager', '2021-05-05 15:30:34', '2021-05-05 15:30:34'),
+	(1123, 'USER LOGIN', 'User Login. Username:manager', '2021-05-05 15:30:58', '2021-05-05 15:30:58'),
+	(1124, 'USER LOGIN', 'User Login. Username:manager', '2021-05-05 15:31:02', '2021-05-05 15:31:02'),
+	(1125, 'USER LOGIN', 'Login Failed', '2021-05-05 15:43:40', '2021-05-05 15:43:40'),
+	(1126, 'USER LOGIN', 'Login Failed', '2021-05-05 15:44:06', '2021-05-05 15:44:06'),
+	(1127, 'USER LOGIN', 'Login Failed', '2021-05-05 15:44:32', '2021-05-05 15:44:32'),
+	(1128, 'USER LOGIN', 'Login Failed', '2021-05-05 15:47:16', '2021-05-05 15:47:16'),
+	(1129, 'USER LOGIN', 'Login Failed', '2021-05-05 15:48:38', '2021-05-05 15:48:38'),
+	(1130, 'USER LOGIN', 'Login Failed', '2021-05-05 15:51:13', '2021-05-05 15:51:13'),
+	(1131, 'USER LOGIN', 'Login Failed', '2021-05-05 15:55:14', '2021-05-05 15:55:14'),
+	(1132, 'USER LOGIN', 'Login Failed', '2021-05-05 15:55:41', '2021-05-05 15:55:41'),
+	(1133, 'USER LOGIN', 'User Login. Username:manager', '2021-05-05 15:56:09', '2021-05-05 15:56:09'),
+	(1134, 'USER LOGIN', 'User Login. Username:manager', '2021-05-05 15:59:31', '2021-05-05 15:59:31'),
+	(1135, 'USER LOGIN', 'User Login. Username:manager', '2021-05-05 16:02:08', '2021-05-05 16:02:08'),
+	(1136, 'USER LOGIN', 'User Login. Username:manager', '2021-05-05 16:12:39', '2021-05-05 16:12:39'),
+	(1137, 'USER LOGIN', 'User Login. Username:manager', '2021-05-05 16:14:42', '2021-05-05 16:14:42'),
+	(1138, 'USER LOGIN', 'Login Failed', '2021-05-05 16:18:00', '2021-05-05 16:18:00'),
+	(1139, 'USER LOGIN', 'Login Failed', '2021-05-05 16:18:20', '2021-05-05 16:18:20'),
+	(1140, 'USER LOGIN', 'Login Failed', '2021-05-05 16:20:15', '2021-05-05 16:20:15'),
+	(1141, 'USER LOGIN', 'User Login. Username:manager', '2021-05-05 16:21:14', '2021-05-05 16:21:14'),
+	(1142, 'USER LOGIN', 'User Login. Username:manager', '2021-05-05 16:22:54', '2021-05-05 16:22:54'),
+	(1143, 'USER LOGIN', 'User Login. Username:manager', '2021-05-05 16:24:34', '2021-05-05 16:24:34'),
+	(1144, 'USER LOGIN', 'User Login. Username:manager', '2021-05-05 16:37:33', '2021-05-05 16:37:33'),
+	(1145, 'USER LOGIN', 'User Login. Username:manager', '2021-05-05 16:38:01', '2021-05-05 16:38:01'),
+	(1146, 'USER LOGIN', 'User Login. Username:manager', '2021-05-05 16:57:52', '2021-05-05 16:57:52'),
+	(1147, 'USER LOGIN', 'Login Failed', '2021-05-05 17:09:25', '2021-05-05 17:09:25'),
+	(1148, 'USER LOGIN', 'Login Failed', '2021-05-05 17:12:15', '2021-05-05 17:12:15'),
+	(1149, 'USER LOGIN', 'User Login. Username:teller', '2021-05-05 17:13:10', '2021-05-05 17:13:10'),
+	(1150, 'USER LOGIN', 'Login Failed', '2021-05-05 17:17:11', '2021-05-05 17:17:11'),
+	(1151, 'USER LOGIN', 'Login Failed', '2021-05-05 17:18:05', '2021-05-05 17:18:05'),
+	(1152, 'USER LOGIN', 'User Login. Username:manager', '2021-05-05 17:18:31', '2021-05-05 17:18:31'),
+	(1153, 'USER LOGIN', 'Login Failed', '2021-05-05 17:18:59', '2021-05-05 17:18:59'),
+	(1154, 'USER LOGIN', 'Login Failed', '2021-05-06 06:49:55', '2021-05-06 06:49:55'),
+	(1155, 'USER LOGIN', 'Login Failed', '2021-05-06 06:50:02', '2021-05-06 06:50:02'),
+	(1156, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 06:50:02', '2021-05-06 06:50:02'),
+	(1157, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 06:50:12', '2021-05-06 06:50:12'),
+	(1158, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 06:51:03', '2021-05-06 06:51:03'),
+	(1159, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 06:51:12', '2021-05-06 06:51:12'),
+	(1160, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 06:52:11', '2021-05-06 06:52:11'),
+	(1161, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 06:53:54', '2021-05-06 06:53:54'),
+	(1162, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 06:55:04', '2021-05-06 06:55:04'),
+	(1163, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 06:55:09', '2021-05-06 06:55:09'),
+	(1164, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 06:57:04', '2021-05-06 06:57:04'),
+	(1165, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 07:03:01', '2021-05-06 07:03:01'),
+	(1166, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 07:03:34', '2021-05-06 07:03:34'),
+	(1167, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 07:05:05', '2021-05-06 07:05:05'),
+	(1168, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 07:13:10', '2021-05-06 07:13:10'),
+	(1169, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 07:17:20', '2021-05-06 07:17:20'),
+	(1170, 'USER LOGIN', 'Login Failed', '2021-05-06 07:17:20', '2021-05-06 07:17:20'),
+	(1171, 'USER LOGIN', 'Login Failed', '2021-05-06 07:17:28', '2021-05-06 07:17:28'),
+	(1172, 'USER LOGIN', 'User Login. Username:teller', '2021-05-06 07:17:29', '2021-05-06 07:17:29'),
+	(1173, 'USER LOGIN', 'User Login. Username:teller', '2021-05-06 07:18:00', '2021-05-06 07:18:00'),
+	(1174, 'USER LOGIN', 'User Login. Username:teller', '2021-05-06 07:23:43', '2021-05-06 07:23:43'),
+	(1175, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 07:41:26', '2021-05-06 07:41:26'),
+	(1176, 'USER LOGIN', 'User Login. Username:teller', '2021-05-06 08:13:08', '2021-05-06 08:13:08'),
+	(1177, 'USER LOGIN', 'Login Failed', '2021-05-06 08:13:09', '2021-05-06 08:13:09'),
+	(1178, 'USER LOGIN', 'Login Failed', '2021-05-06 08:13:16', '2021-05-06 08:13:16'),
+	(1179, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 08:13:16', '2021-05-06 08:13:16'),
+	(1180, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 08:13:25', '2021-05-06 08:13:25'),
+	(1181, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 08:14:58', '2021-05-06 08:14:58'),
+	(1182, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 08:19:38', '2021-05-06 08:19:38'),
+	(1183, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 08:19:58', '2021-05-06 08:19:58'),
+	(1184, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 08:22:08', '2021-05-06 08:22:08'),
+	(1185, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 08:22:45', '2021-05-06 08:22:45'),
+	(1186, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 08:24:34', '2021-05-06 08:24:34'),
+	(1187, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 08:42:53', '2021-05-06 08:42:53'),
+	(1188, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 08:44:19', '2021-05-06 08:44:19'),
+	(1189, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 08:48:58', '2021-05-06 08:48:58'),
+	(1190, 'USER LOGIN', 'Login Failed', '2021-05-06 08:48:58', '2021-05-06 08:48:58'),
+	(1191, 'USER LOGIN', 'Login Failed', '2021-05-06 08:49:09', '2021-05-06 08:49:09'),
+	(1192, 'USER LOGIN', 'User Login. Username:teller', '2021-05-06 08:49:09', '2021-05-06 08:49:09'),
+	(1193, 'USER LOGIN', 'Login Failed', '2021-05-06 10:03:21', '2021-05-06 10:03:21'),
+	(1194, 'USER LOGIN', 'Login Failed', '2021-05-06 10:03:33', '2021-05-06 10:03:33'),
+	(1195, 'USER LOGIN', 'Login Failed', '2021-05-06 10:03:45', '2021-05-06 10:03:45'),
+	(1196, 'USER LOGIN', 'Login Failed', '2021-05-06 10:03:48', '2021-05-06 10:03:48'),
+	(1197, 'USER LOGIN', 'Login Failed', '2021-05-06 10:04:03', '2021-05-06 10:04:03'),
+	(1198, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 10:04:03', '2021-05-06 10:04:03'),
+	(1199, 'USER LOGIN', 'Login Failed', '2021-05-06 10:04:07', '2021-05-06 10:04:07'),
+	(1200, 'USER LOGIN', 'User Login. Username:teller', '2021-05-06 10:04:08', '2021-05-06 10:04:08'),
+	(1201, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 10:04:13', '2021-05-06 10:04:13'),
+	(1202, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 10:07:21', '2021-05-06 10:07:21'),
+	(1203, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 10:07:28', '2021-05-06 10:07:28'),
+	(1204, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 10:10:43', '2021-05-06 10:10:43'),
+	(1205, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 10:12:34', '2021-05-06 10:12:34'),
+	(1206, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 10:12:47', '2021-05-06 10:12:47'),
+	(1207, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 10:12:47', '2021-05-06 10:12:47'),
+	(1208, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 10:12:53', '2021-05-06 10:12:53'),
+	(1209, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 10:13:00', '2021-05-06 10:13:00'),
+	(1210, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 10:23:40', '2021-05-06 10:23:40'),
+	(1211, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 10:24:02', '2021-05-06 10:24:02'),
+	(1212, 'USER LOGIN', 'User Login. Username:manager', '2021-05-06 10:24:12', '2021-05-06 10:24:12'),
+	(1213, 'USER LOGIN', 'User Login. Username:teller', '2021-05-06 10:24:12', '2021-05-06 10:24:12'),
+	(1214, 'USER LOGIN', 'User Login. Username:teller', '2021-05-06 10:24:19', '2021-05-06 10:24:19'),
+	(1215, 'USER LOGIN', 'User Login. Username:teller', '2021-05-06 10:29:44', '2021-05-06 10:29:44'),
+	(1216, 'USER LOGIN', 'User Login. Username:teller', '2021-05-06 10:41:44', '2021-05-06 10:41:44'),
+	(1217, 'USER LOGIN', 'User Login. Username:teller', '2021-05-06 10:43:45', '2021-05-06 10:43:45'),
+	(1218, 'USER LOGIN', 'Login Failed', '2021-05-06 10:43:45', '2021-05-06 10:43:45'),
+	(1219, 'USER LOGIN', 'Login Failed', '2021-05-06 10:43:51', '2021-05-06 10:43:51'),
+	(1220, 'USER LOGIN', 'User Login. Username:teller', '2021-05-06 10:43:51', '2021-05-06 10:43:51'),
+	(1221, 'USER LOGIN', 'User Login. Username:teller', '2021-05-06 10:43:54', '2021-05-06 10:43:54'),
+	(1222, 'USER LOGIN', 'User Login. Username:teller', '2021-05-06 10:46:38', '2021-05-06 10:46:38'),
+	(1223, 'USER LOGIN', 'User Login. Username:teller', '2021-05-06 10:49:34', '2021-05-06 10:49:34'),
+	(1224, 'USER LOGIN', 'User Login. Username:teller', '2021-05-06 10:50:09', '2021-05-06 10:50:09'),
+	(1225, 'USER LOGIN', 'User Login. Username:teller', '2021-05-06 11:00:32', '2021-05-06 11:00:32'),
+	(1226, 'USER LOGIN', 'User Login. Username:teller', '2021-05-06 11:11:35', '2021-05-06 11:11:35');
 /*!40000 ALTER TABLE `probase_audit_log` ENABLE KEYS */;
 
 -- Dumping structure for table btmms.probase_error_log
@@ -2675,7 +3238,7 @@ CREATE TABLE IF NOT EXISTS `probase_error_log` (
 
 -- Dumping data for table btmms.probase_error_log: ~2 rows (approximately)
 /*!40000 ALTER TABLE `probase_error_log` DISABLE KEYS */;
-INSERT INTO `probase_error_log` (`error_id`, `error_text`, `occurance`) VALUES
+INSERT IGNORE INTO `probase_error_log` (`error_id`, `error_text`, `occurance`) VALUES
 	(2, 'ZBMS-20201216-64617333773insert failed, error = 23000, message = Cannot add or update a child row: a foreign key constraint fails (`btmms`.`probase_tbl_transactions`, CONSTRAINT `probase_daily_transactions_probase_trans_code_trn_code_fk` FOREIGN KEY (`trn_code`) REFERENCES `probase_trans_code` (`trn_code`))', '2020-12-16 09:02:27'),
 	(3, 'ZBMS-20201216-65243244000insert failed, error = 23000, message = Cannot add or update a child row: a foreign key constraint fails (`btmms`.`probase_tbl_transactions`, CONSTRAINT `probase_daily_transactions_probase_trans_code_trn_code_fk` FOREIGN KEY (`trn_code`) REFERENCES `probase_trans_code` (`trn_code`))', '2020-12-16 09:02:27'),
 	(4, 'ZBMS-20201216-71136437000insert failed, error = 23000, message = Cannot add or update a child row: a foreign key constraint fails (`btmms`.`probase_tbl_transactions`, CONSTRAINT `probase_daily_transactions_probase_trans_code_trn_code_fk` FOREIGN KEY (`trn_code`) REFERENCES `probase_trans_code` (`trn_code`))', '2020-12-16 09:18:48');
@@ -2757,9 +3320,9 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_acgl_bal` (
   UNIQUE KEY `probase_tbl_acgl_bal` (`account`,`entry_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Stores daily gl and account balances';
 
--- Dumping data for table btmms.probase_tbl_acgl_bal: ~114 rows (approximately)
+-- Dumping data for table btmms.probase_tbl_acgl_bal: ~111 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_acgl_bal` DISABLE KEYS */;
-INSERT INTO `probase_tbl_acgl_bal` (`account`, `entry_date`, `opening_bal`, `closing_bal`, `dr_mov`, `cr_mov`) VALUES
+INSERT IGNORE INTO `probase_tbl_acgl_bal` (`account`, `entry_date`, `opening_bal`, `closing_bal`, `dr_mov`, `cr_mov`) VALUES
 	('EQ00000000', '2020-06-29 09:48:00', 0.00, 0.00, 0.00, 0.00),
 	('EQ00000001', '2020-06-29 09:48:00', 0.00, 0.00, 0.00, 0.00),
 	('EQ00000002', '2020-06-29 09:48:00', 0.00, 0.00, 0.00, 0.00),
@@ -2876,8 +3439,96 @@ INSERT INTO `probase_tbl_acgl_bal` (`account`, `entry_date`, `opening_bal`, `clo
 	('260955040826', '2021-03-01 14:11:34', 0.00, 0.00, 0.00, 0.00),
 	('0950003955', '2021-03-24 11:49:14', 0.00, 0.00, 0.00, 0.00),
 	('54945455454', '2021-03-24 12:20:48', 0.00, 0.00, 0.00, 0.00),
-	('0955040826', '2021-03-24 12:39:13', 0.00, 0.00, 0.00, 0.00);
+	('0955040826', '2021-03-24 12:39:13', 0.00, 0.00, 0.00, 0.00),
+	('00000000', '2021-05-06 08:51:03', 0.00, 0.00, 0.00, 0.00);
 /*!40000 ALTER TABLE `probase_tbl_acgl_bal` ENABLE KEYS */;
+
+-- Dumping structure for table btmms.probase_tbl_bank_transactions
+CREATE TABLE IF NOT EXISTS `probase_tbl_bank_transactions` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `srcAcc` varchar(255) DEFAULT 'NOT USED',
+  `srcBranch` varchar(255) DEFAULT 'NOT USED',
+  `srcCurrency` varchar(255) DEFAULT 'NOT USED',
+  `transferTyp` varchar(255) DEFAULT 'NOT USED',
+  `transferRef` varchar(255) DEFAULT 'NOT USED',
+  `referenceNo` varchar(255) DEFAULT 'NOT USED',
+  `destAcc` varchar(255) DEFAULT 'NOT USED',
+  `destBranch` varchar(255) DEFAULT 'NOT USED',
+  `payCurrency` varchar(255) DEFAULT 'NOT USED',
+  `amount` varchar(255) DEFAULT 'NOT USED',
+  `payDate` varchar(255) DEFAULT 'NOT USED',
+  `remarks` varchar(255) DEFAULT 'NOT USED',
+  `status` varchar(255) DEFAULT 'PENDING',
+  `request_reference` varchar(255) DEFAULT 'NOT USED',
+  `op_description` varchar(255) DEFAULT 'NO OPERATION DESCRIPTION SET',
+  `atd_number` varchar(255) DEFAULT 'NOT USED',
+  `atd_amount` int DEFAULT '0',
+  `service` varchar(255) DEFAULT 'NO DESCRIPTION',
+  `bank_id` varchar(255) DEFAULT 'NOT USED',
+  `nrc_no` varchar(255) DEFAULT 'NOT USED',
+  `account_no` varchar(255) DEFAULT 'NOT USED',
+  `deposit_date` varchar(255) DEFAULT 'NOT USED',
+  `bank_ref_number` varchar(255) DEFAULT 'NOT USED',
+  `name` varchar(255) DEFAULT 'NOT USED',
+  `senderMobileNo` varchar(255) DEFAULT 'NOT USED',
+  `reference` varchar(255) DEFAULT 'NOT USED',
+  `currency` varchar(255) DEFAULT 'NOT USED',
+  `account` varchar(255) DEFAULT 'NOT USED',
+  `receiverMobileNo` varchar(255) DEFAULT 'NOT USED',
+  `datePaymentReceived` varchar(255) DEFAULT 'NOT USED',
+  `paymentMode` varchar(255) DEFAULT 'NOT USED',
+  `senderEmail` varchar(255) DEFAULT 'NOT USED',
+  `userName` varchar(255) DEFAULT 'NOT USED',
+  `customerId` varchar(255) DEFAULT 'NOT USED',
+  `channelType` varchar(255) DEFAULT 'NOT USED',
+  `country` varchar(255) DEFAULT 'NOT USED',
+  `service_id` varchar(255) DEFAULT 'NOT USED',
+  `msisdn` varchar(255) DEFAULT 'NOT USED',
+  `account_number` varchar(255) DEFAULT 'NOT USED',
+  `payer_transaction_id` varchar(255) DEFAULT 'NOT USED',
+  `narration` varchar(255) DEFAULT 'NOT USED',
+  `extraData` varchar(255) DEFAULT 'NOT USED',
+  `currency_code` varchar(255) DEFAULT 'NOT USED',
+  `country_code` varchar(255) DEFAULT 'NOT USED',
+  `customer_names` varchar(255) DEFAULT 'NOT USED',
+  `date_payment_received` varchar(255) DEFAULT 'NOT USED',
+  `extra_data` varchar(255) DEFAULT 'NOT USED',
+  `payment_mode` varchar(255) DEFAULT 'NOT USED',
+  `beneName` varchar(255) DEFAULT NULL,
+  `senderName` varchar(255) DEFAULT NULL,
+  `beneEmail` varchar(255) DEFAULT NULL,
+  `beneMobileNo` varchar(255) DEFAULT NULL,
+  `destCurrency` varchar(255) DEFAULT NULL,
+  `ipAddress` varchar(255) DEFAULT NULL,
+  `sortCode` varchar(255) DEFAULT NULL,
+  `customerNo` varchar(255) DEFAULT NULL,
+  `customerPhoto` varchar(255) DEFAULT NULL,
+  `customerSignature` varchar(255) DEFAULT NULL,
+  `serviceId` varchar(255) DEFAULT NULL,
+  `otp` varchar(255) DEFAULT 'NOT USED',
+  `hostrefno` varchar(255) DEFAULT 'NOT USED',
+  `rrn` varchar(255) DEFAULT 'NOT USED',
+  `inserted_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table btmms.probase_tbl_bank_transactions: ~0 rows (approximately)
+/*!40000 ALTER TABLE `probase_tbl_bank_transactions` DISABLE KEYS */;
+INSERT IGNORE INTO `probase_tbl_bank_transactions` (`id`, `srcAcc`, `srcBranch`, `srcCurrency`, `transferTyp`, `transferRef`, `referenceNo`, `destAcc`, `destBranch`, `payCurrency`, `amount`, `payDate`, `remarks`, `status`, `request_reference`, `op_description`, `atd_number`, `atd_amount`, `service`, `bank_id`, `nrc_no`, `account_no`, `deposit_date`, `bank_ref_number`, `name`, `senderMobileNo`, `reference`, `currency`, `account`, `receiverMobileNo`, `datePaymentReceived`, `paymentMode`, `senderEmail`, `userName`, `customerId`, `channelType`, `country`, `service_id`, `msisdn`, `account_number`, `payer_transaction_id`, `narration`, `extraData`, `currency_code`, `country_code`, `customer_names`, `date_payment_received`, `extra_data`, `payment_mode`, `beneName`, `senderName`, `beneEmail`, `beneMobileNo`, `destCurrency`, `ipAddress`, `sortCode`, `customerNo`, `customerPhoto`, `customerSignature`, `serviceId`, `otp`, `hostrefno`, `rrn`, `inserted_at`, `updated_at`) VALUES
+	(1, '1019000001189', '101', 'ZMW', 'NOT USED', '4HrUkn0EXe5yb0tw', '4HrUkn0EXe5yb0tw', 'NOT USED', 'NOT USED', 'NOT USED', '1', '2021-05-06', 'TICKET PURCHASE', 'PENDING', '4HrUkn0EXe5yb0tw', 'CLIENT TICKET PURCHASE', 'NOT USED', 0, 'TICKET_PURCHASE', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'NOT USED', 'NOT USED', 'NOT USED', '2021-05-06 10:05:30', '2021-05-06 10:05:30'),
+	(2, '1019000001189', '101', 'ZMW', 'NOT USED', '4HrUkn0EXe5yb0tw', '4HrUkn0EXe5yb0tw', 'NOT USED', 'NOT USED', 'NOT USED', '1', '2021-05-06', 'TICKET PURCHASE', 'PENDING', '4HrUkn0EXe5yb0tw', 'CLIENT TICKET PURCHASE', 'NOT USED', 0, 'TICKET_PURCHASE', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'NOT USED', 'NOT USED', 'NOT USED', '2021-05-06 10:11:10', '2021-05-06 10:11:10'),
+	(3, '1019000001189', '101', 'ZMW', 'NOT USED', '4HrUkn0EXe5yb0tw', '4HrUkn0EXe5yb0tw', 'NOT USED', 'NOT USED', 'NOT USED', '1', '2021-05-06', 'TICKET PURCHASE', 'PENDING', '4HrUkn0EXe5yb0tw', 'CLIENT TICKET PURCHASE', 'NOT USED', 0, 'TICKET_PURCHASE', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'NOT USED', 'NOT USED', 'NOT USED', '2021-05-06 10:12:20', '2021-05-06 10:12:20'),
+	(4, '1019000001189', '101', 'ZMW', 'NOT USED', '4HrUkn0EXe5yb0tw', '4HrUkn0EXe5yb0tw', 'NOT USED', 'NOT USED', 'NOT USED', '1', '2021-05-06', 'TICKET PURCHASE', 'PENDING', '4HrUkn0EXe5yb0tw', 'CLIENT TICKET PURCHASE', 'NOT USED', 0, 'TICKET_PURCHASE', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'NOT USED', 'NOT USED', 'NOT USED', '2021-05-06 10:13:21', '2021-05-06 10:13:21'),
+	(5, '1019000001189', '101', 'ZMW', 'NOT USED', '4HrUkn0EXe5yb0tw', '4HrUkn0EXe5yb0tw', 'NOT USED', 'NOT USED', 'NOT USED', '1', '2021-05-06', 'TICKET PURCHASE', 'SUCCESS', '4HrUkn0EXe5yb0tw', 'CLIENT TICKET PURCHASE', 'NOT USED', 0, 'TICKET_PURCHASE', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'NOT USED', '101SCHL203532056', 'NOT USED', '2021-05-06 10:17:40', '2021-05-06 10:17:40'),
+	(6, '1019000001189', '101', 'ZMW', 'NOT USED', '4HrUkn0EXe5yb0tw', '4HrUkn0EXe5yb0tw', 'NOT USED', 'NOT USED', 'NOT USED', '1', '2021-05-06', 'TICKET PURCHASE', 'PENDING', '4HrUkn0EXe5yb0tw', 'CLIENT TICKET PURCHASE', 'NOT USED', 0, 'TICKET_PURCHASE', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'NOT USED', 'NOT USED', 'NOT USED', '2021-05-06 10:18:59', '2021-05-06 10:18:59'),
+	(7, '1019000001189', '101', 'ZMW', 'NOT USED', 'ZVMz1AJQzZ5Fms5z', 'ZVMz1AJQzZ5Fms5z', 'NOT USED', 'NOT USED', 'NOT USED', '1', '2021-05-06', 'TICKET PURCHASE', 'SUCCESS', 'ZVMz1AJQzZ5Fms5z', 'CLIENT TICKET PURCHASE', 'NOT USED', 0, 'TICKET_PURCHASE', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'NOT USED', '101SCHL203532058', 'NOT USED', '2021-05-06 10:26:03', '2021-05-06 10:26:03'),
+	(8, '1019000001189', '101', 'ZMW', 'NOT USED', 'ZVMz1AJQzZ5Fms5z', 'ZVMz1AJQzZ5Fms5z', 'NOT USED', 'NOT USED', 'NOT USED', '1', '2021-05-06', 'TICKET PURCHASE', 'PENDING', 'ZVMz1AJQzZ5Fms5z', 'CLIENT TICKET PURCHASE', 'NOT USED', 0, 'TICKET_PURCHASE', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'NOT USED', 'NOT USED', 'NOT USED', '2021-05-06 10:27:39', '2021-05-06 10:27:39'),
+	(9, '1019000001189', '101', 'ZMW', 'NOT USED', 'ZVMz1AJQzZ5Fms5z', 'ZVMz1AJQzZ5Fms5z', 'NOT USED', 'NOT USED', 'NOT USED', '1', '2021-05-06', 'TICKET PURCHASE', 'PENDING', 'ZVMz1AJQzZ5Fms5z', 'CLIENT TICKET PURCHASE', 'NOT USED', 0, 'TICKET_PURCHASE', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'NOT USED', 'NOT USED', 'NOT USED', '2021-05-06 10:29:21', '2021-05-06 10:29:21'),
+	(10, '1019000001189', '101', 'ZMW', 'NOT USED', 'UBNSX6FSRIEkVGKw', 'UBNSX6FSRIEkVGKw', 'NOT USED', 'NOT USED', 'NOT USED', '1', '2021-05-06', 'TICKET PURCHASE', 'SUCCESS', 'UBNSX6FSRIEkVGKw', 'CLIENT TICKET PURCHASE', 'NOT USED', 0, 'TICKET_PURCHASE', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'NOT USED', '101SCHL203532061', 'NOT USED', '2021-05-06 10:30:05', '2021-05-06 10:30:05'),
+	(11, '1019000001189', '101', 'ZMW', 'NOT USED', 'UBNSX6FSRIEkVGKw', 'UBNSX6FSRIEkVGKw', 'NOT USED', 'NOT USED', 'NOT USED', '1', '2021-05-06', 'TICKET PURCHASE', 'PENDING', 'UBNSX6FSRIEkVGKw', 'CLIENT TICKET PURCHASE', 'NOT USED', 0, 'TICKET_PURCHASE', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'NOT USED', 'NOT USED', 'NOT USED', '2021-05-06 10:30:51', '2021-05-06 10:30:51'),
+	(12, '1019000001189', '101', 'ZMW', 'NOT USED', '1620297769', '1620297769', 'NOT USED', 'NOT USED', 'NOT USED', '1', '2021-05-06', 'TICKET PURCHASE', 'SUCCESS', '1620297769', 'CLIENT TICKET PURCHASE', 'NOT USED', 0, 'TICKET_PURCHASE', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', 'NOT USED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'NOT USED', '101SCHL203532063', 'NOT USED', '2021-05-06 10:42:59', '2021-05-06 10:42:59');
+/*!40000 ALTER TABLE `probase_tbl_bank_transactions` ENABLE KEYS */;
 
 -- Dumping structure for table btmms.probase_tbl_bus
 CREATE TABLE IF NOT EXISTS `probase_tbl_bus` (
@@ -2910,11 +3561,11 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_bus` (
   `system_description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `license_plate_UNIQUE` (`license_plate`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table btmms.probase_tbl_bus: ~28 rows (approximately)
+-- Dumping data for table btmms.probase_tbl_bus: ~27 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_bus` DISABLE KEYS */;
-INSERT INTO `probase_tbl_bus` (`id`, `license_plate`, `uid`, `engine_type`, `model`, `make`, `year`, `color`, `state_of_registration`, `vin_number`, `serial_number`, `hull_number`, `operator_id`, `vehicle_class`, `company`, `company_info`, `fitness_license`, `vehicle_capacity`, `inserted_at`, `updated_at`, `auth_status`, `maker`, `checker`, `maker_date_time`, `checker_date_time`, `user_description`, `system_description`) VALUES
+INSERT IGNORE INTO `probase_tbl_bus` (`id`, `license_plate`, `uid`, `engine_type`, `model`, `make`, `year`, `color`, `state_of_registration`, `vin_number`, `serial_number`, `hull_number`, `operator_id`, `vehicle_class`, `company`, `company_info`, `fitness_license`, `vehicle_capacity`, `inserted_at`, `updated_at`, `auth_status`, `maker`, `checker`, `maker_date_time`, `checker_date_time`, `user_description`, `system_description`) VALUES
 	(9, 'ABC432', 'ragxlMuj', 'VFG-234554', 'XDC-9873', 'Higer', '1998', 'Black', 'Copperbelt', '09876346324556234', '120934875656756423', 'XSSS-12095TGQ34', '22', 'C1', 'Metrolink', NULL, NULL, '10', '2020-06-29 08:21:59', '2020-06-29 08:21:59', 0, NULL, NULL, NULL, NULL, NULL, NULL),
 	(10, 'AGX533', 'lDpjEYP2', 'VZZA12', 'XDC-9873342', 'Higer', '2002', 'Blue', NULL, '09874556234634632', '120934875656756423', 'XSSS-12095TGQAS', '23', 'C1', 'POWERTOOLS', NULL, NULL, '25', '2020-06-29 08:23:36', '2020-06-29 08:23:36', 0, NULL, NULL, NULL, NULL, NULL, NULL),
 	(11, 'ALZ1520', '4sdIYnUj', 'VVTI', 'XC12G', 'Marcopolo', '2005', 'Grey', 'Lusaka', '25874236581', '5482178521', '546982145', '34', 'C1', 'Chigoma Travelling', NULL, NULL, '30', '2020-06-30 12:33:02', '2020-06-30 12:33:02', 0, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -2944,7 +3595,9 @@ INSERT INTO `probase_tbl_bus` (`id`, `license_plate`, `uid`, `engine_type`, `mod
 	(35, 'BAH1114', 'ZAdq1Zyi', 'VV', 'ATIS20', 'Higer', '2018', 'Navy', 'Lusaka', '333332', '54698215', '222555888444', '51', 'C', 'KKK Travels', NULL, NULL, '30', '2020-09-30 13:19:36', '2020-09-30 13:19:36', 0, NULL, NULL, NULL, NULL, NULL, NULL),
 	(36, 'ALX 1234', '7AL4sKNA', 'jnjln', 'Model', 'Toyota', '2010', 'White', 'Lusaka', 'ljbjbj', 'kjbjbj', 'kjhbkbk', '58', 'C1E', 'Mazhandu Limited', NULL, NULL, '30', '2020-12-16 14:04:46', '2020-12-16 14:04:46', 0, 1, NULL, '2020-12-16 14:04:46', NULL, 'khbjbjb ', 'Request to add bus by Mubukwanu Mubukwanu at 2020-12-16'),
 	(37, 'BAD 1234', '9Xldffrz', 'knk', 'knkjk', 'Toyota', '2010', 'White', 'Livingstone', 'knknk', 'knkn', 'knkn', '58', 'C1', 'Mazhandu Limited', NULL, NULL, '30', '2020-12-16 14:13:06', '2020-12-16 14:13:06', 0, 1, NULL, '2020-12-16 14:13:06', NULL, 'knkn ', 'Request to add bus by Mubukwanu Mubukwanu at 2020-12-16'),
-	(38, 'ALZ 3688', 'shGlRfJu', 'lujbljbj', 'ajlbdfcjdbf', 'Toyota', '2010', 'White', 'Lusaka', 'jhbvjlbj', 'jhvkhvkhvkh', 'hkvhkvkh', '75', 'C1', 'NAPSA BUS SERVICES', NULL, NULL, '30', '2021-03-24 10:25:19', '2021-03-24 10:25:19', 0, 1, NULL, '2021-03-24 10:25:19', NULL, 'khvhvh ', 'Request to add bus by Mubukwanu Mubukwanu at 2021-03-24');
+	(38, 'ALZ 3688', 'shGlRfJu', 'lujbljbj', 'ajlbdfcjdbf', 'Toyota', '2010', 'White', 'Lusaka', 'jhbvjlbj', 'jhvkhvkhvkh', 'hkvhkvkh', '75', 'C1', 'NAPSA BUS SERVICES', NULL, NULL, '30', '2021-03-24 10:25:19', '2021-03-24 10:25:19', 0, 1, NULL, '2021-03-24 10:25:19', NULL, 'khvhvh ', 'Request to add bus by Mubukwanu Mubukwanu at 2021-03-24'),
+	(39, 'hjkk', 'irb0Q7PZ', 'hjjk', 'ghj', 'Toyota', '2003', 'blue', 'Lusaka', '4551', '7451', '4125', '75', 'C', 'NAPSA BUS SERVICES', NULL, NULL, '30', '2021-03-25 10:45:46', '2021-03-25 10:45:46', 0, 1, NULL, '2021-03-25 10:45:46', NULL, ' ', 'Request to add bus by Mubukwanu Mubukwanu at 2021-03-25'),
+	(40, 'bnm123', 'oGzICaUN', 'petrol', 'ce44', 'Higer', '2001', 'blue', 'Lusaka', '4554', '41258', '87458', '75', 'CE', 'NAPSA BUS SERVICES', NULL, NULL, '40', '2021-03-25 10:48:39', '2021-03-25 10:48:39', 0, 1, NULL, '2021-03-25 10:48:39', NULL, ' ', 'Request to add bus by Mubukwanu Mubukwanu at 2021-03-25');
 /*!40000 ALTER TABLE `probase_tbl_bus` ENABLE KEYS */;
 
 -- Dumping structure for table btmms.probase_tbl_buses
@@ -2974,7 +3627,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_charges` (
 
 -- Dumping data for table btmms.probase_tbl_charges: ~30 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_charges` DISABLE KEYS */;
-INSERT INTO `probase_tbl_charges` (`charge_id`, `charge_desc`, `charge_amount`, `charge_freq`, `charge_type`) VALUES
+INSERT IGNORE INTO `probase_tbl_charges` (`charge_id`, `charge_desc`, `charge_amount`, `charge_freq`, `charge_type`) VALUES
 	(1, 'Rent-Stands', 5.00, 'Daily Rate', 'M'),
 	(2, 'Rent-Stalls', 15.00, 'Daily Rate', 'M'),
 	(3, 'Rent-Shops', 17.00, 'Daily Rate', 'B'),
@@ -3021,7 +3674,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_luggage` (
 
 -- Dumping data for table btmms.probase_tbl_luggage: ~71 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_luggage` DISABLE KEYS */;
-INSERT INTO `probase_tbl_luggage` (`id`, `description`, `ticket_id`, `weight`, `cost`, `inserted_at`, `updated_at`) VALUES
+INSERT IGNORE INTO `probase_tbl_luggage` (`id`, `description`, `ticket_id`, `weight`, `cost`, `inserted_at`, `updated_at`) VALUES
 	(47, 'Ladder', 183, 11.71, 11.71, '2020-06-29 13:07:19', '2020-06-29 13:07:19'),
 	(48, 'Ladder', 181, 11.72, 11.72, '2020-06-29 13:45:13', '2020-06-29 13:45:13'),
 	(49, 'Ladder', 184, 12.25, 12.25, '2020-06-29 13:47:56', '2020-06-29 13:47:56'),
@@ -3115,7 +3768,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_luggage_tarrifs` (
 
 -- Dumping data for table btmms.probase_tbl_luggage_tarrifs: ~0 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_luggage_tarrifs` DISABLE KEYS */;
-INSERT INTO `probase_tbl_luggage_tarrifs` (`id`, `cost_per_kilo`, `inserted_at`, `updated_at`) VALUES
+INSERT IGNORE INTO `probase_tbl_luggage_tarrifs` (`id`, `cost_per_kilo`, `inserted_at`, `updated_at`) VALUES
 	(1, 1, '2020-06-26 14:21:59', '2020-06-26 14:22:01');
 /*!40000 ALTER TABLE `probase_tbl_luggage_tarrifs` ENABLE KEYS */;
 
@@ -3141,7 +3794,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_market` (
 
 -- Dumping data for table btmms.probase_tbl_market: ~3 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_market` DISABLE KEYS */;
-INSERT INTO `probase_tbl_market` (`id`, `market_name`, `location`, `market_uid`, `city_town`, `estimated_population`, `inserted_at`, `updated_at`, `auth_status`, `maker`, `checker`, `maker_date_time`, `checker_date_time`, `user_description`, `system_description`) VALUES
+INSERT IGNORE INTO `probase_tbl_market` (`id`, `market_name`, `location`, `market_uid`, `city_town`, `estimated_population`, `inserted_at`, `updated_at`, `auth_status`, `maker`, `checker`, `maker_date_time`, `checker_date_time`, `user_description`, `system_description`) VALUES
 	(2, 'LIVINGSTONE', 'LIVINGSTONE', '460388588796', 'LIVINGSTONE', '2500', '2020-06-29 09:41:45', '2020-06-29 09:41:45', 0, NULL, NULL, NULL, NULL, NULL, NULL),
 	(3, 'Mwabonwa', 'Livingstone', '612421252812', 'Livingstone', '1500', '2020-06-30 12:47:32', '2020-06-30 12:47:32', 0, NULL, NULL, NULL, NULL, NULL, NULL),
 	(4, 'Big Days', 'Maramba', '882650437995', 'Livingstone', '150', '2020-07-03 10:25:39', '2020-07-03 10:25:39', 0, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -3168,7 +3821,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_market_section` (
 
 -- Dumping data for table btmms.probase_tbl_market_section: ~5 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_market_section` DISABLE KEYS */;
-INSERT INTO `probase_tbl_market_section` (`id`, `section_name`, `section_lable`, `number_of_shops`, `market_id`, `inserted_at`, `updated_at`, `auth_status`, `maker`, `checker`, `maker_date_time`, `checker_date_time`, `user_description`, `system_description`) VALUES
+INSERT IGNORE INTO `probase_tbl_market_section` (`id`, `section_name`, `section_lable`, `number_of_shops`, `market_id`, `inserted_at`, `updated_at`, `auth_status`, `maker`, `checker`, `maker_date_time`, `checker_date_time`, `user_description`, `system_description`) VALUES
 	(3, 'GENERAL', 'G999', 25, 2, '2020-06-29 09:42:20', '2020-06-29 09:42:20', 0, NULL, NULL, NULL, NULL, NULL, NULL),
 	(4, 'ELECTRONICS', 'E000', 20, 2, '2020-06-29 09:44:27', '2020-06-29 09:44:27', 0, NULL, NULL, NULL, NULL, NULL, NULL),
 	(5, 'FOOD', 'F000', 10, 2, '2020-06-29 09:44:41', '2020-06-29 09:44:41', 0, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -3198,7 +3851,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_market_section_shop` (
 
 -- Dumping data for table btmms.probase_tbl_market_section_shop: ~14 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_market_section_shop` DISABLE KEYS */;
-INSERT INTO `probase_tbl_market_section_shop` (`id`, `shop_code`, `section_id`, `maketeer_id`, `shop_number`, `shop_price`, `inserted_at`, `updated_at`, `auth_status`, `maker`, `checker`, `maker_date_time`, `checker_date_time`, `user_description`, `system_description`) VALUES
+INSERT IGNORE INTO `probase_tbl_market_section_shop` (`id`, `shop_code`, `section_id`, `maketeer_id`, `shop_number`, `shop_price`, `inserted_at`, `updated_at`, `auth_status`, `maker`, `checker`, `maker_date_time`, `checker_date_time`, `user_description`, `system_description`) VALUES
 	(5, '1593423799787', 3, 25, 1, 1, '2020-06-29 09:43:19', '2020-06-29 09:43:19', 0, NULL, NULL, NULL, NULL, NULL, NULL),
 	(6, '1593423851685', 3, 26, 2, 1, '2020-06-29 09:44:11', '2020-06-29 09:44:11', 0, NULL, NULL, NULL, NULL, NULL, NULL),
 	(7, '1593423916319', 4, 27, 1, 1, '2020-06-29 09:45:16', '2020-06-29 09:45:16', 0, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -3227,7 +3880,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_params` (
 
 -- Dumping data for table btmms.probase_tbl_params: ~2 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_params` DISABLE KEYS */;
-INSERT INTO `probase_tbl_params` (`param_id`, `param_name`, `param_value`, `status`) VALUES
+INSERT IGNORE INTO `probase_tbl_params` (`param_id`, `param_name`, `param_value`, `status`) VALUES
 	(1, 'VAT', '16', 'A'),
 	(2, 'COMMISSION', '10', 'A'),
 	(3, 'REPORT_SERVER_IP', '10.70.3.55', 'A');
@@ -3240,16 +3893,18 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_reports` (
   `iframe` varchar(255) DEFAULT NULL,
   `link` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table btmms.probase_tbl_reports: ~4 rows (approximately)
+-- Dumping data for table btmms.probase_tbl_reports: ~7 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_reports` DISABLE KEYS */;
-INSERT INTO `probase_tbl_reports` (`id`, `name`, `iframe`, `link`) VALUES
-	(1, 'byBus', '<embed src=\'http://10.70.3.55:9080/pentaho/api/repos/%3Ahome%3Aadmin%3Abtmms%3Abybus.prpt/viewer?userid=admin&password=password\' width=\'1600px\' height=\'750px\'  type="application/pdf" />', 'http://localhost:9080/pentaho/api/repos/%3Ahome%3Aadmin%3Abybus/viewer?userid=admin&password=password'),
-	(2, 'LuggageManifest', '<embed src=\'http://10.70.3.55:9080/pentaho/api/repos/%3Ahome%3Aadmin%3Abtmms%3ALuggageManifest.prpt/viewer?userid=admin&password=password\' width=\'1600px\' height=\'750px\'  type="application/pdf" />', 'http://localhost:9080/pentaho/api/repos/%3Ahome%3Aadmin%3ALuggageManifest/viewer?userid=admin&password=password'),
-	(3, 'byTeller', '<embed src=\'http://10.70.3.55:9080/pentaho/api/repos/%3Ahome%3Aadmin%3Abtmms%3Abyteller.prpt/viewer?userid=admin&password=password\' width=\'1600px\' height=\'750px\'  type="application/pdf" />', 'http://localhost:9080/pentaho/api/repos/%3Ahome%3Aadmin%3Abyteller/viewer?userid=admin&password=password'),
-	(4, 'passengerManifest', '<embed src=\'http://10.70.3.55:9080/pentaho/api/repos/%3Ahome%3Aadmin%3Abtmms%3AManifest.prpt/viewer?userid=admin&password=password\' width=\'1600px\' height=\'750px\'  type="application/pdf" />', 'http://localhost:9080/pentaho/api/repos/%3Ahome%3Aadmin%3AManifest.prpt/viewer?userid=admin&password=password'),
-	(5, 'bychannel', '<embed src=\'http://10.70.3.55:9080/pentaho/api/repos/%3Ahome%3Aadmin%3Abtmms%3Abychannel.prpt/viewer?userid=admin&password=password\' width=\'1600px\' height=\'750px\'  type="application/pdf" />', 'http://localhost:9080/pentaho/api/repos/%3Ahome%3Aadmin%3Abychannel.prpt/viewer?userid=admin&password=password');
+INSERT IGNORE INTO `probase_tbl_reports` (`id`, `name`, `iframe`, `link`) VALUES
+	(1, 'byBus', '<embed src=\'http://10.70.3.55:9080/pentaho/api/repos/%3Ahome%3Aadmin%3Abybus.prpt/viewer?userid=admin&password=password\' width=\'1600px\' height=\'750px\'  type="application/pdf" />', 'http://10.70.3.55:9080/pentaho/api/repos/%3Ahome%3Aadmin%3Abybus.prpt/viewer?userid=admin&password=password'),
+	(2, 'byOperator', '<embed src=\'http://10.70.3.55:9080/pentaho/api/repos/%3Ahome%3Aadmin%3Abychannel.prpt/viewer?userid=admin&password=password\' width=\'1600px\' height=\'750px\'  type="application/pdf" />', 'http://10.70.3.55:9080/pentaho/api/repos/%3Ahome%3Aadmin%3Abychannel.prpt/viewer?userid=admin&password=password'),
+	(3, 'byTeller', '<embed src=\'http://10.70.3.55:9080/pentaho/api/repos/%3Ahome%3Aadmin%3Abyteller.prpt/viewer?userid=admin&password=password\' width=\'1600px\' height=\'750px\'  type="application/pdf" />', 'http://10.70.3.55:9080/pentaho/api/repos/%3Ahome%3Aadmin%3Abyteller.prpt/viewer?userid=admin&password=password'),
+	(4, 'passengerManifest', '<embed src=\'http://10.70.3.55:9080/pentaho/api/repos/%3Ahome%3Aadmin%3AManifest.prpt/viewer?userid=admin&password=password\' width=\'1600px\' height=\'750px\'  type="application/pdf" />', 'http://10.70.3.55:9080/pentaho/api/repos/%3Ahome%3Aadmin%3AManifest.prpt/viewer?userid=admin&password=password'),
+	(5, 'mkt_list', '<embed src=\'http://10.70.3.55:9080/api/repos/%3Ahome%3Aadmin%3Amkt_list.prpt/viewer?userid=admin&password=password\' width=\'1600px\' height=\'750px\'  type="application/pdf" />', 'http://10.70.3.55:9080/pentaho/api/repos/%3Ahome%3Aadmin%3Amkt_list.prpt/viewer?userid=admin&password=password'),
+	(6, 'TicketStatus', '<embed src=\'http://10.70.3.55:9080/pentaho/api/repos/%3Ahome%3Aadmin%3ATicketStatus.prpt/viewer?userid=admin&password=password\' width=\'1600px\' height=\'750px\'  type="application/pdf" />', 'http://10.70.3.55:9080/pentaho/api/repos/%3Ahome%3Aadmin%3ATicketStatus/viewer?userid=admin&password=password'),
+	(7, 'LuggageManifest', '<embed src=\'http://10.70.3.55:9080/pentaho/api/repos/%3Ahome%3Aadmin%3ALuggageManifest.prpt/viewer?userid=admin&password=password\' width=\'1600px\' height=\'750px\'  type="application/pdf" />', 'http://10.70.3.55:9080/pentaho/api/repos/%3Ahome%3Aadmin%3ALuggageManifest.prpt/viewer?userid=admin&password=password');
 /*!40000 ALTER TABLE `probase_tbl_reports` ENABLE KEYS */;
 
 -- Dumping structure for table btmms.probase_tbl_route_mapping
@@ -3271,6 +3926,28 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_route_mapping` (
 /*!40000 ALTER TABLE `probase_tbl_route_mapping` DISABLE KEYS */;
 /*!40000 ALTER TABLE `probase_tbl_route_mapping` ENABLE KEYS */;
 
+-- Dumping structure for table btmms.probase_tbl_settings
+CREATE TABLE IF NOT EXISTS `probase_tbl_settings` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `key` varchar(255) DEFAULT NULL,
+  `value` varchar(2000) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  `inserted_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table btmms.probase_tbl_settings: ~0 rows (approximately)
+/*!40000 ALTER TABLE `probase_tbl_settings` DISABLE KEYS */;
+INSERT IGNORE INTO `probase_tbl_settings` (`id`, `key`, `value`, `status`, `inserted_at`, `updated_at`) VALUES
+	(10, 'APPLICATION_NAME', 'BTMMS', 1, '2021-05-02 14:07:41', '2021-05-02 14:07:41'),
+	(11, 'BANK_URL', 'http://41.175.13.198:7664/api/json/commercials/probase/zicb/fundsTransfer', 1, '2021-05-02 14:07:42', '2021-05-02 14:07:42'),
+	(12, 'BANK_AUTH_KEY', 'WuoyAxzbAcmftFCpWkkvWiLZLhsyJeYVqkYTIdpnphbkxJqDRqDItJpLgXfyOUAWYCXrYSmTCYSLkpjrnjTnxoqJSqyruiKOQjLItwIMJYkwqRznGItTeEANLiQXkuuPKYZIgWOnVNnUUEHmFfUpCbVWKywKQVwpFLmhnfpgvVHwmtcRmbMTesnYgiLneQQBTIeGTMzXmxkeVmhaywrjGBamzoxcTqIyNxSJQEHxNOBLQwhteRHNgkujJaMWOpJlbFEzEeZzmHCLsLUgrSjpiHdHzIZoblxVRTwkoMoXfzvdzxgbFHfBAHUmDrERcIHhANVKXCOsXxvrAcQXgdvhvLawZiImkCXoaAkiYGoXtRuiBZaCVRXYSDHbegmDupCkRmEHSfitXsdVmWbsSxvUUWUvDsBjzCaKdtaSUAoHUrzBQBraMiVLqawQBDwKvYnhrWJLAMqFUwyMJdTsQOFKWXjmQjKvhvJppdeiNsYctasSWQIQvVIezsmkXciuOmtXbQmJduEbmIJqxfhYqTYKfwUzsEQEPBgOhpBtqnFEViDMIhWrUawjjOoKQTjKnFqLimrQVvlKRMubUGkFUcmlEQLBUZXMvmafCjrZibYxsRxAljEbZqiArAAODYGqjXEGfwRQmkhZFXaAyQqirQAOEQhpzTGTWQuIgvewMccmltsZFrATUDnlwMwAgnpBllVJZYzRkNawVGtkCvEOjSoggnxDiBUtTiFaPCBVoCSBNsrTUDjmqTOcfAvdeSySDHHrhsdcWDLbMLsOPBxwZJPybEXmCZXBIHknBtXszZqMYPqobfYNmeUBzdMWQZJEzEXUcnSHPyefjPYKnQTdtVqqTzcRsWMwVspydhyqmVoXeBjqDgwbtVjvMrRLrGWqCIcvMUYpOsdBPVaxrTRXzxINdhNwFinLOZprIriBrtPLcvGbEIOtxHVEeUWUSROafTnUteLZrvmIZWNmnPHXlrmPIWfGvLfCiOvMFaSAjSOPetJnAVeIwnwapUUwwRxuQyzaHNaSqApqTNtuVQeIBeRBrTDfyKhfsBVoIGuVJncCFEvLCaWPnvsTrayLBZwEHrhSVlKpMNdBgEtsRdivAwbyPZZGojdeX', 1, '2021-05-02 14:07:42', '2021-05-02 14:07:42'),
+	(13, 'BANK_AUTH_SERVICE_KEY', '3aa93ba799f779c32ca8d3126e4fed16', 1, '2021-05-04 13:00:19', '2021-05-04 13:00:19'),
+	(14, 'EYED_BUS_ROUTES_URL', 'http://10.70.3.55:4200/main/api/destinations/', 1, '2021-05-05 09:45:49', '2021-05-05 09:45:49'),
+	(15, 'SMS_GATEWAY', 'http://196.46.196.38:13013/napsamobile/pushsms', 1, '2021-05-05 09:50:06', '2021-05-05 09:50:06');
+/*!40000 ALTER TABLE `probase_tbl_settings` ENABLE KEYS */;
+
 -- Dumping structure for table btmms.probase_tbl_sms
 CREATE TABLE IF NOT EXISTS `probase_tbl_sms` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
@@ -3284,11 +3961,11 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_sms` (
   `inserted_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=387 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=413 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table btmms.probase_tbl_sms: ~315 rows (approximately)
+-- Dumping data for table btmms.probase_tbl_sms: ~294 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_sms` DISABLE KEYS */;
-INSERT INTO `probase_tbl_sms` (`id`, `status`, `status_code`, `recipient`, `message`, `request`, `response`, `sent`, `inserted_at`, `updated_at`) VALUES
+INSERT IGNORE INTO `probase_tbl_sms` (`id`, `status`, `status_code`, `recipient`, `message`, `request`, `response`, `sent`, `inserted_at`, `updated_at`) VALUES
 	(23, 'SENT', 202, '260950003955', 'Hello Daniel Mwale, Ticket Purchase was successful.\n\nTICKET ID: 178\nBUS: Icatrek\nDEPARTURE DATE: 29-06-2020\nDEPARTURE TIME: 11:00', '{"username":"napsamobile","to":"260950003955","text":"Hello Daniel Mwale, Ticket Purchase was successful.\\n\\nTICKET ID: 178\\nBUS: Icatrek\\nDEPARTURE DATE: 29-06-2020\\nDEPARTURE TIME: 11:00","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2020-06-29 08:30:20', '2020-06-29 08:31:25'),
 	(24, 'SENT', 202, '260966667293', 'Hello Joseph Siame, Ticket Purchase was successful.\n\nTICKET ID: 179\nBUS: Metrolink\nDEPARTURE DATE: 29-06-2020\nDEPARTURE TIME: 12:00', '{"username":"napsamobile","to":"260966667293","text":"Hello Joseph Siame, Ticket Purchase was successful.\\n\\nTICKET ID: 179\\nBUS: Metrolink\\nDEPARTURE DATE: 29-06-2020\\nDEPARTURE TIME: 12:00","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2020-06-29 08:47:25', '2020-06-29 08:47:25'),
 	(25, 'SENT', 202, '260977964507', 'Hello Chinyenje Kapoma, Ticket Purchase was successful.\n\nTICKET ID: 180\nBUS: Metrolink\nDEPARTURE DATE: 29-06-2020\nDEPARTURE TIME: 12:00', '{"username":"napsamobile","to":"260977964507","text":"Hello Chinyenje Kapoma, Ticket Purchase was successful.\\n\\nTICKET ID: 180\\nBUS: Metrolink\\nDEPARTURE DATE: 29-06-2020\\nDEPARTURE TIME: 12:00","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2020-06-29 09:02:20', '2020-06-29 09:03:26'),
@@ -3652,7 +4329,33 @@ INSERT INTO `probase_tbl_sms` (`id`, `status`, `status_code`, `recipient`, `mess
 	(383, 'SENT', 202, '260955040826', 'Hello makonde mwale, Ticket Purchase was successful.\n\nTICKET ID: 537\nBUS: Chigoma Travels\nDEPARTURE DATE: 24-03-2021\nDEPARTURE TIME: 12:00\nDESTINATION: Livingstone to CHOMA', '{"username":"napsamobile","to":"260955040826","text":"Hello makonde mwale, Ticket Purchase was successful.\\n\\nTICKET ID: 537\\nBUS: Chigoma Travels\\nDEPARTURE DATE: 24-03-2021\\nDEPARTURE TIME: 12:00\\nDESTINATION: Livingstone to CHOMA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-03-24 09:25:57', '2021-03-24 09:25:58'),
 	(384, 'SENT', 202, '260966667293', 'Hello Joseph Siame, Ticket Purchase was successful.\n\nTICKET ID: 538\nBUS: Chigoma Travels\nDEPARTURE DATE: 24-03-2021\nDEPARTURE TIME: 12:00\nDESTINATION: Livingstone to CHOMA', '{"username":"napsamobile","to":"260966667293","text":"Hello Joseph Siame, Ticket Purchase was successful.\\n\\nTICKET ID: 538\\nBUS: Chigoma Travels\\nDEPARTURE DATE: 24-03-2021\\nDEPARTURE TIME: 12:00\\nDESTINATION: Livingstone to CHOMA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-03-24 09:30:41', '2021-03-24 09:30:59'),
 	(385, 'SENT', 202, '260977948729', 'Hello makonde mwale, Ticket Purchase was successful.\n\nTICKET ID: 539\nBUS: Chigoma Travels\nDEPARTURE DATE: 24-03-2021\nDEPARTURE TIME: 12:00\nDESTINATION: Livingstone to CHOMA', '{"username":"napsamobile","to":"260977948729","text":"Hello makonde mwale, Ticket Purchase was successful.\\n\\nTICKET ID: 539\\nBUS: Chigoma Travels\\nDEPARTURE DATE: 24-03-2021\\nDEPARTURE TIME: 12:00\\nDESTINATION: Livingstone to CHOMA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-03-24 09:58:57', '2021-03-24 09:59:02'),
-	(386, 'SENT', 202, '260978926764', 'Hello makonde mwale, Ticket Purchase was successful.\n\nTICKET ID: 540\nBUS: Chigoma Travels\nDEPARTURE DATE: 24-03-2021\nDEPARTURE TIME: 12:00\nDESTINATION: Livingstone to CHOMA', '{"username":"napsamobile","to":"260978926764","text":"Hello makonde mwale, Ticket Purchase was successful.\\n\\nTICKET ID: 540\\nBUS: Chigoma Travels\\nDEPARTURE DATE: 24-03-2021\\nDEPARTURE TIME: 12:00\\nDESTINATION: Livingstone to CHOMA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-03-24 11:00:02', '2021-03-24 11:00:10');
+	(386, 'SENT', 202, '260978926764', 'Hello makonde mwale, Ticket Purchase was successful.\n\nTICKET ID: 540\nBUS: Chigoma Travels\nDEPARTURE DATE: 24-03-2021\nDEPARTURE TIME: 12:00\nDESTINATION: Livingstone to CHOMA', '{"username":"napsamobile","to":"260978926764","text":"Hello makonde mwale, Ticket Purchase was successful.\\n\\nTICKET ID: 540\\nBUS: Chigoma Travels\\nDEPARTURE DATE: 24-03-2021\\nDEPARTURE TIME: 12:00\\nDESTINATION: Livingstone to CHOMA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-03-24 11:00:02', '2021-03-24 11:00:10'),
+	(387, 'SENT', 202, '0978968888', 'Hello ROY CHIBALE, Ticket Purchase was successful.\n\nTICKET ID: 541\nBUS: SHALOM\nDEPARTURE DATE: 25-03-2021\nDEPARTURE TIME: 12:00\nDESTINATION: Livingstone to CHOMA', '{"username":"napsamobile","to":"0978968888","text":"Hello ROY CHIBALE, Ticket Purchase was successful.\\n\\nTICKET ID: 541\\nBUS: SHALOM\\nDEPARTURE DATE: 25-03-2021\\nDEPARTURE TIME: 12:00\\nDESTINATION: Livingstone to CHOMA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-03-25 08:17:51', '2021-03-25 08:17:53'),
+	(388, 'SENT', 202, '0978926764', 'Hello Chitundu Phiri, Ticket Purchase was successful.\n\nTICKET ID: 542\nBUS: SHALOM\nDEPARTURE DATE: 25-03-2021\nDEPARTURE TIME: 12:00\nDESTINATION: Livingstone to LUSAKA', '{"username":"napsamobile","to":"0978926764","text":"Hello Chitundu Phiri, Ticket Purchase was successful.\\n\\nTICKET ID: 542\\nBUS: SHALOM\\nDEPARTURE DATE: 25-03-2021\\nDEPARTURE TIME: 12:00\\nDESTINATION: Livingstone to LUSAKA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-03-25 08:38:22', '2021-03-25 08:38:36'),
+	(389, 'SENT', 202, '0967993270', 'Hello MUNDIA JONES, Ticket Purchase was successful.\n\nTICKET ID: 543\nBUS: SHALOM\nDEPARTURE DATE: 25-03-2021\nDEPARTURE TIME: 12:00\nDESTINATION: Livingstone to LUSAKA', '{"username":"napsamobile","to":"0967993270","text":"Hello MUNDIA JONES, Ticket Purchase was successful.\\n\\nTICKET ID: 543\\nBUS: SHALOM\\nDEPARTURE DATE: 25-03-2021\\nDEPARTURE TIME: 12:00\\nDESTINATION: Livingstone to LUSAKA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-03-25 09:31:07', '2021-03-25 09:31:26'),
+	(390, 'SENT', 202, '0978968888', 'Hello ROY CHANDA, Ticket Purchase was successful.\n\nTICKET ID: 544\nBUS: NAPSA BUS SERVICES\nDEPARTURE DATE: 26-03-2021\nDEPARTURE TIME: 15:00\nDESTINATION: Livingstone to CHOMA', '{"username":"napsamobile","to":"0978968888","text":"Hello ROY CHANDA, Ticket Purchase was successful.\\n\\nTICKET ID: 544\\nBUS: NAPSA BUS SERVICES\\nDEPARTURE DATE: 26-03-2021\\nDEPARTURE TIME: 15:00\\nDESTINATION: Livingstone to CHOMA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-03-25 12:14:14', '2021-03-25 12:14:31'),
+	(391, 'SENT', 202, '0978926764', 'Hello Chitundu Phiri, Ticket Purchase was successful.\n\nTICKET ID: 545\nBUS: SHALOM\nDEPARTURE DATE: 31-03-2021\nDEPARTURE TIME: 08:00\nDESTINATION: Livingstone to CHOMA', '{"username":"napsamobile","to":"0978926764","text":"Hello Chitundu Phiri, Ticket Purchase was successful.\\n\\nTICKET ID: 545\\nBUS: SHALOM\\nDEPARTURE DATE: 31-03-2021\\nDEPARTURE TIME: 08:00\\nDESTINATION: Livingstone to CHOMA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-03-30 09:52:51', '2021-03-30 09:53:09'),
+	(392, 'SENT', 202, '260968309959', 'Hello Makonde Mwale, Ticket Purchase was successful.\n\nTICKET ID: 546\nBUS: SHALOM\nDEPARTURE DATE: 05-05-2021\nDEPARTURE TIME: 08:00\nDESTINATION: Livingstone to CHOMA', '{"username":"napsamobile","to":"260968309959","text":"Hello Makonde Mwale, Ticket Purchase was successful.\\n\\nTICKET ID: 546\\nBUS: SHALOM\\nDEPARTURE DATE: 05-05-2021\\nDEPARTURE TIME: 08:00\\nDESTINATION: Livingstone to CHOMA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-05-04 11:27:10', '2021-05-04 11:27:18'),
+	(393, 'SENT', 202, '260969240309', 'Hello fra fra, Ticket Purchase was successful.\n\nTICKET ID: 547\nBUS: SHALOM\nDEPARTURE DATE: 05-05-2021\nDEPARTURE TIME: 08:00\nDESTINATION: Livingstone to CHOMA', '{"username":"napsamobile","to":"260969240309","text":"Hello fra fra, Ticket Purchase was successful.\\n\\nTICKET ID: 547\\nBUS: SHALOM\\nDEPARTURE DATE: 05-05-2021\\nDEPARTURE TIME: 08:00\\nDESTINATION: Livingstone to CHOMA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-05-04 11:46:53', '2021-05-04 11:46:59'),
+	(394, 'SENT', 202, '260968309959', 'Hello Mary Mk, Ticket Purchase was successful.\n\nTICKET ID: 548\nBUS: SHALOM\nDEPARTURE DATE: 05-05-2021\nDEPARTURE TIME: 08:00\nDESTINATION: Livingstone to CHOMA', '{"username":"napsamobile","to":"260968309959","text":"Hello Mary Mk, Ticket Purchase was successful.\\n\\nTICKET ID: 548\\nBUS: SHALOM\\nDEPARTURE DATE: 05-05-2021\\nDEPARTURE TIME: 08:00\\nDESTINATION: Livingstone to CHOMA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-05-04 11:53:39', '2021-05-04 11:53:39'),
+	(395, 'SENT', 202, '0977964057', 'Hello MAMBWE CHIBALE, Ticket Purchase was successful.\n\nTICKET ID: 549\nBUS: SHALOM\nDEPARTURE DATE: 05-05-2021\nDEPARTURE TIME: 08:00\nDESTINATION: Livingstone to CHOMA', '{"username":"napsamobile","to":"0977964057","text":"Hello MAMBWE CHIBALE, Ticket Purchase was successful.\\n\\nTICKET ID: 549\\nBUS: SHALOM\\nDEPARTURE DATE: 05-05-2021\\nDEPARTURE TIME: 08:00\\nDESTINATION: Livingstone to CHOMA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-05-04 13:09:19', '2021-05-04 13:09:23'),
+	(396, 'SENT', 202, '260968309959', 'Hello testing Mwale, Ticket Purchase was successful.\n\nTICKET ID: 550\nBUS: SHALOM\nDEPARTURE DATE: 05-05-2021\nDEPARTURE TIME: 08:00\nDESTINATION: Livingstone to CHOMA', '{"username":"napsamobile","to":"260968309959","text":"Hello testing Mwale, Ticket Purchase was successful.\\n\\nTICKET ID: 550\\nBUS: SHALOM\\nDEPARTURE DATE: 05-05-2021\\nDEPARTURE TIME: 08:00\\nDESTINATION: Livingstone to CHOMA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-05-04 13:16:03', '2021-05-04 13:16:23'),
+	(397, 'SENT', 202, '260763585832', 'Hello da Dj, Ticket Purchase was successful.\n\nTICKET ID: 551\nBUS: SHALOM\nDEPARTURE DATE: 05-05-2021\nDEPARTURE TIME: 08:00\nDESTINATION: Livingstone to CHOMA', '{"username":"napsamobile","to":"260763585832","text":"Hello da Dj, Ticket Purchase was successful.\\n\\nTICKET ID: 551\\nBUS: SHALOM\\nDEPARTURE DATE: 05-05-2021\\nDEPARTURE TIME: 08:00\\nDESTINATION: Livingstone to CHOMA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-05-04 13:22:01', '2021-05-04 13:22:03'),
+	(398, 'SENT', 202, '260968309959', 'Hello Dan Bube, Ticket Purchase was successful.\n\nTICKET ID: 552\nBUS: SHALOM\nDEPARTURE DATE: 05-05-2021\nDEPARTURE TIME: 08:00\nDESTINATION: Livingstone to KAFUE', '{"username":"napsamobile","to":"260968309959","text":"Hello Dan Bube, Ticket Purchase was successful.\\n\\nTICKET ID: 552\\nBUS: SHALOM\\nDEPARTURE DATE: 05-05-2021\\nDEPARTURE TIME: 08:00\\nDESTINATION: Livingstone to KAFUE","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-05-04 13:43:39', '2021-05-04 13:43:45'),
+	(399, 'SENT', 202, '260763585832', 'Hello Phiri Daka, Ticket Purchase was successful.\n\nTICKET ID: 553\nBUS: SHALOM\nDEPARTURE DATE: 05-05-2021\nDEPARTURE TIME: 08:00\nDESTINATION: Livingstone to MONZE', '{"username":"napsamobile","to":"260763585832","text":"Hello Phiri Daka, Ticket Purchase was successful.\\n\\nTICKET ID: 553\\nBUS: SHALOM\\nDEPARTURE DATE: 05-05-2021\\nDEPARTURE TIME: 08:00\\nDESTINATION: Livingstone to MONZE","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-05-04 13:46:07', '2021-05-04 13:46:24'),
+	(400, 'SENT', 202, '0977964057', 'Hello MAMBWE CHIBALE, Ticket Purchase was successful.\n\nTICKET ID: 554\nBUS: SHALOM\nDEPARTURE DATE: 05-05-2021\nDEPARTURE TIME: 12:00\nDESTINATION: Livingstone to MAZABUKA', '{"username":"napsamobile","to":"0977964057","text":"Hello MAMBWE CHIBALE, Ticket Purchase was successful.\\n\\nTICKET ID: 554\\nBUS: SHALOM\\nDEPARTURE DATE: 05-05-2021\\nDEPARTURE TIME: 12:00\\nDESTINATION: Livingstone to MAZABUKA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-05-05 09:41:57', '2021-05-05 09:42:01'),
+	(401, 'SENT', 202, '0977964057', 'Hello MAMBWE CHIBALE, Ticket Purchase was successful.\n\nTICKET ID: 555\nBUS: SHALOM\nDEPARTURE DATE: 05-05-2021\nDEPARTURE TIME: 12:00\nDESTINATION: Livingstone to LUSAKA', '{"username":"napsamobile","to":"0977964057","text":"Hello MAMBWE CHIBALE, Ticket Purchase was successful.\\n\\nTICKET ID: 555\\nBUS: SHALOM\\nDEPARTURE DATE: 05-05-2021\\nDEPARTURE TIME: 12:00\\nDESTINATION: Livingstone to LUSAKA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-05-05 09:44:15', '2021-05-05 09:44:21'),
+	(402, 'SENT', 202, '260763585832', 'Hello Mjw Mjw, Ticket Purchase was successful.\n\nTICKET ID: 556\nBUS: SHALOM\nDEPARTURE DATE: 05-05-2021\nDEPARTURE TIME: 12:00\nDESTINATION: Livingstone to CHOMA', '{"username":"napsamobile","to":"260763585832","text":"Hello Mjw Mjw, Ticket Purchase was successful.\\n\\nTICKET ID: 556\\nBUS: SHALOM\\nDEPARTURE DATE: 05-05-2021\\nDEPARTURE TIME: 12:00\\nDESTINATION: Livingstone to CHOMA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-05-05 10:26:14', '2021-05-05 10:26:24'),
+	(403, 'SENT', 202, '260978981576', 'Hello fra fra, Ticket Purchase was successful.\n\nTICKET ID: 557\nBUS: SHALOM\nDEPARTURE DATE: 05-05-2021\nDEPARTURE TIME: 12:00\nDESTINATION: Livingstone to CHOMA', '{"username":"napsamobile","to":"260978981576","text":"Hello fra fra, Ticket Purchase was successful.\\n\\nTICKET ID: 557\\nBUS: SHALOM\\nDEPARTURE DATE: 05-05-2021\\nDEPARTURE TIME: 12:00\\nDESTINATION: Livingstone to CHOMA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-05-05 10:29:08', '2021-05-05 10:29:24'),
+	(404, 'SENT', 202, '260968309959', 'Hello dggg ghhj, Ticket Purchase was successful.\n\nTICKET ID: 558\nBUS: SHALOM\nDEPARTURE DATE: 06-05-2021\nDEPARTURE TIME: 08:00\nDESTINATION: Livingstone to MAZABUKA', '{"username":"napsamobile","to":"260968309959","text":"Hello dggg ghhj, Ticket Purchase was successful.\\n\\nTICKET ID: 558\\nBUS: SHALOM\\nDEPARTURE DATE: 06-05-2021\\nDEPARTURE TIME: 08:00\\nDESTINATION: Livingstone to MAZABUKA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-05-05 13:08:11', '2021-05-05 13:08:19'),
+	(405, 'SENT', 202, '260968309959', 'Hello bud mhgf, Ticket Purchase was successful.\n\nTICKET ID: 559\nBUS: SHALOM\nDEPARTURE DATE: 06-05-2021\nDEPARTURE TIME: 08:00\nDESTINATION: Livingstone to KAFUE', '{"username":"napsamobile","to":"260968309959","text":"Hello bud mhgf, Ticket Purchase was successful.\\n\\nTICKET ID: 559\\nBUS: SHALOM\\nDEPARTURE DATE: 06-05-2021\\nDEPARTURE TIME: 08:00\\nDESTINATION: Livingstone to KAFUE","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-05-05 13:18:30', '2021-05-05 13:18:40'),
+	(406, 'SENT', 202, '260977948729', 'Hello fggyhgt fgjffy, Ticket Purchase was successful.\n\nTICKET ID: 560\nBUS: SHALOM\nDEPARTURE DATE: 06-05-2021\nDEPARTURE TIME: 08:00\nDESTINATION: Livingstone to CHOMA', '{"username":"napsamobile","to":"260977948729","text":"Hello fggyhgt fgjffy, Ticket Purchase was successful.\\n\\nTICKET ID: 560\\nBUS: SHALOM\\nDEPARTURE DATE: 06-05-2021\\nDEPARTURE TIME: 08:00\\nDESTINATION: Livingstone to CHOMA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-05-05 15:04:38', '2021-05-05 15:04:45'),
+	(407, 'SENT', 202, '260763585832', 'Hello Dmju Pgj, Ticket Purchase was successful.\n\nTICKET ID: 561\nBUS: SHALOM\nDEPARTURE DATE: 06-05-2021\nDEPARTURE TIME: 08:00\nDESTINATION: Livingstone to CHOMA', '{"username":"napsamobile","to":"260763585832","text":"Hello Dmju Pgj, Ticket Purchase was successful.\\n\\nTICKET ID: 561\\nBUS: SHALOM\\nDEPARTURE DATE: 06-05-2021\\nDEPARTURE TIME: 08:00\\nDESTINATION: Livingstone to CHOMA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-05-05 15:30:15', '2021-05-05 15:30:26'),
+	(408, 'SENT', 202, '260977948729', 'Hello makonde mwale, Ticket Purchase was successful.\n\nTICKET ID: 562\nBUS: SHALOM\nDEPARTURE DATE: 06-05-2021\nDEPARTURE TIME: 08:00\nDESTINATION: Livingstone to CHOMA', '{"username":"napsamobile","to":"260977948729","text":"Hello makonde mwale, Ticket Purchase was successful.\\n\\nTICKET ID: 562\\nBUS: SHALOM\\nDEPARTURE DATE: 06-05-2021\\nDEPARTURE TIME: 08:00\\nDESTINATION: Livingstone to CHOMA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-05-05 15:31:42', '2021-05-05 15:31:46'),
+	(409, 'SENT', 202, '260950773797', 'Hello Philip Chani, Ticket Purchase was successful.\n\nTICKET ID: 563\nBUS: SHALOM\nDEPARTURE DATE: 06-05-2021\nDEPARTURE TIME: 12:00\nDESTINATION: Livingstone to CHOMA', '{"username":"napsamobile","to":"260950773797","text":"Hello Philip Chani, Ticket Purchase was successful.\\n\\nTICKET ID: 563\\nBUS: SHALOM\\nDEPARTURE DATE: 06-05-2021\\nDEPARTURE TIME: 12:00\\nDESTINATION: Livingstone to CHOMA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-05-06 10:18:17', '2021-05-06 10:18:24'),
+	(410, 'SENT', 202, '0977964057', 'Hello CHINYENJE KAPOMA, Ticket Purchase was successful.\n\nTICKET ID: 564\nBUS: SHALOM\nDEPARTURE DATE: 07-05-2021\nDEPARTURE TIME: 12:00\nDESTINATION: Livingstone to CHOMA', '{"username":"napsamobile","to":"0977964057","text":"Hello CHINYENJE KAPOMA, Ticket Purchase was successful.\\n\\nTICKET ID: 564\\nBUS: SHALOM\\nDEPARTURE DATE: 07-05-2021\\nDEPARTURE TIME: 12:00\\nDESTINATION: Livingstone to CHOMA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-05-06 10:26:12', '2021-05-06 10:26:24'),
+	(411, 'SENT', 202, '0977964057', 'Hello CHINYENJE KAPOMA, Ticket Purchase was successful.\n\nTICKET ID: 565\nBUS: SHALOM\nDEPARTURE DATE: 07-05-2021\nDEPARTURE TIME: 12:00\nDESTINATION: Livingstone to CHOMA', '{"username":"napsamobile","to":"0977964057","text":"Hello CHINYENJE KAPOMA, Ticket Purchase was successful.\\n\\nTICKET ID: 565\\nBUS: SHALOM\\nDEPARTURE DATE: 07-05-2021\\nDEPARTURE TIME: 12:00\\nDESTINATION: Livingstone to CHOMA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-05-06 10:30:25', '2021-05-06 10:30:44'),
+	(412, 'SENT', 202, '260950773797', 'Hello Philip Chani, Ticket Purchase was successful.\n\nTICKET ID: 566\nBUS: SHALOM\nDEPARTURE DATE: 07-05-2021\nDEPARTURE TIME: 12:00\nDESTINATION: Livingstone to CHOMA', '{"username":"napsamobile","to":"260950773797","text":"Hello Philip Chani, Ticket Purchase was successful.\\n\\nTICKET ID: 566\\nBUS: SHALOM\\nDEPARTURE DATE: 07-05-2021\\nDEPARTURE TIME: 12:00\\nDESTINATION: Livingstone to CHOMA","smsc":"zamtelsmsc","password":"napsamobile@kannel","from":"NAPSA"}', '0: Accepted for delivery', 1, '2021-05-06 10:43:09', '2021-05-06 10:43:25');
 /*!40000 ALTER TABLE `probase_tbl_sms` ENABLE KEYS */;
 
 -- Dumping structure for table btmms.probase_tbl_terminus
@@ -3713,11 +4416,11 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_tickets` (
   `discount_original_amount` decimal(10,2) DEFAULT '0.00',
   `ticket_description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=541 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=567 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table btmms.probase_tbl_tickets: ~298 rows (approximately)
+-- Dumping data for table btmms.probase_tbl_tickets: ~277 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_tickets` DISABLE KEYS */;
-INSERT INTO `probase_tbl_tickets` (`id`, `reference_number`, `serial_number`, `external_ref`, `route`, `date`, `bus_no`, `maker`, `class`, `activation_status`, `first_name`, `last_name`, `other_name`, `id_type`, `passenger_id`, `mobile_number`, `email_address`, `transaction_channel`, `travel_date`, `bus_schedule_id`, `inserted_at`, `updated_at`, `route_information`, `amount`, `payment_mode`, `has_luggage`, `luggage_total`, `info`, `discount_applied`, `discount_amount`, `discount_original_amount`, `ticket_description`) VALUES
+INSERT IGNORE INTO `probase_tbl_tickets` (`id`, `reference_number`, `serial_number`, `external_ref`, `route`, `date`, `bus_no`, `maker`, `class`, `activation_status`, `first_name`, `last_name`, `other_name`, `id_type`, `passenger_id`, `mobile_number`, `email_address`, `transaction_channel`, `travel_date`, `bus_schedule_id`, `inserted_at`, `updated_at`, `route_information`, `amount`, `payment_mode`, `has_luggage`, `luggage_total`, `info`, `discount_applied`, `discount_amount`, `discount_original_amount`, `ticket_description`) VALUES
 	(178, 'ZBMS-2020629-8297952000', '5678823', '2ES2UhPshs5b3son', 7, NULL, '10', '20', 'TICKET', 'VALID', 'Daniel', 'Mwale', NULL, 'NRC', '123456/12/9', '260950003955', NULL, 'TELLER', '2020-06-29', '34', '2020-06-29 08:30:20', '2020-06-29 08:30:20', 'OPERATOR: Icatrek	 START: Livingstone	 END: MAZABUKA	 DEPARTURE: 11:00	 PRICE: K1	 GATE: slot_two	 SCHEDULE: 34', 1.00, 'CASH', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
 	(179, 'ZBMS-2020629-8364523000', '4792880', 'JmFbKbeiivYyjsXN', 5, NULL, '9', '20', 'TICKET', 'CHECKED_IN', 'Joseph', 'Siame', NULL, 'NRC', '879327/11/1', '260966667293', NULL, 'TELLER', '2020-06-29', '33', '2020-06-29 08:47:25', '2020-06-29 12:05:30', 'OPERATOR: Metrolink	 START: Livingstone	 END: LUSAKA	 DEPARTURE: 12:00	 PRICE: K1	 GATE: slot_one	 SCHEDULE: 33', 1.00, 'CASH', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
 	(180, 'ZBMS-2020629-84725570000', '1661504', 'WKOuGGeazk1Z0H8M', 5, NULL, '9', '20', 'TICKET', 'VALID', 'Chinyenje', 'Kapoma', NULL, 'NRC', '123816/12/5', '260977964507', NULL, 'TELLER', '2020-06-29', '33', '2020-06-29 09:02:20', '2020-06-29 09:02:20', 'OPERATOR: Metrolink	 START: Livingstone	 END: LUSAKA	 DEPARTURE: 12:00	 PRICE: K1	 GATE: slot_one	 SCHEDULE: 33', 1.00, 'CASH', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
@@ -4042,7 +4745,33 @@ INSERT INTO `probase_tbl_tickets` (`id`, `reference_number`, `serial_number`, `e
 	(537, 'ZBMS-2021324-92556544000', '2421399', 'ticket533', 6, NULL, '29', '1', 'TICKET', 'BOARDED', 'makonde', 'mwale', NULL, 'NRC', '121555', '260955040826', NULL, 'MOBILE', '2021-03-24', '155', '2021-03-24 09:25:56', '2021-03-24 09:32:57', 'OPERATOR: SHALOM: START: Livingstone END: CHOMA	 DEPARTURE: 12:00 PRICE: K1 GATE: slot_one', 1.00, 'ZAMTEL', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
 	(538, 'ZBMS-2021324-93041288000', '8655417', 'ticket534', 6, NULL, '29', '1', 'TICKET', 'VALID', 'Joseph', 'Siame', NULL, 'NRC', '133801/10/1', '260966667293', NULL, 'USSD', '2021-03-24', '155', '2021-03-24 09:30:41', '2021-03-24 09:30:41', 'OPERATOR: SHALOM: START: Livingstone END: CHOMA	 DEPARTURE: 12:00 PRICE: K1 GATE: slot_one', 1.00, 'MTNZM', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
 	(539, 'ZBMS-2021324-95856676000', '2309444', 'ticket535', 6, NULL, '29', '1', 'TICKET', 'VALID', 'makonde', 'mwale', NULL, 'NRC', '122424', '260977948729', NULL, 'MOBILE', '2021-03-24', '155', '2021-03-24 09:58:56', '2021-03-24 09:58:56', 'OPERATOR: SHALOM: START: Livingstone END: CHOMA	 DEPARTURE: 12:00 PRICE: K1 GATE: slot_one', 1.00, 'MTNZM', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
-	(540, 'ZBMS-2021324-1101583000', '9128887', 'ticket540', 6, NULL, '29', '1', 'TICKET', 'VALID', 'makonde', 'mwale', NULL, 'NRC', '1345667', '260978926764', NULL, 'MOBILE', '2021-03-24', '155', '2021-03-24 11:00:01', '2021-03-24 11:00:01', 'OPERATOR: SHALOM: START: Livingstone END: CHOMA	 DEPARTURE: 12:00 PRICE: K1 GATE: slot_one', 1.00, 'ZAMTEL', 0, 0.00, NULL, 0, 0.00, 0.00, NULL);
+	(540, 'ZBMS-2021324-1101583000', '9128887', 'ticket540', 6, NULL, '29', '1', 'TICKET', 'VALID', 'makonde', 'mwale', NULL, 'NRC', '1345667', '260978926764', NULL, 'MOBILE', '2021-03-24', '155', '2021-03-24 11:00:01', '2021-03-24 11:00:01', 'OPERATOR: SHALOM: START: Livingstone END: CHOMA	 DEPARTURE: 12:00 PRICE: K1 GATE: slot_one', 1.00, 'ZAMTEL', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
+	(541, 'ZBMS-2021325-81721123000', '9009298', 'j2d7Wliz1z2KQOBN', 6, NULL, '30', '4', 'TICKET', 'CHECKED_IN', 'ROY', 'CHIBALE', NULL, 'NRC', '134256/43/1', '0978968888', NULL, 'TELLER', '2021-03-25', '158', '2021-03-25 08:17:51', '2021-03-25 08:49:41', 'OPERATOR: SHALOM	 START: Livingstone	 END: CHOMA	 DEPARTURE: 12:00	 PRICE: K1	 GATE: slot_one	 SCHEDULE: 158', 1.00, 'CASH', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
+	(542, 'ZBMS-2021325-83213413000', '7406001', 'GzYgpjJTAdn4vtXJ', 6, NULL, '30', '4', 'TICKET', 'BOARDED', 'Chitundu', 'Phiri', NULL, 'NRC', '159893/54/1', '0978926764', NULL, 'TELLER', '2021-03-25', '158', '2021-03-25 08:38:22', '2021-03-25 08:57:56', 'OPERATOR: SHALOM	 START: Livingstone	 END: CHOMA	 DEPARTURE: 12:00	 PRICE: K1	 GATE: slot_one	 SCHEDULE: 158', 1.00, 'CASH', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
+	(543, 'ZBMS-2021325-81721123000', '9009298', 'j2d7Wliz1z2KQOBN', 5, NULL, '30', '4', 'TICKET', 'VALID', 'MUNDIA', 'JONES', NULL, 'NRC', '134256/43/1', '0967993270', NULL, 'TELLER', '2021-03-25', '158', '2021-03-25 09:31:06', '2021-03-25 09:31:06', 'OPERATOR: SHALOM	 START: Livingstone	 END: LUSAKA	 DEPARTURE: 12:00	 PRICE: K1	 GATE: slot_one	 SCHEDULE: 158', 1.00, 'CASH', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
+	(544, 'ZBMS-2021325-121332360000', '9677730', 'c2lSPksqRpjamcgB', 6, NULL, '40', '4', 'TICKET', 'CHECKED_IN', 'ROY', 'CHANDA', NULL, 'NRC', '455390/11/1', '0978968888', NULL, 'TELLER', '2021-03-25', '162', '2021-03-25 12:14:13', '2021-03-25 12:15:23', 'OPERATOR: NAPSABUSSERVICES	 START: Livingstone	 END: CHOMA	 DEPARTURE: 15:00	 PRICE: K1	 GATE: slot_one	 SCHEDULE: 162', 1.00, 'CASH', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
+	(545, 'ZBMS-2021330-95154352000', '7854546', 'XpJSR2Mbrjw0tWgB', 6, NULL, '30', '4', 'TICKET', 'CANCELED', 'Chitundu', 'Phiri', NULL, 'NRC', '159893/54/1', '0978926764', NULL, 'TELLER', '2021-03-30', '163', '2021-03-30 09:52:47', '2021-03-30 09:53:14', 'OPERATOR: SHALOM	 START: Livingstone	 END: CHOMA	 DEPARTURE: 08:00	 PRICE: K1	 GATE: slot_two	 SCHEDULE: 163', 1.00, 'CASH', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
+	(546, 'ZBMS-202154-1127102000', '9479736', 'ticket9', 6, NULL, '30', '1', 'TICKET', 'VALID', 'Makonde', 'Mwale', NULL, 'NRC', '12345', '260968309959', NULL, 'USSD', '2021-05-05', '5', '2021-05-04 11:27:10', '2021-05-04 11:27:10', 'OPERATOR: SHALOM: START: Livingstone END: CHOMA	 DEPARTURE: 08:00 PRICE: K1 GATE: slot_one', 1.00, 'MTNZM', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
+	(547, 'ZBMS-202154-114653377000', '6792939', 'ticket17', 6, NULL, '30', '1', 'TICKET', 'VALID', 'fra', 'fra', NULL, 'NRC', '222222', '260969240309', NULL, 'USSD', '2021-05-05', '5', '2021-05-04 11:46:53', '2021-05-04 11:46:53', 'OPERATOR: SHALOM: START: Livingstone END: CHOMA	 DEPARTURE: 08:00 PRICE: K1 GATE: slot_one', 1.00, 'MTNZM', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
+	(548, 'ZBMS-202154-115338998000', '0963840', 'ticket19', 6, NULL, '30', '1', 'TICKET', 'VALID', 'Mary', 'Mk', NULL, 'NRC', '12345', '260968309959', NULL, 'USSD', '2021-05-05', '5', '2021-05-04 11:53:39', '2021-05-04 11:53:39', 'OPERATOR: SHALOM: START: Livingstone END: CHOMA	 DEPARTURE: 08:00 PRICE: K1 GATE: slot_one', 1.00, 'MTNZM', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
+	(549, 'ZBMS-202154-13834528000', '8420709', '8OmYE9IskbLGUpRB', 6, NULL, '30', '4', 'TICKET', 'CHECKED_IN', 'MAMBWE', 'CHIBALE', NULL, 'NRC', '8787897987', '0977964057', NULL, 'TELLER', '2021-05-04', '5', '2021-05-04 13:09:19', '2021-05-04 13:09:33', 'OPERATOR: SHALOM	 START: Livingstone	 END: CHOMA	 DEPARTURE: 08:00	 PRICE: K1	 GATE: slot_one	 SCHEDULE: 5', 1.00, 'CASH', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
+	(550, 'ZBMS-202154-13163267000', '6480025', 'ticket25', 6, NULL, '30', '1', 'TICKET', 'VALID', 'testing', 'Mwale', NULL, 'NRC', '12345', '260968309959', NULL, 'USSD', '2021-05-04', '5', '2021-05-04 13:16:03', '2021-05-04 13:16:03', 'OPERATOR: SHALOM: START: Livingstone END: CHOMA	 DEPARTURE: 08:00 PRICE: K1 GATE: slot_one', 1.00, 'MTNZM', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
+	(551, 'ZBMS-202154-13220424000', '2175887', 'ticket28', 6, NULL, '30', '1', 'TICKET', 'VALID', 'da', 'Dj', NULL, 'NRC', '113338', '260763585832', NULL, 'USSD', '2021-05-04', '5', '2021-05-04 13:22:00', '2021-05-04 13:22:00', 'OPERATOR: SHALOM: START: Livingstone END: CHOMA	 DEPARTURE: 08:00 PRICE: K1 GATE: slot_one', 1.00, 'MTNZM', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
+	(552, 'ZBMS-202154-13433935000', '2315241', 'ticket34', 8, NULL, '30', '1', 'TICKET', 'VALID', 'Dan', 'Bube', NULL, 'NRC', '113338/11/1', '260968309959', NULL, 'MOBILE', '2021-05-05', '5', '2021-05-04 13:43:39', '2021-05-04 13:43:39', 'OPERATOR: SHALOM: START: Livingstone END: KAFUE	 DEPARTURE: 08:00 PRICE: K1 GATE: slot_one', 1.00, 'MTNZM', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
+	(553, 'ZBMS-202154-13466852000', '5161117', 'ticket36', 9, NULL, '30', '1', 'TICKET', 'VALID', 'Phiri', 'Daka', NULL, 'NRC', '11111', '260763585832', NULL, 'MOBILE', '2021-05-05', '5', '2021-05-04 13:46:06', '2021-05-04 13:46:06', 'OPERATOR: SHALOM: START: Livingstone END: MONZE	 DEPARTURE: 08:00 PRICE: K1 GATE: slot_one', 1.00, 'MTNZM', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
+	(554, 'ZBMS-202154-13834528000', '8420709', '8OmYE9IskbLGUpRB', 7, NULL, '30', '4', 'TICKET', 'VALID', 'MAMBWE', 'CHIBALE', NULL, 'NRC', '8787897987', '0977964057', NULL, 'TELLER', '2021-05-04', '5', '2021-05-05 09:41:56', '2021-05-05 09:41:56', 'OPERATOR: SHALOM	 START: Livingstone	 END: MAZABUKA	 DEPARTURE: 08:00	 PRICE: K1	 GATE: slot_one	 SCHEDULE: 5', 1.00, 'CASH', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
+	(555, 'ZBMS-202154-13834528000', '8420709', '8OmYE9IskbLGUpRB', 5, NULL, '30', '4', 'TICKET', 'VALID', 'MAMBWE', 'CHIBALE', NULL, 'NRC', '8787897987', '0977964057', NULL, 'TELLER', '2021-05-04', '5', '2021-05-05 09:44:15', '2021-05-05 09:44:15', 'OPERATOR: SHALOM	 START: Livingstone	 END: LUSAKA	 DEPARTURE: 12:00	 PRICE: K1	 GATE: slot_one	 SCHEDULE: 5', 1.00, 'CASH', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
+	(556, 'ZBMS-202155-102614628000', '7507406', 'ticket75', 6, NULL, '30', '1', 'TICKET', 'VALID', 'Mjw', 'Mjw', NULL, 'NRC', '255555', '260763585832', NULL, 'USSD', '2021-05-05', '5', '2021-05-05 10:26:14', '2021-05-05 10:26:14', 'OPERATOR: SHALOM: START: Livingstone END: CHOMA	 DEPARTURE: 12:00 PRICE: K1 GATE: slot_one', 1.00, 'MTNZM', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
+	(557, 'ZBMS-202155-10297835000', '7203064', 'ticket77', 6, NULL, '30', '1', 'TICKET', 'VALID', 'fra', 'fra', NULL, 'NRC', '77777', '260978981576', NULL, 'USSD', '2021-05-05', '5', '2021-05-05 10:29:07', '2021-05-05 10:29:07', 'OPERATOR: SHALOM: START: Livingstone END: CHOMA	 DEPARTURE: 12:00 PRICE: K1 GATE: slot_one', 1.00, 'AIRTELZM', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
+	(558, 'ZBMS-202155-13810921000', '7749967', 'ticket80', 7, NULL, '34', '1', 'TICKET', 'VALID', 'dggg', 'ghhj', NULL, 'NRC', '2345667', '260968309959', NULL, 'MOBILE', '2021-05-06', '7', '2021-05-05 13:08:10', '2021-05-05 13:08:10', 'OPERATOR: SHALOM: START: Livingstone END: MAZABUKA	 DEPARTURE: 08:00 PRICE: K1 GATE: slot_one', 1.00, 'MTNZM', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
+	(559, 'ZBMS-202155-131829824000', '7069476', 'ticket82', 8, NULL, '34', '1', 'TICKET', 'VALID', 'bud', 'mhgf', NULL, 'NRC', '0968309959', '260968309959', NULL, 'MOBILE', '2021-05-06', '7', '2021-05-05 13:18:29', '2021-05-05 13:18:29', 'OPERATOR: SHALOM: START: Livingstone END: KAFUE	 DEPARTURE: 08:00 PRICE: K1 GATE: slot_one', 1.00, 'MTNZM', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
+	(560, 'ZBMS-202155-15438418000', '4675742', 'ticket83', 6, NULL, '34', '1', 'TICKET', 'VALID', 'fggyhgt', 'fgjffy', NULL, 'NRC', '12345', '260977948729', NULL, 'USSD', '2021-05-05', '7', '2021-05-05 15:04:38', '2021-05-05 15:04:38', 'OPERATOR: SHALOM: START: Livingstone END: CHOMA	 DEPARTURE: 08:00 PRICE: K1 GATE: slot_one', 1.00, 'AIRTELZM', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
+	(561, 'ZBMS-202155-153015136000', '8661670', 'ticket84', 6, NULL, '34', '1', 'TICKET', 'VALID', 'Dmju', 'Pgj', NULL, 'NRC', '222255', '260763585832', NULL, 'USSD', '2021-05-06', '7', '2021-05-05 15:30:15', '2021-05-05 15:30:15', 'OPERATOR: SHALOM: START: Livingstone END: CHOMA	 DEPARTURE: 08:00 PRICE: K1 GATE: slot_one', 1.00, 'MTNZM', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
+	(562, 'ZBMS-202155-153142588000', '3186379', 'ticket85', 6, NULL, '34', '1', 'TICKET', 'VALID', 'makonde', 'mwale', NULL, 'NRC', '123456', '260977948729', NULL, 'USSD', '2021-05-05', '7', '2021-05-05 15:31:42', '2021-05-05 15:31:42', 'OPERATOR: SHALOM: START: Livingstone END: CHOMA	 DEPARTURE: 08:00 PRICE: K1 GATE: slot_one', 1.00, 'AIRTELZM', 0, 0.00, NULL, 0, 0.00, 0.00, NULL),
+	(563, 'ZBMS-202156-1048367232', '7231165', '4HrUkn0EXe5yb0tw', 6, '12:00', '34', '4', 'TICKET', 'VALID', 'Philip', 'Chani', NULL, 'NRC', '123456/12/3', '260950773797', NULL, 'TELLER', '2021-05-06', '7', '2021-05-06 10:18:16', '2021-05-06 10:18:16', 'OPERATOR: SHALOM	 START: Livingstone	 END: CHOMA	 DEPARTURE: 12:00	 PRICE: K1	 GATE: slot_one	 SCHEDULE: 7', 1.00, 'CASH', 0, 0.00, NULL, 0, 0.00, 0.00, 'Ticket Purchased from (Livingstone to CHOMA)'),
+	(564, 'ZBMS-202156-10241374410', '7584257', 'ZVMz1AJQzZ5Fms5z', 6, '12:00', '33', '4', 'TICKET', 'VALID', 'CHINYENJE', 'KAPOMA', NULL, 'NRC', '879237/11/1', '0977964057', NULL, 'TELLER', '2021-05-06', '12', '2021-05-06 10:26:11', '2021-05-06 10:26:11', 'OPERATOR: SHALOM	 START: Livingstone	 END: CHOMA	 DEPARTURE: 12:00	 PRICE: K1	 GATE: slot_two	 SCHEDULE: 12', 1.00, 'CASH', 0, 0.00, NULL, 0, 0.00, 0.00, 'Ticket Purchased from (Livingstone to CHOMA)'),
+	(565, 'ZBMS-202156-102944470776', '1896485', 'UBNSX6FSRIEkVGKw', 6, '12:00', '33', '4', 'TICKET', 'VALID', 'CHINYENJE', 'KAPOMA', NULL, 'NRC', '879237/11/1', '0977964057', NULL, 'TELLER', '2021-05-06', '12', '2021-05-06 10:30:25', '2021-05-06 10:30:25', 'OPERATOR: SHALOM	 START: Livingstone	 END: CHOMA	 DEPARTURE: 12:00	 PRICE: K1	 GATE: slot_two	 SCHEDULE: 12', 1.00, 'CASH', 0, 0.00, NULL, 0, 0.00, 0.00, 'Ticket Purchased from (Livingstone to CHOMA)'),
+	(566, 'ZBMS-202156-104144921047', '4326660', '1cloDP15D7iFUuaW', 6, '12:00', '33', '4', 'TICKET', 'VALID', 'Philip', 'Chani', NULL, 'NRC', '123456/12/3', '260950773797', NULL, 'TELLER', '2021-05-06', '12', '2021-05-06 10:43:08', '2021-05-06 10:43:08', 'OPERATOR: SHALOM	 START: Livingstone	 END: CHOMA	 DEPARTURE: 12:00	 PRICE: K1	 GATE: slot_two	 SCHEDULE: 12', 1.00, 'CASH', 0, 0.00, NULL, 0, 0.00, 0.00, 'Ticket Purchased from (Livingstone to CHOMA)');
 /*!40000 ALTER TABLE `probase_tbl_tickets` ENABLE KEYS */;
 
 -- Dumping structure for table btmms.probase_tbl_transactions
@@ -4065,11 +4794,11 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_transactions` (
   PRIMARY KEY (`ac_sr_no`),
   KEY `probase_daily_transactions_probase_trans_code_trn_code_fk` (`trn_code`),
   CONSTRAINT `probase_daily_transactions_probase_trans_code_trn_code_fk` FOREIGN KEY (`trn_code`) REFERENCES `probase_trans_code` (`trn_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=2328 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2679 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table btmms.probase_tbl_transactions: ~2,314 rows (approximately)
+-- Dumping data for table btmms.probase_tbl_transactions: ~2,249 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_transactions` DISABLE KEYS */;
-INSERT INTO `probase_tbl_transactions` (`ac_sr_no`, `trn_dt`, `val_dt`, `trans_ref_no`, `ac_no`, `trn_code`, `drcr_ind`, `lcy_amount`, `fin_cycle`, `auth_stat`, `transaction_channel`, `maker_id`, `checker_id`, `cust_gl`, `related_customer`) VALUES
+INSERT IGNORE INTO `probase_tbl_transactions` (`ac_sr_no`, `trn_dt`, `val_dt`, `trans_ref_no`, `ac_no`, `trn_code`, `drcr_ind`, `lcy_amount`, `fin_cycle`, `auth_stat`, `transaction_channel`, `maker_id`, `checker_id`, `cust_gl`, `related_customer`) VALUES
 	(14, '2020-12-16 09:59:01', '2020-12-16 09:59:01', 'ZBMS-20201216-7504763164', 'AS00000005', 'CANCELED', 'C', 1.00, 'FY2020', 'A', 'TELLER', '4', '4', 'G', '260970210154'),
 	(15, '2020-12-16 09:59:01', '2020-12-16 09:59:01', 'ZBMS-20201216-7504763164', 'AS00000005', 'CANCELED', 'D', 0.10, 'FY2020', 'A', 'TELLER', '4', '4', 'G', '260970210154'),
 	(16, '2020-12-16 09:59:01', '2020-12-16 09:59:01', 'ZBMS-20201216-7504763164', 'AS00000005', 'CANCELED', 'D', 0.90, 'FY2020', 'A', 'TELLER', '4', '4', 'G', '260970210154'),
@@ -6383,7 +7112,358 @@ INSERT INTO `probase_tbl_transactions` (`ac_sr_no`, `trn_dt`, `val_dt`, `trans_r
 	(2324, '2021-03-24 11:00:01', '2021-03-24 11:00:01', 'ZBMS-2021324-1101583000', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260978926764'),
 	(2325, '2021-03-24 11:00:01', '2021-03-24 11:00:01', 'ZBMS-2021324-1101583000', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260978926764'),
 	(2326, '2021-03-24 11:00:01', '2021-03-24 11:00:01', 'ZBMS-2021324-1101583000', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260978926764'),
-	(2327, '2021-03-24 11:00:01', '2021-03-24 11:00:01', 'ZBMS-2021324-1101583000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260978926764');
+	(2327, '2021-03-24 11:00:01', '2021-03-24 11:00:01', 'ZBMS-2021324-1101583000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260978926764'),
+	(2328, '2021-03-25 08:17:51', '2021-03-25 08:17:51', 'ZBMS-2021325-81721123000', 'AS00000005', 'PUR_TIC_CASH', 'D', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2329, '2021-03-25 08:17:51', '2021-03-25 08:17:51', 'ZBMS-2021325-81721123000', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2330, '2021-03-25 08:17:51', '2021-03-25 08:17:51', 'ZBMS-2021325-81721123000', 'AS00000005', 'PUR_TIC_CASH', 'C', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2331, '2021-03-25 08:17:51', '2021-03-25 08:17:51', 'ZBMS-2021325-81721123000', 'LI00000001', 'PUR_TIC_CASH', 'C', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2332, '2021-03-25 08:17:51', '2021-03-25 08:17:51', 'ZBMS-2021325-81721123000', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2333, '2021-03-25 08:17:51', '2021-03-25 08:17:51', 'ZBMS-2021325-81721123000', 'LI00000001', 'PUR_TIC_CASH', 'D', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2334, '2021-03-25 08:17:51', '2021-03-25 08:17:51', 'ZBMS-2021325-81721123000', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2335, '2021-03-25 08:17:51', '2021-03-25 08:17:51', 'ZBMS-2021325-81721123000', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2336, '2021-03-25 08:17:51', '2021-03-25 08:17:51', 'ZBMS-2021325-81721123000', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2337, '2021-03-25 08:17:51', '2021-03-25 08:17:51', 'ZBMS-2021325-81721123000', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2338, '2021-03-25 08:17:51', '2021-03-25 08:17:51', 'ZBMS-2021325-81721123000', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2339, '2021-03-25 08:17:51', '2021-03-25 08:17:51', 'ZBMS-2021325-81721123000', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2340, '2021-03-25 08:17:51', '2021-03-25 08:17:51', 'ZBMS-2021325-81721123000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2341, '2021-03-25 08:38:22', '2021-03-25 08:38:22', 'ZBMS-2021325-83213413000', 'AS00000005', 'PUR_TIC_CASH', 'D', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2342, '2021-03-25 08:38:22', '2021-03-25 08:38:22', 'ZBMS-2021325-83213413000', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2343, '2021-03-25 08:38:22', '2021-03-25 08:38:22', 'ZBMS-2021325-83213413000', 'AS00000005', 'PUR_TIC_CASH', 'C', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2344, '2021-03-25 08:38:22', '2021-03-25 08:38:22', 'ZBMS-2021325-83213413000', 'LI00000001', 'PUR_TIC_CASH', 'C', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2345, '2021-03-25 08:38:22', '2021-03-25 08:38:22', 'ZBMS-2021325-83213413000', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2346, '2021-03-25 08:38:22', '2021-03-25 08:38:22', 'ZBMS-2021325-83213413000', 'LI00000001', 'PUR_TIC_CASH', 'D', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2347, '2021-03-25 08:38:22', '2021-03-25 08:38:22', 'ZBMS-2021325-83213413000', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2348, '2021-03-25 08:38:22', '2021-03-25 08:38:22', 'ZBMS-2021325-83213413000', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2349, '2021-03-25 08:38:22', '2021-03-25 08:38:22', 'ZBMS-2021325-83213413000', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2350, '2021-03-25 08:38:22', '2021-03-25 08:38:22', 'ZBMS-2021325-83213413000', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2351, '2021-03-25 08:38:22', '2021-03-25 08:38:22', 'ZBMS-2021325-83213413000', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2352, '2021-03-25 08:38:22', '2021-03-25 08:38:22', 'ZBMS-2021325-83213413000', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2353, '2021-03-25 08:38:22', '2021-03-25 08:38:22', 'ZBMS-2021325-83213413000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2354, '2021-03-25 09:31:06', '2021-03-25 09:31:06', 'ZBMS-2021325-81721123000', 'AS00000005', 'PUR_TIC_CASH', 'D', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0967993270'),
+	(2355, '2021-03-25 09:31:06', '2021-03-25 09:31:06', 'ZBMS-2021325-81721123000', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0967993270'),
+	(2356, '2021-03-25 09:31:06', '2021-03-25 09:31:06', 'ZBMS-2021325-81721123000', 'AS00000005', 'PUR_TIC_CASH', 'C', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0967993270'),
+	(2357, '2021-03-25 09:31:06', '2021-03-25 09:31:06', 'ZBMS-2021325-81721123000', 'LI00000001', 'PUR_TIC_CASH', 'C', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0967993270'),
+	(2358, '2021-03-25 09:31:06', '2021-03-25 09:31:06', 'ZBMS-2021325-81721123000', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0967993270'),
+	(2359, '2021-03-25 09:31:06', '2021-03-25 09:31:06', 'ZBMS-2021325-81721123000', 'LI00000001', 'PUR_TIC_CASH', 'D', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0967993270'),
+	(2360, '2021-03-25 09:31:06', '2021-03-25 09:31:06', 'ZBMS-2021325-81721123000', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0967993270'),
+	(2361, '2021-03-25 09:31:06', '2021-03-25 09:31:06', 'ZBMS-2021325-81721123000', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0967993270'),
+	(2362, '2021-03-25 09:31:06', '2021-03-25 09:31:06', 'ZBMS-2021325-81721123000', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0967993270'),
+	(2363, '2021-03-25 09:31:06', '2021-03-25 09:31:06', 'ZBMS-2021325-81721123000', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0967993270'),
+	(2364, '2021-03-25 09:31:06', '2021-03-25 09:31:06', 'ZBMS-2021325-81721123000', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0967993270'),
+	(2365, '2021-03-25 09:31:06', '2021-03-25 09:31:06', 'ZBMS-2021325-81721123000', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0967993270'),
+	(2366, '2021-03-25 09:31:06', '2021-03-25 09:31:06', 'ZBMS-2021325-81721123000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0967993270'),
+	(2367, '2021-03-25 12:14:13', '2021-03-25 12:14:13', 'ZBMS-2021325-121332360000', 'AS00000005', 'PUR_TIC_CASH', 'D', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2368, '2021-03-25 12:14:13', '2021-03-25 12:14:13', 'ZBMS-2021325-121332360000', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2369, '2021-03-25 12:14:13', '2021-03-25 12:14:13', 'ZBMS-2021325-121332360000', 'AS00000005', 'PUR_TIC_CASH', 'C', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2370, '2021-03-25 12:14:13', '2021-03-25 12:14:13', 'ZBMS-2021325-121332360000', 'LI00000001', 'PUR_TIC_CASH', 'C', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2371, '2021-03-25 12:14:13', '2021-03-25 12:14:13', 'ZBMS-2021325-121332360000', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2372, '2021-03-25 12:14:13', '2021-03-25 12:14:13', 'ZBMS-2021325-121332360000', 'LI00000001', 'PUR_TIC_CASH', 'D', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2373, '2021-03-25 12:14:13', '2021-03-25 12:14:13', 'ZBMS-2021325-121332360000', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2374, '2021-03-25 12:14:13', '2021-03-25 12:14:13', 'ZBMS-2021325-121332360000', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2375, '2021-03-25 12:14:13', '2021-03-25 12:14:13', 'ZBMS-2021325-121332360000', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2376, '2021-03-25 12:14:13', '2021-03-25 12:14:13', 'ZBMS-2021325-121332360000', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2377, '2021-03-25 12:14:13', '2021-03-25 12:14:13', 'ZBMS-2021325-121332360000', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2378, '2021-03-25 12:14:13', '2021-03-25 12:14:13', 'ZBMS-2021325-121332360000', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2379, '2021-03-25 12:14:13', '2021-03-25 12:14:13', 'ZBMS-2021325-121332360000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978968888'),
+	(2380, '2021-03-30 09:52:47', '2021-03-30 09:52:47', 'ZBMS-2021330-95154352000', 'AS00000005', 'PUR_TIC_CASH', 'D', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2381, '2021-03-30 09:52:47', '2021-03-30 09:52:47', 'ZBMS-2021330-95154352000', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2382, '2021-03-30 09:52:47', '2021-03-30 09:52:47', 'ZBMS-2021330-95154352000', 'AS00000005', 'PUR_TIC_CASH', 'C', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2383, '2021-03-30 09:52:47', '2021-03-30 09:52:47', 'ZBMS-2021330-95154352000', 'LI00000001', 'PUR_TIC_CASH', 'C', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2384, '2021-03-30 09:52:47', '2021-03-30 09:52:47', 'ZBMS-2021330-95154352000', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2385, '2021-03-30 09:52:47', '2021-03-30 09:52:47', 'ZBMS-2021330-95154352000', 'LI00000001', 'PUR_TIC_CASH', 'D', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2386, '2021-03-30 09:52:47', '2021-03-30 09:52:47', 'ZBMS-2021330-95154352000', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2387, '2021-03-30 09:52:47', '2021-03-30 09:52:47', 'ZBMS-2021330-95154352000', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2388, '2021-03-30 09:52:47', '2021-03-30 09:52:47', 'ZBMS-2021330-95154352000', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2389, '2021-03-30 09:52:47', '2021-03-30 09:52:47', 'ZBMS-2021330-95154352000', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2390, '2021-03-30 09:52:47', '2021-03-30 09:52:47', 'ZBMS-2021330-95154352000', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2391, '2021-03-30 09:52:47', '2021-03-30 09:52:47', 'ZBMS-2021330-95154352000', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2392, '2021-03-30 09:52:47', '2021-03-30 09:52:47', 'ZBMS-2021330-95154352000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2393, '2021-03-30 11:53:14', '2021-03-30 11:53:14', 'ZBMS-2021330-95154352000', 'AS00000005', 'CANCELED', 'C', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2394, '2021-03-30 11:53:14', '2021-03-30 11:53:14', 'ZBMS-2021330-95154352000', 'AS00000005', 'CANCELED', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2395, '2021-03-30 11:53:14', '2021-03-30 11:53:14', 'ZBMS-2021330-95154352000', 'AS00000005', 'CANCELED', 'D', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2396, '2021-03-30 11:53:14', '2021-03-30 11:53:14', 'ZBMS-2021330-95154352000', 'LI00000001', 'CANCELED', 'D', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2397, '2021-03-30 11:53:14', '2021-03-30 11:53:14', 'ZBMS-2021330-95154352000', 'LI00000001', 'CANCELED', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2398, '2021-03-30 11:53:14', '2021-03-30 11:53:14', 'ZBMS-2021330-95154352000', 'LI00000001', 'CANCELED', 'C', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2399, '2021-03-30 11:53:14', '2021-03-30 11:53:14', 'ZBMS-2021330-95154352000', 'AS00000008', 'CANCELED', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2400, '2021-03-30 11:53:14', '2021-03-30 11:53:14', 'ZBMS-2021330-95154352000', 'AS00000008', 'CANCELED', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2401, '2021-03-30 11:53:14', '2021-03-30 11:53:14', 'ZBMS-2021330-95154352000', 'IN00000002', 'CANCELED', 'D', 0.08, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2402, '2021-03-30 11:53:14', '2021-03-30 11:53:14', 'ZBMS-2021330-95154352000', 'LI00000004', 'CANCELED', 'D', 0.02, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2403, '2021-03-30 11:53:14', '2021-03-30 11:53:14', 'ZBMS-2021330-95154352000', 'LI00000003', 'CANCELED', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2404, '2021-03-30 11:53:14', '2021-03-30 11:53:14', 'ZBMS-2021330-95154352000', 'LI00000003', 'CANCELED', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2405, '2021-03-30 11:53:14', '2021-03-30 11:53:14', 'ZBMS-2021330-95154352000', 'AS00000006', 'CANCELED', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0978926764'),
+	(2406, '2021-05-04 11:27:10', '2021-05-04 11:27:10', 'ZBMS-202154-1127102000', 'AS00000005', 'PUR_TIC_MOMO', 'D', 1.00, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2407, '2021-05-04 11:27:10', '2021-05-04 11:27:10', 'ZBMS-202154-1127102000', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2408, '2021-05-04 11:27:10', '2021-05-04 11:27:10', 'ZBMS-202154-1127102000', 'AS00000005', 'PUR_TIC_MOMO', 'C', 0.90, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2409, '2021-05-04 11:27:10', '2021-05-04 11:27:10', 'ZBMS-202154-1127102000', 'LI00000001', 'PUR_TIC_MOMO', 'C', 1.00, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2410, '2021-05-04 11:27:10', '2021-05-04 11:27:10', 'ZBMS-202154-1127102000', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2411, '2021-05-04 11:27:10', '2021-05-04 11:27:10', 'ZBMS-202154-1127102000', 'LI00000001', 'PUR_TIC_MOMO', 'D', 0.90, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2412, '2021-05-04 11:27:10', '2021-05-04 11:27:10', 'ZBMS-202154-1127102000', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2413, '2021-05-04 11:27:10', '2021-05-04 11:27:10', 'ZBMS-202154-1127102000', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2414, '2021-05-04 11:27:10', '2021-05-04 11:27:10', 'ZBMS-202154-1127102000', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2415, '2021-05-04 11:27:10', '2021-05-04 11:27:10', 'ZBMS-202154-1127102000', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2416, '2021-05-04 11:27:10', '2021-05-04 11:27:10', 'ZBMS-202154-1127102000', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2417, '2021-05-04 11:27:10', '2021-05-04 11:27:10', 'ZBMS-202154-1127102000', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2418, '2021-05-04 11:27:10', '2021-05-04 11:27:10', 'ZBMS-202154-1127102000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2419, '2021-05-04 11:46:53', '2021-05-04 11:46:53', 'ZBMS-202154-114653377000', 'AS00000005', 'PUR_TIC_MOMO', 'D', 1.00, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260969240309'),
+	(2420, '2021-05-04 11:46:53', '2021-05-04 11:46:53', 'ZBMS-202154-114653377000', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260969240309'),
+	(2421, '2021-05-04 11:46:53', '2021-05-04 11:46:53', 'ZBMS-202154-114653377000', 'AS00000005', 'PUR_TIC_MOMO', 'C', 0.90, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260969240309'),
+	(2422, '2021-05-04 11:46:53', '2021-05-04 11:46:53', 'ZBMS-202154-114653377000', 'LI00000001', 'PUR_TIC_MOMO', 'C', 1.00, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260969240309'),
+	(2423, '2021-05-04 11:46:53', '2021-05-04 11:46:53', 'ZBMS-202154-114653377000', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260969240309'),
+	(2424, '2021-05-04 11:46:53', '2021-05-04 11:46:53', 'ZBMS-202154-114653377000', 'LI00000001', 'PUR_TIC_MOMO', 'D', 0.90, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260969240309'),
+	(2425, '2021-05-04 11:46:53', '2021-05-04 11:46:53', 'ZBMS-202154-114653377000', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260969240309'),
+	(2426, '2021-05-04 11:46:53', '2021-05-04 11:46:53', 'ZBMS-202154-114653377000', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260969240309'),
+	(2427, '2021-05-04 11:46:53', '2021-05-04 11:46:53', 'ZBMS-202154-114653377000', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260969240309'),
+	(2428, '2021-05-04 11:46:53', '2021-05-04 11:46:53', 'ZBMS-202154-114653377000', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260969240309'),
+	(2429, '2021-05-04 11:46:53', '2021-05-04 11:46:53', 'ZBMS-202154-114653377000', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260969240309'),
+	(2430, '2021-05-04 11:46:53', '2021-05-04 11:46:53', 'ZBMS-202154-114653377000', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260969240309'),
+	(2431, '2021-05-04 11:46:53', '2021-05-04 11:46:53', 'ZBMS-202154-114653377000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260969240309'),
+	(2432, '2021-05-04 11:53:39', '2021-05-04 11:53:39', 'ZBMS-202154-115338998000', 'AS00000005', 'PUR_TIC_MOMO', 'D', 1.00, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2433, '2021-05-04 11:53:39', '2021-05-04 11:53:39', 'ZBMS-202154-115338998000', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2434, '2021-05-04 11:53:39', '2021-05-04 11:53:39', 'ZBMS-202154-115338998000', 'AS00000005', 'PUR_TIC_MOMO', 'C', 0.90, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2435, '2021-05-04 11:53:39', '2021-05-04 11:53:39', 'ZBMS-202154-115338998000', 'LI00000001', 'PUR_TIC_MOMO', 'C', 1.00, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2436, '2021-05-04 11:53:39', '2021-05-04 11:53:39', 'ZBMS-202154-115338998000', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2437, '2021-05-04 11:53:39', '2021-05-04 11:53:39', 'ZBMS-202154-115338998000', 'LI00000001', 'PUR_TIC_MOMO', 'D', 0.90, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2438, '2021-05-04 11:53:39', '2021-05-04 11:53:39', 'ZBMS-202154-115338998000', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2439, '2021-05-04 11:53:39', '2021-05-04 11:53:39', 'ZBMS-202154-115338998000', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2440, '2021-05-04 11:53:39', '2021-05-04 11:53:39', 'ZBMS-202154-115338998000', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2441, '2021-05-04 11:53:39', '2021-05-04 11:53:39', 'ZBMS-202154-115338998000', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2442, '2021-05-04 11:53:39', '2021-05-04 11:53:39', 'ZBMS-202154-115338998000', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2443, '2021-05-04 11:53:39', '2021-05-04 11:53:39', 'ZBMS-202154-115338998000', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2444, '2021-05-04 11:53:39', '2021-05-04 11:53:39', 'ZBMS-202154-115338998000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2445, '2021-05-04 13:09:19', '2021-05-04 13:09:19', 'ZBMS-202154-13834528000', 'AS00000005', 'PUR_TIC_CASH', 'D', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2446, '2021-05-04 13:09:19', '2021-05-04 13:09:19', 'ZBMS-202154-13834528000', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2447, '2021-05-04 13:09:19', '2021-05-04 13:09:19', 'ZBMS-202154-13834528000', 'AS00000005', 'PUR_TIC_CASH', 'C', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2448, '2021-05-04 13:09:19', '2021-05-04 13:09:19', 'ZBMS-202154-13834528000', 'LI00000001', 'PUR_TIC_CASH', 'C', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2449, '2021-05-04 13:09:19', '2021-05-04 13:09:19', 'ZBMS-202154-13834528000', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2450, '2021-05-04 13:09:19', '2021-05-04 13:09:19', 'ZBMS-202154-13834528000', 'LI00000001', 'PUR_TIC_CASH', 'D', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2451, '2021-05-04 13:09:19', '2021-05-04 13:09:19', 'ZBMS-202154-13834528000', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2452, '2021-05-04 13:09:19', '2021-05-04 13:09:19', 'ZBMS-202154-13834528000', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2453, '2021-05-04 13:09:19', '2021-05-04 13:09:19', 'ZBMS-202154-13834528000', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2454, '2021-05-04 13:09:19', '2021-05-04 13:09:19', 'ZBMS-202154-13834528000', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2455, '2021-05-04 13:09:19', '2021-05-04 13:09:19', 'ZBMS-202154-13834528000', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2456, '2021-05-04 13:09:19', '2021-05-04 13:09:19', 'ZBMS-202154-13834528000', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2457, '2021-05-04 13:09:19', '2021-05-04 13:09:19', 'ZBMS-202154-13834528000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2458, '2021-05-04 13:16:03', '2021-05-04 13:16:03', 'ZBMS-202154-13163267000', 'AS00000005', 'PUR_TIC_MOMO', 'D', 1.00, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2459, '2021-05-04 13:16:03', '2021-05-04 13:16:03', 'ZBMS-202154-13163267000', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2460, '2021-05-04 13:16:03', '2021-05-04 13:16:03', 'ZBMS-202154-13163267000', 'AS00000005', 'PUR_TIC_MOMO', 'C', 0.90, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2461, '2021-05-04 13:16:03', '2021-05-04 13:16:03', 'ZBMS-202154-13163267000', 'LI00000001', 'PUR_TIC_MOMO', 'C', 1.00, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2462, '2021-05-04 13:16:03', '2021-05-04 13:16:03', 'ZBMS-202154-13163267000', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2463, '2021-05-04 13:16:03', '2021-05-04 13:16:03', 'ZBMS-202154-13163267000', 'LI00000001', 'PUR_TIC_MOMO', 'D', 0.90, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2464, '2021-05-04 13:16:03', '2021-05-04 13:16:03', 'ZBMS-202154-13163267000', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2465, '2021-05-04 13:16:03', '2021-05-04 13:16:03', 'ZBMS-202154-13163267000', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2466, '2021-05-04 13:16:03', '2021-05-04 13:16:03', 'ZBMS-202154-13163267000', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2467, '2021-05-04 13:16:03', '2021-05-04 13:16:03', 'ZBMS-202154-13163267000', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2468, '2021-05-04 13:16:03', '2021-05-04 13:16:03', 'ZBMS-202154-13163267000', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2469, '2021-05-04 13:16:03', '2021-05-04 13:16:03', 'ZBMS-202154-13163267000', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2470, '2021-05-04 13:16:03', '2021-05-04 13:16:03', 'ZBMS-202154-13163267000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260968309959'),
+	(2471, '2021-05-04 13:22:00', '2021-05-04 13:22:00', 'ZBMS-202154-13220424000', 'AS00000005', 'PUR_TIC_MOMO', 'D', 1.00, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2472, '2021-05-04 13:22:00', '2021-05-04 13:22:00', 'ZBMS-202154-13220424000', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2473, '2021-05-04 13:22:00', '2021-05-04 13:22:00', 'ZBMS-202154-13220424000', 'AS00000005', 'PUR_TIC_MOMO', 'C', 0.90, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2474, '2021-05-04 13:22:00', '2021-05-04 13:22:00', 'ZBMS-202154-13220424000', 'LI00000001', 'PUR_TIC_MOMO', 'C', 1.00, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2475, '2021-05-04 13:22:00', '2021-05-04 13:22:00', 'ZBMS-202154-13220424000', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2476, '2021-05-04 13:22:00', '2021-05-04 13:22:00', 'ZBMS-202154-13220424000', 'LI00000001', 'PUR_TIC_MOMO', 'D', 0.90, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2477, '2021-05-04 13:22:00', '2021-05-04 13:22:00', 'ZBMS-202154-13220424000', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2478, '2021-05-04 13:22:00', '2021-05-04 13:22:00', 'ZBMS-202154-13220424000', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2479, '2021-05-04 13:22:00', '2021-05-04 13:22:00', 'ZBMS-202154-13220424000', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2480, '2021-05-04 13:22:00', '2021-05-04 13:22:00', 'ZBMS-202154-13220424000', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2481, '2021-05-04 13:22:00', '2021-05-04 13:22:00', 'ZBMS-202154-13220424000', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2482, '2021-05-04 13:22:00', '2021-05-04 13:22:00', 'ZBMS-202154-13220424000', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2483, '2021-05-04 13:22:00', '2021-05-04 13:22:00', 'ZBMS-202154-13220424000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2484, '2021-05-04 13:43:39', '2021-05-04 13:43:39', 'ZBMS-202154-13433935000', 'AS00000005', 'PUR_TIC_MOMO', 'D', 1.00, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2485, '2021-05-04 13:43:39', '2021-05-04 13:43:39', 'ZBMS-202154-13433935000', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2486, '2021-05-04 13:43:39', '2021-05-04 13:43:39', 'ZBMS-202154-13433935000', 'AS00000005', 'PUR_TIC_MOMO', 'C', 0.90, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2487, '2021-05-04 13:43:39', '2021-05-04 13:43:39', 'ZBMS-202154-13433935000', 'LI00000001', 'PUR_TIC_MOMO', 'C', 1.00, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2488, '2021-05-04 13:43:39', '2021-05-04 13:43:39', 'ZBMS-202154-13433935000', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2489, '2021-05-04 13:43:39', '2021-05-04 13:43:39', 'ZBMS-202154-13433935000', 'LI00000001', 'PUR_TIC_MOMO', 'D', 0.90, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2490, '2021-05-04 13:43:39', '2021-05-04 13:43:39', 'ZBMS-202154-13433935000', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2491, '2021-05-04 13:43:39', '2021-05-04 13:43:39', 'ZBMS-202154-13433935000', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2492, '2021-05-04 13:43:39', '2021-05-04 13:43:39', 'ZBMS-202154-13433935000', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2493, '2021-05-04 13:43:39', '2021-05-04 13:43:39', 'ZBMS-202154-13433935000', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2494, '2021-05-04 13:43:39', '2021-05-04 13:43:39', 'ZBMS-202154-13433935000', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2495, '2021-05-04 13:43:39', '2021-05-04 13:43:39', 'ZBMS-202154-13433935000', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2496, '2021-05-04 13:43:39', '2021-05-04 13:43:39', 'ZBMS-202154-13433935000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2497, '2021-05-04 13:46:06', '2021-05-04 13:46:06', 'ZBMS-202154-13466852000', 'AS00000005', 'PUR_TIC_MOMO', 'D', 1.00, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260763585832'),
+	(2498, '2021-05-04 13:46:06', '2021-05-04 13:46:06', 'ZBMS-202154-13466852000', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260763585832'),
+	(2499, '2021-05-04 13:46:06', '2021-05-04 13:46:06', 'ZBMS-202154-13466852000', 'AS00000005', 'PUR_TIC_MOMO', 'C', 0.90, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260763585832'),
+	(2500, '2021-05-04 13:46:06', '2021-05-04 13:46:06', 'ZBMS-202154-13466852000', 'LI00000001', 'PUR_TIC_MOMO', 'C', 1.00, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260763585832'),
+	(2501, '2021-05-04 13:46:06', '2021-05-04 13:46:06', 'ZBMS-202154-13466852000', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260763585832'),
+	(2502, '2021-05-04 13:46:06', '2021-05-04 13:46:06', 'ZBMS-202154-13466852000', 'LI00000001', 'PUR_TIC_MOMO', 'D', 0.90, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260763585832'),
+	(2503, '2021-05-04 13:46:06', '2021-05-04 13:46:06', 'ZBMS-202154-13466852000', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260763585832'),
+	(2504, '2021-05-04 13:46:06', '2021-05-04 13:46:06', 'ZBMS-202154-13466852000', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260763585832'),
+	(2505, '2021-05-04 13:46:06', '2021-05-04 13:46:06', 'ZBMS-202154-13466852000', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260763585832'),
+	(2506, '2021-05-04 13:46:06', '2021-05-04 13:46:06', 'ZBMS-202154-13466852000', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260763585832'),
+	(2507, '2021-05-04 13:46:06', '2021-05-04 13:46:06', 'ZBMS-202154-13466852000', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260763585832'),
+	(2508, '2021-05-04 13:46:06', '2021-05-04 13:46:06', 'ZBMS-202154-13466852000', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260763585832'),
+	(2509, '2021-05-04 13:46:06', '2021-05-04 13:46:06', 'ZBMS-202154-13466852000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260763585832'),
+	(2510, '2021-05-05 09:41:56', '2021-05-05 09:41:56', 'ZBMS-202154-13834528000', 'AS00000005', 'PUR_TIC_CASH', 'D', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2511, '2021-05-05 09:41:56', '2021-05-05 09:41:56', 'ZBMS-202154-13834528000', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2512, '2021-05-05 09:41:56', '2021-05-05 09:41:56', 'ZBMS-202154-13834528000', 'AS00000005', 'PUR_TIC_CASH', 'C', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2513, '2021-05-05 09:41:56', '2021-05-05 09:41:56', 'ZBMS-202154-13834528000', 'LI00000001', 'PUR_TIC_CASH', 'C', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2514, '2021-05-05 09:41:56', '2021-05-05 09:41:56', 'ZBMS-202154-13834528000', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2515, '2021-05-05 09:41:56', '2021-05-05 09:41:56', 'ZBMS-202154-13834528000', 'LI00000001', 'PUR_TIC_CASH', 'D', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2516, '2021-05-05 09:41:56', '2021-05-05 09:41:56', 'ZBMS-202154-13834528000', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2517, '2021-05-05 09:41:56', '2021-05-05 09:41:56', 'ZBMS-202154-13834528000', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2518, '2021-05-05 09:41:56', '2021-05-05 09:41:56', 'ZBMS-202154-13834528000', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2519, '2021-05-05 09:41:56', '2021-05-05 09:41:56', 'ZBMS-202154-13834528000', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2520, '2021-05-05 09:41:56', '2021-05-05 09:41:56', 'ZBMS-202154-13834528000', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2521, '2021-05-05 09:41:56', '2021-05-05 09:41:56', 'ZBMS-202154-13834528000', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2522, '2021-05-05 09:41:56', '2021-05-05 09:41:56', 'ZBMS-202154-13834528000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2523, '2021-05-05 09:44:15', '2021-05-05 09:44:15', 'ZBMS-202154-13834528000', 'AS00000005', 'PUR_TIC_CASH', 'D', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2524, '2021-05-05 09:44:15', '2021-05-05 09:44:15', 'ZBMS-202154-13834528000', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2525, '2021-05-05 09:44:15', '2021-05-05 09:44:15', 'ZBMS-202154-13834528000', 'AS00000005', 'PUR_TIC_CASH', 'C', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2526, '2021-05-05 09:44:15', '2021-05-05 09:44:15', 'ZBMS-202154-13834528000', 'LI00000001', 'PUR_TIC_CASH', 'C', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2527, '2021-05-05 09:44:15', '2021-05-05 09:44:15', 'ZBMS-202154-13834528000', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2528, '2021-05-05 09:44:15', '2021-05-05 09:44:15', 'ZBMS-202154-13834528000', 'LI00000001', 'PUR_TIC_CASH', 'D', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2529, '2021-05-05 09:44:15', '2021-05-05 09:44:15', 'ZBMS-202154-13834528000', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2530, '2021-05-05 09:44:15', '2021-05-05 09:44:15', 'ZBMS-202154-13834528000', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2531, '2021-05-05 09:44:15', '2021-05-05 09:44:15', 'ZBMS-202154-13834528000', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2532, '2021-05-05 09:44:15', '2021-05-05 09:44:15', 'ZBMS-202154-13834528000', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2533, '2021-05-05 09:44:15', '2021-05-05 09:44:15', 'ZBMS-202154-13834528000', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2534, '2021-05-05 09:44:15', '2021-05-05 09:44:15', 'ZBMS-202154-13834528000', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2535, '2021-05-05 09:44:15', '2021-05-05 09:44:15', 'ZBMS-202154-13834528000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2536, '2021-05-05 10:26:14', '2021-05-05 10:26:14', 'ZBMS-202155-102614628000', 'AS00000005', 'PUR_TIC_MOMO', 'D', 1.00, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2537, '2021-05-05 10:26:14', '2021-05-05 10:26:14', 'ZBMS-202155-102614628000', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2538, '2021-05-05 10:26:14', '2021-05-05 10:26:14', 'ZBMS-202155-102614628000', 'AS00000005', 'PUR_TIC_MOMO', 'C', 0.90, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2539, '2021-05-05 10:26:14', '2021-05-05 10:26:14', 'ZBMS-202155-102614628000', 'LI00000001', 'PUR_TIC_MOMO', 'C', 1.00, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2540, '2021-05-05 10:26:14', '2021-05-05 10:26:14', 'ZBMS-202155-102614628000', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2541, '2021-05-05 10:26:14', '2021-05-05 10:26:14', 'ZBMS-202155-102614628000', 'LI00000001', 'PUR_TIC_MOMO', 'D', 0.90, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2542, '2021-05-05 10:26:14', '2021-05-05 10:26:14', 'ZBMS-202155-102614628000', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2543, '2021-05-05 10:26:14', '2021-05-05 10:26:14', 'ZBMS-202155-102614628000', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2544, '2021-05-05 10:26:14', '2021-05-05 10:26:14', 'ZBMS-202155-102614628000', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2545, '2021-05-05 10:26:14', '2021-05-05 10:26:14', 'ZBMS-202155-102614628000', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2546, '2021-05-05 10:26:14', '2021-05-05 10:26:14', 'ZBMS-202155-102614628000', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2547, '2021-05-05 10:26:14', '2021-05-05 10:26:14', 'ZBMS-202155-102614628000', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2548, '2021-05-05 10:26:14', '2021-05-05 10:26:14', 'ZBMS-202155-102614628000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2549, '2021-05-05 10:29:07', '2021-05-05 10:29:07', 'ZBMS-202155-10297835000', 'AS00000005', 'PUR_TIC_MOMO', 'D', 1.00, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260978981576'),
+	(2550, '2021-05-05 10:29:07', '2021-05-05 10:29:07', 'ZBMS-202155-10297835000', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260978981576'),
+	(2551, '2021-05-05 10:29:07', '2021-05-05 10:29:07', 'ZBMS-202155-10297835000', 'AS00000005', 'PUR_TIC_MOMO', 'C', 0.90, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260978981576'),
+	(2552, '2021-05-05 10:29:07', '2021-05-05 10:29:07', 'ZBMS-202155-10297835000', 'LI00000001', 'PUR_TIC_MOMO', 'C', 1.00, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260978981576'),
+	(2553, '2021-05-05 10:29:07', '2021-05-05 10:29:07', 'ZBMS-202155-10297835000', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260978981576'),
+	(2554, '2021-05-05 10:29:07', '2021-05-05 10:29:07', 'ZBMS-202155-10297835000', 'LI00000001', 'PUR_TIC_MOMO', 'D', 0.90, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260978981576'),
+	(2555, '2021-05-05 10:29:07', '2021-05-05 10:29:07', 'ZBMS-202155-10297835000', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260978981576'),
+	(2556, '2021-05-05 10:29:07', '2021-05-05 10:29:07', 'ZBMS-202155-10297835000', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260978981576'),
+	(2557, '2021-05-05 10:29:07', '2021-05-05 10:29:07', 'ZBMS-202155-10297835000', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260978981576'),
+	(2558, '2021-05-05 10:29:07', '2021-05-05 10:29:07', 'ZBMS-202155-10297835000', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260978981576'),
+	(2559, '2021-05-05 10:29:07', '2021-05-05 10:29:07', 'ZBMS-202155-10297835000', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260978981576'),
+	(2560, '2021-05-05 10:29:07', '2021-05-05 10:29:07', 'ZBMS-202155-10297835000', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260978981576'),
+	(2561, '2021-05-05 10:29:07', '2021-05-05 10:29:07', 'ZBMS-202155-10297835000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260978981576'),
+	(2562, '2021-05-05 13:08:10', '2021-05-05 13:08:10', 'ZBMS-202155-13810921000', 'AS00000005', 'PUR_TIC_MOMO', 'D', 1.00, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2563, '2021-05-05 13:08:10', '2021-05-05 13:08:10', 'ZBMS-202155-13810921000', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2564, '2021-05-05 13:08:10', '2021-05-05 13:08:10', 'ZBMS-202155-13810921000', 'AS00000005', 'PUR_TIC_MOMO', 'C', 0.90, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2565, '2021-05-05 13:08:10', '2021-05-05 13:08:10', 'ZBMS-202155-13810921000', 'LI00000001', 'PUR_TIC_MOMO', 'C', 1.00, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2566, '2021-05-05 13:08:10', '2021-05-05 13:08:10', 'ZBMS-202155-13810921000', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2567, '2021-05-05 13:08:10', '2021-05-05 13:08:10', 'ZBMS-202155-13810921000', 'LI00000001', 'PUR_TIC_MOMO', 'D', 0.90, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2568, '2021-05-05 13:08:10', '2021-05-05 13:08:10', 'ZBMS-202155-13810921000', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2569, '2021-05-05 13:08:10', '2021-05-05 13:08:10', 'ZBMS-202155-13810921000', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2570, '2021-05-05 13:08:10', '2021-05-05 13:08:10', 'ZBMS-202155-13810921000', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2571, '2021-05-05 13:08:10', '2021-05-05 13:08:10', 'ZBMS-202155-13810921000', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2572, '2021-05-05 13:08:10', '2021-05-05 13:08:10', 'ZBMS-202155-13810921000', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2573, '2021-05-05 13:08:10', '2021-05-05 13:08:10', 'ZBMS-202155-13810921000', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2574, '2021-05-05 13:08:10', '2021-05-05 13:08:10', 'ZBMS-202155-13810921000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2575, '2021-05-05 13:18:29', '2021-05-05 13:18:29', 'ZBMS-202155-131829824000', 'AS00000005', 'PUR_TIC_MOMO', 'D', 1.00, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2576, '2021-05-05 13:18:29', '2021-05-05 13:18:29', 'ZBMS-202155-131829824000', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2577, '2021-05-05 13:18:29', '2021-05-05 13:18:29', 'ZBMS-202155-131829824000', 'AS00000005', 'PUR_TIC_MOMO', 'C', 0.90, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2578, '2021-05-05 13:18:29', '2021-05-05 13:18:29', 'ZBMS-202155-131829824000', 'LI00000001', 'PUR_TIC_MOMO', 'C', 1.00, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2579, '2021-05-05 13:18:29', '2021-05-05 13:18:29', 'ZBMS-202155-131829824000', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2580, '2021-05-05 13:18:29', '2021-05-05 13:18:29', 'ZBMS-202155-131829824000', 'LI00000001', 'PUR_TIC_MOMO', 'D', 0.90, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2581, '2021-05-05 13:18:29', '2021-05-05 13:18:29', 'ZBMS-202155-131829824000', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2582, '2021-05-05 13:18:29', '2021-05-05 13:18:29', 'ZBMS-202155-131829824000', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2583, '2021-05-05 13:18:29', '2021-05-05 13:18:29', 'ZBMS-202155-131829824000', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2584, '2021-05-05 13:18:29', '2021-05-05 13:18:29', 'ZBMS-202155-131829824000', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2585, '2021-05-05 13:18:29', '2021-05-05 13:18:29', 'ZBMS-202155-131829824000', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2586, '2021-05-05 13:18:29', '2021-05-05 13:18:29', 'ZBMS-202155-131829824000', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2587, '2021-05-05 13:18:29', '2021-05-05 13:18:29', 'ZBMS-202155-131829824000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'MOBILE', '1', '1', 'G', '260968309959'),
+	(2588, '2021-05-05 15:04:38', '2021-05-05 15:04:38', 'ZBMS-202155-15438418000', 'AS00000005', 'PUR_TIC_MOMO', 'D', 1.00, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2589, '2021-05-05 15:04:38', '2021-05-05 15:04:38', 'ZBMS-202155-15438418000', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2590, '2021-05-05 15:04:38', '2021-05-05 15:04:38', 'ZBMS-202155-15438418000', 'AS00000005', 'PUR_TIC_MOMO', 'C', 0.90, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2591, '2021-05-05 15:04:38', '2021-05-05 15:04:38', 'ZBMS-202155-15438418000', 'LI00000001', 'PUR_TIC_MOMO', 'C', 1.00, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2592, '2021-05-05 15:04:38', '2021-05-05 15:04:38', 'ZBMS-202155-15438418000', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2593, '2021-05-05 15:04:38', '2021-05-05 15:04:38', 'ZBMS-202155-15438418000', 'LI00000001', 'PUR_TIC_MOMO', 'D', 0.90, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2594, '2021-05-05 15:04:38', '2021-05-05 15:04:38', 'ZBMS-202155-15438418000', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2595, '2021-05-05 15:04:38', '2021-05-05 15:04:38', 'ZBMS-202155-15438418000', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2596, '2021-05-05 15:04:38', '2021-05-05 15:04:38', 'ZBMS-202155-15438418000', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2597, '2021-05-05 15:04:38', '2021-05-05 15:04:38', 'ZBMS-202155-15438418000', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2598, '2021-05-05 15:04:38', '2021-05-05 15:04:38', 'ZBMS-202155-15438418000', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2599, '2021-05-05 15:04:38', '2021-05-05 15:04:38', 'ZBMS-202155-15438418000', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2600, '2021-05-05 15:04:38', '2021-05-05 15:04:38', 'ZBMS-202155-15438418000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2601, '2021-05-05 15:30:15', '2021-05-05 15:30:15', 'ZBMS-202155-153015136000', 'AS00000005', 'PUR_TIC_MOMO', 'D', 1.00, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2602, '2021-05-05 15:30:15', '2021-05-05 15:30:15', 'ZBMS-202155-153015136000', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2603, '2021-05-05 15:30:15', '2021-05-05 15:30:15', 'ZBMS-202155-153015136000', 'AS00000005', 'PUR_TIC_MOMO', 'C', 0.90, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2604, '2021-05-05 15:30:15', '2021-05-05 15:30:15', 'ZBMS-202155-153015136000', 'LI00000001', 'PUR_TIC_MOMO', 'C', 1.00, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2605, '2021-05-05 15:30:15', '2021-05-05 15:30:15', 'ZBMS-202155-153015136000', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2606, '2021-05-05 15:30:15', '2021-05-05 15:30:15', 'ZBMS-202155-153015136000', 'LI00000001', 'PUR_TIC_MOMO', 'D', 0.90, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2607, '2021-05-05 15:30:15', '2021-05-05 15:30:15', 'ZBMS-202155-153015136000', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2608, '2021-05-05 15:30:15', '2021-05-05 15:30:15', 'ZBMS-202155-153015136000', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2609, '2021-05-05 15:30:15', '2021-05-05 15:30:15', 'ZBMS-202155-153015136000', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2610, '2021-05-05 15:30:15', '2021-05-05 15:30:15', 'ZBMS-202155-153015136000', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2611, '2021-05-05 15:30:15', '2021-05-05 15:30:15', 'ZBMS-202155-153015136000', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2612, '2021-05-05 15:30:15', '2021-05-05 15:30:15', 'ZBMS-202155-153015136000', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2613, '2021-05-05 15:30:15', '2021-05-05 15:30:15', 'ZBMS-202155-153015136000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260763585832'),
+	(2614, '2021-05-05 15:31:42', '2021-05-05 15:31:42', 'ZBMS-202155-153142588000', 'AS00000005', 'PUR_TIC_MOMO', 'D', 1.00, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2615, '2021-05-05 15:31:42', '2021-05-05 15:31:42', 'ZBMS-202155-153142588000', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2616, '2021-05-05 15:31:42', '2021-05-05 15:31:42', 'ZBMS-202155-153142588000', 'AS00000005', 'PUR_TIC_MOMO', 'C', 0.90, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2617, '2021-05-05 15:31:42', '2021-05-05 15:31:42', 'ZBMS-202155-153142588000', 'LI00000001', 'PUR_TIC_MOMO', 'C', 1.00, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2618, '2021-05-05 15:31:42', '2021-05-05 15:31:42', 'ZBMS-202155-153142588000', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2619, '2021-05-05 15:31:42', '2021-05-05 15:31:42', 'ZBMS-202155-153142588000', 'LI00000001', 'PUR_TIC_MOMO', 'D', 0.90, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2620, '2021-05-05 15:31:42', '2021-05-05 15:31:42', 'ZBMS-202155-153142588000', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2621, '2021-05-05 15:31:42', '2021-05-05 15:31:42', 'ZBMS-202155-153142588000', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2622, '2021-05-05 15:31:42', '2021-05-05 15:31:42', 'ZBMS-202155-153142588000', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2623, '2021-05-05 15:31:42', '2021-05-05 15:31:42', 'ZBMS-202155-153142588000', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2624, '2021-05-05 15:31:42', '2021-05-05 15:31:42', 'ZBMS-202155-153142588000', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2625, '2021-05-05 15:31:42', '2021-05-05 15:31:42', 'ZBMS-202155-153142588000', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2626, '2021-05-05 15:31:42', '2021-05-05 15:31:42', 'ZBMS-202155-153142588000', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'USSD', '1', '1', 'G', '260977948729'),
+	(2627, '2021-05-06 10:18:16', '2021-05-06 10:18:16', 'ZBMS-202156-1048367232', 'AS00000005', 'PUR_TIC_CASH', 'D', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2628, '2021-05-06 10:18:16', '2021-05-06 10:18:16', 'ZBMS-202156-1048367232', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2629, '2021-05-06 10:18:16', '2021-05-06 10:18:16', 'ZBMS-202156-1048367232', 'AS00000005', 'PUR_TIC_CASH', 'C', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2630, '2021-05-06 10:18:16', '2021-05-06 10:18:16', 'ZBMS-202156-1048367232', 'LI00000001', 'PUR_TIC_CASH', 'C', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2631, '2021-05-06 10:18:16', '2021-05-06 10:18:16', 'ZBMS-202156-1048367232', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2632, '2021-05-06 10:18:16', '2021-05-06 10:18:16', 'ZBMS-202156-1048367232', 'LI00000001', 'PUR_TIC_CASH', 'D', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2633, '2021-05-06 10:18:16', '2021-05-06 10:18:16', 'ZBMS-202156-1048367232', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2634, '2021-05-06 10:18:16', '2021-05-06 10:18:16', 'ZBMS-202156-1048367232', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2635, '2021-05-06 10:18:16', '2021-05-06 10:18:16', 'ZBMS-202156-1048367232', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2636, '2021-05-06 10:18:16', '2021-05-06 10:18:16', 'ZBMS-202156-1048367232', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2637, '2021-05-06 10:18:16', '2021-05-06 10:18:16', 'ZBMS-202156-1048367232', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2638, '2021-05-06 10:18:16', '2021-05-06 10:18:16', 'ZBMS-202156-1048367232', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2639, '2021-05-06 10:18:16', '2021-05-06 10:18:16', 'ZBMS-202156-1048367232', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2640, '2021-05-06 10:26:11', '2021-05-06 10:26:11', 'ZBMS-202156-10241374410', 'AS00000005', 'PUR_TIC_CASH', 'D', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2641, '2021-05-06 10:26:11', '2021-05-06 10:26:11', 'ZBMS-202156-10241374410', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2642, '2021-05-06 10:26:11', '2021-05-06 10:26:11', 'ZBMS-202156-10241374410', 'AS00000005', 'PUR_TIC_CASH', 'C', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2643, '2021-05-06 10:26:11', '2021-05-06 10:26:11', 'ZBMS-202156-10241374410', 'LI00000001', 'PUR_TIC_CASH', 'C', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2644, '2021-05-06 10:26:11', '2021-05-06 10:26:11', 'ZBMS-202156-10241374410', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2645, '2021-05-06 10:26:11', '2021-05-06 10:26:11', 'ZBMS-202156-10241374410', 'LI00000001', 'PUR_TIC_CASH', 'D', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2646, '2021-05-06 10:26:11', '2021-05-06 10:26:11', 'ZBMS-202156-10241374410', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2647, '2021-05-06 10:26:11', '2021-05-06 10:26:11', 'ZBMS-202156-10241374410', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2648, '2021-05-06 10:26:11', '2021-05-06 10:26:11', 'ZBMS-202156-10241374410', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2649, '2021-05-06 10:26:11', '2021-05-06 10:26:11', 'ZBMS-202156-10241374410', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2650, '2021-05-06 10:26:11', '2021-05-06 10:26:11', 'ZBMS-202156-10241374410', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2651, '2021-05-06 10:26:11', '2021-05-06 10:26:11', 'ZBMS-202156-10241374410', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2652, '2021-05-06 10:26:11', '2021-05-06 10:26:11', 'ZBMS-202156-10241374410', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2653, '2021-05-06 10:30:25', '2021-05-06 10:30:25', 'ZBMS-202156-102944470776', 'AS00000005', 'PUR_TIC_CASH', 'D', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2654, '2021-05-06 10:30:25', '2021-05-06 10:30:25', 'ZBMS-202156-102944470776', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2655, '2021-05-06 10:30:25', '2021-05-06 10:30:25', 'ZBMS-202156-102944470776', 'AS00000005', 'PUR_TIC_CASH', 'C', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2656, '2021-05-06 10:30:25', '2021-05-06 10:30:25', 'ZBMS-202156-102944470776', 'LI00000001', 'PUR_TIC_CASH', 'C', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2657, '2021-05-06 10:30:25', '2021-05-06 10:30:25', 'ZBMS-202156-102944470776', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2658, '2021-05-06 10:30:25', '2021-05-06 10:30:25', 'ZBMS-202156-102944470776', 'LI00000001', 'PUR_TIC_CASH', 'D', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2659, '2021-05-06 10:30:25', '2021-05-06 10:30:25', 'ZBMS-202156-102944470776', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2660, '2021-05-06 10:30:25', '2021-05-06 10:30:25', 'ZBMS-202156-102944470776', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2661, '2021-05-06 10:30:25', '2021-05-06 10:30:25', 'ZBMS-202156-102944470776', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2662, '2021-05-06 10:30:25', '2021-05-06 10:30:25', 'ZBMS-202156-102944470776', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2663, '2021-05-06 10:30:25', '2021-05-06 10:30:25', 'ZBMS-202156-102944470776', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2664, '2021-05-06 10:30:25', '2021-05-06 10:30:25', 'ZBMS-202156-102944470776', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2665, '2021-05-06 10:30:25', '2021-05-06 10:30:25', 'ZBMS-202156-102944470776', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '0977964057'),
+	(2666, '2021-05-06 10:43:08', '2021-05-06 10:43:08', 'ZBMS-202156-104144921047', 'AS00000005', 'PUR_TIC_CASH', 'D', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2667, '2021-05-06 10:43:08', '2021-05-06 10:43:08', 'ZBMS-202156-104144921047', 'AS00000005', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2668, '2021-05-06 10:43:08', '2021-05-06 10:43:08', 'ZBMS-202156-104144921047', 'AS00000005', 'PUR_TIC_CASH', 'C', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2669, '2021-05-06 10:43:08', '2021-05-06 10:43:08', 'ZBMS-202156-104144921047', 'LI00000001', 'PUR_TIC_CASH', 'C', 1.00, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2670, '2021-05-06 10:43:08', '2021-05-06 10:43:08', 'ZBMS-202156-104144921047', 'LI00000001', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2671, '2021-05-06 10:43:08', '2021-05-06 10:43:08', 'ZBMS-202156-104144921047', 'LI00000001', 'PUR_TIC_CASH', 'D', 0.90, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2672, '2021-05-06 10:43:08', '2021-05-06 10:43:08', 'ZBMS-202156-104144921047', 'AS00000008', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2673, '2021-05-06 10:43:08', '2021-05-06 10:43:08', 'ZBMS-202156-104144921047', 'AS00000008', 'CRD_NTE', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2674, '2021-05-06 10:43:08', '2021-05-06 10:43:08', 'ZBMS-202156-104144921047', 'IN00000002', 'COMM', 'C', 0.08, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2675, '2021-05-06 10:43:08', '2021-05-06 10:43:08', 'ZBMS-202156-104144921047', 'LI00000004', 'VAT', 'C', 0.02, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2676, '2021-05-06 10:43:08', '2021-05-06 10:43:08', 'ZBMS-202156-104144921047', 'LI00000003', 'COMM', 'C', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2677, '2021-05-06 10:43:08', '2021-05-06 10:43:08', 'ZBMS-202156-104144921047', 'LI00000003', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797'),
+	(2678, '2021-05-06 10:43:08', '2021-05-06 10:43:08', 'ZBMS-202156-104144921047', 'AS00000006', 'COMM', 'D', 0.10, 'FY2021', 'A', 'TELLER', '4', '4', 'G', '260950773797');
 /*!40000 ALTER TABLE `probase_tbl_transactions` ENABLE KEYS */;
 
 -- Dumping structure for table btmms.probase_tbl_travel_routes
@@ -6417,7 +7497,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_travel_routes` (
 
 -- Dumping data for table btmms.probase_tbl_travel_routes: ~5 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_travel_routes` DISABLE KEYS */;
-INSERT INTO `probase_tbl_travel_routes` (`id`, `route_name`, `start_route`, `end_route`, `route_code`, `ticket_id`, `route_fare`, `source_state`, `route_uuid`, `inserted_at`, `updated_at`, `created_at`, `deleted_at`, `maker_id`, `checker_id`, `auth_status`, `maker`, `checker`, `maker_date_time`, `checker_date_time`, `user_description`, `system_description`, `parent`) VALUES
+INSERT IGNORE INTO `probase_tbl_travel_routes` (`id`, `route_name`, `start_route`, `end_route`, `route_code`, `ticket_id`, `route_fare`, `source_state`, `route_uuid`, `inserted_at`, `updated_at`, `created_at`, `deleted_at`, `maker_id`, `checker_id`, `auth_status`, `maker`, `checker`, `maker_date_time`, `checker_date_time`, `user_description`, `system_description`, `parent`) VALUES
 	(5, 'LUSAKA', 'Livingstone', 'LUSAKA', 'LIVLUS', NULL, 1, 'Livingstone', 'fIkaMWQ3w8vK7XWI', '2020-06-29 08:20:08', '2020-06-29 08:20:08', NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 0),
 	(6, 'CHOMA', 'Livingstone', 'CHOMA', 'LIVCHO', NULL, 1, 'Livingstone', 'zIljJp2Ug9LfW9zP', '2020-06-29 08:20:24', '2020-06-29 08:20:24', NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 5),
 	(7, 'MAZABUKA', 'Livingstone', 'MAZABUKA', 'LIVMAZ', NULL, 1, 'Livingstone', 'fCFMClJXxpGCbF6e', '2020-06-29 08:20:42', '2020-06-29 08:20:42', NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 6),
@@ -6468,49 +7548,53 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_users` (
   `compliance` tinyint(1) DEFAULT '0',
   `employer_number` varchar(255) DEFAULT '-',
   `dob` varchar(17) DEFAULT NULL,
+  `sex` varchar(4) DEFAULT NULL,
+  `bank_message` varchar(2000) DEFAULT NULL,
+  `bank_account_status` varchar(255) DEFAULT NULL,
+  `bank_account_balance` float DEFAULT '0',
+  `bank_srcBranch` varchar(4) DEFAULT NULL,
+  `bank_destBranch` varchar(4) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_probase_tbl_users_deleted_at` (`deleted_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table btmms.probase_tbl_users: ~36 rows (approximately)
+-- Dumping data for table btmms.probase_tbl_users: ~38 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_users` DISABLE KEYS */;
-INSERT INTO `probase_tbl_users` (`id`, `username`, `password`, `first_name`, `last_name`, `ssn`, `role`, `email`, `mobile`, `tel`, `uuid`, `nrc`, `account_status`, `operator_role`, `pin`, `tmp_pin`, `company`, `account_type`, `account_number`, `inserted_at`, `updated_at`, `created_at`, `deleted_at`, `token`, `auth_status`, `maker`, `checker`, `maker_date_time`, `checker_date_time`, `user_description`, `system_description`, `status`, `role_id`, `apply_discount`, `discount_amount`, `discount_reason`, `compliance`, `employer_number`, `dob`) VALUES
-	(1, 'manager', 'B109F3BBBC244EB82441917ED06D618B9008DD09B3BEFD1B5E07394C706A8BB980B1D7785E5976EC049B46DF5F1326AF5A2EA6D103FD07C95385FFAB0CACBC86', 'Mubukwanu', 'Mubukwanu', '204205612', 'ADMIN', 'admin@probasegroup.com', '+260950773797', NULL, NULL, '000000/00/0', 'ACTIVE', 'ADMINISTRATOR', NULL, NULL, NULL, NULL, '1', '2020-06-20 00:00:00', '2021-02-14 21:23:02', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', '01 Jan 1974'),
-	(2, 'bop', 'B109F3BBBC244EB82441917ED06D618B9008DD09B3BEFD1B5E07394C706A8BB980B1D7785E5976EC049B46DF5F1326AF5A2EA6D103FD07C95385FFAB0CACBC86', 'operator', 'zambia', '204205612', 'BOP', 'chaikatishar@napsa.co.zm', '260978968888', NULL, NULL, '000000/00/0', 'ACTIVE', 'BUS OPERATOR', NULL, NULL, 'NAPSA_BUS_SERVICES', NULL, '1010037749591', '2020-06-20 00:00:00', '2021-02-14 21:23:03', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', '01 Jan 1974'),
-	(3, 'mop', 'B109F3BBBC244EB82441917ED06D618B9008DD09B3BEFD1B5E07394C706A8BB980B1D7785E5976EC049B46DF5F1326AF5A2EA6D103FD07C95385FFAB0CACBC86', 'marketeer', 'zambia', '204205612', 'MOP', 'marketeer@btmsnapsa.com', '+260950773797', NULL, NULL, '000000/00/0', 'ACTIVE', 'MARKETER', NULL, NULL, NULL, NULL, '3', '2020-06-20 00:00:00', '2021-02-14 21:23:04', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', '01 Jan 1974'),
-	(4, 'teller', 'B109F3BBBC244EB82441917ED06D618B9008DD09B3BEFD1B5E07394C706A8BB980B1D7785E5976EC049B46DF5F1326AF5A2EA6D103FD07C95385FFAB0CACBC86', 'teller', 'zambia', '204205612', 'TOP', 'teller@btmsnapsa.com', '+260950773797', NULL, NULL, '000000/00/0', 'ACTIVE', 'TELLER', NULL, NULL, NULL, NULL, '3', '2020-06-20 00:00:00', '2021-02-14 21:23:05', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', '01 Jan 1974'),
-	(19, 'mary.banda', '5A3D91F4FBF04B1F3FDF0AB59212D17AD82191B9C0466EC61061952FF8D4D1D4F4FEAD9BBE8A0BA277182F097B45B6E3249047E78895986C6F59FE6549A84E4A', 'Mary', 'Banda', '205459367', 'TOP', 'marybanda@btmms.co.zm', '260963933311', NULL, '2020-9376881259-6-0465-29', '123456/12/1', 'ACTIVE', 'TELLER', '77A66228302DE37FA1A0305D91AE3FA526C7AD2BA466AF845F44F452DDDE05FB1C6761D6E1A8CEB76992D8215F79C3D8C368F1C873E981E7C65B3E324B84854C', NULL, NULL, NULL, '0000000006', '2020-06-29 08:02:06', '2021-02-14 21:23:06', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', '02 Jun 1971'),
-	(20, 'officer', 'B109F3BBBC244EB82441917ED06D618B9008DD09B3BEFD1B5E07394C706A8BB980B1D7785E5976EC049B46DF5F1326AF5A2EA6D103FD07C95385FFAB0CACBC86', 'Joe', 'Siame', '-', 'SOP', 'joe.siame@btmms.co.zm', '260966667293', NULL, '2020-5056378943-6-4316-29', '123456/12/2', 'ACTIVE', 'TELLER', '544C7E504CFDE314441231F135DCB83470CBA21959F2A14857C044A3DFBC4F60C6E5BB296CC41097DFE84F356A8182381BBF22EF3543F7D7EAE4276143C1541E', NULL, NULL, NULL, '0000000007', '2020-06-29 08:04:22', '2020-06-29 08:04:22', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL),
-	(22, 'flexi', 'B109F3BBBC244EB82441917ED06D618B9008DD09B3BEFD1B5E07394C706A8BB980B1D7785E5976EC049B46DF5F1326AF5A2EA6D103FD07C95385FFAB0CACBC86', NULL, NULL, '-', 'FOP', 'chigomaw@napsa.co.zm', '260977963982', NULL, '2020-2006766497-6-6325-29', '123456/12/4', 'ACTIVE', 'BUS OPERATOR', '4BB074918EED43C7FA982C89405AD5BFF86C8C215F0CE3EC056AD21C35BEA0733577F2781D532911479403AE5C35942B7C9649E0438830F5815449B7C70D37B5', NULL, 'Metrolink', NULL, '0000000009', '2020-06-29 08:16:41', '2020-06-29 08:16:41', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL),
-	(23, 'power', 'B109F3BBBC244EB82441917ED06D618B9008DD09B3BEFD1B5E07394C706A8BB980B1D7785E5976EC049B46DF5F1326AF5A2EA6D103FD07C95385FFAB0CACBC86', NULL, NULL, '-', 'BOP', 'chigomaw@napsa.co.zm', '260977963982', NULL, '2020-0626937160-6-6767-29', '123456/12/5', 'ACTIVE', 'BUS OPERATOR', '5A51E6F7AC3D659C0918BD776E13DD1CCF3D59649F1FA59242EAEAFA5018B285A8DCB72F9781516D39B78F9AE0C1469A8E52733212A6620318CDB6428B1F3FB5', NULL, 'PowerTools', NULL, '00000000010', '2020-06-29 08:19:17', '2020-06-29 08:19:17', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL),
-	(24, 'jane.haangala', '620FDAC889B4E310CD96E8FEA6FB43C38DA3C608AFE874E0B7FDF0FD3BF01122C1A078F9401C81DE8A09BAE97DF71DF35AC89FDD642016BA13F124B8223949F9', 'Jane', 'Haangala', '-', 'TOP', 'jane.haangala@btmms.co.zm', '260968309959', NULL, '2020-7263096036-6-7022-29', '123456/12/8', 'ACTIVE', 'TELLER', '7552C40FEDC12DE8213B803B7A2BBB964573423DE9E74F4F07C0E1841C55591D62512488ACFCC955F04DCB1EB34DB484C876535573D5E3A461F2F7549C0C0DAB', NULL, NULL, NULL, '000000000111', '2020-06-29 08:27:04', '2020-06-29 08:27:04', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL),
-	(33, 'MundiaM', '2CF35CA07D8698AA2AA22AA6EE7088968E31609FA68E8CF087707D09B6DF28CD0A376559B4B18CEACC574F1AED9F1E120412AE15D49ABEE294DC4F8C480BA040', 'Mundia', 'Mwanambuyu', '-', 'ADMIN', 'MwanambuyuM@napsa.co.zm', '260967993270', NULL, '2020-5114015869-6-5638-30', '145210/11/1', 'ACTIVE', 'ADMINISTRATOR', 'D377CDC8E9553D08095821821FCE79C0F0A2DFF4637F1E2CF8B0576AAC45B96FACBE95EDF5BB39C695A98C4BA525C0BA86C5FE8246C61A57C0E266802CE2969F', NULL, NULL, NULL, '12345687920', '2020-06-30 12:27:16', '2020-06-30 12:27:16', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL),
-	(34, 'WillyC', '68DB0AD537039F0A57CB0093A4B8D9BFEBF8822D176DC917084023B96D622117C4D6DD2DF2B19CD626FE27993AC94A83FF33ADF06C91BC74A71A53D728EA359B', 'Willy', 'Chigoma', '-', 'BOP', 'ChigomaW@napsa.co.zm', '260977963982', NULL, '2020-3542383295-6-1110-30', '14250/11/1', 'ACTIVE', 'BUS OPERATOR', '1CC057A1C2EC5D6DA3FE4EF5A0900B78776ADD75B075A2FBCDC8181C2D1D6DBA97366CC7E59A26F9811FE669E4F1BD12FD4E8F0A59E46D18827228770D3F468C', NULL, 'Chigoma Travelling', NULL, '12345', '2020-06-30 12:30:10', '2020-06-30 12:44:08', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL),
-	(35, 'AbiN', 'C9F1DD4B856B88E51CDCEFB2734525DAA3F7747AFC526E5175B78BBD43E554BCEF0BDB9B0C08733C1C9C746F1125809046A404F3D9391E880CB9366DBF839792', 'Abigail', 'Ngosa', '-', 'TOP', 'NgosaA@napsa.co.zm', '260973494434', NULL, '2020-0206828335-6-4281-30', '452180/11/1', 'ACTIVE', 'TELLER', '324BCA1ECCA4DFFDC0D7C0595A1132DFEDECE93F62CAECD541102547CE201AB8CF18CAEE4DB1E564A362B49F4CC204CD9E20CFA2A2AFEF29416F9BEB76C21E60', NULL, NULL, NULL, '54821420', '2020-06-30 12:35:15', '2020-06-30 12:35:15', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL),
-	(37, 'MandelaM', 'B5A02CF48A5AA09915763B35CDD59961F0E972A57B127BF2E7CEDA1E8ECCC168786FA4376CF187056271C62F86F1DA2BA88A42333BC1A82D14101BBFBA880A0B', NULL, NULL, '-', 'BOP', 'mandelamusipu@gmail.com', '260965030819', NULL, '2020-1830391924-7-6062-2', '554857/25/1', 'ACTIVE', 'BUS OPERATOR', '2A444D100F736BEE2ACCDDF4F1BDDA71D1008C9B5B65E8C4223D11EACAE232FF27B511181A446F2F456894705D7668D89F55D9EAD597CCB987662870EC34382D', NULL, 'Mandela Highways', NULL, '85423658', '2020-07-02 07:21:00', '2020-07-02 07:21:00', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL),
-	(38, 'Ason Banda', '63EB076B3F9CAFA29DD03D2CDF1AEB67C75918D7CC924FA65DFF1FBAD0EF6BB99CB3EA86AA23F1933E008D9FBD7BCD60B296E6C459F50FABE55E0764C22A9C3B', NULL, NULL, '-', 'BOP', 'ABanda@napsa.co.zm', '260977813346', NULL, '2020-8170418002-7-3153-2', '542878/12/1', 'ACTIVE', 'BUS OPERATOR', 'AD50272CC7E87028450989A729E1533236EE15F3B18367481B2633AE451CC54A0C6A28BCB3EFAD71BADDD590F54168346206D1A59063E6085A389670618D5F8A', NULL, 'Ason Travels', NULL, '5428924', '2020-07-02 12:20:53', '2020-07-02 12:20:53', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL),
-	(39, 'bus.op', 'A8B4C3D9C44521E7489BFF0AF68FB84BF9B9AE0BD61B4FA1CC92BBE9E040BA2489CB3E0AB0C76A08062BAD0E9681BBA8675BC216538A4EDD764876223AFD45EF', NULL, NULL, '-', 'BOP', 'bus@ops.com', '260978003311', NULL, '2020-6152167022-7-2805-3', '123456/67/8', 'ACTIVE', 'BUS OPERATOR', 'B6C245E55C37195386C34470E293905DECA3EF3EAF2FD6AEB07CB6C263298637AF423D469F57FEDF8238A81A193BC060231886B6071A6046B2182582A707802D', NULL, 'BUS Tours', NULL, '123456778899945', '2020-07-03 10:01:35', '2020-07-03 10:01:35', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL),
-	(41, 'Mwiinga', '3A7B85C1F7E1EA36FBDCFDE6A9538AF7D761CC29C1E65F6144630870D28302C769476D5AF0B77E90A3149EF14C1CC6BDA71220F7F6B784682A713D91F652B03B', NULL, NULL, '-', 'BOP', 'Mwiingam@napsa.co.zm', '+0977891462', NULL, '2020-4393069894-7-1785-3', '21232/84/1', 'ACTIVE', 'BUS OPERATOR', 'EF3BBD56D49CE8445E564EE596DFF7BB7903188D1B1F2422B2DBA483CFCCB63818331B2E71B3C99A90E3563627A0E71A0476D0EFE8B065EF676FAAF51FF042F9', NULL, 'Mwiimga and Sons', NULL, '2525256', '2020-07-03 15:21:23', '2020-07-03 15:21:23', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL),
-	(49, 'shalom', 'B109F3BBBC244EB82441917ED06D618B9008DD09B3BEFD1B5E07394C706A8BB980B1D7785E5976EC049B46DF5F1326AF5A2EA6D103FD07C95385FFAB0CACBC86', NULL, NULL, '-', 'BOP', 'chaikatishar@napsa.co.zm', '260978968888', NULL, '2020-1825911267-9-0244-28', '123456/78/9', 'ACTIVE', 'BUS OPERATOR', '06762D8A4E0F925C8A1870136EBE594ADFB467D34FA5E16353521173F127560A25CE1D34FB7A33AB50ADAFC3E8DDF4FA6C5194ABB94DEC1C708DA0FD248D5335', NULL, 'SHALOM', NULL, '1010037749591', '2020-09-28 14:53:55', '2020-09-28 15:03:37', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL),
-	(50, 'ChigomaW', 'B109F3BBBC244EB82441917ED06D618B9008DD09B3BEFD1B5E07394C706A8BB980B1D7785E5976EC049B46DF5F1326AF5A2EA6D103FD07C95385FFAB0CACBC86', NULL, NULL, '-', 'BOP', 'willychigomajunior@gmail.com', '260977963982', NULL, '2020-7010360370-9-7092-29', '2058714/52/1', 'OTP', 'BUS OPERATOR', 'D5318B7B2E42FDC36D823E8C16581CB5C6CC7ED5759C5AD148738570A6FA1D509B218B77748965FFDEE63497EF9951B27C95822FF9FED65E3D3612B35968FC50', NULL, 'Chigoma Travels', NULL, '1010037749591', '2020-09-29 10:29:23', '2020-09-29 10:29:23', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL),
-	(51, 'KennedyK', 'B109F3BBBC244EB82441917ED06D618B9008DD09B3BEFD1B5E07394C706A8BB980B1D7785E5976EC049B46DF5F1326AF5A2EA6D103FD07C95385FFAB0CACBC86', NULL, NULL, '-', 'BOP', 'kaelaK@napsa.co.zm', '260977275958', NULL, '2020-2039513309-9-9470-30', '78545/10/1', 'ACTIVE', 'BUS OPERATOR', '5CAAE4757E4436EB90B5F2D9E2702A933BBFACE675F64445BF9D2D25A02F1D095476862DF243FC9695287D430F7DAC612A9562A7850C85810FC58F54D1A3C45A', NULL, 'KKK Travels', NULL, '65894569852', '2020-09-30 13:16:51', '2020-09-30 13:16:51', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL),
-	(55, 'bopp2', '7FFE5CD4D1B018DE40EC210E2296977773B9E60A448F8F5BE754CD7F67CDDFBD21B6C04591C56C98DC081A5E1E745B90F55318368E2A106028A9D4BC677D0462', 'CHILEYA', 'CHANI', '120336474', 'BOP', 'chaniphilip@gmail.com', '0950773797', NULL, '2020-6765624918-12-5296-16', '341565/43/1', 'OTP', 'BUS OPERATOR', '713DC2CD362EC344C8E34F52685E1CF4E5A190F7C5CA5EFFC3C0DB79628544C88564E78862E287B80ADA68BC1648DE85BC273B9AB502E67A9AE8AA44AA70B81E', NULL, 'Probase', NULL, '000125558996578674', '2020-12-16 07:39:57', '2021-02-14 21:23:19', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', '30 Apr 1995'),
-	(56, 'bopp3', 'E3C3203F8FAD5C3DD8A71B905810B36CBF61E4CA1BA6DA61E4F0B73A83699BBD3AB8A8C3E87A93BE91BF16ED21BCFE9F9C2F16D449254864E95A7029F77A9D77', 'CHILEYA', 'CHANI', '120336474', 'BOP', 'chaniphilip@gmail.com', '0950773797', NULL, '2020-9033736799-12-1309-16', '341565/43/1', 'OTP', 'BUS OPERATOR', '73F84D8371713C84E4D8AEA3359DF7DB61836DA13730E94E3BD439D493A9F8C1C29B1671FD117F66BA4A007028C5C69F3D5A342DBCE10BAE7690B6A91ED3DC35', NULL, 'Probase', NULL, '000125558996578676', '2020-12-16 07:49:14', '2021-02-14 21:23:21', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '30 Apr 1995'),
-	(57, 'bopp4', '9EF9DEB8084E9EE79D93E6110F3802270599290931D70AB1A7BC61AC6366CA3D0A310412A13F9D64CD32815ACD25FBC1D0F2CB8EFFC800B35072D17A7950EF91', 'CHILEYA', 'CHANI', '120336474', 'BOP', 'chaniphilip@gmail.com', '0950773797', NULL, '2020-7351087718-12-2942-16', '341565/43/1', 'OTP', 'BUS OPERATOR', '915FDF786F52C0583649986C8FEC96257B07516B91BF3D01B17B405153B9C09768AEC4A195D9E710CFD51C1E1DAEE692971FE82CF9E38CB73B2B541F3FB64A0A', NULL, 'Probase', NULL, '0001255589960000000', '2020-12-16 08:02:33', '2021-02-14 21:23:21', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '30 Apr 1995'),
-	(58, 'mazhandu', '52A3303F2E44B9712A818C2FB6A1A7EE34E2974BF42215437E96512B882E923479FB1DA4686230B5A17695DC3652B5D9B118FB29AE69105E65C844132417E4C6', 'MASUMBA', 'CHAIKATISHA', '111499412', 'BOP', 'roy.chaikatisha@gmail.com', '0978968888', NULL, '2020-9539986879-12-3566-16', '142855/10/1', 'OTP', 'BUS OPERATOR', '48BE9CC9E1BD4D6E6761AA1FE5F3892F84FB697C63D4DEFAE9BF7D7FC6C02A5AF8F91A850EAAC644E1F5418B8F6314716A2327F13F1603770D16A589F882B631', NULL, 'Mazhandu Limited', NULL, '082312083u274', '2020-12-16 14:03:27', '2021-02-14 21:23:22', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '26 Nov 1988'),
-	(61, '.mwalem', '9BD198A469CA7F32EEB4616D82EA35173F1097BA34B7862B8572FC993CBDEC3335586E73B949FBBE106CF6B4AEA8C712789670B1D7BBB4FD105B89D39E3C2DC2', 'MAKONDE', 'MWALE', '113437400', 'MOP', 'deepmakonde@gmail.com', '260977948729', NULL, '2021-3747474048-2-0163-15', '987688/11/1', 'ACTIVE', 'MARKETER', '3627909A29C31381A071EC27F7C9CA97726182AED29A7DDD2E54353322CFB30ABB9E3A6DF2AC2C20FE23436311D678564D0C8D305930575F60E2D3D048184D79', NULL, NULL, NULL, '260977948729', '2021-02-15 12:56:35', '2021-03-02 22:50:52', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '01 Sep 1989'),
-	(62, 'makondem', '14BFECB1D42E64719FC7618B805F0CC13984F9CF86DF72F7B93BE95AB908F4D9EEB1CAA431AF4962D655BC8DBCB64F17F7A83FBD99C6B5EEC77A470959B038A9', 'MAKONDE', 'MWALE', '113437400', 'MOP', 'deepmakonde@gmail.com', '260955040826', NULL, '2021-4508945678-2-0811-15', '987688/11/1', 'ACTIVE', 'MARKETER', '3627909A29C31381A071EC27F7C9CA97726182AED29A7DDD2E54353322CFB30ABB9E3A6DF2AC2C20FE23436311D678564D0C8D305930575F60E2D3D048184D79', NULL, NULL, NULL, '260968309959', '2021-02-15 12:58:13', '2021-03-02 22:45:52', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '01 Sep 1989'),
-	(63, 'SIMON ', '3FCEFFB3A8F80497E882CD5304BC43692018E656F27ED6E2023A9E691428FB98D6EC0244819D92B810C274BFBCAEBE0FC8433AD4DC204C0414CE6D181EF06A75', 'SIMON HAWATICHKE', 'CHIWAMBA', '104004577', 'MOP', 'simon@gmail.com', '260955924419', NULL, '2021-5621616343-2-3331-15', '236974/68/1', 'OTP', 'MARKETER', '54A8C5DD16F5FB41E7361B18BD377E437118FACAAC2A95E77B9DD01FC0E88DC073D338594BBB0DE5F4037AFF0A3C2A28BCA0B1DC4BCEB9CDC86C375101D7D3D8', NULL, NULL, NULL, '260955924419', '2021-02-15 13:09:44', '2021-02-17 06:30:36', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '14 Mar 1980'),
-	(64, 'HAWATICHKE', '02DC2C651CBD701340A8170FF71756E668CF3850AC8DCF24289FF737E118BC1D8B0AFA17F87E0C22B91AAF78EB063FDB4B6286B6A50D7237A6FDD5F649682752', 'SIMON HAWATICHKE', 'CHIWAMBA', '104004577', 'MOP', 'HAWATICHKE@gmail.com', '260967485331', NULL, '2021-3265609246-2-7836-15', '236974/68/1', 'ACTIVE', 'MARKETER', '0C2A101831FBE59766B2A7D02675F2BC03922D3293883461E278AD81499369770846FB9E1FDD4F8B406F13FBC0123D10565E2F9AC2DF0E1DAD5BD817EA16EB9F', NULL, NULL, NULL, '260967485331', '2021-02-15 13:15:49', '2021-02-15 13:15:49', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '14 Mar 1980'),
-	(65, 'FRANCIS', '1060812151FD158B4BB68D846EB19C3C144027963823212F72D1DD1C02A5BB0DC9ED08EE6B647621D103D28E1FE5712203995623AB86D1B57D8724B339E16CDC', 'FRANCIS', 'CHULU', '112127789', 'MOP', 'FRANCIS@gmail.com', '260978981576', NULL, '2021-8383786530-2-4621-15', '181139/10/1', 'ACTIVE', 'MARKETER', '3627909A29C31381A071EC27F7C9CA97726182AED29A7DDD2E54353322CFB30ABB9E3A6DF2AC2C20FE23436311D678564D0C8D305930575F60E2D3D048184D79', NULL, NULL, NULL, '260978981576', '2021-02-15 13:25:58', '2021-02-17 07:33:49', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '29 Dec 1989'),
-	(66, 'CHULU', '2FFF5895CCE7B4EA36FB19AAA55B9A7BAA3D1185F8A2D23C5BC333F3062FA59E723AF70C982BBE33EB6CE50171CBBAD9D32E0C3607D8B04BEA0AA6F80CABAA26', 'FRANCIS', 'CHULU', '112127789', 'MOP', 'CHULU@gmail.com', '260969240309', NULL, '2021-7483076057-2-8456-15', '181139/10/1', 'ACTIVE', 'MARKETER', '3627909A29C31381A071EC27F7C9CA97726182AED29A7DDD2E54353322CFB30ABB9E3A6DF2AC2C20FE23436311D678564D0C8D305930575F60E2D3D048184D79', NULL, NULL, NULL, '260969240309', '2021-02-15 13:29:26', '2021-02-18 15:51:37', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '29 Dec 1989'),
-	(67, 'CHIMUKA', 'A6CE6DC06133C5A6A2768BB2971939A651FB4CFCF9B59B99B011BE936AD71CEB6D0D1D81E15948A6EE15D972B08BDB97A4DA7318138311731CF24CB3E505DA21', 'CHIMUKA', 'MOONDE', '112580759', 'MOP', 'CHIMUKA@gmail.com', '260973297682', NULL, '2021-5285735976-2-4041-15', '284631/10/1', 'ACTIVE', 'MARKETER', 'FB712AC2A31E6A4868098C88FB1CE95AA009AEF060DE9BAFB981B21AF35F27B0813D22640DFB3B54D1848436664E289C43B7677F0526B11694C92BE000BA14DB', NULL, NULL, NULL, '260973297682', '2021-02-15 13:44:17', '2021-02-15 13:44:17', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '20 May 1993'),
-	(68, 'MOONDE', '5E0DBA2AD5EFE1006CC0E53F8AA5A8109CB1368C0EB4D770D3B64FBBB044B4291FA76301A1027EC8F56D795D3405BBD11DCA4D3E1148DDB3DCAAA6550A31E624', 'CHIMUKA', 'MOONDE', '112580759', 'MOP', 'MOONDE@gmail.com', '260962284087', NULL, '2021-6729360363-2-6338-15', '284631/10/1', 'ACTIVE', 'MARKETER', '612CE3A6E2140F5399FC8465A88A60741F36F681EE5DB9965BF18CBC375E0D25A6EDB61597E1F928F11682FC92A1FBB8B48985DC9448EC808E58C93F6E414A5B', NULL, NULL, NULL, '260962284087', '2021-02-15 13:45:20', '2021-02-15 13:45:20', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '20 May 1993'),
-	(69, 'DANNY', '9843AA27A0608B4F3D11C914A5FFB4CE2F08F334DEAF0E3FC85E97BB2CB15156C41F70497CF43765B75779E272E059ACE13FB700678166FD526960967862E531', 'DANNY', 'LEZA', '106483551', 'MOP', 'DANNY@gmail.com', '260977617777', NULL, '2021-1798440027-2-8935-15', '113338/18/1', 'ACTIVE', 'MARKETER', 'E0D5FB353424A9A853EAE9149C786ADE6A386FAAC4046508B621B369E017979A54CCC951D0C9ACAC1D08E07E93DC18DC01C2FA93E909FAA80D0619F0F9910276', NULL, NULL, NULL, '260977617777', '2021-02-15 13:49:41', '2021-02-15 13:49:41', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '02 Jun 1976'),
-	(70, 'dannyleza', '0AABD909ACE2BD9C3DF44AF6D754CE31594EEE46E95EE7E7EDD5D3D124464EDC84440A38F16AB7C1037C5FB2714C8011A39D2DC895E97428137F795137D03A89', 'DANNY', 'LEZA', '106483551', 'MOP', 'deep@gmail.com', '0763585832', NULL, '2021-1582278288-3-0788-1', '113338/18/1', 'ACTIVE', 'MARKETER', 'BD324E9A774068C9D029914730B3E9E6E61A765308B3A0E7175A5EA8474BABA02CFE7516DF0368252B523E4FF3672FEBF8762B1742875FD64941758A72C4792F', NULL, NULL, NULL, '0763585832', '2021-03-01 11:11:03', '2021-03-01 11:11:03', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '02 Jun 1976'),
-	(72, 'smanager', 'B109F3BBBC244EB82441917ED06D618B9008DD09B3BEFD1B5E07394C706A8BB980B1D7785E5976EC049B46DF5F1326AF5A2EA6D103FD07C95385FFAB0CACBC86', 'CHILEYA', 'CHANI', '120336474', 'SADMIN', 'chaniphilip@gmail.com4', '0970210154', NULL, '2021-2247467789-3-8291-15', '341565/43/1', 'ACTIVE', 'ADMINISTRATOR', 'ADD748FA483E05CE54E2FE29537EC74AAE7AB79ABCC7CED6E48FBE5856817E8F7B36FCBE52EE13BFE35B0B692391483FACDFBD9CE190ABCB326EB27FFB1327D4', NULL, NULL, NULL, '000125558996578661', '2021-03-15 04:33:19', '2021-03-15 04:33:19', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '30 Apr 1995'),
-	(74, '0950003955', '4AED1FD2695890443C04389A687AA8FB1C47841E3ABFA3EE0E1E26D2864211AE06D22FFA3595A71E17A9FC123615AED80E2EA816CF37F463EF4719D5A25CED36', 'MAKONDE', 'MWALE', '113437400', 'MOP', 'deep@gmail.com', '0950003955', NULL, '2021-8899836569-3-3930-24', '987688/11/1', 'ACTIVE', 'MARKETER', 'B0D400BDA69FB963F089B37B18A718AE30A38DADDDECCFD4B29F839FF32C2443D5D0AC46C1E6690ECFC84E0964539C03DBD9D6D7C448447F8708CE91481C5589', NULL, NULL, NULL, '0950003955', '2021-03-24 09:49:14', '2021-03-24 09:49:14', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '01 Sep 1989'),
-	(75, 'chitundu', '87B2CBFFE4A7E801199F5857CFA1088BA839CDF0BA3AB0BDAC35075660DFD7376CA9080343B2AA5D6AFEA7A8FCC2B935445B80D64721F5C3520979741AD1E63F', 'MUCHELEKA', 'PHIRI', '621928736', 'BOP', 'phiric@napsa.co.zm', '0978926764', NULL, '2021-8612258890-3-0491-24', '324134/51/1', 'OTP', 'BUS OPERATOR', 'F1EC123DD97BF92C0028F24D1A48A733E114C850E99E06576040A1ACF454B4243B85C953EF36E448C958F1B7EDA3BCFCAF9C11FBAD1E1033401A81B43EE1D77E', NULL, 'NAPSA BUS SERVICES', NULL, '54945455454', '2021-03-24 10:20:48', '2021-03-24 10:20:48', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '28 Nov 1978');
+INSERT IGNORE INTO `probase_tbl_users` (`id`, `username`, `password`, `first_name`, `last_name`, `ssn`, `role`, `email`, `mobile`, `tel`, `uuid`, `nrc`, `account_status`, `operator_role`, `pin`, `tmp_pin`, `company`, `account_type`, `account_number`, `inserted_at`, `updated_at`, `created_at`, `deleted_at`, `token`, `auth_status`, `maker`, `checker`, `maker_date_time`, `checker_date_time`, `user_description`, `system_description`, `status`, `role_id`, `apply_discount`, `discount_amount`, `discount_reason`, `compliance`, `employer_number`, `dob`, `sex`, `bank_message`, `bank_account_status`, `bank_account_balance`, `bank_srcBranch`, `bank_destBranch`) VALUES
+	(1, 'manager', 'B109F3BBBC244EB82441917ED06D618B9008DD09B3BEFD1B5E07394C706A8BB980B1D7785E5976EC049B46DF5F1326AF5A2EA6D103FD07C95385FFAB0CACBC86', 'Mubukwanu', 'Mubukwanu', '204205612', 'ADMIN', 'admin@probasegroup.com', '+260977420974', NULL, NULL, '000000/00/0', 'ACTIVE', 'ADMINISTRATOR', NULL, NULL, NULL, NULL, '1019000001041', '2020-06-20 00:00:00', '2021-05-05 16:20:06', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', '01 Jan 1974', NULL, NULL, 'ACTIVE', 116, '101', '101'),
+	(2, 'bop', 'B109F3BBBC244EB82441917ED06D618B9008DD09B3BEFD1B5E07394C706A8BB980B1D7785E5976EC049B46DF5F1326AF5A2EA6D103FD07C95385FFAB0CACBC86', 'operator', 'zambia', '204205612', 'BOP', 'chaikatishar@napsa.co.zm', '260977317269', NULL, NULL, '000000/00/0', 'ACTIVE', 'BUS OPERATOR', NULL, NULL, 'NAPSA_BUS_SERVICES', NULL, '1010037749591', '2020-06-20 00:00:00', '2021-02-14 21:23:03', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', '01 Jan 1974', NULL, NULL, NULL, 0, NULL, NULL),
+	(3, 'mop', 'B109F3BBBC244EB82441917ED06D618B9008DD09B3BEFD1B5E07394C706A8BB980B1D7785E5976EC049B46DF5F1326AF5A2EA6D103FD07C95385FFAB0CACBC86', 'marketeer', 'zambia', '204205612', 'MOP', 'marketeer@btmsnapsa.com', '+260950773797', NULL, NULL, '000000/00/0', 'ACTIVE', 'MARKETER', NULL, NULL, NULL, NULL, '3', '2020-06-20 00:00:00', '2021-02-14 21:23:04', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', '01 Jan 1974', NULL, NULL, NULL, 0, NULL, NULL),
+	(4, 'teller', 'B109F3BBBC244EB82441917ED06D618B9008DD09B3BEFD1B5E07394C706A8BB980B1D7785E5976EC049B46DF5F1326AF5A2EA6D103FD07C95385FFAB0CACBC86', 'teller', 'zambia', '204205612', 'TOP', 'teller@btmsnapsa.com', '+260950773797', NULL, NULL, '000000/00/0', 'ACTIVE', 'TELLER', NULL, NULL, NULL, NULL, '1019000001189', '2020-06-20 00:00:00', '2021-05-06 11:28:18', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', '01 Jan 1974', 'M', NULL, 'ACTIVE', 961.79, '101', '101'),
+	(20, 'officer', 'B109F3BBBC244EB82441917ED06D618B9008DD09B3BEFD1B5E07394C706A8BB980B1D7785E5976EC049B46DF5F1326AF5A2EA6D103FD07C95385FFAB0CACBC86', 'Joe', 'Siame', NULL, 'SOP', 'joe.siame@btmms.co.zm', '260966667293', NULL, '2020-5056378943-6-4316-29', '123456/12/2', 'ACTIVE', 'TELLER', '544C7E504CFDE314441231F135DCB83470CBA21959F2A14857C044A3DFBC4F60C6E5BB296CC41097DFE84F356A8182381BBF22EF3543F7D7EAE4276143C1541E', NULL, NULL, NULL, '0000000007', '2020-06-29 08:04:22', '2021-05-05 15:55:01', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', '01 Jan 1974', NULL, NULL, NULL, 0, NULL, NULL),
+	(22, 'flexi', 'B109F3BBBC244EB82441917ED06D618B9008DD09B3BEFD1B5E07394C706A8BB980B1D7785E5976EC049B46DF5F1326AF5A2EA6D103FD07C95385FFAB0CACBC86', NULL, NULL, NULL, 'FOP', 'chigomaw@napsa.co.zm', '260977963982', NULL, '2020-2006766497-6-6325-29', '123456/12/4', 'ACTIVE', 'BUS OPERATOR', '4BB074918EED43C7FA982C89405AD5BFF86C8C215F0CE3EC056AD21C35BEA0733577F2781D532911479403AE5C35942B7C9649E0438830F5815449B7C70D37B5', NULL, 'Metrolink', NULL, '0000000009', '2020-06-29 08:16:41', '2021-05-05 15:55:03', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL, NULL, NULL, NULL, 0, NULL, NULL),
+	(23, 'power', 'B109F3BBBC244EB82441917ED06D618B9008DD09B3BEFD1B5E07394C706A8BB980B1D7785E5976EC049B46DF5F1326AF5A2EA6D103FD07C95385FFAB0CACBC86', NULL, NULL, NULL, 'BOP', 'chigomaw@napsa.co.zm', '260977963982', NULL, '2020-0626937160-6-6767-29', '123456/12/5', 'ACTIVE', 'BUS OPERATOR', '5A51E6F7AC3D659C0918BD776E13DD1CCF3D59649F1FA59242EAEAFA5018B285A8DCB72F9781516D39B78F9AE0C1469A8E52733212A6620318CDB6428B1F3FB5', NULL, 'PowerTools', NULL, '00000000010', '2020-06-29 08:19:17', '2021-05-05 15:55:04', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL, NULL, NULL, NULL, 0, NULL, NULL),
+	(33, 'MundiaM', '2CF35CA07D8698AA2AA22AA6EE7088968E31609FA68E8CF087707D09B6DF28CD0A376559B4B18CEACC574F1AED9F1E120412AE15D49ABEE294DC4F8C480BA040', 'Mundia', 'Mwanambuyu', NULL, 'ADMIN', 'MwanambuyuM@napsa.co.zm', '260967993270', NULL, '2020-5114015869-6-5638-30', '145210/11/1', 'ACTIVE', 'ADMINISTRATOR', 'D377CDC8E9553D08095821821FCE79C0F0A2DFF4637F1E2CF8B0576AAC45B96FACBE95EDF5BB39C695A98C4BA525C0BA86C5FE8246C61A57C0E266802CE2969F', NULL, NULL, NULL, '12345687920', '2020-06-30 12:27:16', '2021-05-05 15:55:05', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL, NULL, NULL, NULL, 0, NULL, NULL),
+	(34, 'WillyC', 'B109F3BBBC244EB82441917ED06D618B9008DD09B3BEFD1B5E07394C706A8BB980B1D7785E5976EC049B46DF5F1326AF5A2EA6D103FD07C95385FFAB0CACBC86', 'Willy', 'Chigoma', NULL, 'BOP', 'ChigomaW@napsa.co.zm', '260977963982', NULL, '2020-3542383295-6-1110-30', '14250/11/1', 'ACTIVE', 'BUS OPERATOR', '1CC057A1C2EC5D6DA3FE4EF5A0900B78776ADD75B075A2FBCDC8181C2D1D6DBA97366CC7E59A26F9811FE669E4F1BD12FD4E8F0A59E46D18827228770D3F468C', NULL, 'Chigoma Travelling', NULL, '12345', '2020-06-30 12:30:10', '2021-05-05 15:55:06', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL, NULL, NULL, NULL, 0, NULL, NULL),
+	(37, 'MandelaM', 'B5A02CF48A5AA09915763B35CDD59961F0E972A57B127BF2E7CEDA1E8ECCC168786FA4376CF187056271C62F86F1DA2BA88A42333BC1A82D14101BBFBA880A0B', NULL, NULL, NULL, 'BOP', 'mandelamusipu@gmail.com', '260965030819', NULL, '2020-1830391924-7-6062-2', '554857/25/1', 'ACTIVE', 'BUS OPERATOR', '2A444D100F736BEE2ACCDDF4F1BDDA71D1008C9B5B65E8C4223D11EACAE232FF27B511181A446F2F456894705D7668D89F55D9EAD597CCB987662870EC34382D', NULL, 'Mandela Highways', NULL, '85423658', '2020-07-02 07:21:00', '2021-05-05 15:55:07', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL, NULL, NULL, NULL, 0, NULL, NULL),
+	(38, 'Ason Banda', '63EB076B3F9CAFA29DD03D2CDF1AEB67C75918D7CC924FA65DFF1FBAD0EF6BB99CB3EA86AA23F1933E008D9FBD7BCD60B296E6C459F50FABE55E0764C22A9C3B', NULL, NULL, NULL, 'BOP', 'ABanda@napsa.co.zm', '260977813346', NULL, '2020-8170418002-7-3153-2', '542878/12/1', 'ACTIVE', 'BUS OPERATOR', 'AD50272CC7E87028450989A729E1533236EE15F3B18367481B2633AE451CC54A0C6A28BCB3EFAD71BADDD590F54168346206D1A59063E6085A389670618D5F8A', NULL, 'Ason Travels', NULL, '5428924', '2020-07-02 12:20:53', '2021-05-05 15:55:08', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL, NULL, NULL, NULL, 0, NULL, NULL),
+	(39, 'bus.op', 'A8B4C3D9C44521E7489BFF0AF68FB84BF9B9AE0BD61B4FA1CC92BBE9E040BA2489CB3E0AB0C76A08062BAD0E9681BBA8675BC216538A4EDD764876223AFD45EF', NULL, NULL, NULL, 'BOP', 'bus@ops.com', '260978003311', NULL, '2020-6152167022-7-2805-3', '123456/67/8', 'ACTIVE', 'BUS OPERATOR', 'B6C245E55C37195386C34470E293905DECA3EF3EAF2FD6AEB07CB6C263298637AF423D469F57FEDF8238A81A193BC060231886B6071A6046B2182582A707802D', NULL, 'BUS Tours', NULL, '123456778899945', '2020-07-03 10:01:35', '2021-05-05 15:55:09', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL, NULL, NULL, NULL, 0, NULL, NULL),
+	(41, 'Mwiinga', '3A7B85C1F7E1EA36FBDCFDE6A9538AF7D761CC29C1E65F6144630870D28302C769476D5AF0B77E90A3149EF14C1CC6BDA71220F7F6B784682A713D91F652B03B', NULL, NULL, NULL, 'BOP', 'Mwiingam@napsa.co.zm', '+0977891462', NULL, '2020-4393069894-7-1785-3', '21232/84/1', 'ACTIVE', 'BUS OPERATOR', 'EF3BBD56D49CE8445E564EE596DFF7BB7903188D1B1F2422B2DBA483CFCCB63818331B2E71B3C99A90E3563627A0E71A0476D0EFE8B065EF676FAAF51FF042F9', NULL, 'Mwiimga and Sons', NULL, '2525256', '2020-07-03 15:21:23', '2021-05-05 15:55:09', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL, NULL, NULL, NULL, 0, NULL, NULL),
+	(49, 'shalom', 'B109F3BBBC244EB82441917ED06D618B9008DD09B3BEFD1B5E07394C706A8BB980B1D7785E5976EC049B46DF5F1326AF5A2EA6D103FD07C95385FFAB0CACBC86', NULL, NULL, NULL, 'BOP', 'chaikatishar@napsa.co.zm', '260978968888', NULL, '2020-1825911267-9-0244-28', '123456/78/9', 'ACTIVE', 'BUS OPERATOR', '06762D8A4E0F925C8A1870136EBE594ADFB467D34FA5E16353521173F127560A25CE1D34FB7A33AB50ADAFC3E8DDF4FA6C5194ABB94DEC1C708DA0FD248D5335', NULL, 'SHALOM', NULL, '1010037749591', '2020-09-28 14:53:55', '2021-05-05 15:55:10', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL, NULL, NULL, NULL, 0, NULL, NULL),
+	(50, 'ChigomaW', 'B109F3BBBC244EB82441917ED06D618B9008DD09B3BEFD1B5E07394C706A8BB980B1D7785E5976EC049B46DF5F1326AF5A2EA6D103FD07C95385FFAB0CACBC86', NULL, NULL, NULL, 'BOP', 'willychigomajunior@gmail.com', '260977963982', NULL, '2020-7010360370-9-7092-29', '2058714/52/1', 'OTP', 'BUS OPERATOR', 'D5318B7B2E42FDC36D823E8C16581CB5C6CC7ED5759C5AD148738570A6FA1D509B218B77748965FFDEE63497EF9951B27C95822FF9FED65E3D3612B35968FC50', NULL, 'Chigoma Travels', NULL, '1010037749591', '2020-09-29 10:29:23', '2021-05-05 15:55:10', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL, NULL, NULL, NULL, 0, NULL, NULL),
+	(51, 'KennedyK', 'B109F3BBBC244EB82441917ED06D618B9008DD09B3BEFD1B5E07394C706A8BB980B1D7785E5976EC049B46DF5F1326AF5A2EA6D103FD07C95385FFAB0CACBC86', NULL, NULL, NULL, 'BOP', 'kaelaK@napsa.co.zm', '260977275958', NULL, '2020-2039513309-9-9470-30', '78545/10/1', 'ACTIVE', 'BUS OPERATOR', '5CAAE4757E4436EB90B5F2D9E2702A933BBFACE675F64445BF9D2D25A02F1D095476862DF243FC9695287D430F7DAC612A9562A7850C85810FC58F54D1A3C45A', NULL, 'KKK Travels', NULL, '65894569852', '2020-09-30 13:16:51', '2021-05-05 15:55:11', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', NULL, NULL, NULL, NULL, 0, NULL, NULL),
+	(55, 'bopp2', '7FFE5CD4D1B018DE40EC210E2296977773B9E60A448F8F5BE754CD7F67CDDFBD21B6C04591C56C98DC081A5E1E745B90F55318368E2A106028A9D4BC677D0462', 'CHILEYA', 'CHANI', '120336474', 'BOP', 'chaniphilip@gmail.com', '0950773797', NULL, '2020-6765624918-12-5296-16', '341565/43/1', 'OTP', 'BUS OPERATOR', '713DC2CD362EC344C8E34F52685E1CF4E5A190F7C5CA5EFFC3C0DB79628544C88564E78862E287B80ADA68BC1648DE85BC273B9AB502E67A9AE8AA44AA70B81E', NULL, 'Probase', NULL, '000125558996578674', '2020-12-16 07:39:57', '2021-02-14 21:23:19', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', NULL, 0, 0.00, NULL, 0, '-', '30 Apr 1995', NULL, NULL, NULL, 0, NULL, NULL),
+	(56, 'bopp3', 'E3C3203F8FAD5C3DD8A71B905810B36CBF61E4CA1BA6DA61E4F0B73A83699BBD3AB8A8C3E87A93BE91BF16ED21BCFE9F9C2F16D449254864E95A7029F77A9D77', 'CHILEYA', 'CHANI', '120336474', 'BOP', 'chaniphilip@gmail.com', '0950773797', NULL, '2020-9033736799-12-1309-16', '341565/43/1', 'OTP', 'BUS OPERATOR', '73F84D8371713C84E4D8AEA3359DF7DB61836DA13730E94E3BD439D493A9F8C1C29B1671FD117F66BA4A007028C5C69F3D5A342DBCE10BAE7690B6A91ED3DC35', NULL, 'Probase', NULL, '000125558996578676', '2020-12-16 07:49:14', '2021-02-14 21:23:21', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '30 Apr 1995', NULL, NULL, NULL, 0, NULL, NULL),
+	(57, 'bopp4', '9EF9DEB8084E9EE79D93E6110F3802270599290931D70AB1A7BC61AC6366CA3D0A310412A13F9D64CD32815ACD25FBC1D0F2CB8EFFC800B35072D17A7950EF91', 'CHILEYA', 'CHANI', '120336474', 'BOP', 'chaniphilip@gmail.com', '0950773797', NULL, '2020-7351087718-12-2942-16', '341565/43/1', 'OTP', 'BUS OPERATOR', '915FDF786F52C0583649986C8FEC96257B07516B91BF3D01B17B405153B9C09768AEC4A195D9E710CFD51C1E1DAEE692971FE82CF9E38CB73B2B541F3FB64A0A', NULL, 'Probase', NULL, '0001255589960000000', '2020-12-16 08:02:33', '2021-02-14 21:23:21', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '30 Apr 1995', NULL, NULL, NULL, 0, NULL, NULL),
+	(58, 'mazhandu', '52A3303F2E44B9712A818C2FB6A1A7EE34E2974BF42215437E96512B882E923479FB1DA4686230B5A17695DC3652B5D9B118FB29AE69105E65C844132417E4C6', 'MASUMBA', 'CHAIKATISHA', '111499412', 'BOP', 'roy.chaikatisha@gmail.com', '0978968888', NULL, '2020-9539986879-12-3566-16', '142855/10/1', 'OTP', 'BUS OPERATOR', '48BE9CC9E1BD4D6E6761AA1FE5F3892F84FB697C63D4DEFAE9BF7D7FC6C02A5AF8F91A850EAAC644E1F5418B8F6314716A2327F13F1603770D16A589F882B631', NULL, 'Mazhandu Limited', NULL, '082312083u274', '2020-12-16 14:03:27', '2021-02-14 21:23:22', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '26 Nov 1988', NULL, NULL, NULL, 0, NULL, NULL),
+	(61, '.mwalem', '9BD198A469CA7F32EEB4616D82EA35173F1097BA34B7862B8572FC993CBDEC3335586E73B949FBBE106CF6B4AEA8C712789670B1D7BBB4FD105B89D39E3C2DC2', 'MAKONDE', 'MWALE', '113437400', 'MOP', 'deepmakonde@gmail.com', '260977948729', NULL, '2021-3747474048-2-0163-15', '987688/11/1', 'ACTIVE', 'MARKETER', '3627909A29C31381A071EC27F7C9CA97726182AED29A7DDD2E54353322CFB30ABB9E3A6DF2AC2C20FE23436311D678564D0C8D305930575F60E2D3D048184D79', NULL, NULL, NULL, '260977948729', '2021-02-15 12:56:35', '2021-03-02 22:50:52', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '01 Sep 1989', NULL, NULL, NULL, 0, NULL, NULL),
+	(62, 'makondem', '14BFECB1D42E64719FC7618B805F0CC13984F9CF86DF72F7B93BE95AB908F4D9EEB1CAA431AF4962D655BC8DBCB64F17F7A83FBD99C6B5EEC77A470959B038A9', 'MAKONDE', 'MWALE', '113437400', 'MOP', 'deepmakonde@gmail.com', '260955040826', NULL, '2021-4508945678-2-0811-15', '987688/11/1', 'ACTIVE', 'MARKETER', '3627909A29C31381A071EC27F7C9CA97726182AED29A7DDD2E54353322CFB30ABB9E3A6DF2AC2C20FE23436311D678564D0C8D305930575F60E2D3D048184D79', NULL, NULL, NULL, '260968309959', '2021-02-15 12:58:13', '2021-03-02 22:45:52', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '01 Sep 1989', NULL, NULL, NULL, 0, NULL, NULL),
+	(63, 'SIMON ', '3FCEFFB3A8F80497E882CD5304BC43692018E656F27ED6E2023A9E691428FB98D6EC0244819D92B810C274BFBCAEBE0FC8433AD4DC204C0414CE6D181EF06A75', 'SIMON HAWATICHKE', 'CHIWAMBA', '104004577', 'MOP', 'simon@gmail.com', '260955924419', NULL, '2021-5621616343-2-3331-15', '236974/68/1', 'OTP', 'MARKETER', '54A8C5DD16F5FB41E7361B18BD377E437118FACAAC2A95E77B9DD01FC0E88DC073D338594BBB0DE5F4037AFF0A3C2A28BCA0B1DC4BCEB9CDC86C375101D7D3D8', NULL, NULL, NULL, '260955924419', '2021-02-15 13:09:44', '2021-02-17 06:30:36', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '14 Mar 1980', NULL, NULL, NULL, 0, NULL, NULL),
+	(64, 'HAWATICHKE', '02DC2C651CBD701340A8170FF71756E668CF3850AC8DCF24289FF737E118BC1D8B0AFA17F87E0C22B91AAF78EB063FDB4B6286B6A50D7237A6FDD5F649682752', 'SIMON HAWATICHKE', 'CHIWAMBA', '104004577', 'MOP', 'HAWATICHKE@gmail.com', '260967485331', NULL, '2021-3265609246-2-7836-15', '236974/68/1', 'ACTIVE', 'MARKETER', '0C2A101831FBE59766B2A7D02675F2BC03922D3293883461E278AD81499369770846FB9E1FDD4F8B406F13FBC0123D10565E2F9AC2DF0E1DAD5BD817EA16EB9F', NULL, NULL, NULL, '260967485331', '2021-02-15 13:15:49', '2021-02-15 13:15:49', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '14 Mar 1980', NULL, NULL, NULL, 0, NULL, NULL),
+	(65, 'FRANCIS', '1060812151FD158B4BB68D846EB19C3C144027963823212F72D1DD1C02A5BB0DC9ED08EE6B647621D103D28E1FE5712203995623AB86D1B57D8724B339E16CDC', 'FRANCIS', 'CHULU', '112127789', 'MOP', 'FRANCIS@gmail.com', '260978981576', NULL, '2021-8383786530-2-4621-15', '181139/10/1', 'ACTIVE', 'MARKETER', '3627909A29C31381A071EC27F7C9CA97726182AED29A7DDD2E54353322CFB30ABB9E3A6DF2AC2C20FE23436311D678564D0C8D305930575F60E2D3D048184D79', NULL, NULL, NULL, '260978981576', '2021-02-15 13:25:58', '2021-02-17 07:33:49', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '29 Dec 1989', NULL, NULL, NULL, 0, NULL, NULL),
+	(66, 'CHULU', '2FFF5895CCE7B4EA36FB19AAA55B9A7BAA3D1185F8A2D23C5BC333F3062FA59E723AF70C982BBE33EB6CE50171CBBAD9D32E0C3607D8B04BEA0AA6F80CABAA26', 'FRANCIS', 'CHULU', '112127789', 'MOP', 'CHULU@gmail.com', '260969240309', NULL, '2021-7483076057-2-8456-15', '181139/10/1', 'ACTIVE', 'MARKETER', '3627909A29C31381A071EC27F7C9CA97726182AED29A7DDD2E54353322CFB30ABB9E3A6DF2AC2C20FE23436311D678564D0C8D305930575F60E2D3D048184D79', NULL, NULL, NULL, '260969240309', '2021-02-15 13:29:26', '2021-02-18 15:51:37', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '29 Dec 1989', NULL, NULL, NULL, 0, NULL, NULL),
+	(67, 'CHIMUKA', 'A6CE6DC06133C5A6A2768BB2971939A651FB4CFCF9B59B99B011BE936AD71CEB6D0D1D81E15948A6EE15D972B08BDB97A4DA7318138311731CF24CB3E505DA21', 'CHIMUKA', 'MOONDE', '112580759', 'MOP', 'CHIMUKA@gmail.com', '260973297682', NULL, '2021-5285735976-2-4041-15', '284631/10/1', 'ACTIVE', 'MARKETER', 'FB712AC2A31E6A4868098C88FB1CE95AA009AEF060DE9BAFB981B21AF35F27B0813D22640DFB3B54D1848436664E289C43B7677F0526B11694C92BE000BA14DB', NULL, NULL, NULL, '260973297682', '2021-02-15 13:44:17', '2021-02-15 13:44:17', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '20 May 1993', NULL, NULL, NULL, 0, NULL, NULL),
+	(68, 'MOONDE', '5E0DBA2AD5EFE1006CC0E53F8AA5A8109CB1368C0EB4D770D3B64FBBB044B4291FA76301A1027EC8F56D795D3405BBD11DCA4D3E1148DDB3DCAAA6550A31E624', 'CHIMUKA', 'MOONDE', '112580759', 'MOP', 'MOONDE@gmail.com', '260962284087', NULL, '2021-6729360363-2-6338-15', '284631/10/1', 'ACTIVE', 'MARKETER', '612CE3A6E2140F5399FC8465A88A60741F36F681EE5DB9965BF18CBC375E0D25A6EDB61597E1F928F11682FC92A1FBB8B48985DC9448EC808E58C93F6E414A5B', NULL, NULL, NULL, '260962284087', '2021-02-15 13:45:20', '2021-02-15 13:45:20', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '20 May 1993', NULL, NULL, NULL, 0, NULL, NULL),
+	(69, 'DANNY', '9843AA27A0608B4F3D11C914A5FFB4CE2F08F334DEAF0E3FC85E97BB2CB15156C41F70497CF43765B75779E272E059ACE13FB700678166FD526960967862E531', 'DANNY', 'LEZA', '106483551', 'MOP', 'DANNY@gmail.com', '260977617777', NULL, '2021-1798440027-2-8935-15', '113338/18/1', 'ACTIVE', 'MARKETER', 'E0D5FB353424A9A853EAE9149C786ADE6A386FAAC4046508B621B369E017979A54CCC951D0C9ACAC1D08E07E93DC18DC01C2FA93E909FAA80D0619F0F9910276', NULL, NULL, NULL, '260977617777', '2021-02-15 13:49:41', '2021-02-15 13:49:41', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '02 Jun 1976', NULL, NULL, NULL, 0, NULL, NULL),
+	(70, 'dannyleza', '0AABD909ACE2BD9C3DF44AF6D754CE31594EEE46E95EE7E7EDD5D3D124464EDC84440A38F16AB7C1037C5FB2714C8011A39D2DC895E97428137F795137D03A89', 'DANNY', 'LEZA', '106483551', 'MOP', 'deep@gmail.com', '0763585832', NULL, '2021-1582278288-3-0788-1', '113338/18/1', 'ACTIVE', 'MARKETER', 'BD324E9A774068C9D029914730B3E9E6E61A765308B3A0E7175A5EA8474BABA02CFE7516DF0368252B523E4FF3672FEBF8762B1742875FD64941758A72C4792F', NULL, NULL, NULL, '0763585832', '2021-03-01 11:11:03', '2021-03-01 11:11:03', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '02 Jun 1976', NULL, NULL, NULL, 0, NULL, NULL),
+	(72, 'smanager', 'B109F3BBBC244EB82441917ED06D618B9008DD09B3BEFD1B5E07394C706A8BB980B1D7785E5976EC049B46DF5F1326AF5A2EA6D103FD07C95385FFAB0CACBC86', 'CHILEYA', 'CHANI', '120336474', 'SADMIN', 'chaniphilip@gmail.com4', '0970210154', NULL, '2021-2247467789-3-8291-15', '341565/43/1', 'ACTIVE', 'ADMINISTRATOR', 'ADD748FA483E05CE54E2FE29537EC74AAE7AB79ABCC7CED6E48FBE5856817E8F7B36FCBE52EE13BFE35B0B692391483FACDFBD9CE190ABCB326EB27FFB1327D4', NULL, NULL, NULL, '000125558996578661', '2021-03-15 04:33:19', '2021-03-15 04:33:19', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '30 Apr 1995', NULL, NULL, NULL, 0, NULL, NULL),
+	(74, '0950003955', '4AED1FD2695890443C04389A687AA8FB1C47841E3ABFA3EE0E1E26D2864211AE06D22FFA3595A71E17A9FC123615AED80E2EA816CF37F463EF4719D5A25CED36', 'MAKONDE', 'MWALE', '113437400', 'MOP', 'deep@gmail.com', '0950003955', NULL, '2021-8899836569-3-3930-24', '987688/11/1', 'ACTIVE', 'MARKETER', 'B0D400BDA69FB963F089B37B18A718AE30A38DADDDECCFD4B29F839FF32C2443D5D0AC46C1E6690ECFC84E0964539C03DBD9D6D7C448447F8708CE91481C5589', NULL, NULL, NULL, '0950003955', '2021-03-24 09:49:14', '2021-03-24 09:49:14', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '01 Sep 1989', NULL, NULL, NULL, 0, NULL, NULL),
+	(75, 'chitundu', '87B2CBFFE4A7E801199F5857CFA1088BA839CDF0BA3AB0BDAC35075660DFD7376CA9080343B2AA5D6AFEA7A8FCC2B935445B80D64721F5C3520979741AD1E63F', 'MUCHELEKA', 'PHIRI', '621928736', 'BOP', 'phiric@napsa.co.zm', '0978926764', NULL, '2021-8612258890-3-0491-24', '324134/51/1', 'OTP', 'BUS OPERATOR', 'F1EC123DD97BF92C0028F24D1A48A733E114C850E99E06576040A1ACF454B4243B85C953EF36E448C958F1B7EDA3BCFCAF9C11FBAD1E1033401A81B43EE1D77E', NULL, 'NAPSA BUS SERVICES', NULL, '54945455454', '2021-03-24 10:20:48', '2021-03-24 10:20:48', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '28 Nov 1978', NULL, NULL, NULL, 0, NULL, NULL),
+	(77, 'teller2', '17AC0C98F3AE74DE323055D5046A6DE47B8EC491090F59D4A42EE762AF0B93D7B2577411C8BA290F45D6AC36D2822F44DB2A9BB52CDDA56254A6A24053E03495', 'Philip', 'Chani', NULL, 'TOP', 'chaniphilip@gmail.com', '+260960152038', NULL, '2021-9106220852-5-9155-6', '341565/43/2', 'ACTIVE', 'TELLER', '4433FCF4340866C3E9FE62D4F04B403F2884F05A1B67CB6FBF81EA456E6ED2B5234A0B86C3C8E1E10D0B092D9C8200CCD84838022D721381FC33CABD6D3500F6', NULL, NULL, NULL, '1019000001687', '2021-05-06 06:51:03', '2021-05-06 10:18:10', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '0', 0, 0.00, NULL, 0, '-', '1988-02-03', 'M', NULL, 'ACTIVE', 10, '101', '101');
 /*!40000 ALTER TABLE `probase_tbl_users` ENABLE KEYS */;
 
 -- Dumping structure for table btmms.probase_trans_code
@@ -6525,7 +7609,7 @@ CREATE TABLE IF NOT EXISTS `probase_trans_code` (
 
 -- Dumping data for table btmms.probase_trans_code: ~29 rows (approximately)
 /*!40000 ALTER TABLE `probase_trans_code` DISABLE KEYS */;
-INSERT INTO `probase_trans_code` (`trn_code`, `trn_desc`, `auth_status`, `maker_id`, `checker_id`) VALUES
+INSERT IGNORE INTO `probase_trans_code` (`trn_code`, `trn_desc`, `auth_status`, `maker_id`, `checker_id`) VALUES
 	('ANN_SUB_BOP', 'Annual Licence/subscription fee for Bus Operator', 'A', NULL, NULL),
 	('CANCELED', 'CANCELED TXN', 'A', NULL, NULL),
 	('CHG_FEE', 'Transaction  charge', 'A', NULL, NULL),
@@ -6589,9 +7673,9 @@ CREATE TABLE IF NOT EXISTS `schema_migrations` (
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table btmms.schema_migrations: ~10 rows (approximately)
+-- Dumping data for table btmms.schema_migrations: ~11 rows (approximately)
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
-INSERT INTO `schema_migrations` (`version`, `inserted_at`) VALUES
+INSERT IGNORE INTO `schema_migrations` (`version`, `inserted_at`) VALUES
 	(20191120122741, '2020-12-15 14:52:13'),
 	(20191125063842, '2020-12-15 14:52:15'),
 	(20191206074539, '2020-12-15 14:52:16'),
@@ -6603,7 +7687,8 @@ INSERT INTO `schema_migrations` (`version`, `inserted_at`) VALUES
 	(20200427071718, '2020-12-15 14:52:23'),
 	(20200507084815, '2020-12-15 14:52:23'),
 	(20200520134527, '2020-12-15 14:52:31'),
-	(20200819095718, '2020-12-15 14:52:32');
+	(20200819095718, '2020-12-15 14:52:32'),
+	(20210427141839, '2021-05-05 10:48:48');
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 
 -- Dumping structure for table btmms.unza_api_config
@@ -6634,7 +7719,7 @@ CREATE TABLE IF NOT EXISTS `unza_e-wallet` (
 
 -- Dumping data for table btmms.unza_e-wallet: ~2 rows (approximately)
 /*!40000 ALTER TABLE `unza_e-wallet` DISABLE KEYS */;
-INSERT INTO `unza_e-wallet` (`wallet_id`, `marketeer_id`, `mobile_number`, `account_balance`, `is_fee_debit_choice`, `date_created`, `date_modified`) VALUES
+INSERT IGNORE INTO `unza_e-wallet` (`wallet_id`, `marketeer_id`, `mobile_number`, `account_balance`, `is_fee_debit_choice`, `date_created`, `date_modified`) VALUES
 	(1, '2020-1232447656-6-3685-29', '260969240309', 3.00, 0, '2020-11-26 16:41:26', '2020-12-17 12:41:49'),
 	(2, '2020-3391986839-6-2146-29', '260955040826', 2.00, 0, '2020-12-02 11:16:35', '2020-12-17 12:41:50'),
 	(3, '2020-0701361676-6-3972-29', '260967485331', 0.00, 0, '2020-12-16 14:03:06', '2020-12-17 12:41:50');
@@ -6670,7 +7755,7 @@ CREATE TABLE IF NOT EXISTS `unza_fees` (
 
 -- Dumping data for table btmms.unza_fees: ~0 rows (approximately)
 /*!40000 ALTER TABLE `unza_fees` DISABLE KEYS */;
-INSERT INTO `unza_fees` (`fee_id`, `fee_name`, `fee_collection_account_id`, `date_created`, `date_modified`, `is_property_fee`, `status`) VALUES
+INSERT IGNORE INTO `unza_fees` (`fee_id`, `fee_name`, `fee_collection_account_id`, `date_created`, `date_modified`, `is_property_fee`, `status`) VALUES
 	(1, 'NAPSA contributions', 3, '2020-10-27 00:47:30', '2021-02-17 12:16:29', 0, 1),
 	(2, 'Rent', 3, '2021-02-18 18:13:37', NULL, 1, 1);
 /*!40000 ALTER TABLE `unza_fees` ENABLE KEYS */;
@@ -6687,7 +7772,7 @@ CREATE TABLE IF NOT EXISTS `unza_fees_config` (
 
 -- Dumping data for table btmms.unza_fees_config: ~0 rows (approximately)
 /*!40000 ALTER TABLE `unza_fees_config` DISABLE KEYS */;
-INSERT INTO `unza_fees_config` (`id`, `is_lump_sum_payment`, `date_created`, `date_modified`, `name`) VALUES
+INSERT IGNORE INTO `unza_fees_config` (`id`, `is_lump_sum_payment`, `date_created`, `date_modified`, `name`) VALUES
 	(1, 0, '2021-02-14 14:15:45', '2021-02-28 22:30:00', 'LUMP SUM');
 /*!40000 ALTER TABLE `unza_fees_config` ENABLE KEYS */;
 
@@ -6709,7 +7794,7 @@ CREATE TABLE IF NOT EXISTS `unza_fees_rates` (
 
 -- Dumping data for table btmms.unza_fees_rates: ~6 rows (approximately)
 /*!40000 ALTER TABLE `unza_fees_rates` DISABLE KEYS */;
-INSERT INTO `unza_fees_rates` (`id`, `fee_id`, `property_type_id`, `rate_id`, `fee_amount`, `status`, `date_created`, `date_modified`) VALUES
+INSERT IGNORE INTO `unza_fees_rates` (`id`, `fee_id`, `property_type_id`, `rate_id`, `fee_amount`, `status`, `date_created`, `date_modified`) VALUES
 	(1, 1, 0, 3, 1.00, 0, '2020-10-27 00:50:57', '2021-02-17 15:22:47'),
 	(2, 1, 0, 5, 30.00, 1, '2020-10-27 00:50:57', NULL),
 	(3, 2, 1, 3, 5.00, 1, '2020-11-17 14:13:46', NULL),
@@ -6723,7 +7808,10 @@ CREATE TABLE IF NOT EXISTS `unza_fees_to_marketeers` (
   `fee_id` int NOT NULL,
   `desired_rate_id` int NOT NULL,
   `marketeer_id` varchar(200) NOT NULL DEFAULT '0',
+  `firstname` varchar(45) DEFAULT NULL,
+  `lastname` varchar(45) DEFAULT NULL,
   `property_id` int NOT NULL DEFAULT '0',
+  `property_number` varchar(20) DEFAULT NULL,
   `amount_due` decimal(10,2) NOT NULL DEFAULT '0.00',
   `previous_bill_date` datetime DEFAULT NULL,
   `next_bill_date` datetime DEFAULT NULL,
@@ -6733,27 +7821,10 @@ CREATE TABLE IF NOT EXISTS `unza_fees_to_marketeers` (
   UNIQUE KEY `fee_id` (`fee_id`,`marketeer_id`),
   KEY `marketeer_id` (`marketeer_id`),
   KEY `fee_id_2` (`fee_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table btmms.unza_fees_to_marketeers: ~16 rows (approximately)
+-- Dumping data for table btmms.unza_fees_to_marketeers: ~0 rows (approximately)
 /*!40000 ALTER TABLE `unza_fees_to_marketeers` DISABLE KEYS */;
-INSERT INTO `unza_fees_to_marketeers` (`id`, `fee_id`, `desired_rate_id`, `marketeer_id`, `property_id`, `amount_due`, `previous_bill_date`, `next_bill_date`, `date_created`, `date_modified`) VALUES
-	(1, 1, 3, '2021-3747474048-2-0163-15', 0, 2.00, '2021-03-01 07:21:08', '2021-03-02 07:21:08', '2021-02-28 22:52:06', '2021-03-01 07:21:08'),
-	(2, 2, 3, '2021-3747474048-2-0163-15', 0, 10.00, '2021-03-01 07:21:22', '2021-03-02 07:21:22', '2021-02-28 22:52:06', '2021-03-01 07:21:22'),
-	(3, 1, 3, '2021-4508945678-2-0811-15', 0, 2.00, '2021-03-01 07:21:09', '2021-03-02 07:21:09', '2021-02-28 22:52:06', '2021-03-01 07:21:09'),
-	(4, 2, 3, '2021-4508945678-2-0811-15', 0, 10.00, '2021-03-01 07:21:23', '2021-03-02 07:21:23', '2021-02-28 22:52:06', '2021-03-01 07:21:23'),
-	(5, 1, 3, '2021-3265609246-2-7836-15', 0, 2.00, '2021-03-01 07:21:07', '2021-03-02 07:21:07', '2021-02-28 22:52:07', '2021-03-01 07:21:07'),
-	(6, 2, 3, '2021-3265609246-2-7836-15', 0, 10.00, '2021-03-01 07:21:21', '2021-03-02 07:21:21', '2021-02-28 22:52:07', '2021-03-01 07:21:21'),
-	(7, 1, 3, '2021-8383786530-2-4621-15', 0, 2.00, '2021-03-01 07:21:19', '2021-03-02 07:21:19', '2021-02-28 22:52:08', '2021-03-01 07:21:19'),
-	(8, 2, 3, '2021-8383786530-2-4621-15', 0, 10.00, '2021-03-01 07:21:30', '2021-03-02 07:21:30', '2021-02-28 22:52:08', '2021-03-01 07:21:30'),
-	(9, 1, 3, '2021-7483076057-2-8456-15', 0, 2.00, '2021-03-01 07:21:17', '2021-03-02 07:21:17', '2021-02-28 22:52:08', '2021-03-01 07:21:17'),
-	(10, 2, 3, '2021-7483076057-2-8456-15', 0, 10.00, '2021-03-01 07:21:27', '2021-03-02 07:21:27', '2021-02-28 22:52:08', '2021-03-01 07:21:27'),
-	(11, 1, 3, '2021-5285735976-2-4041-15', 0, 2.00, '2021-03-01 07:21:10', '2021-03-02 07:21:10', '2021-02-28 22:52:08', '2021-03-01 07:21:10'),
-	(12, 2, 3, '2021-5285735976-2-4041-15', 0, 10.00, '2021-03-01 07:21:24', '2021-03-02 07:21:24', '2021-02-28 22:52:09', '2021-03-01 07:21:24'),
-	(13, 1, 3, '2021-6729360363-2-6338-15', 0, 2.00, '2021-03-01 07:21:15', '2021-03-02 07:21:15', '2021-02-28 22:52:10', '2021-03-01 07:21:15'),
-	(14, 2, 3, '2021-6729360363-2-6338-15', 0, 10.00, '2021-03-01 07:21:26', '2021-03-02 07:21:26', '2021-02-28 22:52:11', '2021-03-01 07:21:26'),
-	(15, 1, 3, '2021-1798440027-2-8935-15', 0, 2.00, '2021-03-01 07:21:06', '2021-03-02 07:21:06', '2021-02-28 22:52:11', '2021-03-01 07:21:06'),
-	(16, 2, 3, '2021-1798440027-2-8935-15', 0, 10.00, '2021-03-01 07:21:19', '2021-03-02 07:21:19', '2021-02-28 22:52:11', '2021-03-01 07:21:19');
 /*!40000 ALTER TABLE `unza_fees_to_marketeers` ENABLE KEYS */;
 
 -- Dumping structure for table btmms.unza_frontend_logins
@@ -6768,7 +7839,7 @@ CREATE TABLE IF NOT EXISTS `unza_frontend_logins` (
 
 -- Dumping data for table btmms.unza_frontend_logins: ~2 rows (approximately)
 /*!40000 ALTER TABLE `unza_frontend_logins` DISABLE KEYS */;
-INSERT INTO `unza_frontend_logins` (`id`, `mobile`, `names`, `last_login`) VALUES
+INSERT IGNORE INTO `unza_frontend_logins` (`id`, `mobile`, `names`, `last_login`) VALUES
 	(1, '0969240309', 'Francis Chulu', '2021-02-18 17:51:49'),
 	(2, '0967485331', 'Simon Chiwamba', '2021-02-11 09:16:49');
 /*!40000 ALTER TABLE `unza_frontend_logins` ENABLE KEYS */;
@@ -6783,7 +7854,7 @@ CREATE TABLE IF NOT EXISTS `unza_image` (
 
 -- Dumping data for table btmms.unza_image: ~2 rows (approximately)
 /*!40000 ALTER TABLE `unza_image` DISABLE KEYS */;
-INSERT INTO `unza_image` (`id`, `user_id`, `file`) VALUES
+INSERT IGNORE INTO `unza_image` (`id`, `user_id`, `file`) VALUES
 	(1, 1, 'jJVspo_vx4vaTuN7SKqaJGcllxOfKdj8.png'),
 	(2, 5, '6vdxXueh8K1KJWnJQE3od7QJ0isIIpD1.png');
 /*!40000 ALTER TABLE `unza_image` ENABLE KEYS */;
@@ -6840,7 +7911,7 @@ CREATE TABLE IF NOT EXISTS `unza_market_charge_collections` (
 
 -- Dumping data for table btmms.unza_market_charge_collections: ~4 rows (approximately)
 /*!40000 ALTER TABLE `unza_market_charge_collections` DISABLE KEYS */;
-INSERT INTO `unza_market_charge_collections` (`id`, `paymentId`, `marketeer_msisdn`, `collection_msisdn`, `amount`, `stand_number`, `transaction_details`, `transaction_date`, `created_by`, `date_modified`, `modified_by`) VALUES
+INSERT IGNORE INTO `unza_market_charge_collections` (`id`, `paymentId`, `marketeer_msisdn`, `collection_msisdn`, `amount`, `stand_number`, `transaction_details`, `transaction_date`, `created_by`, `date_modified`, `modified_by`) VALUES
 	(1, 0, '260978981576', '260969240309', 10, 'A20', 'Market levy', '2020-04-15 18:41:47', NULL, '2020-05-02 19:27:35', 'Francis Chulu C - chulu1francis@gmail.com'),
 	(2, 1, '260978981576', '260969240309', 10, 'A30', 'Payment', '2020-04-15 18:42:17', NULL, '2020-05-02 19:27:35', NULL),
 	(3, 0, '260978981576', '260978981576', 5, 'A40', 'Rent', '2020-04-15 21:35:01', 'Francis Chulu C - chulu1francis@gmail.com', '2020-05-02 19:27:35', 'Francis Chulu C - chulu1francis@gmail.com'),
@@ -6865,7 +7936,7 @@ CREATE TABLE IF NOT EXISTS `unza_market_charge_collection_accounts` (
 
 -- Dumping data for table btmms.unza_market_charge_collection_accounts: ~3 rows (approximately)
 /*!40000 ALTER TABLE `unza_market_charge_collection_accounts` DISABLE KEYS */;
-INSERT INTO `unza_market_charge_collection_accounts` (`id`, `code`, `name`, `account`, `type`, `status`, `percentage`, `date_created`, `created_by`, `date_modified`, `modified_by`) VALUES
+INSERT IGNORE INTO `unza_market_charge_collection_accounts` (`id`, `code`, `name`, `account`, `type`, `status`, `percentage`, `date_created`, `created_by`, `date_modified`, `modified_by`) VALUES
 	(2, '1001', 'Market levi', '260978981576', 'MARKET_LEVI_COLLECTION', 1, '1', '2020-04-14 20:15:30', 1, '2021-02-18 18:12:23', 1),
 	(3, '1002', 'Rent', '260978981571', 'MARKET_RENT', 1, '1', '2020-04-15 21:21:18', 1, '2021-02-18 18:12:06', 1),
 	(4, '1003', 'ZRA', '260978981575', 'ZRA', 1, '80', '2020-05-07 19:31:00', 1, '2020-11-17 09:28:08', 1);
@@ -6891,7 +7962,7 @@ CREATE TABLE IF NOT EXISTS `unza_market_charge_payments` (
 
 -- Dumping data for table btmms.unza_market_charge_payments: ~4 rows (approximately)
 /*!40000 ALTER TABLE `unza_market_charge_payments` DISABLE KEYS */;
-INSERT INTO `unza_market_charge_payments` (`id`, `uuid`, `first_name`, `last_name`, `other_name`, `msisdn`, `stand_number`, `amount`, `status`, `date_created`, `created_by`, `date_modified`, `modified_by`) VALUES
+INSERT IGNORE INTO `unza_market_charge_payments` (`id`, `uuid`, `first_name`, `last_name`, `other_name`, `msisdn`, `stand_number`, `amount`, `status`, `date_created`, `created_by`, `date_modified`, `modified_by`) VALUES
 	(37, '2020-3154029565-6-3258-20', 'Danny', 'leza', NULL, '260954712885', '1', '10.0', 0, '2020-06-24 15:31:31', NULL, NULL, NULL),
 	(38, '2020-0237235903-6-2247-20', 'Simon H', 'Chiwamba', NULL, '260967485331', '3', '1.0', 0, '2020-06-24 15:31:31', NULL, NULL, NULL),
 	(39, '2020-9996562265-6-5724-20', 'francis', 'chulu', NULL, '260969240309', '2', '10.0', 0, '2020-06-24 15:31:31', NULL, NULL, NULL),
@@ -6911,7 +7982,7 @@ CREATE TABLE IF NOT EXISTS `unza_market_notifications` (
 
 -- Dumping data for table btmms.unza_market_notifications: ~2 rows (approximately)
 /*!40000 ALTER TABLE `unza_market_notifications` DISABLE KEYS */;
-INSERT INTO `unza_market_notifications` (`id`, `type`, `message`, `recipients`, `status`, `notification_date`) VALUES
+INSERT IGNORE INTO `unza_market_notifications` (`id`, `type`, `message`, `recipients`, `status`, `notification_date`) VALUES
 	(1, '0', 'test message', '098xxxx,0976xxxxx', 0, '2019-11-15'),
 	(3, '1', 'Test message', '', 0, '2019-11-16');
 /*!40000 ALTER TABLE `unza_market_notifications` ENABLE KEYS */;
@@ -6927,12 +7998,10 @@ CREATE TABLE IF NOT EXISTS `unza_market_properties` (
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`property_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table btmms.unza_market_properties: ~0 rows (approximately)
 /*!40000 ALTER TABLE `unza_market_properties` DISABLE KEYS */;
-INSERT INTO `unza_market_properties` (`property_id`, `property_type_id`, `market_section_id`, `property_code`, `property_number`, `activation_status`, `date_created`, `date_modified`) VALUES
-	(2, 2, 1, '', 'A205', 0, '2020-11-04 17:03:59', NULL);
 /*!40000 ALTER TABLE `unza_market_properties` ENABLE KEYS */;
 
 -- Dumping structure for table btmms.unza_market_property_types
@@ -6946,7 +8015,7 @@ CREATE TABLE IF NOT EXISTS `unza_market_property_types` (
 
 -- Dumping data for table btmms.unza_market_property_types: ~3 rows (approximately)
 /*!40000 ALTER TABLE `unza_market_property_types` DISABLE KEYS */;
-INSERT INTO `unza_market_property_types` (`property_type_id`, `property_name`, `date_created`, `date_modified`) VALUES
+INSERT IGNORE INTO `unza_market_property_types` (`property_type_id`, `property_name`, `date_created`, `date_modified`) VALUES
 	(1, 'Stand', '2020-08-18 11:48:18', '2020-10-26 15:41:35'),
 	(2, 'Shop', '2020-08-18 11:48:18', NULL),
 	(4, 'Booths', '2020-10-26 15:47:42', '2021-02-18 18:13:09');
@@ -6965,7 +8034,7 @@ CREATE TABLE IF NOT EXISTS `unza_market_sections` (
 
 -- Dumping data for table btmms.unza_market_sections: ~18 rows (approximately)
 /*!40000 ALTER TABLE `unza_market_sections` DISABLE KEYS */;
-INSERT INTO `unza_market_sections` (`section_id`, `market_id`, `section_name`, `description`, `date_created`, `date_modified`) VALUES
+INSERT IGNORE INTO `unza_market_sections` (`section_id`, `market_id`, `section_name`, `description`, `date_created`, `date_modified`) VALUES
 	(1, 27, 'AB', 'vegetable section', '2020-08-17 14:09:05', '2020-10-26 17:25:29'),
 	(2, 32, 'A', 'toys', '2020-08-22 11:47:23', '2020-08-22 11:54:34'),
 	(3, 18, 'Green', 'flowers', '2020-08-22 11:56:55', '2020-08-22 11:56:55'),
@@ -6997,7 +8066,7 @@ CREATE TABLE IF NOT EXISTS `unza_napsa_fee_config` (
 
 -- Dumping data for table btmms.unza_napsa_fee_config: ~0 rows (approximately)
 /*!40000 ALTER TABLE `unza_napsa_fee_config` DISABLE KEYS */;
-INSERT INTO `unza_napsa_fee_config` (`id`, `age_limit`, `date_created`, `date_modified`) VALUES
+INSERT IGNORE INTO `unza_napsa_fee_config` (`id`, `age_limit`, `date_created`, `date_modified`) VALUES
 	(2, 65, '2021-02-15 11:20:39', '2021-02-18 18:14:20');
 /*!40000 ALTER TABLE `unza_napsa_fee_config` ENABLE KEYS */;
 
@@ -7012,7 +8081,7 @@ CREATE TABLE IF NOT EXISTS `unza_payment_methods` (
 
 -- Dumping data for table btmms.unza_payment_methods: ~3 rows (approximately)
 /*!40000 ALTER TABLE `unza_payment_methods` DISABLE KEYS */;
-INSERT INTO `unza_payment_methods` (`payment_method_id`, `payment_method_name`, `date_created`, `date_modified`) VALUES
+INSERT IGNORE INTO `unza_payment_methods` (`payment_method_id`, `payment_method_name`, `date_created`, `date_modified`) VALUES
 	(1, 'Cash', '2020-09-17 14:58:41', NULL),
 	(2, 'Mobile Money', '2020-09-17 15:00:03', NULL),
 	(3, 'Debit Bank Card', '2020-09-17 15:00:18', NULL);
@@ -7028,7 +8097,7 @@ CREATE TABLE IF NOT EXISTS `unza_permissions` (
 
 -- Dumping data for table btmms.unza_permissions: ~41 rows (approximately)
 /*!40000 ALTER TABLE `unza_permissions` DISABLE KEYS */;
-INSERT INTO `unza_permissions` (`id`, `name`, `description`) VALUES
+INSERT IGNORE INTO `unza_permissions` (`id`, `name`, `description`) VALUES
 	(1, 'Manage Roles', 'Can create,edit, view and delete user roles. '),
 	(2, 'View Roles', NULL),
 	(3, 'Manage Users', 'Can manage system users'),
@@ -7083,7 +8152,7 @@ CREATE TABLE IF NOT EXISTS `unza_permission_to_roles` (
 
 -- Dumping data for table btmms.unza_permission_to_roles: ~44 rows (approximately)
 /*!40000 ALTER TABLE `unza_permission_to_roles` DISABLE KEYS */;
-INSERT INTO `unza_permission_to_roles` (`id`, `role_id`, `permission_id`) VALUES
+INSERT IGNORE INTO `unza_permission_to_roles` (`id`, `role_id`, `permission_id`) VALUES
 	(264, 2, 16),
 	(265, 2, 22),
 	(1084, 1, 1),
@@ -7141,7 +8210,7 @@ CREATE TABLE IF NOT EXISTS `unza_rates` (
 
 -- Dumping data for table btmms.unza_rates: ~6 rows (approximately)
 /*!40000 ALTER TABLE `unza_rates` DISABLE KEYS */;
-INSERT INTO `unza_rates` (`rate_id`, `rate_name`, `date_created`, `date_modified`) VALUES
+INSERT IGNORE INTO `unza_rates` (`rate_id`, `rate_name`, `date_created`, `date_modified`) VALUES
 	(1, 'Per Use', '2020-10-21 15:07:33', '2020-10-26 11:10:24'),
 	(2, 'Hourly', '2020-10-21 15:07:33', NULL),
 	(3, 'Daily', '2020-10-21 15:07:33', NULL),
@@ -7164,7 +8233,7 @@ CREATE TABLE IF NOT EXISTS `unza_roles` (
 
 -- Dumping data for table btmms.unza_roles: ~2 rows (approximately)
 /*!40000 ALTER TABLE `unza_roles` DISABLE KEYS */;
-INSERT INTO `unza_roles` (`role_id`, `name`, `description`, `date_created`, `date_updated`, `created_by`, `updated_by`) VALUES
+INSERT IGNORE INTO `unza_roles` (`role_id`, `name`, `description`, `date_created`, `date_updated`, `created_by`, `updated_by`) VALUES
 	(1, 'Admin', NULL, '2019-11-05 00:00:00', '2021-02-28 22:24:59', 1, 1),
 	(2, 'Market Administrator', NULL, '2019-11-05 00:00:00', '2019-11-13 15:14:03', 1, 1);
 /*!40000 ALTER TABLE `unza_roles` ENABLE KEYS */;
@@ -7186,7 +8255,7 @@ CREATE TABLE IF NOT EXISTS `unza_sms_logs` (
 
 -- Dumping data for table btmms.unza_sms_logs: ~0 rows (approximately)
 /*!40000 ALTER TABLE `unza_sms_logs` DISABLE KEYS */;
-INSERT INTO `unza_sms_logs` (`id`, `sender_id`, `mobile_number`, `message`, `status`, `code`, `description`, `attempts`, `date_created`, `date_modified`) VALUES
+INSERT IGNORE INTO `unza_sms_logs` (`id`, `sender_id`, `mobile_number`, `message`, `status`, `code`, `description`, `attempts`, `date_created`, `date_modified`) VALUES
 	(3, 'napsa', '260969240309', 'Hi', '0', NULL, NULL, 0, '2020-06-23 22:59:58', NULL);
 /*!40000 ALTER TABLE `unza_sms_logs` ENABLE KEYS */;
 
@@ -7219,7 +8288,7 @@ CREATE TABLE IF NOT EXISTS `unza_traders` (
 
 -- Dumping data for table btmms.unza_traders: ~3 rows (approximately)
 /*!40000 ALTER TABLE `unza_traders` DISABLE KEYS */;
-INSERT INTO `unza_traders` (`trader_id`, `role`, `firstname`, `lastname`, `nrc`, `gender`, `mobile_number`, `QR_code`, `token_balance`, `account_number`, `dob`, `stand_no`, `image`, `password`, `auth_key`, `verification_code`, `password_reset_token`, `status`, `created_by`, `updated_by`, `date_created`, `date_updated`) VALUES
+INSERT IGNORE INTO `unza_traders` (`trader_id`, `role`, `firstname`, `lastname`, `nrc`, `gender`, `mobile_number`, `QR_code`, `token_balance`, `account_number`, `dob`, `stand_no`, `image`, `password`, `auth_key`, `verification_code`, `password_reset_token`, `status`, `created_by`, `updated_by`, `date_created`, `date_updated`) VALUES
 	(15, 'buyer', 'Chulu', 'Francs chishala', '10001', 'Male', '260978981572', 'trd0978981572', 0.00, '1234567', '1980-02-29', '24', NULL, '$2y$13$TQzSOdgNgzZsgV9NFGSXPO65vb3n.5j2lum7mxKQig9KvdLCFr.0u', 'Ba98OAJyTr0tByl3bgaL9I6eb_-g7UZJ', '1016', NULL, 0, NULL, NULL, '2019-11-07 17:56:11', '2019-11-13 14:12:41'),
 	(16, NULL, 'Simon', 'Chiwamba', '10002', 'Male', '260978981571', 'trd0978981571', 0.00, '1872726', '1982-08-20', '3', NULL, '$13$TQzSOdgNgzZsgV9NFGSXPO65vb3n.5j2lum7mxKQig9KvdLCFr.0u', 'Ba98OAJyTr0tByl3bgaL9I6eb_-g7UZJ', '1029', NULL, 1, NULL, NULL, '2019-11-13 14:12:41', NULL),
 	(17, NULL, 'Lorem', 'Ipsum', '10003', 'Female', '260960000000', 'trd0960000000', 0.00, '198988', '1978-09-23', '45', NULL, '$13$TQzSOdgNgzZsgV9NFGSXPO65vb3n.5j2lum7mxKQig9KvdLCFr.0u', 'Ba98OAJyTr0tByl3bgaL9I6eb_-g7UZJ', '8787', NULL, 1, NULL, NULL, '2019-11-13 14:14:01', NULL);
@@ -7241,10 +8310,12 @@ CREATE TABLE IF NOT EXISTS `unza_transactions` (
   `travel_date` varchar(150) DEFAULT NULL,
   `travel_time` varchar(150) DEFAULT NULL,
   `seller_id` varchar(250) DEFAULT NULL,
+  `seller_ssn` varchar(45) DEFAULT NULL,
   `seller_firstname` varchar(100) DEFAULT NULL,
   `seller_lastname` varchar(100) DEFAULT NULL,
   `seller_mobile_number` varchar(20) DEFAULT NULL,
   `buyer_id` varchar(250) DEFAULT NULL,
+  `buyer_ssn` varchar(45) DEFAULT NULL,
   `buyer_firstname` varchar(100) DEFAULT NULL,
   `buyer_lastname` varchar(100) DEFAULT NULL,
   `buyer_mobile_number` varchar(20) DEFAULT NULL,
@@ -7275,118 +8346,96 @@ CREATE TABLE IF NOT EXISTS `unza_transactions` (
   `date_modified` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`cart_id`),
   KEY `debit_ExtTransactionID` (`debit_ExtTransactionID`,`debit_CoreTransactionID`,`credit_ExtTransactionID`,`credit_CoreTransactionID`)
-) ENGINE=InnoDB AUTO_INCREMENT=542 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8;
 
--- Dumping data for table btmms.unza_transactions: ~107 rows (approximately)
+-- Dumping data for table btmms.unza_transactions: ~79 rows (approximately)
 /*!40000 ALTER TABLE `unza_transactions` DISABLE KEYS */;
-INSERT INTO `unza_transactions` (`cart_id`, `transaction_type_id`, `external_trans_id`, `probase_status_code`, `probase_status_description`, `stand_number`, `route_code`, `transaction_channel`, `id_type`, `passenger_id`, `bus_schedule_id`, `travel_date`, `travel_time`, `seller_id`, `seller_firstname`, `seller_lastname`, `seller_mobile_number`, `buyer_id`, `buyer_firstname`, `buyer_lastname`, `buyer_mobile_number`, `buyer_email`, `amount`, `transaction_fee`, `device_serial`, `transaction_date`, `debit_StatusCode`, `debit_StatusDesc`, `debit_MobileNumber`, `debit_ExtTransactionID`, `debit_CoreTransactionID`, `debit_Callback_StatusCode`, `debit_Callback_StatusDesc`, `debit_Callback_CoreTransactionID`, `credit_StatusCode`, `credit_StatusDesc`, `credit_MobileNumber`, `credit_ExtTransactionID`, `credit_CoreTransactionID`, `credit_Callback_StatusCode`, `credit_Callback_StatusDesc`, `credit_Callback_CoreTransactionID`, `final_StatusCode`, `final_StatusDesc`, `date_created`, `date_modified`) VALUES
-	(435, 3, NULL, 0, 'Sync Pending', '', 'LIVMAZ', 'WEB', 'NRC', '76767', '151', '2021-02-18', '09:00:00', '', '', '', '260969240309', '', 'Francis', 'Chulu', '260969240309', '', 1.00, 0.00, '1111111', '2021-02-18 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210218172220', '2020000578', '301', 'Transaction failed', '2020000578', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', NULL, '2021-02-18 17:22:20', '2021-02-28 22:27:14'),
-	(436, 1, NULL, 0, 'Sync Pending', '', '', 'WEB', '', '', '', '1970-01-01', '02:00:00', '2021-7483076057-2-8456-15', 'FRANCIS', 'CHULU', '260969240309', '', '', '', '260978981576', '', 1.00, 0.00, '1111111', '2021-02-18 00:00:00', NULL, NULL, NULL, '20210218172457', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', NULL, '2021-02-18 17:24:57', '2021-02-28 22:27:14'),
-	(437, 2, NULL, 0, 'Sync Pending', '', '', 'WEB', '', '', '', '1970-01-01', '02:00:00', '2021-8383786530-2-4621-15', 'FRANCIS', 'CHULU', '26026', '2021-7483076057-2-8456-15', 'FRANCIS', 'CHULU', '260969240309', '', 1.00, 0.00, '1111111', '2021-02-18 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210218172543', '2020000579', '301', 'Transaction failed', '2020000579', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', NULL, '2021-02-18 17:25:43', '2021-02-28 22:27:14'),
-	(438, 3, NULL, 0, 'Sync Pending', '', 'LIVMAZ', 'WEB', 'NRC', '76767', '151', '2021-02-18', '09:00:00', '2021-7483076057-2-8456-15', 'FRANCIS', 'CHULU', '260969240309', '', 'Francis', 'Chulu', '260969240309', '', 1.00, 0.00, '1111111', '2021-02-18 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210218172704', '2020000580', '301', 'Transaction failed', '2020000580', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', NULL, '2021-02-18 17:27:04', '2021-02-28 22:27:14'),
-	(439, 5, NULL, 0, 'Sync Pending', NULL, NULL, 'WEB', NULL, NULL, NULL, '1970-01-01', '02:00:00', NULL, NULL, NULL, NULL, '2021-7483076057-2-8456-15', 'FRANCIS', 'CHULU', '260969240309', NULL, 1.00, 0.00, '1111111', '2021-02-18 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210218172728', '2020000581', '301', 'Transaction failed', '2020000581', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', NULL, '2021-02-18 17:27:28', '2021-02-28 22:27:14'),
-	(440, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '39787', '151', '2021-02-20', '09:00:00', '', '', '', '260966368858', '', 'Kunda', 'Mushili', '260966368858', '', 1.00, 0.00, '1111111', '2021-02-19 00:00:00', '299', 'Transaction is pending processing', '260966368858', '20210219170401', '2020000582', '301', 'Transaction failed', '2020000582', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', NULL, '2021-02-19 17:04:01', '2021-02-28 22:27:14'),
-	(441, 5, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', NULL, NULL, NULL, NULL, '2021-1798440027-2-8935-15', 'DANNY', 'LEZA', '260977617777', NULL, 5.00, 0.00, '2a42ecd6ca98c702', '2021-02-20 00:00:00', NULL, NULL, NULL, '20210220114400', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', NULL, '2021-02-20 11:44:00', '2021-02-28 22:27:14'),
-	(442, 3, NULL, 0, 'Sync Pending', '', 'LIVMAZ', 'USSD', 'NRC', '22222', '153', '2021-02-23', '08:00:00', '', '', '', '260969240309', '', 'Francis', 'Chulu', '260969240309', '', 1.00, 0.00, '1111111', '2021-02-23 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210223224340', '2020000583', '301', 'Transaction failed', '2020000583', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', NULL, '2021-02-23 22:43:40', '2021-02-28 22:27:14'),
-	(443, 3, NULL, 0, 'Sync Pending', '', 'LIVMAZ', 'USSD', 'Passport', '22222', '153', '2021-02-23', '08:00:00', '', '', '', '260969240309', '', 'France', 'Chulu', '260969240309', '', 1.00, 0.00, '1111111', '2021-02-23 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210223231725', '2020000584', '301', 'Transaction failed', '2020000584', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', NULL, '2021-02-23 23:17:25', '2021-02-28 22:27:14'),
-	(444, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'Passport', '542243', '153', '2021-02-23', '08:00:00', '2021-7483076057-2-8456-15', 'FRANCIS', 'CHULU', '260969240309', '', 'Francis', 'Francis', '260978981576', '', 1.00, 0.00, '1111111', '2021-02-23 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210223233254', '2020000585', '301', 'Transaction failed', '2020000585', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', NULL, '2021-02-23 23:32:54', '2021-02-28 22:27:14'),
-	(445, 3, NULL, 0, 'Sync Pending', '', 'LivKaf', 'USSD', 'Passport', '123456', '153', '2021-02-24', '08:00:00', '2021-7483076057-2-8456-15', 'FRANCIS', 'CHULU', '260969240309', '', 'Francis', 'Chulu', '260978981576', '', 1.00, 0.00, '1111111', '2021-02-23 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210223234943', '2020000586', '301', 'Transaction failed', '2020000586', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', NULL, '2021-02-23 23:49:43', '2021-02-28 22:28:24'),
-	(446, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '23466', '153', '2021-02-24', '08:00:00', '', '', '', '260969240309', '', 'Francis', 'Chulu', '260969240309', '', 1.00, 0.00, '1111111', '2021-02-23 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210223235533', '2020000587', '301', 'Transaction failed', '2020000587', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', NULL, '2021-02-23 23:55:33', '2021-02-28 22:28:24'),
-	(447, 3, NULL, 0, 'Sync Pending', '', 'LIVMAZ', 'USSD', 'Passport', '13567', '153', '2021-02-23', '08:00:00', '2021-7483076057-2-8456-15', 'FRANCIS', 'CHULU', '260969240309', '', 'Chulu', 'France', '260978981576', '', 1.00, 0.00, '1111111', '2021-02-23 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210223235653', '2020000588', '301', 'Transaction failed', '2020000588', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', NULL, '2021-02-23 23:56:53', '2021-02-28 22:28:24'),
-	(448, 3, NULL, 0, 'Sync Pending', '', 'LIVMON', 'USSD', 'Passport', '477888', '153', '2021-02-25', '08:00:00', '', '', '', '260969240309', '', 'francis', 'chulu', '260969240309', '', 1.00, 0.00, '1111111', '2021-02-24 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210224002829', '2020000589', '301', 'Transaction failed', '2020000589', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', NULL, '2021-02-24 00:28:29', '2021-02-28 22:28:24'),
-	(449, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'Passport', '68888', '153', '2021-02-25', '08:00:00', '2021-7483076057-2-8456-15', 'FRANCIS', 'CHULU', '260969240309', '', 'chulu', 'francis', '260978981576', '', 1.00, 0.00, '1111111', '2021-02-24 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210224003118', '2020000590', '301', 'Transaction failed', '2020000590', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', NULL, '2021-02-24 00:31:18', '2021-02-28 22:28:24'),
-	(450, 3, NULL, 0, 'Sync Pending', NULL, 'LIV2LSK', 'USSD', 'NRC', '123645/11/1', '19', '2021-02-26', '08:00:00', NULL, NULL, NULL, NULL, NULL, 'chimuka', 'moonde', '260962284087', NULL, 1.00, 0.00, '1111111', '2021-02-25 00:00:00', '299', 'Transaction is pending processing', '260962284087', '20210225170807', '2020000591', '300', 'Transaction was processed successfully', '2020000591', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', NULL, '2021-02-25 17:08:07', '2021-02-28 22:28:24'),
-	(451, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2020-5193151882-6-3630-23', 'Daniel', 'Mwale', '260950003955', NULL, NULL, NULL, '260962284087', NULL, 1.00, 0.00, '7a142392f87da928', '2021-02-25 00:00:00', '299', 'Transaction is pending processing', '260962284087', '20210225171130', '2020000592', '300', 'Transaction was processed successfully', '2020000592', '299', 'Transaction is pending processing', '260950003955', '20210225171216', '2020000593', '300', 'Transaction was processed successfully', '2020000593', '200', NULL, '2021-02-25 17:11:30', '2021-02-28 22:28:24'),
-	(452, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2021-1798440027-2-8935-15', 'Danny', 'Leza', '260954712885', NULL, NULL, NULL, '260962284087', NULL, 1.00, 0.00, '7a142392f87da928', '2021-03-01 00:00:00', NULL, NULL, NULL, '20210301071523', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-01 07:15:23', NULL),
-	(453, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2021-1798440027-2-8935-15', 'Danny', 'Leza', '260954712885', NULL, NULL, NULL, '260962284087', NULL, 1.00, 0.00, '7a142392f87da928', '2021-03-01 00:00:00', NULL, NULL, NULL, '20210301071735', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-01 07:17:35', NULL),
-	(454, 3, NULL, 0, 'Sync Pending', NULL, 'LIV2LSK', 'USSD', 'NRC', '123645/11/1', '19', '2021-03-02', '08:00:00', NULL, NULL, NULL, NULL, NULL, 'chimuka', 'moonde', '260962284087', NULL, 1.00, 0.00, '1111111', '2021-03-03 00:00:00', NULL, NULL, NULL, '20210301071936', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-01 07:19:36', NULL),
-	(455, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2021-1798440027-2-8935-15', 'Danny', 'Leza', '260954712885', NULL, NULL, NULL, '260962284087', NULL, 1.00, 0.00, '7a142392f87da928', '2021-03-01 00:00:00', NULL, NULL, NULL, '20210301074627', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-01 07:46:27', NULL),
-	(456, 4, NULL, 0, 'Sync Pending', NULL, NULL, 'USSD', NULL, NULL, NULL, '1970-01-01', '02:00:00', NULL, NULL, NULL, NULL, '2020-1232447656-6-3685-29', 'Francis', 'Chulu', '260969240309', NULL, 2.00, 0.00, '7a142392f87da928', '2020-08-31 00:00:00', NULL, NULL, NULL, '20210301074737', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-01 07:47:37', NULL),
-	(457, 3, NULL, 0, 'Sync Pending', NULL, 'LIV2LSK', 'USSD', 'NRC', '123645/11/1', '19', '2021-03-02', '08:00:00', NULL, NULL, NULL, NULL, NULL, 'chimuka', 'moonde', '260962284087', NULL, 1.00, 0.00, '1111111', '2021-03-03 00:00:00', NULL, NULL, NULL, '20210301092024', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-01 09:20:24', NULL),
-	(458, 3, NULL, 0, 'Sync Pending', NULL, 'LIVLUS', 'MOBILE', 'NRC', '987688/11/1', '153', '2021-03-02', '12:00:00', NULL, NULL, NULL, NULL, '987688/11/1', 'Makonde', 'Mwale', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-01 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210301122714', '2020000594', '300', 'Transaction was processed successfully', '2020000594', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-01 12:27:14', '2021-03-01 12:27:34'),
-	(459, 3, NULL, 0, 'Sync Pending', NULL, 'LIVLUS', 'MOBILE', 'NRC', '9876677/11/1', '153', '2021-03-02', '12:00:00', NULL, NULL, NULL, NULL, '9876677/11/1', 'Roy', 'Phiri', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-01 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210301123106', '2020000595', '300', 'Transaction was processed successfully', '2020000595', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-01 12:31:06', '2021-03-01 12:31:19'),
-	(460, 3, NULL, 0, 'Sync Pending', NULL, 'LIVLUS', 'MOBILE', 'NRC', '1234557777', '153', '2021-03-02', '12:00:00', NULL, NULL, NULL, NULL, '1234557777', 'James', 'Zulu', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-01 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210301123230', '2020000596', '300', 'Transaction was processed successfully', '2020000596', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-01 12:32:30', '2021-03-01 12:32:45'),
-	(461, 3, NULL, 0, 'Sync Pending', NULL, 'LIVLUS', 'MOBILE', 'NRC', '987688/11/1', '153', '2021-03-02', '12:00:00', NULL, NULL, NULL, NULL, '987688/11/1', 'Makonde', 'Mwale', '260977948729', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-01 00:00:00', NULL, NULL, NULL, '20210301232655', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-01 23:26:55', NULL),
-	(462, 3, NULL, 0, 'Sync Pending', NULL, 'LIVLUS', 'MOBILE', 'NRC', '987688/11/1', '153', '2021-03-02', '12:00:00', NULL, NULL, NULL, NULL, '987688/11/1', 'Makonde', 'Mwale', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-01 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210301232751', '2020000597', '300', 'Transaction was processed successfully', '2020000597', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-01 23:27:51', '2021-03-01 23:28:07'),
-	(463, 3, NULL, 0, 'Sync Pending', NULL, 'LIVLUS', 'MOBILE', 'NRC', '987688/11/1', '153', '2021-03-02', '12:00:00', NULL, NULL, NULL, NULL, '987688/11/1', 'James', 'Zulu', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-02 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210302000425', '2020000598', '300', 'Transaction was processed successfully', '2020000598', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-02 00:04:25', '2021-03-02 00:04:37'),
-	(464, 3, NULL, 0, 'Sync Pending', NULL, 'LIVLUS', 'MOBILE', 'NRC', '987647/28/1', '153', '2021-03-02', '12:00:00', NULL, NULL, NULL, NULL, '987647/28/1', 'James', 'Mwale', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-02 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210302002610', '2020000599', '300', 'Transaction was processed successfully', '2020000599', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-02 00:26:10', '2021-03-02 00:26:22'),
-	(465, 3, NULL, 0, 'Sync Pending', NULL, 'LIVLUS', 'MOBILE', 'NRC', '12211132', '153', '2021-03-02', '12:00:00', NULL, NULL, NULL, NULL, '12211132', 'luckson', 'mwale', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-02 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210302004451', '2020000600', '300', 'Transaction was processed successfully', '2020000600', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-02 00:44:51', '2021-03-02 00:45:03'),
-	(466, 3, NULL, 0, 'Sync Pending', NULL, 'LIVLUS', 'MOBILE', 'NRC', '12345', '153', '2021-03-02', '12:00:00', NULL, NULL, NULL, NULL, '12345', 'Eric', 'Zulu', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-02 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210302010248', '2020000601', '300', 'Transaction was processed successfully', '2020000601', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-02 01:02:48', '2021-03-02 01:03:00'),
-	(467, 3, NULL, 0, 'Sync Pending', NULL, 'LIVLUS', 'MOBILE', 'NRC', '12345', '153', '2021-03-02', '12:00:00', NULL, NULL, NULL, NULL, '12345', 'James', 'Mwale', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-02 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210302013602', '2020000602', '300', 'Transaction was processed successfully', '2020000602', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-02 01:36:02', '2021-03-02 01:36:14'),
-	(468, 3, NULL, 0, 'Sync Pending', NULL, 'LIVLUS', 'MOBILE', 'NRC', '12345', '153', '2021-03-02', '12:00:00', NULL, NULL, NULL, NULL, '12345', 'Makonde', 'Mwale', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-02 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210302015100', '2020000603', '300', 'Transaction was processed successfully', '2020000603', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-02 01:51:00', '2021-03-02 01:51:12'),
-	(469, 3, NULL, 0, 'Sync Pending', NULL, 'LIVLUS', 'MOBILE', 'NRC', '12345', '153', '2021-03-02', '12:00:00', NULL, NULL, NULL, NULL, '12345', 'Makonde', 'Mwale', '260968309959', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-02 00:00:00', '299', 'Transaction is pending processing', '260968309959', '20210302015702', '2020000604', '300', 'Transaction was processed successfully', '2020000604', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-02 01:57:02', '2021-03-02 01:57:42'),
-	(470, 3, NULL, 0, 'Sync Pending', NULL, 'LIVLUS', 'MOBILE', 'NRC', '123445', '153', '2021-03-02', '12:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', '123445', 'Makonde', 'Mwale', '260977948729', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-02 00:00:00', '299', 'Transaction is pending processing', '260968309959', '20210302020917', '2020000605', '300', 'Transaction was processed successfully', '2020000605', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-02 02:09:17', '2021-03-02 02:09:54'),
-	(471, 3, NULL, 0, 'Sync Pending', NULL, 'LIVLUS', 'MOBILE', 'NRC', '123456', '153', '2021-03-02', '12:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', '123456', 'Makonde', 'Mwalw', '260977947829', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-02 00:00:00', '299', 'Transaction is pending processing', '260968309959', '20210302021427', '2020000606', '300', 'Transaction was processed successfully', '2020000606', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-02 02:14:27', '2021-03-02 02:15:06'),
-	(472, 3, NULL, 0, 'Sync Pending', NULL, 'LIVLUS', 'MOBILE', 'NRC', '123455', '153', '2021-03-02', '12:00:00', '2021-3517138638-3-9055-1', 'MAKONDE', 'MWALE', '260955040826', '123455', 'Makonde', 'Mwale', '260977948729', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-02 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210302021729', '2020000607', '300', 'Transaction was processed successfully', '2020000607', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-02 02:17:29', '2021-03-02 02:17:42'),
-	(473, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', NULL, NULL, NULL, '260962284087', NULL, 1.00, 0.00, '34c8fcc7382deba8', '2021-03-02 00:00:00', '299', 'Transaction is pending processing', NULL, '20210302235559', '2020000608', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-02 23:55:59', '2021-03-02 23:56:03'),
-	(474, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', NULL, NULL, NULL, '260962284087', NULL, 1.00, 0.00, '34c8fcc7382deba8', '2021-03-02 00:00:00', '299', 'Transaction is pending processing', '260962284087', '20210302235716', '2020000609', '300', 'Transaction was processed successfully', '2020000609', '299', 'Transaction is pending processing', '260968309959', '20210302235753', '2020000610', '300', 'Transaction was processed successfully', '2020000610', '200', 'Transaction Successful', '2021-03-02 23:57:16', '2021-03-02 23:58:28'),
-	(475, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', NULL, NULL, NULL, '260962284087', NULL, 1.00, 0.00, '34c8fcc7382deba8', '2021-03-03 00:00:00', '299', 'Transaction is pending processing', '260962284087', '20210303003909', '2020000611', '300', 'Transaction was processed successfully', '2020000611', '299', 'Transaction is pending processing', NULL, '20210303003951', '2020000612', NULL, NULL, NULL, NULL, NULL, '2021-03-03 00:39:09', '2021-03-03 00:39:55'),
-	(476, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', NULL, NULL, NULL, '260962284087', NULL, 1.00, 0.00, '34c8fcc7382deba8', '2021-03-03 00:00:00', '299', 'Transaction is pending processing', '260962284087', '20210303005242', '2020000613', '300', 'Transaction was processed successfully', '2020000613', '299', 'Transaction is pending processing', '260968309959', '20210303005322', '2020000614', '300', 'Transaction was processed successfully', '2020000614', '200', 'Transaction Successful', '2021-03-03 00:52:42', '2021-03-03 00:53:58'),
-	(477, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', NULL, NULL, NULL, '260962284087', NULL, 1.00, 0.00, '34c8fcc7382deba8', '2021-03-03 00:00:00', '299', 'Transaction is pending processing', NULL, '20210303010320', '2020000615', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-03 01:03:20', '2021-03-03 01:03:25'),
-	(478, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', NULL, NULL, NULL, '260962284087', NULL, 1.00, 0.00, '34c8fcc7382deba8', '2021-03-03 00:00:00', '299', 'Transaction is pending processing', '260962284087', '20210303010422', '2020000616', '300', 'Transaction was processed successfully', '2020000616', '299', 'Transaction is pending processing', '260968309959', '20210303010459', '2020000617', '300', 'Transaction was processed successfully', '2020000617', '200', 'Transaction Successful', '2021-03-03 01:04:22', '2021-03-03 01:05:36'),
-	(479, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', NULL, NULL, NULL, '260962284087', NULL, 1.00, 0.00, '34c8fcc7382deba8', '2021-03-03 00:00:00', '299', 'Transaction is pending processing', '260962284087', '20210303012604', '2020000618', '300', 'Transaction was processed successfully', '2020000618', '299', 'Transaction is pending processing', '260968309959', '20210303012644', '2020000619', '300', 'Transaction was processed successfully', '2020000619', '200', 'Transaction Successful', '2021-03-03 01:26:04', '2021-03-03 01:27:21'),
-	(480, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', NULL, NULL, NULL, '260962284087', NULL, 1.00, 0.00, '34c8fcc7382deba8', '2021-03-03 00:00:00', '299', 'Transaction is pending processing', NULL, '20210303175637', '2020000620', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-03 17:56:37', '2021-03-03 17:56:44'),
-	(481, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', NULL, NULL, NULL, '260962284087', NULL, 1.00, 0.00, '34c8fcc7382deba8', '2021-03-03 00:00:00', '299', 'Transaction is pending processing', '260962284087', '20210303175644', '2020000621', '300', 'Transaction was processed successfully', '2020000621', '299', 'Transaction is pending processing', '260968309959', '20210303175723', '2020000622', '300', 'Transaction was processed successfully', '2020000622', '200', 'Transaction Successful', '2021-03-03 17:56:44', '2021-03-03 17:57:58'),
-	(482, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', NULL, NULL, NULL, '260962284087', NULL, 1.00, 0.00, '34c8fcc7382deba8', '2021-03-03 00:00:00', '299', 'Transaction is pending processing', '260962284087', '20210303180540', '2020000623', '300', 'Transaction was processed successfully', '2020000623', '299', 'Transaction is pending processing', '260968309959', '20210303180622', '2020000624', '300', 'Transaction was processed successfully', '2020000624', '200', 'Transaction Successful', '2021-03-03 18:05:40', '2021-03-03 18:07:05'),
-	(483, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', NULL, NULL, NULL, '260960369289', NULL, 1.00, 0.00, '34c8fcc7382deba8', '2021-03-04 00:00:00', '299', 'Transaction is pending processing', '260960369289', '20210304215652', '2020000625', '300', 'Transaction was processed successfully', '2020000625', '299', 'Transaction is pending processing', '260968309959', '20210304215736', '2020000626', '300', 'Transaction was processed successfully', '2020000626', '200', 'Transaction Successful', '2021-03-04 21:56:52', '2021-03-04 21:58:11'),
-	(484, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', NULL, NULL, NULL, '260960369289', NULL, 1.00, 0.00, '34c8fcc7382deba8', '2021-03-04 00:00:00', '299', 'Transaction is pending processing', '260960369289', '20210304223612', '2020000627', '301', 'Transaction failed', '2020000627', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-04 22:36:12', '2021-03-04 22:42:29'),
-	(485, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', NULL, NULL, NULL, '260960369289', NULL, 1.00, 0.00, '34c8fcc7382deba8', '2021-03-04 00:00:00', '299', 'Transaction is pending processing', '260960369289', '20210304223728', '2020000628', '300', 'Transaction was processed successfully', '2020000628', '299', 'Transaction is pending processing', '260968309959', '20210304223805', '2020000629', '301', 'Transaction failed', '2020000629', NULL, NULL, '2021-03-04 22:37:28', '2021-03-04 22:38:40'),
-	(486, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', NULL, NULL, NULL, '260962284087', NULL, 1234.00, 0.00, '34c8fcc7382deba8', '2021-03-04 00:00:00', '299', 'Transaction is pending processing', '260962284087', '20210304234221', '2020000630', '301', 'Transaction failed', '2020000630', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-04 23:42:21', '2021-03-04 23:43:00'),
-	(487, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', NULL, NULL, NULL, '260962284087', NULL, 1.00, 0.00, '34c8fcc7382deba8', '2021-03-05 00:00:00', '299', 'Transaction is pending processing', '260962284087', '20210305000249', '2020000631', '300', 'Transaction was processed successfully', '2020000631', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-05 00:02:49', '2021-03-05 00:03:28'),
-	(488, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', NULL, NULL, NULL, '260962284087', NULL, 1.00, 0.00, '34c8fcc7382deba8', '2021-03-05 00:00:00', '299', 'Transaction is pending processing', '260962284087', '20210305001414', '2020000632', '300', 'Transaction was processed successfully', '2020000632', NULL, NULL, NULL, '20210305001454', NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-05 00:14:14', '2021-03-05 00:14:54'),
-	(489, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', NULL, NULL, NULL, '260962284087', NULL, 1.00, 0.00, '7a142392f87da928', '2021-03-01 00:00:00', '299', 'Transaction is pending processing', '260962284087', '20210306214448', '2020000633', '300', 'Transaction was processed successfully', '2020000633', NULL, NULL, NULL, '20210306214533', NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-06 21:44:48', '2021-03-06 21:45:33'),
-	(490, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', NULL, NULL, NULL, '260962284087', NULL, 1.00, 0.00, '7a142392f87da928', '2021-03-01 00:00:00', '299', 'Transaction is pending processing', '260962284087', '20210306230711', '2020000634', '300', 'Transaction was processed successfully', '2020000634', NULL, NULL, NULL, '20210306230754', NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-06 23:07:11', '2021-03-06 23:07:54'),
-	(491, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', NULL, NULL, NULL, '260962284087', NULL, 1.00, 0.00, '7a142392f87da928', '2021-03-06 00:00:00', '299', 'Transaction is pending processing', '260962284087', '20210306232346', '2020000635', '300', 'Transaction was processed successfully', '2020000635', NULL, NULL, NULL, '20210306232428', NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-06 23:23:46', '2021-03-06 23:24:28'),
-	(492, 1, NULL, 0, 'Sync Pending', NULL, NULL, 'MOBILE', NULL, NULL, NULL, '1970-01-01', '02:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', NULL, NULL, NULL, '260962284087', NULL, 1.00, 0.00, '7a142392f87da928', '2021-03-06 00:00:00', '299', 'Transaction is pending processing', '260962284087', '20210306233118', '2020000636', '300', 'Transaction was processed successfully', '2020000636', NULL, NULL, NULL, '20210306233158', NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-06 23:31:18', '2021-03-06 23:31:58'),
-	(493, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '12345', '154', '2021-03-23', '08:00:00', '', '', '', '260968309959', '', 'makonde', 'mwale', '260968309959', '', 1.00, 0.00, '1111111', '2021-03-23 00:00:00', '299', 'Transaction is pending processing', '260968309959', '20210323110803', '2020000637', '301', 'Transaction failed', '2020000637', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-23 11:08:03', '2021-03-23 11:08:50'),
-	(494, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '123456', '154', '2021-03-23', '08:00:00', '', '', '', '260968309959', '', 'makonde', 'mwale', '260968309959', '', 1.00, 0.00, '1111111', '2021-03-23 00:00:00', '299', 'Transaction is pending processing', '260968309959', '20210323111032', '2020000638', '301', 'Transaction failed', '2020000638', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-23 11:10:32', '2021-03-23 11:11:11'),
-	(495, 3, NULL, 0, 'Sync Pending', NULL, 'LIVCHO', 'MOBILE', 'NRC', '12345', '154', '2021-03-24', '08:00:00', NULL, NULL, NULL, NULL, '12345', 'makonde', 'mwale', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-23 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210323111421', '2020000639', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '2020000639', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-23 11:14:21', '2021-03-23 11:15:00'),
-	(496, 3, NULL, 0, 'Sync Pending', NULL, 'LIVCHO', 'MOBILE', 'NRC', '123456', '154', '2021-03-24', '08:00:00', NULL, NULL, NULL, NULL, '123456', 'makonde', 'mwale', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-23 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210323111544', '2020000640', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '2020000640', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-23 11:15:44', '2021-03-23 11:16:21'),
-	(497, 3, NULL, 0, 'Sync Pending', NULL, 'LIVCHO', 'MOBILE', 'NRC', '12345', '154', '2021-03-24', '08:00:00', NULL, NULL, NULL, NULL, '12345', 'makonde', 'mwale', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-23 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210323111701', '2020000641', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '2020000641', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-23 11:17:01', '2021-03-23 11:17:39'),
-	(498, 3, NULL, 0, 'Sync Pending', NULL, 'LIVCHO', 'MOBILE', 'NRC', '12345667', '154', '2021-03-23', '15:00:00', NULL, NULL, NULL, NULL, '12345667', 'makonde', 'mwale', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-23 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210323112022', '2020000642', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '2020000642', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-23 11:20:22', '2021-03-23 11:21:01'),
-	(499, 3, NULL, 0, 'Sync Pending', NULL, 'LIVCHO', 'MOBILE', 'NRC', '12344', '154', '2021-03-23', '15:00:00', NULL, NULL, NULL, NULL, '12344', 'Makonde', 'Mwale', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-23 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210323124000', '2020000643', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '2020000643', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-23 12:40:00', '2021-03-23 12:40:38'),
-	(500, 3, NULL, 0, 'Sync Pending', NULL, 'LIVCHO', 'MOBILE', 'NRC', '123444', '154', '2021-03-23', '15:00:00', NULL, NULL, NULL, NULL, '123444', 'makonde', 'mwale', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-23 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210323124332', '2020000644', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '2020000644', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-23 12:43:32', '2021-03-23 12:44:11'),
-	(501, 3, NULL, 0, 'Sync Pending', NULL, 'LIVCHO', 'MOBILE', 'NRC', '12344', '154', '2021-03-23', '15:00:00', NULL, NULL, NULL, NULL, '12344', 'makonde', 'mwale', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-23 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210323125704', '2020000645', '301', 'Transaction failed.resultType:0, resultCode:E8039,resultDesc:Service not avaiable', '2020000645', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-23 12:57:04', '2021-03-23 12:57:19'),
-	(502, 3, NULL, 0, 'Sync Pending', NULL, 'LIVCHO', 'MOBILE', 'NRC', '123455', '154', '2021-03-23', '15:00:00', NULL, NULL, NULL, NULL, '123455', 'makonde', 'mwale', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-23 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210323130136', '2020000646', '301', 'Transaction failed.resultType:0, resultCode:E8039,resultDesc:Service not avaiable', '2020000646', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-23 13:01:36', '2021-03-23 13:01:51'),
-	(503, 3, NULL, 0, 'Sync Pending', NULL, 'LIVCHO', 'MOBILE', 'NRC', '123456', '154', '2021-03-23', '15:00:00', NULL, NULL, NULL, NULL, '123456', 'makonde', 'mwale', '260968309959', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-23 00:00:00', '299', 'Transaction is pending processing', NULL, '20210323130334', '2020000647', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-23 13:03:34', '2021-03-23 13:03:37'),
-	(504, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '123456', '154', '2021-03-23', '15:00:00', '', '', '', '260968309959', '', 'fghyt', 'cggfhg', '260968309959', '', 1.00, 0.00, '1111111', '2021-03-23 00:00:00', '299', 'Transaction is pending processing', NULL, '20210323130510', '2020000648', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-23 13:05:10', '2021-03-23 13:05:14'),
-	(505, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '12345', '154', '2021-03-23', '15:00:00', '', '', '', '260968309959', '', 'mkonhf', 'chgfh', '260968309959', '', 1.00, 0.00, '1111111', '2021-03-23 00:00:00', '299', 'Transaction is pending processing', NULL, '20210323130617', '2020000649', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-23 13:06:17', '2021-03-23 13:06:19'),
-	(506, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '12345', '154', '2021-03-23', '15:00:00', '', '', '', '260968309959', '', 'makonde', 'mwale', '260968309959', '', 1.00, 0.00, '1111111', '2021-03-23 00:00:00', '299', 'Transaction is pending processing', NULL, '20210323131645', '2020000650', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-23 13:16:45', '2021-03-23 13:16:46'),
-	(507, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '18112390', '154', '2021-03-23', '15:00:00', '', '', '', '260969240309', '', 'Francis', 'Chulu', '260969240309', '', 1.00, 0.00, '1111111', '2021-03-23 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210323134058', '2020000651', '300', 'Transaction was processed successfully', '2020000651', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-23 13:40:58', '2021-03-23 13:41:46'),
-	(508, 3, NULL, 0, 'Sync Pending', NULL, 'LIVCHO', 'MOBILE', 'NRC', '987688', '154', '2021-03-23', '15:00:00', NULL, NULL, NULL, NULL, '987688', 'makonde', 'mwale', '260966667293', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-23 00:00:00', '299', 'Transaction is pending processing', '260966667293', '20210323134659', '2020000652', '301', 'Transaction failed', '2020000652', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-23 13:46:59', '2021-03-23 13:47:45'),
-	(509, 3, NULL, 0, 'Sync Pending', NULL, 'LIVCHO', 'MOBILE', 'NRC', '1234556', '154', '2021-03-23', '15:00:00', NULL, NULL, NULL, NULL, '1234556', 'makonde', 'mwale', '260966667293', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-23 00:00:00', '299', 'Transaction is pending processing', '260966667293', '20210323134920', '2020000653', '300', 'Transaction was processed successfully', '2020000653', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-23 13:49:20', '2021-03-23 13:49:58'),
-	(510, 3, NULL, 0, 'Sync Pending', NULL, 'LIVCHO', 'MOBILE', 'NRC', '9876677', '154', '2021-03-23', '15:00:00', NULL, NULL, NULL, NULL, '9876677', 'makonde', 'mwale', '260968309959', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-23 00:00:00', '299', 'Transaction is pending processing', '260968309959', '20210323135041', '2020000654', '300', 'Transaction was processed successfully', '2020000654', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-23 13:50:41', '2021-03-23 13:51:17'),
-	(511, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '133801/10/1', '154', '2021-03-23', '15:00:00', '', '', '', '260966667293', '', 'John', 'Jones', '260966667293', '', 1.00, 0.00, '1111111', '2021-03-23 00:00:00', '299', 'Transaction is pending processing', '260966667293', '20210323135219', '2020000655', '300', 'Transaction was processed successfully', '2020000655', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-23 13:52:19', '2021-03-23 13:52:55'),
-	(512, 3, NULL, 0, 'Sync Pending', NULL, 'LIVCHO', 'MOBILE', 'NRC', '1223344', '154', '2021-03-23', '15:00:00', NULL, NULL, NULL, NULL, '1223344', 'makonde', 'mwale', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-23 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210323143543', '2020000656', '300', 'Transaction was processed successfully', '2020000656', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-23 14:35:43', '2021-03-23 14:35:58'),
-	(513, 3, NULL, 0, 'Sync Pending', '', 'LIVMAZ', 'USSD', 'NRC', '133801/10/1', '155', '2021-03-25', '12:00:00', '', '', '', '260966667293', '', 'Joseph Siame', 'Siame', '260966667293', '', 1.00, 0.00, '1111111', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', '260966667293', '20210324103300', '2020000657', '301', 'Transaction failed.Transaction failed. System could not get a collection access token from MTN MoMo', '2020000657', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-24 10:33:00', '2021-03-24 10:33:18'),
-	(514, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '118787/11/1', '155', '2021-03-24', '12:00:00', '', '', '', '260965030819', '', 'madiba', 'msipu', '260965030819', '', 1.00, 0.00, '1111111', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', '260965030819', '20210324103305', '2020000658', '301', 'Transaction failed.Transaction failed. System could not get a collection access token from MTN MoMo', '2020000658', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-24 10:33:05', '2021-03-24 10:33:18'),
-	(515, 3, NULL, 0, 'Sync Pending', '', 'LIVMAZ', 'USSD', 'NRC', '133801/10/1', '156', '2021-03-24', '13:00:00', '', '', '', '260966667293', '', 'John', 'Jones', '260966667293', '', 1.00, 0.00, '1111111', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', '260966667293', '20210324103512', '2020000659', '301', 'Transaction failed', '2020000659', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-24 10:35:12', '2021-03-24 10:42:04'),
-	(516, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '6666567', '155', '2021-03-24', '12:00:00', '', '', '', '260968309959', '', 'hfdgxf', 'fhgdy', '260968309959', '', 1.00, 0.00, '1111111', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', NULL, '20210324103801', '2020000660', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-24 10:38:01', '2021-03-24 10:38:02'),
-	(517, 3, NULL, 0, 'Sync Pending', NULL, 'LIVCHO', 'MOBILE', 'NRC', '89765666', '155', '2021-03-24', '12:00:00', NULL, NULL, NULL, NULL, '89765666', 'gfffghg', 'fggfy', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210324103851', '2020000661', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '2020000661', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-24 10:38:51', '2021-03-24 10:40:01'),
-	(518, 3, NULL, 0, 'Sync Pending', NULL, 'LIVCHO', 'MOBILE', 'NRC', '8675576', '155', '2021-03-24', '12:00:00', NULL, NULL, NULL, NULL, '8675576', 'vffggd', 'fffggg', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210324104057', '2020000662', '300', 'Transaction was processed successfully', '2020000662', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-24 10:40:57', '2021-03-24 10:41:17'),
-	(519, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '28888', '155', '2021-03-24', '12:00:00', '', '', '', '260969240309', '', 'francis', 'chulu', '260969240309', '', 1.00, 0.00, '1111111', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210324104316', '2020000663', '300', 'Transaction was processed successfully', '2020000663', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-24 10:43:16', '2021-03-24 10:44:00'),
-	(520, 3, NULL, 0, 'Sync Pending', '', 'LIVMAZ', 'USSD', 'NRC', '133801/10/1', '155', '2021-03-24', '12:00:00', '', '', '', '260966667293', '', 'Joseph', 'Siame', '260966667293', '', 1.00, 0.00, '1111111', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', '260966667293', '20210324104331', '2020000664', '301', 'Transaction failed', '2020000664', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-24 10:43:31', '2021-03-24 10:49:12'),
-	(521, 3, NULL, 0, 'Sync Pending', NULL, 'LIVCHO', 'MOBILE', 'NRC', '98113456', '155', '2021-03-24', '12:00:00', NULL, NULL, NULL, NULL, '98113456', 'makonde', 'mwale', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210324104351', '2020000665', '300', 'Transaction was processed successfully', '2020000665', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-24 10:43:51', '2021-03-24 10:44:05'),
-	(522, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '362514', '155', '2021-03-24', '12:00:00', '', '', '', '260968309959', '', 'makonde', 'mwale', '260968309959', '', 1.00, 0.00, '1111111', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', '260968309959', '20210324105006', '2020000666', '300', 'Transaction was processed successfully', '2020000666', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-24 10:50:06', '2021-03-24 10:50:43'),
-	(523, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '133801/10/1', '155', '2021-03-24', '12:00:00', '', '', '', '260966667293', '', 'John', 'Jones', '260966667293', '', 1.00, 0.00, '1111111', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', '260966667293', '20210324105227', '2020000667', '300', 'Transaction was processed successfully', '2020000667', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-24 10:52:27', '2021-03-24 10:53:35'),
-	(524, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '458505', '155', '2021-03-24', '12:00:00', '', '', '', '260968309959', '', 'chjzbz', 'gsnxbd', '260968309959', '', 1.00, 0.00, '1111111', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', NULL, '20210324105425', '2020000668', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-24 10:54:25', '2021-03-24 10:54:27'),
-	(525, 3, NULL, 0, 'Sync Pending', '', 'LivKaf', 'USSD', 'NRC', '133801/10/1', '155', '2021-03-24', '12:00:00', '', '', '', '260966667293', '', 'John', 'Jones', '260966667293', '', 1.00, 0.00, '1111111', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', NULL, '20210324105450', '2020000669', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-24 10:54:50', '2021-03-24 10:54:52'),
-	(526, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '563544', '155', '2021-03-24', '12:00:00', '', '', '', '260968309959', '', 'gffff', 'ghdfu', '260968309959', '', 1.00, 0.00, '1111111', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', NULL, '20210324105607', '2020000670', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-24 10:56:07', '2021-03-24 10:56:10'),
-	(527, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '244444', '155', '2021-03-24', '12:00:00', '', '', '', '260969240309', '', 'francis', 'chulu', '260969240309', '', 1.00, 0.00, '1111111', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210324105916', '2020000671', '300', 'Transaction was processed successfully', '2020000671', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-24 10:59:16', '2021-03-24 11:00:11'),
-	(528, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '123456', '155', '2021-03-24', '12:00:00', '', '', '', '260967485331', '', 'Simon', 'Chiwamba', '260967485331', '', 1.00, 0.00, '1111111', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', NULL, '20210324110458', '2020000672', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-24 11:04:58', '2021-03-24 11:05:00'),
-	(529, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '885855', '155', '2021-03-24', '12:00:00', '', '', '', '260968309959', '', 'hdbdjd', 'hsbdhd', '260968309959', '', 1.00, 0.00, '1111111', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', NULL, '20210324111053', '2020000673', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-24 11:10:53', '2021-03-24 11:10:54'),
-	(530, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '5552626', '155', '2021-03-24', '12:00:00', '', '', '', '260969240309', '', 'Frqncis', 'Chulu', '260969240309', '', 1.00, 0.00, '1111111', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210324111259', '2020000674', '301', 'Transaction failed.Transaction failed. System could not get a collection access token from MTN MoMo', '2020000674', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-24 11:12:59', '2021-03-24 11:13:01'),
-	(531, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '3626662', '155', '2021-03-24', '12:00:00', '', '', '', '260969240309', '', 'francis', 'chulu', '260969240309', '', 1.00, 0.00, '1111111', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', NULL, '20210324111408', '2020000675', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-24 11:14:08', '2021-03-24 11:14:09'),
-	(532, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '22333444', '155', '2021-03-24', '12:00:00', '', '', '', '260969240309', '', 'fra', 'chulu', '260969240309', '', 1.00, 0.00, '1111111', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210324111550', '2020000676', '301', 'Transaction failed', '2020000676', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-24 11:15:50', '2021-03-24 11:22:30'),
-	(533, 3, NULL, 0, 'Sync Pending', NULL, 'LIVCHO', 'MOBILE', 'NRC', '121555', '155', '2021-03-24', '12:00:00', NULL, NULL, NULL, NULL, '121555', 'makonde', 'mwale', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210324112532', '2020000677', '300', 'Transaction was processed successfully', '2020000677', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-24 11:25:32', '2021-03-24 11:25:56'),
-	(534, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '133801/10/1', '155', '2021-03-24', '12:00:00', '', '', '', '260966667293', '', 'Joseph', 'Siame', '260966667293', '', 1.00, 0.00, '1111111', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', '260966667293', '20210324112900', '2020000678', '300', 'Transaction was processed successfully', '2020000678', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-24 11:29:00', '2021-03-24 11:30:40'),
-	(535, 3, NULL, 0, 'Sync Pending', NULL, 'LIVCHO', 'MOBILE', 'NRC', '122424', '155', '2021-03-24', '12:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', '122424', 'makonde', 'mwale', '260977948729', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', '260968309959', '20210324115810', '2020000679', '300', 'Transaction was processed successfully', '2020000679', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-24 11:58:10', '2021-03-24 11:58:55'),
-	(536, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '118767', '155', '2021-03-24', '12:00:00', '', '', '', '260965030819', '', 'Madiba', 'Hustler', '260965030819', '', 1.00, 0.00, '1111111', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', '260965030819', '20210324120538', '2020000680', '301', 'Transaction failed', '2020000680', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-24 12:05:38', '2021-03-24 12:12:01'),
-	(537, 3, NULL, 0, 'Sync Pending', '', 'LivKaf', 'USSD', 'NRC', '118767', '156', '2021-03-24', '13:00:00', '', '', '', '260965030819', '', 'Madiba Mandela', 'msipu', '260965030819', '', 1.00, 0.00, '1111111', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', '260965030819', '20210324121141', '2020000681', '301', 'Transaction failed', '2020000681', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-24 12:11:41', '2021-03-24 12:18:27'),
-	(538, 3, NULL, 0, 'Sync Pending', NULL, 'LIVCHO', 'MOBILE', 'NRC', '12345', '155', '2021-03-24', '12:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', '12345', 'makonde', 'meale', '260977948729', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', NULL, '20210324121246', '2020000682', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-24 12:12:46', '2021-03-24 12:12:48'),
-	(539, 3, NULL, 0, 'Sync Pending', NULL, 'LIVCHO', 'MOBILE', 'NRC', '766766', '155', '2021-03-24', '12:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260968309959', '766766', 'gfgf', 'fggfft', '260977948729', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', '260968309959', '20210324121500', '2020000683', '301', 'Transaction failed.Transaction failed. System could not get a collection access token from MTN MoMo', '2020000683', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-24 12:15:00', '2021-03-24 12:15:46'),
-	(540, 3, NULL, 0, 'Sync Pending', NULL, 'LIVCHO', 'MOBILE', 'NRC', '1345667', '155', '2021-03-24', '12:00:00', '2021-4508945678-2-0811-15', 'MAKONDE', 'MWALE', '260955040826', '1345667', 'makonde', 'mwale', '260978926764', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210324125944', '2020000684', '300', 'Transaction was processed successfully', '2020000684', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-03-24 12:59:44', '2021-03-24 13:00:00'),
-	(541, 3, NULL, 0, 'Sync Pending', '', 'LivKaf', 'USSD', 'NRC', '14798', '155', '2021-03-24', '12:00:00', '', '', '', '260963267972', '', 'DAMGI', 'PGPG', '260963267972', '', 1.00, 0.00, '1111111', '2021-03-24 00:00:00', '299', 'Transaction is pending processing', NULL, '20210324134137', '2020000685', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-03-24 13:41:37', '2021-03-24 13:41:39');
+INSERT IGNORE INTO `unza_transactions` (`cart_id`, `transaction_type_id`, `external_trans_id`, `probase_status_code`, `probase_status_description`, `stand_number`, `route_code`, `transaction_channel`, `id_type`, `passenger_id`, `bus_schedule_id`, `travel_date`, `travel_time`, `seller_id`, `seller_ssn`, `seller_firstname`, `seller_lastname`, `seller_mobile_number`, `buyer_id`, `buyer_ssn`, `buyer_firstname`, `buyer_lastname`, `buyer_mobile_number`, `buyer_email`, `amount`, `transaction_fee`, `device_serial`, `transaction_date`, `debit_StatusCode`, `debit_StatusDesc`, `debit_MobileNumber`, `debit_ExtTransactionID`, `debit_CoreTransactionID`, `debit_Callback_StatusCode`, `debit_Callback_StatusDesc`, `debit_Callback_CoreTransactionID`, `credit_StatusCode`, `credit_StatusDesc`, `credit_MobileNumber`, `credit_ExtTransactionID`, `credit_CoreTransactionID`, `credit_Callback_StatusCode`, `credit_Callback_StatusDesc`, `credit_Callback_CoreTransactionID`, `final_StatusCode`, `final_StatusDesc`, `date_created`, `date_modified`) VALUES
+	(1, 3, NULL, 0, 'Sync Pending', NULL, 'LIVCHO', 'MOBILE', 'NRC', '987688/11/1', '2', '2021-04-15', '08:00:00', NULL, NULL, NULL, NULL, NULL, '987688/11/1', NULL, 'Makonde', 'Mwale', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-04-15 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210415074844', '2020000688', '301', 'Transaction failed.resultType:0, resultCode:6011,resultDesc:the current security credential of the user has expired.', '2020000688', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-04-15 07:48:44', '2021-04-15 07:49:03'),
+	(2, 3, NULL, 0, 'Sync Pending', NULL, 'LIVCHO', 'MOBILE', 'NRC', '98986789', '2', '2021-04-15', '08:00:00', NULL, NULL, NULL, NULL, NULL, '98986789', NULL, 'Makonde', 'Mwale', '260955040826', '', 1.00, 0.00, '34c8fcc7382deba8', '2021-04-15 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210415075027', '2020000689', '301', 'Transaction failed.resultType:0, resultCode:6011,resultDesc:the current security credential of the user has expired.', '2020000689', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-04-15 07:50:27', '2021-04-15 07:50:43'),
+	(3, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '48814', '3', '2021-04-27', '08:00:00', '', NULL, '', '', '260954326658', '', NULL, 'Henry', 'Moonga', '260954326658', '', 1.00, 0.00, '1111111', '2021-04-27 00:00:00', NULL, NULL, NULL, '20210427180220', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-04-27 18:02:20', NULL),
+	(4, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '948729/11/1', '4', '2021-05-03', '08:00:00', '', NULL, '', '', '260977948729', '', NULL, 'makonde', 'mwale', '260977948729', '', 1.00, 0.00, '1111111', '2021-05-02 00:00:00', NULL, NULL, NULL, '20210502155847', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-02 15:58:47', NULL),
+	(5, 3, NULL, 0, 'Sync Pending', '', 'LIVLUS', 'USSD', 'NRC', '244602', '4', '2021-05-04', '08:00:00', '', NULL, '', '', '260966329909', '', NULL, 'elinet', 'KALAMBO', '260966329909', '', 1.00, 0.00, '1111111', '2021-05-03 00:00:00', '299', 'Transaction is pending processing', '260966329909', '20210503114619', '137', '301', 'Transaction failed. System could not get an x-reference-id from MTN MoMo', '137', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-03 11:46:19', '2021-05-03 11:46:41'),
+	(6, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '113338/11/1', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260977617777', '', NULL, 'Danny', 'Leza', '260977617777', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', NULL, NULL, NULL, '20210504131344', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 13:13:44', NULL),
+	(7, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '18334456', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260978981576', '', NULL, 'francis', 'chulu', '260978981576', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', NULL, NULL, NULL, '20210504131729', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 13:17:29', NULL),
+	(8, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '5555566', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260978981576', '', NULL, 'francis', 'chulu', '260978981576', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', NULL, NULL, NULL, '20210504131947', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 13:19:47', NULL),
+	(9, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '12345', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260968309959', '', NULL, 'Makonde', 'Mwale', '260968309959', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260968309959', '20210504132624', '138', '300', 'Transaction was processed successfully', '138', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-05-04 13:26:24', '2021-05-04 13:27:09'),
+	(10, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '777777', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260969240309', '', NULL, 'francis', 'chulu', '260969240309', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', NULL, '20210504132638', '139', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 13:26:38', '2021-05-04 13:26:40'),
+	(11, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '253614/11/1', '5', '2021-05-04', '08:00:00', '', NULL, '', '', '260968309959', '', NULL, 'Mary', 'Mwale', '260968309959', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260968309959', '20210504132929', '140', '301', 'Transaction failed', '140', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 13:29:29', '2021-05-04 13:35:11'),
+	(12, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '12345', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260977948729', '', NULL, 'Mary', 'Mwale', '260977948729', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', NULL, NULL, NULL, '20210504133132', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 13:31:32', NULL),
+	(13, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '66666', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260978981576', '', NULL, 'fra', 'chu', '260978981576', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', NULL, NULL, NULL, '20210504133455', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 13:34:55', NULL),
+	(14, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '555555', '5', '2021-05-04', '08:00:00', '', NULL, '', '', '260969240309', '', NULL, 'fr', 'fra', '260969240309', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', NULL, '20210504133752', '141', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 13:37:52', '2021-05-04 13:37:54'),
+	(15, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '666666', '5', '2021-05-04', '08:00:00', '', NULL, '', '', '260969240309', '', NULL, 'fra', 'fra', '260969240309', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210504133956', '142', '301', 'Transaction failed', '142', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 13:39:56', '2021-05-04 13:40:33'),
+	(16, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '12345', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260968309959', '', NULL, 'Mary', 'zulu', '260968309959', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260968309959', '20210504134305', '143', '301', 'Transaction failed.Transaction failed. System could not get a collection access token from MTN MoMo', '143', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 13:43:05', '2021-05-04 13:45:14'),
+	(17, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '222222', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260969240309', '', NULL, 'fra', 'fra', '260969240309', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210504134614', '144', '300', 'Transaction was processed successfully', '144', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-05-04 13:46:14', '2021-05-04 13:46:53'),
+	(18, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '12345', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260968309959', '', NULL, 'John', 'Mwale', '260968309959', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260968309959', '20210504134952', '145', '301', 'Transaction failed', '145', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 13:49:52', '2021-05-04 13:50:37'),
+	(19, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '12345', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260968309959', '', NULL, 'Mary', 'Mk', '260968309959', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260968309959', '20210504135258', '146', '300', 'Transaction was processed successfully', '146', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-05-04 13:52:58', '2021-05-04 13:53:38'),
+	(20, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '444444', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260978981576', '', NULL, 'fra', 'fra', '260978981576', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', NULL, NULL, NULL, '20210504143500', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 14:35:00', NULL),
+	(21, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '12345', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260977948729', '', NULL, 'Issac', 'testing', '260977948729', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', NULL, NULL, NULL, '20210504143549', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 14:35:49', NULL),
+	(22, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '12345', '5', '2021-05-04', '08:00:00', '', NULL, '', '', '260968309959', '', NULL, 'Abby', 'test', '260968309959', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260968309959', '20210504144716', '147', '301', 'Transaction failed.Transaction failed. System could not get a collection access token from MTN MoMo', '147', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 14:47:16', '2021-05-04 14:47:29'),
+	(23, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '12345', '5', '2021-05-04', '08:00:00', '', NULL, '', '', '260968309959', '', NULL, 'emma', 'pgirl', '260968309959', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260968309959', '20210504144947', '148', '301', 'Transaction failed.Transaction failed. System could not get a collection access token from MTN MoMo', '148', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 14:49:47', '2021-05-04 14:50:01'),
+	(24, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '255555', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260978981576', '', NULL, 'fra', 'fra', '260978981576', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', NULL, NULL, '260978981576', '20210504150013', NULL, '300', 'Transaction was processed successfully.', '149', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-05-04 15:00:13', '2021-05-04 15:25:32'),
+	(25, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '12345', '5', '2021-05-04', '08:00:00', '', NULL, '', '', '260968309959', '', NULL, 'testing', 'Mwale', '260968309959', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260968309959', '20210504151515', '150', '300', 'Transaction was processed successfully', '150', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-05-04 15:15:15', '2021-05-04 15:16:02'),
+	(26, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '122345', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260978981576', '', NULL, 'fra', 'fra', '260978981576', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', NULL, '20210504151608', '151', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 15:16:08', '2021-05-04 15:16:10'),
+	(27, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '6666666', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260978981576', '', NULL, 'francis', 'francis', '260978981576', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', NULL, '20210504151800', '152', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 15:18:00', '2021-05-04 15:18:05'),
+	(28, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '113338', '5', '2021-05-04', '08:00:00', '', NULL, '', '', '260763585832', '', NULL, 'da', 'Dj', '260763585832', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260763585832', '20210504152014', '153', '300', 'Transaction was processed successfully', '153', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-05-04 15:20:14', '2021-05-04 15:22:00'),
+	(29, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', 'francis', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260978981576', '', NULL, 'francis', 'fra', '260978981576', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', NULL, '20210504152057', '154', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 15:20:57', '2021-05-04 15:20:59'),
+	(30, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '444444', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260978981576', '', NULL, 'francis', 'francis', '260978981576', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260978981576', '20210504152714', '155', '301', 'Transaction failed.', '155', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 15:27:14', '2021-05-04 15:28:24'),
+	(31, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '666666', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260978981576', '', NULL, 'francis', 'francis', '260978981576', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260978981576', '20210504152912', '156', '301', 'Transaction failed.', '156', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 15:29:12', '2021-05-04 15:30:25'),
+	(32, 3, NULL, 0, 'Sync Pending', '', 'LIVMAZ', 'USSD', 'NRC', '888888', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260978981576', '', NULL, 'francis', 'francis', '260978981576', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260978981576', '20210504153133', '157', '301', 'Transaction failed.', '157', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 15:31:33', '2021-05-04 15:32:43'),
+	(33, 3, NULL, 0, 'Sync Pending', NULL, 'LIVMAZ', 'MOBILE', 'NRC', '11333/18/1', '5', '2021-05-05', '08:00:00', NULL, NULL, NULL, NULL, NULL, '11333/18/1', NULL, 'Danny', 'Leza', '260968309959', 'lezadanny@gmail.com', 1.00, 0.00, '1918b96a2f5d54e1', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260968309959', '20210504154047', '158', '301', 'Transaction failed.Transaction failed. System could not get a collection access token from MTN MoMo', '158', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 15:40:47', '2021-05-04 15:40:59'),
+	(34, 3, NULL, 0, 'Sync Pending', NULL, 'LivKaf', 'MOBILE', 'NRC', '113338/11/1', '5', '2021-05-05', '08:00:00', NULL, NULL, NULL, NULL, NULL, '113338/11/1', NULL, 'Dan', 'Bube', '260968309959', 'LEZADANNY@gmail.com', 1.00, 0.00, '1918b96a2f5d54e1', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260968309959', '20210504154300', '159', '300', 'Transaction was processed successfully', '159', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-05-04 15:43:00', '2021-05-04 15:43:38'),
+	(35, 3, NULL, 0, 'Sync Pending', NULL, 'LIVMON', 'MOBILE', 'NRC', '11111', '5', '2021-05-05', '08:00:00', NULL, NULL, NULL, NULL, NULL, '11111', NULL, 'Phiri', 'Daka', '260763585832', 'lezadanny@gmail.com', 1.00, 0.00, '1918b96a2f5d54e1', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', NULL, '20210504154515', '160', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 15:45:15', '2021-05-04 15:45:18'),
+	(36, 3, NULL, 0, 'Sync Pending', NULL, 'LIVMON', 'MOBILE', 'NRC', '11111', '5', '2021-05-05', '08:00:00', NULL, NULL, NULL, NULL, NULL, '11111', NULL, 'Phiri', 'Daka', '260763585832', 'lezadanny@gmail.com', 1.00, 0.00, '1918b96a2f5d54e1', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260763585832', '20210504154525', '161', '300', 'Transaction was processed successfully', '161', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-05-04 15:45:25', '2021-05-04 15:46:06'),
+	(37, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '11333', '5', '2021-05-04', '08:00:00', '', NULL, '', '', '260954712885', '', NULL, 'james', 'G', '260954712885', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260954712885', '20210504154852', '162', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '162', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 15:48:52', '2021-05-04 15:49:31'),
+	(38, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '12345', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260955040826', '', NULL, 'The', 'Momo', '260955040826', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210504155131', '163', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '163', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 15:51:31', '2021-05-04 15:52:12'),
+	(39, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '11333', '5', '2021-05-04', '08:00:00', '', NULL, '', '', '260954712885', '', NULL, 'Jm', 'Pm', '260954712885', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260954712885', '20210504155755', '164', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '164', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 15:57:55', '2021-05-04 15:58:34'),
+	(40, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '111111', '5', '2021-05-04', '08:00:00', '', NULL, '', '', '260954712885', '', NULL, 'Da', 'Dm', '260954712885', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260954712885', '20210504160505', '165', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '165', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 16:05:05', '2021-05-04 16:05:44'),
+	(41, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '1111111', '5', '2021-05-04', '08:00:00', '', NULL, '', '', '260954712885', '', NULL, 'D', 'Gjl', '260954712885', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260954712885', '20210504160831', '166', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '166', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 16:08:31', '2021-05-04 16:09:09'),
+	(42, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '45876', '5', '2021-05-04', '08:00:00', '', NULL, '', '', '260955040826', '', NULL, 'Djm', 'Tw', '260955040826', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210504161401', '167', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '167', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 16:14:01', '2021-05-04 16:14:38'),
+	(43, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '122222', '5', '2021-05-04', '08:00:00', '', NULL, '', '', '260954712885', '', NULL, 'Mpw', 'Gmpw', '260954712885', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260954712885', '20210504161608', '168', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '168', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 16:16:08', '2021-05-04 16:16:45'),
+	(44, 3, NULL, 0, 'Sync Pending', NULL, 'LivKaf', 'MOBILE', 'NRC', '2345577', '5', '2021-05-05', '08:00:00', NULL, NULL, NULL, NULL, NULL, '2345577', NULL, 'dab', 'gdh', '260954712885', 'lezadanny@gmail.com', 1.00, 0.00, '1918b96a2f5d54e1', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260954712885', '20210504161856', '169', '301', 'Transaction failed.resultType:0, resultCode:6011,resultDesc:the current security credential of the user has expired.', '169', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 16:18:56', '2021-05-04 16:19:22'),
+	(45, 3, NULL, 0, 'Sync Pending', NULL, 'LIVMON', 'MOBILE', 'NRC', '675597', '5', '2021-05-05', '08:00:00', NULL, NULL, NULL, NULL, NULL, '675597', NULL, 'Jane', 'phiri', '260955040826', '', 1.00, 0.00, '1918b96a2f5d54e1', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210504162059', '170', '301', 'Transaction failed.resultType:0, resultCode:6011,resultDesc:the current security credential of the user has expired.', '170', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 16:20:59', '2021-05-04 16:21:16'),
+	(46, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '1111111', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260977617777', '', NULL, 'fddddd', 'hgfdd', '260977617777', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260977617777', '20210504162412', '171', '301', 'Transaction failed.', '171', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 16:24:12', '2021-05-04 16:25:25'),
+	(47, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '11111', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260954712885', '', NULL, 'Mjt', 'Tpd', '260954712885', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', NULL, '20210504192013', '172', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 19:20:13', '2021-05-04 19:20:16'),
+	(48, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '222222', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260954712885', '', NULL, 'eag', 'amga', '260954712885', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260954712885', '20210504193129', '173', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '173', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 19:31:29', '2021-05-04 19:32:05'),
+	(49, 3, NULL, 0, 'Sync Pending', NULL, 'LIVMAZ', 'MOBILE', 'NRC', '111233', '5', '2021-05-05', '08:00:00', NULL, NULL, NULL, NULL, NULL, '111233', NULL, 'dab', 'gad', '260954712885', 'lezadanny@gmail.com', 1.00, 0.00, '1918b96a2f5d54e1', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260954712885', '20210504193217', '174', '301', 'Transaction failed.resultType:0, resultCode:6011,resultDesc:the current security credential of the user has expired.', '174', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 19:32:17', '2021-05-04 19:32:36'),
+	(50, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '111111', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260954712885', '', NULL, 'jag', 'jag', '260954712885', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260954712885', '20210504193552', '175', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '175', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 19:35:52', '2021-05-04 19:36:29'),
+	(51, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '12367', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260954712885', '', NULL, 'dfggg', 'bhhuu', '260954712885', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260954712885', '20210504195017', '176', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '176', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 19:50:17', '2021-05-04 19:51:07'),
+	(52, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '123333', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260954712885', '', NULL, 'fdhdhdh', 'fgggh', '260954712885', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260954712885', '20210504195144', '177', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '177', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 19:51:44', '2021-05-04 19:52:22'),
+	(53, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '666666', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260969240309', '', NULL, 'francis', 'francis', '260969240309', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210504201626', '178', '301', 'Transaction failed', '178', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 20:16:26', '2021-05-04 20:17:04'),
+	(54, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '44444', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260969240309', '', NULL, 'fra', 'fra', '260969240309', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210504201907', '179', '301', 'Transaction failed', '179', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 20:19:07', '2021-05-04 20:19:43'),
+	(55, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '134556', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260977617777', '', NULL, 'fshdhd', 'dhdhd', '260977617777', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260977617777', '20210504201917', '180', '301', 'Transaction failed.', '180', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 20:19:17', '2021-05-04 20:20:32'),
+	(56, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '88888', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260969240309', '', NULL, 'francis', 'francis', '260969240309', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210504202256', '181', '301', 'Transaction failed', '181', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 20:22:56', '2021-05-04 20:23:32'),
+	(57, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '444444', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260969240309', '', NULL, 'fra', 'fra', '260969240309', '', 1.00, 0.00, '1111111', '2021-05-04 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210504202550', '182', '301', 'Transaction failed', '182', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-04 20:25:50', '2021-05-04 20:26:27'),
+	(58, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '12333', '5', '2021-05-06', '08:00:00', '', NULL, '', '', '260977948729', '', NULL, 'Mary', 'lmwake', '260977948729', '', 1.00, 0.00, '1111111', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260977948729', '20210505090812', '183', '301', 'Transaction failed.', '183', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-05 09:08:12', '2021-05-05 09:08:29'),
+	(59, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '555555', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260969240309', '', NULL, 'francis', 'francis', '260969240309', '', 1.00, 0.00, '1111111', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210505092057', '184', '301', 'Transaction failed', '184', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-05 09:20:57', '2021-05-05 09:21:36'),
+	(60, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '15874', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260763585832', '', NULL, 'Mwj', 'Mjg', '260763585832', '', 1.00, 0.00, '1111111', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', NULL, '20210505092504', '185', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-05 09:25:04', '2021-05-05 09:25:05'),
+	(61, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '578888', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260969240309', '', NULL, 'francis', 'francis', '260969240309', '', 1.00, 0.00, '1111111', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260969240309', '20210505093112', '186', '301', 'Transaction failed', '186', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-05 09:31:12', '2021-05-05 09:31:49'),
+	(62, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '897689/11/1', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260977948729', '', NULL, 'Makonde', 'Mwale', '260977948729', '', 1.00, 0.00, '1111111', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260977948729', '20210505093120', '187', '301', 'Transaction failed.', '187', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-05 09:31:20', '2021-05-05 09:32:31'),
+	(63, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '123456', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260977948729', '', NULL, 'makinde', 'hffhghu', '260977948729', '', 1.00, 0.00, '1111111', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260977948729', '20210505093231', '188', '301', 'Transaction failed.', '188', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-05 09:32:31', '2021-05-05 09:33:39'),
+	(64, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '55555', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260978981576', '', NULL, 'francis', 'francis', '260978981576', '', 1.00, 0.00, '1111111', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260978981576', '20210505093455', '189', '301', 'Transaction failed.', '189', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-05 09:34:55', '2021-05-05 09:36:04'),
+	(65, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '12345', '5', '2021-05-06', '08:00:00', '', NULL, '', '', '260977948729', '', NULL, 'makobde', 'mwale', '260977948729', '', 1.00, 0.00, '1111111', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260977948729', '20210505093623', '190', '301', 'Transaction failed.', '190', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-05 09:36:23', '2021-05-05 09:37:32'),
+	(66, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '344555', '5', '2021-05-05', '08:00:00', '', NULL, '', '', '260954712885', '', NULL, 'dssss', 'cvvbbb', '260954712885', '', 1.00, 0.00, '1111111', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260954712885', '20210505094126', '191', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '191', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-05 09:41:26', '2021-05-05 09:42:04'),
+	(67, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '123456', '5', '2021-05-05', '12:00:00', '', NULL, '', '', '260954712885', '', NULL, 'dang', 'rewsd', '260954712885', '', 1.00, 0.00, '1111111', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260954712885', '20210505110824', '192', '301', 'Transaction failed.resultType:0, resultCode:6011,resultDesc:the current security credential of the user has expired.', '192', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-05 11:08:24', '2021-05-05 11:08:52'),
+	(68, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '234455', '5', '2021-05-05', '12:00:00', '', NULL, '', '', '260954712885', '', NULL, 'fadrick', 'kunda', '260954712885', '', 1.00, 0.00, '1111111', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260954712885', '20210505114608', '193', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '193', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-05 11:46:08', '2021-05-05 11:46:48'),
+	(69, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '2748484', '5', '2021-05-05', '12:00:00', '', NULL, '', '', '260954712885', '', NULL, 'fddfff', 'ggcvx', '260954712885', '', 1.00, 0.00, '1111111', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260954712885', '20210505114754', '194', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '194', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-05 11:47:54', '2021-05-05 11:48:32'),
+	(70, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '12345', '5', '2021-05-05', '12:00:00', '', NULL, '', '', '260954712885', '', NULL, 'ged', 'tunga', '260954712885', '', 1.00, 0.00, '1111111', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260954712885', '20210505114933', '195', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '195', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-05 11:49:33', '2021-05-05 11:50:10'),
+	(71, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '566666', '5', '2021-05-05', '12:00:00', '', NULL, '', '', '260954712885', '', NULL, 'cdrs', 'dsaert', '260954712885', '', 1.00, 0.00, '1111111', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260954712885', '20210505115112', '196', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '196', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-05 11:51:12', '2021-05-05 11:51:51'),
+	(72, 3, NULL, 0, 'Sync Pending', NULL, 'LIVMAZ', 'MOBILE', 'NRC', '647474847', '5', '2021-05-05', '12:00:00', NULL, NULL, NULL, NULL, NULL, '647474847', NULL, 'dkm', 'lkgf', '260954712885', '', 1.00, 0.00, '1918b96a2f5d54e1', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260954712885', '20210505115306', '197', '301', 'Transaction failed.resultType:0, resultCode:6011,resultDesc:the current security credential of the user has expired.', '197', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-05 11:53:06', '2021-05-05 11:53:22'),
+	(73, 3, NULL, 0, 'Sync Pending', NULL, 'LivKaf', 'MOBILE', 'NRC', '4578577', '5', '2021-05-05', '12:00:00', NULL, NULL, NULL, NULL, NULL, '4578577', NULL, 'vetry', 'bug', '260955040826', '', 1.00, 0.00, '1918b96a2f5d54e1', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210505115654', '198', '301', 'Transaction failed.resultType:0, resultCode:6011,resultDesc:the current security credential of the user has expired.', '198', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-05 11:56:54', '2021-05-05 11:57:11'),
+	(74, 3, NULL, 0, 'Sync Pending', NULL, 'LivKaf', 'MOBILE', 'NRC', '0955040826', '5', '2021-05-05', '12:00:00', NULL, NULL, NULL, NULL, NULL, '0955040826', NULL, 'gvccff', 'kmnhgt', '260955040826', '', 1.00, 0.00, '1918b96a2f5d54e1', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260955040826', '20210505120207', '199', '301', 'Transaction failed.resultType:0, resultCode:6011,resultDesc:the current security credential of the user has expired.', '199', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-05 12:02:07', '2021-05-05 12:02:27'),
+	(75, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '255555', '5', '2021-05-05', '12:00:00', '', NULL, '', '', '260763585832', '', NULL, 'Mjw', 'Mjw', '260763585832', '', 1.00, 0.00, '1111111', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260763585832', '20210505122534', '200', '300', 'Transaction was processed successfully', '200', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-05-05 12:25:34', '2021-05-05 12:26:14'),
+	(76, 3, NULL, 0, 'Sync Pending', '', 'LIVLUS', 'USSD', 'NRC', '244602', '5', '2021-05-06', '12:00:00', '', NULL, '', '', '260953509342', '', NULL, 'ELINET', 'KALAMBO', '260953509342', '', 1.00, 0.00, '1111111', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260953509342', '20210505122711', '201', '301', 'Transaction failed.resultType:0, resultCode:-1,resultDesc:System internal error.', '201', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-05 12:27:11', '2021-05-05 12:27:49'),
+	(77, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '77777', '5', '2021-05-05', '12:00:00', '', NULL, '', '', '260978981576', '', NULL, 'fra', 'fra', '260978981576', '', 1.00, 0.00, '1111111', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260978981576', '20210505122851', '202', '300', 'Transaction was processed successfully.', '202', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-05-05 12:28:51', '2021-05-05 12:29:07'),
+	(78, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '12345', '5', '2021-05-05', '12:00:00', '', NULL, '', '', '260977948729', '', NULL, 'Makonde', 'mwale', '260977948729', '', 1.00, 0.00, '1111111', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260977948729', '20210505123018', '203', '301', 'Transaction failed.', '203', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-05 12:30:18', '2021-05-05 12:31:28'),
+	(79, 3, NULL, 0, 'Sync Pending', NULL, 'LivKaf', 'MOBILE', 'NRC', '11111222', '5', '2021-05-05', '12:00:00', NULL, NULL, NULL, NULL, NULL, '11111222', NULL, 'Edgar', 'Lungu', '260968309959', 'lezadanny@gmail.com', 1.00, 0.00, '1918b96a2f5d54e1', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', NULL, '20210505123628', '204', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-05 12:36:28', '2021-05-05 12:36:31'),
+	(80, 3, NULL, 0, 'Sync Pending', NULL, 'LIVMAZ', 'MOBILE', 'NRC', '2345667', '7', '2021-05-06', '08:00:00', NULL, NULL, NULL, NULL, NULL, '2345667', NULL, 'dggg', 'ghhj', '260968309959', '', 1.00, 0.00, '1918b96a2f5d54e1', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260968309959', '20210505150730', '214', '300', 'Transaction was processed successfully', '214', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-05-05 15:07:30', '2021-05-05 15:08:10'),
+	(81, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '12345', '7', '2021-05-05', '08:00:00', '', NULL, '', '', '260977948729', '', NULL, 'makonde', 'mwake', '260977948729', '', 1.00, 0.00, '1111111', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260977948729', '20210505151550', '215', '301', 'Transaction failed.', '215', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-05 15:15:50', '2021-05-05 15:17:01'),
+	(82, 3, NULL, 0, 'Sync Pending', NULL, 'LivKaf', 'MOBILE', 'NRC', '0968309959', '7', '2021-05-06', '08:00:00', NULL, NULL, NULL, NULL, NULL, '0968309959', NULL, 'bud', 'mhgf', '260968309959', '', 1.00, 0.00, '1918b96a2f5d54e1', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260968309959', '20210505151750', '216', '300', 'Transaction was processed successfully', '216', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-05-05 15:17:50', '2021-05-05 15:18:29'),
+	(83, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '12345', '7', '2021-05-05', '08:00:00', '', NULL, '', '', '260977948729', '', NULL, 'fggyhgt', 'fgjffy', '260977948729', '', 1.00, 0.00, '1111111', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260977948729', '20210505170421', '217', '300', 'Transaction was processed successfully.', '217', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-05-05 17:04:21', '2021-05-05 17:04:38'),
+	(84, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '222255', '7', '2021-05-06', '08:00:00', '', NULL, '', '', '260763585832', '', NULL, 'Dmju', 'Pgj', '260763585832', '', 1.00, 0.00, '1111111', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260763585832', '20210505172936', '218', '300', 'Transaction was processed successfully', '218', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-05-05 17:29:36', '2021-05-05 17:30:15'),
+	(85, 3, NULL, 0, 'Sync Pending', '', 'LIVCHO', 'USSD', 'NRC', '123456', '7', '2021-05-05', '08:00:00', '', NULL, '', '', '260977948729', '', NULL, 'makonde', 'mwale', '260977948729', '', 1.00, 0.00, '1111111', '2021-05-05 00:00:00', '299', 'Transaction is pending processing', '260977948729', '20210505173126', '219', '300', 'Transaction was processed successfully.', '219', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '200', 'Transaction Successful', '2021-05-05 17:31:26', '2021-05-05 17:31:42');
 /*!40000 ALTER TABLE `unza_transactions` ENABLE KEYS */;
 
 -- Dumping structure for table btmms.unza_transactions_fees
@@ -7395,7 +8444,10 @@ CREATE TABLE IF NOT EXISTS `unza_transactions_fees` (
   `debit_ExtTransactionID` varchar(250) DEFAULT NULL,
   `fee_id` int NOT NULL,
   `marketeer_uuid` varchar(250) DEFAULT NULL,
+  `firstname` varchar(45) DEFAULT NULL,
+  `lastname` varchar(45) DEFAULT NULL,
   `property_id` int NOT NULL DEFAULT '0',
+  `property_number` varchar(10) DEFAULT NULL,
   `amount_due` decimal(10,2) NOT NULL DEFAULT '0.00',
   `amount_tendered` decimal(10,2) NOT NULL DEFAULT '0.00',
   `invoice_number` varchar(250) DEFAULT NULL,
@@ -7406,43 +8458,10 @@ CREATE TABLE IF NOT EXISTS `unza_transactions_fees` (
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_modified` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table btmms.unza_transactions_fees: ~30 rows (approximately)
+-- Dumping data for table btmms.unza_transactions_fees: ~0 rows (approximately)
 /*!40000 ALTER TABLE `unza_transactions_fees` DISABLE KEYS */;
-INSERT INTO `unza_transactions_fees` (`id`, `debit_ExtTransactionID`, `fee_id`, `marketeer_uuid`, `property_id`, `amount_due`, `amount_tendered`, `invoice_number`, `receipt_number`, `datetime_invoiced`, `datetime_paid`, `is_paid`, `date_created`, `date_modified`) VALUES
-	(1, NULL, 1, '2021-1798440027-2-8935-15', 0, 1.00, 0.00, '20210228225227160014', NULL, '2021-02-28 22:52:27', NULL, 0, '2021-02-28 22:52:27', NULL),
-	(2, NULL, 1, '2021-3265609246-2-7836-15', 0, 1.00, 0.00, '20210228225227128568', NULL, '2021-02-28 22:52:27', NULL, 0, '2021-02-28 22:52:27', NULL),
-	(3, NULL, 1, '2021-3747474048-2-0163-15', 0, 1.00, 1.00, '20210228225228141967', NULL, '2021-02-28 22:52:28', '2021-02-28 22:55:00', 1, '2021-02-28 22:52:28', '2021-03-01 07:28:17'),
-	(4, NULL, 1, '2021-4508945678-2-0811-15', 0, 1.00, 0.00, '20210228225230117440', NULL, '2021-02-28 22:52:30', NULL, 0, '2021-02-28 22:52:30', NULL),
-	(5, NULL, 1, '2021-5285735976-2-4041-15', 0, 1.00, 0.00, '20210228225232106243', NULL, '2021-02-28 22:52:32', NULL, 0, '2021-02-28 22:52:32', NULL),
-	(6, NULL, 1, '2021-6729360363-2-6338-15', 0, 1.00, 0.00, '20210228225232150807', NULL, '2021-02-28 22:52:32', NULL, 0, '2021-02-28 22:52:32', NULL),
-	(7, NULL, 1, '2021-7483076057-2-8456-15', 0, 1.00, 0.00, '20210228225233192904', NULL, '2021-02-28 22:52:33', NULL, 0, '2021-02-28 22:52:33', NULL),
-	(8, NULL, 1, '2021-8383786530-2-4621-15', 0, 1.00, 1.00, '20210228225233103515', NULL, '2021-02-28 22:52:33', '2021-02-28 22:56:33', 1, '2021-02-28 22:52:33', '2021-03-01 07:29:37'),
-	(9, NULL, 2, '2021-1798440027-2-8935-15', 0, 5.00, 5.00, '20210228225235258595', NULL, '2021-02-28 22:52:35', '2021-02-28 22:55:35', 1, '2021-02-28 22:52:35', '2021-03-01 07:29:01'),
-	(10, NULL, 2, '2021-3265609246-2-7836-15', 0, 5.00, 0.00, '20210228225236212667', NULL, '2021-02-28 22:52:36', NULL, 0, '2021-02-28 22:52:36', NULL),
-	(11, NULL, 2, '2021-3747474048-2-0163-15', 0, 5.00, 0.00, '20210228225237214574', NULL, '2021-02-28 22:52:37', NULL, 0, '2021-02-28 22:52:37', NULL),
-	(12, NULL, 2, '2021-4508945678-2-0811-15', 0, 5.00, 0.00, '20210228225239236580', NULL, '2021-02-28 22:52:39', NULL, 0, '2021-02-28 22:52:39', NULL),
-	(13, NULL, 2, '2021-5285735976-2-4041-15', 0, 5.00, 0.00, '20210228225241239618', NULL, '2021-02-28 22:52:41', NULL, 0, '2021-02-28 22:52:41', NULL),
-	(14, NULL, 2, '2021-6729360363-2-6338-15', 0, 5.00, 0.00, '20210228225242203911', NULL, '2021-02-28 22:52:42', NULL, 0, '2021-02-28 22:52:42', NULL),
-	(15, NULL, 2, '2021-7483076057-2-8456-15', 0, 5.00, 0.00, '20210228225243218030', NULL, '2021-02-28 22:52:43', NULL, 0, '2021-02-28 22:52:43', NULL),
-	(16, NULL, 2, '2021-8383786530-2-4621-15', 0, 5.00, 0.00, '20210228225245266346', NULL, '2021-02-28 22:52:45', NULL, 0, '2021-02-28 22:52:45', NULL),
-	(17, NULL, 1, '2021-1798440027-2-8935-15', 0, 1.00, 0.00, '20210301072107113486', NULL, '2021-03-01 07:21:07', NULL, 0, '2021-03-01 07:21:07', NULL),
-	(18, NULL, 1, '2021-3265609246-2-7836-15', 0, 1.00, 0.00, '20210301072107187522', NULL, '2021-03-01 07:21:07', NULL, 0, '2021-03-01 07:21:07', NULL),
-	(19, NULL, 1, '2021-3747474048-2-0163-15', 0, 1.00, 0.00, '20210301072108139136', NULL, '2021-03-01 07:21:08', NULL, 0, '2021-03-01 07:21:08', NULL),
-	(20, NULL, 1, '2021-4508945678-2-0811-15', 0, 1.00, 0.00, '20210301072110115711', NULL, '2021-03-01 07:21:10', NULL, 0, '2021-03-01 07:21:10', NULL),
-	(21, NULL, 1, '2021-5285735976-2-4041-15', 0, 1.00, 0.00, '20210301072114135701', NULL, '2021-03-01 07:21:14', NULL, 0, '2021-03-01 07:21:14', NULL),
-	(22, NULL, 1, '2021-6729360363-2-6338-15', 0, 1.00, 0.00, '20210301072116139018', NULL, '2021-03-01 07:21:16', NULL, 0, '2021-03-01 07:21:16', NULL),
-	(23, NULL, 1, '2021-7483076057-2-8456-15', 0, 1.00, 0.00, '20210301072117165152', NULL, '2021-03-01 07:21:17', NULL, 0, '2021-03-01 07:21:17', NULL),
-	(24, NULL, 1, '2021-8383786530-2-4621-15', 0, 1.00, 1.00, '20210301072119182333', NULL, '2021-03-01 07:21:19', '2021-03-01 07:27:19', 1, '2021-03-01 07:21:19', '2021-03-01 07:31:25'),
-	(25, NULL, 2, '2021-1798440027-2-8935-15', 0, 5.00, 5.00, '20210301072120242332', NULL, '2021-03-01 07:21:20', '2021-03-01 07:27:20', 1, '2021-03-01 07:21:20', '2021-03-01 07:31:56'),
-	(26, NULL, 2, '2021-3265609246-2-7836-15', 0, 5.00, 0.00, '20210301072121284851', NULL, '2021-03-01 07:21:21', NULL, 0, '2021-03-01 07:21:21', NULL),
-	(27, NULL, 2, '2021-3747474048-2-0163-15', 0, 5.00, 0.00, '20210301072122249340', NULL, '2021-03-01 07:21:22', NULL, 0, '2021-03-01 07:21:22', NULL),
-	(28, NULL, 2, '2021-4508945678-2-0811-15', 0, 5.00, 0.00, '20210301072124270371', NULL, '2021-03-01 07:21:24', NULL, 0, '2021-03-01 07:21:24', NULL),
-	(29, NULL, 2, '2021-5285735976-2-4041-15', 0, 5.00, 0.00, '20210301072125287651', NULL, '2021-03-01 07:21:25', NULL, 0, '2021-03-01 07:21:25', NULL),
-	(30, NULL, 2, '2021-6729360363-2-6338-15', 0, 5.00, 0.00, '20210301072127262895', NULL, '2021-03-01 07:21:27', NULL, 0, '2021-03-01 07:21:27', NULL),
-	(31, NULL, 2, '2021-7483076057-2-8456-15', 0, 5.00, 0.00, '20210301072129277695', NULL, '2021-03-01 07:21:29', NULL, 0, '2021-03-01 07:21:29', NULL),
-	(32, NULL, 2, '2021-8383786530-2-4621-15', 0, 5.00, 0.00, '20210301072130230547', NULL, '2021-03-01 07:21:30', NULL, 0, '2021-03-01 07:21:30', NULL);
 /*!40000 ALTER TABLE `unza_transactions_fees` ENABLE KEYS */;
 
 -- Dumping structure for table btmms.unza_transactions_property_fees
@@ -7480,7 +8499,7 @@ CREATE TABLE IF NOT EXISTS `unza_transaction_charges` (
 
 -- Dumping data for table btmms.unza_transaction_charges: ~0 rows (approximately)
 /*!40000 ALTER TABLE `unza_transaction_charges` DISABLE KEYS */;
-INSERT INTO `unza_transaction_charges` (`id`, `name`, `value`, `status`, `charge_type`, `date_created`, `created_by`, `date_modified`, `modified_by`) VALUES
+INSERT IGNORE INTO `unza_transaction_charges` (`id`, `name`, `value`, `status`, `charge_type`, `date_created`, `created_by`, `date_modified`, `modified_by`) VALUES
 	(7, 'Transaction fee', '0.5', 0, 'Percentage', '2020-04-14 17:36:56', 1, '2020-04-14 18:04:25', 1),
 	(8, 'Charge', '2', 0, 'Percentage', '2021-02-18 18:11:07', 1, '2021-02-18 18:11:22', 1);
 /*!40000 ALTER TABLE `unza_transaction_charges` ENABLE KEYS */;
@@ -7497,7 +8516,7 @@ CREATE TABLE IF NOT EXISTS `unza_transaction_types` (
 
 -- Dumping data for table btmms.unza_transaction_types: ~3 rows (approximately)
 /*!40000 ALTER TABLE `unza_transaction_types` DISABLE KEYS */;
-INSERT INTO `unza_transaction_types` (`transaction_type_id`, `name`, `description`, `date_created`, `date_modified`) VALUES
+INSERT IGNORE INTO `unza_transaction_types` (`transaction_type_id`, `name`, `description`, `date_created`, `date_modified`) VALUES
 	(1, 'Make a sale', '', '2019-12-13 00:17:05', NULL),
 	(2, 'Order', '', '2019-12-13 00:17:05', NULL),
 	(3, 'Ticket Purchase', '', '2019-12-13 00:17:48', NULL);
@@ -7533,7 +8552,7 @@ CREATE TABLE IF NOT EXISTS `unza_users` (
 
 -- Dumping data for table btmms.unza_users: ~2 rows (approximately)
 /*!40000 ALTER TABLE `unza_users` DISABLE KEYS */;
-INSERT INTO `unza_users` (`user_id`, `role_id`, `firstname`, `lastname`, `nrc`, `gender`, `dob`, `mobile_number`, `email`, `password`, `token_balance`, `account_number`, `verification_token`, `password_reset_token`, `auth_key`, `status`, `created_by`, `updated_by`, `date_created`, `date_updated`) VALUES
+INSERT IGNORE INTO `unza_users` (`user_id`, `role_id`, `firstname`, `lastname`, `nrc`, `gender`, `dob`, `mobile_number`, `email`, `password`, `token_balance`, `account_number`, `verification_token`, `password_reset_token`, `auth_key`, `status`, `created_by`, `updated_by`, `date_created`, `date_updated`) VALUES
 	(1, 1, 'Francis', 'Chulu C', '111111', 'Male', '1978-11-29', '260978981576', 'chulu1francis@gmail.com', '$2y$13$d4Ja2z2IRVoFFaJuKLO6buoJwSBQ7mdqv7o3lmidnQxA4A9wzWIri', 0.00, '111111', 'gHn4kQcKjfq55mM9kiEzVCir_3Rvs8VK_1562149047', 'lX8_NwN4XK5ytzidXxIAipn0HjvUMYDk_1613299148', 'CbART1y2XkwfYkCNCk_gCFi3hSXUx7U1', '1', 1, 1, '2019-11-05 00:00:00', '2021-02-14 12:39:08'),
 	(10, 2, 'Chulu', 'Francis', '1989800000', 'Male', '2020-04-23', '260978981570', 'francis.chulu@unza.zm', '$2y$13$mJ2d.ZQYtmOkrD530NUgu..0g.9CqwDvQBZkZ3GwTD2EZNXTT9KE.', 0.00, NULL, NULL, 'gnABWuQN6q-b6-CxYEE7AWPU_KWng4Dw_1585845553', 'jTPWiSci1yHn5G9Njv4xmwpho5YkCgqR', '0', 1, 1, '2020-04-02 18:39:13', '2021-02-18 18:04:02');
 /*!40000 ALTER TABLE `unza_users` ENABLE KEYS */;
@@ -7547,11 +8566,47 @@ CREATE TABLE IF NOT EXISTS `wb_tmp_triggers` (
 
 -- Dumping data for table btmms.wb_tmp_triggers: ~2 rows (approximately)
 /*!40000 ALTER TABLE `wb_tmp_triggers` DISABLE KEYS */;
-INSERT INTO `wb_tmp_triggers` (`trigger_name`, `trigger_sql`) VALUES
+INSERT IGNORE INTO `wb_tmp_triggers` (`trigger_name`, `trigger_sql`) VALUES
 	('ins_acc_gl_bal_cust', 'CREATE DEFINER=`probase`@`%` TRIGGER `ins_acc_gl_bal_cust` AFTER INSERT ON `probase_tbl_users` FOR EACH ROW if new.role =\'BOP\' or new.role =\'MOP\'  or new.role =\'TOP\' then INSERT INTO probase_tbl_acgl_bal \n(account, entry_date, opening_bal, closing_bal, dr_mov, cr_mov)\n values (NEW.account_number,now(),0.00,0.00,0.00,0.00); end if'),
 	('ins_tbl_tick', 'CREATE DEFINER=`probase`@`%` TRIGGER `ins_tbl_tick` AFTER INSERT ON `probase_tbl_tickets` FOR EACH ROW BEGIN\n      IF (NEW.transaction_channel =\'TELLER\' ) THEN\n          CALL Accounts(\'PUR_TIC_CASH\',new.reference_number,NEW.maker,NEW.inserted_at,\n              NEW.amount,CONCAT(\'FY\',YEAR(now())),\n              NEW.mobile_number,NEW.transaction_channel,new.bus_no);\n\n\n      END IF;\n\n      IF (NEW.transaction_channel =\'MOBILE\' or NEW.transaction_channel =\'USSD\') THEN\n          CALL Accounts(\'PUR_TIC_MOMO\',new.reference_number,NEW.maker,NEW.inserted_at,\n              NEW.amount,CONCAT(\'FY\',YEAR(now())),\n              NEW.mobile_number,NEW.transaction_channel,new.bus_no);\n\n\n      END IF;\n\n       IF (NEW.transaction_channel =\'VISA\' ) THEN\n         CALL Accounts(\'PUR_TIC_VISA\',new.reference_number,NEW.maker,NEW.inserted_at,\n              NEW.amount,CONCAT(\'FY\',YEAR(now())),\n              NEW.mobile_number,NEW.transaction_channel,new.bus_no);\n\n\n\n      END IF;\n\n    END'),
 	('insert_ac_gl_bal', 'CREATE DEFINER=`probase`@`%` TRIGGER `insert_ac_gl_bal` AFTER INSERT ON `probase_acc_gl_account` FOR EACH ROW INSERT INTO probase_tbl_acgl_bal (account, entry_date, opening_bal, closing_bal, dr_mov, cr_mov)\nvalues (NEW.gl_code,now(),0.00,0.00,0.00,0.00)');
 /*!40000 ALTER TABLE `wb_tmp_triggers` ENABLE KEYS */;
+
+-- Dumping structure for view btmms.ed_vw_arrivals_report
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `ed_vw_arrivals_report` (
+	`Date of Arrival` VARCHAR(10) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`Time of Arrival` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`Bus Operator` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`Bus Reg/Info` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`Status` VARCHAR(11) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`BusOperatorId` INT(10) NULL
+) ENGINE=MyISAM;
+
+-- Dumping structure for view btmms.ed_vw_bus_schedule_report
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `ed_vw_bus_schedule_report` (
+	`Date Scheduled For` VARCHAR(10) NULL COLLATE 'utf8mb4_general_ci',
+	`Time of Departure` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`Bus Operator` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`Bus Registration Number` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`Slot Booked` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`Destination` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`Status` VARCHAR(11) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`BusId` INT(10) UNSIGNED NULL,
+	`BusOperatorId` INT(10) UNSIGNED NULL
+) ENGINE=MyISAM;
+
+-- Dumping structure for view btmms.ed_vw_departures_report
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `ed_vw_departures_report` (
+	`Date of Departure` VARCHAR(10) NULL COLLATE 'utf8mb4_general_ci',
+	`Time of Departure` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`Bus Operator` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`Bus Registration Number` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`Status` VARCHAR(11) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`BusOperatorId` INT(10) UNSIGNED NULL
+) ENGINE=MyISAM;
 
 -- Dumping structure for view btmms.ed_vw_sold_tickets
 -- Creating temporary table to overcome VIEW dependency errors
@@ -7560,6 +8615,61 @@ CREATE TABLE `ed_vw_sold_tickets` (
 	`bus_schedule_id` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
 	`reserved_time` DATETIME NULL,
 	`vehicle_capacity` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci'
+) ENGINE=MyISAM;
+
+-- Dumping structure for view btmms.unza_collections_report
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `unza_collections_report` (
+	`seller_uuid` VARCHAR(250) NULL COLLATE 'utf8_general_ci',
+	`seller_firstname` VARCHAR(100) NULL COLLATE 'utf8_general_ci',
+	`seller_lastname` VARCHAR(100) NULL COLLATE 'utf8_general_ci',
+	`stand_number` VARCHAR(20) NULL COLLATE 'utf8_general_ci',
+	`amount` DOUBLE(10,2) NOT NULL
+) ENGINE=MyISAM;
+
+-- Dumping structure for view btmms.unza_invoiced_charges
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `unza_invoiced_charges` (
+	`fee_name` VARCHAR(100) NOT NULL COLLATE 'utf8_general_ci',
+	`marketeer_uuid` VARCHAR(250) NULL COLLATE 'utf8_general_ci',
+	`property_id` INT(10) NOT NULL,
+	`datetime_invoiced` DATETIME NULL,
+	`invoice_number` VARCHAR(250) NULL COLLATE 'utf8_general_ci',
+	`amount` DECIMAL(10,2) NOT NULL
+) ENGINE=MyISAM;
+
+-- Dumping structure for view btmms.unza_rental_debtors_report
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `unza_rental_debtors_report` (
+	`fee_name` VARCHAR(100) NOT NULL COLLATE 'utf8_general_ci',
+	`invoice_number` VARCHAR(250) NULL COLLATE 'utf8_general_ci',
+	`datetime_invoiced` DATETIME NULL,
+	`marketeer_uuid` VARCHAR(250) NULL COLLATE 'utf8_general_ci',
+	`property_id` INT(10) NOT NULL
+) ENGINE=MyISAM;
+
+-- Dumping structure for view btmms.unza_sales_by_stand
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `unza_sales_by_stand` (
+	`transaction_date` DATETIME NOT NULL,
+	`stand_number` VARCHAR(20) NULL COLLATE 'utf8_general_ci',
+	`amount` DOUBLE(10,2) NOT NULL,
+	`seller_uuid` VARCHAR(250) NULL COLLATE 'utf8_general_ci'
+) ENGINE=MyISAM;
+
+-- Dumping structure for view btmms.unza_sales_by_supplier
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `unza_sales_by_supplier` (
+	`seller_uuid` VARCHAR(250) NULL COLLATE 'utf8_general_ci',
+	`seller_firstname` VARCHAR(100) NULL COLLATE 'utf8_general_ci',
+	`seller_lastname` VARCHAR(100) NULL COLLATE 'utf8_general_ci',
+	`id` INT(10) NOT NULL,
+	`date_of_sale` DATETIME NOT NULL,
+	`stand_number` VARCHAR(20) NULL COLLATE 'utf8_general_ci',
+	`buyer_uuid` VARCHAR(250) NULL COLLATE 'utf8_general_ci',
+	`buyer_firstname` VARCHAR(100) NULL COLLATE 'utf8_general_ci',
+	`buyer_lastname` VARCHAR(100) NULL COLLATE 'utf8_general_ci',
+	`amount` DOUBLE(10,2) NOT NULL
 ) ENGINE=MyISAM;
 
 -- Dumping structure for view btmms.vw_manifest
@@ -7612,7 +8722,9 @@ CREATE TABLE `vw_manifest2` (
 	`teller_name` VARCHAR(511) NULL COLLATE 'utf8mb4_0900_ai_ci',
 	`teller_id` BIGINT(20) UNSIGNED NOT NULL,
 	`transaction_date` DATETIME NOT NULL,
-	`ticket_number` BIGINT(20) UNSIGNED NOT NULL
+	`ticket_description` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`ticket_number` BIGINT(20) UNSIGNED NOT NULL,
+	`end_route` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci'
 ) ENGINE=MyISAM;
 
 -- Dumping structure for view btmms.vw_operator_dues
@@ -8219,7 +9331,7 @@ BEGIN
 		WHERE
 			STR_TO_DATE(CONCAT(DATE(reserved_time), ' ', `time`, ':00'), '%Y-%m-%d %H:%i:%s') <= NOW()
 			AND DATE(reserved_time) = DATE(NOW())
-			AND `status` = 'A';
+			AND (`status` = 'A' OR `reservation_status` = 'A');
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
     
 	SELECT 
@@ -8237,7 +9349,7 @@ BEGIN
 		END IF;
         
         IF DATE_ADD(dt, INTERVAL @time_after MINUTE) <= NOW() THEN
-			UPDATE ed_reservations SET `status` = 'DL' WHERE id = lateId;
+			UPDATE ed_reservations SET `status` = 'DL', `reservation_status` = 'DL' WHERE id = lateId;
 		END IF;
     END LOOP getLate;
     CLOSE curLate;
@@ -8464,47 +9576,87 @@ CREATE TRIGGER `upd_tbl_tick` AFTER UPDATE ON `probase_tbl_tickets` FOR EACH ROW
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
+-- Dumping structure for view btmms.ed_vw_arrivals_report
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `ed_vw_arrivals_report`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `btmms`.`ed_vw_arrivals_report` AS select date_format(`a`.`reserved_time`,'%Y-%m-%d') AS `Date of Arrival`,`a`.`time` AS `Time of Arrival`,`b`.`company` AS `Bus Operator`,(case when (`c`.`license_plate` is not null) then `c`.`license_plate` when (`a`.`bus_detail` is not null) then `a`.`bus_detail` else ' ' end) AS `Bus Reg/Info`,(case when (`a`.`reservation_status` = 'A') then 'Scheduled' when (`a`.`reservation_status` = 'B') then 'Boarding' when (`a`.`reservation_status` = 'C') then 'Cancelled' when (`a`.`reservation_status` = 'D') then 'Departed' when (`a`.`reservation_status` = 'DL') then 'Delayed' else 'Unavailable' end) AS `Status`,`a`.`user_id` AS `BusOperatorId` from ((`btmms`.`ed_ar_reservations` `a` join `btmms`.`probase_tbl_users` `b` on((`a`.`user_id` = `b`.`id`))) left join `btmms`.`probase_tbl_bus` `c` on((`a`.`bus_id` = `c`.`id`)));
+
+-- Dumping structure for view btmms.ed_vw_bus_schedule_report
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `ed_vw_bus_schedule_report`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `btmms`.`ed_vw_bus_schedule_report` AS select date_format(`a`.`reserved_time`,'%Y-%m-%d') AS `Date Scheduled For`,`a`.`time` AS `Time of Departure`,`c`.`company` AS `Bus Operator`,`c`.`license_plate` AS `Bus Registration Number`,`a`.`slot` AS `Slot Booked`,`d`.`end_route` AS `Destination`,(case when (`a`.`reservation_status` = 'A') then 'Scheduled' when (`a`.`reservation_status` = 'B') then 'Boarding' when (`a`.`reservation_status` = 'C') then 'Cancelled' when (`a`.`reservation_status` = 'D') then 'Departed' when (`a`.`reservation_status` = 'DL') then 'Delayed' else 'Unavailable' end) AS `Status`,`a`.`bus_id` AS `BusId`,`a`.`user_id` AS `BusOperatorId` from ((`btmms`.`ed_reservations` `a` join `btmms`.`probase_tbl_bus` `c` on((`a`.`bus_id` = `c`.`id`))) join `btmms`.`ed_bus_routes` `d` on((`a`.`ed_bus_route_id` = `d`.`id`)));
+
+-- Dumping structure for view btmms.ed_vw_departures_report
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `ed_vw_departures_report`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `btmms`.`ed_vw_departures_report` AS select date_format(`a`.`reserved_time`,'%Y-%m-%d') AS `Date of Departure`,`a`.`time` AS `Time of Departure`,`c`.`company` AS `Bus Operator`,`c`.`license_plate` AS `Bus Registration Number`,(case when (`a`.`reservation_status` = 'A') then 'Scheduled' when (`a`.`reservation_status` = 'B') then 'Boarding' when (`a`.`reservation_status` = 'C') then 'Cancelled' when (`a`.`reservation_status` = 'D') then 'Departed' when (`a`.`reservation_status` = 'DL') then 'Delayed' else 'Unavailable' end) AS `Status`,`a`.`user_id` AS `BusOperatorId` from (`btmms`.`ed_reservations` `a` join `btmms`.`probase_tbl_bus` `c` on((`a`.`bus_id` = `c`.`id`)));
+
 -- Dumping structure for view btmms.ed_vw_sold_tickets
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `ed_vw_sold_tickets`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `ed_vw_sold_tickets` AS select (case when (`a`.`cnt` is null) then 0 else `a`.`cnt` end) AS `tickets_sold`,(case when (`a`.`bus_schedule_id` is null) then `b`.`id` else `a`.`bus_schedule_id` end) AS `bus_schedule_id`,`b`.`reserved_time` AS `reserved_time`,`c`.`vehicle_capacity` AS `vehicle_capacity` from ((`ed_reservations` `b` left join (select count(distinct `probase_tbl_tickets`.`id`) AS `cnt`,`probase_tbl_tickets`.`bus_schedule_id` AS `bus_schedule_id` from `probase_tbl_tickets` where (`probase_tbl_tickets`.`class` <> 'LUGGAGE') group by `probase_tbl_tickets`.`bus_schedule_id`) `a` on((`a`.`bus_schedule_id` = `b`.`id`))) join `probase_tbl_bus` `c` on((`b`.`bus_id` = `c`.`id`)));
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `btmms`.`ed_vw_sold_tickets` AS select (case when (`a`.`cnt` is null) then 0 else `a`.`cnt` end) AS `tickets_sold`,(case when (`a`.`bus_schedule_id` is null) then `b`.`id` else `a`.`bus_schedule_id` end) AS `bus_schedule_id`,`b`.`reserved_time` AS `reserved_time`,`c`.`vehicle_capacity` AS `vehicle_capacity` from ((`btmms`.`ed_reservations` `b` left join (select count(distinct `btmms`.`probase_tbl_tickets`.`id`) AS `cnt`,`btmms`.`probase_tbl_tickets`.`bus_schedule_id` AS `bus_schedule_id` from `btmms`.`probase_tbl_tickets` where (`btmms`.`probase_tbl_tickets`.`class` <> 'LUGGAGE') group by `btmms`.`probase_tbl_tickets`.`bus_schedule_id`) `a` on((`a`.`bus_schedule_id` = `b`.`id`))) join `btmms`.`probase_tbl_bus` `c` on((`b`.`bus_id` = `c`.`id`)));
+
+-- Dumping structure for view btmms.unza_collections_report
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `unza_collections_report`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `btmms`.`unza_collections_report` AS select `btmms`.`unza_transactions`.`seller_id` AS `seller_uuid`,`btmms`.`unza_transactions`.`seller_firstname` AS `seller_firstname`,`btmms`.`unza_transactions`.`seller_lastname` AS `seller_lastname`,`btmms`.`unza_transactions`.`stand_number` AS `stand_number`,`btmms`.`unza_transactions`.`amount` AS `amount` from `btmms`.`unza_transactions` where ((`btmms`.`unza_transactions`.`transaction_type_id` = 2) and (`btmms`.`unza_transactions`.`final_StatusCode` = 200)) order by `btmms`.`unza_transactions`.`transaction_date` desc;
+
+-- Dumping structure for view btmms.unza_invoiced_charges
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `unza_invoiced_charges`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `btmms`.`unza_invoiced_charges` AS select `btmms`.`unza_fees`.`fee_name` AS `fee_name`,`btmms`.`unza_transactions_fees`.`marketeer_uuid` AS `marketeer_uuid`,`btmms`.`unza_transactions_fees`.`property_id` AS `property_id`,`btmms`.`unza_transactions_fees`.`datetime_invoiced` AS `datetime_invoiced`,`btmms`.`unza_transactions_fees`.`invoice_number` AS `invoice_number`,`btmms`.`unza_transactions_fees`.`amount_due` AS `amount` from (`btmms`.`unza_transactions_fees` join `btmms`.`unza_fees` on((`btmms`.`unza_fees`.`fee_id` = `btmms`.`unza_transactions_fees`.`fee_id`))) where ((`btmms`.`unza_transactions_fees`.`is_paid` = 0) and (`btmms`.`unza_transactions_fees`.`fee_id` = 3)) order by `btmms`.`unza_transactions_fees`.`datetime_invoiced` desc;
+
+-- Dumping structure for view btmms.unza_rental_debtors_report
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `unza_rental_debtors_report`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `btmms`.`unza_rental_debtors_report` AS select `btmms`.`unza_fees`.`fee_name` AS `fee_name`,`btmms`.`unza_transactions_fees`.`invoice_number` AS `invoice_number`,`btmms`.`unza_transactions_fees`.`datetime_invoiced` AS `datetime_invoiced`,`btmms`.`unza_transactions_fees`.`marketeer_uuid` AS `marketeer_uuid`,`btmms`.`unza_transactions_fees`.`property_id` AS `property_id` from (`btmms`.`unza_transactions_fees` join `btmms`.`unza_fees` on((`btmms`.`unza_fees`.`fee_id` = `btmms`.`unza_transactions_fees`.`fee_id`))) where ((`btmms`.`unza_transactions_fees`.`fee_id` = 3) and (`btmms`.`unza_transactions_fees`.`is_paid` = 0)) order by `btmms`.`unza_transactions_fees`.`datetime_invoiced` desc;
+
+-- Dumping structure for view btmms.unza_sales_by_stand
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `unza_sales_by_stand`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `btmms`.`unza_sales_by_stand` AS select `btmms`.`unza_transactions`.`transaction_date` AS `transaction_date`,`btmms`.`unza_transactions`.`stand_number` AS `stand_number`,`btmms`.`unza_transactions`.`amount` AS `amount`,`btmms`.`unza_transactions`.`seller_id` AS `seller_uuid` from `btmms`.`unza_transactions` where ((`btmms`.`unza_transactions`.`transaction_type_id` = 1) and (`btmms`.`unza_transactions`.`final_StatusCode` = 200)) order by `btmms`.`unza_transactions`.`transaction_date` desc;
+
+-- Dumping structure for view btmms.unza_sales_by_supplier
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `unza_sales_by_supplier`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `btmms`.`unza_sales_by_supplier` AS select `btmms`.`unza_transactions`.`seller_id` AS `seller_uuid`,`btmms`.`unza_transactions`.`seller_firstname` AS `seller_firstname`,`btmms`.`unza_transactions`.`seller_lastname` AS `seller_lastname`,`btmms`.`unza_transactions`.`cart_id` AS `id`,`btmms`.`unza_transactions`.`transaction_date` AS `date_of_sale`,`btmms`.`unza_transactions`.`stand_number` AS `stand_number`,`btmms`.`unza_transactions`.`buyer_id` AS `buyer_uuid`,`btmms`.`unza_transactions`.`buyer_firstname` AS `buyer_firstname`,`btmms`.`unza_transactions`.`buyer_lastname` AS `buyer_lastname`,`btmms`.`unza_transactions`.`amount` AS `amount` from `btmms`.`unza_transactions` where ((`btmms`.`unza_transactions`.`transaction_type_id` = 2) and (`btmms`.`unza_transactions`.`final_StatusCode` = 200)) group by `btmms`.`unza_transactions`.`seller_id` order by `btmms`.`unza_transactions`.`transaction_date` desc;
 
 -- Dumping structure for view btmms.vw_manifest
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `vw_manifest`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_manifest` AS select `a`.`id` AS `id`,`a`.`mobile_number` AS `mobile_number`,`a`.`reference_number` AS `reference_number`,`b`.`ticket_id` AS `ticket_id`,`a`.`first_name` AS `first_name`,`a`.`last_name` AS `last_name`,`b`.`description` AS `luggage_description`,`a`.`class` AS `class`,`a`.`bus_no` AS `bus_no`,`a`.`route` AS `route`,`a`.`date` AS `date`,`a`.`amount` AS `amount`,`a`.`activation_status` AS `activation_status`,`c`.`license_plate` AS `registration_number`,`c`.`company` AS `operator`,`d`.`time` AS `departure_time`,cast(`d`.`reserved_time` as date) AS `departure_date`,`e`.`route_name` AS `route_name`,`a`.`payment_mode` AS `payment_mode` from ((((`probase_tbl_tickets` `a` left join `probase_tbl_luggage` `b` on((`a`.`id` = `b`.`ticket_id`))) join `probase_tbl_bus` `c`) join `ed_reservations` `d`) join `probase_tbl_travel_routes` `e`) where ((`c`.`id` = `a`.`bus_no`) and (`d`.`bus_id` = `c`.`id`) and (`d`.`route` = `e`.`id`)) order by `a`.`inserted_at` desc;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `btmms`.`vw_manifest` AS select `a`.`id` AS `id`,`a`.`mobile_number` AS `mobile_number`,`a`.`reference_number` AS `reference_number`,`b`.`ticket_id` AS `ticket_id`,`a`.`first_name` AS `first_name`,`a`.`last_name` AS `last_name`,`b`.`description` AS `luggage_description`,`a`.`class` AS `class`,`a`.`bus_no` AS `bus_no`,`a`.`route` AS `route`,`a`.`date` AS `date`,`a`.`amount` AS `amount`,`a`.`activation_status` AS `activation_status`,`c`.`license_plate` AS `registration_number`,`c`.`company` AS `operator`,`d`.`time` AS `departure_time`,cast(`d`.`reserved_time` as date) AS `departure_date`,`e`.`route_name` AS `route_name`,`a`.`payment_mode` AS `payment_mode` from ((((`btmms`.`probase_tbl_tickets` `a` left join `btmms`.`probase_tbl_luggage` `b` on((`a`.`id` = `b`.`ticket_id`))) join `btmms`.`probase_tbl_bus` `c`) join `btmms`.`ed_reservations` `d`) join `btmms`.`probase_tbl_travel_routes` `e`) where ((`c`.`id` = `a`.`bus_no`) and (`d`.`bus_id` = `c`.`id`) and (`d`.`ed_bus_route_id` = `e`.`id`)) order by `a`.`inserted_at` desc;
 
 -- Dumping structure for view btmms.vw_manifest2
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `vw_manifest2`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_manifest2` AS select `a`.`id` AS `id`,`a`.`mobile_number` AS `mobile_number`,`a`.`reference_number` AS `reference_number`,`a`.`first_name` AS `first_name`,`a`.`last_name` AS `last_name`,`a`.`has_luggage` AS `has_luggage`,`a`.`luggage_total` AS `luggage_total`,`a`.`class` AS `class`,`a`.`bus_no` AS `bus_no`,`a`.`route` AS `route`,`a`.`date` AS `date`,`a`.`amount` AS `amount`,`a`.`activation_status` AS `activation_status`,`c`.`license_plate` AS `registration_number`,`c`.`company` AS `operator`,`c`.`operator_id` AS `operator_id`,`d`.`time` AS `departure_time`,cast(`d`.`reserved_time` as date) AS `departure_date`,`e`.`route_name` AS `route_name`,`a`.`payment_mode` AS `payment_mode`,concat(`f`.`first_name`,' ',`f`.`last_name`) AS `teller_name`,`f`.`id` AS `teller_id`,`a`.`inserted_at` AS `transaction_date`,`a`.`id` AS `ticket_number` from ((((`probase_tbl_tickets` `a` join `probase_tbl_bus` `c`) join `ed_reservations` `d`) join `ed_bus_routes` `e`) join `probase_tbl_users` `f`) where ((`c`.`id` = `a`.`bus_no`) and (`d`.`bus_id` = `c`.`id`) and (`d`.`ed_bus_route_id` = `e`.`id`) and (`a`.`travel_date` = date_format(`d`.`reserved_time`,'%Y-%m-%d')) and (`f`.`id` = `a`.`maker`) and (`a`.`bus_schedule_id` = `d`.`id`)) order by `a`.`inserted_at` desc;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `btmms`.`vw_manifest2` AS select `a`.`id` AS `id`,`a`.`mobile_number` AS `mobile_number`,`a`.`reference_number` AS `reference_number`,`a`.`first_name` AS `first_name`,`a`.`last_name` AS `last_name`,`a`.`has_luggage` AS `has_luggage`,`a`.`luggage_total` AS `luggage_total`,`a`.`class` AS `class`,`a`.`bus_no` AS `bus_no`,`a`.`route` AS `route`,`a`.`date` AS `date`,`a`.`amount` AS `amount`,`a`.`activation_status` AS `activation_status`,`c`.`license_plate` AS `registration_number`,`c`.`company` AS `operator`,`c`.`operator_id` AS `operator_id`,`d`.`time` AS `departure_time`,cast(`d`.`reserved_time` as date) AS `departure_date`,`e`.`route_name` AS `route_name`,`a`.`payment_mode` AS `payment_mode`,concat(`f`.`first_name`,' ',`f`.`last_name`) AS `teller_name`,`f`.`id` AS `teller_id`,`a`.`inserted_at` AS `transaction_date`,`a`.`ticket_description` AS `ticket_description`,`a`.`id` AS `ticket_number`,`e`.`end_route` AS `end_route` from ((((`btmms`.`probase_tbl_tickets` `a` join `btmms`.`probase_tbl_bus` `c`) join `btmms`.`ed_reservations` `d`) join `btmms`.`ed_bus_routes` `e`) join `btmms`.`probase_tbl_users` `f`) where ((`c`.`id` = `a`.`bus_no`) and (`d`.`bus_id` = `c`.`id`) and (`d`.`ed_bus_route_id` = `e`.`id`) and (`a`.`travel_date` = date_format(`d`.`reserved_time`,'%Y-%m-%d')) and (`f`.`id` = `a`.`maker`) and (`a`.`bus_schedule_id` = `d`.`id`)) order by `a`.`inserted_at` desc;
 
 -- Dumping structure for view btmms.vw_operator_dues
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `vw_operator_dues`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_operator_dues` AS select str_to_date(date_format(`b`.`trn_dt`,'%Y-%m-%d'),'%Y-%m-%d') AS `trn_dt`,`a`.`operator` AS `operator`,`c`.`account_number` AS `account_number`,`a`.`operator_id` AS `operator_id`,sha(concat(convert(date_format(`b`.`trn_dt`,'%Y-%m-%d') using utf8mb4),`a`.`operator_id`,`a`.`has_luggage`)) AS `process_ref`,(case when (`a`.`has_luggage` = 1) then concat('LUGGAGE SWEEP AS AT ',convert(date_format(`b`.`trn_dt`,'%Y-%m-%d') using utf8mb4)) when (`a`.`has_luggage` = 0) then concat('TICKET SALES SWEEP AS AT ',convert(date_format(`b`.`trn_dt`,'%Y-%m-%d') using utf8mb4)) end) AS `trn_desc`,sum((`a`.`luggage_total` + `a`.`amount`)) AS `amount_due` from ((`vw_manifest2` `a` join `probase_tbl_transactions` `b`) join `probase_tbl_users` `c`) where ((`a`.`activation_status` = 'BOARDED') and (`a`.`reference_number` = `b`.`trans_ref_no`) and (`b`.`ac_no` = 'AS00000005') and (`b`.`trn_code` = 'PUR_TIC_CASH') and (`b`.`drcr_ind` = 'C') and (`c`.`id` = `a`.`operator_id`)) group by `a`.`has_luggage`,date_format(`b`.`trn_dt`,'%Y-%m-%d'),`a`.`operator`,`c`.`account_number`,`a`.`operator_id`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `btmms`.`vw_operator_dues` AS select str_to_date(date_format(`b`.`trn_dt`,'%Y-%m-%d'),'%Y-%m-%d') AS `trn_dt`,`a`.`operator` AS `operator`,`c`.`account_number` AS `account_number`,`a`.`operator_id` AS `operator_id`,sha(concat(date_format(`b`.`trn_dt`,'%Y-%m-%d'),`a`.`operator_id`,`a`.`has_luggage`)) AS `process_ref`,(case when (`a`.`has_luggage` = 1) then concat('LUGGAGE SWEEP AS AT ',date_format(`b`.`trn_dt`,'%Y-%m-%d')) when (`a`.`has_luggage` = 0) then concat('TICKET SALES SWEEP AS AT ',date_format(`b`.`trn_dt`,'%Y-%m-%d')) end) AS `trn_desc`,sum((`a`.`luggage_total` + `a`.`amount`)) AS `amount_due` from ((`btmms`.`vw_manifest2` `a` join `btmms`.`probase_tbl_transactions` `b`) join `btmms`.`probase_tbl_users` `c`) where ((`a`.`activation_status` = 'BOARDED') and (`a`.`reference_number` = `b`.`trans_ref_no`) and (`b`.`ac_no` = 'AS00000005') and (`b`.`trn_code` = 'PUR_TIC_CASH') and (`b`.`drcr_ind` = 'C') and (`c`.`id` = `a`.`operator_id`)) group by `a`.`has_luggage`,date_format(`b`.`trn_dt`,'%Y-%m-%d'),`a`.`operator`,`c`.`account_number`,`a`.`operator_id`;
 
 -- Dumping structure for view btmms.vw_sales_by_bus
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `vw_sales_by_bus`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_sales_by_bus` AS select str_to_date(date_format(`a`.`trn_dt`,'%Y-%m-%d'),'%Y-%m-%d') AS `trn_dt`,sum(`a`.`lcy_amount`) AS `total_sales`,`c`.`license_plate` AS `license_plate` from ((`probase_tbl_transactions` `a` join `probase_tbl_tickets` `b`) join `probase_tbl_bus` `c`) where ((`a`.`transaction_channel` = 'TELLER') and (`a`.`trn_code` = 'PUR_TIC_CASH') and (`a`.`drcr_ind` = 'C') and (`a`.`trans_ref_no` = `b`.`reference_number`) and (`c`.`id` = `b`.`bus_no`)) group by str_to_date(date_format(`a`.`trn_dt`,'%Y-%m-%d'),'%Y-%m-%d'),`c`.`license_plate` order by str_to_date(date_format(`a`.`trn_dt`,'%Y-%m-%d'),'%Y-%m-%d') desc;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `btmms`.`vw_sales_by_bus` AS select str_to_date(date_format(`a`.`trn_dt`,'%Y-%m-%d'),'%Y-%m-%d') AS `trn_dt`,sum(`a`.`lcy_amount`) AS `total_sales`,`c`.`license_plate` AS `license_plate` from ((`btmms`.`probase_tbl_transactions` `a` join `btmms`.`probase_tbl_tickets` `b`) join `btmms`.`probase_tbl_bus` `c`) where ((`a`.`transaction_channel` = 'TELLER') and (`a`.`trn_code` = 'PUR_TIC_CASH') and (`a`.`drcr_ind` = 'C') and (`a`.`trans_ref_no` = `b`.`reference_number`) and (`c`.`id` = `b`.`bus_no`)) group by str_to_date(date_format(`a`.`trn_dt`,'%Y-%m-%d'),'%Y-%m-%d'),`c`.`license_plate` order by str_to_date(date_format(`a`.`trn_dt`,'%Y-%m-%d'),'%Y-%m-%d') desc;
 
 -- Dumping structure for view btmms.vw_sales_by_operator
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `vw_sales_by_operator`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_sales_by_operator` AS select str_to_date(date_format(`a`.`trn_dt`,'%Y-%m-%d'),'%Y-%m-%d') AS `trn_dt`,sum(`a`.`lcy_amount`) AS `total_sales`,`d`.`company` AS `company`,`d`.`id` AS `id`,`d`.`account_number` AS `account_number` from (((`probase_tbl_transactions` `a` join `probase_tbl_tickets` `b`) join `probase_tbl_bus` `c`) join `probase_tbl_users` `d`) where ((`a`.`trn_code` = 'PUR_TIC_CASH') and (`a`.`drcr_ind` = 'C') and (`a`.`trans_ref_no` = `b`.`reference_number`) and (`c`.`id` = `b`.`bus_no`) and (`d`.`role` = 'BOP') and (`c`.`operator_id` = `d`.`id`)) group by date_format(`a`.`trn_dt`,'%Y-%m-%d'),`d`.`id`,`d`.`account_number` order by date_format(`a`.`trn_dt`,'%Y-%m-%d') desc;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `btmms`.`vw_sales_by_operator` AS select str_to_date(date_format(`a`.`trn_dt`,'%Y-%m-%d'),'%Y-%m-%d') AS `trn_dt`,sum(`a`.`lcy_amount`) AS `total_sales`,`d`.`company` AS `company`,`d`.`id` AS `id`,`d`.`account_number` AS `account_number` from (((`btmms`.`probase_tbl_transactions` `a` join `btmms`.`probase_tbl_tickets` `b`) join `btmms`.`probase_tbl_bus` `c`) join `btmms`.`probase_tbl_users` `d`) where ((`a`.`trn_code` = 'PUR_TIC_CASH') and (`a`.`drcr_ind` = 'C') and (`a`.`trans_ref_no` = `b`.`reference_number`) and (`c`.`id` = `b`.`bus_no`) and (`d`.`role` = 'BOP') and (`c`.`operator_id` = `d`.`id`)) group by date_format(`a`.`trn_dt`,'%Y-%m-%d'),`d`.`id`,`d`.`account_number` order by date_format(`a`.`trn_dt`,'%Y-%m-%d') desc;
 
 -- Dumping structure for view btmms.vw_sales_by_teller
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `vw_sales_by_teller`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_sales_by_teller` AS select str_to_date(date_format(`a`.`trn_dt`,'%Y-%m-%d'),'%Y-%m-%d') AS `trn_dt`,sum(`a`.`lcy_amount`) AS `total_sales`,`a`.`maker_id` AS `maker_id` from `probase_tbl_transactions` `a` where ((`a`.`transaction_channel` = 'TELLER') and (`a`.`trn_code` = 'PUR_TIC_CASH') and (`a`.`drcr_ind` = 'C')) group by str_to_date(date_format(`a`.`trn_dt`,'%Y-%m-%d'),'%Y-%m-%d'),`a`.`maker_id` order by date_format(`a`.`trn_dt`,'%Y-%m-%d') desc;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `btmms`.`vw_sales_by_teller` AS select str_to_date(date_format(`a`.`trn_dt`,'%Y-%m-%d'),'%Y-%m-%d') AS `trn_dt`,sum(`a`.`lcy_amount`) AS `total_sales`,`a`.`maker_id` AS `maker_id` from `btmms`.`probase_tbl_transactions` `a` where ((`a`.`transaction_channel` = 'TELLER') and (`a`.`trn_code` = 'PUR_TIC_CASH') and (`a`.`drcr_ind` = 'C')) group by str_to_date(date_format(`a`.`trn_dt`,'%Y-%m-%d'),'%Y-%m-%d'),`a`.`maker_id` order by date_format(`a`.`trn_dt`,'%Y-%m-%d') desc;
 
 -- Dumping structure for view btmms.vw_ticket_transcations
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `vw_ticket_transcations`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_ticket_transcations` AS select `a`.`amount` AS `fare`,`a`.`id` AS `id`,`a`.`reference_number` AS `reference_number`,`a`.`serial_number` AS `serial_number`,`a`.`external_ref` AS `external_ref`,`a`.`route` AS `route`,`a`.`date` AS `date`,`a`.`bus_no` AS `bus_no`,`a`.`class` AS `class`,`a`.`activation_status` AS `activation_status`,`a`.`first_name` AS `first_name`,`a`.`last_name` AS `last_name`,`a`.`other_name` AS `other_name`,`a`.`id_type` AS `id_type`,`a`.`passenger_id` AS `passenger_id`,`a`.`mobile_number` AS `mobile_number`,`a`.`email_address` AS `email_address`,`a`.`transaction_channel` AS `transaction_channel`,`a`.`travel_date` AS `travel_date`,`a`.`bus_schedule_id` AS `bus_schedule_id`,`a`.`inserted_at` AS `inserted_at`,`a`.`updated_at` AS `updated_at` from `probase_tbl_tickets` `a`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `btmms`.`vw_ticket_transcations` AS select `a`.`amount` AS `fare`,`a`.`id` AS `id`,`a`.`reference_number` AS `reference_number`,`a`.`serial_number` AS `serial_number`,`a`.`external_ref` AS `external_ref`,`a`.`route` AS `route`,`a`.`date` AS `date`,`a`.`bus_no` AS `bus_no`,`a`.`class` AS `class`,`a`.`activation_status` AS `activation_status`,`a`.`first_name` AS `first_name`,`a`.`last_name` AS `last_name`,`a`.`other_name` AS `other_name`,`a`.`id_type` AS `id_type`,`a`.`passenger_id` AS `passenger_id`,`a`.`mobile_number` AS `mobile_number`,`a`.`email_address` AS `email_address`,`a`.`transaction_channel` AS `transaction_channel`,`a`.`travel_date` AS `travel_date`,`a`.`bus_schedule_id` AS `bus_schedule_id`,`a`.`inserted_at` AS `inserted_at`,`a`.`updated_at` AS `updated_at` from `btmms`.`probase_tbl_tickets` `a`;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

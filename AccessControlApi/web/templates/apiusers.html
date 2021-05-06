@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}
+AdminACA - Dashboard
+{% endblock %}
+
+{% block user %}
+Administrator
+{% endblock %}
+
+{% block content %}
+<section class="content">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">API Users</h3>
+          <a href="/apiuser" style="float: right !important;"><button class="btn btn-info btn-xs">Add API User</button></a>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+              <th>Username</th>
+              <th>Password</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for apiuser in apiusers %}
+            <tr>
+              <td>{{apiuser['username']}}</td>
+              <td>{{apiuser['passwd']}}</td>
+              <td>{{apiuser['status']}}</td>
+              <td>
+                <a href="/editapiuser?id={{apiuser['id']}}" style="float: right !important;"><button class="btn btn-info btn-xs">Edit</button></a>
+              </td>
+            </tr>
+            {% endfor %}
+            </tfoot>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
+</section>
+{% endblock %}

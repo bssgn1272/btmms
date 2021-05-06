@@ -2,7 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { ViewMyChargesService } from './view-my-charges.service';
 
-describe('ViewMyPenaltiesService', () => {
+describe('ViewMyChargesService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [ViewMyChargesService]

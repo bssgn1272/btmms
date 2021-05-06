@@ -274,21 +274,6 @@ export class MakeBookingComponent implements OnInit {
   }
 
   save() {
-    /*if(this.userItems.account_status === 'INACTIVE'){
-      this._snackBar.open('You cannot make further bookings due to none compliance.', null, {
-        duration: 1000000000,
-        horizontalPosition: 'center',
-        panelClass: ['blue-snackbar'],
-        verticalPosition: 'top',
-      });
-      this._snackBar.open('Please contact the station for a resolution.', null, {
-        duration: 1000000000,
-        horizontalPosition: 'center',
-        panelClass: ['blue-snackbar'],
-        verticalPosition: 'top',
-      });
-      this.dialogRef.close();
-    } */
     this.submitted = true;
 
     // stop here if form is invalid

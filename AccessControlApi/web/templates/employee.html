@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}
+AdminACA - Dashboard
+{% endblock %}
+
+{% block user %}
+Administrator
+{% endblock %}
+
+{% block content %}
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- left column -->
+      <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="card card-info">
+          <div class="card-header">
+            <h3 class="card-title">Add Non Expiring Employee Card</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          <form role="form" action="/enable" method="post">
+            <div class="card-body">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Card Number</label>
+                <input type="number" maxlength="7" minlength="1" name="card" class="form-control" id="exampleInputEmail1" placeholder="Enter Card Number" required>
+                <input type="hidden" name="emp" value="1" />
+              </div>
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+              <input type="hidden" name="id" value="{{au_id}}" />
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card card-info">
+          <div class="card-header">
+            <h3 class="card-title">Disable Non Expiring Employee Card</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          <form role="form" action="/disable" method="post">
+            <div class="card-body">
+              <div class="form-group">
+                <label for="exampleInputEmail2">Card Number</label>
+                <input type="number" maxlength="7" minlength="1" name="card" class="form-control" id="exampleInputEmail2" placeholder="Enter Card Number" required>
+                <input type="hidden" name="emp" value="1" />
+              </div>
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+              <input type="hidden" name="id" value="{{au_id}}" />
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+  </div><!-- /.container-fluid -->
+</section>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}
+AdminACA - Dashboard
+{% endblock %}
+
+{% block user %}
+Administrator
+{% endblock %}
+
+{% block content %}
+<section class="content">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Arc Controllers</h3>
+          <a href="/boom" style="float: right !important;"><button class="btn btn-info btn-xs">Add Controller</button></a>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>IP Address</th>
+              <th>User</th>
+              <th>Password</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for host in hosts %}
+            <tr>
+              <td>{{host['name']}}</td>
+              <td>{{host['ip']}}</td>
+              <td>{{host['username']}}</td>
+              <td>{{host['password']}}</td>
+              <td>{{host['status']}}</td>
+              <td>
+                <a href="/editboom?id={{host['id']}}" style="float: right !important;"><button class="btn btn-info btn-xs">Edit</button></a>
+              </td>
+            </tr>
+            {% endfor %}
+            </tfoot>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
+</section>
+{% endblock %}
