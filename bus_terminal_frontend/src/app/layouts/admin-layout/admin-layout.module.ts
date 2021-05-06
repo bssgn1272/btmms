@@ -55,7 +55,9 @@ import { ApproveReservationComponent } from '../../approve-reservation/approve-r
 import { DpEditReservationComponent } from '../../dp-edit-reservation/dp-edit-reservation.component';
 import { ArEditResevertionComponent } from '../../ar-edit-resevertion/ar-edit-resevertion.component';
 import { ViewMyPenaltiesComponent } from '../../view-my-penalties/view-my-penalties.component';
+import { ViewMyChargesComponent } from '../../view-my-charges/view-my-charges.component';
 import { ViewMyPenaltiesService } from '../../view-my-penalties/view-my-penalties.service';
+import { ViewMyChargesService } from '../../view-my-charges/view-my-charges.service';
 import { OptionsComponent } from '../../options/options.component';
 import { OptionsService } from '../../options/options.service';
 import { CancelArrivalReservationComponent } from '../../cancel-arrival-reservation/cancel-arrival-reservation.component';
@@ -117,6 +119,7 @@ import {MakeFlexiBookingComponent} from '../../make-flexi-booking/make-flexi-boo
     DpEditReservationComponent,
     ArEditResevertionComponent,
     ViewMyPenaltiesComponent,
+    ViewMyChargesComponent,
     OptionsComponent,
     CancelArrivalReservationComponent,
     VeiwSubDestinationsComponent,
@@ -128,6 +131,7 @@ import {MakeFlexiBookingComponent} from '../../make-flexi-booking/make-flexi-boo
     { provide: MAT_DIALOG_DATA, useValue: {} },
     { provide: MatDialogRef, useValue: {} },
     ViewMyPenaltiesService,
+    ViewMyChargesService,
     OptionsService
   ],
 })

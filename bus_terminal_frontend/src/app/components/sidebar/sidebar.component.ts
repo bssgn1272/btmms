@@ -26,6 +26,12 @@ export const ROUTES: RouteInfo[] = [
     title: 'View Penalties',
     icon: 'payment',
     class: ''
+  },
+  {
+    path: '/view-my-charges',
+    title: 'View Fees',
+    icon: 'money',
+    class: ''
   }
 ];
 

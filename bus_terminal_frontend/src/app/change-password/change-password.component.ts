@@ -69,21 +69,21 @@ export class ChangePasswordComponent implements OnInit {
       console.log("invalid input");
       return;
     }
-    // await this.settings.changePassword(this.currentUser.username, this.passwordForm.get('password').value).then((res) => {
-    //   console.log("Username>>> ", this.currentUser.username);
-    //   console.log("Password>>> ", this.passwordForm.get('password').value);
-    //   console.log(res);
-    //   this.currentUser.account_status = res.data.response.AUTHENTICATION.data.account_status;
-    //   localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
-    //   console.log(res.data.response.AUTHENTICATION.data.account_status);
-    //   this.dialogRef.close();
-    //   this._snackBar.open("Password Successfully Changed", null, {
-    //     duration: 5000,
-    //     horizontalPosition: "center",
-    //     panelClass: ["blue-snackbar"],
-    //     verticalPosition: "top",
-    //   });
-    // });
+    await this.settings.changePassword(this.currentUser.username, this.passwordForm.get('password').value).then((res) => {
+      console.log("Username>>> ", this.currentUser.username);
+      console.log("Password>>> ", this.passwordForm.get('password').value);
+      console.log(res);
+      this.currentUser.account_status = res.data.response.AUTHENTICATION.data.account_status;
+      localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
+      console.log(res.data.response.AUTHENTICATION.data.account_status);
+      this.dialogRef.close();
+      this._snackBar.open("Password Successfully Changed", null, {
+        duration: 5000,
+        horizontalPosition: "center",
+        panelClass: ["blue-snackbar"],
+        verticalPosition: "top",
+      });
+    });
   }
 
   close() {

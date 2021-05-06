@@ -57,7 +57,7 @@ export class NavbarComponent implements OnInit {
       this.activated = true;
     }
 
-    if(!this.activated){
+    if(this.currentUser.account_status === 'OTP'){
       this.changePasswordDialog();
     }
   }

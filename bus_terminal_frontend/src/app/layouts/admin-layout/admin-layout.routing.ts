@@ -26,6 +26,7 @@ import {ApproveReservationComponent} from '../../approve-reservation/approve-res
 import {DpEditReservationComponent} from '../../dp-edit-reservation/dp-edit-reservation.component';
 import {ArEditResevertionComponent} from '../../ar-edit-resevertion/ar-edit-resevertion.component';
 import {ViewMyPenaltiesComponent} from '../../view-my-penalties/view-my-penalties.component';
+import {ViewMyChargesComponent} from '../../view-my-charges/view-my-charges.component';
 import { OptionsComponent } from '../../options/options.component';
 import {CancelArrivalReservationComponent} from '../../cancel-arrival-reservation/cancel-arrival-reservation.component';
 import {VeiwSubDestinationsComponent} from '../../veiw-sub-destinations/veiw-sub-destinations.component';
@@ -140,6 +141,11 @@ export const AdminLayoutRoutes: Routes = [
   {
     path: 'view-my-penalties',
     component: ViewMyPenaltiesComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'view-my-charges',
+    component: ViewMyChargesComponent,
     canActivate: [AuthGuard],
   },
   {
