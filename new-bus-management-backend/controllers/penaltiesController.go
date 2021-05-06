@@ -78,6 +78,17 @@ var GetAccumulatedPenaltiesController = http.HandlerFunc(func(w http.ResponseWri
 	utils.Respond(w, resp)
 })
 
+var GetAccumulatedPenaltiesByStatusController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	id, _ := strconv.Atoi(params["id"])
+	status := params["status"]
+	data := models.GetAccumulatedPenaltiesByStatus(uint(id), status)
+	resp := utils.Message(true, "success")
+	resp["data"] = data
+	log.Println(resp)
+	utils.Respond(w, resp)
+})
+
 var UpdatePenaltyController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)

@@ -122,6 +122,7 @@ export class CancelReservationComponent implements OnInit {
           bus_operator_id: this.data.row.user_id,
           bus_id: this.data.row.bus_id,
           date_booked: this.currentTime,
+          status: "Unpaid",
           penalty_status: "Unpaid",
           type: "Late Cancellation",
         })
@@ -262,6 +263,7 @@ export class CancelReservationComponent implements OnInit {
           });
         }
       );
+      this.dialogRef.close();
   }
 
   requestCancellation() {
@@ -354,6 +356,15 @@ export class CancelReservationComponent implements OnInit {
           });
         }
       );
+      this.dialogRef.close();
+      //this.reloadCurrentRoute();
+  }
+
+  reloadCurrentRoute() {
+    let currentUrl = this.router.url;
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([currentUrl]);
+    });
   }
 
   close() {

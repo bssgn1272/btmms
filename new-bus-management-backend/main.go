@@ -123,6 +123,7 @@ func main() {
 	router.Handle("/main/api/penalty", controllers.GetPenaltiesController).Methods("GET")
 	router.Handle("/main/api/latest/penalty", controllers.GetLatestPenaltyController).Methods("GET")
 	router.Handle("/main/api/accumulated/penalties/{id}", controllers.GetAccumulatedPenaltiesController).Methods("GET")
+	router.Handle("/main/api/accumulated/penalties/{id}/{status}", controllers.GetAccumulatedPenaltiesByStatusController).Methods("GET")
 
 	// Penalties
 	router.Handle("/api/penalty", controllers.CreatePenaltyController).Methods("POST")
@@ -131,6 +132,7 @@ func main() {
 	router.Handle("/api/penalty", controllers.GetPenaltiesController).Methods("GET")
 	router.Handle("/api/latest/penalty", controllers.GetLatestPenaltyController).Methods("GET")
 	router.Handle("/api/accumulated/penalties/{id}", controllers.GetAccumulatedPenaltiesController).Methods("GET")
+	router.Handle("/api/accumulated/penalties/{id}/{status}", controllers.GetAccumulatedPenaltiesByStatusController).Methods("GET")
 
 	// Notification Routes
 	router.Handle("/main/api/email", controllers.GetEmailController).Methods("GET")

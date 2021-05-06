@@ -4,6 +4,7 @@ import (
 	"log"
 	"new-bus-management-backend/utils"
 	"time"
+
 	"github.com/jinzhu/gorm"
 )
 
@@ -20,7 +21,7 @@ type EdPenalty struct {
 	BusID         uint      `json:"bus_id"`
 	DateBooked    time.Time `json:"date_booked"`
 	DatePaid      time.Time `json:"date_paid"`
-	PenaltyStatus        string    `json:"penalty_status"`
+	PenaltyStatus string    `json:"penalty_status"`
 	Status        string    `json:"status"`
 	Type          string    `json:"type"`
 }
@@ -32,7 +33,6 @@ type EdPenaltyCharge struct {
 	ChargeAmount float32 `json:"charge_amount"`
 	ChargeFreq   string  `json:"charge_freq"`
 }
-
 
 type EdPenaltyResult struct {
 	EdPenalty
@@ -168,11 +168,22 @@ func GetLoadingFee(id string) []*EdPenaltyCharge {
 	return loadingFee
 }
 
-
 func GetAccumulatedPenalties(id uint) []*EdPenaltyResult {
 	result := make([]*EdPenaltyResult, 0)
 	err := GetDB().Table("ed_penalties").Where("bus_operator_id = ?", id).Select("ed_penalties.*, probase_tbl_users.username, probase_tbl_bus.company, probase_tbl_bus.license_plate").Joins("left join probase_tbl_users on ed_penalties.bus_operator_id = probase_tbl_users.id").Joins("left join probase_tbl_bus on ed_penalties.bus_id=probase_tbl_bus.id").Find(&result).Error
 
+	log.Println(err)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+
+	return result
+}
+
+func GetAccumulatedPenaltiesByStatus(id uint, status string) []*EdPenaltyResult {
+	result := make([]*EdPenaltyResult, 0)
+	err := GetDB().Table("ed_penalties").Where("bus_operator_id = ?", id).Select("ed_penalties.*, probase_tbl_users.username, probase_tbl_bus.company, probase_tbl_bus.license_plate").Joins("left join probase_tbl_users on ed_penalties.bus_operator_id = probase_tbl_users.id").Joins("left join probase_tbl_bus on ed_penalties.bus_id=probase_tbl_bus.id").Where("ed_penalties.penalty_status = '%s'", status).Find(&result).Error
 
 	log.Println(err)
 	if err != nil {

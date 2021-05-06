@@ -14,6 +14,7 @@ import {ArEditResevertionComponent} from '../ar-edit-resevertion/ar-edit-resever
 import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 import {SettingsService} from '../settings/settings.service';
 import {ViewMyPenaltiesService} from '../view-my-penalties/view-my-penalties.service';
+import {OptionsService} from '../options/options.service';
 
 
 @Component({
@@ -54,12 +55,14 @@ export class UserProfileComponent implements OnInit {
   selectedSlot: any
   penalties: any[] = [];
   penalty: any[] = [];
+  allow_booking_with_penalty: any;
   constructor(
     private dialog: MatDialog,
     private el: ElementRef,
     private slots: OpenSlotsService,
     private _snackBar: MatSnackBar,
-    private penaltiesService: ViewMyPenaltiesService
+    private penaltiesService: ViewMyPenaltiesService,
+    private optionsService: OptionsService
   ) {}
 
   public getFromLocalStrorage() {
@@ -95,6 +98,10 @@ export class UserProfileComponent implements OnInit {
 
     this.operatingDate = this.convertDate(this.minDate);
     sessionStorage.setItem('operatingDate', this.operatingDate);
+
+    this.optionsService.getOption(9).subscribe((res) => {
+      this.allow_booking_with_penalty = res.data[0].option_value;
+    })
 
     this.penaltiesService.getList(this.userItems.ID).subscribe((res) => {
       this.penalties = res.data;
@@ -156,13 +163,13 @@ export class UserProfileComponent implements OnInit {
   onOpenDialog(row): void {
     sessionStorage.setItem('mode', 'DEP');
     if (this.userItems.account_status === 'NON_COMPLIANT') {
-      this._snackBar.open('You are can not perform this action due to non-compliance.  Please call Napsa for assistance', 'Close', {
-        duration: 2500,
+      this._snackBar.open('You can not perform this action due to non-compliance.  Please call Napsa for assistance', 'Close', {
+        duration: 25000,
         verticalPosition: 'top'
       });
-    } else if (this.penalty.includes('Unpaid')) {
-      this._snackBar.open('You are can not perform this action due to penalty.  Please call Napsa for assistance', 'Close', {
-        duration: 2500,
+    } else if (this.penalty.includes('Unpaid') && this.allow_booking_with_penalty === '0') {
+      this._snackBar.open('You can not perform this action due to penalty.  Please call Napsa for assistance', 'Close', {
+        duration: 25000,
         verticalPosition: 'top'
       });
     } else {
@@ -178,12 +185,12 @@ export class UserProfileComponent implements OnInit {
 
   onOpenEditDialog(user, slot, time, reserved_date): void {
     if (this.userItems.account_status === 'NON_COMPLIANT') {
-      this._snackBar.open('You are can not perform this action due to non-compliance.  Please call Napsa for assistance', 'Close', {
+      this._snackBar.open('You can not perform this action due to non-compliance.  Please call Napsa for assistance', 'Close', {
         duration: 2500,
         verticalPosition: 'top'
       });
-    } else if (this.penalty.includes('Unpaid')) {
-      this._snackBar.open('You are can not perform this action due to penalty.  Please call Napsa for assistance', 'Close', {
+    } else if (this.penalty.includes('Unpaid') && this.allow_booking_with_penalty === '0') {
+      this._snackBar.open('You can not perform this action due to penalty.  Please call Napsa for assistance', 'Close', {
         duration: 2500,
         verticalPosition: 'top'
       });
@@ -206,12 +213,12 @@ export class UserProfileComponent implements OnInit {
   arOnOpenDialog(row): void {
     sessionStorage.setItem('mode', 'ARR');
     if (this.userItems.account_status === 'NON_COMPLIANT') {
-      this._snackBar.open('You are can not perform this action due to non-compliance.  Please call Napsa for assistance', 'Close', {
+      this._snackBar.open('You can not perform this action due to non-compliance.  Please call Napsa for assistance', 'Close', {
         duration: 2500,
         verticalPosition: 'top'
       });
-    } else if (this.penalty.includes('Unpaid')) {
-      this._snackBar.open('You are can not perform this action due to penalty.  Please call Napsa for assistance', 'Close', {
+    } else if (this.penalty.includes('Unpaid') && this.allow_booking_with_penalty === '0') {
+      this._snackBar.open('You can not perform this action due to penalty.  Please call Napsa for assistance', 'Close', {
         duration: 2500,
         verticalPosition: 'top'
       });
@@ -229,12 +236,12 @@ export class UserProfileComponent implements OnInit {
 
   onOpenEditDialogAR(user, slot, time, reserved_date): void {
     if (this.userItems.account_status === 'NON_COMPLIANT') {
-      this._snackBar.open('You are can not perform this action due to non-compliance.  Please call Napsa for assistance', 'Close', {
+      this._snackBar.open('You can not perform this action due to non-compliance.  Please call Napsa for assistance', 'Close', {
         duration: 2500,
         verticalPosition: 'top'
       });
-    } else if (this.penalty.includes('Unpaid')) {
-      this._snackBar.open('You are can not perform this action due to penalty.  Please call Napsa for assistance', 'Close', {
+    } else if (this.penalty.includes('Unpaid') && this.allow_booking_with_penalty === '0') {
+      this._snackBar.open('You can not perform this action due to penalty.  Please call Napsa for assistance', 'Close', {
         duration: 2500,
         verticalPosition: 'top'
       });
