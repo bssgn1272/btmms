@@ -21,19 +21,23 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
       }
     } |> Poison.encode!() |> http(Settings.find_by(key: "BANK_AUTH_KEY").value) |> IO.inspect
 
-    if bank_response["response"]["tekHeader"]["status"] == "SUCCESS" do
-      %{
-        "hostrefno" => bank_response["response"]["tekHeader"]["hostrefno"],
-        "status" => bank_response["response"]["tekHeader"]["status"]
-      }
-      |> Map.merge(args)
-      |> transaction
-    else
-      %{
-        "status" => bank_response["tekHeader"]["status"]
-      }
-      |> Map.merge(args)
-      |> transaction
+    try do
+      if bank_response["response"]["tekHeader"]["status"] == "SUCCESS" do
+        %{
+          "hostrefno" => bank_response["response"]["tekHeader"]["hostrefno"],
+          "status" => bank_response["response"]["tekHeader"]["status"]
+        }
+        |> Map.merge(args)
+        |> transaction
+      else
+        %{
+          "status" => bank_response["tekHeader"]["status"]
+        }
+        |> Map.merge(args)
+        |> transaction
+      end
+    rescue
+      _ -> %{:status => "FAILED", :message => "Bank Connection Failed", :transaction => %{}}
     end
 
 
@@ -54,21 +58,24 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
       }
     } |> Poison.encode!() |> http(Settings.find_by(key: "BANK_AUTH_KEY").value)
 
-    if bank_response["response"]["tekHeader"]["status"] == "SUCCESS" do
-      %{
-        "hostrefno" => bank_response["response"]["tekHeader"]["hostrefno"],
-        "status" => bank_response["response"]["tekHeader"]["status"]
-      }
-      |> Map.merge(args)
-      |> transaction
-    else
-      %{
-        "status" => bank_response["tekHeader"]["status"]
-      }
-      |> Map.merge(args)
-      |> transaction
+    try do
+      if bank_response["response"]["tekHeader"]["status"] == "SUCCESS" do
+        %{
+          "hostrefno" => bank_response["response"]["tekHeader"]["hostrefno"],
+          "status" => bank_response["response"]["tekHeader"]["status"]
+        }
+        |> Map.merge(args)
+        |> transaction
+      else
+        %{
+          "status" => bank_response["tekHeader"]["status"]
+        }
+        |> Map.merge(args)
+        |> transaction
+      end
+    rescue
+      _ -> %{:status => "FAILED", :message => "Bank Connection Failed", :transaction => %{}}
     end
-
 
   end
 
@@ -80,8 +87,8 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
     |> case do
          {:ok, %{:transaction => transaction}} ->
            BusTerminalSystem.Service.Zicb.AccountOpening.run()
-           %{:status => transaction.status, :transaction => %{}}
-          {:error, message} -> %{:status => "FAILED", :transaction => %{}}
+           %{:status => transaction.status, :message => "Transaction Complete", :transaction => %{}}
+          {:error, message} -> %{:status => "FAILED", :message => "Transaction Failed", :transaction => %{}}
        end
 
   end
