@@ -25,6 +25,10 @@ defmodule BusTerminalSystem.Job.Sms do
 
   end
 
+  def send do
+    Enum.each(Sms.stream_where(sent: false), &push_message/1)
+  end
+
   def send_messages() do
     receive do
     after

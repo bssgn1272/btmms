@@ -7,10 +7,10 @@ defmodule BusTerminalSystem.NapsaSmsGetway do
     Task.async(fn ->
       response = HTTPoison.get(Settings.find_by(key: "SMS_GATEWAY").value,[],
       params: %{
-        smsc: "zamtelsmsc",
-        username: "napsamobile",
-        password: "napsamobile@kannel",
-        from: "NAPSA",
+        smsc: Settings.find_by(key: "SMS_GATEWAY_SMSC").value,
+        username: Settings.find_by(key: "SMS_GATEWAY_USERNAME").value,
+        password: Settings.find_by(key: "SMS_GATEWAY_PASSWORD").value,
+        from: Settings.find_by(key: "SMS_GATEWAY_SENDER").value,
         to: phone,
         text: message
         }
@@ -23,12 +23,12 @@ defmodule BusTerminalSystem.NapsaSmsGetway do
 
   def send_sms_out_sync(phone,message) do
 
-      response = HTTPoison.get("http://196.46.196.38:13013/napsamobile/pushsms",[],
+      response = HTTPoison.get(Settings.find_by(key: "SMS_GATEWAY").value,[],
         params: %{
-          smsc: "zamtelsmsc",
-          username: "napsamobile",
-          password: "napsamobile@kannel",
-          from: "NAPSA",
+          smsc: Settings.find_by(key: "SMS_GATEWAY_SMSC").value,
+          username: Settings.find_by(key: "SMS_GATEWAY_USERNAME").value,
+          password: Settings.find_by(key: "SMS_GATEWAY_PASSWORD").value,
+          from: Settings.find_by(key: "SMS_GATEWAY_SENDER").value,
           to: phone,
           text: message
         }

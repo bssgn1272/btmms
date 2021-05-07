@@ -15,11 +15,11 @@ defmodule BusTerminalSystem.Application do
       # Start the endpoint when the application starts
       BusTerminalSystemWeb.Endpoint,
       BusTerminalSystem.Scheduler,
-      Supervisor.child_spec({Cachex, name: :tmp}, id: :tmp)
+      Supervisor.child_spec({Cachex, name: :tmp}, id: :tmp),
       # Starts a worker by calling: BusTerminalSystem.Worker.start_link(arg)
       # {BusTerminalSystem.Worker, arg},
       # SMS job
-#       BusTerminalSystem.Job.Sms
+       BusTerminalSystem.Job.Sms
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

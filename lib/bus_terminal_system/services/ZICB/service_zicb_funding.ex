@@ -41,7 +41,7 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
         } |> update_transaction(transaction)
       else
         %{
-          :status => bank_response["response"]["tekHeader"]["status"]
+          :status => "PENDING"
         }
         |> update_transaction(transaction)
       end
