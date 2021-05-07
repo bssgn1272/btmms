@@ -8,10 +8,13 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
 
 
   def post_ticket_transactions() do
-    Transactions.where([status: "PENDING"])
-    |> Enum.each(fn transaction ->
-      post_ticket_to_bank(transaction) |> IO.inspect(label: "POST TRANSACTION ------------------")
-    end)
+    if Settings.find_by(key: "BANK_ENABLE_TICKET_POSTING").value == "TRUE" do
+      Transactions.where([status: "PENDING"])
+      |> Enum.each(fn transaction ->
+        post_ticket_to_bank(transaction) |> IO.inspect(label: "POST TRANSACTION ------------------")
+      end)
+    end
+
   end
 
   defp post_ticket_to_bank(transaction) do

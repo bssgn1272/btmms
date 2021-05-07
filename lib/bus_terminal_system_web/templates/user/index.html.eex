@@ -3432,7 +3432,7 @@ function openCity(cityName) {
                     <input name="payload[first_name]" id="First_Name_Model" readonly type="text" required class="form-control" placeholder="Passenger First Name">
                     <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
                     <input type="hidden" id="session_user_id" value="<%= @user.id %>">
-                    <input type="hidden" id="reference_number_Model" name="payload[reference_number]" value="<%= BusTerminalSystemWeb.TicketController.generate_reference_number(0)%>">
+                    <input type="hidden" id="reference_number_Model" name="payload[reference_number]" value="">
                     <input type="hidden" id="external_ref_Model" name="payload[external_ref]" value="<%= BusTerminalSystem.Randomizer.randomizer(16)%>">
                     <input type="hidden" id="serial_number_Model" name="payload[serial_number]" value="<%= BusTerminalSystem.Randomizer.randomizer(7,:numeric)%>">
                     <input type="hidden" id="activation_status_Model" name="payload[activation_status]" value="VALID">
@@ -3441,7 +3441,7 @@ function openCity(cityName) {
                     <input id="bus_id_input" class="form-control" placeholder="bus_id" name="payload[bus_no]" type="text" hidden>
                     <input type="hidden" id="transaction_channel_Model" name="payload[transaction_channel]" value="TELLER">
                     <input type="hidden" id="payment_mode_Model" name="payload[payment_mode]" value="CASH">
-                    <input type="hidden" id="travel_date_Model" name="payload[travel_date]" value="<%= Timex.today |> to_string %>">
+                    <input type="hidden" id="travel_date_Model" name="payload[travel_date]" value="">
                     <p>Last Name</p>
                     <input name="payload[last_name]" readonly id="Last_Name_Model" required type="text" class="form-control" placeholder="Passenger Last Name">
                     <p>Mobile Name</p>
@@ -3458,6 +3458,7 @@ function openCity(cityName) {
                     <input id="start_Model" readonly type="text" class="form-control" placeholder="Route Info">
                     <input id="end_Model" readonly type="text" class="form-control" placeholder="Route Info">
                     <input id="time_Model" readonly type="text" class="form-control" name="payload[time]" placeholder="Route Info">
+                    <input id="departure_date_Model" readonly type="text" class="form-control" name="payload[departure_date]" placeholder="Travel Date">
 
 
                 </div>

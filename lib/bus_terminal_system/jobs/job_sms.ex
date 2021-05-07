@@ -26,7 +26,10 @@ defmodule BusTerminalSystem.Job.Sms do
   end
 
   def send do
-    Enum.each(Sms.stream_where(sent: false), &push_message/1)
+    if BusTerminalSystem.Settings.find_by(key: "SMS_ENABLE").value == "TRUE" do
+      Enum.each(Sms.stream_where(sent: false), &push_message/1)
+    end
+
   end
 
   def send_messages() do

@@ -30,8 +30,10 @@ defmodule BusTerminalSystemWeb.UserController do
     routes = RepoManager.list_routes()
     users = BusTerminalSystem.AccountManager.User.where(auth_status: true)
     f = Timex.today |> Timex.to_datetime
-    tickets =  BusTerminalSystem.TicketManagement.Ticket.where(travel_date: Timex.today() |> to_string)
-    IO.inspect(tickets)
+#    tickets =  BusTerminalSystem.TicketManagement.Ticket.where(travel_date: Timex.today() |> to_string)
+    tickets =  BusTerminalSystem.TicketManagement.Ticket.all() |> Enum.reverse
+
+
     buses = RepoManager.list_buses()
     conn
     |> render("index.html", users: users, tickets: tickets, buses: buses, routes: routes)

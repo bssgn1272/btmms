@@ -48,6 +48,7 @@ defmodule BusTerminalSystemWeb.TicketController do
       tickets = RepoManager.list_tickets()
 
       ticket_params = Map.put(ticket_params, "class", "TICKET")
+      ticket_params = Map.put(ticket_params, "reference_number", BusTerminalSystemWeb.TicketController.generate_reference_number(0))
       ticket_params = Map.put(ticket_params, "route_information", ticket_params["route_information"]) #route_information
 
 
@@ -80,13 +81,17 @@ defmodule BusTerminalSystemWeb.TicketController do
   def create_ticket_payload(conn, %{"payload" => ticket_params}) do
 
 
+    IO.inspect ticket_params
+
     case BusTerminalSystem.AccountManager.User.find(ticket_params["session_user_id"]) do
       nil -> conn |> json(%{"message" => "Failed", "status" => 400} )
       session_user ->
 
+      travel_date = (ticket_params["departure_date"] |> String.replace("/","-"))
+
     [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot, _, bus_schedule_id] = ticket_params["route_information"] |> String.split()
 
-    ref = ticket_params["reference_number"]
+    ref = BusTerminalSystemWeb.TicketController.generate_reference_number(0)
 
     {cost_price, _} = price |> String.replace("K","") |> Float.parse
 
@@ -110,7 +115,7 @@ defmodule BusTerminalSystemWeb.TicketController do
        "srcAcc" => session_user.account_number,
        "srcBranch" => session_user.bank_srcBranch,
        "amount" => (price |> String.replace("K","")),
-       "payDate" => ticket_params["travel_date"],
+       "payDate" => travel_date,
        "srcCurrency" => "ZMW",
        "remarks" => ref,
        "referenceNo" => ref,
@@ -131,6 +136,8 @@ defmodule BusTerminalSystemWeb.TicketController do
         tickets = RepoManager.list_tickets()
 
         ticket_params = Map.put(ticket_params, "class", "TICKET")
+        ticket_params = Map.put(ticket_params, "reference_number", ref)
+        ticket_params = Map.put(ticket_params, "travel_date", travel_date)
         ticket_params = Map.put(ticket_params, "route_information", ticket_params["route_information"]) #route_information
 
         [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot, _, bus_schedule_id] = ticket_params["route_information"] |> String.split()
@@ -205,6 +212,8 @@ defmodule BusTerminalSystemWeb.TicketController do
         })
 
       {:error, errors} ->
+
+      IO.inspect errors
 
         conn
         |> json(
@@ -511,13 +520,13 @@ defmodule BusTerminalSystemWeb.TicketController do
   def generate_reference_number(route) do
     dt = DateTime.utc_now
     {micro,_} = dt.microsecond
-    "ZBMS-#{dt.year}#{dt.month}#{dt.day}-#{dt.hour}#{dt.minute}#{dt.second}#{micro}"
+    "BT#{dt.year}#{dt.month}#{dt.day}#{dt.hour}#{dt.minute}#{dt.second}" |> String.pad_trailing(16,"0")
   end
 
   def generate_reference_number do
     dt = DateTime.utc_now
     {micro,_} = dt.microsecond
-    "ZBMS-#{dt.year}#{dt.month}#{dt.day}-LSTL-#{dt.hour}#{dt.minute}#{dt.second}#{micro}"
+    "BT#{dt.year}#{dt.month}#{dt.day}#{dt.hour}#{dt.minute}#{dt.second}" |> String.pad_trailing(16,"0")
   end
 
   def qr_generator(data) do

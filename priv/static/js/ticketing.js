@@ -761,10 +761,11 @@ function passenger_ticket_logic() {
                     let single_object = JSON.parse(JSON.stringify(v));
 
                     console.log(single_object)
+                    console.log(single_object.departure_date.split("T")[0].replaceAll("-","/"))
 
                     let value = single_object.bus.company.trim().split(" ").join("").toString() + "-" + single_object.route.start_route + "-"
                         + single_object.route.end_route + "-"  +  single_object.departure_time + "-" + single_object.fare + "-" + single_object.bus.id + "-"
-                        + single_object.slot + "-" + single_object.bus_schedule_id + "-" + single_object.discount_amount + "-" + single_object.discount_status;
+                        + single_object.slot + "-" + single_object.bus_schedule_id + "-" + single_object.discount_amount + "-" + single_object.discount_status + "-" + single_object.departure_date.split("T")[0].replaceAll("-","/");
                     value = value.toString();
 
                     //trips_html += '<div class="radio"><label><input type="radio" onclick="ticket_purchase(this.value)" value="'+value+'" name="opt_radio" />';
@@ -804,6 +805,8 @@ function ticket_purchase(value){
 
     console.log(value.split(/-/g));
     let rd = value.split(/-/g);
+    console.log("RD")
+    console.log(rd)
 
     switch ($('#ticket_type').val()) {
 
@@ -825,6 +828,7 @@ function ticket_purchase(value){
                 $('#start_Model').val(rd[1]);
                 $('#end_Model').val(rd[2]);
                 $('#time_Model').val(rd[3]);
+                $('#departure_date_Model').val(rd[10]);
 
                 $('#bus_id_input').val(rd[5]);
             }
@@ -879,6 +883,7 @@ function purchase_ticket_internal() {
             passenger_id: $('#ID_Model').val(),
             route_information: $('#route_information_Model').val(),
             date: $('#time_Model').val(),
+            departure_date: $('#departure_date_Model').val(),
             ticket_description: "Ticket Purchased from (Livingstone to " + $('#end_Model').val() + ")"
 
         }

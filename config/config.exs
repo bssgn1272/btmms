@@ -71,7 +71,7 @@ config :bus_terminal_system, BusTerminalSystem.Scheduler,
    ],
   bank: [
     schedule:  "* * * * *", task: {BusTerminalSystem.Service.Zicb.AccountOpening, :run, []},
-    schedule: {:extended, "*/10"}, task: {BusTerminalSystem.Service.Zicb.Funding, :post_ticket_transactions, []},
+    schedule: {:extended, "*/3"}, task: {BusTerminalSystem.Service.Zicb.Funding, :post_ticket_transactions, []},
   ]
  ]
 
