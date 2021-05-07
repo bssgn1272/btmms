@@ -88,7 +88,25 @@ defmodule BusTerminalSystemWeb.TicketController do
 
     ref = ticket_params["reference_number"]
 
-    bank_transaction = %{
+    {cost_price, _} = price |> String.replace("K","") |> Float.parse
+
+    IO.inspect cost_price
+    IO.inspect session_user.bank_account_balance
+
+    if cost_price > session_user.bank_account_balance do
+      conn
+      |> json(
+           %{
+             "ticket" => %{},
+             "message" => "Transaction Failed, Insufficient Till balance",
+             "status" => 400,
+             "bank_account_balance" => session_user.bank_account_balance
+           })
+    else
+
+    IO.inspect "PASSED"
+
+      bank_transaction = %{
        "srcAcc" => session_user.account_number,
        "srcBranch" => session_user.bank_srcBranch,
        "amount" => (price |> String.replace("K","")),
@@ -101,59 +119,61 @@ defmodule BusTerminalSystemWeb.TicketController do
        "service" => "TICKET_PURCHASE",
        "op_description" => "CLIENT TICKET PURCHASE",
      } |> BusTerminalSystem.Service.Zicb.Funding.withdraw()
+     |>IO.inspect(label: "************************************************************************")
 
-        if bank_transaction.status != "SUCCESS" do
-          conn
-          |> json(%{"message" => bank_transaction.message,"status" => 400} )
+      if bank_transaction.status != "SUCCESS" do
+        conn
+        |> json(%{"message" => bank_transaction.message,"status" => 400} )
+      else
+        #          BusTerminalSystem.Service.Zicb.AccountOpening.account_balance_inquiry(session_user.account_number)
+
+        users = AccountManager.list_users()
+        tickets = RepoManager.list_tickets()
+
+        ticket_params = Map.put(ticket_params, "class", "TICKET")
+        ticket_params = Map.put(ticket_params, "route_information", ticket_params["route_information"]) #route_information
+
+        [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot, _, bus_schedule_id] = ticket_params["route_information"] |> String.split()
+        route = BusTerminalSystem.TravelRoutes.find_by(start_route: start_route, end_route: end_route)
+
+        price = price |> String.replace("K","")
+
+        ticket_params = Map.put(ticket_params, "amount", price)
+        ticket_params = Map.put(ticket_params, "route", route.id)
+        ticket_params = Map.put(ticket_params, "bus_schedule_id", bus_schedule_id)
+
+        operator = BusTerminalSystem.BusManagement.Bus.find(ticket_params["bus_no"]).operator_id
+                   |> BusTerminalSystem.AccountManager.User.find
+
+        if operator.apply_discount == false do
+          ticket_params = Map.put(ticket_params, "discount_applied", false)
+          ticket_params = Map.put(ticket_params, "discount_amount", 0)
+          ticket_purchase(conn, ticket_params, session_user)
         else
-      BusTerminalSystem.Service.Zicb.AccountOpening.account_balance_inquiry(session_user.account_number)
+          operator.apply_discount |> case do
+           nil ->
+             ticket_params = Map.put(ticket_params, "discount_applied", true)
+             ticket_params = Map.put(ticket_params, "discount_amount", 0.0)
+             ticket_purchase(conn, ticket_params, session_user)
+           false ->
+             ticket_params = Map.put(ticket_params, "discount_applied", true)
+             ticket_params = Map.put(ticket_params, "discount_amount", 0.0)
+             ticket_purchase(conn, ticket_params, session_user)
+           true ->
 
-          users = AccountManager.list_users()
-          tickets = RepoManager.list_tickets()
+             discount_calculated = (fn original_amount, discount_amount ->
+               parse_float(original_amount) - discount_amount
+                                    end)
 
-          ticket_params = Map.put(ticket_params, "class", "TICKET")
-          ticket_params = Map.put(ticket_params, "route_information", ticket_params["route_information"]) #route_information
-
-          [_, tBus, _, start_route, _, end_route, _, departure, _, price, _,slot, _, bus_schedule_id] = ticket_params["route_information"] |> String.split()
-          route = BusTerminalSystem.TravelRoutes.find_by(start_route: start_route, end_route: end_route)
-
-          price = price |> String.replace("K","")
-
-          ticket_params = Map.put(ticket_params, "amount", price)
-          ticket_params = Map.put(ticket_params, "route", route.id)
-          ticket_params = Map.put(ticket_params, "bus_schedule_id", bus_schedule_id)
-
-          operator = BusTerminalSystem.BusManagement.Bus.find(ticket_params["bus_no"]).operator_id
-                     |> BusTerminalSystem.AccountManager.User.find
-
-          if operator.apply_discount == false do
-            ticket_params = Map.put(ticket_params, "discount_applied", false)
-            ticket_params = Map.put(ticket_params, "discount_amount", 0)
-            ticket_purchase(conn, ticket_params, session_user)
-          else
-            operator.apply_discount |> case do
-             nil ->
-               ticket_params = Map.put(ticket_params, "discount_applied", true)
-               ticket_params = Map.put(ticket_params, "discount_amount", 0.0)
-               ticket_purchase(conn, ticket_params, session_user)
-             false ->
-               ticket_params = Map.put(ticket_params, "discount_applied", true)
-               ticket_params = Map.put(ticket_params, "discount_amount", 0.0)
-               ticket_purchase(conn, ticket_params, session_user)
-             true ->
-
-               discount_calculated = (fn original_amount, discount_amount ->
-                 parse_float(original_amount) - discount_amount
-                                      end)
-
-               ticket_params = Map.put(ticket_params, "amount", discount_calculated.(price, operator.discount_amount))
-               ticket_params = Map.put(ticket_params, "discount_applied", true)
-               ticket_params = Map.put(ticket_params, "discount_amount", operator.discount_amount)
-               ticket_params = Map.put(ticket_params, "discount_original_amount", price)
-               ticket_purchase(conn, ticket_params,session_user)
-           end
-      end
+             ticket_params = Map.put(ticket_params, "amount", discount_calculated.(price, operator.discount_amount))
+             ticket_params = Map.put(ticket_params, "discount_applied", true)
+             ticket_params = Map.put(ticket_params, "discount_amount", operator.discount_amount)
+             ticket_params = Map.put(ticket_params, "discount_original_amount", price)
+             ticket_purchase(conn, ticket_params,session_user)
+         end
         end
+      end
+    end
     end
 
   end
@@ -184,7 +204,7 @@ defmodule BusTerminalSystemWeb.TicketController do
           "bank_account_balance" => session_user.bank_account_balance
         })
 
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, errors} ->
 
         conn
         |> json(

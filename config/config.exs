@@ -69,7 +69,8 @@ config :bus_terminal_system, BusTerminalSystem.Scheduler,
      schedule:  "* * * * *", task: {BusTerminalSystem.NapsaUserUpdater, :run, []}
    ],
   bank: [
-    schedule:  "* * * * *", task: {BusTerminalSystem.Service.Zicb.AccountOpening, :run, []}
+    schedule:  "* * * * *", task: {BusTerminalSystem.Service.Zicb.AccountOpening, :run, []},
+    schedule: {:extended, "*/10"}, task: {BusTerminalSystem.Service.Zicb.Funding, :post_ticket_transactions, []},
   ]
  ]
 

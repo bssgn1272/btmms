@@ -6,6 +6,7 @@ defmodule BusTerminalSystem.TicketManagement do
   import Ecto.Query, warn: false
   alias BusTerminalSystem.Repo
   alias BusTerminalSystem.Service.Zicb.Funding, as: Zicb
+  alias Ecto.Multi
 
   alias BusTerminalSystem.TicketManagement.Ticket
 
@@ -51,6 +52,15 @@ defmodule BusTerminalSystem.TicketManagement do
 
   """
   def create_ticket(attrs \\ %{}) do
+
+#    Multi.new()
+#    |> Multi.insert(:ticket, Map.merge(%Ticket{}, (for {key, val} <- attrs, into: %{}, do: {String.to_atom(key), val})))
+#    |> Repo.transaction
+#    |> case do
+#         {:ok, %{:ticket => ticket}} ->
+#           {:ok, ticket}
+#         {:error, message} -> {:error, %{}}
+#     end
 
     %Ticket{} |> Ticket.changeset(attrs) |> Repo.insert()
   end
