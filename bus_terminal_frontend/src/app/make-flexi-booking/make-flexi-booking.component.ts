@@ -233,7 +233,7 @@ export class MakeFlexiBookingComponent implements OnInit {
     }
     console.log(this.f.route.value);
 
-    this.status = 'A';
+    this.status = 'p';
     let message = 'Slot Successfully Reserved';
     this.time = this.data.row.time;
     const reservation_time = (new Date(sessionStorage.getItem('arOperatingDate'))).toISOString().split('.')[0] + 'Z';
@@ -241,7 +241,7 @@ export class MakeFlexiBookingComponent implements OnInit {
     if (this.data.row.slot_one === this.user || this.data.row.slot_two === this.user || this.data.row.slot_three === this.user ||
         this.data.row.slot_four === this.user || this.data.row.slot_five === this.user || this.data.row.slot_six === this.user ||
         this.data.row.slot_seven === this.user || this.data.row.slot_eight === this.user || this.data.row.slot_nine === this.user) {
-      this.status = 'P'
+      this.status = 'A'
     }
 
     const reserv = {

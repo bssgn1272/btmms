@@ -71,6 +71,12 @@ export const ROUTESFOUR: RouteInfo[] = [
     title: 'Flexi Booking',
     icon: 'view_module',
     class: '',
+  },
+  {
+    path: '/veiw-slots',
+    title: 'View Slots',
+    icon: 'view_module',
+    class: '',
   }
 ];
 

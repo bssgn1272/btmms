@@ -230,6 +230,7 @@
                         <div *ngIf="element.reservation_status == 'C'">Cancelled</div>
                         <div *ngIf="element.reservation_status == 'DL'">Delayed</div>
                         <div *ngIf="element.reservation_status == 'D'">Departed</div>
+                        <div *ngIf="element.reservation_status == 'R'">Rejected</div>
                       </td>
                     </ng-container>
 
@@ -487,6 +488,7 @@
                         <div *ngIf="element.reservation_status == 'C'">Cancelled</div>
                         <div *ngIf="element.reservation_status == 'DL'">Delayed</div>
                         <div *ngIf="element.reservation_status == 'D'">Departed</div>
+                        <div *ngIf="element.reservation_status == 'R'">Rejected</div>
                       </td>
                     </ng-container>
 
@@ -538,18 +540,18 @@
                             Cancel Request
                           </button>
                           <button
-                                  *ngIf="role === 'ADMIN'"
+                                  *ngIf="role === 'ADMIN' && row.reservation_status == 'PC'"
                                   (click)="confirmCancellationRequest(row)"
                                   mat-menu-item
                           >
                             Confirm Cancellation Request
                           </button>
                           <div *ngIf="row.reservation_status === 'P'">
-                            <button mat-menu-item (click)="approve(row)">Approve</button>
+                            <button mat-menu-item (click)="approveAr(row)">Approve</button>
                           </div>
-                          <button
+                          <button *ngIf="row.reservation_status === 'P'"
                                   mat-menu-item
-                                  (click)="onOpenRejectDialog(row)"
+                                  (click)="onOpenRejectDialogAr(row)"
                           >
                             Reject
                           </button>
@@ -709,6 +711,7 @@
                         <div *ngIf="element.reservation_status == 'C'">Cancelled</div>
                         <div *ngIf="element.reservation_status == 'DL'">Delayed</div>
                         <div *ngIf="element.reservation_status == 'D'">Departed</div>
+                        <div *ngIf="element.reservation_status == 'R'">Rejected</div>
                       </td>
                     </ng-container>
 
@@ -924,6 +927,7 @@
                         <div *ngIf="element.reservation_status == 'C'">Cancelled</div>
                         <div *ngIf="element.reservation_status == 'DL'">Delayed</div>
                         <div *ngIf="element.reservation_status == 'D'">Departed</div>
+                        <div *ngIf="element.reservation_status == 'R'">Rejected</div>
                       </td>
                     </ng-container>
 

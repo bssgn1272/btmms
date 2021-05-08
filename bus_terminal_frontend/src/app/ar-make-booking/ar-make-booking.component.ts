@@ -7,7 +7,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Location } from '@angular/common';
 import { v4 } from 'uuid';
 import { ViewSlotsService } from 'app/view-my-slots/view-slots.service';
-import {MakeBookingService} from '../make-booking/make-booking.service';
+import { MakeBookingService } from '../make-booking/make-booking.service';
 
 export interface Slot {
   value: string;
@@ -21,8 +21,8 @@ export interface Destination {
 
 @Component({
   selector: 'app-ar-make-booking',
-  templateUrl: './make-booking.component.html',
-  styleUrls: ['./make-booking.component.scss'],
+  templateUrl: './ar-make-booking.component.html',
+  styleUrls: ['./ar-make-booking.component.scss'],
 })
 export class ArMakeBookingComponent implements OnInit {
   // Booking formGroup
@@ -71,12 +71,24 @@ export class ArMakeBookingComponent implements OnInit {
     private reservationService: ViewSlotsService,
     private makeDepBookingService: MakeBookingService,
   ) {
-    this.bookingForm = this._formBuilder.group({
-      slot: ['', Validators.required],
-      route: ['', Validators.required],
-      bus: ['',],
-      summary: ['', Validators.required],
-    });
+    this.userItems = this.getFromLocalStrorage();
+
+    if(this.userItems.role === 'FOP'){
+      this.bookingForm = this._formBuilder.group({
+        slot: ['', Validators.required],
+        route: ['', Validators.required],
+        bus: ['',],
+        summary: ['', Validators.required],
+      });
+    }
+    else{
+      this.bookingForm = this._formBuilder.group({
+        slot: ['', Validators.required],
+        route: ['', Validators.required],
+        bus: ['', Validators.required],
+        summary: ['',],
+      });
+    }
   }
 
   /* Handle form errors in Angular 8 */
@@ -230,7 +242,12 @@ export class ArMakeBookingComponent implements OnInit {
         const arOperatingDate = (new Date(sessionStorage.getItem('arOperatingDate'))).toISOString().split('T')[0];
 
         if (res.data !== null) {
-          this.buses = this.busesFilter
+          this.buses = this.busesFilter.filter(
+            (o) =>
+                !this.reservedBus.find(
+                    (o2) => o.id === o2.bus_id && (o2.reservation_status === 'A' || o2.reservation_status === 'P') && o2.reserved_time.split('T')[0] === arOperatingDate
+                )
+          );
         } else {
           this.buses = this.busesFilter.filter(
               (o) =>
@@ -240,8 +257,6 @@ export class ArMakeBookingComponent implements OnInit {
           );
         }
       });
-
-      console.log('Buses>>>>>', this.buses);
     });
   }
 
@@ -254,9 +269,10 @@ export class ArMakeBookingComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.bookingForm.invalid) {
+      console.log("Invalid form");
       return;
     }
-    console.log(this.f.route.value);
+    console.log("Save clicked");
 
     this.status = 'A';
     let message = 'Slot Successfully Reserved';
@@ -354,6 +370,7 @@ export class ArMakeBookingComponent implements OnInit {
     
 
   }
+
 
   close() {
     this.dialogRef.close();

@@ -119,6 +119,7 @@ export class CancelArrivalReservationComponent implements OnInit {
             bus_operator_id: this.data.row.user_id,
             bus_id: this.data.row.bus_id,
             date_booked: this.currentTime,
+            status: 'Unpaid',
             penalty_status: 'Unpaid',
             type: 'Late Cancellation',
           })
@@ -214,8 +215,9 @@ export class CancelArrivalReservationComponent implements OnInit {
     }
     console.log(this.id);
     this.httpClient
-        .put('/api/approve/arreservations/requests/' + this.data.row.res_uuid, {
-            reservation_status: this.status,
+        .put('/main/api/approve/arreservations/requests/' + this.data.row.res_uuid, {
+          status: this.status,
+          reservation_status: this.status,
           cancellation_reason: this.cancellationReason,
         })
         .subscribe(

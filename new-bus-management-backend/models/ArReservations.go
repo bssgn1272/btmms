@@ -6,24 +6,25 @@ import (
 	"new-bus-management-backend/utils"
 	"regexp"
 	"time"
+
 	"github.com/jinzhu/gorm"
 )
 
 // EdArReservationa struct for reservation model
 type EdArReservation struct {
 	gorm.Model
-	Slot         string    `json:"slot"`
-	BusDetail string `json:"bus_detail"`
-	ResUuid      string    `json:"res_uuid"`
-	Status             string    `gorm:"default:'P'" json:"status"`
-	ReservationStatus             string    `gorm:"default:'P'" json:"reservation_status"`
-	EDBusRouteID              uint      `gorm:"ForeignKey: EdBusRouteID" json:"ed_bus_route_id"`
-	EdBusRoute EdBusRoute `json:"ed_bus_routes"`
-	UserId       uint      `json:"user_id"`
-	BusId        uint      `gorm:"default:'0'" json:"bus_id"`
-	Time         string    ` json:"time"`
-	ReservedTime time.Time ` json:"reserved_time"`
-	CancellationReason string    `json:"cancellation_reason"`
+	Slot               string     `json:"slot"`
+	BusDetail          string     `json:"bus_detail"`
+	ResUuid            string     `json:"res_uuid"`
+	Status             string     `gorm:"default:'P'" json:"status"`
+	ReservationStatus  string     `gorm:"default:'P'" json:"reservation_status"`
+	EDBusRouteID       uint       `gorm:"ForeignKey: EdBusRouteID" json:"ed_bus_route_id"`
+	EdBusRoute         EdBusRoute `json:"ed_bus_routes"`
+	UserId             uint       `json:"user_id"`
+	BusId              uint       `gorm:"default:'0'" json:"bus_id"`
+	Time               string     ` json:"time"`
+	ReservedTime       time.Time  ` json:"reserved_time"`
+	CancellationReason string     `json:"cancellation_reason"`
 }
 
 // EdArResult join reservation and reservation struct
@@ -129,6 +130,19 @@ func ArGetReservations() []*EdArResult {
 	return reservations
 }
 
+func ArGetActiveReservations() []*EdArResult {
+
+	reservations := make([]*EdArResult, 0)
+	err := GetDB().Table("ed_ar_reservations").Where("reservation_status IN ('A', 'p') AND bus_id IS NULL").Find(&reservations).Error
+	log.Println(err)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+
+	return reservations
+}
+
 // get reservations
 //func GetReservationsHistory(fromDate time.Time, toDate time.Time) ([]*EdResult) {
 //
@@ -176,7 +190,7 @@ func ArGetReservationHistory() []*EdArResult {
 // Update Approve or reject reservation
 func (reservation *EdArReservation) ARUpdate(id string) map[string]interface{} {
 
-	db.Model(&reservation).Where("res_uuid = ?", id).Updates(EdArReservation{ReservationStatus: reservation.ReservationStatus, CancellationReason: reservation.CancellationReason, BusId: reservation.BusId,EDBusRouteID: reservation.EDBusRouteID})
+	db.Model(&reservation).Where("res_uuid = ?", id).Updates(EdArReservation{Status: reservation.Status, ReservationStatus: reservation.ReservationStatus, CancellationReason: reservation.CancellationReason, BusId: reservation.BusId, EDBusRouteID: reservation.EDBusRouteID})
 
 	log.Println(reservation.ReservationStatus)
 

@@ -3,12 +3,13 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"new-bus-management-backend/models"
 	"new-bus-management-backend/utils"
 	"strconv"
+
+	"github.com/gorilla/mux"
 )
 
 // ArCreateReservationController Function for reservation request function
@@ -32,6 +33,15 @@ var ArCreateReservationController http.HandlerFunc = http.HandlerFunc(func(w htt
 var ArGetReservationsController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 	data := models.ArGetReservations()
+	resp := utils.Message(true, "success")
+	resp["data"] = data
+	log.Println(resp)
+	utils.Respond(w, resp)
+})
+
+var ArGetActiveReservationsController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+	data := models.ArGetActiveReservations()
 	resp := utils.Message(true, "success")
 	resp["data"] = data
 	log.Println(resp)

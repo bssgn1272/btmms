@@ -18,6 +18,7 @@ export class ChangeOptionComponent implements OnInit {
   id: any;
   userItems: any;
   value: any;
+  name: any;
   optionForm: FormGroup;
   submitted = false;
   constructor(
@@ -52,6 +53,7 @@ export class ChangeOptionComponent implements OnInit {
     this._id = this.data.row.id;
     this.userItems = this.getFromLocalStrorage();
     this.value = this.data.row.option_value;
+    this.name = this.data.row.option_name;
   }
 
   get f() {
@@ -68,7 +70,7 @@ export class ChangeOptionComponent implements OnInit {
     this.id = this.data.row.ID;
     this.httpClient
       .put("/main/api/options/" + this.data.row.ID, {
-        option_value: this.f.optionValue.value,
+        option_value: String(this.f.optionValue.value),
         option_name: this.data.row.option_name
       })
       .subscribe(

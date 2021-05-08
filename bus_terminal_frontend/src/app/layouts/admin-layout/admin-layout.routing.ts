@@ -6,6 +6,7 @@ import { DispatchComponent } from '../../components/dispatch-details/dispatch-de
 import { MakeBookingComponent } from 'app/make-booking/make-booking.component';
 import { ArMakeBookingComponent } from 'app/ar-make-booking/ar-make-booking.component';
 import { ViewMySlotsComponent } from 'app/view-my-slots/view-my-slots.component';
+import { ViewSlotsComponent } from 'app/view-slots/view-slots.component';
 import { Role } from 'app/models/role';
 import { RoservationRequestsComponent } from 'app/roservation-requests/roservation-requests.component';
 import { AuthGuard } from 'app/guard/auth.guard';
@@ -14,6 +15,7 @@ import { DestinationDayComponent } from '../../destination-day/destination-day.c
 import { SlotTimeComponent } from '../../slot-time/slot-time.component';
 import { UpdateSlotTimeComponent } from '../../update-slot-time/update-slot-time.component';
 import { RejectComponent } from '../../reject/reject.component';
+import { RejectArrivalComponent } from '../../reject-arrival/reject-arrival.component';
 import { CancelReservationComponent } from '../../cancel-reservation/cancel-reservation.component';
 import { CancellationRequestComponent } from '../../cancellation-request/cancellation-request.component';
 import { ChangeBusComponent } from '../../change-bus/change-bus.component';
@@ -23,6 +25,7 @@ import { ModesComponent } from '../../settings/components/modes/modes.component'
 
 import { DueTimeComponent } from '../../settings/components/due-time/due-time.component';
 import {ApproveReservationComponent} from '../../approve-reservation/approve-reservation.component';
+import {ApproveArrivalReservationComponent} from '../../approve-arrival-reservation/approve-arrival-reservation.component';
 import {DpEditReservationComponent} from '../../dp-edit-reservation/dp-edit-reservation.component';
 import {ArEditResevertionComponent} from '../../ar-edit-resevertion/ar-edit-resevertion.component';
 import {ViewMyPenaltiesComponent} from '../../view-my-penalties/view-my-penalties.component';
@@ -57,6 +60,12 @@ export const AdminLayoutRoutes: Routes = [
     //  data: { roles: [Role.admin] }
   },
   {
+    path: 'veiw-slots',
+    component: ViewSlotsComponent,
+    canActivate: [AuthGuard],
+    //  data: { roles: [Role.admin] }
+  },
+  {
     path: 'veiw-resavations-requests',
     component: RoservationRequestsComponent,
     canActivate: [AuthGuard],
@@ -86,6 +95,11 @@ export const AdminLayoutRoutes: Routes = [
   {
     path: 'reject',
     component: RejectComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'reject-arrival',
+    component: RejectArrivalComponent,
     canActivate: [AuthGuard],
   },
   {
@@ -126,6 +140,11 @@ export const AdminLayoutRoutes: Routes = [
   {
     path: 'approve',
     component: ApproveReservationComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'approve-arrival',
+    component: ApproveArrivalReservationComponent,
     canActivate: [AuthGuard],
   },
   {

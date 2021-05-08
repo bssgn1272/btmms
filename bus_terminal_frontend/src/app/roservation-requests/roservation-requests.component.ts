@@ -13,11 +13,13 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { OpenSlotsService } from './slot.service';
 import { RejectComponent } from '../reject/reject.component';
+import { RejectArrivalComponent } from '../reject-arrival/reject-arrival.component';
 import * as moment from 'moment';
 import { CancellationRequestComponent } from '../cancellation-request/cancellation-request.component';
 import { ConfirmCancellationComponent } from '../confirm-cancellation/confirm-cancellation.component';
 import { SettingsService } from 'app/settings/settings.service';
 import {ApproveReservationComponent} from '../approve-reservation/approve-reservation.component';
+import {ApproveArrivalReservationComponent} from '../approve-arrival-reservation/approve-arrival-reservation.component';
 
 @Component({
   selector: 'app-roservation-requests',
@@ -585,9 +587,33 @@ export class RoservationRequestsComponent implements OnInit {
     console.log('Row clicked: ', row);
   }
 
+  onOpenRejectDialogAr(row): void {
+    const dialogRef = this.dialog.open(RejectArrivalComponent, {
+      width: '60%',
+      // height: "850",
+      data: { row },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      row = result;
+    });
+    console.log('Row clicked: ', row);
+  }
+
 
   approve(row): void {
     const dialogRef = this.dialog.open(ApproveReservationComponent, {
+      width: '60%',
+      // height: "850",
+      data: { row },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      row = result;
+    });
+    console.log('Row clicked: ', row);
+  }
+
+  approveAr(row): void {
+    const dialogRef = this.dialog.open(ApproveArrivalReservationComponent, {
       width: '60%',
       // height: "850",
       data: { row },

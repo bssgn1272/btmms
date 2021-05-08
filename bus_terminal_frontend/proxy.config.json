@@ -6,7 +6,7 @@
     "changeOrigin": false
   },
   "/api/v1/*": {
-    "target": "http://10.10.1.57:4000",
+    "target": "http://10.70.3.46:4000",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": false

@@ -35,6 +35,7 @@ import {
 import { MakeBookingComponent } from 'app/make-booking/make-booking.component';
 import { ArMakeBookingComponent } from 'app/ar-make-booking/ar-make-booking.component';
 import { ViewMySlotsComponent } from 'app/view-my-slots/view-my-slots.component';
+import { ViewSlotsComponent } from 'app/view-slots/view-slots.component';
 import { RoservationRequestsComponent } from 'app/roservation-requests/roservation-requests.component';
 import { AlertsComponent } from 'app/alert/alerts.component';
 import { AlertsService } from 'app/alert/alerts.service';
@@ -44,6 +45,7 @@ import { DestinationDayComponent } from 'app/destination-day/destination-day.com
 import { SlotTimeComponent } from 'app/slot-time/slot-time.component';
 import { UpdateSlotTimeComponent } from '../../update-slot-time/update-slot-time.component';
 import { RejectComponent } from '../../reject/reject.component';
+import { RejectArrivalComponent } from '../../reject-arrival/reject-arrival.component';
 import { CancelReservationComponent } from '../../cancel-reservation/cancel-reservation.component';
 import { CancellationRequestComponent } from '../../cancellation-request/cancellation-request.component';
 import { ChangeBusComponent } from '../../change-bus/change-bus.component';
@@ -52,6 +54,7 @@ import { ConfirmCancellationComponent } from '../../confirm-cancellation/confirm
 import { ModesComponent } from '../../settings/components/modes/modes.component';
 import { DueTimeComponent } from '../../settings/components/due-time/due-time.component';
 import { ApproveReservationComponent } from '../../approve-reservation/approve-reservation.component';
+import { ApproveArrivalReservationComponent } from '../../approve-arrival-reservation/approve-arrival-reservation.component';
 import { DpEditReservationComponent } from '../../dp-edit-reservation/dp-edit-reservation.component';
 import { ArEditResevertionComponent } from '../../ar-edit-resevertion/ar-edit-resevertion.component';
 import { ViewMyPenaltiesComponent } from '../../view-my-penalties/view-my-penalties.component';
@@ -101,6 +104,7 @@ import {MakeFlexiBookingComponent} from '../../make-flexi-booking/make-flexi-boo
     MakeBookingComponent,
     ArMakeBookingComponent,
     ViewMySlotsComponent,
+    ViewSlotsComponent,
     RoservationRequestsComponent,
     AlertsComponent,
     SettingsComponent,
@@ -108,6 +112,7 @@ import {MakeFlexiBookingComponent} from '../../make-flexi-booking/make-flexi-boo
     SlotTimeComponent,
     UpdateSlotTimeComponent,
     RejectComponent,
+    RejectArrivalComponent,
     CancelReservationComponent,
     ChangeBusComponent,
     ChangeOptionComponent,
@@ -116,6 +121,7 @@ import {MakeFlexiBookingComponent} from '../../make-flexi-booking/make-flexi-boo
     ModesComponent,
     DueTimeComponent,
     ApproveReservationComponent,
+    ApproveArrivalReservationComponent,
     DpEditReservationComponent,
     ArEditResevertionComponent,
     ViewMyPenaltiesComponent,
