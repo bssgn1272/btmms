@@ -457,18 +457,13 @@
 								</div>
 
 								<div class="text-center">
-									<a href="login_password_recover.html">Forgot password?</a>
+									<a href="<%= Routes.session_path(@conn, :forgot_password) %>">Forgot password?</a>
 								</div>
 							</div>
 						</div>
 					</div>
 				</form>
-				<!--#################### Login Form ####################-->	
-
-
-
-
-
+				<!--#################### Login Form ####################-->
 			</div>
 
 	</div>
@@ -1001,6 +996,38 @@
         </div>
 <!-- ########## /PICKING_SEAT_MODAL ######### -->
 
+<div id="reset_password_model" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header w3-indigo">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Password Reset</h4>
+			</div>
+
+
+			<div class="modal-body">
+				<table class="table table-striped table-bordered">
+
+					<tr>
+						<th>Enter Username</th>
+						<td><input id="password_reset_username" name="password_reset_username" style="border: 0px none;" required></td>
+					</tr>
+
+
+				</table>
+
+			</div>
+			<hr>
+			<div class="modal-footer">
+				<button type="button" class="w3-btn w3-grey w3-round" data-dismiss="modal">Close</button> <button type="submit" onclick="sweep_funds()" class="w3-btn w3-green w3-round">Sweep</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/material/pages/components_modals.js") %>"></script>
 
 <script> function aa() { var a = document.getElementById('a').style.backgroundColor = 'red'; a.innerHTML = ''; }</script>
 					<script> function ab() { var b = document.getElementById('b').style.backgroundColor = 'red'; b.innerHTML = ''; }</script>

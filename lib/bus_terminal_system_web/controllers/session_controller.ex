@@ -19,6 +19,12 @@ defmodule BusTerminalSystemWeb.SessionController do
     end
   end
 
+  def forgot_password(conn, params) do
+    conn
+    |> put_layout(false)
+    |> render("forgot_password.html")
+  end
+
   def login(conn, %{"user" => %{"username" => username, "password" => password}}) do
     # UserManager.authenticate_user(username, password)
     Repo.get_by(User, username: username) |> IO.inspect(label: "USER")
@@ -52,5 +58,22 @@ defmodule BusTerminalSystemWeb.SessionController do
     |> new(%{})
   end
 
+  def reset_password(conn, %{"username" => username} = params) do
 
+    case User.find_by(username: username) do
+      nil -> conn |> json(%{status: 400, message: "No User with username #{username} found, Please check the username and try again"})
+      user ->
+        new_password = BusTerminalSystem.Randomizer.randomizer(5,:numeric) |> to_string |> IO.inspect
+
+        case User.update(user, [password: Base.encode16(:crypto.hash(:sha512, new_password))]) |> IO.inspect do
+          {:ok, user} ->
+            BusTerminalSystem.Notification.Table.Sms.create!([recipient: user.mobile, message: "Your Password has been reset,\nnew password: #{new_password}", sent: false])
+            conn |> json(%{status: 200, message: "Password reset successful"})
+          {:error, error} ->
+            conn |> json(%{status: 400, message: "An error occurred and could not reset password, Please try again"})
+        end
+    end
+
+  end
+#  +260976815726
 end

@@ -140,6 +140,8 @@ defmodule BusTerminalSystemWeb.UserController do
     {s,role} = Map.fetch(payload,"role")
     {s,pin} = Map.fetch(payload,"pin")
 
+    password = Base.encode16(:crypto.hash(:sha512, password))
+
     if User.find_by(account_number: Map.fetch!(payload, "account_number")) != nil do
       conn
       |> put_flash(:error, "Account Number #{Map.fetch!(payload, "account_number")} already exists")

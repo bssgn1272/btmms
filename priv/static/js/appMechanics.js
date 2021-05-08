@@ -522,7 +522,7 @@ function bus_operator_selection_action() {
     $('#bus_operator_id_input').val(operator_id);
 
     let json_request = JSON.stringify({
-        user_id: operator_id
+        selected_user: operator_id
     });
 
     $.ajax({
@@ -532,6 +532,7 @@ function bus_operator_selection_action() {
         contentType: 'application/json',
         data: json_request,
         success: function (response) {
+            console.log(response)
             let data = JSON.parse(JSON.stringify(response));
             console.log(data.response.QUERY.data.company)
             $('#vehicleCompany').val(data.response.QUERY.data.company);

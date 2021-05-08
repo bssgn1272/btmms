@@ -103,7 +103,7 @@
 						</div>
 
 						<div class="text-center">
-							<a href="login_password_recover.html">Forgot password?</a>
+							<a onclick="password_reset()">Forgot password?</a>
 						</div>
 					</div>
 				<% end %>
@@ -160,6 +160,7 @@
 		</div>
 	</div>
 	<!-- /footer -->
+
 
 	<script>
 

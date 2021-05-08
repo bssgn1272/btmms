@@ -73,7 +73,7 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
     case Skooma.valid?(args, @wallet_creation_params) do
       :ok ->
         %{
-          "service" => "ZB0631",
+          "service" => Settings.find_by(key: "BANK_PROXY_ACCOUNT_OPENING_SERVICE_CODE").value,
           "request" => %{
             "firstName" => args["firstName"],
             "lastName" => args["lastName"],
@@ -82,14 +82,14 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
             "add3" => "",
             "add4" => "",
             "add5" => "",
-            "uniqueType" => "NRC",
+            "uniqueType" => Settings.find_by(key: "BANK_ACCOUNT_OPENING_UNIQUE_TYPE").value,
             "uniqueValue" => args["uniqueValue"],
             "dateOfBirth" => args["dateOfBirth"],
             "email" => args["email"],
             "sex" => args["sex"],
             "mobileNumber" => args["mobileNumber"],
-            "accType" => "WA",
-            "currency" => "ZMW",
+            "accType" => Settings.find_by(key: "BANK_ACCOUNT_OPENING_TYPE").value,
+            "currency" => Settings.find_by(key: "BANK_ACCOUNT_OPENING_CURRENCY").value,
             "idFront" => "",
             "idBack" => "",
             "custImg" => "",

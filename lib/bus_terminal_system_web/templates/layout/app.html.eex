@@ -505,6 +505,7 @@
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/AjaxCall.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/napsa.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/bank.js") %>"></script>
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/user_authentication.js") %>"></script>
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
 
 

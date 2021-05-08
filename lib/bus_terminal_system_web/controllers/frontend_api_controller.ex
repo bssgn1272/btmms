@@ -30,12 +30,12 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   end
 
   def query_user_by_id(conn, params) do
-
+    IO.inspect params
     user_id = params["selected_user"]
     case user_id do
       nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
       _ ->
-        case user_id |> RepoManager.find_user_by_id do
+        case user_id |> RepoManager.find_user_by_id |> IO.inspect do
           nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
           user ->
             conn

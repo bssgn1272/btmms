@@ -68,7 +68,8 @@ defmodule BusTerminalSystem.AccountManager.User do
   end
 
   defp put_password_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
-    change(changeset, password: Base.encode16(:crypto.hash(:sha512, password)))
+#    change(changeset, password: Base.encode16(:crypto.hash(:sha512, password)))
+    changeset
   end
 
   defp harsh_password_pin(%Ecto.Changeset{valid?: true, changes: %{pin: pin}} = changeset) do

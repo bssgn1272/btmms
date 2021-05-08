@@ -88,6 +88,7 @@ defmodule BusTerminalSystemWeb.Router do
     get "/", SessionController, :new
     post "/", SessionController, :login
     post "/login", SessionController, :login
+    get "/forgot_password", SessionController, :forgot_password
     get "/logout", SessionController, :logout
 
     # ROUTE_CONTROLLER
@@ -157,6 +158,8 @@ defmodule BusTerminalSystemWeb.Router do
     pipe_through :api
 
     post "/btms/Dashboard/Checker/View", MakerCheckerController, :view
+
+    post "/btms/secured/password/reset", SessionController, :reset_password
 
     post "/btms/tickets/secured/board_ticket", TicketController, :ticket_board_passenger
     post "/btms/tickets/secured/submit_ledger_transaction", TicketController, :transaction_post_to_ledger

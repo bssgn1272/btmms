@@ -86,7 +86,7 @@ function cancel_ticket(ticket_id) {
 function checkinAction(){
     $('#checkin_results_view').hide();
     var ticketID = $("#checkin_ticket_id_1").val();
-    console.log(ticketID);
+
 
     if (ticketID == "") {
         alert("Please add Ticket ID")
@@ -111,7 +111,7 @@ function checkinAction(){
                 }else{
                     let data = JSON.parse(JSON.stringify(response));
                     console.log(data);
-                    if(data.response.QUERY.data.activation_status == 'VALID'){
+                    if(data.response.QUERY.data.activation_status == 'VALID' || data.response.QUERY.data.activation_status == 'TRANSFER'){
                         $("#checkin_ticket_id").html(data.response.QUERY.data.ticket_id);
                         $("#checkin_ticket_ref_number").html(data.response.QUERY.data.reference_number);
                         $("#checkin_ticket_serial_number").html(data.response.QUERY.data.serial_number);
