@@ -797,7 +797,6 @@ defmodule BusTerminalSystem.RepoManager do
 
   defp routes_request(end_route) do
 
-#    case HTTPoison.get("http://10.70.3.55:4200/main/api/destinations/#{BusTerminalSystem.TravelRoutes.find_by([start_route: "Livingstone", end_route: end_route]).route_code}") do
     case HTTPoison.get("#{Settings.find_by(key: "EYED_BUS_ROUTES_URL").value}#{BusTerminalSystem.TravelRoutes.find_by([start_route: "Livingstone", end_route: end_route]).route_code}") do
       {status, %HTTPoison.Response{body: body, status_code: status_code}} ->
         try do
@@ -816,7 +815,7 @@ defmodule BusTerminalSystem.RepoManager do
 
   def route_mapping_by_location_internal(date \\ "01/01/2019", start_route \\ "Livingstone", end_route) do
 
-      schedule = routes_request(end_route) |> merge_routes()
+      schedule = routes_request(end_route) |> merge_routes() |> Enum.filter( & !is_nil(&1))
 
       if Enum.empty?(schedule) == true do
         {:ok, agent} = Agent.start_link fn  -> [] end
