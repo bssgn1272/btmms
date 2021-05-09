@@ -111,7 +111,7 @@ function checkinAction(){
                 }else{
                     let data = JSON.parse(JSON.stringify(response));
                     console.log(data);
-                    if(data.response.QUERY.data.activation_status == 'VALID' || data.response.QUERY.data.activation_status == 'TRANSFER'){
+                    if(data.response.QUERY.data.activation_status === 'VALID' || data.response.QUERY.data.activation_status === 'TRANSFER'){
                         $("#checkin_ticket_id").html(data.response.QUERY.data.ticket_id);
                         $("#checkin_ticket_ref_number").html(data.response.QUERY.data.reference_number);
                         $("#checkin_ticket_serial_number").html(data.response.QUERY.data.serial_number);
@@ -734,6 +734,7 @@ function passenger_ticket_logic() {
         dataType: 'json',
         contentType: 'application/json',
         data: json_request,
+        timeout: 4000, // sets timeout to 3 seconds
         success: function (response) {
             let data_object = JSON.parse(JSON.stringify(response));
             json_data = data_object;
@@ -763,7 +764,7 @@ function passenger_ticket_logic() {
                     console.log(single_object)
                     console.log(single_object.departure_date.split("T")[0].replaceAll("-","/"))
 
-                    let value = single_object.bus.company.trim().split(" ").join("").toString() + "-" + single_object.route.start_route + "-"
+                    let value = single_object.bus.company.trim().split(" ").join("_").toString() + "-" + single_object.route.start_route + "-"
                         + single_object.route.end_route + "-"  +  single_object.departure_time + "-" + single_object.fare + "-" + single_object.bus.id + "-"
                         + single_object.slot + "-" + single_object.bus_schedule_id + "-" + single_object.discount_amount + "-" + single_object.discount_status + "-" + single_object.departure_date.split("T")[0].replaceAll("-","/");
                     value = value.toString();
@@ -951,6 +952,13 @@ function purchase_ticket_internal() {
                 );
 
             }
+        }, error: function(){
+            swalWithBootstrapButtons.close();
+            swal({title: "Error", text: "An Internal Error Occurred, could not fetch routes. Please contact Administrator", type: "error"},
+                function(){
+
+                }
+            );
         }
     });
     // method="post" action="<%= Routes.ticket_path(@conn, :create) %>"
@@ -1004,7 +1012,7 @@ function reschedule_ticket(ticket) {
 
                     console.log(single_object)
 
-                    let value = single_object.bus.company.trim().split(" ").join("").toString() + "-" + single_object.route.start_route + "-"
+                    let value = single_object.bus.company.trim().split(" ").join("_").toString() + "-" + single_object.route.start_route + "-"
                         + single_object.route.end_route + "-"  +  single_object.departure_time + "-" + single_object.fare + "-" + single_object.bus.id + "-"
                         + single_object.slot + "-" + single_object.bus_schedule_id;
                     value = value.toString();
@@ -1030,6 +1038,13 @@ function reschedule_ticket(ticket) {
                 // $('#trips_form').empty();
                 $('#reschedule_trips_form').html(trips_html);
             }
+        }, error: function(){
+
+            swal({title: "Error", text: "An Internal Error Occurred, could not fetch routes. Please contact Administrator", type: "error"},
+                function(){
+
+                }
+            );
         }
     });
 }
