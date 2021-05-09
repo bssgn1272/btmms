@@ -384,7 +384,7 @@ defmodule BusTerminalSystem.RepoManager do
 
   def authenticate_marketer_by_mobile(mobile,pin) do
 #    user = Repo.get_by(User, [mobile: mobile,pin: encode_pin(pin), operator_role: "MARKETER"])
-    query = from u in User, where: u.mobile == ^mobile and u.pin == ^encode_pin(pin) and (u.role == "MOP" or u.role == "CCOP")
+    query = from u in User, where: u.mobile == ^mobile and u.pin == ^encode_pin(pin) and (u.role == "MOP" or u.role == "AGNT")
     User.where(query)
 #    user
   end

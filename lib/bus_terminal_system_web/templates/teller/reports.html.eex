@@ -9,136 +9,44 @@
          }
          </style>
     <div class="container-fluid">
-        <div class="row" id="reports_card_row">
+
+        <div class="row">
+            <%= for report <- BusTerminalSystem.Reporting.Report.all do %>
             <div class="col-lg-3">
                 <div class="panel panel-flat">
                     <div class="panel-heading">
-                        <h2 class="panel-title">Report By Bus</h2>
+                        <h2 class="panel-title"><strong><%= report.name %></strong></h2>
                     </div>
                     <div class="container-fluid">
-                       <button onclick="reportByBus()" style="margin-bottom: 10px; float: right; margin-right: 10px" class="btn btn-primary btn-sm">OPEN</button>
+                        <button onclick="dynamic_select(<%= report |> Poison.encode! %>)" style="margin-bottom: 10px; float: right; margin-right: 10px" class="btn btn-primary btn-sm">Fetch Report</button>
                     </div>
                 </div>
             </div>
-
-             <div class="col-lg-3">
-                <div class="panel panel-flat">
-                    <div class="panel-heading">
-                        <h2 class="panel-title">Report By Teller</h2>
-                    </div>
-                    <div class="container-fluid">
-                       <button onclick="reportByTeller()" style="margin-bottom: 10px; float: right; margin-right: 10px" class="btn btn-primary btn-sm">OPEN</button>
-                    </div>
-                </div>
-             </div>
-
-             <div class="col-lg-3">
-                <div class="panel panel-flat">
-                    <div class="panel-heading">
-                        <h2 class="panel-title">Report By Operator</h2>
-                    </div>
-                    <div class="container-fluid">
-                       <button onclick="reportByOperator()" style="margin-bottom: 10px; float: right; margin-right: 10px" class="btn btn-primary btn-sm">OPEN</button>
-                    </div>
-                </div>
-             </div>
-
-             <div class="col-lg-3">
-                 <div class="panel panel-flat">
-                     <div class="panel-heading">
-                         <h2 class="panel-title">Passenger Manifest</h2>
-                     </div>
-                     <div class="container-fluid">
-                        <button onclick="reportPassengerManifest()" style="margin-bottom: 10px; float: right; margin-right: 10px" class="btn btn-primary btn-sm">OPEN</button>
-                     </div>
-                 </div>
-             </div>
-
-            <div class="col-lg-3">
-                <div class="panel panel-flat">
-                    <div class="panel-heading">
-                        <h2 class="panel-title">Ticket Status</h2>
-                    </div>
-                    <div class="container-fluid">
-                        <button onclick="ticketStatus()" style="margin-bottom: 10px; float: right; margin-right: 10px" class="btn btn-primary btn-sm">OPEN</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3">
-                <div class="panel panel-flat">
-                    <div class="panel-heading">
-                        <h2 class="panel-title">Luggage Manifest</h2>
-                    </div>
-                    <div class="container-fluid">
-                        <button onclick="luggageManifest()" style="margin-bottom: 10px; float: right; margin-right: 10px" class="btn btn-primary btn-sm">OPEN</button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div id="reportByBusView" class="row">
-            <%=
-            try do
-              raw BusTerminalSystem.Reporting.Report.find_by(name: "byBus").iframe
-            rescue
-               _ -> raw "<h3>REPORT VIEW NOT CONFIGURED</h3>"
-            end
-             %>
-        </div>
-
-        <div id="reportByTellerView" class="row">
-           <%=
-           try do
-             raw BusTerminalSystem.Reporting.Report.find_by(name: "byTeller").iframe
-           rescue
-              _ -> raw "<h3>REPORT BY TELLER NOT CONFIGURED</h3>"
-           end
-            %>
-        </div>
-
-        <div id="reportByOperatorView" class="row">
-            <%=
-            try do
-              raw BusTerminalSystem.Reporting.Report.find_by(name: "byOperator").iframe
-            rescue
-               _ -> raw "<h3>REPORT BY OPERATOR NOT CONFIGURED</h3>"
-            end
-             %>
-        </div>
-
-        <div id="reportPassengerManifestView" class="row">
-            <%=
-            try do
-              raw BusTerminalSystem.Reporting.Report.find_by(name: "passengerManifest").iframe
-            rescue
-               _ -> raw "<h3>PASSENGER MANIFEST VIEW NOT CONFIGURED</h3>"
-            end
-             %>
-        </div>
-
-        <div id="reportTicketStatusManifestView" class="row">
-            <%=
-            try do
-              raw BusTerminalSystem.Reporting.Report.find_by(name: "TicketStatus").iframe
-            rescue
-               _ -> raw "<h3>TICKET STATUS VIEW NOT CONFIGURED</h3>"
-            end
-             %>
-        </div>
-
-        <div id="reportLuggageManifestView" class="row">
-            <%=
-            try do
-              raw BusTerminalSystem.Reporting.Report.find_by(name: "LuggageManifest").iframe
-            rescue
-               _ -> raw "<h3>LUGGAGE MANIFEST VIEW NOT CONFIGURED</h3>"
-            end
-             %>
+            <% end %>
         </div>
 
     </div>
+
+<div id="report_modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header w3-indigo">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Password Reset</h4>
+            </div>
+
+
+            <div class="modal-body">
+            </div>
+            <hr>
+            <div class="modal-footer">
+                <button type="button" class="w3-btn w3-grey w3-round" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
 <!--#####-- TOP_TICKET_SALES  --#####-->
 
 <!--#####-- TOP_AVAILABLE OPERATORS --#######-->

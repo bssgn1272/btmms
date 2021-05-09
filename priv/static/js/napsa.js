@@ -1,9 +1,20 @@
 
-function search_napsa_member() {
+function validate_national_id() {
+    let national_id = $("#napsa_search_id").val().toString().trim();
+    console.log(national_id)
+    let id_split = national_id.split("")
+    if ((national_id.length) >= 11 && id_split["6"] === '/' && id_split["9"] === '/'){
+        search_napsa_member(national_id);
+    } else if (national_id.length === 9 && id_split["6"] !== '/' && id_split["9"] !== '/'){
+        search_napsa_member(national_id);
+    }
+}
+
+function search_napsa_member(search_id) {
     // let search_id = $("#napsa_search_id").val()
 
-    let search_id = $("#napsa_search_id").val().toString().trim();
-    if ((search_id.length) >= 11){
+    // let search_id = $("#napsa_search_id").val().toString().trim();
+    // if ((search_id.length) >= 11){
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',
@@ -77,7 +88,7 @@ function search_napsa_member() {
                 data: JSON.stringify({id: search_id,})
             })
         }
-    }
+    // }
 
 }
 

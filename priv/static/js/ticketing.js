@@ -473,35 +473,45 @@ function transfer_ticket(ticket) {
 
     console.log(ticket)
 
-    selected_ticket = ticket
-    ticket_to_transfer = ticket
+    if (ticket.activation_status === "BOARDED"){
+        swal({
+            title: "Transfer Failed!",
+            text: "Can not transfer a ticket that has already been boarded",
+            type: "error"
+        }, function(){
+            // window.location.href = "/platform/secure/commercial/services/users/management"
+        });
+    }else{
+        selected_ticket = ticket
+        ticket_to_transfer = ticket
 
-    let today = new Date();
-    let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    let yyyy = today.getFullYear();
+        let today = new Date();
+        let dd = String(today.getDate()).padStart(2, '0');
+        let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        let yyyy = today.getFullYear();
 
-    today = dd + "/" + mm + "/" + yyyy;
+        today = dd + "/" + mm + "/" + yyyy;
 
-    $.ajax({
-        method: 'get',
-        url: '/api/v1/btms/travel/secured/routes',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (response) {
+        $.ajax({
+            method: 'get',
+            url: '/api/v1/btms/travel/secured/routes',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (response) {
 
-            let data = JSON.parse(JSON.stringify(response));
-            var list = distinct_destination(data.travel_routes);
+                let data = JSON.parse(JSON.stringify(response));
+                var list = distinct_destination(data.travel_routes);
 
-            options = list;
-            $('#transfer_destination_option_select').empty();
-            $.each(options, function(i, p) {
-                $('#transfer_destination_option_select').append($('<option></option>').val(p).html(p));
-            });
+                options = list;
+                $('#transfer_destination_option_select').empty();
+                $.each(options, function(i, p) {
+                    $('#transfer_destination_option_select').append($('<option></option>').val(p).html(p));
+                });
 
-            $('#transferModal').modal("show");
-        }
-    })
+                $('#transferModal').modal("show");
+            }
+        })
+    }
 }
 
 
@@ -561,23 +571,20 @@ function transfer_ticket_logic(){
                 $.each(response, function (k,v) {
                     let single_object = JSON.parse(JSON.stringify(v));
 
+
+
                     let value = single_object.bus.company.trim().split(" ").join("").toString() + "-" + single_object.route.start_route + "-"
                         + single_object.route.end_route + "-"  +  single_object.departure_time + "-" + single_object.fare + "-" + single_object.bus.id + "-"
                         + single_object.slot + "-" + single_object.bus_schedule_id + "-" + single_object.discount_amount + "-" + single_object.discount_status + "-"
                         + single_object.bus.id + "-" + single_object.root_route.id;
                     value = value.toString();
 
-                    //trips_html += '<div class="radio"><label><input type="radio" onclick="ticket_purchase(this.value)" value="'+value+'" name="opt_radio" />';
-                    //trips_html += "\n" + value ;
-                    //trips_html += '</label></div';
-                    //trips_html += "\n";
+                    let bus_schedule_id = single_object.bus_schedule_id
+                    bus_schedule_id = bus_schedule_id.toString();
 
                     date_obj = single_object.departure_date.split("T")[0]
                     date_arr = date_obj.split("-")
                     date = date_arr[2] + "/" + date_arr[1] + "/" + date_arr[0]
-
-                    console.log("---")
-                    console.log(single_object)
 
 
                     trips_html += '<tr>' + '<th scope="row"><input type="radio" onclick="ticket_transfer(this.value, ticket_to_transfer)" value="'+value+'" name="opt_radio"></th>'+
@@ -650,6 +657,7 @@ function ticket_transfer(route, ticket) {
                         bus_no: rd[10],
                         route: rd[11],
                         date: rd[3],
+                        bus_schedule_id: rd[7],
                         ticket_description: "Ticket transferred from (Livingstone to " + ticket.end_route + ") to " + "(Livingstone to " + rd[2] + ") at " + new Date().toLocaleString().replace(",","").replace(/:.. /," ")
                     }
                 });

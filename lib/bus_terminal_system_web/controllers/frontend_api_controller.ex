@@ -656,6 +656,14 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
       nil -> json(conn,  %{status: "FAILED", response: %{}})
       ticket ->
         {_, ticket} = BusTerminalSystem.TicketManagement.Ticket.update(ticket, params)
+        spawn(fn ->
+          if ticket.activation_status == "TRANSFER" do
+            bus = BusTerminalSystem.BusManagement.Bus.find(ticket.bus_no)
+            message = "Dear #{ticket.first_name} #{ticket.last_name}. Your Ticket has been transferred to #{params["start_route"]} - #{params["end_route"]}, Bus Operator: #{bus.company}, License Plate: #{bus.license_plate},\nThank you and have a great trip."
+            BusTerminalSystem.Notification.Table.Sms.create!([recipient: ticket.mobile_number, message: message, sent: false])
+          end
+        end)
+
         json(conn,  %{status: "SUCCESS", response: ticket |> Poison.encode!})
     end
   end
@@ -665,6 +673,13 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
       nil -> json(conn,  %{status: "FAILED", response: %{}})
       ticket ->
         {_, ticket} = BusTerminalSystem.TicketManagement.Ticket.update(ticket, [activation_status: "CANCELED"])
+        spawn(fn ->
+          if ticket.activation_status == "CANCELED" do
+            route = BusTerminalSystem.TravelRoutes.find(ticket.route)
+            message = "Dear #{ticket.first_name} #{ticket.last_name}. Your Ticket from #{route.start_route} to #{route.end_route} has been canceled"
+            BusTerminalSystem.Notification.Table.Sms.create!([recipient: ticket.mobile_number, message: message, sent: false])
+          end
+        end)
         spawn(fn ->
           BusTerminalSystem.APIRequestMockup.send_disable(ticket.id |> to_string |> String.pad_leading(4,"0"))
         end)

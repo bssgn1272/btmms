@@ -44,7 +44,7 @@
                                     <label>Enter Username:</label>
                                     <input name="payload[username]" class="form-control" required placeholder="Enter Username" type="text">
                                     <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
-                                    <input type="hidden" name="payload[pin]" value="<%= BusTerminalSystem.Randomizer.randomizer(5,:numeric)%>">
+                                    <input type="hidden" name="payload[pin]" value="">
                                     <input type="hidden" name="payload[account_status]" value="ACTIVE">
                                     <input type="hidden" name="payload[operator_role]" value="TELLER">
                                 </div>

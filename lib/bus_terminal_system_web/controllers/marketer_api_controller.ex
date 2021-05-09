@@ -103,7 +103,7 @@ defmodule BusTerminalSystemWeb.MarketApiController do
 
       else
         case mobile |> RepoManager.authenticate_marketer_by_mobile(pin) do
-          nil  ->
+          []  ->
             conn
             |> json(ApiManager.api_error_handler(ApiManager.definition_authentication(),%{
               "message" => "AUTHENTICATION FAILED INVALID ACCOUNT OR PASSWORD",

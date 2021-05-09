@@ -423,7 +423,7 @@
               <div class="form-group">
                 <label for="nrc">NRC/SSN:</label>
 
-                <input type="text" oninput="search_napsa_member()" class="form-control" id="napsa_search_id" placeholder="Enter ID here">
+                <input type="text" oninput="validate_national_id()" class="form-control" id="napsa_search_id" placeholder="Enter ID here">
               </div>
             </div>
         </div>
@@ -933,7 +933,7 @@
                               <td><%= ticket.last_name %></td>
                               <td><%= ticket.ticket_description %></td>
                                 <td class="text-center">
-                                 <%= if BusTerminalSystem.TicketManagement.Ticket.find(ticket.id).activation_status != "CANCELED" do %>
+                                 <%= if (ticket.activation_status != "CANCELED") and (ticket.activation_status != "BOARDED")  do %>
                                      <ul class="icons-list">
                                          <li class="dropdown">
                                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -942,13 +942,16 @@
 
                                              <ul class="dropdown-menu dropdown-menu-right">
                                                   <li>
+
                                                       <button type="button" onclick="cancel_ticket(<%= ticket.id %>)" id="cancel_button" style="width: 100%" class="btn btn-danger btn-lg">CANCEL</button>
                                                       <button type="button" onclick="reschedule_ticket(<%= %{
                                                         start_route: start_route, end_route: end_route
                                                       } |> Map.merge(ticket) |> IO.inspect |> JSON.encode! %>)" id="cancel_button" style="width: 100%" class="btn btn-success btn-lg">RE-SCHEDULE</button>
+
                                                       <button type="button" onclick="transfer_ticket(<%= %{
                                                         start_route: start_route, end_route: end_route, operator: operator
                                                       } |> Map.merge(ticket) |> IO.inspect |> JSON.encode! %>)" id="cancel_button" style="width: 100%" class="btn btn-warning btn-lg">TRANSFER</button>
+
                                                   </li>
                                              </ul>
 

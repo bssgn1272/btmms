@@ -82,9 +82,10 @@ defmodule BusTerminalSystem.BusManagement do
       user_description: params["user_description"],
       system_description: "Request to add bus by #{conn.assigns.user.first_name} #{conn.assigns.user.last_name} at #{Timex.today()}")
     |> case do
-         {:ok, _} ->
+         {:ok, bus} ->
            IO.inspect "passed"
-           {:ok, "Add New Bus Request Sent"}
+           spawn(fn -> BusTerminalSystem.Cosec.register_to_cosec(bus) end)
+           {:ok, "New Bus Created"}
          {:error, error} ->
            IO.inspect "failed"
            IO.inspect error.errors
