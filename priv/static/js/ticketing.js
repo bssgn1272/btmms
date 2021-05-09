@@ -58,7 +58,9 @@ function cancel_ticket(ticket_id) {
                             title: "Completed!",
                             text: "Ticket Canceled Successfully",
                             type: "success"
-                        });
+                        }, function(){
+                                window.location.href = "/platform/secure/commercial/services/users/management"
+                            });
                     }
                 },
                 error: function (response){
@@ -626,6 +628,8 @@ function ticket_transfer(route, ticket) {
                 title: "Transfer Failed!",
                 text: "Amount is not valid for transfer, Please cancel and rebook new ticket with new amount",
                 type: "error"
+            }, function(){
+                window.location.href = "/platform/secure/commercial/services/users/management"
             });
         }else {
 
@@ -663,6 +667,8 @@ function ticket_transfer(route, ticket) {
                                 title: "Error!",
                                 text: "Failed to Transfer Ticket",
                                 type: "error"
+                            }, function(){
+                                window.location.href = "/platform/secure/commercial/services/users/management"
                             });
                         }else{
                             $('#transferModal').modal("hide");
@@ -671,6 +677,8 @@ function ticket_transfer(route, ticket) {
                                 title: "Completed!",
                                 text: "Ticket Transferred Successfully",
                                 type: "success"
+                            }, function(){
+                                window.location.href = "/platform/secure/commercial/services/users/management"
                             });
                         }
                     }
@@ -1102,12 +1110,16 @@ function reschedule_logic(value, ticket) {
                             title: "Error!",
                             text: "Failed to Reschedule Ticket",
                             type: "error"
+                        }, function(){
+                            window.location.href = "/platform/secure/commercial/services/users/management"
                         });
                     }else{
                         swal({
                             title: "Completed!",
                             text: "Ticket Rescheduled Successfully",
                             type: "success"
+                        }, function(){
+                            window.location.href = "/platform/secure/commercial/services/users/management"
                         });
                     }
                 }
