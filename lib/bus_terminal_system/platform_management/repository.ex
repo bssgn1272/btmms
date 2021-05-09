@@ -714,11 +714,10 @@ defmodule BusTerminalSystem.RepoManager do
 
   defp merge_routes(reserve_list) do
 
-    IO.inspect reserve_list, label: "TASK"
     try do
       Enum.map(reserve_list, fn schedule ->
 
-        route_uid = schedule["ID"] |> IO.inspect
+        route_uid = schedule["ID"]
         bus = BusTerminalSystem.BusManagement.Bus.find(schedule["bus_id"])
         capacity = bus.vehicle_capacity
         seats = available_seats(capacity,schedule_ticket_count(Utility.int_to_string(route_uid)))
@@ -795,9 +794,9 @@ defmodule BusTerminalSystem.RepoManager do
 
   end
 
-  defp routes_request(end_route) do
+  defp routes_request(end_route, date) do
 
-    case HTTPoison.get("#{Settings.find_by(key: "EYED_BUS_ROUTES_URL").value}#{BusTerminalSystem.TravelRoutes.find_by([start_route: "Livingstone", end_route: end_route]).route_code}") do
+    case HTTPoison.get("#{Settings.find_by(key: "EYED_BUS_ROUTES_URL").value}#{BusTerminalSystem.TravelRoutes.find_by([start_route: "Livingstone", end_route: end_route]).route_code}#{date}") do
       {status, %HTTPoison.Response{body: body, status_code: status_code}} ->
         try do
           response = body |> Poison.decode!
@@ -813,17 +812,43 @@ defmodule BusTerminalSystem.RepoManager do
 
 #  BusTerminalSystem.RepoManager.route_mapping_by_location_eye_d
 
-  def route_mapping_by_location_internal(date \\ "01/01/2019", start_route \\ "Livingstone", end_route) do
+#  def route_mapping_by_location_internal(date \\ "01/01/2019", start_route \\ "Livingstone", end_route) do
+#
+#      schedule = routes_request(end_route) |> merge_routes() |> Enum.filter( & !is_nil(&1))
+#
+#      if Enum.empty?(schedule) == true do
+#        {:ok, agent} = Agent.start_link fn  -> [] end
+#        {:ok, agent, [] }
+#      else
+#        {:ok, agent} = Agent.start_link fn  -> [] end
+#        {:ok, agent, schedule }
+#      end
+#
+#  end
 
-      schedule = routes_request(end_route) |> merge_routes() |> Enum.filter( & !is_nil(&1))
+  def route_mapping_by_location_internal(date \\ "", start_route \\ "Livingstone", end_route) do
+    IO.inspect "*********************************************"
+    IO.inspect date
+    IO.inspect end_route
 
-      if Enum.empty?(schedule) == true do
-        {:ok, agent} = Agent.start_link fn  -> [] end
-        {:ok, agent, [] }
+    schedule = (fn end_route_i, date_i ->
+      if date_i == "" do
+        routes_request(end_route_i, "") |> merge_routes() |> Enum.filter( & !is_nil(&1))
       else
-        {:ok, agent} = Agent.start_link fn  -> [] end
-        {:ok, agent, schedule }
+        routes_request(end_route_i, "/#{date_i}") |> merge_routes() |> Enum.filter( & !is_nil(&1))
       end
+    end)
+
+    schedule = schedule.(end_route, date)
+
+
+    if Enum.empty?(schedule) == true do
+      {:ok, agent} = Agent.start_link fn  -> [] end
+      {:ok, agent, [] }
+    else
+      {:ok, agent} = Agent.start_link fn  -> [] end
+      {:ok, agent, schedule }
+    end
 
   end
 

@@ -585,12 +585,14 @@ defmodule BusTerminalSystemWeb.TicketController do
   end
 
   def get_schedules_buses(conn, %{"payload" => %{ "date" => date, "start_route" => start_route, "end_route" => end_route}} = params) do
+    IO.inspect params
     {:ok,agent,schedules} = RepoManager.route_mapping_by_location_internal(date, start_route,end_route)
     Agent.stop(agent)
     json(conn, schedules)
   end
 
   def get_schedules_buses_internal(conn, %{"payload" => %{ "date" => date, "start_route" => start_route, "end_route" => end_route}} = params) do
+    IO.inspect params
     {:ok,agent,schedules} = RepoManager.route_mapping_by_location_internal(date, start_route,end_route)
     Agent.stop(agent)
     json(conn, schedules)

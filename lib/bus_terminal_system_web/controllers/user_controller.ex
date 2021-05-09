@@ -52,12 +52,12 @@ defmodule BusTerminalSystemWeb.UserController do
   def new_user(conn, params) do
     changeset = AccountManager.change_user(%User{})
     napsa_user = BusTerminalSystem.Napsa.NapsaQueryDetails.connect(%{"id" => params["napsa_member"]})
-    IO.inspect(napsa_user["payload"])
+
     render(conn, "new.html", changeset: changeset, napsa_user: napsa_user["payload"])
   end
 
   def create(conn, %{"payload" => payload} = user_params) do
-    IO.inspect payload
+
 
     {s,first_name} = Map.fetch(payload,"first_name")
     {s,password} = Map.fetch(payload,"password")
@@ -222,7 +222,7 @@ defmodule BusTerminalSystemWeb.UserController do
       "ssn" => payload["ssn"],
     }
 
-    case AccountManager.create_user(payload) |> IO.inspect(label: "returned error") do
+    case AccountManager.create_user(payload) do
       {:ok, user} ->
 
 #        conn
@@ -237,7 +237,7 @@ defmodule BusTerminalSystemWeb.UserController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
 
-        IO.inspect(ApiManager.translate_error(changeset), label: "Error ____________________________")
+          ApiManager.translate_error(changeset)
 
         conn
         |> put_flash(:error,"Failed To Create User")

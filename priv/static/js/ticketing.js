@@ -522,7 +522,7 @@ function transfer_ticket_logic(){
 
     let json_request = JSON.stringify({
         payload: {
-            date: today,
+            date: "",
             start_route: "Livingstone",
             end_route: $('#transfer_destination_option_select').val()
         }
@@ -718,7 +718,7 @@ function passenger_ticket_logic() {
 
     let json_request = JSON.stringify({
         payload: {
-            date: today,
+            date: "",
             start_route: "Livingstone",
             end_route: $('#destination_option_select').val()
         }
@@ -789,6 +789,13 @@ function passenger_ticket_logic() {
                 $('#trips_form').empty();
                 $('#trips_form').html(trips_html);
             }
+        }, error: function(){
+            swalWithBootstrapButtons.close();
+            swal({title: "Error", text: "An Internal Error Occurred, could not fetch routes. Please contact Administrator", type: "error"},
+                function(){
+
+                }
+            );
         }
     });
 }
@@ -969,7 +976,7 @@ function reschedule_ticket(ticket) {
 
     let json_request = JSON.stringify({
         payload: {
-            date: today,
+            date: "",
             start_route: "Livingstone",
             end_route: ticket.end_route
         }

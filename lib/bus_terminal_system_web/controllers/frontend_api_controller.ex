@@ -272,9 +272,6 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
     bus_uid  = payload["bus_uid"]
 
-    "######################" |> IO.inspect
-    payload |> IO.inspect
-
     if bus_uid == nil do
       json(conn,ApiManager.api_error_handler(conn,ApiManager.definition_query,[
         "bus_uid can not be blank"
@@ -336,7 +333,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
           case BusTerminalSystem.AccountManager.User.find_by(username: username) do
             nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_update(),ApiManager.not_found_update()))
             user ->
-              case BusTerminalSystem.AccountManager.User.update(user,[password: password, account_status: "ACTIVE"]) do
+              case BusTerminalSystem.AccountManager.User.update(user,[password: Base.encode16(:crypto.hash(:sha512, password)), account_status: "ACTIVE"]) do
                 {:ok, user} ->
                   conn
                   |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_authentication,"SUCCESS",0,
