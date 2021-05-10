@@ -517,6 +517,93 @@ function get_buses () {
     });
 }
 
+
+function transfer_funds_edit_model(id) {
+
+    let json_request = JSON.stringify({
+        payload: {
+            selected_user: id
+        }
+    });
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/query/user',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request,
+        success: function (response) {
+            console.log(response)
+            let data = JSON.parse(JSON.stringify(response));
+            console.log(data)
+            $('#modal_form_horizontal_transfer_funds').modal('show');
+
+            $('#model_operator').val(data.response.QUERY.data.username);
+            $('#model_account_number').val(data.response.QUERY.data.account_number);
+            $('#model_transfer_value').val("0");
+            // $('#model_email').val(data.response.QUERY.data.email);
+            // $('#model_phone').val(data.response.QUERY.data.mobile);
+            // $('#model_nrc').val(data.response.QUERY.data.nrc);
+            // $('#model_ssn').val(data.response.QUERY.data.ssn);
+            // $('#model_account_status').val(data.response.QUERY.data.account_status);
+            // $('#model_uuid').val(data.response.QUERY.data.uuid);
+            // $('#model_pwd_username').val(data.response.QUERY.data.username);
+            // $('#model_operator_role').val(data.response.QUERY.data.operator_role);
+            // $('#model_password').val("0123456789");
+            // $('#model_user_id').val(id);
+        }
+    });
+
+
+}
+
+function transfer_funds() {
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: true
+    })
+
+    swalWithBootstrapButtons.fire('Transferring Funds, Please wait ...')
+    swalWithBootstrapButtons.showLoading();
+
+    let json_request = JSON.stringify({
+        account: $('#model_account_number').val(),
+        amount: $('#model_transfer_value').val()
+    });
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/funds_sweep',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request,
+        success: function (response) {
+            $('#modal_form_horizontal_transfer_funds').modal('hide');
+            swalWithBootstrapButtons.close();
+            swal({
+                title: "Transaction Complete!",
+                text: "Funds Transferred Successfully!",
+                icon: "success",
+                button: "Done",
+            });
+            // window.location.reload();
+        }, error: function (){
+
+            swalWithBootstrapButtons.close();
+            swal({title: "Transaction Failed!", text: "Connection time out, Could not transfer funds", type: "error"},
+                function(){
+
+                }
+            );
+
+        }
+    })
+}
+
 function bus_operator_selection_action() {
     let operator_id = $('#bus_operator_list').val().toString();
     $('#bus_operator_id_input').val(operator_id);

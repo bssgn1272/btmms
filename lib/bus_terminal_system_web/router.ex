@@ -236,6 +236,8 @@ defmodule BusTerminalSystemWeb.Router do
 
     post "/internal/transaction/deposit", TellerController, :deposit
     post "/internal/transaction/withdraw", TellerController, :withdraw
+
+    post "/internal/funds_sweep", FrontendApiController, :funds_transfer
   end
 
   # Maker checker implementation

@@ -145,8 +145,6 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
 
   def transaction(params) do
 
-    IO.inspect params, label: "INSERT PARAMS"
-
     Multi.new()
     |> Multi.insert(:transaction, Map.merge(%Transactions{}, (for {key, val} <- params, into: %{}, do: {String.to_atom(key), val})))
     |> BusTerminalSystem.Repo.transaction
@@ -177,6 +175,117 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
       {_status, %HTTPoison.Error{reason: reason}} ->
         %{"message" => reason}
     end
+  end
+
+
+
+  def wallet_create_account(args) do
+    request = %{
+      "service" => "ZB0631",
+      "request" => %{
+        "firstName" => args.first_name,
+        "lastName" => args.last_name,
+        "add1" => args.add1,
+        "add2" => args.add2,
+        "add3" => args.add3,
+        "add4" => args.add4,
+        "add5" => args.add5,
+        "uniqueType" => "NRC",
+        "uniqueValue" => args.nrc,
+        "dateOfBirth" => args.date_of_birth,
+        "email" => args.email,
+        "sex" => args.sex,
+        "mobileNumber" => args.mobile_number,
+        "accType" => "WA",
+        "currency" => "ZMW",
+        "idFront" => "",
+        "idBack" => "",
+        "custImg" => "",
+        "custSig" => "",
+      }
+    }
+
+  end
+
+  def wallet_query_by_account_number(args) do
+    request = %{
+      "service" => "ZB0627",
+      "request" => %{
+        "accountNos" => args.account_number
+      }
+    }
+  end
+
+  def wallet_query_by_phone_number(args) do
+    request = %{
+      "service" => "ZB0640",
+      "request" => %{
+        "mobileNo" => args.mobile_number,
+        "accountType" => "WB",
+        "isfetchAllAccounts" => false
+      }
+    }
+  end
+
+  def wallet_funds_deposit(args) do
+    request = %{
+      "service" => "ZB0628",
+      "request" => %{
+        "destAcc" => args.destination_account,
+        "destBranch" => args.destination_branch,
+        "amount" => args.amount,
+        "payDate" => Timex.today |> to_string,
+        "payCurrency" => "ZMW",
+        "remarks" => args.remarks,
+        "referenceNo" => args.reference_number
+      }
+    }
+  end
+
+  def wallet_funds_withdraw(args) do
+    request = %{
+      "service" => "ZB0641",
+      "request" => %{
+        "srcAcc" => args.destination_account,
+        "srcBranch" => args.destination_branch,
+        "amount" => args.amount,
+        "payDate" => Timex.today |> to_string,
+        "srcCurrency" => "ZMW",
+        "remarks" => args.remarks,
+        "referenceNo" => args.reference_number,
+        "transferRef" => args.transfer_reference
+      }
+    }
+  end
+
+  def wallet_transact(request) do
+    headers = [
+      {"Content-Type", "application/json"},
+      {"authKey", Settings.find_by(key: "BANK_AUTH_KEY").value}
+    ]
+
+    #    try do
+    HTTPoison.post(Settings.find_by(key: "BANK_URL").value, request |> Poison.encode!, headers)
+    |> case do
+         {status, %HTTPoison.Response{body: body, status_code: _status_code}} ->
+
+           case status do
+             :ok ->
+               try do
+                 body |> Poison.decode!()
+               rescue
+                 _ -> raise "An Internal Error Occurred (ERR 4-001)"
+               end
+           end
+         {_status, %HTTPoison.Error{reason: reason}} ->
+           {:error, %{"message" => reason}}
+       end
+    #    rescue
+    #      error ->
+    #        IO.puts("ZICB_URL: #{"NOT CONFIGURED"}")
+    #        IO.inspect(error)
+    #     end
+
   end
 
 end

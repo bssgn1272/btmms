@@ -118,6 +118,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
             conn
             |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_query,"SUCCESS",0,
               %{
+                "account_number" => user.account_number,
                 "username" => user.username,
                 "first_name" => user.first_name,
                 "last_name" => user.last_name,
@@ -130,7 +131,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
                 "uuid" => user.uuid,
                 "operator_role" => user.operator_role,
                 "role_id" => user.role_id,
-                "role_name" => BusTerminalSystem.UserRoles.find(user.id).role
+#                "role_name" => BusTerminalSystem.UserRoles.find(user.id).role
               } |> IO.inspect()))
           _value ->
             IO.inspect _value
@@ -770,6 +771,29 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     Cachex.put(:tmp, id, (Cachex.get!(:tmp, id) |> Enum.uniq()))
     Cachex.expire(:my_cache, "key", :timer.seconds(120))
     Cachex.get!(:tmp, id)
+  end
+
+  def funds_transfer(conn, params) do
+    response = BusTerminalSystem.Service.Zicb.Funding.wallet_query_by_account_number(%{:account_number => params["account"]}) |> BusTerminalSystem.Service.Zicb.Funding.wallet_transact
+    [account] = response.response.account_list
+    transfer_request = %{
+      destination_account: account.accountno,
+      destination_branch: account.brn_code,
+      amount: params["amount"],
+      remarks: "Test Transfer",
+      reference_number: Timex.now |> Timex.to_unix |> to_string
+    }
+    response = BusTerminalSystem.Service.Zicb.Funding.wallet_funds_deposit(transfer_request) |> BusTerminalSystem.Service.Zicb.Funding.wallet_transact
+
+    spawn(fn ->
+      if response["tekHeader"]["status"] == "SUCCESS" do
+        user = User.find_by(account_number: params["account"])
+        message = "Dear #{user.first_name} #{user.last_name} you account #{params["account"]} has been credited K#{params["amount"]} sweep transfer"
+        BusTerminalSystem.Notification.Table.Sms.create!([recipient: user.mobile, message: message, sent: false])
+      end
+    end)
+
+    conn |> json(response.response)
   end
 
 end
