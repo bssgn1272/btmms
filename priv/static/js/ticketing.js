@@ -113,7 +113,7 @@ function checkinAction(){
                 }else{
                     let data = JSON.parse(JSON.stringify(response));
                     console.log(data);
-                    if(data.response.QUERY.data.activation_status === 'VALID' || data.response.QUERY.data.activation_status === 'TRANSFER'){
+                    if(data.response.QUERY.data.activation_status === 'VALID' || data.response.QUERY.data.activation_status === 'TRANSFER' || data.response.QUERY.data.activation_status === 'RESCHEDULED'){
                         $("#checkin_ticket_id").html(data.response.QUERY.data.ticket_id);
                         $("#checkin_ticket_ref_number").html(data.response.QUERY.data.reference_number);
                         $("#checkin_ticket_serial_number").html(data.response.QUERY.data.serial_number);
@@ -1100,7 +1100,7 @@ function reschedule_logic(value, ticket) {
                 },
                 params: {
                     route_information: info,
-                    activation_status: "VALID",
+                    activation_status: "RESCHEDULED",
                     start_route: rd[1],
                     end_route: rd[2]
                 }
