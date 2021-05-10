@@ -37,12 +37,12 @@ config :logger, :console,
 
 config :bus_terminal_system, BusTerminalSystem.Mailer,
        adapter: Swoosh.Adapters.SMTP,
-       relay: "smtp.mailgun.org",
-       username: "support@report.probasegroup.com",
-       password: "pbs_support",
+       relay: "smtp.office365.com",
+       username: "BTMMS@napsa.co.zm",
+       password: "Welcome@2020",
        auth: :always,
        ssl: true,
-       port: 465,
+       port: 587,
        retries: 2,
        no_mx_lookups: false
 

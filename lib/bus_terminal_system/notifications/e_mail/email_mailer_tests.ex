@@ -7,7 +7,7 @@ defmodule BusTerminalSystem.EmailSender do
 #     Task.async(fn  ->
       new()
       |> to("philip@probasegroup.com")
-      |> from("BTMS@probasemail.test.com")
+      |> from("BTMMS@napsa.co.zm")
       |> subject("NAPSA BTMS")
       |> text_body("NAPSA\n")
       |> Mailer.deliver
