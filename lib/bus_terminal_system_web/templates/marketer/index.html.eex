@@ -36,20 +36,17 @@
                                <table class="table table-striped table-bordered" id="dataTableMarket">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
                                             <th>Market Name</th>
                                             <th>Location</th>
                                             <th>Estimated Population</th>
                                             <th>City/Town</th>
                                             <th>UID</th>
-                                            <th></th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
                                         <%= for mkt <- @markets do %>
                                             <tr>
-                                                <td><%= mkt.id %></td>
                                                 <td><%= mkt.market_name %></td>
                                                 <td><%= mkt.location %></td>
                                                 <td><%= mkt.estimated_population %></td>
@@ -83,18 +80,16 @@
                                                     <table class="table table-striped table-bordered" id="stations">
                                                         <thead>
                                                             <tr>
-                                                                <th>ID</th>
                                                                 <th>Section Name</th>
                                                                 <th>Number of Shops</th>
                                                                 <th>Section Label</th>
                                                                 <th>Market Name</th>
-                                                            <th></th>
+
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <%= for sec <- @sections do %>
                                                               <tr>
-                                                                <td><%= sec.id %></td>
                                                                 <td><%= sec.section_name %></td>
                                                                 <td><%= sec.number_of_shops %></td>
                                                                 <td><%= sec.section_lable %></td>
@@ -125,16 +120,14 @@
                                             <table class="table table-striped table-bordered" id="gates">
                                                 <thead>
                                                     <tr>
-                                                        <th>ID</th>
                                                         <th>Shop Code</th>
                                                         <th>Section Name</th>
-                                                    <th></th>
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <%= for shop <- @shops do %>
                                                         <tr>
-                                                            <td><%= shop.id %></td>
                                                             <td><%= shop.shop_code %></td>
                                                             <td><%= BusTerminalSystem.Market.MarketRepo.market_section_find([id: shop.section_id]).section_name %></td>
                                                         </tr>

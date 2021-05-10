@@ -79,6 +79,8 @@ defmodule BusTerminalSystemWeb.UserController do
 
     send_sms = (fn recipient, message -> BusTerminalSystem.Notification.Table.Sms.create!([recipient: recipient, message: message, sent: false]) end)
 
+    send_mail = (fn recipient, message -> BusTerminalSystem.EmailSender.composer_text(recipient, "ACCOUNT CREATED", message) end)
+
     if User.find_by(account_number: Map.fetch!(payload, "account_number")) != nil do
       conn
       |> put_flash(:error, "Account Number #{Map.fetch!(payload, "account_number")} already exists")

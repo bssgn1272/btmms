@@ -213,12 +213,12 @@
                                         </li>
 
                                     <li>
-                                        <a href="#"><i style="color:orange;" class="icon-home5"></i> <span>Till Management</span></a>
+                                        <a href="#"><i style="color:orange;" class="icon-home5"></i> <span> Terminus Management </span></a>
                                         <ul>
-                                            <li><%= link "Tellers", to: Routes.teller_path(@conn, :till_teller_manage, view: "22K2yQRYjgb4i", sigma: :kenos) %></li>
+                                            <li><%= link "View Tellers", to: Routes.teller_path(@conn, :till_teller_manage, view: "22K2yQRYjgb4i", sigma: :kenos) %></li>
 
                                             <li>
-                                                <%= link "Register Teller", to: Routes.user_path(@conn, :new_teller) %>
+                                                <%= link "Register Staff", to: Routes.user_path(@conn, :new_teller) %>
                                             </li>
                                         </ul>
 

@@ -252,6 +252,7 @@ defmodule BusTerminalSystem.Repo.Migrations.Database do
       add :fitness_license, :string
       add :vehicle_capacity, :string
       add :cosec, :string
+      add :card, :string
 
       timestamps()
     end

@@ -30,6 +30,7 @@ defmodule BusTerminalSystem.BusManagement.Bus do
     field :user_description, :string
     field :system_description, :string
     field :cosec, :string
+    field :card, :string
 
     timestamps()
   end
@@ -40,7 +41,7 @@ defmodule BusTerminalSystem.BusManagement.Bus do
     |> cast(attrs, [:license_plate, :fitness_license, :uid, :engine_type, :model, :make, :year, :color,
       :state_of_registration, :company, :operator_id, :vin_number, :serial_number, :hull_number, :vehicle_class,
       :company_info, :vehicle_capacity, :auth_status, :maker, :checker, :cosec,
-      :maker_date_time,:checker_date_time, :user_description, :system_description])
+      :maker_date_time,:checker_date_time, :user_description, :system_description, :card])
     |> validate_required([:license_plate, :company, :operator_id])
   end
 

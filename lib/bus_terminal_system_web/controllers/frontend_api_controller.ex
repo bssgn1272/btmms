@@ -10,6 +10,9 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   alias BusTerminalSystem.TicketManagement.Ticket
   alias BusTerminalSystem.AccountManager.User
   alias BusTerminalSystem.UserRole
+  alias BusTerminalSystem.Notification.Table.Sms
+  alias BusTerminalSystem.Market.Section
+
 
   #---------------------------------------USER--------------------------------------------------------------------------
 
@@ -642,7 +645,11 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
      |> case do
         "market" -> conn |> json(MarketRepo.market_create(params) |> Poison.encode! |> JSON.decode!)
         "section" -> conn |> json(MarketRepo.market_section_create(params) |> Poison.encode! |> JSON.decode!)
-        "stand" -> conn |> json(MarketRepo.market_shop_create(params) |> Poison.encode! |> JSON.decode!)
+        "stand" ->
+          spawn(fn ->
+            Sms.create!([recipient: User.find(params["maketeer_id"]).mobile, message: "Your account has been allocated a new stand number #{params["shop_number"]} in section #{Section.find(params["section_id"]).section_name}", sent: false])
+          end)
+          conn |> json(MarketRepo.market_shop_create(params) |> Poison.encode! |> JSON.decode!)
     end
   end
 

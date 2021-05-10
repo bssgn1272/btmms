@@ -21,11 +21,12 @@
                 <table class="table table-striped table-bordered" id="routes_table">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Username</th>
                             <th>Name</th>
                             <th>Phone</th>
                             <th>NRC/ID</th>
+                            <th>#No Stands</th>
+                            <th>Stand/Section</th>
                             <th>Account</th>
                             <th>SSN</th>
                             <th>Created</th>
@@ -35,11 +36,16 @@
                     <tbody>
                         <%= for m <- @marketeers do %>
                             <tr>
-                                <td><%= m.id %></td>
                                 <td><%= m.username %></td>
                                 <td><%= m.first_name %> <%= m.last_name %></td>
                                 <td><%= m.mobile %></td>
                                 <td><%= m.nrc %></td>
+                                <td><%= BusTerminalSystem.Market.Shop.where([maketeer_id: m.id]) |> Enum.count %></td>
+                                <td><%=  BusTerminalSystem.Market.Shop.where([maketeer_id: "30"]) |> Enum.map(fn m -> "#{m.shop_number}/#{BusTerminalSystem.Market.Section.find(m.section_id).section_name}" end)
+                                    |> Poison.encode!
+                                    |> String.replace("[", "")
+                                    |> String.replace("]", "")
+                                %></td>
                                 <td><%= m.account_number %></td>
                                 <td><%= m.ssn %></td>
                                 <td><%= m.inserted_at %></td>

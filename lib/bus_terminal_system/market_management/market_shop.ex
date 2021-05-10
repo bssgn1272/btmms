@@ -1,5 +1,6 @@
 defmodule BusTerminalSystem.Market.Shop do
   use Ecto.Schema
+  use Endon
   import Ecto.Changeset
 
   @db_columns [:shop_code, :section_id, :maketeer_id, :shop_number, :shop_price, :auth_status, :maker, :checker, :maker_date_time,

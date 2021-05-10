@@ -245,10 +245,10 @@ function allocate_stand() {
         contentType: 'application/json',
         data: json_request,
         success: function (response) {
-            console.log($('#market_list').val());
-            console.log($('#market_section_model_list').val());
-            console.log($('#market_stand_model_list').val());
-            console.log(response);
+            // console.log($('#market_list').val());
+            // console.log($('#market_section_model_list').val());
+            // console.log($('#market_stand_model_list').val());
+            // console.log(response);
 
             let json_stand_allocation_request = JSON.stringify({
                 branch: "MARKET",
