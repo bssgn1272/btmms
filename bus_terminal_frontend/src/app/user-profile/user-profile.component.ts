@@ -93,7 +93,7 @@ export class UserProfileComponent implements OnInit {
       this.arDataSource.paginator = this.arPaginator;
       this.arDataSource.sort = this.arSort;
 
-      console.log('ARRival ROUTES', res)
+      console.log('Arrival Routes', res)
     });
 
     this.operatingDate = this.convertDate(this.minDate);

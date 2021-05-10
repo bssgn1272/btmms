@@ -6,7 +6,7 @@
       Please contact the station for a resolution.
     </div>
   </div>
-  <div *ngIf="userItems.account_status === 'ACTIVE'" class="container-fluid">
+  <div *ngIf="userItems.account_status === 'ACTIVE' || userItems.account_status === 'OTP'" class="container-fluid">
     <div class="row">
       <div class="col-md-12">
         <div class="card">
@@ -238,7 +238,7 @@
                   </div>
                 </div>
               </div>
-              <div *ngIf="userItems.role === 'FOP' || userItems.role === 'BOP'" class="tab-pane active" id="arrivals">
+              <div *ngIf="userItems.role === 'FOP' || userItems.role === 'BOP'" class="tab-pane" id="arrivals">
                 <div class="row">
                   <div class="col-md-6">
                     <mat-form-field>
