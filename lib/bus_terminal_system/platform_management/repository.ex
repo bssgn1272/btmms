@@ -379,7 +379,9 @@ defmodule BusTerminalSystem.RepoManager do
   end
 
   def find_marketer_by_mobile(mobile) do
-    Repo.get_by(User, [mobile: mobile, operator_role: "MARKETER"])
+#    Repo.get_by(User, [mobile: mobile, operator_role: "MARKETER"])
+    query = from u in User, where: u.mobile == ^mobile and (u.role == "MOP" or u.role == "AGNT")
+    User.where(query)
   end
 
   def authenticate_marketer_by_mobile(mobile,pin) do

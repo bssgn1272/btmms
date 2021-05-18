@@ -15,7 +15,7 @@ defmodule BusTerminalSystemWeb.MarketApiController do
       _ ->
         case key |> RepoManager.find_marketer_by_mobile do
           nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
-          user ->
+          [user] ->
             conn
             |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_query,"SUCCESS",0,
               %{
