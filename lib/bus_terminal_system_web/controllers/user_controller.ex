@@ -41,7 +41,7 @@ defmodule BusTerminalSystemWeb.UserController do
 
   def new(conn, params) do
     changeset = AccountManager.change_user(%User{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, napsa_user: %{})
   end
 
   def new_teller(conn, params) do
@@ -214,11 +214,11 @@ defmodule BusTerminalSystemWeb.UserController do
     send_mail = (fn recipient, message -> BusTerminalSystem.EmailSender.composer_text(recipient, "ACCOUNT CREATED", message) end)
 
 
-    if User.find_by(account_number: Map.fetch!(payload, "account_number")) != nil do
-      conn
-      |> put_flash(:error, "Account Number #{Map.fetch!(payload, "account_number")} already exists")
-      |> redirect(to: Routes.user_path(conn, :new))
-    else
+#    if User.find_by(account_number: Map.fetch!(payload, "account_number")) != nil do
+#      conn
+#      |> put_flash(:error, "Account Number #{Map.fetch!(payload, "account_number")} already exists")
+#      |> redirect(to: Routes.user_path(conn, :new_teller))
+#    else
       role |> case do
                 "MOP" ->
 
@@ -234,7 +234,7 @@ defmodule BusTerminalSystemWeb.UserController do
                   end)
 
                   payload = Map.put(payload, "operator_role", "MARKETER")
-                  user_create_payload(conn, payload)
+                  user_create_teller_payload(conn, payload)
 
                 "BOP" ->
 
@@ -251,7 +251,7 @@ defmodule BusTerminalSystemWeb.UserController do
 
                   payload = Map.put(payload, "operator_role", "BUS OPERATOR")
                   payload = Map.put(payload, "account_status", "OTP")
-                  user_create_payload(conn, payload)
+                  user_create_teller_payload(conn, payload)
 
                 "TOP" ->
 
@@ -267,7 +267,7 @@ defmodule BusTerminalSystemWeb.UserController do
                   end)
 
                   payload = Map.put(payload, "operator_role", "TELLER")
-                  user_create_payload(conn, payload)
+                  user_create_teller_payload(conn, payload)
 
                 "SADMIN" ->
 
@@ -283,7 +283,7 @@ defmodule BusTerminalSystemWeb.UserController do
                     end)
 
                     payload = Map.put(payload, "operator_role", "SUPER_ADMINISTRATOR")
-                    user_create_payload(conn, payload)
+                    user_create_teller_payload(conn, payload)
                 "AGNT" ->
 
                   message = " Hello #{first_name}, \n Your BTMMS ACCOUNT CREDENTIALS ARE .Username: #{username} Pin for mobile #{mobile_number} is #{decoded_pin}"
@@ -298,7 +298,7 @@ defmodule BusTerminalSystemWeb.UserController do
                   end)
 
                   payload = Map.put(payload, "operator_role", "AGENT")
-                  user_create_payload(conn, payload)
+                  user_create_teller_payload(conn, payload)
                 _ ->
 
                   message = " Hello #{first_name}, \n Your BTMMS ADMINISTRATIVE ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{decoded_password}"
@@ -313,11 +313,11 @@ defmodule BusTerminalSystemWeb.UserController do
                   end)
 
                   payload = Map.put(payload, "operator_role", "ADMINISTRATOR")
-                  user_create_payload(conn, payload)
+                  user_create_teller_payload(conn, payload)
               end
 
       render(conn, "new_teller.html")
-    end
+#    end
 
 
   end
@@ -342,7 +342,7 @@ defmodule BusTerminalSystemWeb.UserController do
 
         conn
         |> put_flash(:info, "User created successfully.")
-        |> render("new_teller.html", [changeset: changeset, napsa_user: napsa_user])
+        |> render("new.html", [changeset: changeset, napsa_user: napsa_user])
 
       {:error, %Ecto.Changeset{} = changeset} ->
 
@@ -350,7 +350,33 @@ defmodule BusTerminalSystemWeb.UserController do
 
         conn
         |> put_flash(:error,"Failed To Create User")
-        |> render("new_teller.html", [changeset: changeset, napsa_user: napsa_user])
+        |> render("new.html", [changeset: changeset, napsa_user: napsa_user])
+
+    end
+  end
+
+  defp user_create_teller_payload(conn, payload) do
+
+    case AccountManager.create_user(payload) do
+      {:ok, user} ->
+
+        #        conn
+        #        |> put_flash(:info, "User created successfully.")
+        #        |> redirect(to: Routes.user_path(conn, :new, [napsa_user: napsa_user]))
+
+        changeset = AccountManager.change_user(%User{})
+
+        conn
+        |> put_flash(:info, "User created successfully.")
+        |> render("new_teller.html", [changeset: changeset])
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+
+        ApiManager.translate_error(changeset)
+
+        conn
+        |> put_flash(:error,"Failed To Create User")
+        |> render("new_teller.html", [changeset: changeset])
 
     end
   end

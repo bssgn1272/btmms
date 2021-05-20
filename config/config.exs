@@ -27,7 +27,8 @@ config :bus_terminal_system, BusTerminalSystemWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "fIOGwlNybBdW1TXJfMc4a2p5wAtX/AhLf22658KnU5l91ZN4Zs8OqoSIj+/vqX0W",
   render_errors: [view: BusTerminalSystemWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: BusTerminalSystem.PubSub, adapter: Phoenix.PubSub.PG2]
+#  pubsub: [name: BusTerminalSystem.PubSub, adapter: Phoenix.PubSub.PG2],
+  pubsub_server: BusTerminalSystem.PubSub
 
 
 # Configures Elixir's Logger
@@ -65,13 +66,13 @@ config :bus_terminal_system, BusTerminalSystem.Scheduler,
      schedule:  "* * * * *", task: {BusTerminalSystem.CheckCompliance, :run, []}
    ],
    napsa: [
-     schedule:  "* * * * *", task: {BusTerminalSystem.CheckCompliance, :run, []},
-     schedule:  "* * * * *", task: {BusTerminalSystem.NapsaUserUpdater, :run, []},
-     schedule:  {:extended, "*/1"}, task: {BusTerminalSystem.Job.Sms, :send, []}
+#     schedule:  "* * * * *", task: {BusTerminalSystem.CheckCompliance, :run, []},
+#     schedule:  "* * * * *", task: {BusTerminalSystem.NapsaUserUpdater, :run, []},
+#     schedule:  {:extended, "*/1"}, task: {BusTerminalSystem.Job.Sms, :send, []}
    ],
   bank: [
-    schedule:  "* * * * *", task: {BusTerminalSystem.Service.Zicb.AccountOpening, :run, []},
-    schedule: {:extended, "*/3"}, task: {BusTerminalSystem.Service.Zicb.Funding, :post_ticket_transactions, []},
+#    schedule:  "* * * * *", task: {BusTerminalSystem.Service.Zicb.AccountOpening, :run, []},
+#    schedule: {:extended, "*/3"}, task: {BusTerminalSystem.Service.Zicb.Funding, :post_ticket_transactions, []},
   ]
  ]
 

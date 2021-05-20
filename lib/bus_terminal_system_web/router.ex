@@ -47,8 +47,10 @@ defmodule BusTerminalSystemWeb.Router do
     # USER_CONTROLLER
     resources "/platform/secure/commercial/services/users/management", UserController
 
+    post "/platform/secure/commercial/services/users/management/register", UserController, :create_teller
+
     post "/platform/secure/commercial/services/users/register", UserController, :new_user
-    post "/platform/secure/commercial/services/users/register/teller", UserController, :create_teller
+#    post "/platform/secure/commercial/services/users/register/teller", UserController, :create_teller
     get "/platform/secure/commercial/services/teller/register", UserController, :new_teller
     get "/platform/secure/v1/json/commercial/services/users", UserController, :all_users_json
     get "/platform/secure/v1/commercial/services/users", UserController, :table_users

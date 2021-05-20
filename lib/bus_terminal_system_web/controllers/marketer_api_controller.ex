@@ -33,7 +33,7 @@ defmodule BusTerminalSystemWeb.MarketApiController do
                 "stands" => BusTerminalSystem.Market.MarketRepo.stand_details_list(user.id)
               }))
           _value ->
-            json conn, ["hello"]
+            json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
         end
     end
   end
