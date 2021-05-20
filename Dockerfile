@@ -18,6 +18,9 @@ ENV MIX_ENV=prod
 # set build in development
 #ENV MIX_ENV=dev
 
+RUN export HEX_HTTP_CONCURRENCY=1
+RUN export HEX_HTTP_TIMEOUT=300
+
 # install mix dependencies
 COPY mix.exs mix.lock ./
 COPY config config
