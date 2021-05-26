@@ -176,7 +176,7 @@
 
     								<% end %>
 
-                                    <%= if @user.role == "BOP" or @user.role == "ADMIN" do %>
+                                    <%= if @user.role == "BOP" do %>
                                    									
                                     <li>
                                         <a href="#"><i style="color:orange;" class="icon-bus"></i> <span>Bus Management</span></a>
@@ -506,6 +506,8 @@
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/napsa.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/bank.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/user_authentication.js") %>"></script>
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/password_policy.js") %>"></script>
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/form_validations.js") %>"></script>
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
 
 

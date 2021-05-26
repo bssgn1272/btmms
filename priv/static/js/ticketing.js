@@ -471,7 +471,6 @@ function toggle_route_search(){
 let ticket_to_transfer;
 function transfer_ticket(ticket) {
 
-    console.log(ticket)
 
     if (ticket.activation_status === "BOARDED"){
         swal({
@@ -608,102 +607,110 @@ function ticket_transfer(route, ticket) {
 
     let info = "OPERATOR: " + rd[0] + "\t START: " + rd[1] + "\t END: " + rd[2] + "\t DEPARTURE: " + rd[3] + "\t PRICE: K" + rd[4] + "\t GATE: " + rd[6] + "\t SCHEDULE: " + rd[7];
 
+    if (ticket.end_route === rd[2]){
+        swal({
+            title: "Transfer Failed!",
+            text: "Cannot transfer ticket, Source and Destination are the same",
+            type: "error"
+        }, function(){
+            // window.location.href = "/platform/secure/commercial/services/users/management"
+        });
+    }else{
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: true
+        })
 
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You are about to transfer this ticket from [Livingstone -> " + ticket.end_route + "]" + " to [Livingstone -> " + rd[2] + "]",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Transfer !',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
 
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-            confirmButton: 'btn btn-success',
-            cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: true
-    })
-
-    swalWithBootstrapButtons.fire({
-        title: 'Are you sure?',
-        text: "You are about to transfer this ticket from [Livingstone -> " + ticket.end_route + "]" + " to [Livingstone -> " + rd[2] + "]",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, Transfer !',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: true
-    }).then((result) => {
-
-        console.log(rd[4].toString())
-        console.log(ticket.amount.toString())
-        if (rd[4].toString() !== ticket.amount.toString()){
-            swal({
-                title: "Transfer Failed!",
-                text: "Amount is not valid for transfer, Please cancel and rebook new ticket with new amount",
-                type: "error"
-            }, function(){
-                window.location.href = "/platform/secure/commercial/services/users/management"
-            });
-        }else {
-
-            swalWithBootstrapButtons.fire('Please wait')
-            swalWithBootstrapButtons.showLoading();
-
-            if (result.isConfirmed) {
-
-                let payload = JSON.stringify({
-                    ticket: {
-                        id: ticket.id
-                    },
-                    params: {
-                        route_information: info,
-                        activation_status: "TRANSFER",
-                        start_route: rd[1],
-                        end_route: rd[2],
-                        bus_no: rd[10],
-                        route: rd[11],
-                        date: rd[3],
-                        bus_schedule_id: rd[7],
-                        ticket_description: "Ticket transferred from (Livingstone to " + ticket.end_route + ") to " + "(Livingstone to " + rd[2] + ") at " + new Date().toLocaleString().replace(",","").replace(/:.. /," ")
-                    }
+            console.log(rd[4].toString())
+            console.log(ticket.amount.toString())
+            if (rd[4].toString() !== ticket.amount.toString()){
+                swal({
+                    title: "Transfer Failed!",
+                    text: "Amount is not valid for transfer, Please cancel and rebook new ticket with new amount",
+                    type: "error"
+                }, function(){
+                    window.location.href = "/platform/secure/commercial/services/users/management"
                 });
+            }else {
 
-                $.ajax({
-                    method: 'post',
-                    url: '/api/v1/internal/tickets/update',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: payload,
-                    success: function (response) {
-                        if(response.status !== "SUCCESS"){
-                            swalWithBootstrapButtons.close();
-                            swal({
-                                title: "Error!",
-                                text: "Failed to Transfer Ticket",
-                                type: "error"
-                            }, function(){
-                                window.location.href = "/platform/secure/commercial/services/users/management"
-                            });
-                        }else{
-                            $('#transferModal').modal("hide");
-                            swalWithBootstrapButtons.close();
-                            swal({
-                                title: "Completed!",
-                                text: "Ticket Transferred Successfully",
-                                type: "success"
-                            }, function(){
-                                window.location.href = "/platform/secure/commercial/services/users/management"
-                            });
+                swalWithBootstrapButtons.fire('Please wait')
+                swalWithBootstrapButtons.showLoading();
+
+                if (result.isConfirmed) {
+
+                    let payload = JSON.stringify({
+                        ticket: {
+                            id: ticket.id
+                        },
+                        params: {
+                            route_information: info,
+                            activation_status: "TRANSFER",
+                            start_route: rd[1],
+                            end_route: rd[2],
+                            bus_no: rd[10],
+                            route: rd[11],
+                            date: rd[3],
+                            bus_schedule_id: rd[7],
+                            ticket_description: "Ticket transferred from (Livingstone to " + ticket.end_route + ") to " + "(Livingstone to " + rd[2] + ") at " + new Date().toLocaleString().replace(",","").replace(/:.. /," ")
                         }
-                    }
-                })
+                    });
 
-            } else if (
-                result.dismiss === Swal.DismissReason.cancel
-            ) {
-                swalWithBootstrapButtons.fire(
-                    'Cancelled',
-                    'Ticket Transfer Canceled',
-                    'error'
-                )
+                    $.ajax({
+                        method: 'post',
+                        url: '/api/v1/internal/tickets/update',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: payload,
+                        success: function (response) {
+                            if(response.status !== "SUCCESS"){
+                                swalWithBootstrapButtons.close();
+                                swal({
+                                    title: "Error!",
+                                    text: "Failed to Transfer Ticket",
+                                    type: "error"
+                                }, function(){
+                                    window.location.href = "/platform/secure/commercial/services/users/management"
+                                });
+                            }else{
+                                $('#transferModal').modal("hide");
+                                swalWithBootstrapButtons.close();
+                                swal({
+                                    title: "Completed!",
+                                    text: "Ticket Transferred Successfully",
+                                    type: "success"
+                                }, function(){
+                                    window.location.href = "/platform/secure/commercial/services/users/management"
+                                });
+                            }
+                        }
+                    })
+
+                } else if (
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Ticket Transfer Canceled',
+                        'error'
+                    )
+                }
             }
-        }
 
-    })
+        })
+    }
 }
 
 function unattended_luggage_logic() {

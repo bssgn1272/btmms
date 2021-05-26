@@ -62,7 +62,7 @@ defmodule BusTerminalSystem.AccountManager.User do
     user
     |> cast(attrs, @db_columns)
     |> validate_required(@validate_columns)
-    # |> unique_constraint([:ssn])
+#    |> unique_constraint(:username, name: :probase_tbl_users_username_index)
     |> put_password_hash()
     |> harsh_password_pin()
   end

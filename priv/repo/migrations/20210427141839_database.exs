@@ -2,16 +2,19 @@ defmodule BusTerminalSystem.Repo.Migrations.Database do
   use Ecto.Migration
 
   def up do
-    create()
+    unique_keys()
+#    create()
 #    alter_tables()
 #    run_scripts()
   end
   def down do
 #    drop()
   end
-  def change do
 
+  def unique_keys do
+    create unique_index(:probase_tbl_users, [:username])
   end
+
 
   def create do
     # BusTerminalSystem.Repo.Migrations.RouteMapping

@@ -879,7 +879,7 @@
             <div class="w3-white" style="width:100%;" id="rcorners1">
 
                 <header class="w3-container w3-indigo w3-center" id="heed">
-                  <h3>Tickets Due Today</h3>
+                  <h3>Tickets</h3>
                 </header>
 
                 <div class="w3-container">
@@ -896,6 +896,7 @@
                                 <th>Depature Date</th>
                                 <th>Depature Time</th>
                                 <th>Route</th>
+                                <th>Amount (ZMW)</th>
                                 <th>Mobile</th>
                                 <th>Status</th>
                                 <th>First Name</th>
@@ -917,11 +918,13 @@
                                 route_name = route.route_name
                                 start_route = route.start_route
                                 end_route = route.end_route
+
                               %>
                               <td><%= operator.company %></td>
                               <td><%= ticket.travel_date %></td>
                               <td><%= ticket.date %></td>
                               <td><%= route_name %></td>
+                              <td><%= ticket.amount %></td>
                               <td><%= ticket.mobile_number %></td>
                               <%= if ticket.activation_status == "VALID" do %>
                                 <td>NOT CHECKED IN</td>

@@ -457,7 +457,7 @@
 								</div>
 
 								<div class="text-center">
-									<a href="<%= Routes.session_path(@conn, :forgot_password) %>">Forgot password?</a>
+									<a href="<%= Routes.session_path(@conn, :forgot_password) %>">forgot password?</a>
 								</div>
 							</div>
 						</div>
@@ -467,6 +467,8 @@
 			</div>
 
 	</div>
+
+
 </div>
 
 
@@ -874,15 +876,15 @@
 
 <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/payment.js") %>"></script>
 
-	<div id="footer" class="w3-indigo">
-  		<div class="container">
-            <h5 id="busStatement">
-            	&copy; 2020. <a href="#" class="navbar-link" target="_blank">Livingstone Market & Bus Management Company Limited</a>
-            </h5>
-        </div>
+
+
+<div id="" class="w3-indigo">
+	<div class="container">
+		<h5 id="busStatement">
+			&copy; 2020. <a href="#" class="navbar-link" target="_blank">Livingstone Market & Bus Management Company Limited</a>
+		</h5>
 	</div>
-
-
+</div>
 	
 
 

@@ -76,7 +76,8 @@ defmodule BusTerminalSystem.MixProject do
       {:csv, "~> 2.3"},
       {:elixlsx, "~> 0.4.2"},
       {:zombie, "~> 0.1.1"},
-#      {:scrivener_ecto, "~> 2.6.0"}
+      {:random_password, "~> 1.0"}
+      #      {:scrivener_ecto, "~> 2.6.0"}
 #      {:redix, ">= 0.0.0"},
 #      {:castore, ">= 0.0.0"}
     ]

@@ -42,9 +42,9 @@ config :bus_terminal_system, BusTerminalSystem.Mailer,
        username: "BTMMS@napsa.co.zm",
        password: "Welcome@2020",
        auth: :always,
-       ssl: true,
+       ssl: false,
        port: 587,
-       retries: 2,
+       retries: 3,
        no_mx_lookups: false
 
 config :endon,
@@ -66,13 +66,13 @@ config :bus_terminal_system, BusTerminalSystem.Scheduler,
      schedule:  "* * * * *", task: {BusTerminalSystem.CheckCompliance, :run, []}
    ],
    napsa: [
-#     schedule:  "* * * * *", task: {BusTerminalSystem.CheckCompliance, :run, []},
-#     schedule:  "* * * * *", task: {BusTerminalSystem.NapsaUserUpdater, :run, []},
-#     schedule:  {:extended, "*/1"}, task: {BusTerminalSystem.Job.Sms, :send, []}
+     schedule:  "* * * * *", task: {BusTerminalSystem.CheckCompliance, :run, []},
+     schedule:  "* * * * *", task: {BusTerminalSystem.NapsaUserUpdater, :run, []},
+     schedule:  {:extended, "*/1"}, task: {BusTerminalSystem.Job.Sms, :send, []}
    ],
   bank: [
-#    schedule:  "* * * * *", task: {BusTerminalSystem.Service.Zicb.AccountOpening, :run, []},
-#    schedule: {:extended, "*/3"}, task: {BusTerminalSystem.Service.Zicb.Funding, :post_ticket_transactions, []},
+    schedule:  "* * * * *", task: {BusTerminalSystem.Service.Zicb.AccountOpening, :run, []},
+    schedule: {:extended, "*/3"}, task: {BusTerminalSystem.Service.Zicb.Funding, :post_ticket_transactions, []},
   ]
  ]
 

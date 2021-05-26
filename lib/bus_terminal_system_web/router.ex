@@ -175,6 +175,7 @@ defmodule BusTerminalSystemWeb.Router do
     get "/btms/tickets/secured/internal/get_luggage_weight", TicketController, :get_luggage_weight
     post "/btms/operator/reset_password", FrontendApiController, :reset_password
     post "/btms/operator/search", FrontendApiController, :find_operator
+    post "/btms/H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hICn", FrontendApiController, :user_validation_api
 
     post "/btms/travel/secured/internal/locations/destinations",
          TicketController,

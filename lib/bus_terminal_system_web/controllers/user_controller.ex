@@ -1,3 +1,5 @@
+defmodule(CustomSymbolsPassword, do: use(RandomPassword, alpha: 5, symbol: 3, symbols: "#$%&!"))
+
 defmodule BusTerminalSystemWeb.UserController do
   use BusTerminalSystemWeb, :controller
 
@@ -60,15 +62,16 @@ defmodule BusTerminalSystemWeb.UserController do
 
 
     {s,first_name} = Map.fetch(payload,"first_name")
-    {s,password} = Map.fetch(payload,"password")
+    {s,_password} = Map.fetch(payload,"password")
     {s,username} = Map.fetch(payload,"username")
     {s,email} = Map.fetch(payload,"email")
     {s,mobile_number} = Map.fetch(payload,"mobile")
     {s,role} = Map.fetch(payload,"role")
     {s,pin} = Map.fetch(payload,"pin")
 
+    password = CustomSymbolsPassword.generate()
+
     pin = BusTerminalSystem.Randomizer.randomizer(5,:numeric)
-    IO.inspect pin
 
     decoded_pin = pin
     decoded_password = password
@@ -85,104 +88,111 @@ defmodule BusTerminalSystemWeb.UserController do
       |> put_flash(:error, "Account Number #{Map.fetch!(payload, "account_number")} already exists")
       |> redirect(to: Routes.user_path(conn, :new))
     else
-      role |> case  do
-          "MOP" ->
+      if User.find_by(username: payload["username"]) != nil do
+        conn
+        |> put_flash(:error, "User with username #{payload["username"]} already exists")
+        |> redirect(to: Routes.user_path(conn, :new))
+      else
+        role |> case  do
+                  "MOP" ->
 
-            message = " Hello #{first_name}, \n Your BTMMS ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{decoded_password} Pin for mobile #{mobile_number} is #{pin}"
+                    message = " Hello #{first_name}, \n Your BTMMS ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{decoded_password} Pin for mobile #{mobile_number} is #{pin}"
 
-            spawn(fn ->
-              send_sms.(mobile_number, message)
-              #                    NapsaSmsGetway.send_sms(mobile_number,message)
-            end)
+                    spawn(fn ->
+                      send_sms.(mobile_number, message)
+                      #                    NapsaSmsGetway.send_sms(mobile_number,message)
+                    end)
 
-            spawn(fn ->
-              if email != "", do: send_mail.(email, message)
-            end)
+                    spawn(fn ->
+                      if email != "", do: send_mail.(email, message)
+                    end)
 
-            payload = Map.put(payload, "operator_role", "MARKETER")
-            user_create_payload(conn, payload)
+                    payload = Map.put(payload, "operator_role", "MARKETER")
+                    user_create_payload(conn, payload)
 
-          "BOP" ->
+                  "BOP" ->
 
-            message = " Hello #{first_name}, \n Your BTMMS BUS OPERATOR CREDENTIALS ARE .Username: #{username} Password: #{decoded_password}"
+                    message = " Hello #{first_name}, \n Your BTMMS BUS OPERATOR CREDENTIALS ARE .Username: #{username} Password: #{decoded_password}"
 
-            spawn(fn ->
-              send_sms.(mobile_number, message)
-              #                    NapsaSmsGetway.send_sms(mobile_number,message)
-            end)
+                    spawn(fn ->
+                      send_sms.(mobile_number, message)
+                      #                    NapsaSmsGetway.send_sms(mobile_number,message)
+                    end)
 
-            spawn(fn ->
-              if email != "", do: send_mail.(email, message)
-            end)
+                    spawn(fn ->
+                      if email != "", do: send_mail.(email, message)
+                    end)
 
-            payload = Map.put(payload, "operator_role", "BUS OPERATOR")
-            payload = Map.put(payload, "account_status", "OTP")
-            user_create_payload(conn, payload)
+                    payload = Map.put(payload, "operator_role", "BUS OPERATOR")
+                    payload = Map.put(payload, "account_status", "OTP")
+                    user_create_payload(conn, payload)
 
-          "TOP" ->
+                  "TOP" ->
 
-            message = " Hello #{first_name}, \n Your BTMMS TELLER ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{decoded_password}"
+                    message = " Hello #{first_name}, \n Your BTMMS TELLER ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{decoded_password}"
 
-            spawn(fn ->
-              send_sms.(mobile_number, message)
-              #                    NapsaSmsGetway.send_sms(mobile_number,message)
-            end)
+                    spawn(fn ->
+                      send_sms.(mobile_number, message)
+                      #                    NapsaSmsGetway.send_sms(mobile_number,message)
+                    end)
 
-            spawn(fn ->
-              if email != "", do: send_mail.(email, message)
-            end)
+                    spawn(fn ->
+                      if email != "", do: send_mail.(email, message)
+                    end)
 
-            payload = Map.put(payload, "operator_role", "TELLER")
-            user_create_payload(conn, payload)
+                    payload = Map.put(payload, "operator_role", "TELLER")
+                    user_create_payload(conn, payload)
 
-          "SADMIN" ->
+                  "SADMIN" ->
 
-            message = " Hello #{first_name}, \n Your BTMMS SUPER ADMINISTRATIVE ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{decoded_password}"
+                    message = " Hello #{first_name}, \n Your BTMMS SUPER ADMINISTRATIVE ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{decoded_password}"
 
-            spawn(fn ->
-              send_sms.(mobile_number, message)
-              #                    NapsaSmsGetway.send_sms(mobile_number,message)
-            end)
+                    spawn(fn ->
+                      send_sms.(mobile_number, message)
+                      #                    NapsaSmsGetway.send_sms(mobile_number,message)
+                    end)
 
-            spawn(fn ->
-              if email != "", do: send_mail.(email, message)
-            end)
+                    spawn(fn ->
+                      if email != "", do: send_mail.(email, message)
+                    end)
 
-            payload = Map.put(payload, "operator_role", "SUPER_ADMINISTRATOR")
-            user_create_payload(conn, payload)
+                    payload = Map.put(payload, "operator_role", "SUPER_ADMINISTRATOR")
+                    user_create_payload(conn, payload)
 
-          "AGNT" ->
+                  "AGNT" ->
 
-            message = " Hello #{first_name}, \n Your BTMMS AGENT ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{decoded_password}"
+                    message = " Hello #{first_name}, \n Your BTMMS AGENT ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{decoded_password}"
 
-            spawn(fn ->
-              send_sms.(mobile_number, message)
-              #                    NapsaSmsGetway.send_sms(mobile_number,message)
-            end)
+                    spawn(fn ->
+                      send_sms.(mobile_number, message)
+                      #                    NapsaSmsGetway.send_sms(mobile_number,message)
+                    end)
 
-            spawn(fn ->
-              if email != "", do: send_mail.(email, message)
-            end)
+                    spawn(fn ->
+                      if email != "", do: send_mail.(email, message)
+                    end)
 
-            payload = Map.put(payload, "operator_role", "AGENT")
-            user_create_payload(conn, payload)
-          _ ->
+                    payload = Map.put(payload, "operator_role", "AGENT")
+                    user_create_payload(conn, payload)
+                  _ ->
 
-            message = " Hello #{first_name}, \n Your BTMMS ADMINISTRATIVE ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{decoded_password}"
+                    message = " Hello #{first_name}, \n Your BTMMS ADMINISTRATIVE ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{decoded_password}"
 
-            spawn(fn ->
-              NapsaSmsGetway.send_sms(mobile_number,message)
-            end)
+                    spawn(fn ->
+                      NapsaSmsGetway.send_sms(mobile_number,message)
+                    end)
 
-            spawn(fn ->
-              if email != "", do: send_mail.(email, message)
-            end)
+                    spawn(fn ->
+                      if email != "", do: send_mail.(email, message)
+                    end)
 
-            payload = Map.put(payload, "operator_role", "ADMINISTRATOR")
-            user_create_payload(conn, payload)
-        end
+                    payload = Map.put(payload, "operator_role", "ADMINISTRATOR")
+                    user_create_payload(conn, payload)
+                end
 
         render(conn, "new.html")
+      end
+
     end
 
 
@@ -191,15 +201,16 @@ defmodule BusTerminalSystemWeb.UserController do
   def create_teller(conn, %{"payload" => payload} = user_params) do
 
     {s,first_name} = Map.fetch(payload,"first_name")
-    {s,password} = Map.fetch(payload,"password")
+    {s,_password} = Map.fetch(payload,"password")
     {s,username} = Map.fetch(payload,"username")
     {s,email} = Map.fetch(payload,"email")
     {s,mobile_number} = Map.fetch(payload,"mobile")
     {s,role} = Map.fetch(payload,"role")
     {s,pin} = Map.fetch(payload,"pin")
 
+    password = CustomSymbolsPassword.generate()
+
     pin = BusTerminalSystem.Randomizer.randomizer(5,:numeric)
-    IO.inspect pin
 
     decoded_pin = pin
 
@@ -219,6 +230,12 @@ defmodule BusTerminalSystemWeb.UserController do
 #      |> put_flash(:error, "Account Number #{Map.fetch!(payload, "account_number")} already exists")
 #      |> redirect(to: Routes.user_path(conn, :new_teller))
 #    else
+
+    if User.find_by(username: payload["username"]) != nil do
+      conn
+      |> put_flash(:error, "User with username #{payload["username"]} already exists")
+      |> render("new_teller.html", [changeset: AccountManager.change_user(%User{})])
+    else
       role |> case do
                 "MOP" ->
 
@@ -226,7 +243,7 @@ defmodule BusTerminalSystemWeb.UserController do
 
                   spawn(fn ->
                     send_sms.(mobile_number, message)
-#                    NapsaSmsGetway.send_sms(mobile_number,message)
+                    #                    NapsaSmsGetway.send_sms(mobile_number,message)
                   end)
 
                   spawn(fn ->
@@ -242,7 +259,7 @@ defmodule BusTerminalSystemWeb.UserController do
 
                   spawn(fn ->
                     send_sms.(mobile_number, message)
-#                    NapsaSmsGetway.send_sms(mobile_number,message)
+                    #                    NapsaSmsGetway.send_sms(mobile_number,message)
                   end)
 
                   spawn(fn ->
@@ -259,7 +276,7 @@ defmodule BusTerminalSystemWeb.UserController do
 
                   spawn(fn ->
                     send_sms.(mobile_number, message)
-#                    NapsaSmsGetway.send_sms(mobile_number,message)
+                    #                    NapsaSmsGetway.send_sms(mobile_number,message)
                   end)
 
                   spawn(fn ->
@@ -274,16 +291,16 @@ defmodule BusTerminalSystemWeb.UserController do
                   message = " Hello #{first_name}, \n Your BTMMS SUPER ADMINISTRATIVE ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{decoded_password}"
 
                   spawn(fn ->
-                      send_sms.(mobile_number, message)
-  #                    NapsaSmsGetway.send_sms(mobile_number,message)
-                    end)
+                    send_sms.(mobile_number, message)
+                    #                    NapsaSmsGetway.send_sms(mobile_number,message)
+                  end)
 
-                    spawn(fn ->
-                      if email != "", do: send_mail.(email, message)
-                    end)
+                  spawn(fn ->
+                    if email != "", do: send_mail.(email, message)
+                  end)
 
-                    payload = Map.put(payload, "operator_role", "SUPER_ADMINISTRATOR")
-                    user_create_teller_payload(conn, payload)
+                  payload = Map.put(payload, "operator_role", "SUPER_ADMINISTRATOR")
+                  user_create_teller_payload(conn, payload)
                 "AGNT" ->
 
                   message = " Hello #{first_name}, \n Your BTMMS ACCOUNT CREDENTIALS ARE .Username: #{username} Pin for mobile #{mobile_number} is #{decoded_pin}"
@@ -317,9 +334,8 @@ defmodule BusTerminalSystemWeb.UserController do
               end
 
       render(conn, "new_teller.html")
+    end
 #    end
-
-
   end
 
   defp user_create_payload(conn, payload) do
@@ -357,6 +373,7 @@ defmodule BusTerminalSystemWeb.UserController do
 
   defp user_create_teller_payload(conn, payload) do
 
+
     case AccountManager.create_user(payload) do
       {:ok, user} ->
 
@@ -365,6 +382,7 @@ defmodule BusTerminalSystemWeb.UserController do
         #        |> redirect(to: Routes.user_path(conn, :new, [napsa_user: napsa_user]))
 
         changeset = AccountManager.change_user(%User{})
+
 
         conn
         |> put_flash(:info, "User created successfully.")

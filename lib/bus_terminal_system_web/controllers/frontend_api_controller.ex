@@ -796,4 +796,11 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     conn |> json(response.response)
   end
 
+  def user_validation_api(conn, params) do
+    query = "SELECT * FROM probase_tbl_users WHERE #{params["column"]}='#{params["value"]}'"
+    {status, result} = BusTerminalSystem.Repo.query(query)
+
+    conn |> json(%{exist: result.num_rows})
+  end
+
 end
