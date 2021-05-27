@@ -138,6 +138,9 @@ defmodule BusTerminalSystemWeb.MarketApiController do
   def update_pin(conn, params) do
     ApiManager.auth(conn,params)
 
+    send_sms = (fn recipient, message -> BusTerminalSystem.Notification.Table.Sms.create!([recipient: recipient, message: message, sent: false]) end)
+
+
     mobile = params["payload"]["mobile"]
     pin = params["payload"]["pin"]
 
@@ -151,10 +154,13 @@ defmodule BusTerminalSystemWeb.MarketApiController do
         nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
         _ ->
           case mobile |> RepoManager.find_marketer_by_mobile do
-            nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
-            user ->
-              case RepoManager.update_marketer_pin(user,%{"account_status" => "ACTIVE","pin" => pin},pin) do
+            [] -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
+            [user] ->
+              case RepoManager.update_marketer_pin(user,%{"account_status" => "ACTIVE","pin" => Base.encode16(:crypto.hash(:sha512, pin))},pin) do
                 {:ok, user} ->
+                  spawn(fn ->
+                    send_sms.(user.mobile, "Dear #{user.first_name} #{user.last_name}, your pin has been update successfully and account activated")
+                  end)
                   conn
                   |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_authentication,"SUCCESS",0,
                     %{
@@ -182,6 +188,8 @@ defmodule BusTerminalSystemWeb.MarketApiController do
   def reset_pin(conn, params) do
     ApiManager.auth(conn,params)
 
+    send_sms = (fn recipient, message -> BusTerminalSystem.Notification.Table.Sms.create!([recipient: recipient, message: message, sent: false]) end)
+
     mobile = params["payload"]["mobile"]
     pin = BusTerminalSystem.Randomizer.randomizer(5,:numeric)
 
@@ -195,10 +203,15 @@ defmodule BusTerminalSystemWeb.MarketApiController do
         nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
         _ ->
           case mobile |> RepoManager.find_marketer_by_mobile do
-            nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
-            user ->
-              case RepoManager.update_marketer_pin(user,%{"account_status" => "OTP","pin" => pin},pin) do
+            [] -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
+            [user] ->
+              case RepoManager.update_marketer_pin(user,%{account_status: "OTP", pin: Base.encode16(:crypto.hash(:sha512, pin))},pin) do
                 {:ok, user} ->
+
+                  spawn(fn ->
+                    send_sms.(user.mobile, "Dear #{user.first_name} #{user.last_name}, your OTP is #{pin}")
+                  end)
+
                   conn
                   |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_authentication,"SUCCESS",0,
                   %{

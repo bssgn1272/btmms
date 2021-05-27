@@ -26,10 +26,9 @@
                                 <div class="form-group">
                                     <label class="control-label">User Role:</label>
                                     <select name="payload[role]" class="form-control">
-                                        <option value="4">Unassigned Operator</option>
+                                        <option value="TOP">Teller</option>
                                         <option value="ADMIN">Administrator</option>
                                         <option value="BOP">Flex Bus Operator</option>
-                                        <option value="TOP">Teller</option>
                                         <option value="CCOP">Customer Care</option>
                                         <option value="AGNT">Agent</option>
                                         <option value="SADMIN">Super Manager</option>

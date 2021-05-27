@@ -12,7 +12,17 @@ defmodule BusTerminalSystem.Repo.Migrations.Database do
   end
 
   def unique_keys do
-    create unique_index(:probase_tbl_users, [:username])
+    create_if_not_exists table (:probase_tbl_banks) do
+      add :bankName, :string
+      add :branch, :string
+      add :bankCode, :string
+      add :bicCode, :string
+      add :branchDesc, :string
+      add :cntryCode, :string
+      add :sortCode, :string
+
+      timestamps()
+    end
   end
 
 

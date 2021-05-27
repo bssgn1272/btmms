@@ -803,4 +803,16 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     conn |> json(%{exist: result.num_rows})
   end
 
+  def bank_list(conn, _params) do
+    conn |> json(BusTerminalSystem.Banks.all |> Enum.map(fn bank -> bank.bankName end))
+  end
+
+  def branch_list(conn, params) do
+    conn |> json(BusTerminalSystem.Banks.where([bankName: params["bank"]]) |> Enum.map(fn bank -> bank.branchDesc end))
+  end
+
+  def get_bank(conn, params) do
+    conn |> json(BusTerminalSystem.Banks.find_by([bankName: params["bank"], branchDesc: params["branch"]]) |> Poison.encode!())
+  end
+
 end

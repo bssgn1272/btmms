@@ -178,3 +178,44 @@ function sweep_funds(){
         }
     })
 }
+
+function get_branches() {
+
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/banks/get_bank_branches',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (response) {
+            console.log(response)
+
+            let user_branches_html = '';
+
+            $.each(response, function (v, o) {
+                user_branches_html += '<option value="'+o+'">';
+                user_branches_html += o;
+                user_branches_html += '</option>';
+            });
+
+            $('#user_branches').html(user_branches_html);
+        },
+        data: JSON.stringify({bank: $("#user_bank").val()})
+    })
+}
+
+function sortCode(){
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/banks/get_bank',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (response) {
+            console.log(response)
+            let r = JSON.parse(JSON.stringify(response));
+            console.log(r)
+            $("#user_sortcode").val(r.sortCode);
+        },
+        data: JSON.stringify({bank: $("#user_bank").val(), branch: $("#user_branches").val()})
+    })
+}

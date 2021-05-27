@@ -96,7 +96,7 @@ defmodule BusTerminalSystemWeb.UserController do
         role |> case  do
                   "MOP" ->
 
-                    message = " Hello #{first_name}, \n Your BTMMS ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{decoded_password} Pin for mobile #{mobile_number} is #{pin}"
+                    message = " Hello #{first_name}, \n Your BTMMS ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{decoded_password} Pin for mobile #{mobile_number} is #{decoded_pin}"
 
                     spawn(fn ->
                       send_sms.(mobile_number, message)
@@ -273,6 +273,22 @@ defmodule BusTerminalSystemWeb.UserController do
                 "TOP" ->
 
                   message = " Hello #{first_name}, \n Your BTMMS TELLER ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{decoded_password}"
+
+                  spawn(fn ->
+                    send_sms.(mobile_number, message)
+                    #                    NapsaSmsGetway.send_sms(mobile_number,message)
+                  end)
+
+                  spawn(fn ->
+                    if email != "", do: send_mail.(email, message)
+                  end)
+
+                  payload = Map.put(payload, "operator_role", "TELLER")
+                  user_create_teller_payload(conn, payload)
+
+                "CCOP" ->
+
+                  message = " Hello #{first_name}, \n Your BTMMS SUPPORT ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{decoded_password}"
 
                   spawn(fn ->
                     send_sms.(mobile_number, message)

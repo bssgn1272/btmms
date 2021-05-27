@@ -16,7 +16,8 @@ alias BusTerminalSystem.Settings
 save = (fn key, value -> if Settings.find_by(key: key) == nil, do: Settings.create(key: key, value: value, status: true) end)
 
 save.("APPLICATION_NAME", "BTMMS")
-save.("BANK_URL", "http://41.175.13.198:7664//api/json/commercials/probase/zicb/fundsTransfer")
+save.("BANK_URL", "http://41.175.13.198:7664/api/json/commercials/probase/zicb/fundsTransfer")
+save.("BANK_SECONDARY_URL", "http://41.175.13.198:7664//api/json/commercials/zicb/banking")
 save.("BANK_AUTH_KEY", "NOT SET")
 save.("BANK_ENABLE_TICKET_POSTING", "FALSE")
 save.("BANK_AUTH_SERVICE_KEY", "NOT SET")

@@ -219,6 +219,12 @@ defmodule BusTerminalSystemWeb.Router do
     post "/internal/update/bus", FrontendApiController, :update_bus
     post "/internal/tickets/find", TicketController, :find_ticket_internal
     get "/internal/scale/query", FrontendApiController, :get_scale_query
+
+    get "/internal/banks/list", FrontendApiController, :bank_list
+    post "/internal/banks/get_bank_branches", FrontendApiController, :branch_list
+    post "/internal/banks/get_bank", FrontendApiController, :get_bank
+
+
     post "/internal/get_luggage_tarrif", FrontendApiController, :get_luggage_tarrif
     post "/internal/get_luggage_by_ticket_id", FrontendApiController, :get_luggage_by_ticket
     post "/internal/get_luggage_by_ticket_id_total_cost", FrontendApiController, :get_luggage_by_ticket_total_cost
