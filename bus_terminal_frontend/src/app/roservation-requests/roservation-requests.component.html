@@ -73,6 +73,7 @@
                         <mat-option value="A">Approved</mat-option>
                         <mat-option value="PC">Pending Cancellation</mat-option>
                         <mat-option value="C">Cancelled</mat-option>
+                        <mat-option value="R">Rejected</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -291,7 +292,7 @@
                           <div *ngIf="row.reservation_status === 'P'">
                             <button mat-menu-item (click)="approve(row)">Approve</button>
                           </div>
-                          <button
+                          <button *ngIf="row.reservation_status === 'P'"
                             mat-menu-item
                             (click)="onOpenRejectDialog(row)"
                           >

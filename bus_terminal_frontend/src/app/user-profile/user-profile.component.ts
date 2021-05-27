@@ -38,6 +38,8 @@ export class UserProfileComponent implements OnInit {
   ];
   dataSource = new MatTableDataSource([]);
   arDataSource = new MatTableDataSource([]);
+  valDate: Date = new Date();
+  valArDate: Date = new Date();
   minDate: Date = new Date();
   maxDate: Date = new Date();
 
@@ -63,7 +65,10 @@ export class UserProfileComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private penaltiesService: ViewMyPenaltiesService,
     private optionsService: OptionsService
-  ) {}
+  ) {
+    this.valDate.setDate(this.valDate.getDate() + 1);
+    this.valArDate.setDate(this.valDate.getDate() + 1);
+  }
 
   public getFromLocalStrorage() {
     const users = JSON.parse(localStorage.getItem('currentUser'));
@@ -78,26 +83,29 @@ export class UserProfileComponent implements OnInit {
   refresh() {
     this.userItems = this.getFromLocalStrorage();
     this.user = this.userItems.username;
+    this.minDate = new Date();
+    this.maxDate = new Date();
     this.minDate.setDate(this.minDate.getDate() + 1);
     this.maxDate.setDate(this.maxDate.getDate() + 7);
 
-    this.slots.getList().then((res) => {
+    this.operatingDate = this.convertDate(this.valDate);
+    this.arOperatingDate = this.convertDate(this.valArDate);
+    sessionStorage.setItem('operatingDate', this.operatingDate);
+
+    this.slots.getList(this.operatingDate).then((res) => {
       console.log('Slots', res)
       this.dataSource = new MatTableDataSource(res.data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
 
-    this.slots.arGetList().then(res => {
+    this.slots.arGetList(this.arOperatingDate).then(res => {
       this.arDataSource = new MatTableDataSource(res.data);
       this.arDataSource.paginator = this.arPaginator;
       this.arDataSource.sort = this.arSort;
 
       console.log('Arrival Routes', res)
     });
-
-    this.operatingDate = this.convertDate(this.minDate);
-    sessionStorage.setItem('operatingDate', this.operatingDate);
 
     this.optionsService.getOption(9).subscribe((res) => {
       this.allow_booking_with_penalty = res.data[0].option_value;
@@ -108,19 +116,15 @@ export class UserProfileComponent implements OnInit {
 
       for (let i = 0; i < this.penalties.length; i++) {
         this.penalty = [...this.penalty, ...this.penalties[i].penalty_status]
-        // if (this.penalties[i].penalty_status === 'Paid') {
-        //   this.penalty = false;
-        // } else {
-        //   this.penalty = true
-        // }
       }
 
       console.log('PENALTIES>>>>>>', this.penalty)
     })
 
-    this.arOperatingDate = this.convertDate(this.minDate);
+    this.arOperatingDate = this.convertDate(this.valDate);
     sessionStorage.setItem('arOperatingDate', this.arOperatingDate);
   }
+
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
@@ -130,6 +134,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   public onChange(event): void {
+    this.valDate = event.value;
     const dt = this.convertDate(event.value);
     console.log('DATE>>>', dt);
 
@@ -146,6 +151,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   public onArChange(event): void {
+    this.valArDate = event.value;
     var dt = this.convertDate(event.value);
 
     this.slots.arGetList(dt).then(res => {

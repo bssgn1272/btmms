@@ -233,7 +233,7 @@ export class MakeFlexiBookingComponent implements OnInit {
     }
     console.log(this.f.route.value);
 
-    this.status = 'p';
+    this.status = 'P';
     let message = 'Slot Successfully Reserved';
     this.time = this.data.row.time;
     const reservation_time = (new Date(sessionStorage.getItem('arOperatingDate'))).toISOString().split('.')[0] + 'Z';
@@ -241,7 +241,7 @@ export class MakeFlexiBookingComponent implements OnInit {
     if (this.data.row.slot_one === this.user || this.data.row.slot_two === this.user || this.data.row.slot_three === this.user ||
         this.data.row.slot_four === this.user || this.data.row.slot_five === this.user || this.data.row.slot_six === this.user ||
         this.data.row.slot_seven === this.user || this.data.row.slot_eight === this.user || this.data.row.slot_nine === this.user) {
-      this.status = 'A'
+      this.status = 'P'
     }
 
     const reserv = {
@@ -271,25 +271,30 @@ export class MakeFlexiBookingComponent implements OnInit {
                   message = 'Slot Reservation Pending Approval';
                 }
 
-                message = message + ', SLot Number: ' + this.f.slot.value + ' Reserved Time: ' + this.data.row.time
+                message = 'Dear operator,';
+                message += '\nYour booking for arrival has been submitted for approval.'
+                message += '\nTime: ' + this.data.row.reservation_time.split('T')[0] + ' ' + this.data.row.time;
+                message += '\nDestination: ' + resRoute.routes.end_route;
+                message += '\nSlot: ' + this.f.slot.value;
+                message += '\nThank you.'
 
                 let body = new HttpParams();
                 body = body.set('receiver', this.f.flexi_operator.value.mobile);
                 body = body.set('msg', message);
-                this.httpClient.get('/api/sms', {params: body}).subscribe(
+                this.httpClient.get('/main/api/sms', {params: body}).subscribe(
                     (data) => {
                     },
                     (error) => {
                     }
                 );
 
-                const subject = 'Reservation';
+                const subject = 'Arrival Slot Reservation';
                 let bodyc = new HttpParams();
                 bodyc = bodyc.set('email', this.f.flexi_operator.value.email);
                 bodyc = bodyc.set('user', this.f.flexi_operator.value.username);
                 bodyc = bodyc.set('subject', subject);
                 bodyc = bodyc.set('msg', message);
-                this.httpClient.get('/api/email', {params: bodyc}).subscribe(
+                this.httpClient.get('/main/api/email', {params: bodyc}).subscribe(
                     (data) => {
                     },
                     (error) => {

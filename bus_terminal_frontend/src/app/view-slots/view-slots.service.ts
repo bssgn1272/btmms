@@ -14,7 +14,8 @@ export class ViewSlotsService {
   private url = "/main/api/reservation/get";
   private urlh = "/main/api/reservation/history/get";
   private arUrl = "/main/api/arreservation/get/active";
-  private arUrlh = "/main/api/arreservation/history/get";
+  private arUrlh = "/main/api/arreservation/get/active/history";
+  //private arUrlh = "/main/api/arreservation/history/get";
   private subUrl = "/main/api/destinations";
 
   constructor(private http: HttpClient, private authService: AuthService) {
@@ -26,10 +27,15 @@ export class ViewSlotsService {
     return await this.http.get(url).toPromise().catch(this.handleError);
   }
 
-  async getHistoryList(id): Promise<any> {
-    const url = `${this.urlh}/${id}`;
+  async getHistoryList(): Promise<any> {
+    const url = `${this.arUrlh}`;
     return await this.http.get(url).toPromise().catch(this.handleError);
   }
+
+  /* async getHistoryList(id): Promise<any> {
+    const url = `${this.urlh}/${id}`;
+    return await this.http.get(url).toPromise().catch(this.handleError);
+  } */
 
   async arGetList(id: number): Promise<any> {
     const url = `${this.arUrl}/${id}`;

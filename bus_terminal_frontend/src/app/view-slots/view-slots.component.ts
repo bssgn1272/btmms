@@ -141,7 +141,7 @@ export class ViewSlotsComponent implements OnInit {
       this.arDataSource.sort = this.arSort;
     }); */
 
-    this.viewSlots.getHistoryList(_id).then((res) => {
+    this.viewSlots.getHistoryList().then((res) => {
       this.displayDataHistory = res.data;
       this.filterDataSourceHistory = this.displayDataHistory;
       this.dataSourceHistory = new MatTableDataSource(res.data);

@@ -124,13 +124,13 @@ export class CancelArrivalReservationComponent implements OnInit {
             type: 'Late Cancellation',
           })
           .subscribe((x) => {
-            const message = 'Late Cancellation of' + ' ' + this.data.row.slot + 'reservation. ' + 'Destination: ' + this.data.row.end_route +
+            const message = 'Late Cancellation of ' + this.data.row.slot + ' reservation. ' + 'Destination: ' + this.data.row.end_route +
                 ' Bus Registration: ' + this.data.row.license_plate;
 
             let body = new HttpParams();
             body = body.set('receiver', this.userItems.mobile);
             body = body.set('msg', message);
-            this.httpClient.get('/api/sms', { params: body }).subscribe(
+            this.httpClient.get('/main/api/sms', { params: body }).subscribe(
                 (data) => {},
                 (error) => {}
             );
@@ -142,77 +142,13 @@ export class CancelArrivalReservationComponent implements OnInit {
             bodyc = bodyc.set('user', this.userItems.username);
             bodyc = bodyc.set('subject', subject);
             bodyc = bodyc.set('msg', message);
-            this.httpClient.get('/api/email', { params: bodyc }).subscribe(
+            this.httpClient.get('/main/api/email', { params: bodyc }).subscribe(
                 (data) => {},
                 (error) => {}
             );
           });
     }
 
-    if (this.slot === 'slot_one') {
-      this.httpClient
-          .put('/api/slots/close', {
-            time: this.time,
-            slot_one: this.slot_one,
-          })
-          .toPromise();
-    } else if (this.slot === 'slot_two') {
-      this.httpClient
-          .put('/api/slots/close', {
-            time: this.time,
-            slot_two: this.slot_two,
-          })
-          .toPromise();
-    } else if (this.slot === 'slot_three') {
-      this.httpClient
-          .put('/api/slots/close', {
-            time: this.time,
-            slot_three: this.slot_three,
-          })
-          .toPromise();
-    } else if (this.slot === 'slot_four') {
-      this.httpClient
-          .put('/api/slots/close', {
-            time: this.time,
-            slot_four: this.slot_four,
-          })
-          .toPromise();
-    } else if (this.slot === 'slot_five') {
-      this.httpClient
-          .put('/api/slots/close', {
-            time: this.time,
-            slot_five: this.slot_five,
-          })
-          .toPromise();
-    } else if (this.slot === 'slot_six') {
-      this.httpClient
-          .put('/api/slots/close', {
-            time: this.time,
-            slot_six: this.slot_six,
-          })
-          .toPromise();
-    } else if (this.slot === 'slot_seven') {
-      this.httpClient
-          .put('/api/slots/close', {
-            time: this.time,
-            slot_seven: this.slot_seven,
-          })
-          .toPromise();
-    } else if (this.slot === 'slot_eight') {
-      this.httpClient
-          .put('/api/slots/close', {
-            time: this.time,
-            slot_eight: this.slot_eight,
-          })
-          .toPromise();
-    } else if (this.slot === 'slot_nine') {
-      this.httpClient
-          .put('/api/slots/close', {
-            time: this.time,
-            slot_nine: this.slot_nine,
-          })
-          .toPromise();
-    }
     console.log(this.id);
     this.httpClient
         .put('/main/api/approve/arreservations/requests/' + this.data.row.res_uuid, {
@@ -222,13 +158,18 @@ export class CancelArrivalReservationComponent implements OnInit {
         })
         .subscribe(
             (data) => {
-              const message = 'Cancellation of' + ' ' + this.data.row.slot + 'reservation. ' + 'Destination: ' + this.data.row.end_route +
-                  ' Bus Registration: ' + this.data.row.license_plate;
+              let message = 'Dear operator,';
+              message += '\nYour arrival slot has been cancelled.'
+              message += '\nTime: ' + this.data.row.reserved_time.split('T')[0] + ' ' + this.data.row.time;
+              message += '\nSource: ' + this.data.row.end_route;
+              message += '\nSlot: ' + this.data.row.slot;
+              message += '\nBus Registration: ' + this.data.row.license_plate;
+              message += '\nThank you.'
 
               let body = new HttpParams();
               body = body.set('receiver', this.userItems.mobile);
               body = body.set('msg', message);
-              this.httpClient.get('/api/sms', { params: body }).subscribe(
+              this.httpClient.get('/main/api/sms', { params: body }).subscribe(
                   (data) => {},
                   (error) => {}
               );
@@ -240,7 +181,7 @@ export class CancelArrivalReservationComponent implements OnInit {
               bodyc = bodyc.set('user', this.userItems.username);
               bodyc = bodyc.set('subject', subject);
               bodyc = bodyc.set('msg', message);
-              this.httpClient.get('/api/email', { params: bodyc }).subscribe(
+              this.httpClient.get('/main/api/email', { params: bodyc }).subscribe(
                   (data) => {},
                   (error) => {}
               );
@@ -289,7 +230,7 @@ export class CancelArrivalReservationComponent implements OnInit {
             let body = new HttpParams();
             body = body.set("receiver", this.userItems.mobile);
             body = body.set("msg", message);
-            this.httpClient.get("/api/sms", { params: body }).subscribe(
+            this.httpClient.get("/main/api/sms", { params: body }).subscribe(
                 (data) => {},
                 (error) => {}
             );
@@ -301,7 +242,7 @@ export class CancelArrivalReservationComponent implements OnInit {
             bodyc = bodyc.set("user", this.userItems.username);
             bodyc = bodyc.set("subject", subject);
             bodyc = bodyc.set("msg", message);
-            this.httpClient.get("/api/email", { params: bodyc }).subscribe(
+            this.httpClient.get("/main/api/email", { params: bodyc }).subscribe(
                 (data) => {},
                 (error) => {}
             );
@@ -313,9 +254,10 @@ export class CancelArrivalReservationComponent implements OnInit {
     this.time = this.data.row.time;
     console.log(this.id);
     this.httpClient
-        .put("/api/approve/arreservations/requests/" + this.data.row.res_uuid, {
+        .put("/main/api/approve/arreservations/requests/" + this.data.row.res_uuid, {
             reservation_status: this.status,
-          cancellation_reason: this.cancellationReason,
+            status: this.status,
+            cancellation_reason: this.cancellationReason,
         })
         .subscribe(
             (data) => {
@@ -325,7 +267,7 @@ export class CancelArrivalReservationComponent implements OnInit {
               let body = new HttpParams();
               body = body.set("receiver", this.userItems.mobile);
               body = body.set("msg", message);
-              this.httpClient.get("/api/sms", { params: body }).subscribe(
+              this.httpClient.get("/main/api/sms", { params: body }).subscribe(
                   (data) => {},
                   (error) => {}
               );
@@ -337,7 +279,7 @@ export class CancelArrivalReservationComponent implements OnInit {
               bodyc = bodyc.set("user", this.userItems.username);
               bodyc = bodyc.set("subject", subject);
               bodyc = bodyc.set("msg", message);
-              this.httpClient.get("/api/email", { params: bodyc }).subscribe(
+              this.httpClient.get("/main/api/email", { params: bodyc }).subscribe(
                   (data) => {},
                   (error) => {}
               );

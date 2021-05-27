@@ -44,73 +44,10 @@ export class RejectComponent implements OnInit {
     this.id = this.data.row.user_id;
     this.status = 'R';
 
-    if (this.slot === 'slot_one') {
-      this.httpClient
-        .put('/main/api/slots/close', {
-          time: this.time,
-          slot_one: this.slot_one,
-        })
-        .toPromise();
-    } else if (this.slot === 'slot_two') {
-      this.httpClient
-        .put('/main/api/slots/close', {
-          time: this.time,
-          slot_two: this.slot_two,
-        })
-        .toPromise();
-    } else if (this.slot === 'slot_three') {
-      this.httpClient
-        .put('/main/api/slots/close', {
-          time: this.time,
-          slot_three: this.slot_three,
-        })
-        .toPromise();
-    } else if (this.slot === 'slot_four') {
-      this.httpClient
-        .put('/main/api/slots/close', {
-          time: this.time,
-          slot_four: this.slot_four,
-        })
-        .toPromise();
-    } else if (this.slot === 'slot_five') {
-      this.httpClient
-        .put('/main/api/slots/close', {
-          time: this.time,
-          slot_five: this.slot_five,
-        })
-        .toPromise();
-    } else if (this.slot === 'slot_six') {
-      this.httpClient
-        .put('/main/api/slots/close', {
-          time: this.time,
-          slot_six: this.slot_six,
-        })
-        .toPromise();
-    } else if (this.slot === 'slot_seven') {
-      this.httpClient
-        .put('/main/api/slots/close', {
-          time: this.time,
-          slot_seven: this.slot_seven,
-        })
-        .toPromise();
-    } else if (this.slot === 'slot_eight') {
-      this.httpClient
-        .put('/main/api/slots/close', {
-          time: this.time,
-          slot_eight: this.slot_eight,
-        })
-        .toPromise();
-    } else if (this.slot === 'slot_nine') {
-      this.httpClient
-        .put('/main/api/slots/close', {
-          time: this.time,
-          slot_nine: this.slot_nine,
-        })
-        .toPromise();
-    }
     this.httpClient
       .put('/main/api/approve/reservations/requests/' + this.data.row.res_uuid, {
           reservation_status: this.status,
+          status: this.status,
       })
       .subscribe(
         () => {

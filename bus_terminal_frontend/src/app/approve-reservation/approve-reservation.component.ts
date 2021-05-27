@@ -46,73 +46,10 @@ export class ApproveReservationComponent implements OnInit {
     this.user = this.data.row.username;
     this.status = 'A';
 
-    if (this.slot === 'slot_one') {
-      this.httpClient
-          .put('/main/api/slots/close', {
-            time: this.time,
-            slot_one: this.user,
-          })
-          .toPromise();
-    } else if (this.slot === 'slot_two') {
-      this.httpClient
-          .put('/main/api/slots/close', {
-            time: this.time,
-            slot_two: this.user,
-          })
-          .toPromise();
-    } else if (this.slot === 'slot_three') {
-      this.httpClient
-          .put('/main/api/slots/close', {
-            time: this.time,
-            slot_three: this.user,
-          })
-          .toPromise();
-    } else if (this.slot === 'slot_four') {
-      this.httpClient
-          .put('/main/api/slots/close', {
-            time: this.time,
-            slot_four: this.user,
-          })
-          .toPromise();
-    } else if (this.slot === 'slot_five') {
-      this.httpClient
-          .put('/main/api/slots/close', {
-            time: this.time,
-            slot_five: this.user,
-          })
-          .toPromise();
-    } else if (this.slot === 'slot_six') {
-      this.httpClient
-          .put('/main/api/slots/close', {
-            time: this.time,
-            slot_six: this.user,
-          })
-          .toPromise();
-    } else if (this.slot === 'slot_seven') {
-      this.httpClient
-          .put('/main/api/slots/close', {
-            time: this.time,
-            slot_seven: this.user,
-          })
-          .toPromise();
-    } else if (this.slot === 'slot_eight') {
-      this.httpClient
-          .put('/main/api/slots/close', {
-            time: this.time,
-            slot_eight: this.user,
-          })
-          .toPromise();
-    } else if (this.slot === 'slot_nine') {
-      this.httpClient
-          .put('/main/api/slots/close', {
-            time: this.time,
-            slot_nine: this.user,
-          })
-          .toPromise();
-    }
     this.httpClient
         .put('/main/api/approve/reservations/requests/' + this.data.row.res_uuid, {
             reservation_status: this.status,
+            status: this.status,
         })
         .subscribe(
             () => {

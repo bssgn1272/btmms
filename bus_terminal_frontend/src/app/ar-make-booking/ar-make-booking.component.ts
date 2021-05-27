@@ -274,8 +274,8 @@ export class ArMakeBookingComponent implements OnInit {
     }
     console.log("Save clicked");
 
-    this.status = 'A';
-    let message = 'Slot Successfully Reserved';
+    this.status = 'P';
+    let message = 'Slot Reservation Pending Approval';
     this.time = this.data.row.time;
     const reservation_time = (new Date(sessionStorage.getItem('arOperatingDate'))).toISOString().split('.')[0] + 'Z';
     console.log(reservation_time);
@@ -322,26 +322,31 @@ export class ArMakeBookingComponent implements OnInit {
               (data) => {
                 console.log('Check Response>>>>>', data)
                 if (this.status === 'P') {
-                  message = 'Slot Reservation Pending Approval';
+                  message = 'Dear operator,';
+                  message += '\nYour booking for arrival has been submitted for approval.'
+                  message += '\nTime: ' + this.data.row.reservation_time.split('T')[0] + ' ' + this.data.row.time;
+                  message += '\nDestination: ' + resRoute.routes.end_route;
+                  message += '\nSlot: ' + this.f.slot.value;
+                  message += '\nThank you.'
                 }
 
                 let body = new HttpParams();
                 body = body.set('receiver', this.userItems.mobile);
                 body = body.set('msg', message);
-                this.httpClient.get('/api/sms', {params: body}).subscribe(
+                this.httpClient.get('/main/api/sms', {params: body}).subscribe(
                     (data) => {
                     },
                     (error) => {
                     }
                 );
 
-                const subject = 'Reservation';
+                const subject = 'Arrival Slot Reservation';
                 let bodyc = new HttpParams();
                 bodyc = bodyc.set('email', this.userItems.email);
                 bodyc = bodyc.set('user', this.userItems.username);
                 bodyc = bodyc.set('subject', subject);
                 bodyc = bodyc.set('msg', message);
-                this.httpClient.get('/api/email', {params: bodyc}).subscribe(
+                this.httpClient.get('/main/api/email', {params: bodyc}).subscribe(
                     (data) => {
                     },
                     (error) => {

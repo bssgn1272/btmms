@@ -59,7 +59,7 @@
                     <mat-form-field>
                       <mat-label>Showing Departures For:</mat-label>
                       <input matInput [matDatepicker]="picker1" [formControl]="date" [name]="ddate"
-                        [value]="minDate" [min]="minDate" [max]="maxDate"
+                        [value]="valDate" [min]="minDate" [max]="maxDate"
                         (dateChange)="onChange($event)">
                       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                       <mat-datepicker #picker1></mat-datepicker>
@@ -244,7 +244,7 @@
                     <mat-form-field>
                       <mat-label>Showing Arrivals For:</mat-label>
                       <input matInput [matDatepicker]="picker2" [formControl]="date" [name]="adate"
-                        [value]="minDate" [min]="minDate" [max]="maxDate"
+                        [value]="valArDate" [min]="minDate" [max]="maxDate"
                         (dateChange)="onArChange($event)">
                       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                       <mat-datepicker #picker2></mat-datepicker>

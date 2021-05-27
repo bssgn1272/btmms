@@ -43,56 +43,14 @@ export class CancellationRequestComponent implements OnInit {
     this.id = this.data.row.id;
     this.status = "PA";
 
-    // if (this.slot === "slot_one") {
-    //   this.httpClient
-    //     .put("/main/api/slots/close", {
-    //       time: this.time,
-    //       slot_one: this.slot_one,
-    //     })
-    //     .toPromise();
-    // } else if (this.slot === "slot_two") {
-    //   this.httpClient
-    //     .put("/main/api/slots/close", {
-    //       time: this.time,
-    //       slot_two: this.slot_two,
-    //     })
-    //     .toPromise();
-    // } else if (this.slot === "slot_three") {
-    //   this.httpClient
-    //     .put("/main/api/slots/close", {
-    //       time: this.time,
-    //       slot_three: this.slot_three,
-    //     })
-    //     .toPromise();
-    // } else if (this.slot === "slot_four") {
-    //   this.httpClient
-    //     .put("/main/api/slots/close", {
-    //       time: this.time,
-    //       slot_four: this.slot_four,
-    //     })
-    //     .toPromise();
-    // } else if (this.slot === "slot_five") {
-    //   this.httpClient
-    //     .put("/main/api/slots/close", {
-    //       time: this.time,
-    //       slot_five: this.slot_five,
-    //     })
-    //     .toPromise();
-    // }
     this.httpClient
       .put("/main/api/approve/reservations/requests/" + this.data.row.res_uuid, {
         reservation_status: this.status,
+        status: this.status,
       })
       .subscribe(
         () => {
           this._location.back();
-          // this.router
-          //   .navigateByUrl('/veiw-resavations-requests', {
-          //     skipLocationChange: true
-          //   })
-          //   .then(() => {
-          //     this.router.navigate([decodeURI(this._location.path())]);
-          //   });
           this._snackBar.open("Successfully Updated", null, {
             duration: 1000,
             horizontalPosition: "center",

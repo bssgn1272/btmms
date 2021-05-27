@@ -1,6 +1,6 @@
 import { Component, OnInit, Optional, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MakeBookingService } from './make-booking.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
@@ -8,7 +8,7 @@ import { Location } from '@angular/common';
 import { v4 } from 'uuid';
 import { ViewSlotsService } from 'app/view-my-slots/view-slots.service';
 import { SettingsService } from 'app/settings/settings.service';
-import {SlotInteravlService} from '../settings/slot-interval.service';
+import { SlotInteravlService } from '../settings/slot-interval.service';
 
 export interface Slot {
   value: string;
@@ -282,10 +282,10 @@ export class MakeBookingComponent implements OnInit {
     }
     console.log(this.f.route.value);
 
-    this.status = 'A';
+    this.status = 'P';
     this.time = this.data.row.time;
     const reservation_time = (new Date(sessionStorage.getItem('operatingDate'))).toISOString().split('.')[0] + 'Z';
-    console.log(reservation_time);
+    console.log("Reservation Time: ", reservation_time);
 
     if (this.data.row.slot_one === this.user || this.data.row.slot_two === this.user || this.data.row.slot_three === this.user ||
         this.data.row.slot_four === this.user || this.data.row.slot_five === this.user || this.data.row.slot_six === this.user ||
@@ -309,6 +309,7 @@ export class MakeBookingComponent implements OnInit {
     const reserv: any = {
       slot: this.f.slot.value,
       reservation_status: this.status,
+      status: this.status,
       route: this.f.route.value,
       user_id: this._id,
       res_uuid: v4(),
@@ -330,7 +331,10 @@ export class MakeBookingComponent implements OnInit {
       reserv.ed_bus_route_id = routeID
 
       if (this.status === 'P') {
-        message = 'Slot Reservation Pending Approval';
+        message = 'Departure Slot Reservation Pending Approval';
+        message += '\nSlot: ' + this.f.slot.value;
+        message += '\nDestination: ' + resRoute.routes.end_route;
+        message += '\nTime: ' + this.data.row.reservation_time.split('T')[0] + ' ' + this.data.row.time;
       }
 
       // this._snackBar.open('Successfully Created', null, {
@@ -349,7 +353,12 @@ export class MakeBookingComponent implements OnInit {
                 console.log('Slot AND DATA>>>>', this.user, this.status, data)
 
                 if (this.status === 'P') {
-                  message = 'Slot Reservation Pending Approval';
+                  message = 'Dear operator,';
+                  message += '\nYour booking for departure has been submitted for approval.'
+                  message += '\nTime: ' + this.data.row.reservation_time.split('T')[0] + ' ' + this.data.row.time;
+                  message += '\nDestination: ' + resRoute.routes.end_route;
+                  message += '\nSlot: ' + this.f.slot.value;
+                  message += '\nThank you.'
                 }
                 let body = new HttpParams();
                 body = body.set('receiver', this.userItems.mobile);
@@ -359,7 +368,7 @@ export class MakeBookingComponent implements OnInit {
                     (error) => {}
                 );
 
-                const subject = 'Reservation';
+                const subject = 'Departure Slot Reservation';
                 let bodyc = new HttpParams();
                 bodyc = bodyc.set('email', this.userItems.email);
                 bodyc = bodyc.set('user', this.userItems.username);
