@@ -20,6 +20,7 @@ import { ConfirmCancellationComponent } from '../confirm-cancellation/confirm-ca
 import { SettingsService } from 'app/settings/settings.service';
 import {ApproveReservationComponent} from '../approve-reservation/approve-reservation.component';
 import {ApproveArrivalReservationComponent} from '../approve-arrival-reservation/approve-arrival-reservation.component';
+import {CancelArrivalReservationComponent} from '../cancel-arrival-reservation/cancel-arrival-reservation.component';
 
 @Component({
   selector: 'app-roservation-requests',
@@ -614,6 +615,18 @@ export class RoservationRequestsComponent implements OnInit {
 
   approveAr(row): void {
     const dialogRef = this.dialog.open(ApproveArrivalReservationComponent, {
+      width: '60%',
+      // height: "850",
+      data: { row },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      row = result;
+    });
+    console.log('Row clicked: ', row);
+  }
+
+  onOpenArCancelDialog(row): void {
+    const dialogRef = this.dialog.open(CancelArrivalReservationComponent, {
       width: '60%',
       // height: "850",
       data: { row },

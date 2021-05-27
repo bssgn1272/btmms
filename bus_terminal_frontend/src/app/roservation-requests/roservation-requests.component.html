@@ -14,7 +14,7 @@
                       href="#view"
                       data-toggle="tab"
                     >
-                      <i class="material-icons">list</i> Requests
+                      <i class="material-icons">list</i> Departure Requests
                       <div class="ripple-container"></div>
                     </a>
                   </li>
@@ -332,6 +332,7 @@
                         <mat-option value="A">Approved</mat-option>
                         <mat-option value="PC">Pending Cancellation</mat-option>
                         <mat-option value="C">Cancelled</mat-option>
+                        <mat-option value="R">Rejected</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -556,6 +557,9 @@
                           >
                             Reject
                           </button>
+                          <div *ngIf="row.reservation_status === 'A'">
+                            <button mat-menu-item (click)="onOpenArCancelDialog(row)">Cancel</button>
+                          </div>
                         </mat-menu>
                       </td>
                     </ng-container>

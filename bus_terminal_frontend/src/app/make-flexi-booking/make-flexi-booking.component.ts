@@ -274,7 +274,7 @@ export class MakeFlexiBookingComponent implements OnInit {
                 message = 'Dear operator,';
                 message += '\nYour booking for arrival has been submitted for approval.'
                 message += '\nTime: ' + this.data.row.reservation_time.split('T')[0] + ' ' + this.data.row.time;
-                message += '\nDestination: ' + resRoute.routes.end_route;
+                message += '\nSource: ' + resRoute.routes.end_route;
                 message += '\nSlot: ' + this.f.slot.value;
                 message += '\nThank you.'
 
