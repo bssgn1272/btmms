@@ -24,17 +24,17 @@ var GetEmailController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Re
 	text := queryValues.Get("msg")
 
 	// user we are authorizing as
-	from := "changalesa8@gmail.com"
+	from := "btmms@napsa.co.zm"
 
 	// use we are sending email to
 	to := email
 
 	// server we are authorized to send email through
-	host := "smtp.gmail.com"
+	host := "mail.napsa.co.zm"
 
 	// Create the authentication for the SendMail()
 	// using PlainText, but other authentication methods are encouraged
-	auth := smtp.PlainAuth("", from, "fmeogqgokokgqrjx", host)
+	auth := smtp.PlainAuth("", from, "Welcome@2020", host)
 
 	mess := `To: %s <%s>
 From: "BTMMS" <btmms@napsa.co.zm>
@@ -47,7 +47,7 @@ Subject: %s
 
 	log.Println(message)
 
-	if err := smtp.SendMail(host+":587", auth, from, []string{to}, []byte(message)); err != nil {
+	if err := smtp.SendMail(host+":25", auth, from, []string{to}, []byte(message)); err != nil {
 		fmt.Println("Error SendMail: ", err)
 		return
 	}
@@ -92,7 +92,7 @@ var GetSMSController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Requ
 	parameters.Add("smsc", "zamtelsmsc")
 	parameters.Add("username", "napsamobile")
 	parameters.Add("password", "napsamobile@kannel")
-	parameters.Add("from", "BTMMS")
+	parameters.Add("from", "LMBMC")
 	parameters.Add("to", receiver)
 	parameters.Add("text", msg)
 

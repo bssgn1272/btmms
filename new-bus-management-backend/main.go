@@ -58,6 +58,7 @@ func main() {
 	router.Handle("/main/api/arreservation/requests/create", controllers.ArCreateReservationController).Methods("POST")
 	router.Handle("/main/api/arreservation/get", controllers.ArGetReservationsController).Methods("GET")
 	router.Handle("/main/api/arreservation/get/active", controllers.ArGetActiveReservationsController).Methods("GET")
+	router.Handle("/main/api/arreservation/get/active/history", controllers.ArGetActiveHistoryReservationsController).Methods("GET")
 	router.Handle("/main/api/arreservation/get/{id}", controllers.ArGetReservationsForController).Methods("GET")
 	router.Handle("/main/api/arreservation/history/get/{id}", controllers.ArGetReservationsHistoryForController).Methods("GET")
 

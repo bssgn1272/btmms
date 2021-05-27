@@ -48,6 +48,15 @@ var ArGetActiveReservationsController = http.HandlerFunc(func(w http.ResponseWri
 	utils.Respond(w, resp)
 })
 
+var ArGetActiveHistoryReservationsController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+	data := models.ArGetActiveHistoryReservations()
+	resp := utils.Message(true, "success")
+	resp["data"] = data
+	log.Println(resp)
+	utils.Respond(w, resp)
+})
+
 // ArGetReservationsForController Function for retrieving reservations for a particular user
 var ArGetReservationsForController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 

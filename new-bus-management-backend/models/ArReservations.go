@@ -133,7 +133,20 @@ func ArGetReservations() []*EdArResult {
 func ArGetActiveReservations() []*EdArResult {
 
 	reservations := make([]*EdArResult, 0)
-	err := GetDB().Table("ed_ar_reservations").Where("reservation_status IN ('A', 'p') AND bus_id IS NULL").Find(&reservations).Error
+	err := GetDB().Table("ed_ar_reservations").Select("ed_ar_reservations.*, ed_bus_routes.end_route").Joins("LEFT JOIN ed_bus_routes ON ed_ar_reservations.ed_bus_route_id = ed_bus_routes.id").Where("reservation_status IN ('A', 'p', 'P') AND bus_id IS NULL").Find(&reservations).Error
+	log.Println(err)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+
+	return reservations
+}
+
+func ArGetActiveHistoryReservations() []*EdArResult {
+
+	reservations := make([]*EdArResult, 0)
+	err := GetDB().Table("ed_ar_reservations").Select("ed_ar_reservations.*, ed_bus_routes.end_route").Joins("LEFT JOIN ed_bus_routes ON ed_ar_reservations.ed_bus_route_id = ed_bus_routes.id").Where("reservation_status NOT IN ('A', 'p', 'P') AND bus_id IS NULL").Find(&reservations).Error
 	log.Println(err)
 	if err != nil {
 		log.Println(err)
