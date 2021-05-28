@@ -126,30 +126,49 @@ export class CancelReservationComponent implements OnInit {
           penalty_status: "Unpaid",
           type: "Late Cancellation",
         })
-        .subscribe((x) => {
-          const message = 'Late Cancellation of' + ' ' + this.data.row.slot + 'reservation. ' + 'Destination: ' + this.data.row.end_route +
-              ' Bus Registration: ' + this.data.row.license_plate;
+        .subscribe(
+          (x) => {
+          this.httpClient
+              .get('main/api/users/' + this.data.row.user_id)
+              .subscribe(
+                (received) => {
+                  let mobile: any;
+                  let email: any;
+                  let username: any;
 
-          let body = new HttpParams();
-          body = body.set("receiver", this.userItems.mobile);
-          body = body.set("msg", message);
-          this.httpClient.get("/main/api/sms", { params: body }).subscribe(
-            (data) => {},
-            (error) => {}
-          );
-          
-          const subject = 'Late Cancellation of' + ' ' + this.data.row.slot + 'reservation. ' + 'Destination: ' + this.data.row.end_route +
-              ' Bus Registration: ' + this.data.row.license_plate;
-          let bodyc = new HttpParams();
-          bodyc = bodyc.set("email", this.userItems.email);
-          bodyc = bodyc.set("user", this.userItems.username);
-          bodyc = bodyc.set("subject", subject);
-          bodyc = bodyc.set("msg", message);
-          this.httpClient.get("/main/api/email", { params: bodyc }).subscribe(
-            (data) => {},
-            (error) => {}
-          );
-        });
+                  if(this.userItems.role === 'CCOP' || this.userItems.role === 'ADMIN'){
+                    mobile = received['data'][0].mobile;
+                    email = received['data'][0].email;
+                    username = received['data'][0].username;
+                  }
+
+                  const message = 'Late Cancellation of' + ' ' + this.data.row.slot + 'reservation. ' + 'Destination: ' + this.data.row.end_route +
+                      ' Bus Registration: ' + this.data.row.license_plate;
+
+                  let body = new HttpParams();
+                  body = body.set("receiver", mobile);
+                  body = body.set("msg", message);
+                  this.httpClient.get("/main/api/sms", { params: body }).subscribe(
+                    (data) => {},
+                    (error) => {}
+                  );
+                  
+                  const subject = 'Late Cancellation of' + ' ' + this.data.row.slot + 'reservation. ' + 'Destination: ' + this.data.row.end_route +
+                      ' Bus Registration: ' + this.data.row.license_plate;
+                  let bodyc = new HttpParams();
+                  bodyc = bodyc.set("email", email);
+                  bodyc = bodyc.set("user", username);
+                  bodyc = bodyc.set("subject", subject);
+                  bodyc = bodyc.set("msg", message);
+                  this.httpClient.get("/main/api/email", { params: bodyc }).subscribe(
+                    (data) => {},
+                    (error) => {}
+                  );
+                  (error) => {}
+                }
+              );
+          }
+        );
     }
 
     console.log(this.id);
@@ -161,33 +180,50 @@ export class CancelReservationComponent implements OnInit {
       })
       .subscribe(
         (data) => {
-          let message = 'Dear operator,';
-          message += '\nYour departure slot has been cancelled.'
-          message += '\nTime: ' + this.data.row.reservation_time.split('T')[0] + ' ' + this.data.row.time;
-          message += '\nDestination: ' + this.data.row.end_route;
-          message += '\nSlot: ' + this.data.row.slot;
-          message += '\nBus Registration: ' + this.data.row.license_plate;
-          message += '\nThank you.'
+          this.httpClient
+            .get('main/api/users/' + this.data.row.user_id)
+            .subscribe(
+              (received) => {
+                let mobile: any;
+                let email: any;
+                let username: any;
 
-          let body = new HttpParams();
-          body = body.set("receiver", this.userItems.mobile);
-          body = body.set("msg", message);
-          this.httpClient.get("/main/api/sms", { params: body }).subscribe(
-            (data) => {},
-            (error) => {}
-          );
+                if(this.userItems.role === 'CCOP' || this.userItems.role === 'ADMIN'){
+                  mobile = received['data'][0].mobile;
+                  email = received['data'][0].email;
+                  username = received['data'][0].username;
+                }
+                let message = 'Dear operator,';
+                message += '\nYour departure slot has been cancelled.'
+                message += '\nTime: ' + this.data.row.reservation_time.split('T')[0] + ' ' + this.data.row.time;
+                message += '\nDestination: ' + this.data.row.end_route;
+                message += '\nSlot: ' + this.data.row.slot;
+                message += '\nBus Registration: ' + this.data.row.license_plate;
+                message += '\nThank you.'
 
-          const subject = 'Cancellation of' + ' ' + this.data.row.slot + ' reservation. ' + ' Destination: ' + this.data.row.end_route +
-              ' Bus Registration: ' + this.data.row.license_plate;
-          let bodyc = new HttpParams();
-          bodyc = bodyc.set("email", this.userItems.email);
-          bodyc = bodyc.set("user", this.userItems.username);
-          bodyc = bodyc.set("subject", subject);
-          bodyc = bodyc.set("msg", message);
-          this.httpClient.get("/main/api/email", { params: bodyc }).subscribe(
-            (data) => {},
-            (error) => {}
-          );
+                let body = new HttpParams();
+                body = body.set("receiver", mobile);
+                body = body.set("msg", message);
+                this.httpClient.get("/main/api/sms", { params: body }).subscribe(
+                  (data) => {},
+                  (error) => {}
+                );
+
+                const subject = 'Cancellation of' + ' ' + this.data.row.slot + ' reservation. ' + ' Destination: ' + this.data.row.end_route +
+                    ' Bus Registration: ' + this.data.row.license_plate;
+                let bodyc = new HttpParams();
+                bodyc = bodyc.set("email", email);
+                bodyc = bodyc.set("user", username);
+                bodyc = bodyc.set("subject", subject);
+                bodyc = bodyc.set("msg", message);
+                this.httpClient.get("/main/api/email", { params: bodyc }).subscribe(
+                  (data) => {},
+                  (error) => {}
+                );
+              },
+              (error) => {}
+            );
+               
           this._location.back();
           this._snackBar.open("Successfully Updated", null, {
             duration: 1000,

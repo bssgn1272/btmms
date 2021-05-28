@@ -197,3 +197,13 @@ var GetAllUserController = http.HandlerFunc(func(w http.ResponseWriter, r *http.
 	log.Println(resp)
 	utils.Respond(w, resp)
 })
+
+var GetUserController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	id, _ := strconv.Atoi(params["id"])
+	data := models.GetUser(uint(id))
+	resp := utils.Message(true, "success")
+	resp["data"] = data
+	log.Println(resp)
+	utils.Respond(w, resp)
+})

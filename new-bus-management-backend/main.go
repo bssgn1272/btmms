@@ -47,6 +47,7 @@ func main() {
 	router.Handle("/main/api/auth/resetpassword", controllers.ResetPassword).Methods("POST")
 	router.Handle("/main/api/access/permissions/{id}", controllers.UpdateAccessPermissionController).Methods("Put")
 	router.Handle("/main/api/users", controllers.GetAllUserController).Methods("GET")
+	router.Handle("/main/api/users/{id}", controllers.GetUserController).Methods("GET")
 
 	// reservations routes
 	router.Handle("/main/api/reservation/requests/create", controllers.CreateReservationController).Methods("POST")

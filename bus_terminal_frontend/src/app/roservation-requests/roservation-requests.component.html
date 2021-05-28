@@ -277,7 +277,7 @@
                           </button>
                           <button
                             *ngIf="(role === 'TOP' && workFlow.mode === 'NWF') || (role === 'ADMIN' && row.reservation_status === 'A')"
-                            (click)="confirmCancellationRequest(row)"
+                            (click)="cancellationRequest(row)"
                             mat-menu-item
                           >
                             Cancel Request

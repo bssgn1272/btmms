@@ -234,26 +234,21 @@ export class MakeBookingComponent implements OnInit {
 
       this.reservationService.getList(this._id).then((rese) => {
         this.reservedBus = rese.data;
-          console.log('BUSES>>>>>', rese.data)
-        const operatingDate = (new Date(sessionStorage.getItem('operatingDate'))).toISOString().split('T')[0];
+        //console.log('BUSES>>>>>', rese.data)
+        let operatingDate = (new Date(sessionStorage.getItem('operatingDate'))).toISOString().split('T')[0];
 
           if (res.data !== null) {
             this.buses = this.busesFilter
                .filter(
                (o) =>
                    !this.reservedBus.find(
-                       (o2) => o.id === o2.bus_id && (o2.reservation_status === 'A' || o2.status === 'A' || o2.status === 'p') && o2.reserved_time.split('T')[0] === operatingDate
+                       (o2) => o.id === o2.bus_id && (o2.reservation_status === 'P' || o2.reservation_status === 'A') && o2.reserved_time.split('T')[0] === operatingDate
                    )
             );
           } else {
-            this.buses = this.busesFilter
-                .filter(
-                    (o) =>
-                        !this.reservedBus.find(
-                            (o2) => o.id === o2.bus_id && (o2.reservation_status === 'A' || o2.status === 'A' || o2.status === 'p') && o2.reserved_time.split('T')[0] === operatingDate
-                        )
-                );
+            this.buses = [];
           }
+          console.log("Available buses>>> ", this.buses);
       });
 
         this.slotInteravlService.getList().then((slots) => {

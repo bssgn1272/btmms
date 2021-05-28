@@ -4,14 +4,15 @@ import (
 	"crypto/hmac"
 	"crypto/sha512"
 	"encoding/hex"
-	"github.com/dgrijalva/jwt-go"
-	"github.com/jinzhu/gorm"
 	"log"
 	"net/url"
 	"new-bus-management-backend/utils"
 	"os"
 	"regexp"
 	"time"
+
+	"github.com/dgrijalva/jwt-go"
+	"github.com/jinzhu/gorm"
 )
 
 /*
@@ -42,29 +43,27 @@ type ProbaseTblUser struct {
 	AccountType   string    `json:"account_type"`
 	AccountNumber string    `json:"account_number"`
 	InsertedAt    time.Time `json:"inserted_at"`
-	Status        string `gorm:"default:'active'" json:"status"`
+	Status        string    `gorm:"default:'active'" json:"status"`
 }
 
 // Variables for regular expressions
 
 var (
 	regexpUsername = regexp.MustCompile("^[^0-9]+$")
-	regexpRole = regexp.MustCompile("^[^0-9]+$")
-	regexpEmail = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
-	regexpPhone = regexp.MustCompile(`^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$`)
+	regexpRole     = regexp.MustCompile("^[^0-9]+$")
+	regexpEmail    = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+	regexpPhone    = regexp.MustCompile(`^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$`)
 	regexpPassword = regexp.MustCompile("^[^0-9]+$")
 )
 
 //Validate incoming user details...
-func (account *ProbaseTblUser) Validate() url.Values  {
+func (account *ProbaseTblUser) Validate() url.Values {
 
 	errs := url.Values{}
-
 
 	if account.Username == "" {
 		errs.Add("username", "The username field is required!")
 	}
-
 
 	if account.Password == "" {
 		errs.Add("password", "The password field is required!")
@@ -73,7 +72,6 @@ func (account *ProbaseTblUser) Validate() url.Values  {
 	if len(account.Password) < 6 {
 		errs.Add("title", "The password must be 6 or more chars!")
 	}
-
 
 	temp := &ProbaseTblUser{}
 
@@ -111,17 +109,16 @@ func (account *ProbaseTblUser) Validate() url.Values  {
 }
 
 // create user function
-func (account *ProbaseTblUser) Create() (map[string] interface{}) {
-
+func (account *ProbaseTblUser) Create() map[string]interface{} {
 
 	//if validErrs := account.Validate(); len(validErrs) > 0 {
 	//	err := map[string]interface{}{"validationError": validErrs}
 	//	return err
 	//}
 
-	hash :=  hmac.New(sha512.New, []byte(os.Getenv( "secretKey")))
+	hash := hmac.New(sha512.New, []byte(os.Getenv("secretKey")))
 
-	 hash.Write([]byte(account.Password))
+	hash.Write([]byte(account.Password))
 	hashedPassword := hex.EncodeToString(hash.Sum(nil))
 
 	log.Println(hashedPassword)
@@ -149,7 +146,6 @@ func (account *ProbaseTblUser) Create() (map[string] interface{}) {
 	return response
 }
 
-
 func (probaseTblUser *ProbaseTblUser) UpdateAccessPermission(id uint) map[string]interface{} {
 
 	db.Model(&probaseTblUser).Where("id = ?", id).Updates(ProbaseTblUser{Status: probaseTblUser.Status})
@@ -161,7 +157,6 @@ func (probaseTblUser *ProbaseTblUser) UpdateAccessPermission(id uint) map[string
 	log.Println(resp)
 	return resp
 }
-
 
 // GetLateCancellationTime function to get minutes before cancellation
 func GetAllUsers() []*ProbaseTblUser {
@@ -176,5 +171,14 @@ func GetAllUsers() []*ProbaseTblUser {
 	return probaseTblUser
 }
 
+func GetUser(id uint) []*ProbaseTblUser {
+	probaseTblUser := make([]*ProbaseTblUser, 0)
+	err := GetDB().Model(ProbaseTblUser{}).Where("id = ?", id).Find(&probaseTblUser).Error
+	log.Println(err)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
 
-
+	return probaseTblUser
+}

@@ -21,6 +21,7 @@ import { SettingsService } from 'app/settings/settings.service';
 import {ApproveReservationComponent} from '../approve-reservation/approve-reservation.component';
 import {ApproveArrivalReservationComponent} from '../approve-arrival-reservation/approve-arrival-reservation.component';
 import {CancelArrivalReservationComponent} from '../cancel-arrival-reservation/cancel-arrival-reservation.component';
+import { CancelReservationComponent } from 'app/cancel-reservation/cancel-reservation.component';
 
 @Component({
   selector: 'app-roservation-requests',
@@ -651,6 +652,18 @@ export class RoservationRequestsComponent implements OnInit {
 
   confirmCancellationRequest(row): void {
     const dialogRef = this.dialog.open(ConfirmCancellationComponent, {
+      width: '60%',
+      // height: "850",
+      data: { row },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      row = result;
+      console.log(row);
+    });
+  }
+
+  cancellationRequest(row): void {
+    const dialogRef = this.dialog.open(CancelReservationComponent, {
       width: '60%',
       // height: "850",
       data: { row },
