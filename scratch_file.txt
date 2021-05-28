@@ -21,3 +21,85 @@
     "remarks" => "API test2",
     "referenceNo" => "{{$timestamp}}"
 }
+
+{
+  "errorList":{},
+  "operation_status":"SUCCESS",
+  "preauthUUID":"75cd0806-f87f-42a8-8b76-8312a5b79aa8",
+  "request":{
+    "accType":"WA",
+    "add1":"",
+    "add2":"",
+    "add3":"",
+    "add4":"",
+    "add5":"",
+    "code":"ZB0631",
+    "currency":"ZMW",
+    "custImg":"",
+    "custSig":"",
+    "dateOfBirth":"2021-05-28",
+    "email":"josephmsiame@gmail.com",
+    "firstName":"Delta",
+    "idBack":"",
+    "idFront":"",
+    "lastName":"Sierra",
+    "mobileNumber":"0968309959",
+    "sex":"M",
+    "uniqueType":"NRC",
+    "uniqueValue":"776655/11/9"
+  },
+  "request-reference":"2021285-ZICB-1622194382",
+  "response":{
+    "cust":{
+      "accNos":{
+        "1019000001702":{
+          "accDesc":"DELTA SIERRA",
+          "accNo":1019000001702,
+          "accStatus":"A",
+          "accType":"WA",
+          "avlBal":0,
+          "branchCode":"101",
+          "createdAt":1622194382734,
+          "curBal":0,
+          "currency":"ZMW",
+          "idCustomer":9000621,
+          "updatedAt":1622194382734
+        }
+      },
+      "add1":"",
+      "add2":"",
+      "add3":"",
+      "add4":"",
+      "add5":"",
+      "addressProofImg":nil,
+      "createdAt":1622194382732,
+      "custImg":"",
+      "custSig":"",
+      "dateOfBirth":1622160000000,
+      "email":"josephmsiame@gmail.com",
+      "firstName":"Delta",
+      "idBack":"",
+      "idCustomer":9000621,
+      "idFront":"",
+      "lastName":"Sierra",
+      "mobIsdNo":nil,
+      "mobileNumber":"0968309959",
+      "sex":"M",
+      "status":"A",
+      "uniqueType":"NRC",
+      "uniqueValue":"776655/11/9",
+      "updatedAt":1622194382732
+    },
+    "tekHeader":{
+      "errList":{},
+      "hostrefno":nil,
+      "msgList":{"WA-CUS1":"Customer creation successful "},
+      "status":"SUCCESS",
+      "tekesbrefno":"c2156d34-cc84-4abd-c176-72a4736fd04c",
+      "username":"DEMO",
+      "warnList":{}
+    }
+  },
+  "status":200,
+  "timestamp":1622194382765
+}

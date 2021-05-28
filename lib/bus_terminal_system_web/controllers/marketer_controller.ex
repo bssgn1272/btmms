@@ -89,7 +89,9 @@ defmodule BusTerminalSystemWeb.MarketerController do
          MarketRepo.market_create(params)
          |> case do
               {:ok,_market} -> conn |> put_flash(:info, "Market Created") |> redirect(to: Routes.marketer_path(conn, :index))
-              {:error,_market} -> conn |> put_flash(:error, "Failed to Create Market") |> redirect(to: Routes.marketer_path(conn, :index))
+              {:error, changeset} ->
+                IO.inspect changeset
+                conn |> put_flash(:error, "Failed to Create Market") |> redirect(to: Routes.marketer_path(conn, :index))
             end
        "create_section" ->
          MarketRepo.market_section_create(params)

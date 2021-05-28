@@ -10,20 +10,22 @@ defmodule BusTerminalSystem.Market.MarketRepo do
   end
 
   def market_create(params), do: %Market{} |> Market.changeset(params) |> Repo.insert()
-  def market_list(), do: Repo.all(Market)
+  def market_list(), do: Market.where([auth_status: true])
   def market_list_by_market_id(id), do: Repo.all(from q in Market, where: q.id == ^id)
   def market_custom_query(query), do: Repo.all(query)
   def market_find(query_map), do: Repo.get_by(Market,query_map)
   def market_update(%Market{} = market, attrs), do: market |> Market.changeset(attrs) |> Repo.update()
 
   def market_section_create(params), do: %Section{} |> Section.changeset(params) |> Repo.insert()
-  def market_section_list(), do: Repo.all(Section)
+#  def market_section_list(), do: Repo.all(Section)
+  def market_section_list(), do: Section.where([auth_status: true])
   def market_section_list_by_market_id(id), do: Repo.all(from q in Section, where: q.market_id == ^id)
   def market_section_find(query_map), do: Repo.get_by(Section,query_map)
   def market_section_update(%Section{} = section, attrs), do: section |> Section.changeset(attrs) |> Repo.update()
 
   def market_shop_create(params), do: %Shop{} |> Shop.changeset(params) |> Repo.insert!()
-  def market_shop_list(), do: Repo.all(Shop)
+#  def market_shop_list(), do: Repo.all(Shop)
+  def market_shop_list(), do: Shop.where([auth_status: true])
   def market_shop_list_by_market_id(id), do: Repo.all(from q in Shop, where: q.section_id == ^id)
   def market_shop_by_user_id(id), do: Repo.get_by(Shop,maketeer_id: id)
   def market_shop_find(query_map), do: Repo.get_by(Shop,query_map)

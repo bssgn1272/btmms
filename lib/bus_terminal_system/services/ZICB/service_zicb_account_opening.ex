@@ -98,6 +98,7 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
         }
         |> Poison.encode!()
         |> http()
+        |> IO.inspect
 
       {:error, message} -> {:error, message}
     end
@@ -128,6 +129,7 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
   end
 
   def query_by_account(response) do
+    IO.inspect response
     if response["operation_status"] == "FAIL" do
       %{}
     else

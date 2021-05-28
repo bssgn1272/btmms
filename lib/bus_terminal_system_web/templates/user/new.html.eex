@@ -87,7 +87,7 @@
                                     <div class="form-group">
                                         <label class="control-label">Branch:</label>
                                         <select name="payload[branch]" onclick="sortCode()" id="user_branches"  class="form-control" >
-                                        </select>
+                                        </select>t
                                     </div>
 
                                     <div hidden class="form-group" id="user_last_name" >

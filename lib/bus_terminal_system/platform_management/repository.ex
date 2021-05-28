@@ -402,10 +402,12 @@ defmodule BusTerminalSystem.RepoManager do
   end
 
   def list_buses(operator_id) do
-    query = from r in Bus, where: r.operator_id == ^operator_id
-    {status, buses} = Repo.all(query) |> Poison.encode
-    {decode_status, bus_list} = JSON.decode(buses)
-    bus_list
+#    query = from r in Bus, where: r.operator_id == ^operator_id and r.auth_status == 1
+#    {status, buses} = Repo.all(query) |> Poison.encode
+#    {decode_status, bus_list} = JSON.decode(buses)
+#    bus_list
+
+    Bus.where([operator_id: operator_id, auth_status: true]) |> Poison.encode
   end
 
   def find_bus_by_id(id) do

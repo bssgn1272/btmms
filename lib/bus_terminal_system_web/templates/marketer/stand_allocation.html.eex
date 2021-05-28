@@ -41,7 +41,7 @@
                                 <td><%= m.mobile %></td>
                                 <td><%= m.nrc %></td>
                                 <td><%= BusTerminalSystem.Market.Shop.where([maketeer_id: m.id]) |> Enum.count %></td>
-                                <td><%=  BusTerminalSystem.Market.Shop.where([maketeer_id: "30"]) |> Enum.map(fn m -> "#{m.shop_number}/#{BusTerminalSystem.Market.Section.find(m.section_id).section_name}" end)
+                                <td><%=  BusTerminalSystem.Market.Shop.where([maketeer_id: m.id]) |> Enum.map(fn m -> "#{m.shop_number}/#{BusTerminalSystem.Market.Section.find(m.section_id).section_name}" end)
                                     |> Poison.encode!
                                     |> String.replace("[", "")
                                     |> String.replace("]", "")

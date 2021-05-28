@@ -16,7 +16,7 @@
                         <tr>
                             <th> Maker </th>
                             <th> Maker Date r</th>
-                            <th> User Description </th>
+                            <th> Action Description </th>
                             <th> System Description </th>
                             <th class="text-center">Actions</th>
                         </tr>
@@ -24,7 +24,7 @@
                     <tbody>
                   <%= for list <- @list do %>
                       <tr>
-                          <td> <%= list.maker  %> </td>
+                          <td> <%= list.maker %> </td>
                           <td> <%= list.maker_date_time %> </td>
                           <td> <%= list.user_description %> </td>
                           <td> <%= list.system_description %> </td>

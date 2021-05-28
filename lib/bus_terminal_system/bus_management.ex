@@ -17,7 +17,7 @@ defmodule BusTerminalSystem.BusManagement do
 
   """
   def list_bus_terminus do
-    Repo.all(from t in Bus, where: [auth_status: 1])
+    Repo.all(from t in Bus, where: [auth_status: true])
   end
 
   @doc """
@@ -77,7 +77,7 @@ defmodule BusTerminalSystem.BusManagement do
       company: params["company"],
       company_info: params["company_info"],
       card: params["card_number"],
-      auth_status: 0,
+      auth_status: false,
       maker: conn.assigns.user.id,
       maker_date_time: Timex.now() |> NaiveDateTime.truncate(:second) |> Timex.to_naive_datetime(),
       user_description: params["user_description"],

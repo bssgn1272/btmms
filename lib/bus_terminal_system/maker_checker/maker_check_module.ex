@@ -22,25 +22,27 @@ defmodule BusTerminalSystem.MakerCheckModule do
 
   def maker_checker() do
     tables |> Enum.map(fn table ->
-      try do
+#      try do
         Repo.query("SELECT maker, maker_date_time, user_description, system_description, id
         FROM #{table} WHERE auth_status='0'") |> case do
              {:ok, fields} ->
                fields.rows |> case do
                     [] -> nil
                     rows ->
+                      IO.inspect rows
                       rows |> Enum.map(fn row ->
+                        IO.inspect("******************************************************")
                         IO.inspect(table)
                         IO.inspect(row)
-                        %{schema: table, id: row |> Enum.at(4), maker: User.find_by(id: row |> Enum.at(0)).username,
+                        %{schema: table, id: row |> Enum.at(4), maker: (User.find_by(id: row |> Enum.at(0)).username || 1),
                           maker_date_time: row |> Enum.at(1), user_description: row |> Enum.at(2), system_description: row |> Enum.at(3)}
                       end)
                   end
              {:error, _} -> nil
            end
-      rescue
-        _ -> nil
-      end
+#      rescue
+#        _ -> nil
+#      end (User.find_by(id: row |> Enum.at(0)).username || 1)
     end)
     |> Enum.filter(& !is_nil(&1))
     |> List.flatten()

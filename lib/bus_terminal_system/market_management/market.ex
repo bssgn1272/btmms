@@ -1,8 +1,9 @@
 defmodule BusTerminalSystem.Market.Market do
   use Ecto.Schema
+  use Endon
   import Ecto.Changeset
 
-  @db_columns [:market_name, :location, :market_uid, :city_town, :estimated_population, :auth_status, :maker_id, :checker_id, :maker_date_time,
+  @db_columns [:market_name, :location, :market_uid, :city_town, :estimated_population, :auth_status, :maker, :checker, :maker_date_time,
     :checker_date_time, :user_description, :system_description]
   @derive {Poison.Encoder, only: @db_columns ++ [:id]}
 
@@ -12,14 +13,13 @@ defmodule BusTerminalSystem.Market.Market do
     field :market_uid, :string
     field :city_town, :string
     field :estimated_population, :string
-
     field :auth_status, :boolean, default: false
-    field :maker, :integer
-    field :checker, :integer
-    field :maker_date_time, :naive_datetime
-    field :checker_date_time, :naive_datetime
-    field :user_description, :string
-    field :system_description, :string
+    field :maker, :integer, default: 1
+    field :checker, :integer, default: 1
+    field :maker_date_time, :naive_datetime, default: NaiveDateTime.local_now
+    field :checker_date_time, :naive_datetime, default: NaiveDateTime.local_now
+    field :user_description, :string, default: "New market creation request"
+    field :system_description, :string, default: "Market Creation"
 
     timestamps()
   end
