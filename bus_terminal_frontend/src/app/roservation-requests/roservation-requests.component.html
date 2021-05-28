@@ -276,7 +276,7 @@
                             Make Cancellation Request
                           </button>
                           <button
-                            *ngIf="role === 'TOP' && workFlow.mode === 'NWF'"
+                            *ngIf="(role === 'TOP' && workFlow.mode === 'NWF') || (role === 'ADMIN' && row.reservation_status === 'A')"
                             (click)="confirmCancellationRequest(row)"
                             mat-menu-item
                           >
