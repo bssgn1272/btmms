@@ -224,7 +224,8 @@ export class CancelReservationComponent implements OnInit {
               (error) => {}
             );
                
-          this._location.back();
+          //this._location.back();
+          window.location.reload();
           this._snackBar.open("Successfully Updated", null, {
             duration: 1000,
             horizontalPosition: "center",
