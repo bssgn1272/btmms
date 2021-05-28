@@ -20,7 +20,7 @@ defmodule BusTerminalSystem.MixProject do
   def application do
     [
       mod: {BusTerminalSystem.Application, []},
-      extra_applications: [:logger, :runtime_tools, :elixir_xml_to_map, :soap]
+      extra_applications: [:logger, :runtime_tools, :elixir_xml_to_map, :soap, :swoosh, :gen_smtp]
     ]
   end
 

@@ -8,9 +8,13 @@ function CheckPassword() {
 
 }
 
+function change_password() {
+    $("#change_password_modal").modal("show");
+}
+
 function validatePassword(inputtxt)
 {
-    var passw=  /^[A-Za-z]\w{6,9}$/;
+    var passw=  /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
     if(inputtxt.value.match(passw))
     {
         alert('Correct, try another...')

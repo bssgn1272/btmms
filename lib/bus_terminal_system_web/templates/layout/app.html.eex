@@ -60,12 +60,14 @@
     				</a>
 
     				<ul class="dropdown-menu dropdown-menu-right">
-                        <li>
-                            <%= link "Dashboard", to: Routes.user_path(@conn, :index) %>
-                        </li>
     					<li>
                             <a href="<%= Routes.session_path(@conn, :logout) %>">
                                 <i class="icon-switch2"></i> Logout
+                            </a>
+                        </li>
+                        <li>
+                            <a onclick="change_password()">
+                                <i class="icon-lock2"></i> Change password
                             </a>
                         </li>
     				</ul>
@@ -467,6 +469,97 @@
         </div>
     	</div>
     	<!-- /footer -->
+
+
+        <div id="change_password_modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header w3-indigo">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Change Password</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form class="form-vertical">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!-- Account settings -->
+                                        <div class="panel panel-flat">
+                                            <div class="panel-heading">
+                                                <h6 class="panel-title">Account settings</h6>
+                                                <div class="heading-elements">
+                                                    <ul class="icons-list">
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div class="panel-body">
+                                                <div id="reset_form_id">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label>Username</label>
+                                                                <input type="text" value="<%= @user.username %>" id="model_pwd_username" readonly="readonly" class="form-control">
+                                                                <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <label>Current password</label>
+                                                                <input type="password" id="reset_current_password" value="" placeholder="Enter Current Password" required class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label>New password</label>
+                                                                <input type="password" id="password" class="form-control" placeholder="Enter new password" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <label>Repeat password</label>
+                                                                <input type="password" id="confirm_password" class="form-control" placeholder="Repeat password" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                                                                <span id='message'></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <button type="submit" onclick="change_user_password()" class="w3-btn w3-indigo w3-hover-orange w3-left w3-round">
+                                                        <b><i class="icon-checkmark2"></i></b>Update Password
+                                                    </button>
+
+                                                    <button type="button" style="margin-left: 20px;" class="w3-btn w3-grey w3-round" data-dismiss="modal">Close</button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /account settings -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </form>
+                </div>
+                <div class="modal-footer">
+
+
+
+                </div>
+                <hr>
+
+
+            </div>
+        </div>
+        </div>
 
     <!-- Core JS files -->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

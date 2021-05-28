@@ -26,6 +26,7 @@
                                     <div class="form-group">
                                         <label class="control-label">User Role:</label>
                                             <select name="payload[role]" onclick="user_type_selection(this.value)" class="form-control">
+                                                <option value="">Please select Operator Type</option>
                                                 <option value="BOP">Bus Operator</option>
                                                 <option value="MOP">Marketeer</option>
                                             </select>
@@ -87,7 +88,7 @@
                                     <div class="form-group">
                                         <label class="control-label">Branch:</label>
                                         <select name="payload[branch]" onclick="sortCode()" id="user_branches"  class="form-control" >
-                                        </select>t
+                                        </select>
                                     </div>
 
                                     <div hidden class="form-group" id="user_last_name" >

@@ -1,4 +1,4 @@
-defmodule(CustomSymbolsPassword, do: use(RandomPassword, alpha: 5, symbol: 3, symbols: "#$%&!"))
+defmodule(CustomSymbolsPassword, do: use(RandomPassword, alpha: 6, decimal: 1, symbol: 1, symbols: "#$%&!"))
 
 defmodule BusTerminalSystemWeb.UserController do
   use BusTerminalSystemWeb, :controller
@@ -70,11 +70,11 @@ defmodule BusTerminalSystemWeb.UserController do
     {s,pin} = Map.fetch(payload,"pin")
 
     password = CustomSymbolsPassword.generate()
+    decoded_password = password
+    password = Base.encode16(:crypto.hash(:sha512, password))
 
     pin = BusTerminalSystem.Randomizer.randomizer(5,:numeric)
-
     decoded_pin = pin
-    decoded_password = password
     pin = Base.encode16(:crypto.hash(:sha512, pin))
 
     payload = payload |> Map.put("password", password)
@@ -209,13 +209,11 @@ defmodule BusTerminalSystemWeb.UserController do
     {s,pin} = Map.fetch(payload,"pin")
 
     password = CustomSymbolsPassword.generate()
-
-    pin = BusTerminalSystem.Randomizer.randomizer(5,:numeric)
-
-    decoded_pin = pin
-
     decoded_password = password
     password = Base.encode16(:crypto.hash(:sha512, password))
+
+    pin = BusTerminalSystem.Randomizer.randomizer(5,:numeric)
+    decoded_pin = pin
     pin = Base.encode16(:crypto.hash(:sha512, pin))
 
     payload = payload |> Map.put("password", password)
@@ -379,6 +377,7 @@ defmodule BusTerminalSystemWeb.UserController do
       {:error, %Ecto.Changeset{} = changeset} ->
 
           ApiManager.translate_error(changeset)
+          IO.inspect(changeset)
 
         conn
         |> put_flash(:error,"Failed To Create User")

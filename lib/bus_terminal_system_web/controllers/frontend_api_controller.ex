@@ -796,8 +796,8 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     conn |> json(response.response)
   end
 
-  def user_validation_api(conn, params) do
-    query = "SELECT * FROM probase_tbl_users WHERE #{params["column"]}='#{params["value"]}'"
+  def form_validation_api(conn, params) do
+    query = "SELECT * FROM #{params["table"]} WHERE #{params["column"]}='#{params["value"]}'"
     {status, result} = BusTerminalSystem.Repo.query(query)
 
     conn |> json(%{exist: result.num_rows})
@@ -813,6 +813,21 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
   def get_bank(conn, params) do
     conn |> json(BusTerminalSystem.Banks.find_by([bankName: params["bank"], branchDesc: params["branch"]]) |> Poison.encode!())
+  end
+
+  def update_user_password(conn, params) do
+    user = User.find_by(username: params["username"])
+    if user.password != Base.encode16(:crypto.hash(:sha512, params["password"])) do
+      conn |> json(%{status: 1, message: "Current Password Does not match"})
+    else
+      user |> BusTerminalSystem.AccountManager.User.update([password: Base.encode16(:crypto.hash(:sha512, params["new_password"]))])
+      |> case do
+           {:ok, user} -> conn |> json(%{status: 0, message: "Password Updated Successfully"})
+           {:error, error} ->
+             IO.inspect error
+             conn |> json(%{status: 1, message: "Password Update Failed"})
+         end
+       end
   end
 
 end

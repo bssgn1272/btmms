@@ -14,7 +14,7 @@ defmodule BusTerminalSystem.Randomizer do
       iex> Iurban.String.randomizer(20) //"Je5QaLj982f0Meb0ZBSK"
   """
   def randomizer(length, type \\ :all) do
-    alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&!"
     numbers = "0123456789"
 
     lists =

@@ -64,7 +64,7 @@ defmodule BusTerminalSystemWeb.SessionController do
     case User.find_by(username: username) do
       nil -> conn |> json(%{status: 400, message: "No User with username #{username} found, Please check the username and try again"})
       user ->
-        new_password = BusTerminalSystem.Randomizer.randomizer(5,:numeric) |> to_string |> IO.inspect
+        new_password = CustomSymbolsPassword.generate() |> to_string
 
         case User.update(user, [password: Base.encode16(:crypto.hash(:sha512, new_password))]) |> IO.inspect do
           {:ok, user} ->
