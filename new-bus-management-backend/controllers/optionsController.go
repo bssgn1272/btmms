@@ -94,7 +94,7 @@ func RunAccessControl() {
 			accessControl.DeactivatedAt = aReady.DeactivatedAt
 			accessControl.Status = "A"
 
-			url := fmt.Sprintf("http://10.70.3.55:8082/cosec/api.svc/v2/user?action=set;id=%d;active=1", aReady.BusID)
+			url := fmt.Sprintf("http://10.70.1.3/cosec/api.svc/v2/user?action=set;id=%d;active=1", aReady.BusID)
 			resp, err := http.Get(url)
 			if err != nil {
 				print(err)
@@ -120,7 +120,7 @@ func RunAccessControl() {
 			accessControl.DeactivatedAt = dReady.DeactivatedAt
 			accessControl.Status = "D"
 
-			url := fmt.Sprintf("http://10.70.3.55:8082/cosec/api.svc/v2/user?action=set;id=%d;active=0", dReady.BusID)
+			url := fmt.Sprintf("http://10.70.1.3/cosec/api.svc/v2/user?action=set;id=%d;active=0", dReady.BusID)
 			resp, err := http.Get(url)
 			if err != nil {
 				print(err)
@@ -206,7 +206,7 @@ func sms(receiver string, msg string) {
 	parameters.Add("smsc", "zamtelsmsc")
 	parameters.Add("username", "napsamobile")
 	parameters.Add("password", "napsamobile@kannel")
-	parameters.Add("from", "BTMMS")
+	parameters.Add("from", "LMBMC")
 	parameters.Add("to", receiver)
 	parameters.Add("text", msg)
 
