@@ -815,7 +815,8 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     conn |> json(BusTerminalSystem.Banks.find_by([bankName: params["bank"], branchDesc: params["branch"]]) |> Poison.encode!())
   end
 
-  def update_user_password(conn, params) do
+  def change_user_password(conn, params) do
+    IO.inspect params
     user = User.find_by(username: params["username"])
     if user.password != Base.encode16(:crypto.hash(:sha512, params["password"])) do
       conn |> json(%{status: 1, message: "Current Password Does not match"})

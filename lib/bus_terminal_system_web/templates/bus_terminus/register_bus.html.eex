@@ -160,7 +160,7 @@
 
                                                 <div class="form-group">
                                                     <label>License Plate:</label>
-                                                    <input name="payload[license_plate]" id="licensePlate" class="form-control" placeholder="Enter License Plate" type="text" required>
+                                                    <input name="payload[license_plate]" oninput="bus_validation(this)" id="licensePlate" class="form-control" placeholder="Enter License Plate" type="text" required>
                                                 </div>
 
 
@@ -171,7 +171,7 @@
 
                                                 <div class="form-group">
                                                     <label>Card Number</label>
-                                                    <input name="payload[card_number]" id="vehicleCardNumber" class="form-control" placeholder="Card Number" type="number" required>
+                                                    <input name="payload[card_number]" oninput="bus_validation(this)" id="vehicleCardNumber" class="form-control" placeholder="Card Number" type="number" required>
                                                 </div>
 
                                                 <div class="form-group">
@@ -182,18 +182,18 @@
 
                                                 <div class="form-group">
                                                       <label>VIN Number:</label>
-                                                      <input name="payload[vin_number]" id="vinNumber" class="form-control" placeholder="Enter VIN Number" type="text" required>
+                                                      <input name="payload[vin_number]" id="vinNumber" oninput="bus_validation(this)" class="form-control" placeholder="Enter VIN Number" type="text" required>
                                                 </div>
 
                                                 <div class="form-group">
                                                       <label>Serial Number:</label>
-                                                      <input name="payload[serial_number]" id="vehicleSerialNumber" class="form-control" placeholder="Enter Serial Number" type="text" required>
+                                                      <input name="payload[serial_number]" oninput="bus_validation(this)" id="vehicleSerialNumber" class="form-control" placeholder="Enter Serial Number" type="text" required>
                                                 </div>
 
 
                                                 <div class="form-group">
                                                       <label>Hull Number:</label>
-                                                      <input name="payload[hull_number]" id="vehicleHullNUmber" class="form-control" placeholder="Enter Hull Number" type="text" required>
+                                                      <input name="payload[hull_number]" oninput="bus_validation(this)" id="vehicleHullNUmber" class="form-control" placeholder="Enter Hull Number" type="text" required>
                                                 </div>
 
                                                 <div class="form-group">

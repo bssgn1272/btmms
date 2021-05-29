@@ -176,7 +176,7 @@ defmodule BusTerminalSystemWeb.Router do
     post "/btms/operator/reset_password", FrontendApiController, :reset_password
     post "/btms/operator/search", FrontendApiController, :find_operator
     post "/btms/H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hICn", FrontendApiController, :form_validation_api
-    post "/btms/H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hICo", FrontendApiController, :update_user_password
+    post "/btms/H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hIC0", FrontendApiController, :change_user_password
 
     post "/btms/travel/secured/internal/locations/destinations",
          TicketController,

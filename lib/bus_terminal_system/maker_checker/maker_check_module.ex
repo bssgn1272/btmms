@@ -53,12 +53,50 @@ defmodule BusTerminalSystem.MakerCheckModule do
     |> case do
          {:ok, %{columns: columns, rows: rows}} ->
            data1 = rows |> Enum.map(&Enum.zip(columns, &1)) |> Enum.map(&Enum.into(&1, %{})) |> Enum.at(0)
+
            data = data1 |> Map.delete("maker") |> Map.put("maker", User.find_by(id: data1["maker"]).username)
                   |> Map.delete("id") |> Map.delete("auth_status") |> Map.delete("checker")
                   |> Map.delete("checker_date_time") |> Map.delete("checker_date_time")
+
            case params["table"] do
              "probase_tbl_travel_routes" ->
                [data |> Map.delete("ticket_id") |> Map.delete("route_uuid") ]
+             "probase_tbl_users" -> [data
+               |> Map.delete("password")
+               |> Map.delete("pin")
+               |> Map.delete("company")
+               |> Map.delete("role")
+               |> Map.delete("uuid")
+               |> Map.delete("account_status")
+#               |> Map.delete("operator_role")
+               |> Map.delete("tmp_pin")
+               |> Map.delete("company")
+               |> Map.delete("account_number")
+               |> Map.delete("account_type")
+               |> Map.delete("apply_discount")
+               |> Map.delete("discount_amount")
+               |> Map.delete("discount_reason")
+               |> Map.delete("compliance")
+               |> Map.delete("employer_number")
+               |> Map.delete("dob")
+               |> Map.delete("sex")
+               |> Map.delete("bank_message")
+               |> Map.delete("bank_account_status")
+               |> Map.delete("bank_account_balance")
+               |> Map.delete("bank_srcBranch")
+               |> Map.delete("bank_destBranch")
+               |> Map.delete("system_description")
+               |> Map.delete("bank_destBranch")
+               |> Map.delete("compliance")
+               |> Map.delete("token")
+               |> Map.delete("role_id")
+               |> Map.delete("created_at")
+               |> Map.delete("deleted_at")
+               |> Map.delete("inserted_at")
+               |> Map.delete("updated_at")
+               |> Map.delete("status")
+               |> Map.delete("tel")
+               |> Map.delete("route_uuid") ]
              _ -> [data]
            end
        end

@@ -108,7 +108,7 @@
 
                                     <div class="form-group" id="user_employer_number">
                                         <label>Employer Number:</label>
-                                        <input name="payload[employer_number]" id="EmployerNumber" oninput=(user_validation(this)) class="form-control" required value="" placeholder="Enter Employer Number" type="text">
+                                        <input name="payload[employer_number]" id="user_employer_number_input" class="form-control" type="number" value="0" placeholder="Enter Employer Number">
                                     </div>
 
                                     <div class="form-group">

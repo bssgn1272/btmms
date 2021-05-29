@@ -2,7 +2,7 @@ defmodule BusTerminalSystem.NapsaSmsGetway do
 
   alias BusTerminalSystem.Settings
 
-  def send_sms(phone,message) do
+  def send_sms(phone, message) do
 
     Task.async(fn ->
       response = HTTPoison.get(Settings.find_by(key: "SMS_GATEWAY").value,[],
@@ -15,9 +15,6 @@ defmodule BusTerminalSystem.NapsaSmsGetway do
         text: message
         }
       )
-      IO.inspect("--------------------------START SMS STATUS----------------------------------")
-      IO.inspect(response)
-      IO.inspect("--------------------------END SMS STATUS----------------------------------")
     end)
   end
 

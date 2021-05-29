@@ -36,8 +36,8 @@ defmodule BusTerminalSystem.AccountManager.User do
     field :auth_status, :boolean, default: false
     field :maker, :integer, default: 1
     field :checker, :integer, default: 1
-    field :maker_date_time, :naive_datetime, default: NaiveDateTime.local_now
-    field :checker_date_time, :naive_datetime, default: NaiveDateTime.local_now
+    field :maker_date_time, :naive_datetime, default: NaiveDateTime.utc_now |> NaiveDateTime.truncate(:second)
+    field :checker_date_time, :naive_datetime, default: NaiveDateTime.utc_now |> NaiveDateTime.truncate(:second)
     field :user_description, :string, default: "New User Creation Request"
     field :system_description, :string, default: "New User"
 

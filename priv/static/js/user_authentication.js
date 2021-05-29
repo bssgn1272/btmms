@@ -11,33 +11,41 @@ function change_user_password(){
             buttonsStyling: true
         });
 
-        if($('#message').html() == "Not Matching"){
-            // swalWithBootstrapButtons.fire(
-            //     'Error',
-            //     'Passwords Do Not Match',
-            //     'error'
-            // )
+        if($('#message').html() === "Not Matching"){
+            swalWithBootstrapButtons.fire(
+                'Passwords do not match',
+                'Please re-type your passwords and ensure they are the same',
+                'error'
+            )
         }else{
             var passw=  /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
-            if($("#password").val().match(passw))
+            if($("#confirm_password").val().match(passw))
             {
                 $.ajax(
                     {
                     method: 'post',
-                    url: '/api/v1/btms/H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hICo',
+                    url: '/api/v1/btms/H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hIC0',
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (response) {
 
+                        console.log(response)
+
                         if (response.status === 0) {
-                            swalWithBootstrapButtons.fire(
-                                'Success',
-                                response.message,
-                                'success'
-                            )
+                            // swalWithBootstrapButtons.fire(
+                            //     'Success',
+                            //     response.message,
+                            //     'success'
+                            // )
+
+                            swal({title: "Password Update Successful", text:  response.message, type: "success"},
+                                function(){
+                                    window.location.href = "/logout"
+                                }
+                            );
                         }else{
                             swalWithBootstrapButtons.fire(
-                                'Error',
+                                'Request Failed',
                                 response.message,
                                 'error'
                             )
@@ -50,7 +58,11 @@ function change_user_password(){
             }
             else
             {
-                alert('Wrong...!')
+                swalWithBootstrapButtons.fire(
+                    'Password Policy Error',
+                    'Must contain at least one number one uppercase and lowercase letter, and at least 8 or more characters',
+                    'error'
+                )
 
             }
 

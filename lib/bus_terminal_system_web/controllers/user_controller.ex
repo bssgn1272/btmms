@@ -1,4 +1,4 @@
-defmodule(CustomSymbolsPassword, do: use(RandomPassword, alpha: 6, decimal: 1, symbol: 1, symbols: "#$%&!"))
+defmodule(CustomSymbolsPassword, do: use(RandomPassword, alpha: 6, decimal: 1, symbol: 1, symbols: "#%&!"))
 
 defmodule BusTerminalSystemWeb.UserController do
   use BusTerminalSystemWeb, :controller
@@ -33,7 +33,7 @@ defmodule BusTerminalSystemWeb.UserController do
     users = BusTerminalSystem.AccountManager.User.where(auth_status: true)
     f = Timex.today |> Timex.to_datetime
 #    tickets =  BusTerminalSystem.TicketManagement.Ticket.where(travel_date: Timex.today() |> to_string)
-    tickets =  BusTerminalSystem.TicketManagement.Ticket.all() |> Enum.reverse
+    tickets =  BusTerminalSystem.TicketManagement.Ticket.all(order_by: [desc: :inserted_at])
 
 
     buses = RepoManager.list_buses()
@@ -78,6 +78,7 @@ defmodule BusTerminalSystemWeb.UserController do
     pin = Base.encode16(:crypto.hash(:sha512, pin))
 
     payload = payload |> Map.put("password", password)
+    payload = payload |> Map.put("user_description", "User Creation Request. Username: #{username}")
     payload = payload |> Map.put("pin", pin)
 
     send_sms = (fn recipient, message -> BusTerminalSystem.Notification.Table.Sms.create!([recipient: recipient, message: message, sent: false]) end)
@@ -217,6 +218,7 @@ defmodule BusTerminalSystemWeb.UserController do
     pin = Base.encode16(:crypto.hash(:sha512, pin))
 
     payload = payload |> Map.put("password", password)
+    payload = payload |> Map.put("user_description", "User Creation Request. Username: #{username}")
     payload = payload |> Map.put("pin", pin)
 
     send_sms = (fn recipient, message -> BusTerminalSystem.Notification.Table.Sms.create!([recipient: recipient, message: message, sent: false]) end)

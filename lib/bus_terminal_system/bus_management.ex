@@ -80,7 +80,7 @@ defmodule BusTerminalSystem.BusManagement do
       auth_status: false,
       maker: conn.assigns.user.id,
       maker_date_time: Timex.now() |> NaiveDateTime.truncate(:second) |> Timex.to_naive_datetime(),
-      user_description: params["user_description"],
+      user_description: "New bus creation request. Operator: #{params["bus_operator"]}, License Plate#: #{params["license_plate"]}",
       system_description: "Request to add bus by #{conn.assigns.user.first_name} #{conn.assigns.user.last_name} at #{Timex.today()}")
     |> case do
          {:ok, bus} ->
