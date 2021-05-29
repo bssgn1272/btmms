@@ -8,23 +8,22 @@ import (
 	"regexp"
 	"time"
 
-
 	"github.com/jinzhu/gorm"
 )
 
 //EdReservation a struct for reservation model
 type EdReservation struct {
 	gorm.Model
-	Slot               string    `sql:"index"json:"slot"`
-	ResUuid            string    `json:"res_uuid"`
-	ReservationStatus             string    `gorm:"default:'p'" json:"reservation_status"`
-	EDBusRouteID              uint      `gorm:"ForeignKey: EdBusRouteID" json:"ed_bus_route_id"`
-	UserId             uint      `gorm:"ForeignKey: UserId" json:"user_id"`
-	BusId              uint      `gorm:"ForeignKey: BusId" json:"bus_id"`
-	Time               string    `json:"time"`
-	ReservedTime       time.Time `json:"reserved_time"`
-	CancellationReason string    `json:"cancellation_reason"`
-	EdBusRoute EdBusRoute `json:"ed_bus_routes"`
+	Slot               string     `sql:"index"json:"slot"`
+	ResUuid            string     `json:"res_uuid"`
+	ReservationStatus  string     `gorm:"default:'p'" json:"reservation_status"`
+	EDBusRouteID       uint       `gorm:"ForeignKey: EdBusRouteID" json:"ed_bus_route_id"`
+	UserId             uint       `gorm:"ForeignKey: UserId" json:"user_id"`
+	BusId              uint       `gorm:"ForeignKey: BusId" json:"bus_id"`
+	Time               string     `json:"time"`
+	ReservedTime       time.Time  `json:"reserved_time"`
+	CancellationReason string     `json:"cancellation_reason"`
+	EdBusRoute         EdBusRoute `json:"ed_bus_routes"`
 	//ProbaseTblUser ProbaseTblUser
 	//ProbaseTblBus ProbaseTblBus
 	EdSlotMappings EdSlotMapping `json:"ed_slot_mappings; "gorm:"foreignKey:slot;references:ed_slot_mappings.slot"`
@@ -103,7 +102,6 @@ func GetReservation(id uint) []*EdResult {
 	fmt.Println("RESULTS VEVEVE>>>", &result)
 	if err != nil {
 
-
 		return nil
 	}
 	return result
@@ -115,7 +113,7 @@ func GetReservationOperatorHistory(id uint) []*EdResult {
 	reservations := make([]*EdResult, 0)
 	fmt.Print("ARRAY>>>>>>>>", reservations)
 	//err := GetDB().Table("ed_reservations").Where("user_id = ?", id).Find(&reservations).Error
-	err := GetDB().Table("ed_reservations").Select("ed_reservations.*, ed_reservations.id, probase_tbl_users.username, probase_tbl_bus.company, probase_tbl_bus.license_plate, ed_bus_routes.end_route").Joins("left join probase_tbl_users on ed_reservations.user_id = probase_tbl_users.id").Joins("left join probase_tbl_bus on ed_reservations.bus_id=probase_tbl_bus.id").Joins("left join ed_bus_routes on ed_reservations.route=ed_bus_routes.id").Where("user_id = ?", id).Find(&reservations).Error
+	err := GetDB().Table("ed_reservations").Select("ed_reservations.*, ed_reservations.id, probase_tbl_users.username, probase_tbl_bus.company, probase_tbl_bus.license_plate, ed_bus_routes.end_route").Joins("left join probase_tbl_users on ed_reservations.user_id = probase_tbl_users.id").Joins("left join probase_tbl_bus on ed_reservations.bus_id=probase_tbl_bus.id").Joins("left join ed_bus_routes on ed_reservations.ed_bus_route_id=ed_bus_routes.id").Where("user_id = ?", id).Find(&reservations).Error
 	log.Println(err)
 	if err != nil {
 		return nil

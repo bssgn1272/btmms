@@ -54,6 +54,8 @@ export class ViewMySlotsComponent implements OnInit {
   to: any;
   fromHistory: any;
   toHistory: any;
+  fromArrivalHistory: any;
+  toArrivalHistory: any;
   selectedFilter = '';
   selectedHistoryFilter = '';
   displayedColumns: string[] = [
@@ -93,13 +95,30 @@ export class ViewMySlotsComponent implements OnInit {
 
   @ViewChild('HistoryPaginator') paginatorHistory: MatPaginator;
   @ViewChild('HistorySort') sortHistory: MatSort;
+
+  displayedArrivalHistoryColumns: string[] = [
+    'time',
+    'slot',
+    'license_plate',
+    'route',
+    'status',
+    'reserved_time',
+  ];
+
+  dataSourceArrivalHistory = new MatTableDataSource([]);
+
+  @ViewChild('ArrivalHistoryPaginator') paginatorArrivalHistory: MatPaginator;
+  @ViewChild('ArrivalHistorySort') sortArrivalHistory: MatSort;
+
   displayData: any;
   arDisplayData: any;
   filterDataSource: any;
   arFilterDataSource: any;
   rStatus: string;
   displayDataHistory: any;
+  displayDataArrivalHistory: any;
   filterDataSourceHistory: any;
+  filterDataSourceArrivalHistory: any;
 
 
 
@@ -149,6 +168,14 @@ export class ViewMySlotsComponent implements OnInit {
       this.dataSourceHistory.sort = this.sortHistory;
     });
 
+    this.viewSlots.getArrivalHistoryList(_id).then((res) => {
+      this.displayDataArrivalHistory = res.data;
+      this.filterDataSourceArrivalHistory = this.displayDataArrivalHistory;
+      this.dataSourceArrivalHistory = new MatTableDataSource(res.data);
+      this.dataSourceArrivalHistory.paginator = this.paginatorHistory;
+      this.dataSourceArrivalHistory.sort = this.sortHistory;
+    });
+
     // console.log(this.currentUser.id);
   }
 
@@ -164,6 +191,10 @@ export class ViewMySlotsComponent implements OnInit {
 
   applyHistoryFilter(filterValue: string) {
     this.dataSourceHistory.filter = filterValue.trim().toLowerCase();
+  }
+
+  applyArrivalHistoryFilter(filterValue: string) {
+    this.dataSourceArrivalHistory.filter = filterValue.trim().toLowerCase();
   }
 
   // add Open Dialog
@@ -359,6 +390,37 @@ export class ViewMySlotsComponent implements OnInit {
     // });
   }
 
+  logArrivalHistory(value: any) {
+    // this.requests.getList().then((res) => {
+    if (value === 'All') {
+      this.filterDataSourceArrivalHistory = this.displayDataArrivalHistory;
+      this.dataSourceArrivalHistory = new MatTableDataSource(
+        this.filterDataSourceArrivalHistory
+      );
+      this.dataSourceArrivalHistory.paginator = this.paginatorArrivalHistory;
+      this.dataSourceArrivalHistory.sort = this.sortArrivalHistory;
+    } else {
+      this.filterDataSourceArrivalHistory = this.displayDataArrivalHistory.filter(
+        (x) => x.reservation_status === value
+      );
+      this.dataSourceArrivalHistory = new MatTableDataSource(
+        this.filterDataSourceArrivalHistory
+      );
+      this.dataSourceArrivalHistory.paginator = this.paginatorArrivalHistory;
+      this.dataSourceArrivalHistory.sort = this.sortArrivalHistory;
+      if (value === 'All') {
+        this.rStatus = 'All';
+      } else if (value === 'C') {
+        this.rStatus = 'C';
+      } else if (value === 'A') {
+        this.rStatus = 'A';
+      } else if (value === 'PC') {
+        this.rStatus = 'PC';
+      }
+    }
+    // });
+  }
+
   dateRangeHistory() {
     console.log(this.fromHistory, this.toHistory);
     if (this.rStatus !== 'All') {
@@ -399,6 +461,49 @@ export class ViewMySlotsComponent implements OnInit {
     console.log(
       this.displayData,
       formatDate(this.fromHistory, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530')
+    );
+  }
+
+  dateRangeArrivalHistory() {
+    console.log(this.fromArrivalHistory, this.toArrivalHistory);
+    if (this.rStatus !== 'All') {
+      this.filterDataSourceArrivalHistory = this.displayDataArrivalHistory.filter(
+        (x) =>
+          x.reserved_time >
+            formatDate(
+              this.fromArrivalHistory,
+              'yyy-MM-dd hh:mm:ss',
+              'en-US',
+              '+0530'
+            ) &&
+          x.reserved_time <
+            formatDate(this.toArrivalHistory, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530')
+        // &&
+        // x.status === this.rStatus
+      );
+    } else {
+      this.filterDataSourceArrivalHistory = this.displayDataArrivalHistory.filter(
+        (x) =>
+          x.reserved_time >
+            formatDate(
+              this.fromArrivalHistory,
+              'yyy-MM-dd hh:mm:ss',
+              'en-US',
+              '+0530'
+            ) &&
+          x.reserved_time <
+            formatDate(this.toArrivalHistory, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530')
+      );
+    }
+
+    this.dataSourceArrivalHistory = new MatTableDataSource(
+      this.filterDataSourceArrivalHistory
+    );
+    this.dataSourceArrivalHistory.paginator = this.paginatorArrivalHistory;
+    this.dataSourceArrivalHistory.sort = this.sortArrivalHistory;
+    console.log(
+      this.displayData,
+      formatDate(this.fromArrivalHistory, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530')
     );
   }
 

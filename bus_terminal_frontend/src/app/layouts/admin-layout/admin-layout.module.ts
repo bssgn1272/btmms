@@ -59,6 +59,7 @@ import { DpEditReservationComponent } from '../../dp-edit-reservation/dp-edit-re
 import { ArEditResevertionComponent } from '../../ar-edit-resevertion/ar-edit-resevertion.component';
 import { ViewMyPenaltiesComponent } from '../../view-my-penalties/view-my-penalties.component';
 import { ViewMyChargesComponent } from '../../view-my-charges/view-my-charges.component';
+import { ReportsComponent, SafePipe } from '../../reports/reports.component';
 import { ViewMyPenaltiesService } from '../../view-my-penalties/view-my-penalties.service';
 import { ViewMyChargesService } from '../../view-my-charges/view-my-charges.service';
 import { OptionsComponent } from '../../options/options.component';
@@ -126,11 +127,13 @@ import {MakeFlexiBookingComponent} from '../../make-flexi-booking/make-flexi-boo
     ArEditResevertionComponent,
     ViewMyPenaltiesComponent,
     ViewMyChargesComponent,
+    ReportsComponent,
     OptionsComponent,
     CancelArrivalReservationComponent,
     VeiwSubDestinationsComponent,
     FlexiBookingComponent,
     MakeFlexiBookingComponent,
+    SafePipe,
   ],
   providers: [
     AlertsService,

@@ -32,6 +32,12 @@ export const ROUTES: RouteInfo[] = [
     title: 'View Fees',
     icon: 'money',
     class: ''
+  },
+  {
+    path: '/reports',
+    title: 'reports',
+    icon: 'analytics',
+    class: ''
   }
 ];
 

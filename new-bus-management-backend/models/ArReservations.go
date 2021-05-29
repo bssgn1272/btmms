@@ -108,7 +108,7 @@ func ArGetReservationOperatorHistory(id uint) []*EdArResult {
 
 	reservations := make([]*EdArResult, 0)
 	//err := GetDB().Table("ed_ar_reservations").Where("user_id = ?", id).Find(&reservations).Error
-	err := GetDB().Table("ed_ar_reservations").Select("ed_ar_reservations.*, ed_ar_reservations.id, probase_tbl_users.username, probase_tbl_bus.company, probase_tbl_bus.license_plate, ed_bus_routes.end_route").Joins("left join probase_tbl_users on ed_ar_reservations.user_id = probase_tbl_users.id").Joins("left join probase_tbl_bus on ed_ar_reservations.bus_id=probase_tbl_bus.id").Joins("left join ed_bus_routes on ed_ar_reservations.route = ed_bus_routes.id").Where("user_id = ?", id).Find(&reservations).Error
+	err := GetDB().Table("ed_ar_reservations").Select("ed_ar_reservations.*, ed_ar_reservations.id, probase_tbl_users.username, probase_tbl_bus.company, probase_tbl_bus.license_plate, ed_bus_routes.end_route").Joins("left join probase_tbl_users on ed_ar_reservations.user_id = probase_tbl_users.id").Joins("left join probase_tbl_bus on ed_ar_reservations.bus_id=probase_tbl_bus.id").Joins("left join ed_bus_routes on ed_ar_reservations.ed_bus_route_id = ed_bus_routes.id").Where("user_id = ?", id).Find(&reservations).Error
 	log.Println(err)
 	if err != nil {
 		return nil

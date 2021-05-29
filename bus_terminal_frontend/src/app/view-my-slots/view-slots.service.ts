@@ -31,6 +31,11 @@ export class ViewSlotsService {
     return await this.http.get(url).toPromise().catch(this.handleError);
   }
 
+  async getArrivalHistoryList(id): Promise<any> {
+    const url = `${this.arUrlh}/${id}`;
+    return await this.http.get(url).toPromise().catch(this.handleError);
+  }
+
   async arGetList(id: number): Promise<any> {
     const url = `${this.arUrl}/${id}`;
     return await this.http.get(url).toPromise().catch(this.handleError);
