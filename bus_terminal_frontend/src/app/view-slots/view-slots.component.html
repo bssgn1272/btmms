@@ -54,6 +54,7 @@
                         <mat-option value="DL">Delayed</mat-option>
                         <mat-option value="D">Departed</mat-option>
                         <mat-option value="R">Rejected</mat-option>
+                        <mat-option value="E">Expired</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -171,6 +172,7 @@
                         <div *ngIf="element?.reservation_status == 'DL'">Delayed</div>
                         <div *ngIf="element?.reservation_status == 'D'">Departed</div>
                         <div *ngIf="element?.reservation_status == 'R'">Rejected</div>
+                        <div *ngIf="element?.reservation_status == 'E'">Expired</div>
                         <!-- {{ element.status }} -->
                       </td>
                     </ng-container>
@@ -234,6 +236,7 @@
                         <mat-option value="DL">Delayed</mat-option>
                         <mat-option value="D">Departed</mat-option>
                         <mat-option value="R">Rejected</mat-option>
+                        <mat-option value="E">Expired</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -351,6 +354,7 @@
                         <div *ngIf="element?.reservation_status == 'DL'">Delayed</div>
                         <div *ngIf="element?.reservation_status == 'D'">Departed</div>
                         <div *ngIf="element?.reservation_status == 'R'">Rejected</div>
+                        <div *ngIf="element?.reservation_status == 'E'">Expired</div>
                         <!-- {{ element.status }} -->
                       </td>
                     </ng-container>
