@@ -332,15 +332,6 @@ export class MakeBookingComponent implements OnInit {
         message += '\nTime: ' + this.data.row.reservation_time.split('T')[0] + ' ' + this.data.row.time;
       }
 
-      // this._snackBar.open('Successfully Created', null, {
-      //   duration: 1000,
-      //   horizontalPosition: 'center',
-      //   panelClass: ['blue-snackbar'],
-      //   verticalPosition: 'top',
-      // });
-      //
-      // this._location.back();
-
       this.httpClient
           .post('/main/api/reservation/requests/create', reserv)
           .subscribe(
@@ -374,8 +365,8 @@ export class MakeBookingComponent implements OnInit {
                     (error) => {}
                 );
                 // this._location.back();
-                this._snackBar.open('Successfully Created', null, {
-                  duration: 1000,
+                this._snackBar.open('Successfully Submitted For Approval', null, {
+                  duration: 3000,
                   horizontalPosition: 'center',
                   panelClass: ['blue-snackbar'],
                   verticalPosition: 'top',
