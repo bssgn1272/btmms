@@ -887,11 +887,12 @@
                             <h4 style="text-align: center; color:blue; text-decoration:underline; font-weight: bold; font-size: 18px;">
                                 TICKET TRANSACTIONS
                             </h4><hr>
-                        <table class="table table-striped table-bordered" id="TellerPastTransactions">
+                        <table class="table table-striped row-border order-column hover stripe table-bordered" id="TellerPastTransactions">
                         <thead>
                             <tr style="font-size: 12px;">
-                                <th>Ticket Reference No.</th>
                                 <th>Ticket ID</th>
+                                <th>Ticket Reference No.</th>
+
                                 <th>Bus Operator</th>
                                 <th>Depature Date</th>
                                 <th>Depature Time</th>
@@ -909,8 +910,8 @@
                         <tbody>
                             <%= for ticket <- @tickets do %>
                             <tr>
-                              <td><%= ticket.reference_number %></td>
-                              <td><%= ticket.id %></td>
+                                <td><%= ticket.id %></td>
+                                <td><%= ticket.reference_number %></td>
                               <%
                                 operator_id = BusTerminalSystem.BusManagement.Bus.find(ticket.bus_no).operator_id
                                 operator = BusTerminalSystem.AccountManager.User.find(operator_id)

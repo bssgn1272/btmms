@@ -38,7 +38,8 @@ save.("COSEC_AD2U", "http://10.70.1.1/cosec/api.svc/v2/device") # ADD DEVICE TO 
 save.("COSEC_ADC", "http://10.70.1.1/cosec/api.svc/v2/user") # ADD CREDENTIALS
 save.("COSEC_CRED", "c2E6MTIzNDU=") # COSEC CREDENTIALS
 save.("COSEC_CARD_LENGTH", "10") # COSEC CREDENTIALS
+save.("COSEC_TURNSTILE_ENABLE_TID_IP", "http://10.70.3.55:5000/enable/")
+save.("COSEC_TURNSTILE_DISABLE_TID_IP", "http://10.70.3.55:5000/disable/")
 save.("NAPSA_MEMBER_VALIDATION_URL", "http://10.10.1.114:8092/apis/external/v1/validatessnnrc")
 save.("NAPSA_SOAP_URL", "http://napsa-enapsauatsvr:8738/eNAPSAExternalAPI/2018/04/NPSService")
-save.("NAPSA_CONTRIBUTION_URL", "http://enapsa.napsa.co.zm/eNAPSAServicesLibrary/2016/11/IeNAPSAExternalAPI/ReturnUpload")
 save.("NAPSA_CONTRIBUTION_URL", "http://enapsa.napsa.co.zm/eNAPSAServicesLibrary/2016/11/IeNAPSAExternalAPI/ReturnUpload")

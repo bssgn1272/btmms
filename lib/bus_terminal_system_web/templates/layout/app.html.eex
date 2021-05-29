@@ -60,14 +60,14 @@
     				</a>
 
     				<ul class="dropdown-menu dropdown-menu-right">
-    					<li>
-                            <a href="<%= Routes.session_path(@conn, :logout) %>">
-                                <i class="icon-switch2"></i> Logout
-                            </a>
-                        </li>
                         <li>
                             <a onclick="change_password()">
                                 <i class="icon-lock2"></i> Change password
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<%= Routes.session_path(@conn, :logout) %>">
+                                <i class="icon-switch2"></i> Logout
                             </a>
                         </li>
     				</ul>

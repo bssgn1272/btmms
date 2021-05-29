@@ -101,10 +101,7 @@ defmodule BusTerminalSystem.RepoManager do
               ticket |> BusTerminalSystem.TicketManagement.Ticket.update(has_luggage: false)
 
               spawn(fn ->
-                IO.inspect("-----------------------------START TICKET PRINTING PAYLOAD--------------------------------")
-                IO.inspect(printer_payload)
                 BusTerminalSystem.PrinterTcpProtocol.print_remote_cross_connect(printer_payload, ip)
-                IO.inspect("-----------------------------END TICKET PRINTING PAYLOAD----------------------------------")
               end)
 
               spawn(fn ->

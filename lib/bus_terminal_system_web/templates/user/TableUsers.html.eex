@@ -82,7 +82,7 @@
     </div>
 
     <div style="overflow-x:auto;">
-    <table class="table table-striped table-bordered" id="dataTableId">
+    <table class="table table-striped row-border order-column hover stripe table-bordered" id="dataTableId">
               <thead>
                 <tr>
                   <th>ID</th>

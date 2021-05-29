@@ -12,7 +12,7 @@
 		<div class="w3-container">
         <div class="chart-container" style="margin-top: 2%;">
             <div style="overflow-x:auto;">
-                <table class="table table-striped table-bordered" id="routes_table">
+                <table class="table table-striped row-border order-column hover stripe table-bordered" id="routes_table">
                     <thead>
                         <tr>
                             <th>Route Name</th>
@@ -78,7 +78,7 @@
 		                                <div class="col-md-12">
 		                                    <div class="form-group">
 		                                        <label>Route Name: <span style="color: red;">*</span></label>
-		                                        <input id="route_name" name="payload[route_name]" class="form-control" placeholder="Route Name" type="text" required="required">
+		                                        <input id="route_name" oninput="route_validation(this)" name="payload[route_name]" class="form-control" placeholder="Route Name" type="text" required="required">
 		                                        <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
 		                                        <input type="hidden" name="payload[route_uuid]" value="<%= BusTerminalSystem.Randomizer.randomizer(16,:all) %>">
 		                                    </div>
@@ -90,7 +90,7 @@
 
 		                                    <div class="form-group">
                                                 <label>Route Code: <span style="color: red;">*</span></label>
-                                                <input id="route_code" name="payload[route_code]" class="form-control" placeholder="Route Code" type="text" required="required">
+                                                <input id="route_code" oninput="route_validation(this)" name="payload[route_code]" class="form-control" placeholder="Route Code" type="text" required="required">
                                             </div>
 
 		                                    <div class="form-group">

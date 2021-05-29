@@ -11,7 +11,12 @@ $(document).ready( function () {
     $('#stations').DataTable(); //Stations DataTable
     $('#dataTableTellers').DataTable(); //Tellers DataTable
     $('#bookingsDataTable').DataTable(); //DataTable For Bookings
-    $('#TellerPastTransactions').DataTable(); //DataTable For TellerPastTransactions
+
+    $('#TellerPastTransactions').DataTable({
+        "order": [[ 0, "desc" ]]
+    } ); //DataTable For TellerPastTransactions
+
+
     $('#queryTickets').DataTable(); //DataTable For Query Tickets Teller Side
     $('#available_routes').DataTable(); //DataTable For available_routes Teller Side
     $('#booking_table').DataTable(); //DataTable For bookings Teller Side

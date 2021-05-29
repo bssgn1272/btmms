@@ -1,18 +1,20 @@
 defmodule BusTerminalSystem.APIRequestMockup do
 
+  alias BusTerminalSystem.Settings
+
   @request_headers %{
     "Authorization" => "Basic #{"sa" <> "12345" |> Base.encode64}"
   }
 
   def send(code) do
       params = {:form, [card: code]}
-       response = HTTPoison.post("http://10.70.3.55:5000/enable/",params,%{"Content-type" => "multipart/form-data"})
+       response = HTTPoison.post(Settings.find_by(key: "COSEC_TURNSTILE_ENABLE_TID_IP").value, params,%{"Content-type" => "multipart/form-data"})
        IO.inspect(response)
   end
 
   def send_disable(code) do
     params = {:form, [card: code]}
-    response = HTTPoison.post("http://10.70.3.55:5000/disable/",params,%{"Content-type" => "multipart/form-data"})
+    response = HTTPoison.post(Settings.find_by(key: "COSEC_TURNSTILE_DISABLE_TID_IP").value, params,%{"Content-type" => "multipart/form-data"})
     IO.inspect(response)
   end
 
