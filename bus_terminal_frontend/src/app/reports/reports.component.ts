@@ -50,9 +50,8 @@ export class ReportsComponent implements OnInit {
     this.url7 = "http://10.70.1.4:9080/pentaho/api/repos/%3Ahome%3Aadmin%3Abtmms%3Aeyed%3Acan_refund.prpt/viewer?userid=admin&password=password&departure_date=" + date + "&op_id=" + _id;
   }
 
-  newWindow(){
-    console.log(this.url1);
-    window.open(this.url1, '_blank', 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, height=600, width=1300');
+  newWindow(url){
+    window.open(url, '_blank', 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, height=600, width=1300');
   }
 
   private formatDate(date) {
