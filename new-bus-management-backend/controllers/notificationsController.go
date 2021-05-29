@@ -1,12 +1,10 @@
 package controllers
 
 import (
-	"crypto/tls"
 	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
-	"net"
 	"net/http"
 	"net/smtp"
 	"net/url"
@@ -42,8 +40,55 @@ func (a *loginAuth) Next(fromServer []byte, more bool) ([]byte, error) {
 	return nil, nil
 }
 
-// GetEmailController Function for retrieving town requests for the day
+// GetEmailController Function temporal function
 var GetEmailController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("content-type", "application/json")
+	queryValues := r.URL.Query()
+	_, _ = fmt.Fprintf(w, "hello, %s!\n", queryValues.Get("email"))
+
+	email := queryValues.Get("email")
+	user := queryValues.Get("user")
+	subject := queryValues.Get("subject")
+	text := queryValues.Get("msg")
+
+	// user we are authorizing as
+	from := "changalesa8@gmail.com"
+
+	// use we are sending email to
+	to := email
+
+	// server we are authorized to send email through
+	host := "smtp.gmail.com"
+
+	// Create the authentication for the SendMail()
+	// using PlainText, but other authentication methods are encouraged
+	auth := smtp.PlainAuth("", from, "fmeogqgokokgqrjx", host)
+
+	mess := `To: %s <%s>
+	From: "BTMMS" <btmms@napsa.co.zm>
+	Subject: %s
+	
+	%s
+	`
+
+	message := fmt.Sprintf(mess, user, email, subject, text)
+
+	log.Println(message)
+
+	if err := smtp.SendMail(host+":587", auth, from, []string{to}, []byte(message)); err != nil {
+		fmt.Println("Error SendMail: ", err)
+		return
+	}
+	fmt.Println("Email Sent!")
+	//data := d
+	//resp := utils.Message(true, "success")
+	//resp["data"] = data
+	//log.Println(resp)
+	//utils.Respond(w, resp)
+})
+
+// GetEmailController Function for retrieving town requests for the day
+/*var GetEmailController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("content-type", "application/json")
 	queryValues := r.URL.Query()
 	_, _ = fmt.Fprintf(w, "hello, %s!\n", queryValues.Get("email"))
@@ -84,11 +129,11 @@ var GetEmailController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Re
 	}
 
 	mess := `To: %s <%s>
-From: "BTMMS" <btmms@napsa.co.zm>
-Subject: %s
+	From: "BTMMS" <btmms@napsa.co.zm>
+	Subject: %s
 
-%s
-`
+	%s
+	`
 	message := fmt.Sprintf(mess, user, email, subject, text)
 	log.Println(message)
 
@@ -97,7 +142,7 @@ Subject: %s
 		fmt.Println(err)
 		return
 	}
-})
+}) */
 
 // GetSMSController blah blah
 var GetSMSController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

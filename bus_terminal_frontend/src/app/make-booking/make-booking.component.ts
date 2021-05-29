@@ -350,7 +350,7 @@ export class MakeBookingComponent implements OnInit {
                 body = body.set('receiver', this.userItems.mobile);
                 body = body.set('msg', message);
                 this.httpClient.get('/main/api/sms', { params: body }).subscribe(
-                    (dataA) => {},
+                    (data) => {},
                     (error) => {}
                 );
 
