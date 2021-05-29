@@ -9,6 +9,7 @@ import (
 	"net/url"
 	"new-bus-management-backend/models"
 	"new-bus-management-backend/utils"
+	"os"
 	"strconv"
 	"time"
 
@@ -86,7 +87,7 @@ func RunAccessControl() {
 				minutesAfterExitDeactivation = option.OptionValue
 			}
 		}
-		fmt.Println("Processing Activations: minutes_before_entry_activation: ", minutesBeforeEntryActivation)
+		//fmt.Println("Processing Activations: minutes_before_entry_activation: ", minutesBeforeEntryActivation)
 		accessReady := models.GetAccessReady(minutesBeforeEntryActivation, minutesAfterExitDeactivation)
 		for _, aReady := range accessReady {
 			accessControl := &models.EdAccessControl{}
@@ -111,7 +112,7 @@ func RunAccessControl() {
 			}
 		}
 
-		fmt.Println("Processing Deactivations: minutes_after_exit_deactivation: ", minutesAfterExitDeactivation)
+		//fmt.Println("Processing Deactivations: minutes_after_exit_deactivation: ", minutesAfterExitDeactivation)
 		denyReady := models.GetDenyReady()
 		for _, dReady := range denyReady {
 			accessControl := &models.EdAccessControl{}
@@ -163,7 +164,7 @@ func RunSMSNotifications() {
 				minutesBeforeEntry = option.OptionValue
 			}
 		}
-		fmt.Println("Processing Arrival Notifications: minutes_before_arrival_notification: ", minutesBeforeEntryNotification)
+		//fmt.Println("Processing Arrival Notifications: minutes_before_arrival_notification: ", minutesBeforeEntryNotification)
 		smsReady := models.GetArrivalNotificationReady(minutesBeforeEntryNotification, minutesBeforeExitNotification, minutesBeforeEntry)
 		for _, sReady := range smsReady {
 			smsNotification := &models.EdSmsNotification{}
@@ -176,7 +177,7 @@ func RunSMSNotifications() {
 			smsNotification.Create()
 		}
 
-		fmt.Println("Processing Departure Notifications: minutes_before_departure_notification: ", minutesBeforeExitNotification)
+		//fmt.Println("Processing Departure Notifications: minutes_before_departure_notification: ", minutesBeforeExitNotification)
 		denyReady := models.GetDepartureNotificationReady()
 		for _, dReady := range denyReady {
 			smsNotification := &models.EdSmsNotification{}
@@ -197,16 +198,16 @@ func RunSMSNotifications() {
 func sms(receiver string, msg string) {
 	log.Println(msg)
 	var URL *url.URL
-	URL, err := URL.Parse("http://10.10.1.43:13013/napsamobile/pushsms")
+	URL, err := URL.Parse(os.Getenv("sms_url"))
 	if err != nil {
 		return
 	}
 
 	parameters := url.Values{}
-	parameters.Add("smsc", "zamtelsmsc")
-	parameters.Add("username", "napsamobile")
-	parameters.Add("password", "napsamobile@kannel")
-	parameters.Add("from", "LMBMC")
+	parameters.Add("smsc", os.Getenv("smsc"))
+	parameters.Add("username", os.Getenv("sms_user"))
+	parameters.Add("password", os.Getenv("sms_pass"))
+	parameters.Add("from", os.Getenv("sms_from"))
 	parameters.Add("to", receiver)
 	parameters.Add("text", msg)
 

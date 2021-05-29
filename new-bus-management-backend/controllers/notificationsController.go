@@ -1,16 +1,46 @@
 package controllers
 
 import (
+	"crypto/tls"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
+	"net"
 	"net/http"
 	"net/smtp"
 	"net/url"
+	"os"
 	"strings"
 
 	"github.com/bhargav175/noop"
 )
+
+type loginAuth struct {
+	username, password string
+}
+
+func LoginAuth(username, password string) smtp.Auth {
+	return &loginAuth{username, password}
+}
+
+func (a *loginAuth) Start(server *smtp.ServerInfo) (string, []byte, error) {
+	return "LOGIN", []byte(a.username), nil
+}
+
+func (a *loginAuth) Next(fromServer []byte, more bool) ([]byte, error) {
+	if more {
+		switch string(fromServer) {
+		case "Username:":
+			return []byte(a.username), nil
+		case "Password:":
+			return []byte(a.password), nil
+		default:
+			return nil, errors.New("unknown from server")
+		}
+	}
+	return nil, nil
+}
 
 // GetEmailController Function for retrieving town requests for the day
 var GetEmailController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -23,18 +53,35 @@ var GetEmailController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Re
 	subject := queryValues.Get("subject")
 	text := queryValues.Get("msg")
 
-	// user we are authorizing as
-	from := "btmms@napsa.co.zm"
-
-	// use we are sending email to
+	from := os.Getenv("email_from")
+	password := os.Getenv("email_pass")
 	to := email
+	smtpHost := os.Getenv("email_host")
+	smtpPort := os.Getenv("email_port")
 
-	// server we are authorized to send email through
-	host := "mail.napsa.co.zm"
+	conn, err := net.Dial("tcp", smtpHost+":"+smtpPort)
+	if err != nil {
+		log.Println(err)
+	}
 
-	// Create the authentication for the SendMail()
-	// using PlainText, but other authentication methods are encouraged
-	auth := smtp.PlainAuth("", from, "Welcome@2020", host)
+	c, err := smtp.NewClient(conn, smtpHost)
+	if err != nil {
+		log.Println(err)
+	}
+
+	tlsconfig := &tls.Config{
+		ServerName: smtpHost,
+	}
+
+	if err = c.StartTLS(tlsconfig); err != nil {
+		println(err)
+	}
+
+	auth := LoginAuth(from, password)
+
+	if err = c.Auth(auth); err != nil {
+		println(err)
+	}
 
 	mess := `To: %s <%s>
 From: "BTMMS" <btmms@napsa.co.zm>
@@ -42,21 +89,14 @@ Subject: %s
 
 %s
 `
-
 	message := fmt.Sprintf(mess, user, email, subject, text)
-
 	log.Println(message)
 
-	if err := smtp.SendMail(host+":25", auth, from, []string{to}, []byte(message)); err != nil {
-		fmt.Println("Error SendMail: ", err)
+	err = smtp.SendMail(smtpHost+":"+smtpPort, auth, from, []string{to}, []byte(message))
+	if err != nil {
+		fmt.Println(err)
 		return
 	}
-	fmt.Println("Email Sent!")
-	//data := d
-	//resp := utils.Message(true, "success")
-	//resp["data"] = data
-	//log.Println(resp)
-	//utils.Respond(w, resp)
 })
 
 // GetSMSController blah blah
@@ -71,48 +111,27 @@ var GetSMSController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Requ
 	msg := queryValues.Get("msg")
 
 	msg = strings.Replace(msg, " ", "_", -1)
-
-	//
-	//msgs := url.Values{"msg": {msg}}
-	//
-	//msg = msgs.Encode()
-	//
-	//msg = strings.Replace(msg, "%0A", "", -1)
 	log.Println(msg)
 
-	//uri := "http://10.8.0.10/sms/index.php?sender=" + sender + "&msisdn=" + msisdn + "&" + msg
-
 	var URL *url.URL
-	URL, err := url.Parse("http://10.10.1.43:13013/napsamobile/pushsms")
+	URL, err := url.Parse(os.Getenv("sms_url"))
 	if err != nil {
 		return
 	}
 
 	parameters := url.Values{}
-	parameters.Add("smsc", "zamtelsmsc")
-	parameters.Add("username", "napsamobile")
-	parameters.Add("password", "napsamobile@kannel")
-	parameters.Add("from", "LMBMC")
+	parameters.Add("smsc", os.Getenv("smsc"))
+	parameters.Add("username", os.Getenv(("sms_user")))
+	parameters.Add("password", os.Getenv("sms_pass"))
+	parameters.Add("from", os.Getenv("sms_from"))
 	parameters.Add("to", receiver)
 	parameters.Add("text", msg)
 
 	URL.RawQuery = parameters.Encode()
 
 	uri := URL.String()
-
-	//uri = strings.Replace(uri, "%0A", "", -1)
-
 	fmt.Printf("Encoded URL is %q\n", URL.String())
-
-	//uri, _ = url.QueryUnescape(uri)
 	log.Println(uri)
-
-	//req, _ := http.NewRequest("GET", uri, nil)
-	//
-	//res, err := http.DefaultClient.Do(req)
-	//
-	//defer res.Body.Close()
-	//body, err := ioutil.ReadAll(res.Body)
 
 	resp, err := http.Get(uri)
 	if err != nil {
