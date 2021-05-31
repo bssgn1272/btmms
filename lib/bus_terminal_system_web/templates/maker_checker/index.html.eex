@@ -18,7 +18,7 @@
                         <thead>
                         <tr>
                             <th> Maker </th>
-                            <th> Maker Date r</th>
+                            <th> Maker Date</th>
                             <th> Action Description </th>
                             <th> System Description </th>
                             <th class="text-center">Actions</th>

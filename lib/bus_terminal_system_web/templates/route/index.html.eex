@@ -154,7 +154,7 @@
             </form>
         </div>
 
-        <div class="col-md-6">
+       <!-- <div class="col-md-6">
             <div class="panel panel-flat">
 
                 <div class="panel-body">
@@ -185,7 +185,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 <% end %>

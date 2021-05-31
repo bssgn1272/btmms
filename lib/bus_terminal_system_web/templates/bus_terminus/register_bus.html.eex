@@ -75,7 +75,7 @@
         <div class="">
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-6 panel panel-flat">
+                    <div class="col-md-12 panel panel-flat">
                         <form class="form-vertical" action="<%= Routes.bus_terminus_path(@conn, :create) %>" method="post">
                             <div class="panel-body">
                                 <div class="row">
@@ -233,7 +233,7 @@
                     </div>
 
 
-                    <div class="col-md-6 panel panel-flat">
+                   <!-- <div class="col-md-6 panel panel-flat" >
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12">
@@ -285,7 +285,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

@@ -9,7 +9,9 @@ $(document).ready( function () {
     $('#dataTableMarket').DataTable(); //Marktet DataTable
     $('#gates').DataTable(); //Gates DataTable
     $('#stations').DataTable(); //Stations DataTable
-    $('#dataTableTellers').DataTable(); //Tellers DataTable
+    $('#dataTableTellers').DataTable({
+        "order": [[ 0, "desc" ]]
+    }   ); //Tellers DataTable
     $('#bookingsDataTable').DataTable(); //DataTable For Bookings
 
     $('#TellerPastTransactions').DataTable({
@@ -742,7 +744,8 @@ function updateUser() {
 
             swal({title: "User Update Complete", text: "User Updated Successfully", type: "success"},
                 function(){
-                    $('#modal_form_horizontal_user').modal('hide');
+                    // $('#modal_form_horizontal_user').modal('hide');
+                    location.reload();
                 }
             );
         }

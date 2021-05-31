@@ -118,6 +118,7 @@
                                     <table class="table table-striped table-bordered" id="dataTableTellers">
                                         <thead>
                                         <tr>
+                                            <th>Transaction ID</th>
                                             <th>Source Account</th>
                                             <th>Destination Account</th>
                                             <th>Amount</th>
@@ -125,12 +126,14 @@
                                             <th>Extra Data</th>
                                             <th>Bank Reference Number</th>
                                             <th>Reference Number</th>
+                                            <th>Transaction Date/Time</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <%= for trans <- @transactions do %>
                                         <tr>
+                                            <td><%= trans.id %></td>
                                             <td><%= trans.srcAcc %></td>
                                             <td><%= trans.destAcc %></td>
                                             <td><%= trans.amount %></td>
@@ -138,6 +141,7 @@
                                             <td><%= trans.extraData %></td>
                                             <td><%= trans.hostrefno %></td>
                                             <td><%= trans.referenceNo %></td>
+                                            <td><%= trans.inserted_at %></td>
                                             <td class="text-center">
                                                 <ul class="icons-list">
                                                     <li class="dropdown">

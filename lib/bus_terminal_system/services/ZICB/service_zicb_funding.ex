@@ -59,7 +59,7 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
     |> BusTerminalSystem.Repo.transaction
     |> case do
          {:ok, %{:transaction => transaction}} ->
-           BusTerminalSystem.Service.Zicb.AccountOpening.run()
+#           BusTerminalSystem.Service.Zicb.AccountOpening.run()
            %{:status => "SUCCESS", :message => "Transaction Complete", :transaction => %{}}
          {:error, message} -> %{:status => "FAILED", :message => "Transaction Failed", :transaction => %{}}
        end
