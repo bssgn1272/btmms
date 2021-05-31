@@ -37,15 +37,22 @@ config :logger, :console,
   metadata: [:request_id]
 
 config :bus_terminal_system, BusTerminalSystem.Mailer,
-       adapter: Swoosh.Adapters.SMTP,
-       relay: "smtp.office365.com",
-       username: "BTMMS@napsa.co.zm",
-       password: "Welcome@2020",
-       auth: :always,
-       ssl: false,
-       port: 587,
-       retries: 3,
-       no_mx_lookups: false
+   adapter: Swoosh.Adapters.Mailjet,
+   api_key: "474f8555a04e9f4107f6cfdfc7129667",
+   secret: "8916c07ae488aea0fd26eadc846f76fd",
+   relay: "in-v3.mailjet.com",
+   port: 587
+
+#config :bus_terminal_system, BusTerminalSystem.Mailer,
+#       adapter: Swoosh.Adapters.SMTP,
+#       relay: "smtp.office365.com",
+#       username: "BTMMS@napsa.co.zm",
+#       password: "Welcome@2020",
+#       auth: :always,
+#       tls: :always,
+#       port: 587,
+#       retries: 3,
+#       no_mx_lookups: false
 
 config :endon,
        repo: BusTerminalSystem.Repo
@@ -62,17 +69,14 @@ config :bus_terminal_system, BusTerminalSystem.Scheduler,
  overlap: false,
  timeout: 30_000,
  jobs: [
-   check_compliance: [
-     schedule:  "* * * * *", task: {BusTerminalSystem.CheckCompliance, :run, []}
-   ],
    napsa: [
      schedule:  "* * * * *", task: {BusTerminalSystem.CheckCompliance, :run, []},
      schedule:  "* * * * *", task: {BusTerminalSystem.NapsaUserUpdater, :run, []},
      schedule:  {:extended, "*/1"}, task: {BusTerminalSystem.Job.Sms, :send, []}
    ],
   bank: [
-    schedule:  "* * * * *", task: {BusTerminalSystem.Service.Zicb.AccountOpening, :run, []},
-    schedule: {:extended, "*/3"}, task: {BusTerminalSystem.Service.Zicb.Funding, :post_ticket_transactions, []},
+    schedule:  "5 * * * *", task: {BusTerminalSystem.Service.Zicb.AccountOpening, :run, []},
+    schedule: {:extended, "*/25"}, task: {BusTerminalSystem.Service.Zicb.Funding, :post_ticket_transactions, []},
   ]
  ]
 
