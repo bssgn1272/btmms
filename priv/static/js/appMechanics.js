@@ -1,7 +1,9 @@
 //------------------- DataTables --------------------
 $(document).ready( function () {
     $('#dataTableId').DataTable(); //User DataTable
-    $('#ManageBus').DataTable(); //Bus Terminus DataTable
+    $('#ManageBus').DataTable({
+        "order": [[ 0, "desc" ]]
+    }); //Bus Terminus DataTable
     $('#busTerminusDT').DataTable(); //Bus Terminus DataTable
     $('#dataTableBusTerminusId').DataTable(); //Bus Terminus DataTable
     $('#dataTableBusTerminusId1').DataTable(); //Bus Terminus DataTable

@@ -44,7 +44,7 @@
                                 <th>Class</th>
                                 <th>Model</th>
                                 <th>Serial</th>
-                                <th>UID</th>
+
 
                                 <th>Action</th>
                             </tr>
@@ -65,7 +65,7 @@
                                     <td><%= bus.vehicle_class %></td>
                                     <td><%= bus.model %></td>
                                     <td><%= bus.serial_number %></td>
-                                    <td><%= bus.uid %></td>
+
 
                                     <td class="text-center">
                                         <ul class="icons-list">
