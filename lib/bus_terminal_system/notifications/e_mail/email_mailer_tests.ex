@@ -11,7 +11,6 @@ defmodule BusTerminalSystem.EmailSender do
       |> subject("NAPSA BTMS")
       |> text_body("NAPSA\n")
       |> Mailer.deliver
-      |> IO.inspect
 #    end)
   end
 

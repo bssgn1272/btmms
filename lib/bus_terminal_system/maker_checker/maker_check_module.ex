@@ -29,12 +29,9 @@ defmodule BusTerminalSystem.MakerCheckModule do
                fields.rows |> case do
                     [] -> nil
                     rows ->
-                      IO.inspect rows
                       rows |> Enum.map(fn row ->
-                        IO.inspect("******************************************************")
-                        IO.inspect(table)
-                        IO.inspect(row)
-                        %{schema: table, id: row |> Enum.at(4), maker: (User.find_by(id: row |> Enum.at(0)).username || 1),
+                        user = (fn id -> if User.find_by(id: id).username == nil, do: 1, else: id end)
+                        %{schema: table, id: row |> Enum.at(4), maker: (User.find_by(id: user.(row |> Enum.at(0))).username),
                           maker_date_time: row |> Enum.at(1), user_description: row |> Enum.at(2), system_description: row |> Enum.at(3)}
                       end)
                   end
@@ -103,7 +100,6 @@ defmodule BusTerminalSystem.MakerCheckModule do
   end
 
   def approve(conn, params) do
-    IO.inspect params, label: "APPROVE FUNCTION"
     Repo.query("UPDATE "<>params["table"]<>" SET auth_status='1' WHERE id="<>params["id"]<>";")
     |> case do
          {:ok, _} -> {:ok, "Approval Successful!"}
@@ -120,7 +116,6 @@ defmodule BusTerminalSystem.MakerCheckModule do
 
            {:ok, "Successfully Rejected Request"}
          {:error, error} ->
-           IO.inspect(error.errors)
            {:error, "Error Code: 200-2990"}
        end
   end

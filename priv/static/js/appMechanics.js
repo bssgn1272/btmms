@@ -739,8 +739,38 @@ function updateUser() {
         contentType: 'application/json',
         data: json_request,
         success: function (response) {
-            $('#modal_form_horizontal_user').modal('hide');
-            window.location.reload();
+
+            swal({title: "User Update Complete", text: "User Updated Successfully", type: "success"},
+                function(){
+                    $('#modal_form_horizontal_user').modal('hide');
+                }
+            );
+        }
+    })
+}
+
+function pull_permissions(role){
+    console.log($("#modal_update_role_id").val())
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/user/permissions',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify({role: $("#modal_update_role_id").val()}),
+        success: function (response) {
+            console.log(response)
+
+            let permissions_html = '';
+
+            $.each(response, function (v, o) {
+                permissions_html += '<label class="custom_container">';
+                permissions_html += o;
+                permissions_html += '<input type="checkbox" value=' + o + '>';
+                permissions_html += '<span class="checkmark"></span>';
+            });
+
+            $('#permissions_html').html(permissions_html);
         }
     })
 }

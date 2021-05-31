@@ -111,7 +111,7 @@
 
                                 <div class="form-group">
                                     <label>DOB:</label>
-                                    <input name="payload[dob]" required class="form-control" value="" placeholder="Enter Mobile Number" type="date">
+                                    <input name="payload[dob]" id="spv_date" required class="form-control" value="" onblur="return dobcheck()" placeholder="Enter Mobile Number" type="date">
                                 </div>
 
                             </fieldset>
@@ -137,5 +137,6 @@
 
     <div class="col-md-2">
     </div>
+
 
 </div>

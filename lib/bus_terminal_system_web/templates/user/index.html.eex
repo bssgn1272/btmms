@@ -353,9 +353,16 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <h6 class="text-semibold no-margin-top">
-                                        <a href="<%= Routes.user_path(@conn, :table_users) %>" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange">
-                                            View System Users
-                                        </a>
+
+                                        <%= if access(@user.id, 100) do %>
+                                            <a href="<%= Routes.user_path(@conn, :table_users) %>" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange">
+                                                View System Users
+                                            </a>
+                                        <% else %>
+                                            <a style="border-radius: 12px;" class="w3-btn w3-grey w3-indigo w3-hover-grey">
+                                                View System Users
+                                            </a>
+                                        <% end %>
                                     </h6>
                                 </div>
 
@@ -375,10 +382,18 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-sm-12">
+
                                     <h6 class="text-semibold no-margin-top">
+                                        <%= if access(@user.id, 102) do %>
                                         <a href="#" class="w3-btn w3-indigo w3-hover-orange" style="border-radius: 12px;" data-toggle="modal" data-target="#regSystemUser">
                                             Register New System User
                                         </a>
+                                        <% else %>
+                                        <a style="border-radius: 12px;" class="w3-btn w3-grey w3-indigo w3-hover-grey">
+                                            Register New System User
+                                        </a>
+                                        <% end %>
+
                                     </h6>
                                 </div>
 
@@ -1677,7 +1692,7 @@ toolbar -->
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <h6 class="text-semibold no-margin-top" style="color:blue; text-align:center; text-decoration:underline ;">
-                                            Registering Buses
+                                            Bus registration
                                         </h6>
                                         <hr style="color:orange;">
                                     </div>
@@ -1689,9 +1704,16 @@ toolbar -->
                                 <div class="panel-footer panel-footer-condensed">
                                     <div class="container">
                                         <span>
-                                        <a href="<%= Routes.bus_terminus_path(@conn, :register) %>" onclick="get_buses()" class="w3-btn w3-indigo w3-hover-orange" style="border-radius: 12px;">
+                                        <%= if access(@user.id, 103) do %>
+                                            <a href="<%= Routes.bus_terminus_path(@conn, :register) %>" onclick="get_buses()" class="w3-btn w3-indigo w3-hover-orange" style="border-radius: 12px;">
                                             Register Bus
                                         </a>
+                                        <% else %>
+                                            <a style="border-radius: 12px;" class="w3-btn w3-grey w3-indigo w3-hover-grey">
+                                                Register Bus
+                                            </a>
+                                        <% end %>
+
 
                                     </span>
                                     </div>

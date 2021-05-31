@@ -159,7 +159,6 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   def update_user(conn, %{"payload" => payload } = params) do
 
     username = payload["username"]
-
     IO.inspect params
 
     if username == nil do
@@ -173,18 +172,18 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
           case username |> RepoManager.find_user_by_username do
             nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
             user ->
-              IO.inspect(user)
-              if params["role_id"] != "0" do
-                UserRole.find_or_create_by(user: user.id)
-                |> IO.inspect()
-                |> case do
-                     {:ok, user_role} -> user_role |> UserRole.update([role: params["role_id"]])
-                     _ -> ""
-                   end
-              end
 
               case RepoManager.update_user(user,payload) do
                 {:ok, user} ->
+
+                  if payload["role_id"] != "0" do
+                    UserRole.find_or_create_by(user: user.id)
+                    |> case do
+                      {:ok, user_role} -> user_role |> UserRole.update([role: Decimal.new(payload["role_id"]) |> Decimal.to_integer])
+                         _ -> ""
+                       end
+                  end
+
                   conn
                   |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_authentication,"SUCCESS",0,
                     %{
@@ -202,7 +201,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
                       "account_status" => user.account_status,
                       "role_id" => user.role_id,
                       "role_name" => BusTerminalSystem.UserRoles.find(user.role_id).role
-                    } |> IO.inspect()))
+                    }))
                 {:error, %Ecto.Changeset{} = changeset} ->
                   conn
                   |> json(ApiManager.api_error_handler(ApiManager.definition_accounts(),ApiManager.translate_error(changeset)))
@@ -829,6 +828,15 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
              conn |> json(%{status: 1, message: "Password Update Failed"})
          end
        end
+  end
+
+  def get_permissions(conn, params) do
+    permissions = BusTerminalSystem.UserRoles.find_by(id: params["role"]).permissions
+    |> Poison.decode!()
+    |> Enum.map(fn permission ->
+      BusTerminalSystem.Permissions.find_by(code: permission |> to_string ).name
+    end)
+    conn |> json(permissions)
   end
 
 end

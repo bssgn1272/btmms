@@ -3,5 +3,9 @@ defmodule BusTerminalSystemWeb.UserManagementView do
 
   @moduledoc false
 
+  import BusTerminalSystemWeb.Security.UserPermissionAccess
+
+  def access(id, code), do: check(id, code)
+
 
 end

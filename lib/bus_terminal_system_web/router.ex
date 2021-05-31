@@ -210,6 +210,7 @@ defmodule BusTerminalSystemWeb.Router do
     post "/internal/update/route", FrontendApiController, :update_route_bus_route
 
     post "/internal/reset_password", FrontendApiController, :reset_password
+    post "/internal/user/permissions", FrontendApiController, :get_permissions
     post "/internal/list/bus", FrontendApiController, :query_list_buses
     get "/internal/list/bus_routes", FrontendApiController, :list_travel_routes
     get "/internal/list/bus_operators", FrontendApiController, :list_bus_operators

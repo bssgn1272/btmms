@@ -12,8 +12,12 @@
 
 
 alias BusTerminalSystem.Settings
+alias BusTerminalSystem.Permissions
 
+permission = (fn name, code -> if Permissions.find_by(name: name) == nil, do: Permissions.create(name: name, code: code) end)
 save = (fn key, value -> if Settings.find_by(key: key) == nil, do: Settings.create(key: key, value: value, status: true) end)
+
+# SETTINGS
 
 save.("APPLICATION_NAME", "BTMMS")
 save.("BANK_URL", "http://41.175.13.198:7664/api/json/commercials/probase/zicb/fundsTransfer")
@@ -43,3 +47,10 @@ save.("COSEC_TURNSTILE_DISABLE_TID_IP", "http://10.70.3.55:5000/disable/")
 save.("NAPSA_MEMBER_VALIDATION_URL", "http://10.10.1.114:8092/apis/external/v1/validatessnnrc")
 save.("NAPSA_SOAP_URL", "http://napsa-enapsauatsvr:8738/eNAPSAExternalAPI/2018/04/NPSService")
 save.("NAPSA_CONTRIBUTION_URL", "http://enapsa.napsa.co.zm/eNAPSAServicesLibrary/2016/11/IeNAPSAExternalAPI/ReturnUpload")
+
+# PERMISSIONS
+
+permission.("VIEW USERS", "100")
+permission.("EDIT USERS", "101")
+permission.("REGISTER USERS", "102")
+permission.("REGISTER BUS", "103")

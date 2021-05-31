@@ -1,3 +1,4 @@
+<%= if access(@user.id, 100) do %>
 <div class="row">
   <div class="col-md-2">
   </div>
@@ -102,6 +103,11 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label>Swift Code:</label>
+                                        <input name="payload[swift_code]" id="SwiftCode" oninput=(user_validation(this)) class="form-control" required readonly value="" placeholder="Enter Swift Code" type="text">
+                                    </div>
+
+                                    <div class="form-group">
                                         <label>SSN:</label>
                                         <input name="payload[ssn]" id="SSN" oninput=(user_validation(this)) class="form-control" required readonly value="<%= @napsa_user["ssn"] %>" placeholder="Enter SSN Number" type="text">
                                     </div>
@@ -152,3 +158,22 @@
   </div>   
 
 </div>
+<% else %>
+    <div class="container align-content-center padding-bottom-3x mb-2 mt-5">
+        <div class="row justify-content-center" style="width: 50%; margin-top: 200px; margin-left: 270px;">
+            <div class="col-12">
+                <div class="forgot">
+                    <h1><strong>PAGE ACCESS DENIED</strong></h1>
+                    <p>You are not authorised to view this page, if you are receiving this message incorrectly please try below options.</p>
+
+                    <ol class="list-unstyled">
+                        <li><span class="text-primary text-medium">1. </span>Refresh your page</li>
+                        <li><span class="text-primary text-medium">2. </span>Sign out and Login again.</li>
+                        <li><span class="text-primary text-medium">3. </span>Contact your administrator.</li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+<% end %>

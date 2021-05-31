@@ -209,8 +209,8 @@
                                         <li>
                                             <a href="#"><i style="color:orange;" class="icon-stack2"></i> <span>Authorization</span></a>
                                             <ul>
-                                                <li><%= link "M/C Operations", to: Routes.maker_checker_path(@conn, :index) %></li>
-                                                <li><%= link "User Roles", to: Routes.user_management_path(@conn, :redirect, view: "22K2yQRYjgb4i" ,sigma: :kenos) %></li>
+                                                <li><%= link "Pending Checker Requests", to: Routes.maker_checker_path(@conn, :index) %></li>
+                                                <li><%= link "Roles and Permissions", to: Routes.user_management_path(@conn, :redirect, view: "22K2yQRYjgb4i" ,sigma: :kenos) %></li>
                                             </ul>
                                         </li>
 
@@ -220,7 +220,7 @@
                                             <li><%= link "View Tellers", to: Routes.teller_path(@conn, :till_teller_manage, view: "22K2yQRYjgb4i", sigma: :kenos) %></li>
 
                                             <li>
-                                                <%= link "Register Staff", to: Routes.user_path(@conn, :new_teller) %>
+                                                <%= link "Register SPV", to: Routes.user_path(@conn, :new_teller) %>
                                             </li>
                                         </ul>
 
@@ -432,7 +432,7 @@
                               </div>
                           <% end %>
                       <input type="hidden" name="_csrf_token" id="csrf" value="<%= Plug.CSRFProtection.get_csrf_token() %>">
-                      <%= render @view_module, @view_template, assigns %>
+                      <%= @inner_content %>
                   </main>
 
     		</div>
@@ -559,6 +559,8 @@
             </div>
         </div>
         </div>
+
+
 
     <!-- Core JS files -->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

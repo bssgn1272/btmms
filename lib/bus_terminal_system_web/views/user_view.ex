@@ -2,6 +2,9 @@ defmodule BusTerminalSystemWeb.UserView do
   use BusTerminalSystemWeb, :view
   import Plug.Conn
   alias BusTerminalSystem.AccountManager.User
+  import BusTerminalSystemWeb.Security.UserPermissionAccess
+
+  def access(id, code), do: check(id, code)
 
   def user_id(id) do
     "<>"
@@ -20,12 +23,11 @@ defmodule BusTerminalSystemWeb.UserView do
   def permissions(conn) do
     id = Cachex.get(:tmp, conn.assigns.user.id)
     try do
-      IO.inspect("Done")
-      BusTerminalSystem.UserRole.find([user: id])
-      BusTerminalSystem.UserRoles.all
+#      BusTerminalSystem.UserRole.find([user: id])
+#      BusTerminalSystem.UserRoles.all
+      []
     rescue
       _ ->
-        IO.inspect("Failed")
         []
     end
 
