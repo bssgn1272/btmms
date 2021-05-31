@@ -271,6 +271,8 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     end
   end
 
+
+
   def update_bus(conn, %{"payload" => payload } = params) do
 
     bus_uid  = payload["bus_uid"]
@@ -846,6 +848,16 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
       BusTerminalSystem.Permissions.find_by(code: permission |> to_string ).name
     end)
     conn |> json(permissions)
+  end
+
+  def delete_bus(conn,  %{"payload" => payload } = params) do
+    bus_uid  = payload["bus_uid"]
+    bus = BusTerminalSystem.BusManagement.Bus.find_by([uid: bus_uid])
+    BusTerminalSystem.BusManagement.Bus.delete(bus)
+    |> case do
+         {:ok, _} -> conn |> json(%{status: 0, message: "Bus deleted successfully"})
+         {:error, _} -> conn |> json(%{status: 1, message: "Failed to delete bus"})
+     end
   end
 
 end

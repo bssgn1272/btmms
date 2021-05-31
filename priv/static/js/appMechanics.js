@@ -869,6 +869,40 @@ function bus_model_update_bus() {
     })
 }
 
+function bus_model_delete_bus() {
+    let json_request = JSON.stringify({
+        payload: {
+            bus_uid: $('#model_bus_uuid').val(),
+            // license_plate: $('#model_bus_number_plate').val(),
+            // color: $('#model_bus_color').val(),
+            // vehicle_capacity: $('#model_bus_capacity').val()
+        }
+    });
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/delete/bus',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request,
+        success: function (response) {
+            if (response.status == 0){
+                swal({title: "Delete bus", text: response.message, type: "success"},
+                    function(){
+
+                    }
+                );
+            } else {
+                swal({title: "Delete bus", text: response.message, type: "error"},
+                    function(){
+
+                    }
+                );
+            }
+        }
+    })
+}
+
 function set_discount() {
 
     const swalWithBootstrapButtons = Swal.mixin({

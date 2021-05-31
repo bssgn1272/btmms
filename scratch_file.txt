@@ -103,3 +103,36 @@
   "status":200,
   "timestamp":1622194382765
 }
+
+%BusTerminalSystem.UserRole{
+   __meta__: #Ecto.Schema.Metadata<:loaded, "probase_user_role">,
+   auth_status: 0,
+   checker: nil,
+   checker_date_time: nil,
+   id: 1,
+   inserted_at: ~N[2021-05-30 08:39:32],
+   maker: nil,
+   maker_date_time: nil,
+   permissions: nil,
+   role: nil,
+   system_description: nil,
+   updated_at: ~N[2021-05-30 08:39:32],
+   user: 1,
+   user_description: nil
+ }}
+
+ %BusTerminalSystem.UserRole{
+   auth_status: 0,
+   checker: nil,
+   checker_date_time: nil,
+   id: 1,
+   inserted_at: ~N[2021-05-30 08:39:32],
+   maker: nil,
+   maker_date_time: nil,
+   permissions: nil,
+   role: nil,
+   system_description: nil,
+   updated_at: ~N[2021-05-30 08:39:32],
+   user: 1,
+   user_description: nil
+ }

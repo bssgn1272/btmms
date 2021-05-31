@@ -220,6 +220,7 @@ defmodule BusTerminalSystemWeb.Router do
     post "/internal/update/user", FrontendApiController, :update_user
     post "/internal/query/bus", FrontendApiController, :query_bus
     post "/internal/update/bus", FrontendApiController, :update_bus
+    post "/internal/delete/bus", FrontendApiController, :delete_bus
     post "/internal/tickets/find", TicketController, :find_ticket_internal
     get "/internal/scale/query", FrontendApiController, :get_scale_query
 

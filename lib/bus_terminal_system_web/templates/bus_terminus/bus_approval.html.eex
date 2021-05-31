@@ -253,6 +253,7 @@
       <hr>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>
+            <button class="btn btn-primary" onclick="bus_model_delete_bus()">DELETE <i class="icon-arrow-right14 position-right"></i></button>
             <button class="btn btn-primary" onclick="bus_model_update_bus()">UPDATE <i class="icon-arrow-right14 position-right"></i></button>
         </div>
     </div>

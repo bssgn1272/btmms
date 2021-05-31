@@ -18,6 +18,7 @@ defmodule BusTerminalSystem.BusManagement.Bus do
     field :serial_number, :string
     field :hull_number, :string
     field :operator_id, :string
+#    field :operator_id, :integer
     field :vehicle_class, :string
     field :company, :string
     field :company_info, :string
