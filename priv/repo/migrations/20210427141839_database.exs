@@ -258,8 +258,8 @@ defmodule BusTerminalSystem.Repo.Migrations.Database do
       add :vin_number, :string
       add :serial_number, :string
       add :hull_number, :string
-#      add :operator_id, :integer
-      add :operator_id, :string
+      add :operator_id, :integer
+#      add :operator_id, :string
       add :vehicle_class, :string
       add :company, :string
       add :company_info, :string

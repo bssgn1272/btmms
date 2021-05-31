@@ -29,7 +29,7 @@ defmodule BusTerminalSystem.EmailSender do
     Task.async(fn ->
       new()
       |> to(to)
-      |> from("BTMS@probasemail.test.com")
+      |> from("BTMMS@napsa.co.zm")
       |> subject(subject)
       |> text_body(text)
       |> Mailer.deliver
