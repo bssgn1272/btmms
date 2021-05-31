@@ -50,7 +50,38 @@ save.("NAPSA_CONTRIBUTION_URL", "http://enapsa.napsa.co.zm/eNAPSAServicesLibrary
 
 # PERMISSIONS
 
-permission.("VIEW USERS", "100")
-permission.("EDIT USERS", "101")
-permission.("REGISTER USERS", "102")
-permission.("REGISTER BUS", "103")
+permission.("USERS - VIEW USERS", "100")
+permission.("USERS - EDIT USERS", "101")
+permission.("USERS - REGISTER USERS", "102")
+
+
+permission.("ROUTES - VIEW TRAVEL ROUTES", "104")
+permission.("ROUTES - CREATE TRAVEL ROUTES", "105")
+permission.("ROUTES - EDIT TRAVEL ROUTES", "106")
+permission.("ROUTES - DELETE TRAVEL ROUTES", "107")
+
+permission.("REPORTS - VIEW REPORTS", "108")
+
+permission.("BUS - REGISTER BUS", "103")
+permission.("BUS - VIEW BUSES", "109")
+permission.("BUS - UPDATE BUSES", "111")
+permission.("BUS - DELETE BUSES", "112")
+
+permission.("MARKET - VIEW MARKET", "113")
+permission.("MARKET - CREATE MARKET", "114")
+permission.("MARKET - CREATE SECTION", "115")
+permission.("MARKET - MANAGE SHOP", "116")
+permission.("MARKET - MANAGE MARKET", "117")
+
+permission.("AUTHORIZATION - VIEW AUTHORIZATION", "118")
+permission.("AUTHORIZATION - MAKER/CHECKER", "119")
+permission.("AUTHORIZATION - AUTHORISE REQUEST", "122")
+permission.("AUTHORIZATION - REJECT REQUEST", "123")
+
+permission.("SECURITY - VIEW SECURITY", "120")
+permission.("SECURITY - ROLES/PERMISSIONS", "121")
+permission.("SECURITY - CREATE USER ROLE", "124")
+permission.("SECURITY - UPDATE USER ROLE", "125")
+permission.("SECURITY - DELETE USER ROLE", "126")
+permission.("SECURITY - ADD PERMISSION", "127")
+permission.("SECURITY - REMOVE PERMISSION", "128")

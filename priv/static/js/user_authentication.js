@@ -95,7 +95,7 @@ function password_reset(){
         swal({title: "Invalid Username", text: "Please enter a valid username before proceeding", type: "error"}
         );
     }else{
-        swalWithBootstrapButtons.fire('Resetting your password,   Please wait...')
+        swalWithBootstrapButtons.fire('Resetting your password, Please wait...')
         swalWithBootstrapButtons.showLoading();
 
         let json_request = JSON.stringify({

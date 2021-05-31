@@ -113,11 +113,14 @@
                                         </a>
     								</li>
 
-                                    <li>
-                                        <a href="<%= Routes.route_path(@conn, :index)%>">
-                                            <i style="color:orange;" class="icon-road"></i> <span>Routes</span>
-                                        </a>
-                                    </li>
+                                    <%= if access(@user.id, 104) do %>
+                                        <li>
+                                            <a href="<%= Routes.route_path(@conn, :index)%>">
+                                                <i style="color:orange;" class="icon-road"></i> <span>Travel Routes</span>
+                                            </a>
+                                        </li>
+                                    <% end %>
+
 
                                     <li hidden>
                                         <a href="<%= Routes.bookings_path(@conn, :index)%>">
@@ -137,32 +140,48 @@
                                         </ul>
                                     </li>
 
-                                    <li>
-                                        <a href="#"><i style="color:orange;" class="icon-envelop2"></i> <span>Reports</span></a>
-                                         <ul>
-                                               <li>
+                                    <%= if access(@user.id, 108) do %>
+                                        <li>
+                                            <a href="#"><i style="color:orange;" class="icon-envelop2"></i> <span>Reports</span></a>
+                                            <ul>
+                                                <li>
                                                     <%= link "Reports", to: Routes.teller_path(@conn, :reports) %>
-                                               </li>
-                                         </ul>
-                                    </li>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    <% end %>
+
+
 
                                         <%= if @user.role == "SADMIN" or @user.role == "ADMIN" do %>
-                                            <li>
-                                                <a href="#"><i style="color:orange;" class="icon-bus"></i> <span>Bus Management</span></a>
-                                                <ul>
-                                                    <li>
-                                                        <%= link "Manage Buses", to: Routes.bus_terminus_path(@conn, :bus_approval) %>
-                                                    </li>
-                                                </ul>
-                                            </li>
+                                            <%= if access(@user.id, 109) do %>
+                                                <li>
+                                                    <a href="#"><i style="color:orange;" class="icon-bus"></i> <span>Bus Management</span></a>
+                                                    <ul>
+                                                        <li>
+                                                            <%= link "Manage Buses", to: Routes.bus_terminus_path(@conn, :bus_approval) %>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            <% end %>
 
-                                            <li>
-                                                <a href="#"><i style="color:orange;" class="icon-stack2"></i> <span>Market Operations</span></a>
-                                                <ul>
-                                                    <li><%= link "Management", to: Routes.marketer_path(@conn, :index) %></li>
-                                                    <li><%= link "Stand Allocation", to: Routes.marketer_path(@conn, :standallocation) %></li>
-                                                </ul>
-                                            </li>
+                                            <%= if access(@user.id, 113) do %>
+                                                <li>
+                                                    <a href="#"><i style="color:orange;" class="icon-stack2"></i> <span>Market Operations</span></a>
+                                                    <ul>
+                                                        <%= if access(@user.id, 117) do %>
+                                                            <li><%= link "Market Management", to: Routes.marketer_path(@conn, :index) %></li>
+                                                        <% end %>
+
+                                                        <%= if access(@user.id, 116) do %>
+                                                            <li><%= link "Shop Allocation", to: Routes.marketer_path(@conn, :standallocation) %></li>
+                                                        <% end %>
+
+
+                                                    </ul>
+                                                </li>
+                                            <% end %>
+
 
 
                                             <%= if @user.role == "SADMIN" do %>
@@ -206,13 +225,28 @@
                                     </li>
                                     <% end %>
                                     <%= if @user.role == "ADMIN" or @user.role == "SADMIN" do %>
-                                        <li>
-                                            <a href="#"><i style="color:orange;" class="icon-stack2"></i> <span>Authorization</span></a>
-                                            <ul>
-                                                <li><%= link "Pending Checker Requests", to: Routes.maker_checker_path(@conn, :index) %></li>
-                                                <li><%= link "Roles and Permissions", to: Routes.user_management_path(@conn, :redirect, view: "22K2yQRYjgb4i" ,sigma: :kenos) %></li>
-                                            </ul>
-                                        </li>
+                                        <%= if access(@user.id, 118) do %>
+                                            <li>
+                                                <a href="#"><i style="color:orange;" class="icon-stack2"></i> <span>Authorization</span></a>
+                                                <ul>
+                                                    <%= if access(@user.id, 119) do %>
+                                                        <li><%= link "Pending Checker Requests", to: Routes.maker_checker_path(@conn, :index) %></li>
+                                                    <% end %>
+
+                                                </ul>
+                                            </li>
+                                        <% end %>
+
+                                        <%= if access(@user.id, 120) do %>
+                                            <li>
+                                                <a href="#"><i style="color:orange;" class="icon-key"></i> <span>Security</span></a>
+                                                <ul>
+                                                    <%= if access(@user.id, 121) do %>
+                                                        <li><%= link "Roles and Permissions", to: Routes.user_management_path(@conn, :redirect, view: "22K2yQRYjgb4i" ,sigma: :kenos) %></li>
+                                                    <% end %>
+                                                </ul>
+                                            </li>
+                                        <% end %>
 
                                     <li>
                                         <a href="#"><i style="color:orange;" class="icon-home5"></i> <span> Terminus Management </span></a>

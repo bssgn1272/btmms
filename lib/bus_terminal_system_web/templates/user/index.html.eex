@@ -1741,9 +1741,16 @@ toolbar -->
                                 <div class="panel-footer panel-footer-condensed">
                                     <div class="container">
                                         <span>
-                                            <a href="<%= Routes.route_path(@conn, :index) %>" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange">
+                                        <%= if access(@user.id, 104) do %>
+                                              <a href="<%= Routes.route_path(@conn, :index) %>" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange">
                                                 View Routes
                                             </a>
+                                        <% else %>
+                                            <a style="border-radius: 12px;" class="w3-btn w3-grey w3-indigo w3-hover-grey">
+                                                View Routes
+                                            </a>
+                                        <% end %>
+
                                         </span>
                                     </div>
                                 </div>

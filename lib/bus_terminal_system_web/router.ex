@@ -207,6 +207,7 @@ defmodule BusTerminalSystemWeb.Router do
     post "/internal/create/acquire_luggage_plain", FrontendApiController, :acquire_luggage_form_view
     post "/internal/create/virtual_ticket", FrontendApiController, :create_virtual_luggage_ticket
     post "/internal/query/route", FrontendApiController, :query_route
+    post "/internal/delete/route", FrontendApiController, :delete_route
     post "/internal/update/route", FrontendApiController, :update_route_bus_route
 
     post "/internal/reset_password", FrontendApiController, :reset_password

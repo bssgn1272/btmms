@@ -19,7 +19,7 @@ defmodule BusTerminalSystem.MakerCheckModule do
 #      end
 #    end) |> List.flatten()
 #  end
-
+#(User.find_by(id: user.(row |> Enum.at(0))).username
   def maker_checker() do
     tables |> Enum.map(fn table ->
 #      try do
@@ -30,8 +30,7 @@ defmodule BusTerminalSystem.MakerCheckModule do
                     [] -> nil
                     rows ->
                       rows |> Enum.map(fn row ->
-                        user = (fn id -> if User.find_by(id: id).username == nil, do: 1, else: id end)
-                        %{schema: table, id: row |> Enum.at(4), maker: (User.find_by(id: user.(row |> Enum.at(0))).username),
+                        %{schema: table, id: row |> Enum.at(4), maker: row |> Enum.at(0),
                           maker_date_time: row |> Enum.at(1), user_description: row |> Enum.at(2), system_description: row |> Enum.at(3)}
                       end)
                   end

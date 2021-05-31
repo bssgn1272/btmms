@@ -6,13 +6,16 @@
          }
          </style>
 <!--------------- ROUTES_TABLE ----------------------------------------------------->
+
+
+<%= if access(@user.id, 120) do %>
 <div class="container-fluid">
-	<div class="w3-card-2 w3-white" style="width: 100%;">
-		<div class="w3-container">
-        <div class="chart-container" style="margin-top: 2%;">
-            <div style="overflow-x:auto;">
-                <table class="table table-striped table-bordered" id="routes_table">
-                    <thead>
+    <div class="w3-card-2 w3-white" style="width: 100%;">
+        <div class="w3-container">
+            <div class="chart-container" style="margin-top: 2%;">
+                <div style="overflow-x:auto;">
+                    <table class="table table-striped table-bordered" id="routes_table">
+                        <thead>
                         <tr>
                             <th> Maker </th>
                             <th> Maker Date r</th>
@@ -20,39 +23,58 @@
                             <th> System Description </th>
                             <th class="text-center">Actions</th>
                         </tr>
-                    </thead>
-                    <tbody>
-                  <%= for list <- @list do %>
-                      <tr>
-                          <td> <%= list.maker %> </td>
-                          <td> <%= list.maker_date_time %> </td>
-                          <td> <%= list.user_description %> </td>
-                          <td> <%= list.system_description %> </td>
-                          <td class="text-center">
-							<ul class="icons-list">
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-										<i class="icon-menu9"></i>
-									</a>
-									<ul class="dropdown-menu dropdown-menu-right">
-										<li>
-                                            <a onclick="approve('<%= list.id %>', '<%= list.schema %>')" id="<%= list.id %>" table="<%= list.schema %>" class="dropdown-item text-success" >view</a>
-                                     <!--       <a href="#" data-toggle="modal" data-target="#authorise"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> view</a>
- -->                                       </li>
-									</ul>
-								</li>
-							</ul>
-						</td>
-                      </tr>
-                <% end %>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        <%= for list <- @list do %>
+                        <tr>
+                            <td> <%= list.maker %> </td>
+                            <td> <%= list.maker_date_time %> </td>
+                            <td> <%= list.user_description %> </td>
+                            <td> <%= list.system_description %> </td>
+                            <td class="text-center">
+                                <ul class="icons-list">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            <i class="icon-menu9"></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li>
+                                                <a onclick="approve('<%= list.id %>', '<%= list.schema %>')" id="<%= list.id %>" table="<%= list.schema %>" class="dropdown-item text-success" >view</a>
+                                                <!--       <a href="#" data-toggle="modal" data-target="#authorise"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> view</a>
+            -->                                       </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <% end %>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    	</div>
     </div>
 
 </div><br>
+<% else %>
+<div class="container align-content-center padding-bottom-3x mb-2 mt-5">
+    <div class="row justify-content-center" style="width: 50%; margin-top: 200px; margin-left: 270px;">
+        <div class="col-12">
+            <div class="forgot">
+                <h1><strong>PAGE ACCESS DENIED</strong></h1>
+                <p>You are not authorised to view this page, if you are receiving this message incorrectly please try below options.</p>
+
+                <ol class="list-unstyled">
+                    <li><span class="text-primary text-medium">1. </span>Refresh your page</li>
+                    <li><span class="text-primary text-medium">2. </span>Sign out and Login again.</li>
+                    <li><span class="text-primary text-medium">3. </span>Contact your administrator.</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<% end %>
 
 <script src="<%= Routes.static_path(@conn, "/bower_components/jquery/dist/jquery.min.js") %>"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

@@ -1174,6 +1174,38 @@ function route_edit_model_manage(route) {
     })
 }
 
+function delete_bus_route() {
+    route_id = $('#edit_route_id').val();
+    let json_request_1 = JSON.stringify({
+        payload: {
+            route_id: route_id
+        }
+    });
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/delete/route',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request_1,
+        success: function (response) {
+            if (response.status === 0){
+                swal({title: "Delete Route", text: response.message, type: "success"},
+                    function(){
+                        location.reload();
+                    }
+                );
+            } else {
+                swal({title: "Delete Route", text: response.message, type: "error"},
+                    function(){
+                        location.reload();
+                    }
+                );
+            }
+        }
+    })
+}
+
 function update_system_bus_route() {
 
     route_id = $('#edit_route_id').val();

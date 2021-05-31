@@ -371,8 +371,17 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
   def query_route(conn, params) do
     route_id = params["payload"]["route_id"]
-    IO.inspect params
     conn |> json(RepoManager.route_by_id_json(route_id))
+  end
+
+  def delete_route(conn, params) do
+    route_id = params["payload"]["route_id"]
+    route = BusTerminalSystem.TravelRoutes.find(route_id)
+    BusTerminalSystem.TravelRoutes.delete(route)
+    |> case do
+         {:ok, _} -> conn |> json(%{status: 0, message: "Route deleted Successfully."})
+         {:error, _} -> conn |> json(%{status: 1, message: "Failed to delete Route."})
+     end
   end
 
   def update_route_bus_route(conn, %{"payload" => %{ "route_id" => route_id } = payload} = params) do
