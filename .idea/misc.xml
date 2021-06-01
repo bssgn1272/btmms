@@ -3,4 +3,7 @@
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="Elixir at /usr/lib/elixir" project-jdk-type="Elixir SDK">
     <output url="file://$PROJECT_DIR$/classes" />
   </component>
+  <component name="WebPackConfiguration">
+    <option name="mode" value="DISABLED" />
+  </component>
 </project>

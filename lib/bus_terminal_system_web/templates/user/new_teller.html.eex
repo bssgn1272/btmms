@@ -1,4 +1,4 @@
-<%= if access(@user.id, 102) do %>
+<%= if access(@user.id, 130) do %>
 <div class="row">
     <div class="col-md-2">
     </div>
@@ -29,7 +29,6 @@
                                     <select name="payload[role]" class="form-control">
                                         <option value="TOP">Teller</option>
                                         <option value="ADMIN">Administrator</option>
-                                        <option value="BOP">Flex Bus Operator</option>
                                         <option value="CCOP">Customer Care</option>
                                         <option value="AGNT">Agent</option>
                                         <option value="SADMIN">Super Manager</option>

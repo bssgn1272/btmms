@@ -248,18 +248,30 @@
                                             </li>
                                         <% end %>
 
-                                    <li>
-                                        <a href="#"><i style="color:orange;" class="icon-home5"></i> <span> Terminus Management </span></a>
-                                        <ul>
-                                            <li><%= link "View Tellers", to: Routes.teller_path(@conn, :till_teller_manage, view: "22K2yQRYjgb4i", sigma: :kenos) %></li>
-
+                                        <%= if access(@user.id, 129) do %>
                                             <li>
-                                                <%= link "Register SPV", to: Routes.user_path(@conn, :new_teller) %>
-                                            </li>
-                                        </ul>
+                                            <a href="#"><i style="color:orange;" class="icon-home5"></i> <span> Terminus Management </span></a>
+                                            <ul>
+                                                <%= if access(@user.id, 132) do %>
+                                                <li><%= link "View Tellers", to: Routes.teller_path(@conn, :till_teller_manage, view: "22K2yQRYjgb4i", sigma: :kenos) %></li>
+                                                <% end %>
 
+                                                <%= if access(@user.id, 130) do %>
+                                                <li>
+                                                    <%= link "Register SPV user", to: Routes.user_path(@conn, :new_teller) %>
+                                                </li>
+                                                <% end %>
 
-                                    </li>
+                                                <%= if access(@user.id, 131) do %>
+                                                <li>
+                                                    <%= link "Register None SPV user", to: Routes.user_path(@conn, :new_staff) %>
+                                                </li>
+                                                <% end %>
+
+                                            </ul>
+
+                                        </li>
+                                        <% end %>
 
                                     <% end %>
     								<!--
@@ -425,9 +437,13 @@
                                     <li>
                                         <%= link "Documentation", to: Routes.teller_path(@conn, :documentation) %>
                                     </li>
-                                    <li>
-                                        <%= link "Reports", to: Routes.teller_path(@conn, :reports) %>
-                                    </li>
+
+                                    <%= if access(@user.id, 108) do %>
+                                        <li>
+                                            <%= link "Reports", to: Routes.teller_path(@conn, :reports) %>
+                                        </li>
+                                    <% end %>
+
                                     <li><br></li>
                                     <li><br></li>
                                     <li><br></li>

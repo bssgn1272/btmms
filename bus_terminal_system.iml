@@ -143,6 +143,10 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/parallel_stream" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/elixlsx" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/zombie" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/cowboy_telemetry" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/crypto_rand" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/puid" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/random_password" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="phoenix" level="project" />
@@ -285,5 +289,17 @@
     <orderEntry type="library" name="csvlixir" level="project" />
     <orderEntry type="library" name="cesso" level="project" />
     <orderEntry type="library" name="zombie" level="project" />
+    <orderEntry type="library" name="telemetry_poller" level="project" />
+    <orderEntry type="library" name="telemetry_metrics" level="project" />
+    <orderEntry type="library" name="cowboy_telemetry" level="project" />
+    <orderEntry type="library" name="random_password" level="project" />
+    <orderEntry type="library" name="puid" level="project" />
+    <orderEntry type="library" name="crypto_rand" level="project" />
+    <orderEntry type="library" name="entropy_string" level="project" />
+    <orderEntry type="library" name="not_qwerty123" level="project" />
+    <orderEntry type="library" name="misc_random" level="project" />
+    <orderEntry type="library" name="rand_str" level="project" />
+    <orderEntry type="library" name="randomizer" level="project" />
+    <orderEntry type="library" name="secure_random" level="project" />
   </component>
 </module>

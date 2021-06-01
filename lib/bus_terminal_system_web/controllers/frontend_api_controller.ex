@@ -813,6 +813,22 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     conn |> json(%{exist: result.num_rows})
   end
 
+  def test_query() do
+    query = "select concat(c.first_name, ' ',c.last_name)teller ,a.* from  probase_tbl_bank_transactions a ,probase_tbl_tickets b,probase_tbl_users c
+       where  a.request_reference=b.reference_number
+
+         and c.id=b.maker
+      union
+       select 'INTERNAL' teller ,a.* from  probase_tbl_bank_transactions a
+      where a.request_reference='NOT USED';"
+#    query = "select concat(c.first_name, ' ',c.last_name)teller ,a.* from  probase_tbl_bank_transactions a ,probase_tbl_tickets b,probase_tbl_users c\n where a.request_reference=b.reference_number and c.id=b.maker;"
+#    {status, result} = BusTerminalSystem.Repo.query(query)
+    BusTerminalSystem.Repo.query(query)
+#    Enum.map(result.rows, fn row ->
+#
+#    end)
+  end
+
   def bank_list(conn, _params) do
     conn |> json(BusTerminalSystem.Banks.all |> Enum.map(fn bank -> bank.bankName end))
   end

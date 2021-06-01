@@ -504,7 +504,7 @@ defmodule BusTerminalSystem.RepoManager do
             checker: nil,
             maker_date_time: Timex.now() |> NaiveDateTime.truncate(:second) |> Timex.to_naive_datetime(),
             checker_date_time: nil ,
-            user_description: payload["user_description"],
+            user_description: "New Route: #{payload["start_route"]} - #{payload["end_route"]} creation request",
             system_description: "Request to approve a route. request created by: #{conn.assigns.user.username}. on: #{Timex.today()}"
     )
     |> case  do

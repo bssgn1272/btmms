@@ -9,6 +9,13 @@
           </advancedOptions>
         </fileTransfer>
       </webServer>
+      <webServer id="fb3ca1a6-66da-40a8-9967-def3b3265266" name="btmms.4">
+        <fileTransfer rootFolder="/home/btmms" accessType="SFTP" host="10.70.1.4" port="22" sshConfigId="c8db7f95-e932-41a0-bb4e-55f7cc0fd3bb" sshConfig="btmms@10.70.1.4:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>

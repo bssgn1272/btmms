@@ -813,9 +813,10 @@ function passenger_ticket_logic() {
                 $('#trips_form').empty();
                 $('#trips_form').html(trips_html);
             }
-        }, error: function(){
+        }, error: function(response){
+            console.log(response)
             swalWithBootstrapButtons.close();
-            swal({title: "Error", text: "An Internal Error Occurred, could not fetch routes. Please contact Administrator", type: "error"},
+            swal({title: "Error", text: "A timeout occurred, could not fetch routes. Please contact Administrator", type: "error"},
                 function(){
 
                 }
@@ -973,7 +974,6 @@ function purchase_ticket_internal() {
                         ticket_back_to_routes2();
                     }
                 );
-
             }
         }, error: function(){
             swalWithBootstrapButtons.close();
@@ -1177,3 +1177,4 @@ function ticket_back_to_routes2(){
     $('#passenger_view').hide();
     $("#results_view").hide();
 }
+

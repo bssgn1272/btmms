@@ -23,7 +23,8 @@ defmodule BusTerminalSystemWeb.UserController do
            :edit,
            :update,
            :delete,
-           :new_teller
+           :new_teller,
+           :new_staff
          ]
   )
 
@@ -49,6 +50,11 @@ defmodule BusTerminalSystemWeb.UserController do
   def new_teller(conn, params) do
     changeset = AccountManager.change_user(%User{})
     render(conn, "new_teller.html", changeset: changeset)
+  end
+
+  def new_staff(conn, params) do
+    changeset = AccountManager.change_user(%User{})
+    render(conn, "new_staff.html", changeset: changeset)
   end
 
   def new_user(conn, params) do

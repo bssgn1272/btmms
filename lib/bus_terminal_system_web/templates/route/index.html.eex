@@ -76,7 +76,7 @@
 <%= if access(@user.id, 105) do %>
     <div class="container">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <form class="form-vertical" action="<%= Routes.route_path(@conn, :create) %>" method="post">
                 <div class="panel panel-flat">
                     <div class="panel-body">
