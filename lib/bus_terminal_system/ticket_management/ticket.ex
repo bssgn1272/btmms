@@ -17,7 +17,7 @@ defmodule BusTerminalSystem.TicketManagement.Ticket do
 
     field :route, :integer
     field :date, :string
-    field :bus_no, :string
+    field :bus_no, :integer
     field :class, :string
     field :activation_status, :string
     field :first_name, :string
