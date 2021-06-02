@@ -1087,10 +1087,13 @@ function user_edit_model(user) {
             // $('#model_password').val("0123456789");
             $('#model_user_id').val(user.id);
 
+
             if (data.response.QUERY.data.operator_role === "TELLER"){
                 console.log("TELLER ROLE")
                 document.getElementById("modal_update_role_id").setAttribute("disabled", "disabled");
                 // $('#modal_update_role_id').prop('disabled',true);
+            }else{
+                document.getElementById("modal_update_role_id").removeAttribute("disabled");
             }
 
             document.getElementById("modal_user_role").innerHTML = "CURRENT USER ROLE: " + data.response.QUERY.data.role_name;
