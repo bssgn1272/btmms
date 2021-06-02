@@ -18,7 +18,7 @@ permission = (fn name, code -> if Permissions.find_by(name: name) == nil, do: Pe
 save = (fn key, value -> if Settings.find_by(key: key) == nil, do: Settings.create(key: key, value: value, status: true) end)
 
 # SETTINGS
-
+if BusTerminalSystem.UserRoles.find_by(role: "DEFAULT") == nil, do: BusTerminalSystem.UserRoles.create([permissions: "[]", role: "DEFAULT", auth_status: 1, maker_id: 1])
 save.("APPLICATION_NAME", "BTMMS")
 save.("BANK_URL", "http://41.175.13.198:7664/api/json/commercials/probase/zicb/fundsTransfer")
 save.("BANK_SECONDARY_URL", "http://41.175.13.198:7664//api/json/commercials/zicb/banking")

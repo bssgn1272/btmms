@@ -115,6 +115,7 @@ defmodule BusTerminalSystemWeb.UserController do
                     end)
 
                     payload = Map.put(payload, "operator_role", "MARKETER")
+                    payload = Map.put(payload, "role_id", BusTerminalSystem.UserRoles.find_by(role: "DEFAULT").id |> to_string)
                     user_create_payload(conn, payload)
 
                   "BOP" ->
@@ -132,6 +133,7 @@ defmodule BusTerminalSystemWeb.UserController do
 
                     payload = Map.put(payload, "operator_role", "BUS OPERATOR")
                     payload = Map.put(payload, "account_status", "OTP")
+                    payload = Map.put(payload, "role_id", BusTerminalSystem.UserRoles.find_by(role: "DEFAULT").id |> to_string)
                     user_create_payload(conn, payload)
 
                   "TOP" ->
@@ -148,6 +150,7 @@ defmodule BusTerminalSystemWeb.UserController do
                     end)
 
                     payload = Map.put(payload, "operator_role", "TELLER")
+                    payload = Map.put(payload, "role_id", BusTerminalSystem.UserRoles.find_by(role: "DEFAULT").id |> to_string)
                     user_create_payload(conn, payload)
 
                   "SADMIN" ->
@@ -164,11 +167,12 @@ defmodule BusTerminalSystemWeb.UserController do
                     end)
 
                     payload = Map.put(payload, "operator_role", "SUPER_ADMINISTRATOR")
+                    payload = Map.put(payload, "role_id", BusTerminalSystem.UserRoles.find_by(role: "DEFAULT").id |> to_string)
                     user_create_payload(conn, payload)
 
                   "AGNT" ->
 
-                    message = " Hello #{first_name}, \n Your BTMMS AGENT ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{decoded_password}"
+                    message = " Hello #{first_name}, \n Your BTMMS AGENT ACCOUNT CREDENTIALS ARE .Username: #{username} Pin: #{decoded_pin}"
 
                     spawn(fn ->
                       send_sms.(mobile_number, message)
@@ -180,6 +184,7 @@ defmodule BusTerminalSystemWeb.UserController do
                     end)
 
                     payload = Map.put(payload, "operator_role", "AGENT")
+                    payload = Map.put(payload, "role_id", BusTerminalSystem.UserRoles.find_by(role: "DEFAULT").id |> to_string)
                     user_create_payload(conn, payload)
                   _ ->
 
@@ -194,6 +199,7 @@ defmodule BusTerminalSystemWeb.UserController do
                     end)
 
                     payload = Map.put(payload, "operator_role", "ADMINISTRATOR")
+                    payload = Map.put(payload, "role_id", BusTerminalSystem.UserRoles.find_by(role: "DEFAULT").id |> to_string)
                     user_create_payload(conn, payload)
                 end
 
@@ -257,6 +263,7 @@ defmodule BusTerminalSystemWeb.UserController do
                   end)
 
                   payload = Map.put(payload, "operator_role", "MARKETER")
+                  payload = Map.put(payload, "role_id", BusTerminalSystem.UserRoles.find_by(role: "DEFAULT").id |> to_string)
                   user_create_teller_payload(conn, payload)
 
                 "BOP" ->
@@ -274,6 +281,7 @@ defmodule BusTerminalSystemWeb.UserController do
 
                   payload = Map.put(payload, "operator_role", "BUS OPERATOR")
                   payload = Map.put(payload, "account_status", "OTP")
+                  payload = Map.put(payload, "role_id", BusTerminalSystem.UserRoles.find_by(role: "DEFAULT").id |> to_string)
                   user_create_teller_payload(conn, payload)
 
                 "TOP" ->
@@ -290,6 +298,7 @@ defmodule BusTerminalSystemWeb.UserController do
                   end)
 
                   payload = Map.put(payload, "operator_role", "TELLER")
+                  payload = Map.put(payload, "role_id", BusTerminalSystem.UserRoles.find_by(role: "DEFAULT").id |> to_string)
                   user_create_teller_payload(conn, payload)
 
                 "CCOP" ->
@@ -306,6 +315,7 @@ defmodule BusTerminalSystemWeb.UserController do
                   end)
 
                   payload = Map.put(payload, "operator_role", "TELLER")
+                  payload = Map.put(payload, "role_id", BusTerminalSystem.UserRoles.find_by(role: "DEFAULT").id |> to_string)
                   user_create_teller_payload(conn, payload)
 
                 "SADMIN" ->
@@ -322,6 +332,7 @@ defmodule BusTerminalSystemWeb.UserController do
                   end)
 
                   payload = Map.put(payload, "operator_role", "SUPER_ADMINISTRATOR")
+                  payload = Map.put(payload, "role_id", BusTerminalSystem.UserRoles.find_by(role: "DEFAULT").id |> to_string)
                   user_create_teller_payload(conn, payload)
                 "AGNT" ->
 
@@ -352,6 +363,7 @@ defmodule BusTerminalSystemWeb.UserController do
                   end)
 
                   payload = Map.put(payload, "operator_role", "ADMINISTRATOR")
+                  payload = Map.put(payload, "role_id", BusTerminalSystem.UserRoles.find_by(role: "DEFAULT").id |> to_string)
                   user_create_teller_payload(conn, payload)
               end
 
@@ -412,6 +424,7 @@ defmodule BusTerminalSystemWeb.UserController do
                   end)
 
                   payload = Map.put(payload, "operator_role", "MARKETER")
+                  payload = Map.put(payload, "role_id", BusTerminalSystem.UserRoles.find_by(role: "DEFAULT").id |> to_string)
                   user_create_staff_payload(conn, payload)
 
                 "BOP" ->
@@ -429,6 +442,7 @@ defmodule BusTerminalSystemWeb.UserController do
 
                   payload = Map.put(payload, "operator_role", "BUS OPERATOR")
                   payload = Map.put(payload, "account_status", "OTP")
+                  payload = Map.put(payload, "role_id", BusTerminalSystem.UserRoles.find_by(role: "DEFAULT").id |> to_string)
                   user_create_staff_payload(conn, payload)
 
                 "FBOP" ->
@@ -446,6 +460,7 @@ defmodule BusTerminalSystemWeb.UserController do
 
                   payload = Map.put(payload, "operator_role", "BUS OPERATOR")
                   payload = Map.put(payload, "account_status", "OTP")
+                  payload = Map.put(payload, "role_id", BusTerminalSystem.UserRoles.find_by(role: "DEFAULT").id |> to_string)
                   user_create_staff_payload(conn, payload)
 
                 "TOP" ->
@@ -462,6 +477,7 @@ defmodule BusTerminalSystemWeb.UserController do
                   end)
 
                   payload = Map.put(payload, "operator_role", "TELLER")
+                  payload = Map.put(payload, "role_id", BusTerminalSystem.UserRoles.find_by(role: "DEFAULT").id |> to_string)
                   user_create_staff_payload(conn, payload)
 
                 "CCOP" ->
@@ -477,7 +493,8 @@ defmodule BusTerminalSystemWeb.UserController do
                     if email != "", do: send_mail.(email, message)
                   end)
 
-                  payload = Map.put(payload, "operator_role", "TELLER")
+                  payload = Map.put(payload, "operator_role", "CUSTOMER_CARE")
+                  payload = Map.put(payload, "role_id", BusTerminalSystem.UserRoles.find_by(role: "DEFAULT").id |> to_string)
                   user_create_staff_payload(conn, payload)
 
                 "SADMIN" ->
@@ -494,6 +511,7 @@ defmodule BusTerminalSystemWeb.UserController do
                   end)
 
                   payload = Map.put(payload, "operator_role", "SUPER_ADMINISTRATOR")
+                  payload = Map.put(payload, "role_id", BusTerminalSystem.UserRoles.find_by(role: "DEFAULT").id |> to_string)
                   user_create_staff_payload(conn, payload)
                 "AGNT" ->
 
@@ -509,6 +527,7 @@ defmodule BusTerminalSystemWeb.UserController do
                   end)
 
                   payload = Map.put(payload, "operator_role", "AGENT")
+                  payload = Map.put(payload, "role_id", BusTerminalSystem.UserRoles.find_by(role: "DEFAULT").id |> to_string)
                   user_create_staff_payload(conn, payload)
                 _ ->
 
@@ -524,6 +543,7 @@ defmodule BusTerminalSystemWeb.UserController do
                   end)
 
                   payload = Map.put(payload, "operator_role", "ADMINISTRATOR")
+                  payload = Map.put(payload, "role_id", BusTerminalSystem.UserRoles.find_by(role: "DEFAULT").id |> to_string)
                   user_create_staff_payload(conn, payload)
               end
 

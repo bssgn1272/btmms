@@ -102,7 +102,7 @@ defmodule BusTerminalSystemWeb.TicketController do
       conn
       |> json(
            %{
-             "ticket" => %{},
+             "ticket" => %{id: 0},
              "message" => "Transaction Failed, Insufficient Till balance",
              "status" => 400,
              "bank_account_balance" => session_user.bank_account_balance

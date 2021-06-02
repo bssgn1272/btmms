@@ -4,9 +4,6 @@ defmodule BusTerminalSystem.Auth do
     case user do
       nil -> {:error, "Session login failed"}
       _->
-      IO.inspect user.password
-      IO.inspect Base.encode16(:crypto.hash(:sha512, password))
-      IO.inspect password
 
         if user.password == Base.encode16(:crypto.hash(:sha512, password)) do
           {:ok, user}
@@ -18,7 +15,7 @@ defmodule BusTerminalSystem.Auth do
 
   end
   defp check_status(user) do
-    case user.auth_status != false do
+    case user.auth_status != false and user.account_status == "ACTIVE" do
       true ->
         {:ok, user}
       false ->

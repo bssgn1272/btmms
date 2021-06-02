@@ -941,16 +941,19 @@ function purchase_ticket_internal() {
         success: function (data_response) {
             // let single_object = JSON.parse(data_response);
             console.log(data_response)
-            let single_object = JSON.parse(data_response.ticket);
-            console.log(single_object)
-            $('#modal_theme_primary').modal("hide");
+
+
+            $('#modal_theme_primary').  modal("hide");
             $('#passenger_view').hide();
             $("#results_view").hide();
             $("#passenger_ticket_view").hide();
 
-            let status = single_object.status
-            console.log(single_object)
+            // let status = single_object.status
+            // console.log(single_object)
+            console.log("----------------------------------------")
             if(data_response.status === 200){
+                let single_object = JSON.parse(data_response.ticket);
+                console.log(single_object)
                 swalWithBootstrapButtons.close();
 
                 document.getElementById("bank_account_balance").innerHTML = "K" + Math.round((data_response.bank_account_balance + Number.EPSILON) * 100) / 100;
