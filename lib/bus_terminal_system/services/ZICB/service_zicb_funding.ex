@@ -4,50 +4,113 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
   alias BusTerminalSystem.Settings
   alias BusTerminalSystem.AccountManager.User
   alias Ecto.Multi
-  alias BusTerminalSystem.Database.Tables.Transactions
+  alias BusTerminalSystem.Database.View.Transactions
+  alias Ecto.Multi
 
 
   def post_ticket_transactions() do
     if Settings.find_by(key: "BANK_ENABLE_TICKET_POSTING").value == "TRUE" do
       Transactions.where([status: "PENDING"])
       |> Enum.each(fn transaction ->
-        post_ticket_to_bank(transaction) |> IO.inspect(label: "POST TRANSACTION ")
+        post_ticket_to_bank(transaction)
       end)
     end
 
   end
 
   defp post_ticket_to_bank(transaction) do
-    bank_response = %{
-      "service" => "ZB0641",
-      "request" => %{
-        "srcAcc" => transaction.srcAcc,
-        "srcBranch" => transaction.srcBranch,
-        "amount" => transaction.amount,
-        "payDate" => transaction.payDate,
-        "srcCurrency" => transaction.srcCurrency,
-        "remarks" => transaction.remarks,
-        "referenceNo" => transaction.referenceNo,
-        "transferRef" => transaction.transferRef
-      }
-    } |> Poison.encode!()
-    |> http(Settings.find_by(key: "BANK_AUTH_KEY").value) |> IO.inspect
+    bank_request = (fn txn ->
+
+      if txn.destAcc != "NOT USED" do
+        %{
+          "service" => "BNK9940",
+          "type" => "DEST",
+          "request" => %{
+            "destAcc" => txn.destAcc,
+            "destBranch" => txn.destBranch,
+            "amount" => txn.amount,
+            "payDate" => txn.payDate,
+            "payCurrency" => txn.payCurrency,
+            "remarks" => txn.remarks,
+            "referenceNo" => txn.referenceNo,
+            "transferRef" => txn.transferRef
+          }
+        }
+      else
+        %{
+          "service" => "BNK9941",
+          "type" => "SRC",
+          "request" => %{
+            "srcAcc" => txn.srcAcc,
+            "srcBranch" => txn.srcBranch,
+            "amount" => txn.amount,
+            "payDate" => txn.payDate,
+            "srcCurrency" => txn.srcCurrency,
+            "remarks" => txn.remarks,
+            "referenceNo" => txn.referenceNo,
+            "transferRef" => txn.transferRef
+          }
+        }
+      end
+
+    end)
+    txn_request = bank_request.(transaction)
+    bank_response = txn_request |> Poison.encode!()
+    |> http(Settings.find_by(key: "BANK_AUTH_KEY").value)
+
+      txn_response = bank_response["response"]["txn"]
 
 #      try do
-      if bank_response["response"]["tekHeader"]["status"] == "SUCCESS" do
+#      if txn_response["tekHeader"]["status"] == "SUCCESS" do
 #        spawn(fn ->
 #          BusTerminalSystem.Service.Zicb.AccountOpening.run()
 #        end)
-        %{
-            :hostrefno => bank_response["response"]["tekHeader"]["hostrefno"],
-            :status => bank_response["response"]["tekHeader"]["status"]
-        } |> update_transaction(transaction)
-      else
-        %{
-          :status => "PENDING"
-        }
-        |> update_transaction(transaction)
-      end
+
+        if txn_request["type"] == "SRC" and txn_response["tekHeader"]["status"] == "SUCCESS" do
+          [account] = bank_response["response"]["srcAcc"]["response"]["accountList"]
+#          User.find(transaction.user_id) |> User.update([bank_account_balance: account["availablebalance"]])
+
+
+          Ecto.Multi.new()
+          |> Multi.update(:account, Ecto.Changeset.change(User.find_by(id: transaction.user_id), %{bank_account_balance: Decimal.new(account["availablebalance"]) |> Decimal.to_float}))
+          |> BusTerminalSystem.Repo.transaction
+          |> case do
+               {:ok, _} ->
+                 %{
+                   :hostrefno => txn_response["tekHeader"]["hostrefno"],
+                   :status => txn_response["tekHeader"]["status"]
+                 } |> update_transaction(transaction)
+               {:errot, _} ->
+                 %{
+                   :status => "PENDING"
+                 }
+                 |> update_transaction(transaction)
+             end
+        else
+          [account] = bank_response["response"]["destAcc"]["response"]["accountList"]
+#          User.find(transaction.user_id) |> User.update([bank_account_balance: account["availablebalance"]])
+          Ecto.Multi.new()
+          |> Multi.update(:account, Ecto.Changeset.change(User.find_by(id: transaction.user_id), %{bank_account_balance: Decimal.new(account["availablebalance"]) |> Decimal.to_float}))
+          |> BusTerminalSystem.Repo.transaction
+          |> case do
+               {:ok, _} ->
+                 %{
+                   :hostrefno => txn_response["tekHeader"]["hostrefno"],
+                   :status => txn_response["tekHeader"]["status"]
+                 } |> update_transaction(transaction)
+               {:errot, _} ->
+                 %{
+                   :status => "PENDING"
+                 }
+                 |> update_transaction(transaction)
+             end
+        end
+
+
+
+#      else
+#
+#      end
 #    rescue
 #      _ -> %{:status => "FAILED", :message => "Bank Connection Failed", :transaction => %{}}
 #    end
@@ -55,11 +118,11 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
 
   def update_transaction(updates, transaction) do
     Multi.new()
-    |> Multi.update(:transaction, Ecto.Changeset.change(transaction, updates))
+    |> Multi.update(:transaction, Ecto.Changeset.change(BusTerminalSystem.Database.Tables.Transactions.find(transaction.id), updates))
     |> BusTerminalSystem.Repo.transaction
     |> case do
          {:ok, %{:transaction => transaction}} ->
-#           BusTerminalSystem.Service.Zicb.AccountOpening.run()
+
            %{:status => "SUCCESS", :message => "Transaction Complete", :transaction => %{}}
          {:error, message} -> %{:status => "FAILED", :message => "Transaction Failed", :transaction => %{}}
        end
@@ -79,7 +142,7 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
         "transferRef" => args["transferRef"]
       }
     } |> Poison.encode!()
-#      |> http(Settings.find_by(key: "BANK_AUTH_KEY").value) |> IO.inspect
+#      |> http(Settings.find_by(key: "BANK_AUTH_KEY").value)
 
 #    try do
 #      if bank_response["response"]["tekHeader"]["status"] == "SUCCESS" do
@@ -146,7 +209,7 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
   def transaction(params) do
 
     Multi.new()
-    |> Multi.insert(:transaction, Map.merge(%Transactions{}, (for {key, val} <- params, into: %{}, do: {String.to_atom(key), val})))
+    |> Multi.insert(:transaction, Map.merge(%BusTerminalSystem.Database.Tables.Transactions{}, (for {key, val} <- params, into: %{}, do: {String.to_atom(key), val})))
     |> BusTerminalSystem.Repo.transaction
     |> case do
          {:ok, %{:transaction => transaction}} ->
@@ -283,7 +346,6 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
     #    rescue
     #      error ->
     #        IO.puts("ZICB_URL: #{"NOT CONFIGURED"}")
-    #        IO.inspect(error)
     #     end
 
   end

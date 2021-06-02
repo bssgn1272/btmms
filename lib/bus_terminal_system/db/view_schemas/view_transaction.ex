@@ -4,7 +4,7 @@ defmodule BusTerminalSystem.Database.View.Transactions do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @db_columns [:teller, :srcAcc, :srcBranch, :srcCurrency, :transferTyp, :transferRef, :referenceNo, :destAcc, :destBranch,
+  @db_columns [:user_id, :teller, :srcAcc, :srcBranch, :srcCurrency, :transferTyp, :transferRef, :referenceNo, :destAcc, :destBranch,
     :payCurrency, :amount, :payDate, :remarks, :status, :request_reference, :op_description, :service, :atd_number,
     :atd_amount, :bank_id, :nrc_no, :account_no, :deposit_date, :bank_ref_number, :name, :senderMobileNo, :reference,
     :currency, :account, :receiverMobileNo, :datePaymentReceived, :paymentMode, :senderEmail, :userName, :customerId,
@@ -16,6 +16,7 @@ defmodule BusTerminalSystem.Database.View.Transactions do
   @derive {Poison.Encoder, only: @db_columns}
   schema "vw_bank_teller_txn" do
     field :teller, :string
+    field :user_id, :integer
     field :srcAcc, :string
     field :srcBranch, :string
     field :srcCurrency, :string

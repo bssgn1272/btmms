@@ -9,17 +9,11 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
 
 
   def run() do
-    query = from u in User, where: u.role == "TOP" or u.role == "ADMIN"
+    query = from u in User, where: (u.role == "TOP" or u.role == "ADMIN") and u.auth_status == true and (is_nil(u.account_number) or u.account_number == "")
     User.where(query)
     |> Enum.each(fn user ->
       bank_response = query_account_by_mobile(user.mobile)
-      if bank_response != %{} do
-#        IO.inspect bank_response
-        {availablebalance, _} = Float.parse((bank_response["availablebalance"] |> to_string))
-        Ecto.Multi.new()
-        |> Multi.update(:account, Ecto.Changeset.change(user, %{bank_srcBranch: bank_response["brnCode"], bank_destBranch: bank_response["brnCode"], account_number: bank_response["accountno"], bank_account_balance: availablebalance, bank_account_status: "ACTIVE"}))
-        |> BusTerminalSystem.Repo.transaction
-      else
+      if bank_response == %{} do
         parse_date = (fn date_string ->
           try do
             [day, month, year] = String.split(date_string," ")
@@ -37,8 +31,8 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
           "email" => user.email,
           "sex" => user.sex,
           "mobileNumber" => user.mobile,
-        } |> IO.inspect
-        create_wallet(teller_details) |> IO.inspect
+        }
+        create_wallet(teller_details)
       end
     end)
   end
@@ -98,7 +92,6 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
         }
         |> Poison.encode!()
         |> http()
-        |> IO.inspect
 
       {:error, message} -> {:error, message}
     end
@@ -106,7 +99,7 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
     
   end
 
-  def account_balance_inquiry(account_no) do
+  def account_balance_inquiry2(account_no) do
 
       response = %{
          "service" => "ZB0629",
@@ -129,7 +122,6 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
   end
 
   def query_by_account(response) do
-    IO.inspect response
     if response["operation_status"] == "FAIL" do
       %{}
     else

@@ -12,6 +12,23 @@ defmodule BusTerminalSystem.Repo.Migrations.Database do
   end
 
   def unique_keys do
+
+  end
+
+
+  def create do
+
+    create_if_not_exists table (:probase_tbl_emails) do
+      add :subject, :string
+      add :to, :string
+      add :from, :string
+      add :message, :string
+      add :status, :string
+      add :attended, :boolean
+
+      timestamps()
+    end
+
     create_if_not_exists table (:probase_tbl_banks) do
       add :bankName, :string
       add :branch, :string
@@ -23,10 +40,7 @@ defmodule BusTerminalSystem.Repo.Migrations.Database do
 
       timestamps()
     end
-  end
 
-
-  def create do
     # BusTerminalSystem.Repo.Migrations.RouteMapping
     create_if_not_exists table(:probase_tbl_route_mapping) do
       add :operator_id, :string
