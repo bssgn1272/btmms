@@ -29,6 +29,7 @@
                                             <select name="payload[role]" onclick="user_type_selection(this.value)" class="form-control">
                                                 <option value="">Please select Operator Type</option>
                                                 <option value="BOP">Bus Operator</option>
+                                                <option value="AGNT">Agent</option>
                                                 <option value="MOP">Marketeer</option>
                                             </select>
                                     </div>

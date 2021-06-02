@@ -258,13 +258,13 @@
 
                                                 <%= if access(@user.id, 130) do %>
                                                 <li>
-                                                    <%= link "Register SPV user", to: Routes.user_path(@conn, :new_teller) %>
+                                                    <%= link "Register NONE-SPV Staff", to: Routes.user_path(@conn, :new_teller) %>
                                                 </li>
                                                 <% end %>
 
                                                 <%= if access(@user.id, 131) do %>
                                                 <li>
-                                                    <%= link "Register None SPV user", to: Routes.user_path(@conn, :new_staff) %>
+                                                    <%= link "Flexi-Bus Operator", to: Routes.user_path(@conn, :new_staff) %>
                                                 </li>
                                                 <% end %>
 

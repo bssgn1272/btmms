@@ -270,7 +270,7 @@
                                         <div class="col-md-6">
                                             <label class="control-label">User Access Role:</label>
                                             <select id="modal_update_role_id" class="form-control" onChange="pull_permissions(this)" >
-                                                <option value="0">Select Role</option>
+                                                <option value="1">Select Role</option>
                                                 <%= for role <- BusTerminalSystem.UserRoles.all do %>
                                                 <option value="<%= role.id %>"><%= role.role %></option>
                                                 <% end %>

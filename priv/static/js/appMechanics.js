@@ -783,22 +783,27 @@ function pull_permissions(role){
 function updateAccountStatus(state) {
 
     let status;
+    let user_auth_status;
     switch (state) {
         case 1:
             status = "ACTIVE";
+            user_auth_status = false;
             break;
         case 2:
             status = "DEACTIVATE";
+            user_auth_status = false;
             break;
         default:
             status = "DEACTIVATE";
+            user_auth_status = false;
     }
 
     console.log(status);
     let json_request = JSON.stringify({
         payload: {
             username: $('#model_username').val(),
-            account_status: status
+            account_status: status,
+            auth_status: user_auth_status
         }
     });
 
@@ -809,6 +814,7 @@ function updateAccountStatus(state) {
         contentType: 'application/json',
         data: json_request,
         success: function (response) {
+            console.log(response)
             $('#modal_form_horizontal_user').modal('hide');
             window.location.reload();
         }
@@ -1053,6 +1059,8 @@ function user_edit_model(user) {
         }
     });
 
+
+
     $.ajax({
         method: 'post',
         url: '/api/v1/internal/query/user',
@@ -1075,8 +1083,15 @@ function user_edit_model(user) {
             $('#model_uuid').val(data.response.QUERY.data.uuid);
             $('#model_pwd_username').val(data.response.QUERY.data.username);
             $('#model_operator_role').val(data.response.QUERY.data.operator_role);
+            $('#modal_update_role_id').val(data.response.QUERY.data.role_id);
             // $('#model_password').val("0123456789");
-            $('#model_user_id').val(id);
+            $('#model_user_id').val(user.id);
+
+            if (data.response.QUERY.data.operator_role === "TELLER"){
+                console.log("TELLER ROLE")
+                document.getElementById("modal_update_role_id").setAttribute("disabled", "disabled");
+                // $('#modal_update_role_id').prop('disabled',true);
+            }
 
             document.getElementById("modal_user_role").innerHTML = "CURRENT USER ROLE: " + data.response.QUERY.data.role_name;
 

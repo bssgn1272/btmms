@@ -30,7 +30,6 @@
                                         <option value="TOP">Teller</option>
                                         <option value="ADMIN">Administrator</option>
                                         <option value="CCOP">Customer Care</option>
-                                        <option value="AGNT">Agent</option>
                                         <option value="SADMIN">Super Manager</option>
                                     </select>
                                 </div>
