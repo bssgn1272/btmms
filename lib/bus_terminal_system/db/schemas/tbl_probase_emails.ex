@@ -3,13 +3,12 @@ defmodule BusTerminalSystem.Notification.Table.Email do
   use Ecto.Schema
 
   schema "probase_tbl_emails" do
-    field :status, :string
-    field :status_code, :integer
-    field :recipient, :string
+    field :subject, :string
+    field :to, :string
+    field :from, :string
     field :message, :string
-    field :request, :string
-    field :response, :string
-    field :sent, :boolean
+    field :status, :string
+    field :attended, :boolean
 
     timestamps()
   end

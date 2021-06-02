@@ -24,6 +24,7 @@ save.("BANK_URL", "http://41.175.13.198:7664/api/json/commercials/probase/zicb/f
 save.("BANK_SECONDARY_URL", "http://41.175.13.198:7664//api/json/commercials/zicb/banking")
 save.("BANK_AUTH_KEY", "NOT SET")
 save.("BANK_ENABLE_TICKET_POSTING", "FALSE")
+save.("BANK_ENABLE_ACCOUNT_OPENING_TASK", "TRUE")
 save.("BANK_AUTH_SERVICE_KEY", "NOT SET")
 save.("BANK_ACCOUNT_OPENING_TYPE", "WA")
 save.("BANK_ACCOUNT_OPENING_CURRENCY", "ZMW")
@@ -36,6 +37,7 @@ save.("SMS_GATEWAY_USERNAME", "NOT SET")
 save.("SMS_GATEWAY_PASSWORD", "NOT SET")
 save.("SMS_GATEWAY_SMSC", "NOT SET")
 save.("SMS_GATEWAY_SENDER", "NOT SET")
+save.("COSEC_ENABLE_BUS_REGISTRATION", "TRUE")
 save.("COSEC_GD", "http://10.70.1.1/cosec/api.svc/v2/device") # GET DEVICES
 save.("COSEC_AD", "http://10.70.1.1/cosec/api.svc/v2/user") # ADD DEVICE
 save.("COSEC_AD2U", "http://10.70.1.1/cosec/api.svc/v2/device") # ADD DEVICE TO USER
@@ -47,6 +49,9 @@ save.("COSEC_TURNSTILE_DISABLE_TID_IP", "http://10.70.3.55:5000/disable/")
 save.("NAPSA_MEMBER_VALIDATION_URL", "http://10.10.1.114:8092/apis/external/v1/validatessnnrc")
 save.("NAPSA_SOAP_URL", "http://napsa-enapsauatsvr:8738/eNAPSAExternalAPI/2018/04/NPSService")
 save.("NAPSA_CONTRIBUTION_URL", "http://enapsa.napsa.co.zm/eNAPSAServicesLibrary/2016/11/IeNAPSAExternalAPI/ReturnUpload")
+save.("NAPSA_COMPLIANCE_SERVICE", "TRUE")
+save.("NAPSA_USER_UPDATE_SERVICE", "TRUE")
+save.("EMAIL_SERVICE", "TRUE")
 
 # PERMISSIONS
 

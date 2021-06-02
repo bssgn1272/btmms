@@ -50,7 +50,7 @@ defmodule BusTerminalSystemWeb.Router do
     post "/platform/secure/commercial/services/users/management/register", UserController, :create_teller
 
     post "/platform/secure/commercial/services/users/register", UserController, :new_user
-#    post "/platform/secure/commercial/services/users/register/teller", UserController, :create_teller
+    post "/platform/secure/commercial/services/users/register/staff", UserController, :create_staff
     get "/platform/secure/commercial/services/teller/register", UserController, :new_teller
     get "/platform/secure/commercial/services/register/staff", UserController, :new_staff
     get "/platform/secure/v1/json/commercial/services/users", UserController, :all_users_json

@@ -1,6 +1,8 @@
 defmodule BusTerminalSystem.Cosec do
 
+  import Ecto.Query, warn: false
   alias BusTerminalSystem.Settings
+  alias BusTerminalSystem.BusManagement.Bus
 
   def get_devices() do
     cred = [{"Authorization", "Basic #{Settings.find_by(key: "COSEC_CRED").value}"}]
@@ -25,13 +27,24 @@ defmodule BusTerminalSystem.Cosec do
     HTTPoison.get!("#{Settings.find_by(key: "COSEC_ADC").value}?action=set-credential;id=#{bus_id};credential-type=card;data=#{card_id}",cred)
   end
 
+  def run() do
+    if Settings.find_by(key: "COSEC_ENABLE_BUS_REGISTRATION").value == "TRUE" do
+      query = from u in Bus, where: is_nil(u.cosec) and not is_nil(u.card) and u.auth_status == true
+      Bus.where(query)
+      |> Enum.each(fn bus ->
+        register_to_cosec(bus)
+      end)
+    end
+
+  end
+
   def register_to_cosec(bus) do
 
 #    bus = BusTerminalSystem.BusManagement.Bus.first
 
     card = (fn length -> BusTerminalSystem.Randomizer.randomizer(length, :numeric) end)
 
-    add_user_result = add_user(bus.id, bus.license_plate)
+    add_user_result = add_user(bus.id, bus.license_plate |> String.replace(" ", "") |> String.trim)
     devices = get_devices()["device"]
 
     if add_user_result.status_code != 200 do
@@ -42,13 +55,13 @@ defmodule BusTerminalSystem.Cosec do
         %{result: add_device_to_user(bus.id, device["id"]).body, device: device["id"]}
       end) |> Enum.filter(fn r -> r.result |> String.contains?("successful") end)
 
-      card_length = Settings.find_by(key: "COSEC_CARD_LENGTH").value |> Decimal.new() |> Decimal.to_integer
+#      card_length = Settings.find_by(key: "COSEC_CARD_LENGTH").value |> Decimal.new() |> Decimal.to_integer
 
       if Enum.count(devices) == Enum.count(result) do
-        response = add_credentials(bus.id, card.(card_length)).body
+        response = add_credentials(bus.id, bus.card).body
         BusTerminalSystem.BusManagement.Bus.update(bus,[cosec: "Bus Registration Complete, Response: #{response}"])
       else
-        response = add_credentials(bus.id, card.(card_length)).body
+        response = add_credentials(bus.id, bus.card).body
         BusTerminalSystem.BusManagement.Bus.update(bus,[cosec: "Bus Registration Incomplete, Response: #{response}"])
       end
     end

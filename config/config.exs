@@ -72,14 +72,22 @@ config :bus_terminal_system, BusTerminalSystem.Scheduler,
    napsa: [
      schedule:  "* * * * *", task: {BusTerminalSystem.CheckCompliance, :run, []},
      schedule:  "* * * * *", task: {BusTerminalSystem.NapsaUserUpdater, :run, []},
-#     schedule:  {:extended, "*/1"}, task: {BusTerminalSystem.Job.Sms, :send, []}
    ],
   bank: [
     schedule:  {:extended, "*/4"}, task: {BusTerminalSystem.Service.Zicb.AccountOpening, :run, []},
-
   ],
    sales: [
      schedule: {:extended, "*/2"}, task: {BusTerminalSystem.Service.Zicb.Funding, :post_ticket_transactions, []}
+   ],
+   email: [
+     schedule: {:extended, "*/3"}, task: {BusTerminalSystem.EmailSender, :run, []}
+   ],
+   sms: [
+     schedule:  {:extended, "*/2"}, task: {BusTerminalSystem.Job.Sms, :send, []}
+   ],
+   cosec:
+   [
+     schedule:  {:extended, "*/2"}, task: {BusTerminalSystem.Cosec, :run, []}
    ]
  ]
 

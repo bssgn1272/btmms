@@ -360,6 +360,178 @@ defmodule BusTerminalSystemWeb.UserController do
 #    end
   end
 
+  def create_staff(conn, %{"payload" => payload} = user_params) do
+
+    {s,first_name} = Map.fetch(payload,"first_name")
+    {s,_password} = Map.fetch(payload,"password")
+    {s,username} = Map.fetch(payload,"username")
+    {s,email} = Map.fetch(payload,"email")
+    {s,mobile_number} = Map.fetch(payload,"mobile")
+    {s,role} = Map.fetch(payload,"role")
+    {s,pin} = Map.fetch(payload,"pin")
+
+    password = CustomSymbolsPassword.generate()
+    decoded_password = password
+    password = Base.encode16(:crypto.hash(:sha512, password))
+
+    pin = BusTerminalSystem.Randomizer.randomizer(5,:numeric)
+    decoded_pin = pin
+    pin = Base.encode16(:crypto.hash(:sha512, pin))
+
+    payload = payload |> Map.put("password", password)
+    payload = payload |> Map.put("user_description", "User Creation Request. Username: #{username}")
+    payload = payload |> Map.put("pin", pin)
+
+    send_sms = (fn recipient, message -> BusTerminalSystem.Notification.Table.Sms.create!([recipient: recipient, message: message, sent: false]) end)
+    send_mail = (fn recipient, message -> BusTerminalSystem.EmailSender.composer_text(recipient, "ACCOUNT CREATED", message) end)
+
+
+    #    if User.find_by(account_number: Map.fetch!(payload, "account_number")) != nil do
+    #      conn
+    #      |> put_flash(:error, "Account Number #{Map.fetch!(payload, "account_number")} already exists")
+    #      |> redirect(to: Routes.user_path(conn, :new_teller))
+    #    else
+
+    if User.find_by(username: payload["username"]) != nil do
+      conn
+      |> put_flash(:error, "User with username #{payload["username"]} already exists")
+      |> render("new_teller.html", [changeset: AccountManager.change_user(%User{})])
+    else
+      role |> case do
+                "MOP" ->
+
+                  message = " Hello #{first_name}, \n Your BTMMS ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{decoded_password} Pin for mobile #{mobile_number} is #{decoded_pin}"
+
+                  spawn(fn ->
+                    send_sms.(mobile_number, message)
+                    #                    NapsaSmsGetway.send_sms(mobile_number,message)
+                  end)
+
+                  spawn(fn ->
+                    if email != "", do: send_mail.(email, message)
+                  end)
+
+                  payload = Map.put(payload, "operator_role", "MARKETER")
+                  user_create_staff_payload(conn, payload)
+
+                "BOP" ->
+
+                  message = " Hello #{first_name}, \n Your BTMMS BUS OPERATOR CREDENTIALS ARE .Username: #{username} Password: #{decoded_password}"
+
+                  spawn(fn ->
+                    send_sms.(mobile_number, message)
+                    #                    NapsaSmsGetway.send_sms(mobile_number,message)
+                  end)
+
+                  spawn(fn ->
+                    if email != "", do: send_mail.(email, message)
+                  end)
+
+                  payload = Map.put(payload, "operator_role", "BUS OPERATOR")
+                  payload = Map.put(payload, "account_status", "OTP")
+                  user_create_staff_payload(conn, payload)
+
+                "FBOP" ->
+
+                  message = " Hello #{first_name}, \n Your BTMMS FLEX BUS OPERATOR CREDENTIALS ARE .Username: #{username} Password: #{decoded_password}"
+
+                  spawn(fn ->
+                    send_sms.(mobile_number, message)
+                    #                    NapsaSmsGetway.send_sms(mobile_number,message)
+                  end)
+
+                  spawn(fn ->
+                    if email != "", do: send_mail.(email, message)
+                  end)
+
+                  payload = Map.put(payload, "operator_role", "BUS OPERATOR")
+                  payload = Map.put(payload, "account_status", "OTP")
+                  user_create_staff_payload(conn, payload)
+
+                "TOP" ->
+
+                  message = " Hello #{first_name}, \n Your BTMMS TELLER ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{decoded_password}"
+
+                  spawn(fn ->
+                    send_sms.(mobile_number, message)
+                    #                    NapsaSmsGetway.send_sms(mobile_number,message)
+                  end)
+
+                  spawn(fn ->
+                    if email != "", do: send_mail.(email, message)
+                  end)
+
+                  payload = Map.put(payload, "operator_role", "TELLER")
+                  user_create_staff_payload(conn, payload)
+
+                "CCOP" ->
+
+                  message = " Hello #{first_name}, \n Your BTMMS SUPPORT ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{decoded_password}"
+
+                  spawn(fn ->
+                    send_sms.(mobile_number, message)
+                    #                    NapsaSmsGetway.send_sms(mobile_number,message)
+                  end)
+
+                  spawn(fn ->
+                    if email != "", do: send_mail.(email, message)
+                  end)
+
+                  payload = Map.put(payload, "operator_role", "TELLER")
+                  user_create_staff_payload(conn, payload)
+
+                "SADMIN" ->
+
+                  message = " Hello #{first_name}, \n Your BTMMS SUPER ADMINISTRATIVE ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{decoded_password}"
+
+                  spawn(fn ->
+                    send_sms.(mobile_number, message)
+                    #                    NapsaSmsGetway.send_sms(mobile_number,message)
+                  end)
+
+                  spawn(fn ->
+                    if email != "", do: send_mail.(email, message)
+                  end)
+
+                  payload = Map.put(payload, "operator_role", "SUPER_ADMINISTRATOR")
+                  user_create_staff_payload(conn, payload)
+                "AGNT" ->
+
+                  message = " Hello #{first_name}, \n Your BTMMS ACCOUNT CREDENTIALS ARE .Username: #{username} Pin for mobile #{mobile_number} is #{decoded_pin}"
+
+                  spawn(fn ->
+                    send_sms.(mobile_number, message)
+                    #                    NapsaSmsGetway.send_sms(mobile_number,message)
+                  end)
+
+                  spawn(fn ->
+                    if email != "", do: send_mail.(email, message)
+                  end)
+
+                  payload = Map.put(payload, "operator_role", "AGENT")
+                  user_create_staff_payload(conn, payload)
+                _ ->
+
+                  message = " Hello #{first_name}, \n Your BTMMS ADMINISTRATIVE ACCOUNT CREDENTIALS ARE .Username: #{username} Password: #{decoded_password}"
+
+                  spawn(fn ->
+                    send_sms.(mobile_number, message)
+                    NapsaSmsGetway.send_sms(mobile_number,message)
+                  end)
+
+                  spawn(fn ->
+                    if email != "", do: send_mail.(email, message)
+                  end)
+
+                  payload = Map.put(payload, "operator_role", "ADMINISTRATOR")
+                  user_create_staff_payload(conn, payload)
+              end
+
+      render(conn, "new_teller.html")
+    end
+    #    end
+  end
+
   defp user_create_payload(conn, payload) do
 
     napsa_user = %{
@@ -418,6 +590,34 @@ defmodule BusTerminalSystemWeb.UserController do
         conn
         |> put_flash(:error,"Failed To Create User")
         |> render("new_teller.html", [changeset: changeset])
+
+    end
+  end
+
+  defp user_create_staff_payload(conn, payload) do
+
+
+    case AccountManager.create_user(payload) do
+      {:ok, user} ->
+
+        #        conn
+        #        |> put_flash(:info, "User created successfully.")
+        #        |> redirect(to: Routes.user_path(conn, :new, [napsa_user: napsa_user]))
+
+        changeset = AccountManager.change_user(%User{})
+
+
+        conn
+        |> put_flash(:info, "User created successfully.")
+        |> render("new_staff.html", [changeset: changeset])
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+
+        ApiManager.translate_error(changeset)
+
+        conn
+        |> put_flash(:error,"Failed To Create User")
+        |> render("new_staff.html", [changeset: changeset])
 
     end
   end

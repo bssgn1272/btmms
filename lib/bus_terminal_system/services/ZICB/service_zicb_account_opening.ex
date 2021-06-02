@@ -9,32 +9,34 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
 
 
   def run() do
-    query = from u in User, where: (u.role == "TOP" or u.role == "ADMIN") and u.auth_status == true and (is_nil(u.account_number) or u.account_number == "")
-    User.where(query)
-    |> Enum.each(fn user ->
-      bank_response = query_account_by_mobile(user.mobile)
-      if bank_response == %{} do
-        parse_date = (fn date_string ->
-          try do
-            [day, month, year] = String.split(date_string," ")
-            "#{year}-#{Timex.month_to_num(month) |> to_string |> String.pad_leading(2,"0")}-#{day}"
-          rescue
-          _ -> date_string
-           end
-        end)
+    if Settings.find_by(key: "BANK_ENABLE_ACCOUNT_OPENING_TASK").value == "TRUE" do
+      query = from u in User, where: (u.role == "TOP" or u.role == "ADMIN") and u.auth_status == true and (is_nil(u.account_number) or u.account_number == "")
+      User.where(query)
+      |> Enum.each(fn user ->
+        bank_response = query_account_by_mobile(user.mobile)
+        if bank_response == %{} do
+          parse_date = (fn date_string ->
+            try do
+              [day, month, year] = String.split(date_string," ")
+              "#{year}-#{Timex.month_to_num(month) |> to_string |> String.pad_leading(2,"0")}-#{day}"
+            rescue
+              _ -> date_string
+            end
+                        end)
 
-        teller_details = %{
-          "firstName" => user.first_name,
-          "lastName" => user.last_name,
-          "uniqueValue" => user.nrc,
-          "dateOfBirth" => parse_date.(user.dob),
-          "email" => user.email,
-          "sex" => user.sex,
-          "mobileNumber" => user.mobile,
-        }
-        create_wallet(teller_details)
-      end
-    end)
+          teller_details = %{
+            "firstName" => user.first_name,
+            "lastName" => user.last_name,
+            "uniqueValue" => user.nrc,
+            "dateOfBirth" => parse_date.(user.dob),
+            "email" => user.email,
+            "sex" => user.sex,
+            "mobileNumber" => user.mobile,
+          }
+          create_wallet(teller_details)
+        end
+      end)
+    end
   end
 
   def query_account_by_mobile(mobile_number) do

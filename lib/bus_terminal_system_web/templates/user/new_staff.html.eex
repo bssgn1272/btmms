@@ -4,7 +4,7 @@
     </div>
 
     <div class="col-md-8">
-        <form class="form-vertical" action="<%= Routes.user_path(@conn, :create_teller) %>" method="post" style="width:100%; margin-top:5%;">
+        <form class="form-vertical" action="<%= Routes.user_path(@conn, :create_staff) %>" method="post" style="width:100%; margin-top:5%;">
             <div class="panel panel-flat">
                 <div class="panel-heading">
                     <h5 class="panel-title"></h5>
@@ -21,13 +21,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <fieldset>
-                                <legend class="text-semibold"><i class="icon-reading position-left"></i> REGISTER SPV USER </legend>
+                                <legend class="text-semibold"><i class="icon-reading position-left"></i> REGISTER NON SPV USER </legend>
 
 
                                 <div class="form-group">
                                     <label class="control-label">User Role:</label>
                                     <select name="payload[role]" class="form-control">
-                                        <option value="BOP">Flex Bus Operator</option>
+                                        <option value="FBOP">Flex Bus Operator</option>
                                     </select>
                                 </div>
 

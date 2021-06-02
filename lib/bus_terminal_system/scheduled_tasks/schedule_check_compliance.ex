@@ -1,19 +1,23 @@
 defmodule BusTerminalSystem.CheckCompliance do
 
+  alias BusTerminalSystem.Settings
 
   def run() do
-    BusTerminalSystem.AccountManager.User.all()
-    |> Enum.each(fn user ->
-      compliance = check_compliance(user.ssn)
+    if Settings.find_by(key: "NAPSA_COMPLIANCE_SERVICE").value == "TRUE" do
+      BusTerminalSystem.AccountManager.User.all()
+      |> Enum.each(fn user ->
+        compliance = check_compliance(user.ssn)
 
-      if compliance["http_status"] == 0 do
-        if compliance["isCompliant"] == true do
-          BusTerminalSystem.AccountManager.User.update(user, [compliance: compliance["isCompliant"]])
-        else
-          BusTerminalSystem.AccountManager.User.update(user, [compliance: false])
+        if compliance["http_status"] == 0 do
+          if compliance["isCompliant"] == true do
+            BusTerminalSystem.AccountManager.User.update(user, [compliance: compliance["isCompliant"]])
+          else
+            BusTerminalSystem.AccountManager.User.update(user, [compliance: false])
+          end
         end
-      end
-    end)
+      end)
+    end
+
   end
 
   defp check_compliance(employer_number, year \\ previous_month(Timex.today).year |> to_string,

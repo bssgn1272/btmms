@@ -65,7 +65,7 @@ defmodule BusTerminalSystem.MixProject do
       {:atomic_map, "~> 0.9.3"},
       {:elixir_xml_to_map, "~> 2.0"},
       {:soap, "~> 1.0.1"},
-      {:quantum, "~> 3.0"},
+      {:quantum, "~> 3.3.0"},
       {:phoenix_swagger, "~> 0.8"},
       {:ex_json_schema, "~> 0.5"},
       {:cachex, "~> 3.3"},
