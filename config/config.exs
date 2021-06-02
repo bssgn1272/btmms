@@ -72,12 +72,15 @@ config :bus_terminal_system, BusTerminalSystem.Scheduler,
    napsa: [
      schedule:  "* * * * *", task: {BusTerminalSystem.CheckCompliance, :run, []},
      schedule:  "* * * * *", task: {BusTerminalSystem.NapsaUserUpdater, :run, []},
-     schedule:  {:extended, "*/1"}, task: {BusTerminalSystem.Job.Sms, :send, []}
+#     schedule:  {:extended, "*/1"}, task: {BusTerminalSystem.Job.Sms, :send, []}
    ],
   bank: [
-    schedule:  "5 * * * *", task: {BusTerminalSystem.Service.Zicb.AccountOpening, :run, []},
-    schedule: {:extended, "*/25"}, task: {BusTerminalSystem.Service.Zicb.Funding, :post_ticket_transactions, []},
-  ]
+    schedule:  {:extended, "*/4"}, task: {BusTerminalSystem.Service.Zicb.AccountOpening, :run, []},
+
+  ],
+   sales: [
+     schedule: {:extended, "*/2"}, task: {BusTerminalSystem.Service.Zicb.Funding, :post_ticket_transactions, []}
+   ]
  ]
 
 # Import environment specific config. This must remain at the bottom
