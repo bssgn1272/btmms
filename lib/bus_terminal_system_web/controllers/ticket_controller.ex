@@ -109,8 +109,6 @@ defmodule BusTerminalSystemWeb.TicketController do
            })
     else
 
-    IO.inspect "PASSED"
-
       bank_transaction = %{
        "srcAcc" => session_user.account_number,
        "srcBranch" => session_user.bank_srcBranch,

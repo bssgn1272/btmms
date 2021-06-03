@@ -11,10 +11,10 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
   def run() do
     if Settings.find_by(key: "BANK_ENABLE_ACCOUNT_OPENING_TASK").value == "TRUE" do
       query = from u in User, where: (u.role == "TOP" or u.role == "ADMIN") and u.auth_status == true and u.account_number == "00000000"
-      User.where(query) |> IO.inspect
-#      User.where(from u in User, where: (u.role == "TOP" or u.role == "ADMIN") ) |> IO.inspect
+      User.where(query)
+#      User.where(from u in User, where: (u.role == "TOP" or u.role == "ADMIN") )
       |> Enum.each(fn user ->
-        bank_response = query_account_by_mobile(user.mobile, user) |> IO.inspect(label: "------------------------------")
+        bank_response = query_account_by_mobile(user.mobile, user)
         if bank_response == %{} do
           parse_date = (fn date_string ->
             try do
@@ -53,7 +53,7 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
       }
     }
     |> Poison.encode!()
-    |> http() |> IO.inspect
+    |> http()
     |> query_by_account(user)
 
   end
@@ -97,10 +97,10 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
           }
         }
         |> Poison.encode!()
-        |> http() |> IO.inspect
+        |> http()
 
 
-        query_account_by_mobile(args["mobileNumber"], user) |> IO.inspect
+        query_account_by_mobile(args["mobileNumber"], user)
         |> account_balance_inquiry2(user)
 
 #      {:error, message} -> {:error, message}
@@ -110,7 +110,7 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
   end
 
   def account_balance_inquiry2(aq_response, user) do
-      IO.inspect aq_response
+
 
       if aq_response == %{} do
         aq_response

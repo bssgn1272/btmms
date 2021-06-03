@@ -12,7 +12,7 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
     if Settings.find_by(key: "BANK_ENABLE_TICKET_POSTING").value == "TRUE" do
       Transactions.where([status: "PENDING"])
       |> Enum.each(fn transaction ->
-        post_ticket_to_bank(transaction)
+        post_ticket_to_bank(transaction) |> IO.inspect
       end)
     end
 
@@ -56,7 +56,7 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
     end)
     txn_request = bank_request.(transaction)
     bank_response = txn_request |> Poison.encode!()
-    |> http(Settings.find_by(key: "BANK_AUTH_KEY").value)
+    |> http(Settings.find_by(key: "BANK_AUTH_KEY").value) |> IO.inspect
 
       txn_response = bank_response["response"]["txn"]
 
@@ -74,7 +74,7 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
 
           Ecto.Multi.new()
           |> Multi.update(:account, Ecto.Changeset.change(User.find_by(id: transaction.user_id), %{bank_account_balance: Decimal.new(account["availablebalance"]) |> Decimal.to_float}))
-          |> Multi.update(:dest_account, Ecto.Changeset.change(User.find_by(account_number: dest_account["accountno"]), %{bank_account_balance: Decimal.new(dest_account["availablebalance"]) |> Decimal.to_float}))
+#          |> Multi.update(:dest_account, Ecto.Changeset.change(User.find_by(account_number: dest_account["accountno"]), %{bank_account_balance: Decimal.new(dest_account["availablebalance"]) |> Decimal.to_float}))
           |> BusTerminalSystem.Repo.transaction
           |> case do
                {:ok, _} ->
@@ -95,7 +95,7 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
 #          User.find(transaction.user_id) |> User.update([bank_account_balance: account["availablebalance"]])
           Ecto.Multi.new()
           |> Multi.update(:account, Ecto.Changeset.change(User.find_by(id: transaction.user_id), %{bank_account_balance: Decimal.new(account["availablebalance"]) |> Decimal.to_float}))
-          |> Multi.update(:src_account, Ecto.Changeset.change(User.find_by(account_number: src_account["accountno"]), %{bank_account_balance: Decimal.new(src_account["availablebalance"]) |> Decimal.to_float}))
+#          |> Multi.update(:src_account, Ecto.Changeset.change(User.find_by(account_number: src_account["accountno"]), %{bank_account_balance: Decimal.new(src_account["availablebalance"]) |> Decimal.to_float}))
           |> BusTerminalSystem.Repo.transaction
           |> case do
                {:ok, _} ->

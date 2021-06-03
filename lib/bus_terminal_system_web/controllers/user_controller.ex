@@ -75,6 +75,8 @@ defmodule BusTerminalSystemWeb.UserController do
     {s,role} = Map.fetch(payload,"role")
     {s,pin} = Map.fetch(payload,"pin")
 
+    username = username |> String.trim
+
     password = CustomSymbolsPassword.generate()
     decoded_password = password
     password = Base.encode16(:crypto.hash(:sha512, password))
@@ -220,6 +222,8 @@ defmodule BusTerminalSystemWeb.UserController do
     {s,mobile_number} = Map.fetch(payload,"mobile")
     {s,role} = Map.fetch(payload,"role")
     {s,pin} = Map.fetch(payload,"pin")
+
+    username = username |> String.trim
 
     password = CustomSymbolsPassword.generate()
     decoded_password = password
@@ -381,6 +385,8 @@ defmodule BusTerminalSystemWeb.UserController do
     {s,mobile_number} = Map.fetch(payload,"mobile")
     {s,role} = Map.fetch(payload,"role")
     {s,pin} = Map.fetch(payload,"pin")
+
+    username = username |> String.trim
 
     password = CustomSymbolsPassword.generate()
     decoded_password = password
