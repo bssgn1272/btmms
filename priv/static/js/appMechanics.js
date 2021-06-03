@@ -547,7 +547,7 @@ function transfer_funds_edit_model(id) {
             console.log(data)
             $('#modal_form_horizontal_transfer_funds').modal('show');
 
-            $('#model_operator').val(data.response.QUERY.data.username);
+            $('#model_operator').val(data.response.QUERY.data.company);
             $('#model_account_number').val(data.response.QUERY.data.account_number);
             $('#model_transfer_value').val("0");
             // $('#model_email').val(data.response.QUERY.data.email);

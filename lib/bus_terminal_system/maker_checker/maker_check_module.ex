@@ -22,6 +22,7 @@ defmodule BusTerminalSystem.MakerCheckModule do
 #(User.find_by(id: user.(row |> Enum.at(0))).username
   def maker_checker() do
     tables |> Enum.map(fn table ->
+
 #      try do
         Repo.query("SELECT maker, maker_date_time, user_description, system_description, id
         FROM #{table} WHERE auth_status='0'") |> case do

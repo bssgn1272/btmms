@@ -583,7 +583,6 @@ defmodule BusTerminalSystemWeb.UserController do
       {:error, %Ecto.Changeset{} = changeset} ->
 
           ApiManager.translate_error(changeset)
-          IO.inspect(changeset)
 
         conn
         |> put_flash(:error,"Failed To Create User")

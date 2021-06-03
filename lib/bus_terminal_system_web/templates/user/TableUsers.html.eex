@@ -100,6 +100,7 @@
                     <th>Email</th>
                     <th>Mobile</th>
                     <th>Compliance Status</th>
+                    <th>Company</th>
                     <th>Account Status</th>
                     <%= if access(@user.id, 101) do %>
                     <th>Actions</th>
@@ -119,11 +120,13 @@
                     <td><%= user.nrc %></td>
                     <td><%= user.email %></td>
                     <td><%= user.mobile %></td>
+
                     <%= if user.compliance == true do %>
                     <td> <b style="color: green"> COMPLIANT </b>  </td>
                     <% else %>
                     <td> <b style="color: red"> NOT COMPLIANT </b> </td>
                     <% end %>
+                    <td><%= user.company %></td>
                     <td><%= user.account_status %></td>
                     <%= if access(@user.id, 101) do %>
                     <td class="text-center">

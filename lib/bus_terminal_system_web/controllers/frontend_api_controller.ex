@@ -33,12 +33,12 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   end
 
   def query_user_by_id(conn, params) do
-    IO.inspect params
+
     user_id = params["selected_user"]
     case user_id do
       nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
       _ ->
-        case user_id |> RepoManager.find_user_by_id |> IO.inspect do
+        case user_id |> RepoManager.find_user_by_id do
           nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
           user ->
             conn
@@ -58,7 +58,6 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
                 "operator_role" => user.operator_role
               }))
           _value ->
-            IO.inspect _value
             json conn, ["hello"]
         end
     end
@@ -73,8 +72,6 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
         case user_id |> RepoManager.find_user_by_id do
           nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
           user ->
-
-            IO.inspect user
 
             conn
             |> json(ApiManager.api_message_custom_handler_conn(conn,ApiManager.definition_query,"SUCCESS",0,
@@ -93,14 +90,13 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
                 "operator_role" => user.operator_role
               }))
           _value ->
-            IO.inspect _value
             json conn, ["hello"]
         end
     end
   end
 
   def query_user(conn, params) do
-    IO.inspect(params)
+
     user_id = params["payload"]["selected_user"]
     case user_id do
       nil -> json(conn,ApiManager.api_success_handler(conn,ApiManager.definition_query,ApiManager.not_found_query))
@@ -110,7 +106,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
           user ->
 
             try do
-              Cachex.put(:tmp, params["logged_in_user"], user.id) |> IO.inspect()
+              Cachex.put(:tmp, params["logged_in_user"], user.id)
             rescue
               _ -> ""
             end
@@ -124,6 +120,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
                 "last_name" => user.last_name,
                 "ssn" => user.ssn,
                 "nrc" => user.nrc,
+                "company" => user.company,
                 "compliance" => user.compliance,
                 "email" => user.email,
                 "mobile" => user.mobile,
@@ -132,9 +129,8 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
                 "operator_role" => user.operator_role,
                 "role_id" => user.role_id,
 #                "role_name" => BusTerminalSystem.UserRoles.find(user.id).role
-              } |> IO.inspect()))
+              }))
           _value ->
-            IO.inspect _value
             json conn, ["hello"]
         end
     end
@@ -142,7 +138,6 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
   def reset_password(conn, params) do
 
-    IO.inspect "-------------------------- Password Rest ----------------------"
 
     password = BusTerminalSystem.Randomizer.randomizer(5,:numeric)
     user = BusTerminalSystem.AccountManager.User.find_by(username: params["payload"]["username"])
@@ -159,7 +154,6 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   def update_user(conn, %{"payload" => payload } = params) do
 
     username = payload["username"]
-    IO.inspect params
 
     if username == nil do
       json(conn,ApiManager.api_error_handler(conn,ApiManager.definition_query,[
@@ -179,7 +173,11 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
                   if payload["role_id"] != "0" do
                     UserRole.find_or_create_by(user: user.id)
                     |> case do
-                      {:ok, user_role} -> user_role |> UserRole.update([role: Decimal.new(payload["role_id"]) |> Decimal.to_integer])
+                      {:ok, user_role} -> user_role |> UserRole.update([
+                        role: Decimal.new(payload["role_id"]) |> Decimal.to_integer,
+                        maker: user.id,
+                        user_description: "NEW PERMISSION ADDED TO ROLE ATTACHED TO #{user.username}"
+                      ])
                          _ -> ""
                        end
                   end
@@ -247,7 +245,6 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
                 "vehicle_capacity" => bus.vehicle_capacity
               }))
           _value ->
-            IO.inspect _value
             json conn, ["hello"]
         end
     end
@@ -265,7 +262,6 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
             conn
             |> json(buses)
           _value ->
-            IO.inspect _value
             json conn, ["hello"]
         end
     end
@@ -387,7 +383,6 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   end
 
   def update_route_bus_route(conn, %{"payload" => %{ "route_id" => route_id } = payload} = params) do
-    IO.inspect(params)
     RepoManager.find_route_by_id(route_id)
     |> case do
          route ->
@@ -426,13 +421,11 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   end
 
   def add_luggage(conn, params) do
-    IO.inspect(params)
     conn |> json(RepoManager.create_luggage(params))
   end
 
   def acquire_luggage(conn, %{"sender" => sender, "receiver" => receiver, "luggage_id" => luggage_id} = params)do
 
-    IO.inspect(params)
     sms_message = "Luggage from #{sender} to #{receiver} Check-in successful \n LUGGAGE ID: #{luggage_id}"
     spawn(fn ->
       NapsaSmsGetway.send_sms(sender,sms_message)
@@ -468,7 +461,6 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   end
 
   def acquire_luggage_form_view(conn,%{"unattended" => luggage_params} = params) do
-    IO.inspect("------------------------------------UNATTENDED LUGGAGE CREATE ----------------------")
 
     sender_mobile = Map.fetch!(luggage_params,"recipient_mobile")
     receiver_mobile = Map.fetch!(luggage_params,"sender_mobile")
@@ -543,8 +535,6 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
       } |> BusTerminalSystem.PrinterTcpProtocol.print_remote_cross_connect(conn.remote_ip)
     end)
 
-    IO.inspect("------------------------------------END UNATTENDED LUGGAGE CREATE ----------------------")
-
     conn
     |> redirect(to: Routes.user_path(conn, :index))
   end
@@ -559,7 +549,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
   @validation_params %{ "module" => :string, "action" => :string, "branch" => :string, "use_params" => :bool}
   def modules(conn, params) do
-    IO.inspect(params)
+
     Skooma.valid?(params,@validation_params) |> case do
         :ok ->
           %{"branch" => branch} = params
@@ -699,7 +689,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
           end
         end)
         spawn(fn ->
-          BusTerminalSystem.APIRequestMockup.send_disable(ticket.id |> to_string |> String.pad_leading(4,"0"))
+          BusTerminalSystem.APIRequestMockup.send_disable(ticket.id |> to_string |> String.pad_leading(4,"0")) |> IO.inspect(lable: "TICKET CANCEL RESPONSE")
         end)
         json(conn,  %{status: "SUCCESS", response: ticket |> Poison.encode!})
     end
@@ -707,7 +697,6 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   end
 
   def create_virtual_luggage_ticket(conn, ticket_params) do
-    IO.inspect("---------------------------VIRTUAL------------------------------------------------------")
     route = BusTerminalSystem.TravelRoutes.find_by([start_route: Map.fetch!(ticket_params, "source"), end_route: Map.fetch!(ticket_params, "destination")])
     route_info = "OPERATOR: PowerTools	 START: #{Map.fetch!(ticket_params, "source")}	 END: #{Map.fetch!(ticket_params, "destination")}	 DEPARTURE: 09:00	 PRICE: K300	 GATE: slot_two"
     ticket_params = Map.put(ticket_params, "route", route.id)
@@ -716,8 +705,6 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
     ticket_params = Map.put(ticket_params, "activation_status", "VALID")
     ticket_params = Map.put(ticket_params, "route_information", route_info)
 
-    IO.inspect(ticket_params)
-
     case TicketManagement.create_virtual_ticket(ticket_params) do
       {:ok, ticket} ->
 
@@ -725,8 +712,6 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
         |> json(ticket)
 
       {:error, %Ecto.Changeset{} = changeset} ->
-
-        IO.inspect changeset
 
         conn
         |> json(%{})
@@ -785,15 +770,16 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
   def funds_transfer(conn, params) do
     response = BusTerminalSystem.Service.Zicb.Funding.wallet_query_by_account_number(%{:account_number => params["account"]}) |> BusTerminalSystem.Service.Zicb.Funding.wallet_transact
-    [account] = response.response.account_list
+    [account] = response["response"]["accountList"]
     transfer_request = %{
-      destination_account: account.accountno,
-      destination_branch: account.brn_code,
+      destination_account: account["accountno"],
+      destination_branch: account["brnCode"],
       amount: params["amount"],
       remarks: "Test Transfer",
       reference_number: Timex.now |> Timex.to_unix |> to_string
     }
     response = BusTerminalSystem.Service.Zicb.Funding.wallet_funds_deposit(transfer_request) |> BusTerminalSystem.Service.Zicb.Funding.wallet_transact
+
 
     spawn(fn ->
       if response["tekHeader"]["status"] == "SUCCESS" do
@@ -803,7 +789,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
       end
     end)
 
-    conn |> json(response.response)
+    conn |> json(response["response"])
   end
 
   def form_validation_api(conn, params) do
@@ -842,7 +828,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   end
 
   def change_user_password(conn, params) do
-    IO.inspect params
+
     user = User.find_by(username: params["username"])
     if user.password != Base.encode16(:crypto.hash(:sha512, params["password"])) do
       conn |> json(%{status: 1, message: "Current Password Does not match"})
@@ -851,7 +837,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
       |> case do
            {:ok, user} -> conn |> json(%{status: 0, message: "Password Updated Successfully"})
            {:error, error} ->
-             IO.inspect error
+
              conn |> json(%{status: 1, message: "Password Update Failed"})
          end
        end

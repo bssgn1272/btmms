@@ -105,7 +105,7 @@ defmodule BusTerminalSystem.RepoManager do
               end)
 
               spawn(fn ->
-                BusTerminalSystem.APIRequestMockup.send(ticket.id |> to_string)
+                BusTerminalSystem.APIRequestMockup.send(ticket.id |> to_string |> String.pad_leading(4,"0"))
               end)
             else
 
@@ -133,7 +133,7 @@ defmodule BusTerminalSystem.RepoManager do
                 end)
 
                 spawn(fn ->
-                  BusTerminalSystem.APIRequestMockup.send(ticket.id |> to_string)
+                  BusTerminalSystem.APIRequestMockup.send(ticket.id |> to_string |> String.pad_leading(4,"0"))
                 end)
 
             end
@@ -162,7 +162,7 @@ defmodule BusTerminalSystem.RepoManager do
 #              end)
 #
 #              spawn(fn ->
-#                BusTerminalSystem.APIRequestMockup.send(ticket.id |> to_string)
+#                BusTerminalSystem.APIRequestMockup.send(ticket.id |> to_string |> String.pad_leading(4,"0"))
 #              end)
 #          end
 
@@ -190,7 +190,7 @@ defmodule BusTerminalSystem.RepoManager do
           end)
 
           spawn(fn ->
-            BusTerminalSystem.APIRequestMockup.send(ticket.id |> to_string)
+            BusTerminalSystem.APIRequestMockup.send(ticket.id |> to_string |> String.pad_leading(4,"0"))
           end)
           _ -> ""
       end
