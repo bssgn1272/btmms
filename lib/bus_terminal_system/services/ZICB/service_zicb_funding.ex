@@ -12,7 +12,7 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
     if Settings.find_by(key: "BANK_ENABLE_TICKET_POSTING").value == "TRUE" do
       Transactions.where([status: "PENDING"])
       |> Enum.each(fn transaction ->
-        post_ticket_to_bank(transaction) |> IO.inspect
+        post_ticket_to_bank(transaction)
       end)
     end
 
@@ -56,7 +56,7 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
     end)
     txn_request = bank_request.(transaction)
     bank_response = txn_request |> Poison.encode!()
-    |> http(Settings.find_by(key: "BANK_AUTH_KEY").value) |> IO.inspect
+    |> http(Settings.find_by(key: "BANK_AUTH_KEY").value)
 
       txn_response = bank_response["response"]["txn"]
 

@@ -128,7 +128,7 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
         #      account_number = response["accountnos"]
 
         Ecto.Multi.new()
-        |> Multi.update(:account, Ecto.Changeset.change(user, %{account_number: response["accountno"], bank_account_balance: response["availablebalance"]}))
+        |> Multi.update(:account, Ecto.Changeset.change(user, %{account_number: response["accountno"], bank_account_balance: Decimal.new(response["availablebalance"]) |> Decimal.to_float}))
         |> BusTerminalSystem.Repo.transaction
         |> case do
              {:ok, _} -> %{}
