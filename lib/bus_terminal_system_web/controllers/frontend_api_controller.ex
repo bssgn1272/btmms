@@ -770,12 +770,13 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
 
   def funds_transfer(conn, params) do
     response = BusTerminalSystem.Service.Zicb.Funding.wallet_query_by_account_number(%{:account_number => params["account"]}) |> BusTerminalSystem.Service.Zicb.Funding.wallet_transact
+    IO.inspect params
     [account] = response["response"]["accountList"]
     transfer_request = %{
       destination_account: account["accountno"],
       destination_branch: account["brnCode"],
       amount: params["amount"],
-      remarks: "Test Transfer",
+      remarks: "Bus Operator Funds Sweep to account #{params["account"]}",
       reference_number: Timex.now |> Timex.to_unix |> to_string
     }
     response = BusTerminalSystem.Service.Zicb.Funding.wallet_funds_deposit(transfer_request) |> BusTerminalSystem.Service.Zicb.Funding.wallet_transact

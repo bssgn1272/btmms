@@ -598,6 +598,7 @@ function transfer_funds() {
                 text: "Funds Transferred Successfully!",
                 icon: "success",
                 button: "Done",
+                type: "success"
             });
             // window.location.reload();
         }, error: function (){
@@ -1084,6 +1085,7 @@ function user_edit_model(user) {
             $('#model_pwd_username').val(data.response.QUERY.data.username);
             $('#model_operator_role').val(data.response.QUERY.data.operator_role);
             $('#modal_update_role_id').val(data.response.QUERY.data.role_id);
+            $('#model_account_number').val(data.response.QUERY.data.account_number);
             // $('#model_password').val("0123456789");
             $('#model_user_id').val(user.id);
 

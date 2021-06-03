@@ -244,6 +244,11 @@
                                         <input type="text" id="model_ssn" value="" class="form-control">
                                     </div>
 
+                                    <div class="col-md-6">
+                                        <label>Account Number</label>
+                                        <input type="text" id="model_account_number" value="" class="form-control">
+                                    </div>
+
                                 </div>
                             </div>
 

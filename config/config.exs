@@ -36,12 +36,38 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+#config :bus_terminal_system, BusTerminalSystem.Mailer,
+#   adapter: Swoosh.Adapters.Mailjet,
+#   api_key: "474f8555a04e9f4107f6cfdfc7129667",
+#   secret: "8916c07ae488aea0fd26eadc846f76fd",
+#   relay: "in-v3.mailjet.com",
+#   port: 587
+
+#config :bus_terminal_system, BusTerminalSystem.Mailer,
+#   adapter: Swoosh.Adapters.Mailgun,
+#   api_key: "7693df20e601d4b6033b1f32d3edf9aa",
+#   domain: "mg.probasemailchannel.com"
+
+#config :bus_terminal_system, BusTerminalSystem.Mailer,
+#   adapter: Swoosh.Adapters.SMTP,
+#   relay: "smtp.mailgun.org",
+#   username: "btmms@sandboxffb869f6228046c385af98dbecef79f8.mailgun.org",
+#   password: "4b7a39f0ab7c9d331238cbe549493f36-1d8af1f4-67e62b14",
+#   auth: :always,
+#   tls: :always,
+#   port: 587,
+#   retries: 3,
+#   no_mx_lookups: false
+
 config :bus_terminal_system, BusTerminalSystem.Mailer,
-   adapter: Swoosh.Adapters.Mailjet,
-   api_key: "474f8555a04e9f4107f6cfdfc7129667",
-   secret: "8916c07ae488aea0fd26eadc846f76fd",
-   relay: "in-v3.mailjet.com",
-   port: 587
+   adapter: Swoosh.Adapters.SMTP,
+   relay: "smtp.gmail.com",
+   username: "lmbmcinfo@gmail.com",
+   password: "Welcome@2020",
+   ssl: true,
+   port: 465,
+   retries: 3,
+   no_mx_lookups: false
 
 #config :bus_terminal_system, BusTerminalSystem.Mailer,
 #       adapter: Swoosh.Adapters.SMTP,
