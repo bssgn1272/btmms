@@ -685,7 +685,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
         spawn(fn ->
           if ticket.activation_status == "CANCELED" do
             route = BusTerminalSystem.TravelRoutes.find(ticket.route)
-            message = "Dear #{ticket.first_name} #{ticket.last_name}. Your Ticket from #{route.start_route} to #{route.end_route} has been canceled"
+            message = "Dear #{ticket.first_name} #{ticket.last_name}. Your Ticket from #{route.start_route} to #{route.end_route} ID: #{ticket.id} has been canceled"
             BusTerminalSystem.Notification.Table.Sms.create!([recipient: ticket.mobile_number, message: message, sent: false])
           end
         end)
