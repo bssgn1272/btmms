@@ -87,7 +87,7 @@ defmodule BusTerminalSystem.Database.Tables.Transactions do
     field :customerSignature, :string
     field :rrn, :string
 
-    timestamps(type: :utc_datetime)
+    timestamps()
   end
 
   #  def changeset(transaction, attrs) do

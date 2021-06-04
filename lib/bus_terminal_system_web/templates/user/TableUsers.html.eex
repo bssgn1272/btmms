@@ -140,7 +140,7 @@
                                     <li><button style="margin-left: 10px" type="button" class="btn btn-default btn-sm" onclick="user_edit_model(<%= @conn.assigns.user |> Map.put(:selected_user, user.id) |> JSON.encode!() |> IO.inspect %> )">
                                         Info <i class="icon-user position-right"></i></button></li>
 
-                                    <%= if user.role == "BOP" do %>
+                                    <%= if user.role == "BOP" and user.account_status == "ACTIVE" do %>
                                     <li><button style="margin-left: 10px" type="button" class="btn btn-default btn-sm" onclick="discounts_modal(<%=user.id%>)">
                                         Discounts <i class="icon-cash position-right"></i></button></li>
 
@@ -348,7 +348,7 @@
 
                             <div class="text-right">
 
-                                <button type="submit" style="border-radius: 12px;" onclick="reset_password()" id="reset_account_password" class="btn btn-primary">Reset <i class="icon-arrow-right14 position-right"></i></button>
+                                <button type="submit" style="border-radius: 12px;" onclick="reset_password()" id="reset_account_password" class="btn btn-primary">Reset<i class="icon-arrow-right14 position-right"></i></button>
                             </div>
                         </form>
                     </div>

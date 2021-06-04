@@ -578,7 +578,6 @@ defmodule BusTerminalSystem.RepoManager do
   def create_ticket(attrs \\ %{}) do
 
     attrs = Map.put(attrs, "class", "TICKET")
-    IO.inspect(attrs)
     %Ticket{} |> Ticket.changeset(attrs) |> Repo.insert()
   end
   def update_ticket(%Ticket{} = ticket, attrs), do: ticket |> Ticket.changeset(attrs) |> Repo.update()

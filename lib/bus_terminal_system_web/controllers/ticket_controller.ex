@@ -80,9 +80,6 @@ defmodule BusTerminalSystemWeb.TicketController do
 
   def create_ticket_payload(conn, %{"payload" => ticket_params}) do
 
-
-    IO.inspect ticket_params
-
     case BusTerminalSystem.AccountManager.User.find(ticket_params["session_user_id"]) do
       nil -> conn |> json(%{"message" => "Failed", "status" => 400} )
       session_user ->
@@ -94,9 +91,6 @@ defmodule BusTerminalSystemWeb.TicketController do
     ref = BusTerminalSystemWeb.TicketController.generate_reference_number(0)
 
     {cost_price, _} = price |> String.replace("K","") |> Float.parse
-
-    IO.inspect cost_price
-    IO.inspect session_user.bank_account_balance
 
     if cost_price > session_user.bank_account_balance do
       conn
@@ -133,7 +127,10 @@ defmodule BusTerminalSystemWeb.TicketController do
         users = AccountManager.list_users()
         tickets = RepoManager.list_tickets()
 
+#        travel_time = ticket_params["departure_time"]
+
         ticket_params = Map.put(ticket_params, "class", "TICKET")
+#        ticket_params = Map.put(ticket_params, "date", travel_time)
         ticket_params = Map.put(ticket_params, "reference_number", ref)
         ticket_params = Map.put(ticket_params, "travel_date", travel_date)
         ticket_params = Map.put(ticket_params, "route_information", ticket_params["route_information"]) #route_information
@@ -429,6 +426,7 @@ defmodule BusTerminalSystemWeb.TicketController do
                     map = Map.put(map, "serial_number", serial_number)
                     map = Map.put(map, "activation_status", "VALID")
                     map = Map.put(map, "route", route.id)
+                    map = Map.put(map, "date", payload["departure_time"])
                     map = Map.put(map, "amount", route.route_fare)
                     map = Map.put(map, "maker", teller.id |> to_string)
 
@@ -498,6 +496,7 @@ defmodule BusTerminalSystemWeb.TicketController do
             "other_name" => ticket.other_name,
             "email" => ticket.email_address,
             "id_type" => ticket.id_type,
+            "departure_time" => ticket.date,
             "passenger_id" => ticket.passenger_id,
             "travel_date" => ticket.travel_date,
             "mobile_number" => ticket.mobile_number,
@@ -506,7 +505,7 @@ defmodule BusTerminalSystemWeb.TicketController do
             "route_code" => route.route_code,
             "bus_schedule_id" => ticket.bus_schedule_id,
             "currency" => "ZMW",
-            "qr_code" => qr_generator("#{ticket.serial_number}")
+            "qr_code" => qr_generator("#{ticket.id}")
           }))
 
         {:error, %Ecto.Changeset{} = _changeset} ->

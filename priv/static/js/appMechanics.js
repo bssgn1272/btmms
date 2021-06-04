@@ -733,7 +733,8 @@ function updateUser() {
             account_status: $('#model_account_status').val(),
             operator_role: $('#model_operator_role').val(),
             email: $('#model_email').val(),
-            role_id: $("#modal_update_role_id").val()
+            role_id: $("#modal_update_role_id").val(),
+            account_number: $("#model_account_number").val()
         }
     });
 
@@ -785,18 +786,29 @@ function updateAccountStatus(state) {
 
     let status;
     let user_auth_status;
+    let user_description;
+    let system_description;
+
     switch (state) {
         case 1:
             status = "ACTIVE";
             user_auth_status = false;
+            user_description = "USER: " + $('#model_username').val() + " SUBMITTED FOR ACTIVATION";
+            system_description = "USER ACTIVATION";
+
             break;
         case 2:
             status = "DEACTIVATE";
             user_auth_status = false;
+            user_description = "USER: " + $('#model_username').val() + " SUBMITTED FOR DEACTIVATION";
+            system_description = "USER DEACTIVATION";
+
             break;
         default:
             status = "DEACTIVATE";
             user_auth_status = false;
+            user_description = "USER: " + $('#model_username').val() + " SUBMITTED FOR DEACTIVATION";
+            system_description = "USER DEACTIVATION";
     }
 
     console.log(status);
@@ -804,7 +816,11 @@ function updateAccountStatus(state) {
         payload: {
             username: $('#model_username').val(),
             account_status: status,
-            auth_status: user_auth_status
+            auth_status: user_auth_status,
+            role_id: $("#modal_update_role_id").val(),
+            user_description: "",
+            system_description: ""
+
         }
     });
 
@@ -863,7 +879,13 @@ function bus_model_update_bus() {
             bus_uid: $('#model_bus_uuid').val(),
             license_plate: $('#model_bus_number_plate').val(),
             color: $('#model_bus_color').val(),
-            vehicle_capacity: $('#model_bus_capacity').val()
+            vehicle_capacity: $('#model_bus_capacity').val(),
+            auth_status: false,
+            make: $('#model_bus_name').val(),
+            model: $('#model_bus_model').val(),
+            serial_number: $('#model_bus_capacity').val(),
+            user_description: "Bus " + $('#model_bus_number_plate').val() + " has been updated",
+            system_description: "Bus Details Updated"
         }
     });
 
@@ -1059,8 +1081,6 @@ function user_edit_model(user) {
             logged_in_user: user.id
         }
     });
-
-
 
     $.ajax({
         method: 'post',
@@ -1304,4 +1324,42 @@ function update_system_bus_route() {
             })
         }
     })
+}
+
+function refresh_balance_collection(){
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: true
+    })
+
+    swalWithBootstrapButtons.fire('Refreshing balance,   Please wait...')
+    swalWithBootstrapButtons.showLoading();
+
+    $.ajax({
+        method: 'get',
+        url: '/api/v1/internal/update/balances',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (response) {
+
+            swalWithBootstrapButtons.close();
+            swal({title: "Completed", text: "Account Balance Updated", type: "success"},
+                function(){
+                    location.reload();
+                }
+            );
+        },
+        error: function (response){
+            swalWithBootstrapButtons.close();
+            swal({title: "Failed", text: "Failed to Updated Account", type: "error"},
+                function(){
+                    location.reload();
+                }
+            );
+        }
+    })
+
 }

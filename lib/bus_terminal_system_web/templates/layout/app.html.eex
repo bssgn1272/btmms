@@ -55,7 +55,7 @@
     			<li class="dropdown dropdown-user">
     				<a class="dropdown-toggle" data-toggle="dropdown">
     					<img src="<%= Routes.static_path(@conn, "/images/material/avatar/1.png") %>" alt="">
-    					<span><%= @user.username %></span>
+    					<span>USER: <%= @user.username %> -- ROLE: <%= @user.operator_role %></span>
     					<i class="caret"></i>
     				</a>
 
@@ -258,7 +258,7 @@
 
                                                 <%= if access(@user.id, 130) do %>
                                                 <li>
-                                                    <%= link "Register NONE-SPV Staff", to: Routes.user_path(@conn, :new_teller) %>
+                                                    <%= link "Register NON-SPV Staff", to: Routes.user_path(@conn, :new_teller) %>
                                                 </li>
                                                 <% end %>
 
@@ -652,7 +652,8 @@
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/user_authentication.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/password_policy.js") %>"></script>
         <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/form_validations.js") %>"></script>
-        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+
+
 
 
     	<!-- /theme JS files -->

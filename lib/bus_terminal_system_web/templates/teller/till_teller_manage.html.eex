@@ -1,4 +1,5 @@
 <h1 style="text-align:center; color:blue; text-decoration:underline;"><strong>Manage Tellers on Till</strong></h1><hr style="border-top: 1px solid orange;">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
     .panel{
         border-radius: 25px;
@@ -15,8 +16,18 @@
                 <div class="panel border-left-lg border-left-danger">
                     <div class="panel-body">
                         <h4 style="text-align:center; color:blue;"><strong><b>Collections Account</b></strong></h4>
-                        <p style="text-align:center;"><strong><b>K <%= @user.bank_account_balance |> Decimal.from_float() |> Decimal.round(2) %></b></strong></p>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <button class="btn w3-indigo" onclick="refresh_balance_collection()"><i class="fa fa-refresh"></i> Refresh</button>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p style="text-align:center;"><strong><b><h5>K <%= @user.bank_account_balance |> Decimal.from_float() |> Decimal.round(2) %></h5></b></strong></p>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>

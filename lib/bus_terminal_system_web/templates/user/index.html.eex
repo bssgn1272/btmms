@@ -80,6 +80,156 @@
 
             <div class="timeline-row">
                 <div class="timeline-icon">
+                    <div class="bg-warning-400">
+                        <i class="icon-user"></i>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="panel border-left-lg border-left-danger invoice-grid timeline-content">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h6 class="text-semibold no-margin-top">
+
+                                            <%= if access(@user.id, 100) do %>
+                                            <a href="<%= Routes.user_path(@conn, :table_users) %>" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange">
+                                                View System Users
+                                            </a>
+                                            <% else %>
+                                            <a style="border-radius: 12px;" class="w3-btn w3-grey w3-indigo w3-hover-grey">
+                                                View System Users
+                                            </a>
+                                            <% end %>
+                                        </h6>
+                                    </div>
+
+                                    <p>
+                                        To add new users of this system please click on
+                                        Register new user. To view the registered users
+                                        please click on List of System Users.
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="panel border-left-lg border-left-danger invoice-grid timeline-content">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+
+                                        <h6 class="text-semibold no-margin-top">
+                                            <%= if access(@user.id, 102) do %>
+                                            <a href="#" class="w3-btn w3-indigo w3-hover-orange" style="border-radius: 12px;" data-toggle="modal" data-target="#regSystemUser">
+                                                Register New System User
+                                            </a>
+                                            <% else %>
+                                            <a style="border-radius: 12px;" class="w3-btn w3-grey w3-indigo w3-hover-grey">
+                                                Register New System User
+                                            </a>
+                                            <% end %>
+
+                                        </h6>
+                                    </div>
+
+                                    <p>
+                                        This feature will register NAPSA complient users.
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-row">
+                <div class="timeline-icon">
+                    <div class="bg-success-400">
+                        <i class="icon-user"></i>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="panel border-left-lg border-left-success invoice-grid timeline-content">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h6 class="text-semibold no-margin-top" style="color:blue; text-align:center; text-decoration:underline ;">
+                                            Bus registration
+                                        </h6>
+                                        <hr style="color:orange;">
+                                    </div>
+
+                                    <p>
+                                        Bus operators can register their new buses here, by clicking the <i>Add New Bus</i> button.
+                                    </p>
+                                </div>
+                                <div class="panel-footer panel-footer-condensed">
+                                    <div class="container">
+                                        <span>
+                                        <%= if access(@user.id, 103) do %>
+                                            <a href="<%= Routes.bus_terminus_path(@conn, :register) %>" onclick="get_buses()" class="w3-btn w3-indigo w3-hover-orange" style="border-radius: 12px;">
+                                            Register Bus
+                                        </a>
+                                        <% else %>
+                                            <a style="border-radius: 12px;" class="w3-btn w3-grey w3-indigo w3-hover-grey">
+                                                Register Bus
+                                            </a>
+                                        <% end %>
+
+
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="panel border-left-lg border-left-success invoice-grid timeline-content">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h6 class="text-semibold no-margin-top" style="color:blue; text-align:center; text-decoration:underline ;">
+                                            Check Available Routes
+                                        </h6>
+                                        <hr style="color:orange;">
+                                    </div>
+
+                                    <p>
+                                        This tab allows you to view available routes, and customise routes for your buses.
+                                    </p>
+                                </div>
+
+                                <div class="panel-footer panel-footer-condensed">
+                                    <div class="container">
+                                        <span>
+                                        <%= if access(@user.id, 104) do %>
+                                              <a href="<%= Routes.route_path(@conn, :index) %>" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange">
+                                                View Routes
+                                            </a>
+                                        <% else %>
+                                            <a style="border-radius: 12px;" class="w3-btn w3-grey w3-indigo w3-hover-grey">
+                                                View Routes
+                                            </a>
+                                        <% end %>
+
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-row">
+                <div class="timeline-icon">
                     <div class="bg-primary-400">
                         <i class="icon-table"></i>
                     </div>
@@ -338,75 +488,6 @@
                 <i class="icon-history position-left"></i> <span class="text-semibold"></span><a onclick="this.innerHTML=Date()">Click To Check Time</a>
             </div>
             <!-- /date stamp -->
-
-            <div class="timeline-row">
-                <div class="timeline-icon">
-                    <div class="bg-warning-400">
-                        <i class="icon-user"></i>
-                    </div>
-                </div>
-
-                <div class="row">
-                <div class="col-lg-6">
-                    <div class="panel border-left-lg border-left-danger invoice-grid timeline-content">
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <h6 class="text-semibold no-margin-top">
-
-                                        <%= if access(@user.id, 100) do %>
-                                            <a href="<%= Routes.user_path(@conn, :table_users) %>" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange">
-                                                View System Users
-                                            </a>
-                                        <% else %>
-                                            <a style="border-radius: 12px;" class="w3-btn w3-grey w3-indigo w3-hover-grey">
-                                                View System Users
-                                            </a>
-                                        <% end %>
-                                    </h6>
-                                </div>
-
-                                <p>
-                                    To add new users of this system please click on
-                                    Register new user. To view the registered users
-                                    please click on List of System Users.
-                                </p>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="panel border-left-lg border-left-danger invoice-grid timeline-content">
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-sm-12">
-
-                                    <h6 class="text-semibold no-margin-top">
-                                        <%= if access(@user.id, 102) do %>
-                                        <a href="#" class="w3-btn w3-indigo w3-hover-orange" style="border-radius: 12px;" data-toggle="modal" data-target="#regSystemUser">
-                                            Register New System User
-                                        </a>
-                                        <% else %>
-                                        <a style="border-radius: 12px;" class="w3-btn w3-grey w3-indigo w3-hover-grey">
-                                            Register New System User
-                                        </a>
-                                        <% end %>
-
-                                    </h6>
-                                </div>
-
-                                <p>
-                                    This feature will register NAPSA complient users.
-                                </p>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
 
         </div>
     </div>
@@ -1676,87 +1757,7 @@ toolbar -->
         <!-- Timeline -->
             <div class="timeline timeline-left content-group">
 
-             <div class="timeline-row">
-                <div class="timeline-icon">
-                    <div class="bg-success-400">
-                        <i class="icon-user"></i>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="panel border-left-lg border-left-success invoice-grid timeline-content">
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <h6 class="text-semibold no-margin-top" style="color:blue; text-align:center; text-decoration:underline ;">
-                                            Bus registration
-                                        </h6>
-                                        <hr style="color:orange;">
-                                    </div>
-
-                                    <p>
-                                        Bus operators can register their new buses here, by clicking the <i>Add New Bus</i> button.
-                                    </p>
-                                </div>
-                                <div class="panel-footer panel-footer-condensed">
-                                    <div class="container">
-                                        <span>
-                                        <%= if access(@user.id, 103) do %>
-                                            <a href="<%= Routes.bus_terminus_path(@conn, :register) %>" onclick="get_buses()" class="w3-btn w3-indigo w3-hover-orange" style="border-radius: 12px;">
-                                            Register Bus
-                                        </a>
-                                        <% else %>
-                                            <a style="border-radius: 12px;" class="w3-btn w3-grey w3-indigo w3-hover-grey">
-                                                Register Bus
-                                            </a>
-                                        <% end %>
-
-
-                                    </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="panel border-left-lg border-left-success invoice-grid timeline-content">
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <h6 class="text-semibold no-margin-top" style="color:blue; text-align:center; text-decoration:underline ;">
-                                            Check Available Routes
-                                        </h6>
-                                        <hr style="color:orange;">
-                                    </div>
-
-                                    <p>
-                                        This tab allows you to view available routes, and customise routes for your buses.
-                                    </p>
-                                </div>
-
-                                <div class="panel-footer panel-footer-condensed">
-                                    <div class="container">
-                                        <span>
-                                        <%= if access(@user.id, 104) do %>
-                                              <a href="<%= Routes.route_path(@conn, :index) %>" style="border-radius: 12px;" class="w3-btn w3-indigo w3-hover-orange">
-                                                View Routes
-                                            </a>
-                                        <% else %>
-                                            <a style="border-radius: 12px;" class="w3-btn w3-grey w3-indigo w3-hover-grey">
-                                                View Routes
-                                            </a>
-                                        <% end %>
-
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

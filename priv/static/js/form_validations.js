@@ -1,7 +1,6 @@
 
-function user_validation(input){
 
-    let ivalue = $("#"+input.id).val()
+function user_validation(input){
 
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -11,27 +10,28 @@ function user_validation(input){
         buttonsStyling: true
     });
 
-    $.ajax({
-        method: 'post',
-        url: '/api/v1/btms/H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hICn',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (response) {
+        let ivalue = $("#"+input.id).val()
 
-            if (response.exist > 0) {
-                $("#"+input.id).val("");
-                swalWithBootstrapButtons.fire(
-                    'Error',
-                    'A User with ' + input.id + ': ' + ivalue + ' Already Exists',
-                    'error'
-                )
-            }
+        $.ajax({
+            method: 'post',
+            url: '/api/v1/btms/H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hICn',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (response) {
+
+                if (response.exist > 0) {
+                    $("#"+input.id).val("");
+                    swalWithBootstrapButtons.fire(
+                        'Error',
+                        'A User with ' + input.id + ': ' + ivalue + ' Already Exists',
+                        'error'
+                    )
+                }
 
 
-        },
-        data: JSON.stringify({table: "probase_tbl_users", column: input.name.replace("payload[", "").replace("]", ""), value: $("#"+input.id).val()})
-    })
-
+            },
+            data: JSON.stringify({table: "probase_tbl_users", column: input.name.replace("payload[", "").replace("]", ""), value: $("#"+input.id).val()})
+        })
 }
 
 

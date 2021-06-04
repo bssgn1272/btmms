@@ -7,10 +7,50 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
   alias BusTerminalSystem.AccountManager.User
   alias Ecto.Multi
 
+  def update_accounts() do
+#    query = from u in User, where: (u.role == "TOP" or u.role == "ADMIN") and u.auth_status == true and String.contain?(u.account_number, "TELLER-") == true
+#    query = "select * from probase_tbl_users u where (u.role = 'TOP' or u.role = 'ADMIN') and u.auth_status = true and substring(u.account_number,1,5) = 'ZICB-'"
+#    User.where(query)
+    User.where(from u in User, where: (u.role == "TOP" or u.role == "ADMIN") )
+    |> Enum.each(fn user ->
+    try do
+      bank_response = query_account_by_mobile(user.mobile, user)
+      if bank_response == %{} do
+        parse_date = (fn date_string ->
+          try do
+            [day, month, year] = String.split(date_string," ")
+            "#{year}-#{Timex.month_to_num(month) |> to_string |> String.pad_leading(2,"0")}-#{day}"
+          rescue
+            _ -> date_string
+          end
+                      end)
+        try do
+          teller_details = %{
+            "firstName" => user.first_name,
+            "lastName" => user.last_name,
+            "uniqueValue" => user.nrc,
+            "dateOfBirth" => parse_date.(user.dob),
+            "email" => user.email,
+            "sex" => user.sex,
+            "mobileNumber" => user.mobile,
+          }
+          create_wallet(teller_details, user)
+        rescue
+          _ -> %{}
+        end
+      else
+      end
+    rescue
+      _ -> %{}
+    end
+
+    end)
+  end
 
   def run() do
     if Settings.find_by(key: "BANK_ENABLE_ACCOUNT_OPENING_TASK").value == "TRUE" do
-      query = from u in User, where: (u.role == "TOP" or u.role == "ADMIN") and u.auth_status == true and u.account_number == "00000000"
+#      query = from u in User, where: (u.role == "TOP" or u.role == "ADMIN") and u.auth_status == true and u.account_number == "00000000"
+      query = "select * from probase_tbl_users u where (u.role = 'TOP' or u.role = 'ADMIN') and u.auth_status = true and substring(u.account_number,1,5) = 'ZICB-'"
       User.where(query)
 #      User.where(from u in User, where: (u.role == "TOP" or u.role == "ADMIN") )
       |> Enum.each(fn user ->

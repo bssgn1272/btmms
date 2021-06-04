@@ -153,6 +153,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
   
   def update_user(conn, %{"payload" => payload } = params) do
 
+    IO.inspect params
     username = payload["username"]
 
     if username == nil do
@@ -176,7 +177,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
                       {:ok, user_role} -> user_role |> UserRole.update([
                         role: Decimal.new(payload["role_id"]) |> Decimal.to_integer,
                         maker: user.id,
-                        user_description: "NEW PERMISSION ADDED TO ROLE ATTACHED TO #{user.username}"
+                        user_description: "ROLE ATTACHED TO #{user.username}"
                       ])
                          _ -> ""
                        end
@@ -861,6 +862,22 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
          {:ok, _} -> conn |> json(%{status: 0, message: "Bus deleted successfully"})
          {:error, _} -> conn |> json(%{status: 1, message: "Failed to delete bus"})
      end
+  end
+
+  def update_balances(conn \\ %{}, _params \\ %{}) do
+    BusTerminalSystem.Service.Zicb.AccountOpening.update_accounts() |> IO.inspect
+    |> case do
+         :ok ->
+           conn |> json(%{
+            status: 0,
+            message: "Account balance Updated Successfully."
+           })
+         _ ->
+           conn |> json(%{
+             status: 1,
+             message: "Failed to update account balance."
+           })
+       end
   end
 
 end

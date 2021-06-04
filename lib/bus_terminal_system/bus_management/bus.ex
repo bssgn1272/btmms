@@ -23,7 +23,6 @@ defmodule BusTerminalSystem.BusManagement.Bus do
     field :company, :string
     field :company_info, :string
     field :vehicle_capacity, :string
-
     field :auth_status, :boolean, default: false
     field :maker, :integer, default: 1
     field :checker, :integer, default: 1
