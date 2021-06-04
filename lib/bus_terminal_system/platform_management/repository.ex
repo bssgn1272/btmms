@@ -706,7 +706,7 @@ defmodule BusTerminalSystem.RepoManager do
     {:ok, agent, Agent.get(agent, fn list -> list end) }
   end
 
-  def schedule_ticket_count(schedule_id), do: Repo.one(from r in Ticket,select: count("*"), where: r.bus_schedule_id == ^schedule_id)
+  def schedule_ticket_count(schedule_id, bus_id), do: Repo.one(from r in Ticket,select: count("*"), where: r.bus_schedule_id == ^schedule_id and r.bus_no == ^bus_id)
 
   defp available_seats(capacity, ticket_count) do
     Utility.string_to_int(capacity) - ticket_count
@@ -720,7 +720,7 @@ defmodule BusTerminalSystem.RepoManager do
         route_uid = schedule["ID"]
         bus = BusTerminalSystem.BusManagement.Bus.find(schedule["bus_id"])
         capacity = bus.vehicle_capacity
-        seats = available_seats(capacity,schedule_ticket_count(Utility.int_to_string(route_uid)))
+        seats = available_seats(capacity,schedule_ticket_count(Utility.int_to_string(route_uid), bus.id))
 
         #      IO.inspect(seats, label: "SEATS")
 
@@ -741,7 +741,7 @@ defmodule BusTerminalSystem.RepoManager do
           start_route = (fn operator_a, route_a, fare_a, time_a, date_a, slot_a, capacity_a, route_uid_a, bus_a  ->
             if seats >= 1 do
               %{
-                "available_seats" => available_seats(capacity_a, schedule_ticket_count(Utility.int_to_string(route_uid))),
+                "available_seats" => available_seats(capacity_a, schedule_ticket_count(Utility.int_to_string(route_uid), bus.id)),
                 "bus_schedule_id" => route_uid_a |> to_string,
                 "route" => route_a |> Poison.encode! |> Poison.decode!,
                 "root_route" => route_a |> Poison.encode! |> Poison.decode!,
@@ -902,7 +902,7 @@ defmodule BusTerminalSystem.RepoManager do
       if queried_route.start_route == start_route and queried_route.end_route == end_route do
         Agent.update(agent, fn list -> [
            %{
-             "available_seats" => available_seats(capacity,schedule_ticket_count(Utility.int_to_string(route_uid))),
+             "available_seats" => available_seats(capacity,schedule_ticket_count(Utility.int_to_string(route_uid), bus_id)),
              "bus_schedule_id" => route_uid |> to_string,
              "route" => route,
              "bus" => bus,
@@ -991,7 +991,7 @@ defmodule BusTerminalSystem.RepoManager do
       if queried_route.start_route == start_route and queried_route.end_route == end_route do
         Agent.update(agent, fn list -> [
            %{
-             "available_seats" => available_seats(capacity,schedule_ticket_count(Utility.int_to_string(route_uid))),
+             "available_seats" => available_seats(capacity,schedule_ticket_count(Utility.int_to_string(route_uid), bus_id)),
              "bus_schedule_id" => route_uid |> to_string,
              "route" => route,
              "bus" => bus,
@@ -1076,7 +1076,7 @@ defmodule BusTerminalSystem.RepoManager do
       if queried_route.start_route == start_route and queried_route.end_route == end_route do
         Agent.update(agent, fn list -> [
          %{
-           "available_seats" => available_seats(capacity,schedule_ticket_count(Utility.int_to_string(route_uid))),
+           "available_seats" => available_seats(capacity,schedule_ticket_count(Utility.int_to_string(route_uid), bus_id)),
            "bus_schedule_id" => route_uid,
            "route" => route,
            "bus" => bus,
