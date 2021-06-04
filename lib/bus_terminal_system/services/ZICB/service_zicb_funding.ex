@@ -9,7 +9,7 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
 
 
   def post_ticket_transactions() do
-    if Settings.find_by(key: "BANK_ENABLE_TICKET_POSTING").value == "FALSE" do
+    if Settings.find_by(key: "BANK_ENABLE_TICKET_POSTING").value == "TRUE" do
       Transactions.where([status: "PENDING"])
       |> Enum.each(fn transaction ->
         BusTerminalSystem.Database.Tables.Transactions.update(BusTerminalSystem.Database.Tables.Transactions.find(transaction.id), [status: "PROCESSING"])
