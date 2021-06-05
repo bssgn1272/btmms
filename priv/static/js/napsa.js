@@ -5,9 +5,10 @@ function validate_national_id() {
     let id_split = national_id.split("")
     if ((national_id.length) >= 11 && id_split["6"] === '/' && id_split["9"] === '/'){
         search_napsa_member(national_id);
-    } else if (national_id.length === 9 && id_split["6"] !== '/' && id_split["9"] !== '/'){
+    } else {
         search_napsa_member(national_id);
     }
+    // if (national_id.length === 9 && id_split["6"] !== '/' && id_split["9"] !== '/')
 }
 
 function search_napsa_member(search_id) {
