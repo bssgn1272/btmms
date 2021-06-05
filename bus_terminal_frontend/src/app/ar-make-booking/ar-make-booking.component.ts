@@ -325,7 +325,7 @@ export class ArMakeBookingComponent implements OnInit {
                   message = 'Dear operator,';
                   message += '\nYour booking for arrival has been submitted for approval.'
                   message += '\nTime: ' + this.data.row.reservation_time.split('T')[0] + ' ' + this.data.row.time;
-                  message += '\nDestination: ' + resRoute.routes.end_route;
+                  message += '\nSource: ' + resRoute.routes.end_route;
                   message += '\nSlot: ' + this.f.slot.value;
                   message += '\nThank you.'
                 }
@@ -351,6 +351,34 @@ export class ArMakeBookingComponent implements OnInit {
                     },
                     (error) => {
                     }
+                );
+
+                this.httpClient.get('/main/api/managers').subscribe(
+                  (manager) => {
+                    console.log('User Data>>> ',  manager['data']);
+                    for(let i = 0; i < manager['data'].length; i++){
+                      console.log('Zeroth element>>> ', manager['data'][i].email);
+                      const subject = 'Arrival Booking Pending Approval - ' + this.userItems.username;
+                      let messagem = "Dear Manager,"
+                      messagem += "\nA new application for arrival has been submitted for your approval."
+                      messagem += "\nBelow are the details:";
+                      messagem += '\nTime: ' + this.data.row.reservation_time.split('T')[0] + ' ' + this.data.row.time;
+                      messagem += '\nSource: ' + resRoute.routes.end_route;
+                      messagem += '\nSlot: ' + this.f.slot.value;
+                      messagem += '\nThank you.'
+                      messagem += '\nFrom LMBMC System Alerts'
+                      let bodym = new HttpParams();
+                      bodym = bodym.set('email', manager['data'][i].email);
+                      bodym = bodym.set('user', manager['data'][i].username);
+                      bodym = bodym.set('subject', subject);
+                      bodym = bodym.set('msg', messagem);
+                      this.httpClient.get('/main/api/email', { params: bodym }).subscribe(
+                          (data) => {},
+                          (error) => {}
+                      );
+                    }
+                  },
+                  (error) => {}
                 );
                 // this._location.back();
                 this._snackBar.open(message, null, {

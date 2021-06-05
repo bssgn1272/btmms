@@ -207,3 +207,12 @@ var GetUserController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Req
 	log.Println(resp)
 	utils.Respond(w, resp)
 })
+
+var GetManagersController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+	data := models.GetManagers()
+	resp := utils.Message(true, "success")
+	resp["data"] = data
+	log.Println(resp)
+	utils.Respond(w, resp)
+})

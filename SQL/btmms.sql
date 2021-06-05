@@ -14,7 +14,7 @@
 
 
 -- Dumping database structure for btmms
-CREATE DATABASE IF NOT EXISTS `btmms` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE IF NOT EXISTS `btmms` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `btmms`;
 
 -- Dumping structure for table btmms.aauth_groups
@@ -173,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `ed_access_controls` (
   `deactivated_at` datetime DEFAULT NULL,
   `status` char(1) DEFAULT 'A',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.ed_access_controls: ~51 rows (approximately)
 /*!40000 ALTER TABLE `ed_access_controls` DISABLE KEYS */;
@@ -257,7 +257,7 @@ CREATE TABLE IF NOT EXISTS `ed_ar_reservations` (
   KEY `idx_ed_ar_reservations_deleted_at` (`deleted_at`),
   KEY `ed_ar_reservations_ed_bus_route_id_ed_bus_routes_id_foreign` (`ed_bus_route_id`),
   CONSTRAINT `ed_ar_reservations_ed_bus_route_id_ed_bus_routes_id_foreign` FOREIGN KEY (`ed_bus_route_id`) REFERENCES `ed_bus_routes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.ed_ar_reservations: ~29 rows (approximately)
 /*!40000 ALTER TABLE `ed_ar_reservations` DISABLE KEYS */;
@@ -317,7 +317,7 @@ CREATE TABLE IF NOT EXISTS `ed_ar_slots` (
   UNIQUE KEY `time` (`time`) USING BTREE,
   KEY `idx_ed_slots_deleted_at` (`deleted_at`) USING BTREE,
   KEY `idx_ed_ar_slots_deleted_at` (`deleted_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.ed_ar_slots: ~6 rows (approximately)
 /*!40000 ALTER TABLE `ed_ar_slots` DISABLE KEYS */;
@@ -347,7 +347,7 @@ CREATE TABLE IF NOT EXISTS `ed_bus_routes` (
   `parent` int DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_ed_bus_routes_deleted_at` (`deleted_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.ed_bus_routes: ~56 rows (approximately)
 /*!40000 ALTER TABLE `ed_bus_routes` DISABLE KEYS */;
@@ -442,7 +442,7 @@ CREATE TABLE IF NOT EXISTS `ed_days` (
   `day` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_ed_days_deleted_at` (`deleted_at`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.ed_days: ~0 rows (approximately)
 /*!40000 ALTER TABLE `ed_days` DISABLE KEYS */;
@@ -457,7 +457,7 @@ CREATE TABLE IF NOT EXISTS `ed_eventholder` (
   `event_id` int DEFAULT NULL,
   `ed_date` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=527 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=527 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.ed_eventholder: ~497 rows (approximately)
 /*!40000 ALTER TABLE `ed_eventholder` DISABLE KEYS */;
@@ -1002,7 +1002,7 @@ CREATE TABLE IF NOT EXISTS `ed_options` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `option_name` (`option_name`),
   KEY `idx_ed_options_deleted_at` (`deleted_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.ed_options: ~4 rows (approximately)
 /*!40000 ALTER TABLE `ed_options` DISABLE KEYS */;
@@ -1034,7 +1034,7 @@ CREATE TABLE IF NOT EXISTS `ed_penalties` (
   `penalty_status` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_ed_penalties_deleted_at` (`deleted_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=280 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=280 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.ed_penalties: ~273 rows (approximately)
 /*!40000 ALTER TABLE `ed_penalties` DISABLE KEYS */;
@@ -1342,7 +1342,7 @@ CREATE TABLE IF NOT EXISTS `ed_penalty_types` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `penalty_type` varchar(255) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.ed_penalty_types: ~2 rows (approximately)
 /*!40000 ALTER TABLE `ed_penalty_types` DISABLE KEYS */;
@@ -1376,7 +1376,7 @@ CREATE TABLE IF NOT EXISTS `ed_reservations` (
   KEY `ed_reservations_ed_bus_route_id_ed_bus_routes_id_foreign` (`ed_bus_route_id`),
   CONSTRAINT `ed_reservations_ed_bus_route_id_ed_bus_routes_id_foreign` FOREIGN KEY (`ed_bus_route_id`) REFERENCES `ed_bus_routes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `ed_reservations_slot_ed_slot_mappings_slot_foreign` FOREIGN KEY (`slot`) REFERENCES `ed_slot_mappings` (`slot`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.ed_reservations: ~5 rows (approximately)
 /*!40000 ALTER TABLE `ed_reservations` DISABLE KEYS */;
@@ -1416,7 +1416,7 @@ CREATE TABLE IF NOT EXISTS `ed_slots` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `time` (`time`) USING BTREE,
   KEY `idx_ed_slots_deleted_at` (`deleted_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.ed_slots: ~8 rows (approximately)
 /*!40000 ALTER TABLE `ed_slots` DISABLE KEYS */;
@@ -1445,7 +1445,7 @@ CREATE TABLE IF NOT EXISTS `ed_slot_mappings` (
   KEY `idx_ed_slot_mappings_deleted_at` (`deleted_at`),
   KEY `idx_ed_slot_mappings_slot` (`slot`),
   KEY `slot` (`slot`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.ed_slot_mappings: ~9 rows (approximately)
 /*!40000 ALTER TABLE `ed_slot_mappings` DISABLE KEYS */;
@@ -1577,7 +1577,7 @@ CREATE TABLE IF NOT EXISTS `ed_sub_routes` (
   KEY `idx_ed_sub_routes_deleted_at` (`deleted_at`),
   KEY `ed_sub_routes_ed_bus_route_id_ed_bus_routes_id_foreign` (`ed_bus_route_id`),
   CONSTRAINT `ed_sub_routes_ed_bus_route_id_ed_bus_routes_id_foreign` FOREIGN KEY (`ed_bus_route_id`) REFERENCES `ed_bus_routes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=249 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=249 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.ed_sub_routes: ~180 rows (approximately)
 /*!40000 ALTER TABLE `ed_sub_routes` DISABLE KEYS */;
@@ -1841,7 +1841,7 @@ CREATE TABLE IF NOT EXISTS `ed_times` (
   `time_of_day` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_ed_times_deleted_at` (`deleted_at`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.ed_times: ~0 rows (approximately)
 /*!40000 ALTER TABLE `ed_times` DISABLE KEYS */;
@@ -1856,7 +1856,7 @@ CREATE TABLE IF NOT EXISTS `ed_towns` (
   `town_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_ed_towns_deleted_at` (`deleted_at`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.ed_towns: ~0 rows (approximately)
 /*!40000 ALTER TABLE `ed_towns` DISABLE KEYS */;
@@ -1901,7 +1901,7 @@ CREATE TABLE IF NOT EXISTS `probase_acc_gl_account` (
   UNIQUE KEY `acc_gl_code` (`gl_code`),
   KEY `FK_ACC_0000000001` (`parent_id`),
   CONSTRAINT `FK_ACC_0000000001` FOREIGN KEY (`parent_id`) REFERENCES `probase_acc_gl_account` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Table stores chart of accounts and will be basis of balance sheet reports';
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Table stores chart of accounts and will be basis of balance sheet reports';
 
 -- Dumping data for table btmms.probase_acc_gl_account: ~65 rows (approximately)
 /*!40000 ALTER TABLE `probase_acc_gl_account` DISABLE KEYS */;
@@ -1981,7 +1981,7 @@ CREATE TABLE IF NOT EXISTS `probase_acc_process_dates` (
   `today` date DEFAULT NULL COMMENT 'todays date after eod has been run',
   `next_day` date DEFAULT NULL COMMENT 'next date after eod has been run. this is affected when there are holidays',
   UNIQUE KEY `probase_process_dates_id_uindex` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_acc_process_dates: ~0 rows (approximately)
 /*!40000 ALTER TABLE `probase_acc_process_dates` DISABLE KEYS */;
@@ -1995,7 +1995,7 @@ CREATE TABLE IF NOT EXISTS `probase_audit_log` (
   `inserted_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1227 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1227 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_audit_log: ~1,015 rows (approximately)
 /*!40000 ALTER TABLE `probase_audit_log` DISABLE KEYS */;
@@ -3234,7 +3234,7 @@ CREATE TABLE IF NOT EXISTS `probase_error_log` (
   `error_text` text,
   `occurance` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`error_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_error_log: ~2 rows (approximately)
 /*!40000 ALTER TABLE `probase_error_log` DISABLE KEYS */;
@@ -3252,7 +3252,7 @@ CREATE TABLE IF NOT EXISTS `probase_permissions` (
   `inserted_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_permissions: ~0 rows (approximately)
 /*!40000 ALTER TABLE `probase_permissions` DISABLE KEYS */;
@@ -3266,7 +3266,7 @@ CREATE TABLE IF NOT EXISTS `probase_process_dates` (
   `today` date DEFAULT NULL COMMENT 'todays date after eod has been run',
   `next_day` date DEFAULT NULL COMMENT 'next date after eod has been run. this is affected when there are holidays',
   UNIQUE KEY `probase_process_dates_id_uindex` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_process_dates: ~0 rows (approximately)
 /*!40000 ALTER TABLE `probase_process_dates` DISABLE KEYS */;
@@ -3285,7 +3285,7 @@ CREATE TABLE IF NOT EXISTS `probase_roles` (
   `user_description` varchar(255) DEFAULT NULL,
   `system_description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_roles: ~0 rows (approximately)
 /*!40000 ALTER TABLE `probase_roles` DISABLE KEYS */;
@@ -3302,7 +3302,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_acc_acgl_bal` (
   `gen_balance` decimal(13,2) GENERATED ALWAYS AS ((`opening_bal` + (`cr_mov` - `dr_mov`))) VIRTUAL,
   UNIQUE KEY `probase_tbl_acgl_bal` (`account`,`entry_date`),
   CONSTRAINT `probase_tbl_acgl_bal_probase_acc_gl_account_gl_code_fk` FOREIGN KEY (`account`) REFERENCES `probase_acc_gl_account` (`gl_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Stores daily gl and account balances';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Stores daily gl and account balances';
 
 -- Dumping data for table btmms.probase_tbl_acc_acgl_bal: ~0 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_acc_acgl_bal` DISABLE KEYS */;
@@ -3318,7 +3318,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_acgl_bal` (
   `cr_mov` decimal(19,2) DEFAULT NULL COMMENT 'Account credit movement from daily transactions',
   `gen_balance` decimal(13,2) GENERATED ALWAYS AS ((`opening_bal` + (`cr_mov` - `dr_mov`))) VIRTUAL,
   UNIQUE KEY `probase_tbl_acgl_bal` (`account`,`entry_date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Stores daily gl and account balances';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Stores daily gl and account balances';
 
 -- Dumping data for table btmms.probase_tbl_acgl_bal: ~111 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_acgl_bal` DISABLE KEYS */;
@@ -3511,7 +3511,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_bank_transactions` (
   `inserted_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_tbl_bank_transactions: ~0 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_bank_transactions` DISABLE KEYS */;
@@ -3561,7 +3561,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_bus` (
   `system_description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `license_plate_UNIQUE` (`license_plate`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_tbl_bus: ~27 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_bus` DISABLE KEYS */;
@@ -3609,7 +3609,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_buses` (
   `operator_id` varchar(255) DEFAULT NULL,
   `company` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_tbl_buses: ~0 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_buses` DISABLE KEYS */;
@@ -3623,7 +3623,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_charges` (
   `charge_freq` varchar(50) DEFAULT NULL,
   `charge_type` char(5) DEFAULT NULL,
   PRIMARY KEY (`charge_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_tbl_charges: ~30 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_charges` DISABLE KEYS */;
@@ -3670,7 +3670,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_luggage` (
   `inserted_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_tbl_luggage: ~71 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_luggage` DISABLE KEYS */;
@@ -3764,7 +3764,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_luggage_tarrifs` (
   `inserted_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_tbl_luggage_tarrifs: ~0 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_luggage_tarrifs` DISABLE KEYS */;
@@ -3790,7 +3790,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_market` (
   `user_description` varchar(255) DEFAULT NULL,
   `system_description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_tbl_market: ~3 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_market` DISABLE KEYS */;
@@ -3817,7 +3817,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_market_section` (
   `user_description` varchar(255) DEFAULT NULL,
   `system_description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_tbl_market_section: ~5 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_market_section` DISABLE KEYS */;
@@ -3847,7 +3847,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_market_section_shop` (
   `user_description` varchar(255) DEFAULT NULL,
   `system_description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_tbl_market_section_shop: ~14 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_market_section_shop` DISABLE KEYS */;
@@ -3876,7 +3876,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_params` (
   `status` char(1) DEFAULT 'U',
   PRIMARY KEY (`param_id`),
   UNIQUE KEY `probase_tbl_params_param_name_uindex` (`param_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='System Parameters';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='System Parameters';
 
 -- Dumping data for table btmms.probase_tbl_params: ~2 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_params` DISABLE KEYS */;
@@ -3893,7 +3893,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_reports` (
   `iframe` varchar(255) DEFAULT NULL,
   `link` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_tbl_reports: ~7 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_reports` DISABLE KEYS */;
@@ -3920,7 +3920,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_route_mapping` (
   `inserted_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_tbl_route_mapping: ~0 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_route_mapping` DISABLE KEYS */;
@@ -3935,7 +3935,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_settings` (
   `inserted_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_tbl_settings: ~0 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_settings` DISABLE KEYS */;
@@ -3961,7 +3961,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_sms` (
   `inserted_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=413 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=413 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_tbl_sms: ~294 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_sms` DISABLE KEYS */;
@@ -4375,7 +4375,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_terminus` (
   `user_description` varchar(255) DEFAULT NULL,
   `system_description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_tbl_terminus: ~0 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_terminus` DISABLE KEYS */;
@@ -4416,7 +4416,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_tickets` (
   `discount_original_amount` decimal(10,2) DEFAULT '0.00',
   `ticket_description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=567 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=567 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_tbl_tickets: ~277 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_tickets` DISABLE KEYS */;
@@ -4794,7 +4794,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_transactions` (
   PRIMARY KEY (`ac_sr_no`),
   KEY `probase_daily_transactions_probase_trans_code_trn_code_fk` (`trn_code`),
   CONSTRAINT `probase_daily_transactions_probase_trans_code_trn_code_fk` FOREIGN KEY (`trn_code`) REFERENCES `probase_trans_code` (`trn_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=2679 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2679 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_tbl_transactions: ~2,249 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_transactions` DISABLE KEYS */;
@@ -7493,7 +7493,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_travel_routes` (
   `parent` int DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `idx_probase_tbl_travel_routes_deleted_at` (`deleted_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_tbl_travel_routes: ~5 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_travel_routes` DISABLE KEYS */;
@@ -7556,7 +7556,7 @@ CREATE TABLE IF NOT EXISTS `probase_tbl_users` (
   `bank_destBranch` varchar(4) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_probase_tbl_users_deleted_at` (`deleted_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_tbl_users: ~38 rows (approximately)
 /*!40000 ALTER TABLE `probase_tbl_users` DISABLE KEYS */;
@@ -7605,7 +7605,7 @@ CREATE TABLE IF NOT EXISTS `probase_trans_code` (
   `maker_id` varchar(50) DEFAULT NULL,
   `checker_id` varchar(50) DEFAULT NULL,
   UNIQUE KEY `probase_trans_code_trn_code_uindex` (`trn_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_trans_code: ~29 rows (approximately)
 /*!40000 ALTER TABLE `probase_trans_code` DISABLE KEYS */;
@@ -7660,7 +7660,7 @@ CREATE TABLE IF NOT EXISTS `probase_user_role` (
   `user_description` varchar(255) DEFAULT NULL,
   `system_description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.probase_user_role: ~0 rows (approximately)
 /*!40000 ALTER TABLE `probase_user_role` DISABLE KEYS */;
@@ -7671,7 +7671,7 @@ CREATE TABLE IF NOT EXISTS `schema_migrations` (
   `version` bigint NOT NULL,
   `inserted_at` datetime DEFAULT NULL,
   PRIMARY KEY (`version`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.schema_migrations: ~11 rows (approximately)
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
@@ -8562,7 +8562,7 @@ CREATE TABLE IF NOT EXISTS `wb_tmp_triggers` (
   `trigger_name` varchar(100) NOT NULL,
   `trigger_sql` mediumtext,
   PRIMARY KEY (`trigger_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table btmms.wb_tmp_triggers: ~2 rows (approximately)
 /*!40000 ALTER TABLE `wb_tmp_triggers` DISABLE KEYS */;
@@ -8575,11 +8575,11 @@ INSERT IGNORE INTO `wb_tmp_triggers` (`trigger_name`, `trigger_sql`) VALUES
 -- Dumping structure for view btmms.ed_vw_arrivals_report
 -- Creating temporary table to overcome VIEW dependency errors
 CREATE TABLE `ed_vw_arrivals_report` (
-	`Date of Arrival` VARCHAR(10) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`Time of Arrival` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`Bus Operator` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`Bus Reg/Info` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`Status` VARCHAR(11) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`Date of Arrival` VARCHAR(10) NULL COLLATE 'utf8mb4_general_ci',
+	`Time of Arrival` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`Bus Operator` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`Bus Reg/Info` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`Status` VARCHAR(11) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`BusOperatorId` INT(10) NULL
 ) ENGINE=MyISAM;
 
@@ -8587,12 +8587,12 @@ CREATE TABLE `ed_vw_arrivals_report` (
 -- Creating temporary table to overcome VIEW dependency errors
 CREATE TABLE `ed_vw_bus_schedule_report` (
 	`Date Scheduled For` VARCHAR(10) NULL COLLATE 'utf8mb4_general_ci',
-	`Time of Departure` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`Bus Operator` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`Bus Registration Number` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`Slot Booked` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`Destination` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`Status` VARCHAR(11) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`Time of Departure` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`Bus Operator` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`Bus Registration Number` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`Slot Booked` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`Destination` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`Status` VARCHAR(11) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`BusId` INT(10) UNSIGNED NULL,
 	`BusOperatorId` INT(10) UNSIGNED NULL
 ) ENGINE=MyISAM;
@@ -8601,10 +8601,10 @@ CREATE TABLE `ed_vw_bus_schedule_report` (
 -- Creating temporary table to overcome VIEW dependency errors
 CREATE TABLE `ed_vw_departures_report` (
 	`Date of Departure` VARCHAR(10) NULL COLLATE 'utf8mb4_general_ci',
-	`Time of Departure` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`Bus Operator` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`Bus Registration Number` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`Status` VARCHAR(11) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`Time of Departure` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`Bus Operator` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`Bus Registration Number` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`Status` VARCHAR(11) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`BusOperatorId` INT(10) UNSIGNED NULL
 ) ENGINE=MyISAM;
 
@@ -8612,9 +8612,9 @@ CREATE TABLE `ed_vw_departures_report` (
 -- Creating temporary table to overcome VIEW dependency errors
 CREATE TABLE `ed_vw_sold_tickets` (
 	`tickets_sold` BIGINT(19) NULL,
-	`bus_schedule_id` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`bus_schedule_id` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
 	`reserved_time` DATETIME NULL,
-	`vehicle_capacity` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci'
+	`vehicle_capacity` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci'
 ) ENGINE=MyISAM;
 
 -- Dumping structure for view btmms.unza_collections_report
@@ -8676,66 +8676,66 @@ CREATE TABLE `unza_sales_by_supplier` (
 -- Creating temporary table to overcome VIEW dependency errors
 CREATE TABLE `vw_manifest` (
 	`id` BIGINT(20) UNSIGNED NOT NULL,
-	`mobile_number` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`reference_number` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`mobile_number` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`reference_number` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
 	`ticket_id` BIGINT(19) NULL,
-	`first_name` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`last_name` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`luggage_description` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`class` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`bus_no` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`first_name` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`last_name` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`luggage_description` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`class` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`bus_no` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
 	`route` INT(10) NULL,
-	`date` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`date` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
 	`amount` DECIMAL(10,2) NULL,
-	`activation_status` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`registration_number` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`operator` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`departure_time` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`activation_status` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`registration_number` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`operator` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`departure_time` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
 	`departure_date` DATE NULL,
-	`route_name` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`payment_mode` VARCHAR(50) NULL COLLATE 'utf8mb4_0900_ai_ci'
+	`route_name` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`payment_mode` VARCHAR(50) NULL COLLATE 'utf8mb4_general_ci'
 ) ENGINE=MyISAM;
 
 -- Dumping structure for view btmms.vw_manifest2
 -- Creating temporary table to overcome VIEW dependency errors
 CREATE TABLE `vw_manifest2` (
 	`id` BIGINT(20) UNSIGNED NOT NULL,
-	`mobile_number` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`reference_number` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`first_name` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`last_name` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`mobile_number` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`reference_number` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`first_name` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`last_name` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
 	`has_luggage` TINYINT(1) NULL,
 	`luggage_total` DECIMAL(13,2) NULL,
-	`class` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`bus_no` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`class` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`bus_no` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
 	`route` INT(10) NULL,
-	`date` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`date` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
 	`amount` DECIMAL(10,2) NULL,
-	`activation_status` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`registration_number` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`operator` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`operator_id` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`departure_time` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`activation_status` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`registration_number` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`operator` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`operator_id` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`departure_time` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
 	`departure_date` DATE NULL,
-	`route_name` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`payment_mode` VARCHAR(50) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`teller_name` VARCHAR(511) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`route_name` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`payment_mode` VARCHAR(50) NULL COLLATE 'utf8mb4_general_ci',
+	`teller_name` VARCHAR(511) NULL COLLATE 'utf8mb4_general_ci',
 	`teller_id` BIGINT(20) UNSIGNED NOT NULL,
 	`transaction_date` DATETIME NOT NULL,
-	`ticket_description` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`ticket_description` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
 	`ticket_number` BIGINT(20) UNSIGNED NOT NULL,
-	`end_route` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci'
+	`end_route` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci'
 ) ENGINE=MyISAM;
 
 -- Dumping structure for view btmms.vw_operator_dues
 -- Creating temporary table to overcome VIEW dependency errors
 CREATE TABLE `vw_operator_dues` (
 	`trn_dt` DATE NULL,
-	`operator` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`account_number` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`operator_id` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`process_ref` VARCHAR(40) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`trn_desc` VARCHAR(35) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`operator` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`account_number` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`operator_id` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`process_ref` VARCHAR(40) NULL COLLATE 'utf8mb4_general_ci',
+	`trn_desc` VARCHAR(35) NULL COLLATE 'utf8mb4_general_ci',
 	`amount_due` DECIMAL(36,2) NULL
 ) ENGINE=MyISAM;
 
@@ -8744,7 +8744,7 @@ CREATE TABLE `vw_operator_dues` (
 CREATE TABLE `vw_sales_by_bus` (
 	`trn_dt` DATE NULL,
 	`total_sales` DECIMAL(41,2) NULL,
-	`license_plate` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci'
+	`license_plate` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci'
 ) ENGINE=MyISAM;
 
 -- Dumping structure for view btmms.vw_sales_by_operator
@@ -8752,9 +8752,9 @@ CREATE TABLE `vw_sales_by_bus` (
 CREATE TABLE `vw_sales_by_operator` (
 	`trn_dt` DATE NULL,
 	`total_sales` DECIMAL(41,2) NULL,
-	`company` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`company` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
 	`id` BIGINT(20) UNSIGNED NOT NULL,
-	`account_number` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci'
+	`account_number` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci'
 ) ENGINE=MyISAM;
 
 -- Dumping structure for view btmms.vw_sales_by_teller
@@ -8762,7 +8762,7 @@ CREATE TABLE `vw_sales_by_operator` (
 CREATE TABLE `vw_sales_by_teller` (
 	`trn_dt` DATE NULL,
 	`total_sales` DECIMAL(41,2) NULL,
-	`maker_id` VARCHAR(20) NULL COLLATE 'utf8mb4_0900_ai_ci'
+	`maker_id` VARCHAR(20) NULL COLLATE 'utf8mb4_general_ci'
 ) ENGINE=MyISAM;
 
 -- Dumping structure for view btmms.vw_ticket_transcations
@@ -8770,24 +8770,24 @@ CREATE TABLE `vw_sales_by_teller` (
 CREATE TABLE `vw_ticket_transcations` (
 	`fare` DECIMAL(10,2) NULL,
 	`id` BIGINT(20) UNSIGNED NOT NULL,
-	`reference_number` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`serial_number` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`external_ref` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`reference_number` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`serial_number` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`external_ref` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
 	`route` INT(10) NULL,
-	`date` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`bus_no` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`class` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`activation_status` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`first_name` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`last_name` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`other_name` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`id_type` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`passenger_id` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`mobile_number` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`email_address` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`transaction_channel` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`travel_date` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`bus_schedule_id` VARCHAR(255) NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`date` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`bus_no` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`class` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`activation_status` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`first_name` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`last_name` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`other_name` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`id_type` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`passenger_id` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`mobile_number` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`email_address` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`transaction_channel` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`travel_date` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
+	`bus_schedule_id` VARCHAR(255) NULL COLLATE 'utf8mb4_general_ci',
 	`inserted_at` DATETIME NOT NULL,
 	`updated_at` DATETIME NOT NULL
 ) ENGINE=MyISAM;

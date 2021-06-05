@@ -288,19 +288,6 @@ export class MakeBookingComponent implements OnInit {
         this.status = 'P'
     }
 
-
-
-    // const reserv: any = {
-    //     slot: this.f.slot.value,
-    //   reservation_status: this.status,
-    //     route: this.f.route.value,
-    //     user_id: this._id,
-    //     res_uuid: v4(),
-    //     time: this.data.row.time,
-    //     reserved_time: this.data.row.reservation_time , // reservation_time
-    //     bus_id: this.f.bus.value,
-    // }
-
     const reserv: any = {
       slot: this.f.slot.value,
       reservation_status: this.status,
@@ -363,6 +350,34 @@ export class MakeBookingComponent implements OnInit {
                 this.httpClient.get('/main/api/email', { params: bodyc }).subscribe(
                     (data) => {},
                     (error) => {}
+                );
+
+                this.httpClient.get('/main/api/managers').subscribe(
+                  (manager) => {
+                    console.log('User Data>>> ',  manager['data']);
+                    for(let i = 0; i < manager['data'].length; i++){
+                      console.log('Zeroth element>>> ', manager['data'][i].email);
+                      const subject = 'Departure Booking Pending Approval - ' + this.userItems.username;
+                      let messagem = "Dear Manager,"
+                      messagem += "\nA new application for departure has been submitted for your approval."
+                      messagem += "\nBelow are the details:";
+                      messagem += '\nTime: ' + this.data.row.reservation_time.split('T')[0] + ' ' + this.data.row.time;
+                      messagem += '\nDestination: ' + resRoute.routes.end_route;
+                      messagem += '\nSlot: ' + this.f.slot.value;
+                      messagem += '\nThank you.'
+                      messagem += '\nFrom LMBMC System Alerts'
+                      let bodym = new HttpParams();
+                      bodym = bodym.set('email', manager['data'][i].email);
+                      bodym = bodym.set('user', manager['data'][i].username);
+                      bodym = bodym.set('subject', subject);
+                      bodym = bodym.set('msg', messagem);
+                      this.httpClient.get('/main/api/email', { params: bodym }).subscribe(
+                          (data) => {},
+                          (error) => {}
+                      );
+                    }
+                  },
+                  (error) => {}
                 );
                 // this._location.back();
                 this._snackBar.open('Successfully Submitted For Approval', null, {

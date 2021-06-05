@@ -182,3 +182,15 @@ func GetUser(id uint) []*ProbaseTblUser {
 
 	return probaseTblUser
 }
+
+func GetManagers() []*ProbaseTblUser {
+	probaseTblUser := make([]*ProbaseTblUser, 0)
+	err := GetDB().Model(ProbaseTblUser{}).Where("`role` = 'ADMIN' AND `account_status` IN ('ACTIVE', 'OTP')").Find(&probaseTblUser).Error
+	log.Println(err)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+
+	return probaseTblUser
+}

@@ -48,6 +48,7 @@ func main() {
 	router.Handle("/main/api/access/permissions/{id}", controllers.UpdateAccessPermissionController).Methods("Put")
 	router.Handle("/main/api/users", controllers.GetAllUserController).Methods("GET")
 	router.Handle("/main/api/users/{id}", controllers.GetUserController).Methods("GET")
+	router.Handle("/main/api/managers", controllers.GetManagersController).Methods("GET")
 
 	// reservations routes
 	router.Handle("/main/api/reservation/requests/create", controllers.CreateReservationController).Methods("POST")
