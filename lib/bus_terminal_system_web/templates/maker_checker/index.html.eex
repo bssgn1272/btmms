@@ -27,7 +27,8 @@
                         <tbody>
                         <%= for list <- @list do %>
                         <tr>
-                            <td> <%= list.maker %> </td>
+                            <% user_id = (fn id -> if id == nil, do: 1, else: id end) %>
+                            <td> <%= BusTerminalSystem.AccountManager.User.find_by(id: (user_id.(list.maker) |> IO.inspect) ).username || "UNDEFINED" %> </td>
                             <td> <%= list.maker_date_time %> </td>
                             <td> <%= list.user_description %> </td>
                             <td> <%= list.system_description %> </td>
