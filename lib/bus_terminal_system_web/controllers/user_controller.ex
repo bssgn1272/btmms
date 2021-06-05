@@ -102,10 +102,19 @@ defmodule BusTerminalSystemWeb.UserController do
         |> put_flash(:error, "User with username #{payload["username"]} already exists")
         |> redirect(to: Routes.user_path(conn, :new))
       else
+
+        napsa_user = %{
+          "firstName" => payload["first_name"],
+          "lastName" => payload["last_name"],
+          "nrc" => payload["nrc"],
+          "ssn" => payload["ssn"],
+          "dob" => payload["dob"],
+        }
+
         if String.length(payload["mobile"]) != 12 do
           conn
           |> put_flash(:error, "Invalid Mobile Number #{payload["mobile"]}, Please include country code .eg 260 for Zambia")
-          |> render("new.html", [changeset: AccountManager.change_user(%User{})])
+          |> render("new.html", [changeset: AccountManager.change_user(%User{}), napsa_user: napsa_user , form_data: payload])
         else
           role |> case  do
                     "MOP" ->
@@ -425,15 +434,16 @@ defmodule BusTerminalSystemWeb.UserController do
     #    else
 
     if User.find_by(username: payload["username"]) != nil do
+      IO.inspect "1"
       conn
       |> put_flash(:error, "User with username #{payload["username"]} already exists")
-      |> render("new_staff.html", [changeset: AccountManager.change_user(%User{}), form_data: payload])
+      |> render("new_staff.html", [changeset: AccountManager.change_user(%User{}), napsa_user: %{}, form_data: payload])
     else
-
+      IO.inspect "1"
       if String.length(payload["mobile"]) != 12 do
         conn
         |> put_flash(:error, "Invalid Mobile Number #{payload["mobile"]}, Please include country code .eg 260 for Zambia")
-        |> render("new_staff.html", [changeset: AccountManager.change_user(%User{}), form_data: payload])
+        |> render("new_staff.html", [changeset: AccountManager.change_user(%User{}), napsa_user: %{}, form_data: payload])
       else
         role |> case do
                   "MOP" ->
