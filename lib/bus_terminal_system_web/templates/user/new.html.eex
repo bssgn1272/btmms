@@ -110,7 +110,7 @@
 
                                     <div class="form-group">
                                         <label>Swift Code:</label>
-                                        <input name="payload[swift_code]" value="<%= @form_data["swift_code"] || "" %>" id="SwiftCode" class="form-control" required placeholder="Enter Swift Code" type="text">
+                                        <input name="payload[swift_code]" value="<%= @form_data["swift_code"] || "" %>" id="SwiftCode" class="form-control" placeholder="Enter Swift Code" type="text">
                                     </div>
 
                                     <div class="form-group">
