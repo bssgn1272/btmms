@@ -143,7 +143,7 @@
                                             <th>Bank Reference Number</th>
                                             <th>Reference Number</th>
                                             <th>Transaction Date/Time</th>
-                                            <th>Action</th>
+
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -158,19 +158,6 @@
                                             <td><%= trans.hostrefno %></td>
                                             <td><%= trans.referenceNo %></td>
                                             <td><%= trans.inserted_at |> to_string() |> String.replace("Z","") %></td>
-                                            <td class="text-center">
-                                                <ul class="icons-list">
-                                                    <li class="dropdown">
-                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                            <i class="icon-menu9"></i>
-                                                        </a>
-                                                        <ul class="dropdown-menu dropdown-menu-right">
-                                                            <li><a href="#" ><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Fund Wallet</a></li>
-                                                            <li><a href="#"><img src="https://img.icons8.com/material/24/000000/cancel--v1.png"> Deactivate</a></li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </td>
                                         </tr>
                                         <% end %>
                                         </tbody>

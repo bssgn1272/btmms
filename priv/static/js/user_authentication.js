@@ -142,3 +142,7 @@ function password_reset(){
 function back_to_login() {
     window.location.href = "/"
 }
+
+function logout(){
+    window.location.href = "/logout"
+}

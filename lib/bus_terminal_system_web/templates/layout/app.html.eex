@@ -33,14 +33,14 @@
     		<a class="navbar-brand" href="#">
                 <img src="<%= Routes.static_path(@conn, "/images/logo/2.png") %>" class="img-fluid" style="width:150px;height:80px;margin-bottom: 50px" alt="NapsaLogo">
             </a>
-             
+
     		<ul class="nav navbar-nav visible-xs-block">
     			<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
                 <%= if @user.role == "ADMIN" do %>
     			<li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
                 <% end %>
     		</ul>
-            
+
     	</div>
 
     	<div class="navbar-collapse collapse" id="navbar-mobile">
@@ -76,7 +76,7 @@
     	</div>
     </div>
     <!-- /main navbar -->
-    
+
     <br><br><br>
     	<!-- Page container -->
     	<div class="page-container">
@@ -198,7 +198,7 @@
     								<% end %>
 
                                     <%= if @user.role == "BOP" do %>
-                                   									
+
                                     <li>
                                         <a href="#"><i style="color:orange;" class="icon-bus"></i> <span>Bus Management</span></a>
                                         <ul>
@@ -318,13 +318,13 @@
 
                                     <li>
                                         <a href="#documentation" data-toggle="tab">
-                                            <i style="color:orange;" class="icon-book position-left"></i> Documentation 
+                                            <i style="color:orange;" class="icon-book position-left"></i> Documentation
                                         </a>
                                     </li>
 
                                     <li>
                                         <a href="#registerMarketeers" data-toggle="tab">
-                                            <i style="color:orange;" class="icon-user position-left"></i> Register Marketeers 
+                                            <i style="color:orange;" class="icon-user position-left"></i> Register Marketeers
                                         </a>
                                     </li>
                                     <li><br></li>
@@ -377,13 +377,13 @@
 
                                     <li>
                                         <a href="#BOPdocumentation" data-toggle="tab">
-                                            <i style="color:orange;" class="icon-book position-left"></i> Documentation 
+                                            <i style="color:orange;" class="icon-book position-left"></i> Documentation
                                         </a>
                                     </li>
 
                                     <li>
                                         <a href="#BOPregisterBus" data-toggle="tab">
-                                            <i style="color:orange;" class="icon-car position-left"></i> Register Buses 
+                                            <i style="color:orange;" class="icon-car position-left"></i> Register Buses
                                         </a>
                                     </li>
                                     <li><br></li>
@@ -430,7 +430,7 @@
 
                                     <%= if @user.role == "TOP" or @user.role == "CCOP" do %>
                                     <li>
-                                    
+
                                         <%= link "Dashboard", to: Routes.user_path(@conn, :index) %>
                                     </li>
 
@@ -488,7 +488,7 @@
     		</div>
     		<!-- /page content -->
     	</div>
-        
+
     	<!-- /page container -->
 
 

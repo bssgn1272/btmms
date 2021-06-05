@@ -98,8 +98,8 @@
         </ol>
         <br> If the above solution fail. Please contact the System Administration for assistance
     </div>
-    <a href="#" rel="noopener noreferrer" class="btn">
-        Error Code: 403</a>
+    <a href="#" rel="noopener noreferrer" onclick="logout()" class="btn">
+        Continue</a>
 </div>
 </body>
 

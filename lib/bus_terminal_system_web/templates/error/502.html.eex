@@ -90,8 +90,8 @@
     <div class=message>
         A Bad Gateway server error has occurred, please try again. If this error persists, feel free the contact the system administrator
     </div>
-    <a href="#" target="_blank" rel="noopener noreferrer" class="btn">
-        Error Code 502</a>
+    <a href="#" rel="noopener noreferrer" onclick="logout()" class="btn">
+        Continue</a>
 </div>
 </body>
 

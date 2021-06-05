@@ -515,7 +515,7 @@
 
 </div>
 <% else %>
-    <div class="container align-content-center padding-bottom-3x mb-2 mt-5">
+<div class="container align-content-center padding-bottom-3x mb-2 mt-5">
     <div class="row justify-content-center" style="width: 50%; margin-top: 200px; margin-left: 270px;">
         <div class="col-12">
             <div class="forgot">
@@ -533,3 +533,4 @@
     </div>
 </div>
 <% end %>
+
