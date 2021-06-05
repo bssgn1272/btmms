@@ -7,7 +7,7 @@ defmodule BusTerminalSystemWeb.Router do
     plug :fetch_flash
     plug :put_secure_browser_headers
     plug(BusTerminalSystemWeb.Plugs.SetUser)
-    plug(BusTerminalSystemWeb.Plugs.SessionTimeout, timeout_after_seconds: 180_000)
+    plug(BusTerminalSystemWeb.Plugs.SessionTimeout, timeout_after_seconds: 300)
   end
 
   pipeline :csrf do

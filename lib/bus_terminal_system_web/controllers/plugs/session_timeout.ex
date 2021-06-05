@@ -4,13 +4,13 @@ defmodule BusTerminalSystemWeb.Plugs.SessionTimeout do
   @moduledoc false
 
   def init(opts \\ []) do
-    Keyword.merge([timeout_after_seconds: 180_000], opts)
+    Keyword.merge([timeout_after_seconds: 300], opts)
   end
 
   def call(conn, opts) do
-    timeout_at = get_session(conn, :session_timeout_at)
+    timeout_at = get_session(conn, :session_timeout_at) ||  new_session_timeout_at(opts[:timeout_after_seconds])
 
-    if timeout_at && now() > timeout_at do
+    if now() > timeout_at do
       logout_user(conn)
     else
       put_session(conn, :session_timeout_at, new_session_timeout_at(opts[:timeout_after_seconds]))
@@ -21,7 +21,7 @@ defmodule BusTerminalSystemWeb.Plugs.SessionTimeout do
     conn
     |> clear_session()
     |> configure_session([:renew])
-    |> assign(:session_timeout, true)
+    |> assign(:user, nil)
   end
 
   def now do

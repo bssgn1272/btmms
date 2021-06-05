@@ -177,6 +177,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
                       {:ok, user_role} -> user_role |> UserRole.update([
                         role: Decimal.new(payload["role_id"]) |> Decimal.to_integer,
                         maker: user.id,
+                        auth_status: true,
                         user_description: "ROLE ATTACHED TO #{user.username}"
                       ])
                          _ -> ""

@@ -15,7 +15,7 @@ defmodule BusTerminalSystemWeb.Plugs.SetUser do
         BusTerminalSystem.AuditLog.create(operation: "USER LOGIN", log: "User Login. Username:#{user.username}")
         assign(conn, :user, user)
       true ->
-        BusTerminalSystem.AuditLog.create(operation: "USER LOGIN", log: "Login Failed")
+        BusTerminalSystem.AuditLog.create(operation: "USER LOGIN", log: "Failed to Authenticate or your session timed out")
         assign(conn, :user, nil)
     end
   end
