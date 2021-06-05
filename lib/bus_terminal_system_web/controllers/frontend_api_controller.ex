@@ -669,7 +669,15 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
         spawn(fn ->
           if ticket.activation_status == "TRANSFER" do
             bus = BusTerminalSystem.BusManagement.Bus.find(ticket.bus_no)
-            message = "Dear #{ticket.first_name} #{ticket.last_name}. Your Ticket has been transferred to #{params["start_route"]} - #{params["end_route"]}, Bus Operator: #{bus.company}, License Plate: #{bus.license_plate},\nThank you and have a great trip."
+            message = "Dear #{ticket.first_name} #{ticket.last_name}. Your Ticket Number #{ticket.id} has been transferred to #{params["start_route"]} - #{params["end_route"]}, Bus Operator: #{bus.company}, License Plate: #{bus.license_plate},\nThank you and have a great trip."
+            BusTerminalSystem.Notification.Table.Sms.create!([recipient: ticket.mobile_number, message: message, sent: false])
+          end
+        end)
+
+        spawn(fn ->
+          if ticket.activation_status == "RESCHEDULED" do
+            bus = BusTerminalSystem.BusManagement.Bus.find(ticket.bus_no)
+            message = "Dear #{ticket.first_name} #{ticket.last_name}. Your Ticket Number #{ticket.id} has been rescheduled to #{params["start_route"]} - #{params["end_route"]}, Bus Operator: #{bus.company}, License Plate: #{bus.license_plate},\nThank you and have a great trip."
             BusTerminalSystem.Notification.Table.Sms.create!([recipient: ticket.mobile_number, message: message, sent: false])
           end
         end)
@@ -686,7 +694,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
         spawn(fn ->
           if ticket.activation_status == "CANCELED" do
             route = BusTerminalSystem.TravelRoutes.find(ticket.route)
-            message = "Dear #{ticket.first_name} #{ticket.last_name}. Your Ticket from #{route.start_route} to #{route.end_route} ID: #{ticket.id} has been canceled"
+            message = "Dear #{ticket.first_name} #{ticket.last_name}. Your Ticket from #{route.start_route} to #{route.end_route} Ticket Number #{ticket.id} has been canceled"
             BusTerminalSystem.Notification.Table.Sms.create!([recipient: ticket.mobile_number, message: message, sent: false])
           end
         end)

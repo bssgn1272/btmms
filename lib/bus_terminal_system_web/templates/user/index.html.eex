@@ -1011,6 +1011,16 @@
                                 operator_id = BusTerminalSystem.BusManagement.Bus.find(ticket.bus_no).operator_id
                                 operator = BusTerminalSystem.AccountManager.User.find(operator_id)
                                 route = BusTerminalSystem.TravelRoutes.find(ticket.route)
+
+
+                                parent_route_end_route = (fn ticket_body ->
+                                    if ticket_body.root_route == nil do
+                                      nil
+                                    else
+                                      BusTerminalSystem.TravelRoutes.find(ticket_body.root_route).end_route
+                                    end
+                                 end)
+                                parent_end_route = parent_route_end_route.(ticket)
                                 route_name = route.route_name
                                 start_route = route.start_route
                                 end_route = route.end_route
@@ -1043,13 +1053,16 @@
                                                   <li>
 
                                                       <button type="button" onclick="cancel_ticket(<%= ticket.id %>)" id="cancel_button" style="width: 100%" class="btn btn-danger btn-lg">CANCEL</button>
+                                                      <br>
+                                                      <%= if ticket.root_route != nil do %>
                                                       <button type="button" onclick="reschedule_ticket(<%= %{
-                                                        start_route: start_route, end_route: end_route
+                                                        start_route: start_route, end_route: end_route, root_end_route: parent_end_route, ticket_operator: operator.company
                                                       } |> Map.merge(ticket) |> IO.inspect |> JSON.encode! %>)" id="cancel_button" style="width: 100%" class="btn btn-success btn-lg">RE-SCHEDULE</button>
-
+                                                      <br>
+                                                      <% end %>
                                                       <button type="button" onclick="transfer_ticket(<%= %{
                                                         start_route: start_route, end_route: end_route, operator: operator
-                                                      } |> Map.merge(ticket) |> IO.inspect |> JSON.encode! %>)" id="cancel_button" style="width: 100%" class="btn btn-warning btn-lg">TRANSFER</button>
+                                                      } |> Map.merge(ticket) |> IO.inspect |> JSON.encode! %>)" id="cancel_button" style="width: 100%" class="btn btn-primary btn-lg">TRANSFER</button>
 
                                                   </li>
                                              </ul>
@@ -3493,6 +3506,7 @@ function openCity(cityName) {
                     <hr>
 
                     <h6 class="text-bold">Travel Information</h6>
+                    <input id="parent_route_Model" hidden readonly type="text" class="form-control" placeholder="Route Info">
                     <input id="operator_Model" readonly type="text" class="form-control" placeholder="Route Info">
                     <input id="start_Model" readonly type="text" class="form-control" placeholder="Route Info">
                     <input id="end_Model" readonly type="text" class="form-control" placeholder="Route Info">
@@ -3601,7 +3615,7 @@ function openCity(cityName) {
             <hr>
 
             <div class="modal-footer">
-                <button id="add_luggage_button" onclick="add_luggage_button()" type="button" class="w3-btn w3-indigo w3-hover-orange w3-round w3-left">Add</button>
+                <button id="add_luggage_button" hidden onclick="add_luggage_button()" type="button" class="w3-btn w3-indigo w3-hover-orange w3-round w3-left">Add</button>
                 <button type="button" class="w3-btn w3-red w3-round" data-dismiss="modal">Close</button>
             </div>
         </div>

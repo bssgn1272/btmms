@@ -789,7 +789,8 @@ function passenger_ticket_logic() {
 
                     let value = single_object.bus.company.trim().split(" ").join("_").toString() + "-" + single_object.route.start_route + "-"
                         + single_object.route.end_route + "-"  +  single_object.departure_time + "-" + single_object.fare + "-" + single_object.bus.id + "-"
-                        + single_object.slot + "-" + single_object.bus_schedule_id + "-" + single_object.discount_amount + "-" + single_object.discount_status + "-" + single_object.departure_date.split("T")[0].replaceAll("-","/");
+                        + single_object.slot + "-" + single_object.bus_schedule_id + "-" + single_object.discount_amount + "-" + single_object.discount_status + "-" + single_object.departure_date.split("T")[0].replaceAll("-","/") + "-"
+                        + single_object.root_route.id;
                     value = value.toString();
 
                     //trips_html += '<div class="radio"><label><input type="radio" onclick="ticket_purchase(this.value)" value="'+value+'" name="opt_radio" />';
@@ -857,6 +858,7 @@ function ticket_purchase(value){
                 $('#route_information').val(info);
 
                 $('#operator_Model').val(rd[0]);
+                $('#parent_route_Model').val(rd[11]);
                 $('#start_Model').val(rd[1]);
                 $('#end_Model').val(rd[2]);
                 $('#time_Model').val(rd[3]);
@@ -916,6 +918,7 @@ function purchase_ticket_internal() {
             route_information: $('#route_information_Model').val(),
             date: $('#time_Model').val(),
             departure_date: $('#departure_date_Model').val(),
+            root_route: $('#parent_route_Model').val(),
             ticket_description: "Ticket Purchased from (Livingstone to " + $('#end_Model').val() + ")"
 
         }
@@ -1012,7 +1015,7 @@ function reschedule_ticket(ticket) {
         payload: {
             date: "",
             start_route: "Livingstone",
-            end_route: ticket.end_route
+            end_route: ticket.root_end_route
         }
     });
     let json_data = {};
@@ -1028,35 +1031,40 @@ function reschedule_ticket(ticket) {
             json_data = data_object;
             console.log(data_object);
             if (data_object.length < 1){
-                alert("No Routes Found");
+                alert("No Reschedule Routes Found");
             } else {
 
                 let trips_html = '';
 
                 $.each(response, function (k,v) {
                     let single_object = JSON.parse(JSON.stringify(v));
-
-                    console.log(single_object)
-
-                    let value = single_object.bus.company.trim().split(" ").join("_").toString() + "-" + single_object.route.start_route + "-"
-                        + single_object.route.end_route + "-"  +  single_object.departure_time + "-" + single_object.fare + "-" + single_object.bus.id + "-"
-                        + single_object.slot + "-" + single_object.bus_schedule_id;
-                    value = value.toString();
-
-                    //trips_html += '<div class="radio"><label><input type="radio" onclick="ticket_purchase(this.value)" value="'+value+'" name="opt_radio" />';
-                    //trips_html += "\n" + value ;
-                    //trips_html += '</label></div';
-                    //trips_html += "\n";
-
-                    date_obj = single_object.departure_date.split("T")[0]
-                    date_arr = date_obj.split("-")
-                    date = date_arr[2] + "/" + date_arr[1] + "/" + date_arr[0]
+                    if (ticket.date !== single_object.departure_time  && ticket.ticket_operator === single_object.bus.company) {
 
 
-                    trips_html += '<tr>' + '<th scope="row"><input type="radio" onclick="reschedule_logic(this.value, selected_ticket)" value="'+value+'" name="opt_radio"></th>'+
-                        '<td>' + single_object.bus.company +'</td>' + '<td>' + single_object.route.start_route + " -> "+
-                        single_object.route.end_route +'</td>' + '<td>' + single_object.departure_time +'</td>' + '<td>' + date +'</td>' + '<td>' + single_object.available_seats +'</td>' + '<td>' + single_object.fare
-                        +'</td>' + '</tr>';
+                        console.log(single_object)
+
+                        let value = single_object.bus.company.trim().split(" ").join("_").toString() + "-" + single_object.route.start_route + "-"
+                            + single_object.route.end_route + "-"  +  single_object.departure_time + "-" + single_object.fare + "-" + single_object.bus.id + "-"
+                            + single_object.slot + "-" + single_object.bus_schedule_id;
+                        value = value.toString();
+
+                        //trips_html += '<div class="radio"><label><input type="radio" onclick="ticket_purchase(this.value)" value="'+value+'" name="opt_radio" />';
+                        //trips_html += "\n" + value ;
+                        //trips_html += '</label></div';
+                        //trips_html += "\n";
+
+                        date_obj = single_object.departure_date.split("T")[0]
+                        date_arr = date_obj.split("-")
+                        date = date_arr[2] + "/" + date_arr[1] + "/" + date_arr[0]
+
+
+                        trips_html += '<tr>' + '<th scope="row"><input type="radio" onclick="reschedule_logic(this.value, selected_ticket)" value="'+value+'" name="opt_radio"></th>'+
+                            '<td>' + single_object.bus.company +'</td>' + '<td>' + single_object.route.start_route + " -> "+
+                            single_object.route.end_route +'</td>' + '<td>' + single_object.departure_time +'</td>' + '<td>' + date +'</td>' + '<td>' + single_object.available_seats +'</td>' + '<td>' + single_object.fare
+                            +'</td>' + '</tr>';
+                    }
+
+
                 });
 
                 // $("#results_view").show();
