@@ -601,7 +601,7 @@ defmodule BusTerminalSystemWeb.UserController do
 
         conn
         |> put_flash(:info, "User created successfully.")
-        |> render("new.html", [changeset: changeset, napsa_user: napsa_user])
+        |> render("new.html", [changeset: changeset, napsa_user: napsa_user, form_data: %{}])
 
       {:error, %Ecto.Changeset{} = changeset} ->
 
@@ -610,7 +610,7 @@ defmodule BusTerminalSystemWeb.UserController do
 
         conn
         |> put_flash(:error,"Failed To Create User #{ApiManager.translate_error(changeset)}")
-        |> render("new.html", [changeset: changeset, napsa_user: napsa_user])
+        |> render("new.html", [changeset: changeset, napsa_user: napsa_user, form_data: %{}])
 
     end
   end
