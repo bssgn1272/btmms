@@ -1038,10 +1038,13 @@ function reschedule_ticket(ticket) {
 
                 $.each(response, function (k,v) {
                     let single_object = JSON.parse(JSON.stringify(v));
+                    let bus;
                     if (ticket.date !== single_object.departure_time  && ticket.ticket_operator === single_object.bus.company) {
 
 
                         console.log(single_object)
+
+                        bus = single_object.bus.id
 
                         let value = single_object.bus.company.trim().split(" ").join("_").toString() + "-" + single_object.route.start_route + "-"
                             + single_object.route.end_route + "-"  +  single_object.departure_time + "-" + single_object.fare + "-" + single_object.bus.id + "-"
@@ -1120,7 +1123,9 @@ function reschedule_logic(value, ticket) {
                     route_information: info,
                     activation_status: "RESCHEDULED",
                     start_route: rd[1],
-                    end_route: rd[2]
+                    end_route: rd[2],
+                    bus_no: rd[5],
+                    bus_schedule_id: rd[7]
                 }
             });
 
