@@ -818,8 +818,8 @@ function updateAccountStatus(state) {
             account_status: status,
             auth_status: user_auth_status,
             role_id: $("#modal_update_role_id").val(),
-            user_description: "",
-            system_description: ""
+            user_description: user_description,
+            system_description: system_description
 
         }
     });
