@@ -4,7 +4,7 @@ defmodule BusTerminalSystemWeb.Plugs.SessionTimeout do
   @moduledoc false
 
   def init(opts \\ []) do
-    Keyword.merge([timeout_after_seconds: 300], opts)
+    Keyword.merge([timeout_after_seconds: 10], opts)
   end
 
   def call(conn, opts) do

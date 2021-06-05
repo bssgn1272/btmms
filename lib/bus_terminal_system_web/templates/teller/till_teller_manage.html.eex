@@ -23,7 +23,12 @@
                             </div>
 
                             <div class="col-md-6">
-                                <p style="text-align:center;"><strong><b><h5>K <%= @user.bank_account_balance |> Decimal.from_float() |> Decimal.round(2) %></h5></b></strong></p>
+                                <p style="text-align:center;"><strong><b><h5>K <%= try do
+                                  @user.bank_account_balance |> Decimal.from_float() |> Decimal.round(2)
+                                rescue
+                                  _ -> 0.00
+                                   end
+                                  %></h5></b></strong></p>
                             </div>
                         </div>
                     </div>

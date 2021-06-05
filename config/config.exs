@@ -109,11 +109,11 @@ config :bus_terminal_system, BusTerminalSystem.Scheduler,
      schedule: {:extended, "*/3"}, task: {BusTerminalSystem.EmailSender, :run, []}
    ],
    sms: [
-     schedule:  {:extended, "*/2"}, task: {BusTerminalSystem.Job.Sms, :send, []}
+     schedule:  {:extended, "*/5"}, task: {BusTerminalSystem.Job.Sms, :send, []}
    ],
    cosec:
    [
-     schedule:  {:extended, "*/2"}, task: {BusTerminalSystem.Cosec, :run, []}
+     schedule:  {:extended, "*/60"}, task: {BusTerminalSystem.Cosec, :run, []}
    ]
  ]
 
