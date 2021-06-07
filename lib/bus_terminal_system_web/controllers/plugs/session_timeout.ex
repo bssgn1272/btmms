@@ -1,10 +1,11 @@
 defmodule BusTerminalSystemWeb.Plugs.SessionTimeout do
   import Plug.Conn
+  import BusTerminalSystemWeb.Router.Helpers
 
   @moduledoc false
 
   def init(opts \\ []) do
-    Keyword.merge([timeout_after_seconds: 300], opts)
+    Keyword.merge([timeout_after_seconds: 15], opts)
   end
 
   def call(conn, opts) do
@@ -22,6 +23,8 @@ defmodule BusTerminalSystemWeb.Plugs.SessionTimeout do
     |> clear_session()
     |> configure_session([:renew])
     |> assign(:user, nil)
+    |> Phoenix.Controller.redirect( to: session_path(conn, :login))
+
   end
 
   def now do
