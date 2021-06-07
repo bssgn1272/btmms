@@ -1,6 +1,5 @@
 defmodule BusTerminalSystemWeb.Plugs.SessionTimeout do
   import Plug.Conn
-  import BusTerminalSystemWeb.Router.Helpers
 
   @moduledoc false
 
@@ -23,7 +22,7 @@ defmodule BusTerminalSystemWeb.Plugs.SessionTimeout do
     |> clear_session()
     |> configure_session([:renew])
     |> assign(:user, nil)
-    |> Phoenix.Controller.redirect( to: session_path(conn, :login))
+    |> Phoenix.Controller.redirect( to: "/")
 
   end
 
