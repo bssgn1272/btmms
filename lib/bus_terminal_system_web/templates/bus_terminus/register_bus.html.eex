@@ -120,7 +120,7 @@
                                                     </div>
 
                                                     <div hidden class="form-group">
-                                                        <select class="w3-select" required>
+                                                        <select class="w3-select" name="payload[seat_capacity_select]">
                                                             <option value="" disabled selected>Vehicle Capacity:</option>
                                                             <option value="10">C1: 10 Seats</option>
                                                             <option value="15">C1E: 15 Seats</option>
@@ -172,7 +172,7 @@
 
                                                     <div class="form-group">
                                                         <label>Card Number</label>
-                                                        <input name="payload[card_number]" oninput="bus_validation(this)" id="vehicleCardNumber" class="form-control" placeholder="Card Number" type="number" required>
+                                                        <input name="payload[card]" oninput="bus_validation(this)" id="vehicleCardNumber" class="form-control" placeholder="Card Number" type="number" required>
                                                     </div>
 
                                                     <div class="form-group">
