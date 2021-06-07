@@ -278,7 +278,7 @@ defmodule BusTerminalSystemWeb.UserController do
       if String.length(payload["mobile"]) < 9 or String.length(payload["mobile"]) > 12 do
         conn
         |> put_flash(:error, "Invalid Mobile Number length #{String.length(payload["mobile"])}, Number must be between 9-12 digits long")
-        |> render("new.html", [changeset: AccountManager.change_user(%User{}), napsa_user: napsa_user , form_data: payload])
+        |> render("new.html", [changeset: AccountManager.change_user(%User{}), napsa_user: %{} , form_data: payload])
       else
         #          m = payload["mobile"]
         #          String.pad_trailing("260", mobile_number, payload["mobile"]) |> IO.inspect
