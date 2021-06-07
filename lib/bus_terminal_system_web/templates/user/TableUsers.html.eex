@@ -490,7 +490,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label>Account Number</label>
-                                    <input type="text" readonly="readonly" id="model_account_number" value="" class="form-control">
+                                    <input type="text" readonly="readonly" id="model_account_sweep_number" value="" class="form-control">
                                 </div>
 
                                 <div class="col-md-4">

@@ -1,0 +1,11 @@
+1. enter seat numbers manually, remove drop down
+
+2. There should be discount per ticket at ticket sale (not clear on flow)
+
+3. Maker cannot be checker
+4. Store local numbers with 26 prefix
+5. Teller Transactions field named user should change to description
+6. Teller transaction descriptions should funded or swept
+7. Ability to filter teller transactions by date range
+8. Operator, Marketeer, Agent and Teller should have default roles, the rest should have configurable role management
+9. Do not submit forms with empty mandatory fields

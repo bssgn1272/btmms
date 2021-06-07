@@ -548,7 +548,7 @@ function transfer_funds_edit_model(id) {
             $('#modal_form_horizontal_transfer_funds').modal('show');
 
             $('#model_operator').val(data.response.QUERY.data.company);
-            $('#model_account_number').val(data.response.QUERY.data.account_number);
+            $('#model_account_sweep_number').val(data.response.QUERY.data.account_number);
             $('#model_transfer_value').val("0");
             // $('#model_email').val(data.response.QUERY.data.email);
             // $('#model_phone').val(data.response.QUERY.data.mobile);
@@ -580,7 +580,7 @@ function transfer_funds() {
     swalWithBootstrapButtons.showLoading();
 
     let json_request = JSON.stringify({
-        account: $('#model_account_number').val(),
+        account: $('#model_account_sweep_number').val(),
         amount: $('#model_transfer_value').val()
     });
 
