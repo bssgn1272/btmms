@@ -98,7 +98,7 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <select class="w3-select" name="payload[make]">
+                                                        <select class="w3-select" name="payload[make]" required>
                                                             <option value="" disabled selected>Make</option>
                                                             <option value="Toyota">Toyota</option>
                                                             <option value="Higer">Higer</option>
@@ -110,7 +110,7 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <select class="w3-select" name="payload[vehicle_class]">
+                                                        <select class="w3-select" name="payload[vehicle_class]" required>
                                                             <option value="" disabled selected>Vehicle Class:</option>
                                                             <option value="C1">C1</option>
                                                             <option value="C1E">C1E</option>
@@ -119,8 +119,8 @@
                                                         </select>
                                                     </div>
 
-                                                    <div class="form-group">
-                                                        <select class="w3-select" name="payload[vehicle_capacity]">
+                                                    <div hidden class="form-group">
+                                                        <select class="w3-select" required>
                                                             <option value="" disabled selected>Vehicle Capacity:</option>
                                                             <option value="10">C1: 10 Seats</option>
                                                             <option value="15">C1E: 15 Seats</option>
@@ -130,7 +130,7 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <select class="w3-select" name="payload[state_of_registration]">
+                                                        <select class="w3-select" name="payload[state_of_registration]" required>
                                                             <option value="" disabled selected>State of Registration:</option>
                                                             <option value="Lusaka">Lusaka</option>
                                                             <option value="Livingstone">Livingstone</option>
@@ -183,23 +183,28 @@
 
                                                     <div class="form-group">
                                                         <label>VIN Number:</label>
-                                                        <input name="payload[vin_number]" id="vinNumber" oninput="bus_validation(this)" class="form-control" placeholder="Enter VIN Number" type="text" required>
+                                                        <input name="payload[vin_number]" id="vinNumber" class="form-control" placeholder="Enter VIN Number" type="text" required>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label>Serial Number:</label>
-                                                        <input name="payload[serial_number]" oninput="bus_validation(this)" id="vehicleSerialNumber" class="form-control" placeholder="Enter Serial Number" type="text" required>
+                                                        <input name="payload[serial_number]" id="vehicleSerialNumber" class="form-control" placeholder="Enter Serial Number" type="text" required>
                                                     </div>
 
 
                                                     <div class="form-group">
                                                         <label>Hull Number:</label>
-                                                        <input name="payload[hull_number]" oninput="bus_validation(this)" id="vehicleHullNUmber" class="form-control" placeholder="Enter Hull Number" type="text" required>
+                                                        <input name="payload[hull_number]" id="vehicleHullNUmber" class="form-control" placeholder="Enter Hull Number" type="text" required>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label>Company:</label>
                                                         <input name="payload[company]" readonly id="vehicleCompany" class="form-control" placeholder="Enter Company Number" type="text" required>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>Seat Capacity:</label>
+                                                        <input name="payload[vehicle_capacity]" id="vehicleSeatCapacity" class="form-control" placeholder="Enter Seat Capacity" type="number" required>
                                                     </div>
 
                                                     <div class="form-group" hidden>

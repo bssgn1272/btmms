@@ -119,7 +119,7 @@
 
                                             <div class="input-group">
                                                 <select class="custom-select form-control" name="payload[parent_route]">
-                                                    <option value="0" disabled selected hidden> -- Select Parent Route --</option>
+                                                    <option value="0" selected > -- Select Parent Route --</option>
                                                     <%= for route <- BusTerminalSystem.TravelRoutes.all() do %>
                                                     <option value="<%= route.id %>"><%= route.route_name %></option>
                                                     <% end %>

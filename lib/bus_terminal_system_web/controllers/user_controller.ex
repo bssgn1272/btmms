@@ -111,11 +111,17 @@ defmodule BusTerminalSystemWeb.UserController do
           "dob" => payload["dob"],
         }
 
-        if String.length(payload["mobile"]) != 12 do
+
+
+        if String.length(payload["mobile"]) < 9 or String.length(payload["mobile"]) > 12 do
           conn
-          |> put_flash(:error, "Invalid Mobile Number #{payload["mobile"]}, Please include country code .eg 260 for Zambia")
+          |> put_flash(:error, "Invalid Mobile Number length #{String.length(payload["mobile"])}, Number must be between 9-12 digits long")
           |> render("new.html", [changeset: AccountManager.change_user(%User{}), napsa_user: napsa_user , form_data: payload])
         else
+#          m = payload["mobile"]
+#          String.pad_trailing("260", mobile_number, payload["mobile"]) |> IO.inspect
+          payload = payload |> Map.put("mobile", String.pad_trailing("260", 12, payload["mobile"]))
+
           role |> case  do
                     "MOP" ->
 
@@ -268,11 +274,15 @@ defmodule BusTerminalSystemWeb.UserController do
       |> render("new_teller.html", [changeset: AccountManager.change_user(%User{}), form_data: payload])
     else
 
-      if String.length(payload["mobile"]) != 12 do
+
+      if String.length(payload["mobile"]) < 9 or String.length(payload["mobile"]) > 12 do
         conn
-        |> put_flash(:error, "Invalid Mobile Number #{payload["mobile"]}, Please include country code .eg 260 for Zambia")
-        |> render("new_teller.html", [changeset: AccountManager.change_user(%User{}), form_data: payload])
+        |> put_flash(:error, "Invalid Mobile Number length #{String.length(payload["mobile"])}, Number must be between 9-12 digits long")
+        |> render("new.html", [changeset: AccountManager.change_user(%User{}), napsa_user: napsa_user , form_data: payload])
       else
+        #          m = payload["mobile"]
+        #          String.pad_trailing("260", mobile_number, payload["mobile"]) |> IO.inspect
+        payload = payload |> Map.put("mobile", String.pad_trailing("260", 12, payload["mobile"]))
         role |> case do
                   "MOP" ->
 
@@ -373,6 +383,7 @@ defmodule BusTerminalSystemWeb.UserController do
                     end)
 
                     payload = Map.put(payload, "operator_role", "AGENT")
+                    payload = Map.put(payload, "role_id", BusTerminalSystem.UserRoles.find_by(role: "DEFAULT").id |> to_string)
                     user_create_teller_payload(conn, payload)
                   _ ->
 

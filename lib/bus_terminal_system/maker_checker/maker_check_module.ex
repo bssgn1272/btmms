@@ -108,15 +108,21 @@ defmodule BusTerminalSystem.MakerCheckModule do
   end
 
   def reject(conn, params) do
-    Repo.query("DELETE FROM "<>params["table"]<>" WHERE id="<>params["id"]<>";")
-    |> case do
-         {:ok, _} ->
 
-           # Chipasha add your email thingy here
+    if params["table"] == "probase_tbl_users" do
 
-           {:ok, "Successfully Rejected Request"}
-         {:error, error} ->
-           {:error, "Error Code: 200-2990"}
-       end
-  end
+    else
+      Repo.query("UPDATE "<>params["table"]<>" SET auth_status=1 WHERE id="<>params["id"]<>";")
+      |> case do
+           {:ok, _} ->
+
+             # Chipasha add your email thingy here
+
+             {:ok, "Successfully Rejected Request"}
+           {:error, error} ->
+             IO.inspect error
+             {:error, "Failed to reject request, An Error Occurred"}
+         end
+    end
+    end
 end

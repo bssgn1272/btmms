@@ -497,7 +497,7 @@ defmodule BusTerminalSystem.RepoManager do
             route_code: payload["route_code"],
             source_state: payload["source_state"],
             route_uuid: payload["route_uuid"],
-            route_fare: (payload["route_fare"] |> String.to_integer),
+            route_fare: (payload["route_fare"] |> String.to_integer || 0),
             auth_status: false,
             parent: (payload["parent_route"] |> String.to_integer),
             maker: conn.assigns.user.id,

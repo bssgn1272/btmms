@@ -1110,7 +1110,8 @@ function user_edit_model(user) {
             $('#model_user_id').val(user.id);
 
 
-            if (data.response.QUERY.data.operator_role === "TELLER"){
+            if (data.response.QUERY.data.operator_role === "TELLER" ||
+                data.response.QUERY.data.operator_role === "MARKETER" || data.response.QUERY.data.operator_role === "AGENT"){
                 console.log("TELLER ROLE")
                 document.getElementById("modal_update_role_id").setAttribute("disabled", "disabled");
                 // $('#modal_update_role_id').prop('disabled',true);

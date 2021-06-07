@@ -135,7 +135,7 @@
                                         <thead>
                                         <tr>
                                             <th hidden>Txn ID</th>
-                                            <th>User</th>
+                                            <th>Description</th>
                                             <th>Source Account</th>
                                             <th>Destination Account</th>
                                             <th>Amount</th>

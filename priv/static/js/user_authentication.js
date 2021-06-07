@@ -66,7 +66,6 @@ function change_user_password(){
 
             }
 
-
         }
 
 

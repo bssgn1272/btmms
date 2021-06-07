@@ -322,24 +322,29 @@ defmodule BusTerminalSystemWeb.TicketController do
           case RepoManager.get_ticket(ticket_id) do
             nil -> ""
             ticket ->
-            conn
-            |> json(ApiManager.api_message_custom_handler(ApiManager.definition_query,"SUCCESS",0,
-              %{
-                "activation_status" => ticket.activation_status,
-                "reference_number" => ticket.reference_number,
-                "serial_number" => ticket.serial_number,
-                "external_ref" => ticket.external_ref,
-                "first_name" => ticket.first_name,
-                "last_name" => ticket.last_name,
-                "other_name" => ticket.other_name,
-                "id_type" => ticket.id_type,
-                "id_number" => ticket.passenger_id,
-                "mobile_number" => ticket.mobile_number,
-                "email_address" => ticket.email_address,
-                "transaction_channel" => ticket.transaction_channel,
-                "travel_date" => ticket.travel_date,
-                "qr_code" => qr_generator("#{ticket.reference_number}")
-              }))
+
+              if ticket.activation_status == "CANCELED" do
+                ""
+              else
+                conn
+                |> json(ApiManager.api_message_custom_handler(ApiManager.definition_query,"SUCCESS",0,
+                  %{
+                    "activation_status" => ticket.activation_status,
+                    "reference_number" => ticket.reference_number,
+                    "serial_number" => ticket.serial_number,
+                    "external_ref" => ticket.external_ref,
+                    "first_name" => ticket.first_name,
+                    "last_name" => ticket.last_name,
+                    "other_name" => ticket.other_name,
+                    "id_type" => ticket.id_type,
+                    "id_number" => ticket.passenger_id,
+                    "mobile_number" => ticket.mobile_number,
+                    "email_address" => ticket.email_address,
+                    "transaction_channel" => ticket.transaction_channel,
+                    "travel_date" => ticket.travel_date,
+                    "qr_code" => qr_generator("#{ticket.reference_number}")
+                  }))
+              end
           end
         end
 
