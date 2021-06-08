@@ -60,7 +60,7 @@ export class ApproveArrivalReservationComponent implements OnInit {
                   let message = 'Dear operator,';
                   message += '\nYour arrival slot has been approved.'
                   message += '\nTime: ' + this.data.row.reserved_time.split('T')[0] + ' ' + this.data.row.time;
-                  message += '\nDestination: ' + this.data.row.end_route;
+                  message += '\nSource: ' + this.data.row.end_route;
                   message += '\nSlot: ' + this.data.row.slot;
                   message += '\nBus Registration: ' + this.data.row.license_plate;
                   message += '\nThank you.'
