@@ -136,7 +136,7 @@ export class CancelReservationComponent implements OnInit {
                   let email: any;
                   let username: any;
 
-                  if(this.userItems.role === 'CCOP' || this.userItems.role === 'ADMIN'){
+                  if(this.userItems.role == 'CCOP' || this.userItems.role == 'ADMIN'){
                     mobile = received['data'][0].mobile;
                     email = received['data'][0].email;
                     username = received['data'][0].username;
@@ -188,14 +188,14 @@ export class CancelReservationComponent implements OnInit {
                 let email: any;
                 let username: any;
 
-                if(this.userItems.role === 'CCOP' || this.userItems.role === 'ADMIN'){
+                if(this.userItems.role == 'CCOP' || this.userItems.role == 'ADMIN'){
                   mobile = received['data'][0].mobile;
                   email = received['data'][0].email;
                   username = received['data'][0].username;
                 }
                 let message = 'Dear operator,';
                 message += '\nYour departure slot has been cancelled.'
-                message += '\nTime: ' + this.data.row.reservation_time.split('T')[0] + ' ' + this.data.row.time;
+                message += '\nTime: ' + this.data.row.reserved_time.split('T')[0] + ' ' + this.data.row.time;
                 message += '\nDestination: ' + this.data.row.end_route;
                 message += '\nSlot: ' + this.data.row.slot;
                 message += '\nBus Registration: ' + this.data.row.license_plate;

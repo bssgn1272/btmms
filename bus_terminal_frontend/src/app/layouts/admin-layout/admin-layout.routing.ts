@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
+import { VehicleGridComponent } from '../../vehicle-grid/vehicle-grid.component';
 import { DispatchComponent } from '../../components/dispatch-details/dispatch-details.component';
 import { MakeBookingComponent } from 'app/make-booking/make-booking.component';
 import { ArMakeBookingComponent } from 'app/ar-make-booking/ar-make-booking.component';
@@ -42,6 +43,11 @@ export const AdminLayoutRoutes: Routes = [
   {
     path: 'dashboard',
     component: UserProfileComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'vehicle-grid',
+    component: VehicleGridComponent,
     canActivate: [AuthGuard],
   },
   {

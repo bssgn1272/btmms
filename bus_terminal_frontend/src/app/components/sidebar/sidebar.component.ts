@@ -49,6 +49,12 @@ export const ROUTESTWO: RouteInfo[] = [
     class: '',
   },
   {
+    path: '/vehicle-grid',
+    title: 'Vehicle Grid',
+    icon: 'view_module',
+    class: '',
+  },
+  {
     path: '/settings',
     title: 'Settings',
     icon: 'settings_applications',

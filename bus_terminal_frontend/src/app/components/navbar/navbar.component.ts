@@ -60,6 +60,13 @@ export class NavbarComponent implements OnInit {
     if(this.currentUser.account_status === 'OTP'){
       this.changePasswordDialog();
     }
+    
+    const auth = this.auth;
+    const router = this.router;
+    setTimeout(function(){
+      auth.logout();
+      router.navigate(['login']);
+    }, 300000);
   }
 
   sidebarOpen() {

@@ -139,10 +139,12 @@
                     <!-- Bus # Column -->
                     <ng-container matColumnDef="date_paid">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Date_paid
+                        Date Paid
                       </th>
                       <td mat-cell *matCellDef="let element">
-                        {{ element.date_paid | date }}
+                        <div  *ngIf="element.date_paid != '0001-01-01T00:00:00Z'">
+                          {{ element.date_paid | date }}
+                        </div>
                       </td>
                     </ng-container>
 

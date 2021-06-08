@@ -58,6 +58,7 @@ export class ApproveReservationComponent implements OnInit {
               .subscribe(
                 (received) => {
                   console.log('User Data>>> ',  received['data']);
+                  console.log('User Mobile>>> ', received['data'][0].mobile);
                   let message = 'Dear operator,';
                   message += '\nYour departure slot has been approved.'
                   message += '\nTime: ' + this.data.row.reserved_time.split('T')[0] + ' ' + this.data.row.time;
@@ -88,6 +89,7 @@ export class ApproveReservationComponent implements OnInit {
                 },
                 (error) => {}
               )
+            console.log('Executed Routine.');
           
             this._location.back();
             //window.location.reload();

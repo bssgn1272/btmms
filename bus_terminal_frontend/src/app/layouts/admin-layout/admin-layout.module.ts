@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
+import { VehicleGridComponent } from '../../vehicle-grid/vehicle-grid.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { DateRangePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
@@ -102,6 +103,7 @@ import {MakeFlexiBookingComponent} from '../../make-flexi-booking/make-flexi-boo
   declarations: [
     DashboardComponent,
     UserProfileComponent,
+    VehicleGridComponent,
     MakeBookingComponent,
     ArMakeBookingComponent,
     ViewMySlotsComponent,
