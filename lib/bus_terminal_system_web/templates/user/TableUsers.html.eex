@@ -99,6 +99,7 @@
                     <th>NID</th>
                     <th>Email</th>
                     <th>Mobile</th>
+                    <th>Created</th>
                     <th>Compliance Status</th>
                     <th>Company</th>
                     <th>Account Status</th>
@@ -113,20 +114,21 @@
                 <tr>
                     <td><%= user.id %></td>
                     <td><%= user.username %></td>
-                    <td><%= user.first_name %></td>
-                    <td><%= user.last_name %></td>
+                    <td><%= user.first_name || "NOT SET" %></td>
+                    <td><%= user.last_name || "NOT SET" %></td>
                     <td><%= user.role %></td>
-                    <td><%= user.ssn %></td>
-                    <td><%= user.nrc %></td>
-                    <td><%= user.email %></td>
-                    <td><%= user.mobile %></td>
+                    <td><%= user.ssn || "NOT SET" %></td>
+                    <td><%= user.nrc || "NOT SET" %></td>
+                    <td><%= user.email || "NOT SET" %></td>
+                    <td><%= user.mobile || "NOT SET" %></td>
+                    <td><%= user.inserted_at %></td>
 
                     <%= if user.compliance == true do %>
                     <td> <b style="color: green"> COMPLIANT </b>  </td>
                     <% else %>
                     <td> <b style="color: red"> NOT COMPLIANT </b> </td>
                     <% end %>
-                    <td><%= user.company %></td>
+                    <td><%= user.company || "NOT SET" %></td>
                     <td><%= user.account_status %></td>
                     <%= if access(@user.id, 101) do %>
                     <td class="text-center">
@@ -137,7 +139,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><button style="margin-left: 10px" type="button" class="btn btn-default btn-sm" onclick="user_edit_model(<%= @conn.assigns.user |> Map.put(:selected_user, user.id) |> JSON.encode!() |> IO.inspect %> )">
+                                    <li><button style="margin-left: 10px" type="button" class="btn btn-default btn-sm" onclick="user_edit_model(<%= @conn.assigns.user |> Map.put(:selected_user, user.id) |> JSON.encode!() %> )">
                                         Info <i class="icon-user position-right"></i></button></li>
 
                                     <%= if user.role == "BOP" and user.account_status == "ACTIVE" do %>
