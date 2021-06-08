@@ -193,6 +193,11 @@ export class CancelReservationComponent implements OnInit {
                   email = received['data'][0].email;
                   username = received['data'][0].username;
                 }
+                else{
+                  mobile = this.userItems.mobile;
+                  email = this.userItems.email;
+                  username = this.userItems.username;
+                }
                 let message = 'Dear operator,';
                 message += '\nYour departure slot has been cancelled.'
                 message += '\nTime: ' + this.data.row.reserved_time.split('T')[0] + ' ' + this.data.row.time;
