@@ -66,7 +66,7 @@ export class NavbarComponent implements OnInit {
     setTimeout(function(){
       auth.logout();
       router.navigate(['login']);
-    }, 300000);
+    }, 900000);
   }
 
   sidebarOpen() {

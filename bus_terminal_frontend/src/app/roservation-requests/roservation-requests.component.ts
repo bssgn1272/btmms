@@ -585,6 +585,7 @@ export class RoservationRequestsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       row = result;
+      this.ngOnInit();
     });
     console.log('Row clicked: ', row);
   }
@@ -597,6 +598,7 @@ export class RoservationRequestsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       row = result;
+      this.ngOnInit();
     });
     console.log('Row clicked: ', row);
   }
@@ -610,6 +612,7 @@ export class RoservationRequestsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       row = result;
+      this.ngOnInit();
     });
     console.log('Row clicked: ', row);
   }
@@ -622,6 +625,7 @@ export class RoservationRequestsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       row = result;
+      this.ngOnInit();
     });
     console.log('Row clicked: ', row);
   }
@@ -634,6 +638,7 @@ export class RoservationRequestsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       row = result;
+      this.ngOnInit();
     });
     console.log('Row clicked: ', row);
   }
@@ -646,7 +651,7 @@ export class RoservationRequestsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       row = result;
-      console.log(row);
+      this.ngOnInit();
     });
   }
 
@@ -658,7 +663,7 @@ export class RoservationRequestsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       row = result;
-      console.log(row);
+      this.ngOnInit();
     });
   }
 
@@ -670,7 +675,7 @@ export class RoservationRequestsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       row = result;
-      console.log(row);
+      this.ngOnInit();
     });
   }
 }

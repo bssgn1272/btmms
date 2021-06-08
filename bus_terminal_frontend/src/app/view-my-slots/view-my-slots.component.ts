@@ -207,6 +207,7 @@ export class ViewMySlotsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       row = result;
+      this.ngOnInit();
     });
     console.log('Row clicked: ', row);
   }
@@ -219,6 +220,7 @@ export class ViewMySlotsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       row = result;
+      this.ngOnInit();
     });
     console.log("Row clicked: ", row);
   }
@@ -231,6 +233,7 @@ export class ViewMySlotsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       row = result;
+      this.ngOnInit();
     });
     console.log('Row clicked: ', row);
   }

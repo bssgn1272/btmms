@@ -91,8 +91,9 @@ export class ApproveReservationComponent implements OnInit {
               )
             console.log('Executed Routine.');
           
-            this._location.back();
+            //this._location.back();
             //window.location.reload();
+            this.dialogRef.close();
             this._snackBar.open('Successfully Updated', null, {
               duration: 1000,
               horizontalPosition: 'center',
