@@ -100,9 +100,6 @@
                                                         <%= if "INACTIVE" == teller.account_status do %>
                                                             <li><a href="#" class="enable_teller_user" data-username="<%= teller.username %>" data-form="4fmiiEabJx9REm8HwTzryIzyXyN5WEFE-TfpOce0AtF4k6QGpK" data-id="<%= teller.id %>"><img src="https://img.icons8.com/material/24/000000/mark.png"> Enable </a></li>
                                                         <% end %>
-                                                        <%= if "ACTIVE" == teller.account_status do %>
-                                                            <li><a href="#" class="disable_teller_user" data-username="<%= teller.username %>" data-form="o-O0uvssIvTRqCQws1J6dSfuYmS-nnrK5qz-pn3D9RooOrsbc5" data-id="<%= teller.id %>"><img src="https://img.icons8.com/material/24/000000/cancel--v1.png"> Deactivate </a></li>
-                                                        <% end %>
                                                     </ul>
                                                 </li>
                                             </ul>

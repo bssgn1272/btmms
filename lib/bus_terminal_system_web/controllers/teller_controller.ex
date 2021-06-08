@@ -59,7 +59,7 @@ defmodule BusTerminalSystemWeb.TellerController do
   def till_teller_manage(conn, params) do
     render(conn, "till_teller_manage.html",
       transactions: BusTerminalSystem.Database.View.Transactions.all(),
-      teller: BusTerminalSystem.AccountManager.User.where(role: "TOP"))
+      teller: BusTerminalSystem.AccountManager.User.where([role: "TOP", auth_status: true, account_status: "ACTIVE"]))
   end
 
 

@@ -1057,12 +1057,12 @@
                                                       <%= if ticket.root_route != nil do %>
                                                       <button type="button" onclick="reschedule_ticket(<%= %{
                                                         start_route: start_route, end_route: end_route, root_end_route: parent_end_route, ticket_operator: operator.company
-                                                      } |> Map.merge(ticket) |> IO.inspect |> JSON.encode! %>)" id="cancel_button" style="width: 100%" class="btn btn-success btn-lg">RE-SCHEDULE</button>
+                                                      } |> Map.merge(ticket) |> JSON.encode! %>)" id="cancel_button" style="width: 100%" class="btn btn-success btn-lg">RE-SCHEDULE</button>
                                                       <br>
                                                       <% end %>
                                                       <button type="button" onclick="transfer_ticket(<%= %{
                                                         start_route: start_route, end_route: end_route, operator: operator
-                                                      } |> Map.merge(ticket) |> IO.inspect |> JSON.encode! %>)" id="cancel_button" style="width: 100%" class="btn btn-primary btn-lg">TRANSFER</button>
+                                                      } |> Map.merge(ticket) |> JSON.encode! %>)" id="cancel_button" style="width: 100%" class="btn btn-primary btn-lg">TRANSFER</button>
 
                                                   </li>
                                              </ul>

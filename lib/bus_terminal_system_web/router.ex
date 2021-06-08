@@ -15,7 +15,7 @@ defmodule BusTerminalSystemWeb.Router do
   end
 
   pipeline :un_auth do
-
+    plug :put_layout, false
   end
 
   # Our pipeline implements "maybe" authenticated. We'll use the `:ensure_auth` below for when we need to make sure someone is logged in.
@@ -58,7 +58,7 @@ defmodule BusTerminalSystemWeb.Router do
     post "/platform/secure/commercial/services/users/register/staff", UserController, :create_staff
     get "/platform/secure/commercial/services/teller/register", UserController, :new_teller
     get "/platform/secure/commercial/services/register/staff", UserController, :new_staff
-
+    get "/platform/secure/v1/json/commercial/services/users", UserController, :all_users_json
     get "/platform/secure/v1/commercial/services/users", UserController, :table_users
     get "/Registration_Form", UserController, :registration_form
 
@@ -162,11 +162,12 @@ defmodule BusTerminalSystemWeb.Router do
 
   end
 
+
+  # Other scopes may use custom stacks.
   scope "/api/v1", BusTerminalSystemWeb do
-    pipe_through [:un_auth]
+    pipe_through :api
 
     post "/btms/Dashboard/Checker/View", MakerCheckerController, :view
-    get "/platform/secure/v1/json/commercial/services/users", UserController, :all_users_json
 
     post "/btms/secured/password/reset", SessionController, :reset_password
 
@@ -254,12 +255,6 @@ defmodule BusTerminalSystemWeb.Router do
     get "/internal/routes/threshold", FrontendApiController, :minimum_route_price
 
     post "/internal/markets", FrontendApiController, :modules
-
-  end
-
-  # Other scopes may use custom stacks.
-  scope "/api/v1", BusTerminalSystemWeb do
-    pipe_through :api
 
     post "/internal/transaction/deposit", TellerController, :deposit
     post "/internal/transaction/withdraw", TellerController, :withdraw

@@ -23,7 +23,6 @@
                                 <fieldset>
                                     <legend class="text-semibold"><i class="icon-reading position-left"></i> REGISTER </legend>
 
-
                                     <div class="form-group">
                                         <label class="control-label">User Role:</label>
                                             <select name="payload[role]" onclick="user_type_selection(this.value)" class="form-control">
@@ -80,7 +79,7 @@
 
                                     <div class="form-group" id="user_last_name" >
                                           <label>Bank Account Number:</label>
-                                          <input name="payload[account_number]" value="<%= @form_data["account_number"] || "" %>" id="Account" oninput=(user_validation(this)) required class="form-control" placeholder="Bank Account Number" type="text">
+                                          <input name="payload[account_number]" value="<%= @form_data["account_number"] || "" %>" id="Account" oninput=(user_validation(this)) required class="form-control" placeholder="Bank Account Number" type="number">
                                     </div>
 
                                     <div class="form-group">

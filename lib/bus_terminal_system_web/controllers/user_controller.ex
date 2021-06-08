@@ -35,6 +35,7 @@ defmodule BusTerminalSystemWeb.UserController do
     f = Timex.today |> Timex.to_datetime
 #    tickets =  BusTerminalSystem.TicketManagement.Ticket.where(travel_date: Timex.today() |> to_string)
     tickets =  BusTerminalSystem.TicketManagement.Ticket.all(order_by: [desc: :inserted_at])
+#    tickets =  BusTerminalSystem.TicketManagement.Ticket.last(10)
 
 
     buses = RepoManager.list_buses()
@@ -113,7 +114,7 @@ defmodule BusTerminalSystemWeb.UserController do
 
 
 
-        if String.length(payload["mobile"]) < 9 or String.length(payload["mobile"]) > 12 do
+        if String.length(payload["mobile"]) < 10 or String.length(payload["mobile"]) > 12 do
           conn
           |> put_flash(:error, "Invalid Mobile Number length #{String.length(payload["mobile"])}, Number must be between 9-12 digits long")
           |> render("new.html", [changeset: AccountManager.change_user(%User{}), napsa_user: napsa_user , form_data: payload])
@@ -275,7 +276,7 @@ defmodule BusTerminalSystemWeb.UserController do
     else
 
 
-      if String.length(payload["mobile"]) < 9 or String.length(payload["mobile"]) > 12 do
+      if String.length(payload["mobile"]) < 10 or String.length(payload["mobile"]) > 12 do
         conn
         |> put_flash(:error, "Invalid Mobile Number length #{String.length(payload["mobile"])}, Number must be between 9-12 digits long")
         |> render("new.html", [changeset: AccountManager.change_user(%User{}), napsa_user: %{} , form_data: payload])

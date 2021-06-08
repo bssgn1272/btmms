@@ -143,5 +143,5 @@ function back_to_login() {
 }
 
 function logout(){
-    window.location.href = "/logout"
+    window.location.href = "/"
 }
