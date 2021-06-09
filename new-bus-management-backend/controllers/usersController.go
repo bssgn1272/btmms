@@ -56,7 +56,7 @@ var AuthenticateUserController = http.HandlerFunc(func(w http.ResponseWriter, r 
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	err = models.GetDB().Table("probase_tbl_users").Where("username = ?", auth.Username).First(&check).Error
+	err = models.GetDB().Table("probase_tbl_users").Where("username = ? AND auth_status = 1", auth.Username).First(&check).Error
 
 	if err != nil {
 		log.Println(check.Username)

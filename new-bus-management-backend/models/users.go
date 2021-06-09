@@ -148,7 +148,7 @@ func (account *ProbaseTblUser) Create() map[string]interface{} {
 
 func (probaseTblUser *ProbaseTblUser) UpdateAccessPermission(id uint) map[string]interface{} {
 
-	db.Model(&probaseTblUser).Where("id = ?", id).Updates(ProbaseTblUser{Status: probaseTblUser.Status})
+	db.Model(&probaseTblUser).Where("id = ? AND auth_status = 1", id).Updates(ProbaseTblUser{Status: probaseTblUser.Status})
 
 	log.Println(probaseTblUser.Status)
 
@@ -173,7 +173,7 @@ func GetAllUsers() []*ProbaseTblUser {
 
 func GetUser(id uint) []*ProbaseTblUser {
 	probaseTblUser := make([]*ProbaseTblUser, 0)
-	err := GetDB().Model(ProbaseTblUser{}).Where("id = ?", id).Find(&probaseTblUser).Error
+	err := GetDB().Model(ProbaseTblUser{}).Where("id = ? AND auth_status = 1", id).Find(&probaseTblUser).Error
 	log.Println(err)
 	if err != nil {
 		log.Println(err)
@@ -185,7 +185,7 @@ func GetUser(id uint) []*ProbaseTblUser {
 
 func GetManagers() []*ProbaseTblUser {
 	probaseTblUser := make([]*ProbaseTblUser, 0)
-	err := GetDB().Model(ProbaseTblUser{}).Where("`role` = 'ADMIN' AND `account_status` IN ('ACTIVE', 'OTP')").Find(&probaseTblUser).Error
+	err := GetDB().Model(ProbaseTblUser{}).Where("`role` = 'ADMIN' AND auth_status = 1 AND `account_status` IN ('ACTIVE', 'OTP')").Find(&probaseTblUser).Error
 	log.Println(err)
 	if err != nil {
 		log.Println(err)
