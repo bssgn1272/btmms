@@ -9,9 +9,11 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
 
   def update_accounts() do
 #    query = from u in User, where: (u.role == "TOP" or u.role == "ADMIN") and u.auth_status == true and String.contain?(u.account_number, "TELLER-") == true
+# BusTerminalSystem.AccountManager.User.where("select * from probase_tbl_users u where (u.role = 'TOP' or u.role = 'ADMIN') and u.auth_status = true and substring(u.account_number,1,5) = 'ZICB-'")
+# BusTerminalSystem.AccountManager.User.where(from u in User, where: u.role in ["TOP", "ADMIN"]  and u.auth_status == true like(u.account_number, ^"%ZICB-%")
 #    query = "select * from probase_tbl_users u where (u.role = 'TOP' or u.role = 'ADMIN') and u.auth_status = true and substring(u.account_number,1,5) = 'ZICB-'"
 #    User.where(query)
-    User.where(from u in User, where: (u.role == "TOP" or u.role == "ADMIN") )
+    User.where(from u in User, where: u.role in ["TOP", "ADMIN"]  and u.auth_status == true)
     |> Enum.each(fn user ->
     try do
       bank_response = query_account_by_mobile(user.mobile, user)
@@ -50,8 +52,8 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
   def run() do
     if Settings.find_by(key: "BANK_ENABLE_ACCOUNT_OPENING_TASK").value == "TRUE" do
 #      query = from u in User, where: (u.role == "TOP" or u.role == "ADMIN") and u.auth_status == true and u.account_number == "00000000"
-      query = "select * from probase_tbl_users u where (u.role = 'TOP' or u.role = 'ADMIN') and u.auth_status = true and substring(u.account_number,1,5) = 'ZICB-'"
-      User.where(query)
+#      query = "select * from probase_tbl_users u where (u.role = 'TOP' or u.role = 'ADMIN') and u.auth_status = true and substring(u.account_number,1,5) = 'ZICB-'"
+      User.where(from u in User, where: u.role in ["TOP", "ADMIN"]  and u.auth_status == true and like(u.account_number, ^"%ZICB-%"))
 #      User.where(from u in User, where: (u.role == "TOP" or u.role == "ADMIN") )
       |> Enum.each(fn user ->
         bank_response = query_account_by_mobile(user.mobile, user)
@@ -110,43 +112,46 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
   }
 
   def create_wallet(args, user) do
-    case Skooma.valid?(args, @wallet_creation_params) do
-      :ok ->
-        %{
-          "service" => Settings.find_by(key: "BANK_PROXY_ACCOUNT_OPENING_SERVICE_CODE").value,
-          "request" => %{
-            "firstName" => args["firstName"],
-            "lastName" => args["lastName"],
-            "add1" => "",
-            "add2" => "",
-            "add3" => "",
-            "add4" => "",
-            "add5" => "",
-            "uniqueType" => Settings.find_by(key: "BANK_ACCOUNT_OPENING_UNIQUE_TYPE").value,
-            "uniqueValue" => args["uniqueValue"],
-            "dateOfBirth" => args["dateOfBirth"],
-            "email" => args["email"],
-            "sex" => args["sex"],
-            "mobileNumber" => args["mobileNumber"],
-            "accType" => Settings.find_by(key: "BANK_ACCOUNT_OPENING_TYPE").value,
-            "currency" => Settings.find_by(key: "BANK_ACCOUNT_OPENING_CURRENCY").value,
-            "idFront" => "",
-            "idBack" => "",
-            "custImg" => "",
-            "custSig" => ""
+
+    try do
+      case Skooma.valid?(args, @wallet_creation_params) do
+        :ok ->
+          %{
+            "service" => Settings.find_by(key: "BANK_PROXY_ACCOUNT_OPENING_SERVICE_CODE").value,
+            "request" => %{
+              "firstName" => args["firstName"],
+              "lastName" => args["lastName"],
+              "add1" => "",
+              "add2" => "",
+              "add3" => "",
+              "add4" => "",
+              "add5" => "",
+              "uniqueType" => Settings.find_by(key: "BANK_ACCOUNT_OPENING_UNIQUE_TYPE").value,
+              "uniqueValue" => args["uniqueValue"],
+              "dateOfBirth" => args["dateOfBirth"],
+              "email" => args["email"],
+              "sex" => args["sex"],
+              "mobileNumber" => args["mobileNumber"],
+              "accType" => Settings.find_by(key: "BANK_ACCOUNT_OPENING_TYPE").value,
+              "currency" => Settings.find_by(key: "BANK_ACCOUNT_OPENING_CURRENCY").value,
+              "idFront" => "",
+              "idBack" => "",
+              "custImg" => "",
+              "custSig" => ""
+            }
           }
-        }
-        |> Poison.encode!()
-        |> http()
+          |> Poison.encode!()
+          |> http()
 
 
-        query_account_by_mobile(args["mobileNumber"], user)
-        |> account_balance_inquiry2(user)
+          query_account_by_mobile(args["mobileNumber"], user)
+          |> account_balance_inquiry2(user)
 
-#      {:error, message} -> {:error, message}
+        #      {:error, message} -> {:error, message}
+      end
+    rescue
+      _ -> ""
     end
-
-    
   end
 
   def account_balance_inquiry2(aq_response, user) do

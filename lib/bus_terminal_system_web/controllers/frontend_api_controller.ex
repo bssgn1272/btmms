@@ -699,7 +699,7 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
           end
         end)
         spawn(fn ->
-          BusTerminalSystem.APIRequestMockup.send_disable(ticket.id |> to_string |> String.pad_leading(4,"0")) |> IO.inspect(lable: "TICKET CANCEL RESPONSE")
+          BusTerminalSystem.APIRequestMockup.send_disable(ticket.id |> to_string) |> IO.inspect(lable: "TICKET CANCEL RESPONSE")
         end)
         json(conn,  %{status: "SUCCESS", response: ticket |> Poison.encode!})
     end
