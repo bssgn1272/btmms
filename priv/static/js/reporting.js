@@ -1,9 +1,12 @@
 
 
 function dynamic_select(report){
+
+
+
     let url = report.link
-    let params = `scrollbars=no,resizable=yes,status=no,location=no,toolbar=no,menubar=no,
-        width=1400,height=900,left=100,top=100`;
+    let params = `scrollbars=no, resizable=yes, status=no, location=no, toolbar=no, menubar=no,
+        width=1400 ,height=900, left=100, top=100`;
     window.open(url, 'Reports', params);
 }
 

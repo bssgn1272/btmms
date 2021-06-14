@@ -65,6 +65,11 @@ defmodule BusTerminalSystemWeb.UserController do
     render(conn, "new.html", changeset: changeset, napsa_user: napsa_user["payload"], form_data: %{})
   end
 
+  def settings(conn, params) do
+    changeset = AccountManager.change_user(%User{})
+    render(conn, "settings.html", changeset: changeset, form_data: %{})
+  end
+
   def create(conn, %{"payload" => payload} = user_params) do
 
 

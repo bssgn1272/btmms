@@ -53,34 +53,48 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
     if Settings.find_by(key: "BANK_ENABLE_ACCOUNT_OPENING_TASK").value == "TRUE" do
 #      query = from u in User, where: (u.role == "TOP" or u.role == "ADMIN") and u.auth_status == true and u.account_number == "00000000"
 #      query = "select * from probase_tbl_users u where (u.role = 'TOP' or u.role = 'ADMIN') and u.auth_status = true and substring(u.account_number,1,5) = 'ZICB-'"
-      User.where(from u in User, where: u.role in ["TOP", "ADMIN"]  and u.auth_status == true and like(u.account_number, ^"%ZICB-%"))
+      users = User.where(from u in User, where: u.role in ["TOP", "ADMIN"]  and u.auth_status == true and like(u.account_number, ^"%ZICB-%"))
+      Enum.count(users) |> IO.inspect
 #      User.where(from u in User, where: (u.role == "TOP" or u.role == "ADMIN") )
-      |> Enum.each(fn user ->
-        bank_response = query_account_by_mobile(user.mobile, user)
-        if bank_response == %{} do
-          parse_date = (fn date_string ->
-            try do
-              [day, month, year] = String.split(date_string," ")
-              "#{year}-#{Timex.month_to_num(month) |> to_string |> String.pad_leading(2,"0")}-#{day}"
-            rescue
-              _ -> date_string
+      users |> Enum.each(fn user ->
+
+        if user.bank_retry_count == 5 do
+          User.update(user, account_number: "ACCOUNT CREATION RETRIES EXCEEDED [STAMP-#{Timex.now |> Timex.to_unix |> to_string}]")
+        end
+
+        if (user.bank_retry_count) < 6 do
+          User.update(user, bank_retry_count: (user.bank_retry_count + 1))
+
+          spawn(fn ->
+            bank_response = query_account_by_mobile(user.mobile, user) |> IO.inspect
+            if bank_response == %{} do
+              parse_date = (fn date_string ->
+                try do
+                  [day, month, year] = String.split(date_string," ")
+                  "#{year}-#{Timex.month_to_num(month) |> to_string |> String.pad_leading(2,"0")}-#{day}"
+                rescue
+                  _ -> date_string
+                end
+                            end)
+
+              teller_details = %{
+                "firstName" => user.first_name,
+                "lastName" => user.last_name,
+                "uniqueValue" => user.nrc,
+                "dateOfBirth" => parse_date.(user.dob),
+                "email" => user.email,
+                "sex" => user.sex,
+                "mobileNumber" => user.mobile,
+              }
+              create_wallet(teller_details, user)
+
+            else
+
             end
           end)
-
-          teller_details = %{
-            "firstName" => user.first_name,
-            "lastName" => user.last_name,
-            "uniqueValue" => user.nrc,
-            "dateOfBirth" => parse_date.(user.dob),
-            "email" => user.email,
-            "sex" => user.sex,
-            "mobileNumber" => user.mobile,
-          }
-          create_wallet(teller_details, user)
-
-        else
-
         end
+
+
       end)
     end
   end
@@ -173,7 +187,8 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
         #      account_number = response["accountnos"]
 
         Ecto.Multi.new()
-        |> Multi.update(:account, Ecto.Changeset.change(user, %{account_number: response["accountno"], bank_account_balance: Decimal.new(response["availablebalance"]) |> Decimal.to_float}))
+#        |> Multi.update(:account, Ecto.Changeset.change(user, %{account_number: response["accountno"], bank_account_balance: Decimal.new(response["availablebalance"]) |> Decimal.to_float}))
+        |> Multi.update(:account, Ecto.Changeset.change(user, %{bank_account_balance: Decimal.new(response["availablebalance"]) |> Decimal.to_float}))
         |> BusTerminalSystem.Repo.transaction
         |> case do
              {:ok, _} -> %{}

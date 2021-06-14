@@ -244,6 +244,10 @@
                                                     <%= if access(@user.id, 121) do %>
                                                         <li><%= link "Roles and Permissions", to: Routes.user_management_path(@conn, :redirect, view: "22K2yQRYjgb4i" ,sigma: :kenos) %></li>
                                                     <% end %>
+
+                                                    <%= if access(@user.id, 121) do %>
+                                                    <li><%= link "Settings", to: Routes.user_path(@conn, :settings) %></li>
+                                                    <% end %>
                                                 </ul>
                                             </li>
                                         <% end %>

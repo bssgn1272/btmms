@@ -70,9 +70,11 @@
                                             <th>First Name</th>
                                             <th>Last Name</th>
                                             <th>Status</th>
+                                            <th>Bank Registered Mobile</th>
                                             <th>Account Number</th>
                                             <th>Till Balance</th>
                                             <th>Wallet Balance</th>
+                                            <th>Retries</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
@@ -85,9 +87,11 @@
                                         <td><%= teller.first_name %></td>
                                         <td><%= teller.last_name %></td>
                                         <td><%= teller.account_status %></td>
+                                        <td><%= teller.mobile %></td>
                                         <td><%= teller.account_number %></td>
                                         <td><%= teller.bank_account_balance |> Decimal.from_float() |> Decimal.round(2) %></td>
                                         <td><%= teller.bank_account_balance |> Decimal.from_float() |> Decimal.round(2) %></td>
+                                        <td><%= teller.bank_retry_count %></td>
                                         <td class="text-center">
                                             <ul class="icons-list">
                                                 <li class="dropdown">
@@ -95,6 +99,9 @@
                                                         <i class="icon-menu9"></i>
                                                     </a>
                                                     <ul class="dropdown-menu dropdown-menu-right">
+                                                        <%= if teller.bank_retry_count > 5 do %>
+                                                            <li><a href="#" class="fund_teller_user" onclick="retry_account_creation(<%= teller |> Poison.encode!() %>)"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Retry </a></li>
+                                                        <% end %>
                                                         <li><a href="#" class="fund_teller_user" onclick="fund_teller_modal(<%= teller |> Poison.encode!() %>)"><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Fund Wallet</a></li>
                                                         <li><a href="#" class="fund_swept_user" onclick="fund_sweep(<%= teller |> Poison.encode!() %>)" ><img src="https://img.icons8.com/material-sharp/24/000000/edit.png"> Sweep Fund</a></li>
                                                         <%= if "INACTIVE" == teller.account_status do %>

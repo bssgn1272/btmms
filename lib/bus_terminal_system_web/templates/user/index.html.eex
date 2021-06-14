@@ -897,8 +897,8 @@
             <div class="" max-width="500px">
                 <div class="panel border-left-lg border-left-primary">
                     <div class="panel-body">
-                        <h4 style="text-align:center; color:blue;"><strong>Balance</strong></h4>
                         <p id="bank_account_balance" style="text-align:center;">K <%= @user.bank_account_balance |> Decimal.from_float() |> Decimal.round(2) %></p>
+                        <p style=""><button type="submit" class="w3-btn-block w3-indigo w3-hover-orange w3-round" onclick="refresh_balance_collection()">Refresh Balance</button></p>
                     </div>
                 </div>
             </div>

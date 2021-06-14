@@ -11,6 +11,7 @@ $(document).ready( function () {
     $('#dataTableMarket').DataTable(); //Marktet DataTable
     $('#gates').DataTable(); //Gates DataTable
     $('#stations').DataTable(); //Stations DataTable
+    $('#dataTableSettings').DataTable(); //Settings DataTable
     $('#dataTableTellers').DataTable({
         "order": [[ 0, "desc" ]]
     }   ); //Tellers DataTable
@@ -1255,74 +1256,159 @@ function route_edit_model_manage(route) {
 }
 
 function delete_bus_route() {
-    route_id = $('#edit_route_id').val();
-    let json_request_1 = JSON.stringify({
-        payload: {
-            route_id: route_id
-        }
-    });
 
-    $.ajax({
-        method: 'post',
-        url: '/api/v1/internal/delete/route',
-        dataType: 'json',
-        contentType: 'application/json',
-        data: json_request_1,
-        success: function (response) {
-            if (response.status === 0){
-                swal({title: "Delete Route", text: response.message, type: "success"},
-                    function(){
-                        location.reload();
-                    }
-                );
-            } else {
-                swal({title: "Delete Route", text: response.message, type: "error"},
-                    function(){
-                        location.reload();
-                    }
-                );
-            }
-        }
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: true
     })
-}
 
-function update_system_bus_route() {
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You are about to delete selected route",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, Delete !',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
 
-    route_id = $('#edit_route_id').val();
-    let json_request_1 = JSON.stringify({
-        payload: {
-            route_id: route_id
-        }
-    });
+            swalWithBootstrapButtons.fire('Deleting route,   Please wait.')
+            swalWithBootstrapButtons.showLoading();
 
-    $.ajax({
-        method: 'post',
-        url: '/api/v1/internal/query/route',
-        dataType: 'json',
-        contentType: 'application/json',
-        data: json_request_1,
-        success: function (response) {
-
-            let json_request = JSON.stringify({
+            route_id = $('#edit_route_id').val();
+            let json_request_1 = JSON.stringify({
                 payload: {
-                    route_id: route_id,
-                    route_name: $('#edit_route_name').val(),
-                    start_route: $('#edit_route_from').val(),
-                    end_route: $('#edit_route_to').val(),
-                    route_fare: $('#edit_route_route_fare').val()
+                    route_id: route_id
                 }
             });
 
             $.ajax({
                 method: 'post',
-                url: '/api/v1/internal/update/route',
+                url: '/api/v1/internal/delete/route',
                 dataType: 'json',
                 contentType: 'application/json',
-                data: json_request,
+                data: json_request_1,
                 success: function (response) {
-                    window.location.reload()
+                    if (response.status === 0){
+                        swal({title: "Delete Route", text: response.message, type: "success"},
+                            function(){
+                                location.reload();
+                            }
+                        );
+                    } else {
+                        swal({title: "Delete Route", text: response.message, type: "error"},
+                            function(){
+                                location.reload();
+                            }
+                        );
+                    }
                 }
             })
+
+        } else if (
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire(
+                'Cancelled',
+                'Delete Canceled',
+                'error'
+            )
+        }
+    })
+
+
+}
+
+function update_system_bus_route() {
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: true
+    })
+
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You are about to update selected route",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, Update !',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            swalWithBootstrapButtons.fire('Updating route,   Please wait.')
+            swalWithBootstrapButtons.showLoading();
+
+            route_id = $('#edit_route_id').val();
+            let json_request_1 = JSON.stringify({
+                payload: {
+                    route_id: route_id
+                }
+            });
+
+            $.ajax({
+                method: 'post',
+                url: '/api/v1/internal/query/route',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: json_request_1,
+                success: function (response) {
+
+                    let json_request = JSON.stringify({
+                        payload: {
+                            route_id: route_id,
+                            route_name: $('#edit_route_name').val(),
+                            start_route: $('#edit_route_from').val(),
+                            end_route: $('#edit_route_to').val(),
+                            route_fare: $('#edit_route_route_fare').val()
+                        }
+                    });
+
+                    $.ajax({
+                        method: 'post',
+                        url: '/api/v1/internal/update/route',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: json_request,
+                        success: function (response) {
+                            swalWithBootstrapButtons.close();
+                            swal({
+                                    title: "Completed!",
+                                    text: "Route Updated Successfully",
+                                    type: "success"
+                                },
+                                function(){
+                                    location.reload();
+                                });
+                        },error: function (response){
+                            swalWithBootstrapButtons.close();
+                            Swal.fire(
+                                'Error!',
+                                'Failed to update route',
+                                'error'
+                            )
+                        }
+                    })
+                }
+            })
+
+        } else if (
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire(
+                'Cancelled',
+                'Update Canceled',
+                'error'
+            )
         }
     })
 }
@@ -1360,6 +1446,42 @@ function refresh_balance_collection(){
                     location.reload();
                 }
             );
+        }
+    })
+
+}
+
+function save_setting(input){
+    console.log(input)
+    console.log($("#" + input.element_id).val())
+
+    let json_request_1 = JSON.stringify({
+        record: input,
+        update_value: $("#" + input.element_id).val(),
+        name: input.view_name
+    });
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/update/settings',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request_1,
+        success: function (response) {
+            console.log(response)
+            if (response.status === 0){
+                swal({title: "SUCCESS", text: response.message, type: "success"},
+                    function(){
+                        location.reload();
+                    }
+                );
+            } else {
+                swal({title: "FAILED", text: response.message, type: "error"},
+                    function(){
+                        location.reload();
+                    }
+                );
+            }
         }
     })
 

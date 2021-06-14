@@ -1,28 +1,36 @@
 <!--#####-- TOP_TICKET_SALES --#####-->
 <style>
-         .panel{
-             border-radius: 25px;
-             border:1px solid orange;
-         }
-         body {
-             margin: 0;            /* Reset default margin */
-         }
-         </style>
+     .panel{
+         border-radius: 25px;
+         border:1px solid orange;
+     }
+     body {
+         margin: 0;            /* Reset default margin */
+     }
+
+</style>
     <div class="container-fluid">
 
         <div class="row">
-            <%= for report <- BusTerminalSystem.Reporting.Report.all do %>
-            <div class="col-lg-3">
-                <div class="panel panel-flat">
-                    <div class="panel-heading">
-                        <h2 class="panel-title"><strong><%= report.name %></strong></h2>
-                    </div>
-                    <div class="container-fluid">
-                        <button onclick="dynamic_select(<%= report |> Poison.encode! %>)" style="margin-bottom: 10px; float: right; margin-right: 10px" class="btn btn-primary btn-sm">Fetch Report</button>
-                    </div>
-                </div>
-            </div>
-            <% end %>
+
+            <table id="dataTableSettings" class="table table-striped table-bordered">
+
+                <thead>
+                <tr>
+                    <th>REPORT</th>
+                    <th>ACTION</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%= for report <-BusTerminalSystem.Reporting.Report.all do %>
+                <tr>
+                    <td> <strong><%= report.name |> String.upcase %></strong>  </td>
+                    <td> <button onclick="dynamic_select(<%= report |> Poison.encode! %>)" style="margin-bottom: 10px; float: right; margin-right: 10px" class="btn btn-primary btn-sm">Fetch Report</button> </td>
+                </tr>
+                <% end %>
+                </tbody>
+            </table>
+
         </div>
 
     </div>

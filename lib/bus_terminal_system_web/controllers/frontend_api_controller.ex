@@ -889,4 +889,26 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
        end
   end
 
+  def update_settings(conn, params) do
+
+    record = params["record"]
+    update_value = params["update_value"]
+
+    BusTerminalSystem.Settings.find(record["id"])
+    |> BusTerminalSystem.Settings.update(value: update_value)
+    |> case do
+         {:ok, updated_record} -> conn |> json(%{status: 0, message: "#{record["view_name"]} UPDATED SUCCESSFULLY", record: params})
+         {:error, _} -> conn |> json(%{status: 1, message: "#{record["view_name"]} Could not be updated, an error occurred", record: params})
+       end
+  end
+
+  def retry_account_creation(conn, params) do
+    user = params["user"]
+    User.find(user["id"]) |> User.update([bank_retry_count: 0, account_number: "ZICB-#{Timex.now |> Timex.to_unix |> to_string}"])
+    |> case do
+         {:ok, user} -> conn |> json(%{})
+         {:error, _} -> conn |> json(%{})
+     end
+  end
+
 end

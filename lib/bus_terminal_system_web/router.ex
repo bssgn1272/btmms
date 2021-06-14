@@ -57,6 +57,7 @@ defmodule BusTerminalSystemWeb.Router do
     post "/platform/secure/commercial/services/users/register", UserController, :new_user
     post "/platform/secure/commercial/services/users/register/staff", UserController, :create_staff
     get "/platform/secure/commercial/services/teller/register", UserController, :new_teller
+    get "/platform/secure/commercial/services/settings", UserController, :settings
     get "/platform/secure/commercial/services/register/staff", UserController, :new_staff
     get "/platform/secure/v1/json/commercial/services/users", UserController, :all_users_json
     get "/platform/secure/v1/commercial/services/users", UserController, :table_users
@@ -260,6 +261,8 @@ defmodule BusTerminalSystemWeb.Router do
     post "/internal/transaction/withdraw", TellerController, :withdraw
 
     post "/internal/funds_sweep", FrontendApiController, :funds_transfer
+    post "/internal/update/settings", FrontendApiController, :update_settings
+    post "/internal/banks/retry", FrontendApiController, :retry_account_creation
   end
 
   # Maker checker implementation

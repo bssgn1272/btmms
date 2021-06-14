@@ -11,6 +11,19 @@ function fund_teller_modal(teller){
 
 }
 
+function retry_account_creation(teller){
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/banks/retry',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (response) {
+            location.reload();
+        },
+        data: JSON.stringify({user: teller})
+    })
+}
+
 function fund_account(){
     let amount = $("#fund_amount").val();
 

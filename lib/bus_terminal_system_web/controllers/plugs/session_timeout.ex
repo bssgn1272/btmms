@@ -1,6 +1,9 @@
 defmodule BusTerminalSystemWeb.Plugs.SessionTimeout do
   import Plug.Conn
 
+  use BusTerminalSystemWeb,
+      :controller
+
   @moduledoc false
 
   def init(opts \\ []) do
@@ -22,6 +25,7 @@ defmodule BusTerminalSystemWeb.Plugs.SessionTimeout do
     |> clear_session()
     |> configure_session([:renew])
     |> assign(:user, nil)
+    |> put_flash(:error, "Your user session has expired")
     |> Phoenix.Controller.redirect( to: "/")
 
   end

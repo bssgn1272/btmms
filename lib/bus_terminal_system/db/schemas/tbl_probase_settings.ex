@@ -3,7 +3,7 @@ defmodule BusTerminalSystem.Settings do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @db_columns [:name, :value, :status]
+  @db_columns [:key, :view_name, :value, :status, :element_id]
 
   @derive {Poison.Encoder, only: @db_columns ++ [:id]}
 
