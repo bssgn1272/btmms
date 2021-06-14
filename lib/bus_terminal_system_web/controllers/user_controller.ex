@@ -370,7 +370,7 @@ defmodule BusTerminalSystemWeb.UserController do
                       if email != "", do: send_mail.(email, message)
                     end)
 
-                    payload = Map.put(payload, "operator_role", "TELLER")
+                    payload = Map.put(payload, "operator_role", "CUSTOMER_CARE")
                     payload = Map.put(payload, "role_id", BusTerminalSystem.UserRoles.find_by(role: "DEFAULT").id |> to_string)
                     user_create_teller_payload(conn, payload)
 

@@ -4,11 +4,87 @@ function validate_national_id() {
     console.log(national_id)
     let id_split = national_id.split("")
     if ((national_id.length) >= 11 && id_split["6"] === '/' && id_split["9"] === '/'){
-        search_napsa_member(national_id);
+        let json_request_1 = JSON.stringify({
+            type: "NRC",
+            id: national_id
+        });
+
+        $.ajax({
+            method: 'post',
+            url: '/api/v1/internal/verify/user_id',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: json_request_1,
+            success: function (response) {
+
+                if (response.status === false){
+                    search_napsa_member(national_id);
+                }else{
+                    swal({
+                        title: "Error!",
+                        text: "Error, a user with entered ID already exists",
+                        type: "error"
+                    })
+                }
+            }
+        })
+
     } else {
-        search_napsa_member(national_id);
+
+        let json_request_1 = JSON.stringify({
+            type: "SSN",
+            id: national_id
+        });
+
+        $.ajax({
+            method: 'post',
+            url: '/api/v1/internal/verify/user_id',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: json_request_1,
+            success: function (response) {
+
+                if (response.status === false){
+                    search_napsa_member(national_id);
+                }else{
+                    swal({
+                        title: "Error!",
+                        text: "Error, a user with entered ID already exists",
+                        type: "error"
+                    })
+                }
+            }
+        })
+
+
+
     }
+
+
     // if (national_id.length === 9 && id_split["6"] !== '/' && id_split["9"] !== '/')
+}
+
+function verify_system_users(id_type, id){
+    let json_request_1 = JSON.stringify({
+        type: id_type,
+        id: id
+    });
+
+    let exist = true;
+
+    $.ajax({
+        method: 'post',
+        url: '/api/v1/internal/verify/user_id',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: json_request_1,
+        success: function (response) {
+            console.log(response)
+            exist = response.status
+        }
+    })
+
+    return exist;
 }
 
 function search_napsa_member(search_id) {

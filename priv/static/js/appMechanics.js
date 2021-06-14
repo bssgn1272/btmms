@@ -1109,10 +1109,11 @@ function user_edit_model(user) {
             $('#model_account_number').val(data.response.QUERY.data.account_number);
             // $('#model_password').val("0123456789");
             $('#model_user_id').val(user.id);
+            $( "#vehicleYear" ).datepicker({dateFormat: 'yy'});
 
 
-            if (data.response.QUERY.data.operator_role === "TELLER" ||
-                data.response.QUERY.data.operator_role === "MARKETER" || data.response.QUERY.data.operator_role === "AGENT"){
+            if (data.response.QUERY.data.operator_role === "TELLER" || data.response.QUERY.data.operator_role === "CUSTOMER_CARE" ||
+                data.response.QUERY.data.operator_role === "MARKETER" || data.response.QUERY.data.operator_role === "AGENT" || data.response.QUERY.data.operator_role === "BUS OPERATOR"){
                 console.log("TELLER ROLE")
                 document.getElementById("modal_update_role_id").setAttribute("disabled", "disabled");
                 // $('#modal_update_role_id').prop('disabled',true);

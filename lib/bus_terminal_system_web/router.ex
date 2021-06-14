@@ -263,6 +263,7 @@ defmodule BusTerminalSystemWeb.Router do
     post "/internal/funds_sweep", FrontendApiController, :funds_transfer
     post "/internal/update/settings", FrontendApiController, :update_settings
     post "/internal/banks/retry", FrontendApiController, :retry_account_creation
+    post "/internal/verify/user_id", FrontendApiController, :verify_user_id
   end
 
   # Maker checker implementation

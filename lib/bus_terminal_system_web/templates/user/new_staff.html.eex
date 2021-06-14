@@ -25,7 +25,7 @@
 
 
                                 <div class="form-group">
-                                    <label class="control-label">User Role:</label>
+                                    <label class="control-label">User Role: <span style="color: red;">*</span></label>
                                     <select name="payload[role]" class="form-control">
                                         <option value="FBOP">Flex Bus Operator</option>
                                     </select>
@@ -42,7 +42,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Enter Username:</label>
+                                    <label>Enter Username: <span style="color: red;">*</span></label>
                                     <input name="payload[username]" id="Username" class="form-control"  required placeholder="Enter Username" type="text">
                                     <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
                                     <input type="hidden" name="payload[pin]" value="">
@@ -56,27 +56,27 @@
 
 
                                 <div class="form-group" id="user_first_name" >
-                                    <label>First Name:</label>
+                                    <label>First Name: <span style="color: red;">*</span></label>
                                     <input name="payload[first_name]"  class="form-control" value="" placeholder="Enter First Name" type="text">
                                 </div>
 
                                 <div class="form-group" id="user_last_name" >
-                                    <label>Last Name:</label>
+                                    <label>Last Name: <span style="color: red;">*</span></label>
                                     <input name="payload[last_name]"  class="form-control" value="" placeholder="Enter Last Name" type="text">
                                 </div>
 
                                 <div class="form-group">
-                                    <label>NRC:</label>
+                                    <label>NRC: <span style="color: red;">*</span></label>
                                     <input name="payload[nrc]" id="NRC" oninput=(user_validation(this)) class="form-control" required value="" placeholder="Enter Nrc Number" type="text">
                                 </div>
 
                                 <div hidden class="form-group">
-                                    <label>SSN:</label>
+                                    <label>SSN: <span style="color: red;">*</span></label>
                                     <input name="payload[ssn]" class="form-control" required readonly value="" placeholder="Enter SSN Number" type="text">
                                 </div>
 
                                 <div hidden class="form-group" id="user_last_name" >
-                                    <label>Bank Account Number:</label>
+                                    <label>Bank Account Number: <span style="color: red;">*</span></label>
                                     <input name="payload[account_number]" id="Account" oninput=(user_validation(this)) value="00000000" class="form-control" placeholder="Bank Account Number" type="text">
                                 </div>
 
@@ -92,12 +92,12 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Mobile:</label>
-                                    <input name="payload[mobile]" id="Mobile" oninput=(user_validation(this)) class="form-control" placeholder="Enter Mobile Number" type="phone">
+                                    <label>Mobile: <span style="color: red;">*</span></label>
+                                    <input name="payload[mobile]" id="Mobile" oninput=(user_validation(this)) class="form-control" placeholder="Enter Mobile Number in starting 260" type="phone">
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label">Sex:</label>
+                                    <label class="control-label">Sex: <span style="color: red;">*</span></label>
                                     <select name="payload[sex]" class="form-control">
                                         <option value="M">M</option>
                                         <option value="F">F</option>
@@ -106,7 +106,7 @@
 
 
                                 <div class="form-group">
-                                    <label>DOB:</label>
+                                    <label>DOB: <span style="color: red;">*</span></label>
                                     <input name="payload[dob]" id="spv_date" required class="form-control" value="" onblur="return dobcheck()" placeholder="Enter Mobile Number" type="date">
                                 </div>
 

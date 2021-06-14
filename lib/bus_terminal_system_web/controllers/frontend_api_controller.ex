@@ -911,4 +911,12 @@ defmodule BusTerminalSystemWeb.FrontendApiController do
      end
   end
 
+  def verify_user_id(conn, params) do
+    case params["type"] do
+      "NRC" -> conn |> json( (if User.find_by(nrc: params["id"]) != nil, do: %{status: true}, else: %{status: false}))
+      "SSN" -> conn |> json((if User.find_by(ssn: params["id"]) != nil, do: %{status: true}, else: %{status: false}))
+
+    end
+  end
+
 end

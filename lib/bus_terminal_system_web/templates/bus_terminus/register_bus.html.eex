@@ -87,7 +87,7 @@
                                                 <div class="col-md-6">
 
                                                     <div class="form-group">
-                                                        <label>Bus Operator:</label>
+                                                        <label>Bus Operator: <span style="color: red;">*</span></label>
                                                         <select class="w3-select" onclick="bus_operator_selection_action()" id="bus_operator_list" name="payload[bus_operator]">
                                                             <option value="" disabled selected>Bus Operator:</option>
 
@@ -99,7 +99,7 @@
 
                                                     <div class="form-group">
                                                         <select class="w3-select" name="payload[make]" required>
-                                                            <option value="" disabled selected>Make</option>
+                                                            <option value="" disabled selected>Make </option>
                                                             <option value="Toyota">Toyota</option>
                                                             <option value="Higer">Higer</option>
                                                             <option value="Marcopolo">Marcopolo</option>
@@ -145,22 +145,22 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label>Model:</label>
+                                                        <label>Model: <span style="color: red;">*</span></label>
                                                         <input name="payload[model]" id="vehicleModel" class="form-control" placeholder="Engine Type" type="text" required>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label>Year:</label>
-                                                        <input name="payload[year]" id="vehicleYear" class="form-control" placeholder="Year" type="number" required>
+                                                        <label>Year: <span style="color: red;">*</span></label>
+                                                        <select name="payload[year]" id="vehicleYear" class="form-control" placeholder="Enter Vehicle Year" required ></select>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label>Color:</label>
+                                                        <label>Color: <span style="color: red;">*</span></label>
                                                         <input name="payload[color]" id="vehicleColor" class="form-control" placeholder="Enter Vehicle Color" type="text" required>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label>License Plate:</label>
+                                                        <label>License Plate: <span style="color: red;">*</span></label>
                                                         <input name="payload[license_plate]" oninput="bus_validation(this)" id="licensePlate" class="form-control" placeholder="Enter License Plate" type="text" required>
                                                     </div>
 
@@ -171,40 +171,40 @@
                                                 <div class="col-md-6">
 
                                                     <div class="form-group">
-                                                        <label>Card Number</label>
-                                                        <input name="payload[card]" oninput="bus_validation(this)" id="vehicleCardNumber" class="form-control" placeholder="Card Number" type="number" required>
+                                                        <label>Card Number <span style="color: red;">*</span></label>
+                                                        <input name="payload[card]" oninput="bus_validation(this)" id="vehicleCardNumber" class="form-control" placeholder="Card Number" min="0" type="number" required>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label>Engine Type:</label>
+                                                        <label>Engine Type: <span style="color: red;">*</span></label>
                                                         <input name="payload[engine_type]" id="engineType" class="form-control" placeholder="Enter Engine Type" type="text" required>
                                                     </div>
 
 
                                                     <div class="form-group">
-                                                        <label>VIN Number:</label>
+                                                        <label>VIN Number: <span style="color: red;">*</span></label>
                                                         <input name="payload[vin_number]" id="vinNumber" class="form-control" placeholder="Enter VIN Number" type="text" required>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label>Serial Number:</label>
+                                                        <label>Serial Number: <span style="color: red;">*</span></label>
                                                         <input name="payload[serial_number]" id="vehicleSerialNumber" class="form-control" placeholder="Enter Serial Number" type="text" required>
                                                     </div>
 
 
                                                     <div class="form-group">
-                                                        <label>Hull Number:</label>
+                                                        <label>Hull Number: <span style="color: red;">*</span></label>
                                                         <input name="payload[hull_number]" id="vehicleHullNUmber" class="form-control" placeholder="Enter Hull Number" type="text" required>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label>Company:</label>
-                                                        <input name="payload[company]" readonly id="vehicleCompany" class="form-control" placeholder="Enter Company Number" type="text" required>
+                                                        <input name="payload[company]" readonly id="vehicleCompany" class="form-control" placeholder="Company will be auto filled when Operator is selected" type="text" required>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label>Seat Capacity:</label>
-                                                        <input name="payload[vehicle_capacity]" id="vehicleSeatCapacity" class="form-control" placeholder="Enter Seat Capacity" type="number" required>
+                                                        <label>Seat Capacity: <span style="color: red;">*</span></label>
+                                                        <input name="payload[vehicle_capacity]" id="vehicleSeatCapacity" class="form-control" placeholder="Enter Seat Capacity" min="0" type="number" required>
                                                     </div>
 
                                                     <div class="form-group" hidden>
@@ -314,5 +314,20 @@
         </div>
     </div>
 <% end %>
+
+
+<script>
+    let dateDropdown = document.getElementById('vehicleYear');
+
+    let currentYear = new Date().getFullYear();
+    let earliestYear = 1950;
+    while (currentYear >= earliestYear) {
+        let dateOption = document.createElement('option');
+        dateOption.text = currentYear;
+        dateOption.value = currentYear;
+        dateDropdown.add(dateOption);
+        currentYear -= 1;
+    }
+</script>
 
 <!--############ BOP_BUSES %> ##########-->
