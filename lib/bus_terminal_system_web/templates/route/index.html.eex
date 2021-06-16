@@ -285,3 +285,16 @@
     </div>
   </div>
   <!------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+<script>
+    document.getElementById("route_name").onkeypress = function(e) {
+        console.log("Actions");
+        /^[a-zA-Z0-9]+$/.test(this.value) // return true or false
+    };
+
+    $("#route_name").alphanum();
+
+    document.getElementById("edit_route_name").onkeypress = function(e) {
+        /^[a-zA-Z0-9]+$/.test(this.value) // return true or false
+    };
+</script>

@@ -110,14 +110,18 @@ defmodule BusTerminalSystem.MakerCheckModule do
   def reject(conn, params) do
 
     if params["table"] == "probase_tbl_users" do
-
+      Repo.query("select script,max(script_date) from probase_tbl_auth_hist where id_fk=#{params["id"]} and table_name='PROBASE_TBL_USERS'")
+      |> case do
+           {:ok, _} ->
+             {:ok, "Successfully Rejected user Request"}
+           {:error, error} ->
+             IO.inspect error
+             {:error, "Failed to reject request, An Error Occurred"}
+         end
     else
       Repo.query("UPDATE "<>params["table"]<>" SET auth_status=1 WHERE id="<>params["id"]<>";")
       |> case do
            {:ok, _} ->
-
-             # Chipasha add your email thingy here
-
              {:ok, "Successfully Rejected Request"}
            {:error, error} ->
              IO.inspect error
