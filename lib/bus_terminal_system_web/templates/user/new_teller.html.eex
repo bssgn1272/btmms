@@ -46,7 +46,7 @@
 
                                 <div class="form-group">
                                     <label>Enter Username: <span style="color: red;">*</span></label>
-                                    <input name="payload[username]" id="Username" class="form-control"  required placeholder="Enter Username" type="text">
+                                    <input name="payload[username]" id="Username" class="form-control" required placeholder="Enter Username" type="text">
                                     <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token()%>">
                                     <input type="hidden" name="payload[pin]" value="">
                                     <input type="hidden" name="payload[account_status]" value="ACTIVE">
@@ -171,5 +171,12 @@
     $("#Mobile").intlTelInput({
         // options here
     });
+
+    $(function() {
+        $("input#Username").on("keydown", function (e) {
+            return e.which !== 32;
+        });
+    });
+
 
 </script>

@@ -1,5 +1,7 @@
 defmodule BusTerminalSystemWeb.Router do
   use BusTerminalSystemWeb, :router
+  use Plug.ErrorHandler
+  use Sentry.Plug
 
   pipeline :browser do
     plug :accepts, ["html"]
