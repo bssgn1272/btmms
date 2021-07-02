@@ -352,6 +352,18 @@ $('input#seat').keyup(function() {
     $('#PSeatPosition').text($(this).val());
 });
 
+$("input#Username").on({
+    keydown: function(e) {
+        console.log("a")
+        if (e.which === 32)
+            return false;
+    },
+    change: function() {
+        console.log("b")
+        this.value = this.value.replace(/\s/g, "");
+    }
+});
+
 //------------------------------------------------
 
 //---------------DropDowns----------------------
@@ -1327,91 +1339,99 @@ function delete_bus_route() {
 
 function update_system_bus_route() {
 
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-            confirmButton: 'btn btn-success',
-            cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: true
-    })
+    if ($('#edit_route_route_fare').val() < 1){
+        Swal.fire(
+            'Error!',
+            'Fare can not be below 1',
+            'error'
+        )
+    }else{
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: true
+        })
 
-    swalWithBootstrapButtons.fire({
-        title: 'Are you sure?',
-        text: "You are about to update selected route",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, Update !',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: true
-    }).then((result) => {
-        if (result.isConfirmed) {
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You are about to update selected route",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Update !',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
 
-            swalWithBootstrapButtons.fire('Updating route,   Please wait.')
-            swalWithBootstrapButtons.showLoading();
+                swalWithBootstrapButtons.fire('Updating route,   Please wait.')
+                swalWithBootstrapButtons.showLoading();
 
-            route_id = $('#edit_route_id').val();
-            let json_request_1 = JSON.stringify({
-                payload: {
-                    route_id: route_id
-                }
-            });
+                route_id = $('#edit_route_id').val();
+                let json_request_1 = JSON.stringify({
+                    payload: {
+                        route_id: route_id
+                    }
+                });
 
-            $.ajax({
-                method: 'post',
-                url: '/api/v1/internal/query/route',
-                dataType: 'json',
-                contentType: 'application/json',
-                data: json_request_1,
-                success: function (response) {
+                $.ajax({
+                    method: 'post',
+                    url: '/api/v1/internal/query/route',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: json_request_1,
+                    success: function (response) {
 
-                    let json_request = JSON.stringify({
-                        payload: {
-                            route_id: route_id,
-                            route_name: $('#edit_route_name').val(),
-                            start_route: $('#edit_route_from').val(),
-                            end_route: $('#edit_route_to').val(),
-                            route_fare: $('#edit_route_route_fare').val()
-                        }
-                    });
+                        let json_request = JSON.stringify({
+                            payload: {
+                                route_id: route_id,
+                                route_name: $('#edit_route_name').val(),
+                                start_route: $('#edit_route_from').val(),
+                                end_route: $('#edit_route_to').val(),
+                                route_fare: $('#edit_route_route_fare').val()
+                            }
+                        });
 
-                    $.ajax({
-                        method: 'post',
-                        url: '/api/v1/internal/update/route',
-                        dataType: 'json',
-                        contentType: 'application/json',
-                        data: json_request,
-                        success: function (response) {
-                            swalWithBootstrapButtons.close();
-                            swal({
-                                    title: "Completed!",
-                                    text: "Route Updated Successfully",
-                                    type: "success"
-                                },
-                                function(){
-                                    location.reload();
-                                });
-                        },error: function (response){
-                            swalWithBootstrapButtons.close();
-                            Swal.fire(
-                                'Error!',
-                                'Failed to update route',
-                                'error'
-                            )
-                        }
-                    })
-                }
-            })
+                        $.ajax({
+                            method: 'post',
+                            url: '/api/v1/internal/update/route',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            data: json_request,
+                            success: function (response) {
+                                swalWithBootstrapButtons.close();
+                                swal({
+                                        title: "Completed!",
+                                        text: "Route Updated Successfully",
+                                        type: "success"
+                                    },
+                                    function(){
+                                        location.reload();
+                                    });
+                            },error: function (response){
+                                swalWithBootstrapButtons.close();
+                                Swal.fire(
+                                    'Error!',
+                                    'Failed to update route',
+                                    'error'
+                                )
+                            }
+                        })
+                    }
+                })
 
-        } else if (
-            result.dismiss === Swal.DismissReason.cancel
-        ) {
-            swalWithBootstrapButtons.fire(
-                'Cancelled',
-                'Update Canceled',
-                'error'
-            )
-        }
-    })
+            } else if (
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Update Canceled',
+                    'error'
+                )
+            }
+        })
+    }
 }
 
 function refresh_balance_collection(){
