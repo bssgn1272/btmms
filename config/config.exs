@@ -80,6 +80,16 @@ config :bus_terminal_system, BusTerminalSystem.Mailer,
 #       retries: 3,
 #       no_mx_lookups: false
 
+#config :sentry,
+#   dsn: "https://5a7a2fc1e6284a3b91fc509a7b2ff299@app.glitchtip.com/342",
+#   environment_name: :dev,
+#   enable_source_code_context: true,
+#   root_source_code_path: File.cwd!,
+#   tags: %{
+#     env: "development"
+#   },
+#   included_environments: [:dev]
+
 config :endon,
        repo: BusTerminalSystem.Repo
 
@@ -95,26 +105,26 @@ config :bus_terminal_system, BusTerminalSystem.Scheduler,
  overlap: false,
  timeout: 30_000,
  jobs: [
-   napsa: [
-     schedule:  "* * * * *", task: {BusTerminalSystem.CheckCompliance, :run, []},
-     schedule:  "* * * * *", task: {BusTerminalSystem.NapsaUserUpdater, :run, []},
-   ],
-  bank: [
-    schedule:  {:extended, "*/4"}, task: {BusTerminalSystem.Service.Zicb.AccountOpening, :run, []},
-  ],
-   sales: [
-     schedule: {:extended, "*/2"}, task: {BusTerminalSystem.Service.Zicb.Funding, :post_ticket_transactions, []}
-   ],
-   email: [
-     schedule: {:extended, "*/3"}, task: {BusTerminalSystem.EmailSender, :run, []}
-   ],
-   sms: [
-     schedule:  {:extended, "*/5"}, task: {BusTerminalSystem.Job.Sms, :send, []}
-   ],
-   cosec:
-   [
-     schedule:  {:extended, "*/60"}, task: {BusTerminalSystem.Cosec, :run, []}
-   ]
+#   napsa: [
+#     schedule:  "* * * * *", task: {BusTerminalSystem.CheckCompliance, :run, []},
+#     schedule:  "* * * * *", task: {BusTerminalSystem.NapsaUserUpdater, :run, []},
+#   ],
+#  bank: [
+#    schedule:  {:extended, "*/4"}, task: {BusTerminalSystem.Service.Zicb.AccountOpening, :run, []},
+#  ],
+#   sales: [
+#     schedule: {:extended, "*/2"}, task: {BusTerminalSystem.Service.Zicb.Funding, :post_ticket_transactions, []}
+#   ],
+#   email: [
+#     schedule: {:extended, "*/3"}, task: {BusTerminalSystem.EmailSender, :run, []}
+#   ],
+#   sms: [
+#     schedule:  {:extended, "*/5"}, task: {BusTerminalSystem.Job.Sms, :send, []}
+#   ],
+#   cosec:
+#   [
+#     schedule:  {:extended, "*/60"}, task: {BusTerminalSystem.Cosec, :run, []}
+#   ]
  ]
 
 # Import environment specific config. This must remain at the bottom

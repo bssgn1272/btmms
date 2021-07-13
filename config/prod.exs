@@ -21,6 +21,15 @@ config :bus_terminal_system, BusTerminalSystemWeb.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
+config :sentry,
+   dsn: "https://5a7a2fc1e6284a3b91fc509a7b2ff299@app.glitchtip.com/342",
+   environment_name: :prod,
+   enable_source_code_context: true,
+   root_source_code_path: File.cwd!,
+   tags: %{
+     env: "production"
+   },
+   included_environments: [:prod]
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

@@ -173,6 +173,7 @@ defmodule BusTerminalSystemWeb.Router do
     post "/btms/Dashboard/Checker/View", MakerCheckerController, :view
 
     post "/btms/secured/password/reset", SessionController, :reset_password
+    post "/btms/secured/password/fta_update", SessionController, :fta_update
 
     post "/btms/tickets/secured/board_ticket", TicketController, :ticket_board_passenger
     post "/btms/tickets/secured/submit_ledger_transaction", TicketController, :transaction_post_to_ledger

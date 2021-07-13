@@ -79,6 +79,115 @@ $('#password, #confirm_password').on('keyup', function () {
         $('#message').html('Not Matching').css('color', 'red');
 });
 
+$('#pwd1, #pwd2').on('keyup', function () {
+    if ($('#pwd1').val() == $('#pwd2').val()) {
+        $('#message').html('Matching').css('color', 'green');
+    } else
+        $('#message').html('Not Matching').css('color', 'red');
+});
+
+function fta_update_password(){
+
+    console.log($('#message').html());
+
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: true
+    })
+
+    let pwd1 = $("#pwd1").val()
+    let pwd2 = $("#pwd2").val()
+    let username = $("#username").val()
+    console.log(pwd1)
+    if (pwd1.toString() === "" || pwd2 === "") {
+        swal({title: "Blank Field", text: "Please populate both fields before continuing", type: "error"}
+        );
+    }else{
+
+        if ($("#pwd1").val() !== "" && $("#pwd2").val() !== ""){
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: true
+            });
+
+            if($('#message').html() === "Not Matching"){
+                swalWithBootstrapButtons.fire(
+                    'Passwords do not match',
+                    'Please re-type your passwords and ensure they are the same',
+                    'error'
+                )
+            }else{
+                //$("#pwd2").val().match(passw)
+                var passw=  /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+                if($("#pwd2").val().match(passw))
+                {
+                    swalWithBootstrapButtons.fire('Updating your password, Please wait...')
+                    swalWithBootstrapButtons.showLoading();
+
+                    let json_request = JSON.stringify({
+                        username: username,
+                        password: pwd1,
+                        confirm_password: pwd2
+                    });
+
+                    $.ajax({
+                        method: 'post',
+                        url: '/api/v1/btms/secured/password/fta_update',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: json_request,
+                        timeout: 3000, // sets timeout to 3 seconds
+                        success: function (response) {
+                            if (response.status === 200){
+                                swalWithBootstrapButtons.close();
+                                swal({title: "Password Update Successful", text: "Your Password has been updated", type: "success"},
+                                    function(){
+                                        back_to_login();
+                                    }
+                                );
+                            }else{
+                                swalWithBootstrapButtons.close();
+                                swal({title: "Password Update Failed", text: response.message, type: "error"},
+                                    function(){
+                                        // back_to_login();
+                                    }
+                                );
+                            }
+                        },
+                        error: function(){
+                            swalWithBootstrapButtons.close();
+                            swal({title: "Error", text: "An Error Occurred and could not reset password", type: "error"},
+                                function(){
+
+                                }
+                            );
+                        }
+                    });
+                }
+                else
+                {
+                    swalWithBootstrapButtons.fire(
+                        'Password Policy Error',
+                        'Must contain at least one number one uppercase and lowercase letter, and at least 8 or more characters',
+                        'error'
+                    )
+
+                }
+            }
+        }
+
+        //--------------------------------------------
+
+    }
+}
+
 function password_reset(){
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {

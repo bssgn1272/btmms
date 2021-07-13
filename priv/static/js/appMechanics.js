@@ -524,7 +524,7 @@ function get_buses () {
             $.each(response, function (k, v) {
                 let o = JSON.parse(JSON.stringify(v));
                 bus_operator2_html += '<option value="'+o.id+'" >';
-                bus_operator2_html += o.username;
+                bus_operator2_html += o.company + " - (" + o.username + ")";
                 bus_operator2_html += '</option>';
 
                 operator_id2 = o.id.toString()
@@ -1231,6 +1231,9 @@ function user_type_selection(role){
             $('#user_first_name').hide();
             $('#user_last_name').hide();
             $('#user_employer_number').show();
+            break;
+        case "AGNT":
+            $('#Account').hide();
             break;
         default:
             $('#user_company_name').hide();

@@ -76,5 +76,23 @@ defmodule BusTerminalSystemWeb.SessionController do
     end
 
   end
-#  +260976815726
+
+  def fta_update(conn, %{"username" => username} = params) do
+
+    case User.find_by(username: username) do
+      nil -> conn |> json(%{status: 400, message: "No User with username #{username} found, Please check the username and try again"})
+      user ->
+        new_password = params["password"]
+
+        case User.update(user, [password: Base.encode16(:crypto.hash(:sha512, new_password)), account_status: "ACTIVE"]) |> IO.inspect do
+          {:ok, user} ->
+            BusTerminalSystem.Notification.Table.Sms.create!([recipient: user.mobile, message: "Your Password has been Updated successfully", sent: false])
+            conn |> json(%{status: 200, message: "Password reset successful"})
+          {:error, error} ->
+            conn |> json(%{status: 400, message: "An error occurred and could not reset password, Please try again"})
+        end
+    end
+
+  end
+
 end

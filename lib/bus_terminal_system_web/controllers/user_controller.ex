@@ -30,17 +30,25 @@ defmodule BusTerminalSystemWeb.UserController do
 
   def index(conn, _params) do
 
-    routes = RepoManager.list_routes()
-    users = BusTerminalSystem.AccountManager.User.where(auth_status: true)
-    f = Timex.today |> Timex.to_datetime
-#    tickets =  BusTerminalSystem.TicketManagement.Ticket.where(travel_date: Timex.today() |> to_string)
-    tickets =  BusTerminalSystem.TicketManagement.Ticket.all(order_by: [desc: :inserted_at])
-#    tickets =  BusTerminalSystem.TicketManagement.Ticket.last(10)
+    if conn.assigns.user.account_status == "OTP" do
+      conn
+      |> put_layout(false)
+      |> put_flash(:info, "First time access password update")
+      |> render("change_password.html", user: conn.assigns.user)
+    else
+      routes = RepoManager.list_routes()
+      users = BusTerminalSystem.AccountManager.User.where(auth_status: true)
+      f = Timex.today |> Timex.to_datetime
+      #    tickets =  BusTerminalSystem.TicketManagement.Ticket.where(travel_date: Timex.today() |> to_string)
+      tickets =  BusTerminalSystem.TicketManagement.Ticket.all(order_by: [desc: :inserted_at])
+      #    tickets =  BusTerminalSystem.TicketManagement.Ticket.last(10)
 
 
-    buses = RepoManager.list_buses()
-    conn
-    |> render("index.html", users: users, tickets: tickets, buses: buses, routes: routes)
+      buses = RepoManager.list_buses()
+      conn
+      |> render("index.html", users: users, tickets: tickets, buses: buses, routes: routes)
+    end
+
   end
 
   def new(conn, params) do

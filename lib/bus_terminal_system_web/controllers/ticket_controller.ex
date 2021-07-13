@@ -396,12 +396,13 @@ defmodule BusTerminalSystemWeb.TicketController do
   end
 
   def purchase_ticket(conn,params) do
+    IO.inspect params
     case ApiManager.authentication_mod(params) do
       {:error, result} -> { json(conn, result)}
 
       {:ok, _result} ->
           {:ok, payload} = Map.fetch(params,"payload")
-            IO.inspect payload
+
             if !Map.has_key?(payload,"external_ref") or !Map.has_key?(payload,"route_code") or !Map.has_key?(payload,"bus_schedule_id") do
                 json(conn, ApiManager.api_error_handler(ApiManager.definition_purchase, ApiManager.support_purchase))
             else
@@ -426,13 +427,15 @@ defmodule BusTerminalSystemWeb.TicketController do
                     IO.inspect("--------------------------")
                     IO.inspect(payload)
 
+                    final_fare = (fn payload_data, route_data -> if Map.has_key?(payload_data, "amount") == true, do: payload["amount"], else: route_data.route_fare end)
+
                     map = Map.put(payload, "reference_number", generate_reference_number(route))
 #                    map = Map.put(map, "date", payload["date"])
                     map = Map.put(map, "serial_number", serial_number)
                     map = Map.put(map, "activation_status", "VALID")
                     map = Map.put(map, "route", route.id)
                     map = Map.put(map, "date", payload["departure_time"])
-                    map = Map.put(map, "amount", route.route_fare)
+                    map = Map.put(map, "amount", final_fare.(payload, route))
                     map = Map.put(map, "maker", teller.id |> to_string)
 
                     schedule = BusTerminalSystem.TblEdReservations.find_by(id: Map.fetch!(map, "bus_schedule_id"))

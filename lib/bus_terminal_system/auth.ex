@@ -15,7 +15,7 @@ defmodule BusTerminalSystem.Auth do
 
   end
   defp check_status(user) do
-    case user.auth_status != false and user.account_status == "ACTIVE" do
+    case user.auth_status != false do
       true ->
         {:ok, user}
       false ->
