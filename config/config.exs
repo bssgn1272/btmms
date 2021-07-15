@@ -105,26 +105,26 @@ config :bus_terminal_system, BusTerminalSystem.Scheduler,
  overlap: false,
  timeout: 30_000,
  jobs: [
-#   napsa: [
-#     schedule:  "* * * * *", task: {BusTerminalSystem.CheckCompliance, :run, []},
-#     schedule:  "* * * * *", task: {BusTerminalSystem.NapsaUserUpdater, :run, []},
-#   ],
-#  bank: [
-#    schedule:  {:extended, "*/4"}, task: {BusTerminalSystem.Service.Zicb.AccountOpening, :run, []},
-#  ],
-#   sales: [
-#     schedule: {:extended, "*/2"}, task: {BusTerminalSystem.Service.Zicb.Funding, :post_ticket_transactions, []}
-#   ],
-#   email: [
-#     schedule: {:extended, "*/3"}, task: {BusTerminalSystem.EmailSender, :run, []}
-#   ],
-#   sms: [
-#     schedule:  {:extended, "*/5"}, task: {BusTerminalSystem.Job.Sms, :send, []}
-#   ],
-#   cosec:
-#   [
-#     schedule:  {:extended, "*/60"}, task: {BusTerminalSystem.Cosec, :run, []}
-#   ]
+   napsa: [
+     schedule:  "* * * * *", task: {BusTerminalSystem.CheckCompliance, :run, []},
+     schedule:  "* * * * *", task: {BusTerminalSystem.NapsaUserUpdater, :run, []},
+   ],
+  bank: [
+    schedule:  {:extended, "*/4"}, task: {BusTerminalSystem.Service.Zicb.AccountOpening, :run, []},
+  ],
+   sales: [
+     schedule: {:extended, "*/2"}, task: {BusTerminalSystem.Service.Zicb.Funding, :post_ticket_transactions, []}
+   ],
+   email: [
+     schedule: {:extended, "*/3"}, task: {BusTerminalSystem.EmailSender, :run, []}
+   ],
+   sms: [
+     schedule:  {:extended, "*/5"}, task: {BusTerminalSystem.Job.Sms, :send, []}
+   ],
+   cosec:
+   [
+     schedule:  {:extended, "*/60"}, task: {BusTerminalSystem.Cosec, :run, []}
+   ]
  ]
 
 # Import environment specific config. This must remain at the bottom
