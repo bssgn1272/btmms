@@ -76,7 +76,7 @@ defmodule BusTerminalSystem.BusManagement do
       operator_id: params["bus_operator"],
       company: params["company"],
       company_info: params["company_info"],
-      card: params["card_number"],
+      card: params["card"],
       auth_status: false,
       maker: conn.assigns.user.id,
       maker_date_time: Timex.now() |> NaiveDateTime.truncate(:second) |> Timex.to_naive_datetime(),
