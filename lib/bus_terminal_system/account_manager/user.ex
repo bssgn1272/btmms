@@ -8,7 +8,7 @@ defmodule BusTerminalSystem.AccountManager.User do
     :pin, :tmp_pin, :company, :auth_status, :maker, :checker, :maker_date_time, :checker_date_time, :user_description, :system_description, :role_id, :apply_discount,
     :discount_amount, :discount_reason, :compliance, :employer_number, :dob, :sex, :bank_message, :swift_code, :bank_account_status, :bank_account_balance, :bank_srcBranch, :bank_destBranch]
 
-  @validate_columns [:username, :account_number, :mobile, :password, :role, :account_status, :operator_role]
+  @validate_columns [:username, :mobile, :password, :role, :account_status, :operator_role]
 
   @derive {Poison.Encoder,only: [:id,:account_type,:username,:first_name,:last_name,:ssn,:nrc,:email,:mobile,:account_status,:operator_role,:role,:company,:account_number, :compliance,
   :auth_status, :maker, :checker, :maker_date_time,:checker_date_time, :role_id, :user_description, :system_description, :role_id, :apply_discount, :discount_amount, :discount_reason,

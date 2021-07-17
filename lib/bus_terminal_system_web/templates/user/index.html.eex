@@ -159,8 +159,8 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <h6 class="text-semibold no-margin-top" style="color:blue; text-align:center; text-decoration:underline ;">
-                                            Bus registration
+                                        <h6 class="text-semibold no-margin-top" style="color:blue; text-align:center;">
+                                           <strong>Bus Registration</strong>
                                         </h6>
                                         <hr style="color:orange;">
                                     </div>
@@ -195,8 +195,10 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <h6 class="text-semibold no-margin-top" style="color:blue; text-align:center; text-decoration:underline ;">
-                                            Check Available Routes
+                                        <h6 class="text-semibold no-margin-top" style="color:blue; text-align:center;">
+                                            <strong>
+                                                Check Available Routes
+                                            </strong>
                                         </h6>
                                         <hr style="color:orange;">
                                     </div>
@@ -228,7 +230,7 @@
                 </div>
             </div>
 
-            <div class="timeline-row">
+            <div hidden class="timeline-row">
                 <div class="timeline-icon">
                     <div class="bg-primary-400">
                         <i class="icon-table"></i>
