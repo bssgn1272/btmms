@@ -20,6 +20,7 @@ import {ArMakeBookingComponent} from '../ar-make-booking/ar-make-booking.compone
 import {VeiwSubDestinationsComponent} from '../veiw-sub-destinations/veiw-sub-destinations.component';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { ChangeBusComponent } from "../change-bus/change-bus.component";
+import { ChangeArrivalBusComponent } from "../change-arrival-bus/change-arrival-bus.component";
 
 
 
@@ -214,6 +215,19 @@ export class ViewMySlotsComponent implements OnInit {
 
   onChangeVehicleDialog(row): void {
     const dialogRef = this.dialog.open(ChangeBusComponent, {
+      width: "60%",
+      // height: "850",
+      data: { row },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      row = result;
+      this.ngOnInit();
+    });
+    console.log("Row clicked: ", row);
+  }
+
+  onArChangeVehicleDialog(row): void {
+    const dialogRef = this.dialog.open(ChangeArrivalBusComponent, {
       width: "60%",
       // height: "850",
       data: { row },

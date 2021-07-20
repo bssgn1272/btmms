@@ -50,6 +50,7 @@ import { RejectArrivalComponent } from '../../reject-arrival/reject-arrival.comp
 import { CancelReservationComponent } from '../../cancel-reservation/cancel-reservation.component';
 import { CancellationRequestComponent } from '../../cancellation-request/cancellation-request.component';
 import { ChangeBusComponent } from '../../change-bus/change-bus.component';
+import { ChangeArrivalBusComponent } from '../../change-arrival-bus/change-arrival-bus.component';
 import { ChangeOptionComponent } from '../../change-option/change-option.component';
 import { ConfirmCancellationComponent } from '../../confirm-cancellation/confirm-cancellation.component';
 import { ModesComponent } from '../../settings/components/modes/modes.component';
@@ -118,6 +119,7 @@ import {MakeFlexiBookingComponent} from '../../make-flexi-booking/make-flexi-boo
     RejectArrivalComponent,
     CancelReservationComponent,
     ChangeBusComponent,
+    ChangeArrivalBusComponent,
     ChangeOptionComponent,
     CancellationRequestComponent,
     ConfirmCancellationComponent,
