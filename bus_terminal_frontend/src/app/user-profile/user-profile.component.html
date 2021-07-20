@@ -210,10 +210,10 @@
 
                         <ng-container matColumnDef="action">
                           <th mat-header-cell *matHeaderCellDef>Action</th>
-                          <td mat-cell *matCellDef="let row">
-                            <button
+                          <td mat-cell *matCellDef="let element">
+                            <button *ngIf="element.time > hour"
                               mat-raised-button
-                              (click)="onOpenDialog(row)"
+                              (click)="onOpenDialog(element)"
                               matTooltip="Book Departure Slot"
                               aria-label="Button that displays a tooltip when focused or hovered over"
                               class="btn btn-primary btn-link btn-sm btn-just-icon"
@@ -393,10 +393,10 @@
 
                         <ng-container matColumnDef="action">
                           <th mat-header-cell *matHeaderCellDef>Action</th>
-                          <td mat-cell *matCellDef="let row">
-                            <button
+                          <td mat-cell *matCellDef="let element">
+                            <button *ngIf="element.time > hour"
                               mat-raised-button
-                              (click)="arOnOpenDialog(row)"
+                              (click)="arOnOpenDialog(element)"
                               matTooltip="Book Arrival Slot"
                               aria-label="Button that displays a tooltip when focused or hovered over"
                               class="btn btn-primary btn-link btn-sm btn-just-icon"

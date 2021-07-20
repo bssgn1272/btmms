@@ -42,6 +42,7 @@ export class UserProfileComponent implements OnInit {
   valArDate: Date = new Date();
   minDate: Date = new Date();
   maxDate: Date = new Date();
+  hour: any = new Date();
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'start';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
@@ -66,8 +67,8 @@ export class UserProfileComponent implements OnInit {
     private penaltiesService: ViewMyPenaltiesService,
     private optionsService: OptionsService
   ) {
-    this.valDate.setDate(this.valDate.getDate() + 1);
-    this.valArDate.setDate(this.valDate.getDate() + 1);
+    this.valDate.setDate(this.valDate.getDate());
+    this.valArDate.setDate(this.valDate.getDate());
   }
 
   public getFromLocalStrorage() {
@@ -81,16 +82,19 @@ export class UserProfileComponent implements OnInit {
   }
 
   refresh() {
+    this.hour = this.hour.getHours() + ":00";
+    console.log("Hour: ", this.hour);
     this.userItems = this.getFromLocalStrorage();
     this.user = this.userItems.username;
     this.minDate = new Date();
     this.maxDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() + 1);
+    this.minDate.setDate(this.minDate.getDate());
     this.maxDate.setDate(this.maxDate.getDate() + 7);
 
     this.operatingDate = this.convertDate(this.valDate);
     this.arOperatingDate = this.convertDate(this.valArDate);
     sessionStorage.setItem('operatingDate', this.operatingDate);
+    sessionStorage.setItem('arOperatingDate', this.arOperatingDate);
 
     this.slots.getList(this.operatingDate).then((res) => {
       console.log('Slots', res)
