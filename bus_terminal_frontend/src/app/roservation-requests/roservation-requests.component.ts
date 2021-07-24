@@ -69,16 +69,18 @@ export class RoservationRequestsComponent implements OnInit {
     'reserved_time',
     'action',
   ];
+
   dataSource = new MatTableDataSource([]);
   filterDataSource: any;
   dataSourceAR = new MatTableDataSource([]);
+  filterDataSourceAR: any;
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  @ViewChild('MatPaginatorAR') paginatorAR: MatPaginator;
-  @ViewChild('MatSortAR') sortAR: MatSort;
+  @ViewChild(MatPaginator) paginatorAR: MatPaginator;
+  @ViewChild(MatSort) sortAR: MatSort;
   slot_status: any;
   dataTable: any;
   dtOptions: any;
@@ -94,8 +96,8 @@ export class RoservationRequestsComponent implements OnInit {
   ];
   dataSourceHistory = new MatTableDataSource([]);
 
-  @ViewChild('HistoryPaginator') paginatorHistory: MatPaginator;
-  @ViewChild('HistorySort') sortHistory: MatSort;
+  //@ViewChild(MatPaginator) paginatorHistory: MatPaginator;
+  //@ViewChild(MatSort) sortHistory: MatSort;
 
   displayedHistoryColumnsAR: string[] = [
     'username',
@@ -108,10 +110,9 @@ export class RoservationRequestsComponent implements OnInit {
   ];
   dataSourceHistoryAR = new MatTableDataSource([]);
 
-  @ViewChild('HistoryPaginatorAR') paginatorHistoryAR: MatPaginator;
-  @ViewChild('HistorySortAR') sortHistoryAR: MatSort;
+  //@ViewChild(MatPaginator) paginatorHistoryAR: MatPaginator;
+  //@ViewChild(MatSort) sortHistoryAR: MatSort;
 
-  filterDataSourceAR: any;
   displayData: any;
   displayDataAR: any;
   pipe: DatePipe;
@@ -141,33 +142,6 @@ export class RoservationRequestsComponent implements OnInit {
     return users;
   }
 
-
-  // Date Range
-
-  // slots
-  // displayedSlotColumns: string[] = [
-  //   'time',
-  //   'slot_one',
-  //   'slot_two',
-  //   'slot_three',
-  //   'slot_four',
-  //   'slot_five',
-  //   'slot_six',
-  //   'slot_seven',
-  //   'slot_eight',
-  //   'slot_nine',
-  // ];
-
-  // dataSourceSlot = new MatTableDataSource([]);
-  //
-  // @ViewChild('slotPaginator') slotPaginator: MatPaginator;
-  // @ViewChild('slotSort') slotSort: MatSort;
-
-  // dataSourceSlotAR = new MatTableDataSource([]);
-  //
-  // @ViewChild('slotPaginatorAR') slotPaginatorAR: MatPaginator;
-  // @ViewChild('slotSortAR') slotSortAR: MatSort;
-
   constructor(
     private requests: ReservationRequestsService,
     public _location: Location,
@@ -192,8 +166,7 @@ export class RoservationRequestsComponent implements OnInit {
     });
     this.userItems = this.getFromLocalStrorage();
     this.role = this.userItems.role;
-    this.requests.getList().then((res) => {
-      console.log("WTWTWTWTWTWTWTW", res)
+    this.requests.getPendingList().then((res) => {
       this.displayData = res.data;
       this.filterDataSource = this.displayData;
       this.dataSource = new MatTableDataSource(this.displayData);
@@ -202,7 +175,7 @@ export class RoservationRequestsComponent implements OnInit {
     });
 
 
-    this.requests.getARList().then((res) => {
+    this.requests.getARPendingList().then((res) => {
       this.displayDataAR = res.data;
       this.filterDataSourceAR = this.displayDataAR;
       this.dataSourceAR = new MatTableDataSource(this.displayDataAR);
@@ -214,8 +187,8 @@ export class RoservationRequestsComponent implements OnInit {
       this.displayDataHistory = res.data;
       this.filterDataSourceHistory = this.displayDataHistory;
       this.dataSourceHistory = new MatTableDataSource(this.displayDataHistory);
-      this.dataSourceHistory.paginator = this.paginatorHistory;
-      this.dataSourceHistory.sort = this.sortHistory;
+      //this.dataSourceHistory.paginator = this.paginatorHistory;
+      //this.dataSourceHistory.sort = this.sortHistory;
     });
 
 
@@ -223,16 +196,9 @@ export class RoservationRequestsComponent implements OnInit {
       this.displayDataHistoryAR = res.data;
       this.filterDataSourceHistoryAR = this.displayDataHistoryAR;
       this.dataSourceHistoryAR = new MatTableDataSource(this.displayDataHistoryAR);
-      this.dataSourceHistoryAR.paginator = this.paginatorHistoryAR;
-      this.dataSourceHistoryAR.sort = this.sortHistoryAR;
+      //this.dataSourceHistoryAR.paginator = this.paginatorHistoryAR;
+      //this.dataSourceHistoryAR.sort = this.sortHistoryAR;
     });
-
-    // Slots
-    // this.slots.getList().then((res) => {
-    //   this.dataSourceSlot = new MatTableDataSource(res.data);
-    //   this.dataSourceSlot.paginator = this.slotPaginator;
-    //   this.dataSourceSlot.sort = this.slotSort;
-    // });
   }
 
   log(value) {
@@ -270,15 +236,15 @@ export class RoservationRequestsComponent implements OnInit {
     if (value === 'All') {
       this.filterDataSourceAR = this.displayData;
       this.dataSourceAR = new MatTableDataSource(this.filterDataSourceAR);
-      this.dataSourceAR.paginator = this.paginatorAR;
-      this.dataSourceAR.sort = this.sortAR;
+      //this.dataSourceAR.paginator = this.paginatorAR;
+      //this.dataSourceAR.sort = this.sortAR;
     } else {
       this.filterDataSourceAR = this.displayDataAR.filter(
           (x) => x.reservation_status === value
       );
       this.dataSourceAR = new MatTableDataSource(this.filterDataSourceAR);
-      this.dataSourceAR.paginator = this.paginatorAR;
-      this.dataSourceAR.sort = this.sortAR;
+      //this.dataSourceAR.paginator = this.paginatorAR;
+      //this.dataSourceAR.sort = this.sortAR;
       if (value === 'All') {
         this.aRRStatus = 'All';
       } else if (value === 'C') {
@@ -348,8 +314,8 @@ export class RoservationRequestsComponent implements OnInit {
     }
 
     this.dataSourceAR = new MatTableDataSource(this.filterDataSourceAR);
-    this.dataSourceAR.paginator = this.paginatorAR;
-    this.dataSourceAR.sort = this.sortAR;
+    //this.dataSourceAR.paginator = this.paginatorAR;
+    //this.dataSourceAR.sort = this.sortAR;
     console.log(
         this.displayDataAR,
         formatDate(this.from, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530')
@@ -363,8 +329,8 @@ export class RoservationRequestsComponent implements OnInit {
       this.dataSourceHistory = new MatTableDataSource(
         this.filterDataSourceHistory
       );
-      this.dataSourceHistory.paginator = this.paginatorHistory;
-      this.dataSourceHistory.sort = this.sortHistory;
+      //this.dataSourceHistory.paginator = this.paginatorHistory;
+      //this.dataSourceHistory.sort = this.sortHistory;
     } else {
       this.filterDataSourceHistory = this.displayDataHistory.filter(
         (x) => x.reservation_status === value
@@ -372,8 +338,8 @@ export class RoservationRequestsComponent implements OnInit {
       this.dataSourceHistory = new MatTableDataSource(
         this.filterDataSourceHistory
       );
-      this.dataSourceHistory.paginator = this.paginatorHistory;
-      this.dataSourceHistory.sort = this.sortHistory;
+      //this.dataSourceHistory.paginator = this.paginatorHistory;
+      //this.dataSourceHistory.sort = this.sortHistory;
       if (value === 'All') {
         this.rStatus = 'All';
       } else if (value === 'C') {
@@ -396,8 +362,8 @@ export class RoservationRequestsComponent implements OnInit {
       this.dataSourceHistoryAR = new MatTableDataSource(
           this.filterDataSourceHistoryAR
       );
-      this.dataSourceHistoryAR.paginator = this.paginatorHistoryAR;
-      this.dataSourceHistoryAR.sort = this.sortHistoryAR;
+      //this.dataSourceHistoryAR.paginator = this.paginatorHistoryAR;
+      //this.dataSourceHistoryAR.sort = this.sortHistoryAR;
     } else {
       this.filterDataSourceHistoryAR = this.displayDataHistoryAR.filter(
           (x) => x.reservation_status === value
@@ -405,8 +371,8 @@ export class RoservationRequestsComponent implements OnInit {
       this.dataSourceHistoryAR = new MatTableDataSource(
           this.filterDataSourceHistoryAR
       );
-      this.dataSourceHistoryAR.paginator = this.paginatorHistoryAR;
-      this.dataSourceHistoryAR.sort = this.sortHistoryAR;
+      //this.dataSourceHistoryAR.paginator = this.paginatorHistoryAR;
+      //this.dataSourceHistoryAR.sort = this.sortHistoryAR;
       if (value === 'All') {
         this.aRRStatus = 'All';
       } else if (value === 'C') {
@@ -461,8 +427,8 @@ export class RoservationRequestsComponent implements OnInit {
     this.dataSourceHistory = new MatTableDataSource(
       this.filterDataSourceHistory
     );
-    this.dataSourceHistory.paginator = this.paginatorHistory;
-    this.dataSourceHistory.sort = this.sortHistory;
+    //this.dataSourceHistory.paginator = this.paginatorHistory;
+    //this.dataSourceHistory.sort = this.sortHistory;
     console.log(
       this.displayDataHistory,
       formatDate(this.fromHistory, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530')
@@ -513,8 +479,8 @@ export class RoservationRequestsComponent implements OnInit {
     this.dataSourceHistoryAR = new MatTableDataSource(
         this.filterDataSourceHistoryAR
     );
-    this.dataSourceHistoryAR.paginator = this.paginatorHistoryAR;
-    this.dataSourceHistoryAR.sort = this.sortHistoryAR;
+    //this.dataSourceHistoryAR.paginator = this.paginatorHistoryAR;
+    //this.dataSourceHistoryAR.sort = this.sortHistoryAR;
     console.log(
         this.displayDataHistoryAR,
         formatDate(this.fromHistoryAR, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530')

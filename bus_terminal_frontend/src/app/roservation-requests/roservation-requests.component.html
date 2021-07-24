@@ -21,10 +21,10 @@
 
                   <li class="nav-item">
                     <a
-                            mat-button
-                            class="nav-link"
-                            href="#viewAR"
-                            data-toggle="tab"
+                      mat-button
+                      class="nav-link"
+                      href="#viewAR"
+                      data-toggle="tab"
                     >
                       <i class="material-icons">list</i>Arrival Requests
                       <div class="ripple-container"></div>
@@ -43,10 +43,10 @@
                   </li>
                   <li class="nav-item">
                     <a
-                            mat-button
-                            class="nav-link"
-                            href="#historyAR"
-                            data-toggle="tab"
+                      mat-button
+                      class="nav-link"
+                      href="#historyAR"
+                      data-toggle="tab"
                     >
                       <i class="material-icons">cloud</i>Arrivals History
                       <div class="ripple-container"></div>
@@ -60,24 +60,6 @@
             <div class="tab-content">
               <div class="tab-pane active" id="view">
                 <div class="row">
-                  <div class="col-md-3">
-                    <mat-form-field>
-                      <mat-label>Select an option</mat-label>
-                      <mat-select
-                        [(ngModel)]="selectedFilter"
-                        (ngModelChange)="log($event)"
-                      >
-                        <mat-option>None</mat-option>
-                        <mat-option value="All">All</mat-option>
-                        <mat-option value="P">Pending Approval</mat-option>
-                        <mat-option value="A">Approved</mat-option>
-                        <mat-option value="PC">Pending Cancellation</mat-option>
-                        <mat-option value="C">Cancelled</mat-option>
-                        <mat-option value="R">Rejected</mat-option>
-                        <mat-option value="E">Expired</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
                   <div class="col-md-3">
                     <mat-form-field>
                       <mat-label>Start Date</mat-label>
@@ -118,9 +100,7 @@
                       Filter
                     </button>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
+                  <div class="col-md-3">
                     <mat-form-field>
                       <input
                         matInput
@@ -128,39 +108,6 @@
                         placeholder="Filter"
                       />
                     </mat-form-field>
-                  </div>
-                  <div class="col-md-6">
-                    <!-- <form class="date-block" [formGroup]="filterForm">
-                      <div class="row">
-                        <div class="col-md-3">
-                          <div class="date-block__list">
-                            <mat-form-field>
-                              <input matInput 
-                                [matDatepicker]="fromDate" 
-                                placeholder="From Date" 
-                                formControlName="fromDate">
-                              <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
-                              <mat-datepicker #fromDate></mat-datepicker>
-                            </mat-form-field>
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-                          <div class="date-block__list">
-                              <mat-form-field>
-                                <input matInput 
-                                  [matDatepicker]="toDate" 
-                                  placeholder="To Date" 
-                                  formControlName="toDate">
-                                <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
-                                <mat-datepicker #toDate></mat-datepicker>
-                              </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                          <button mat-button color="primary" class="primary" (click)="getDateRange(filterForm.value)">Submit</button>
-                        </div>
-                      </div>
-                    </form> -->
                   </div>
                 </div>
                 <div class="mat-elevation-z8">
@@ -323,24 +270,6 @@
                 <div class="row">
                   <div class="col-md-3">
                     <mat-form-field>
-                      <mat-label>Select an option</mat-label>
-                      <mat-select
-                              [(ngModel)]="selectedFilterAR"
-                              (ngModelChange)="logAR($event)"
-                      >
-                        <mat-option>None</mat-option>
-                        <mat-option value="All">All</mat-option>
-                        <mat-option value="P">Pending Approval</mat-option>
-                        <mat-option value="A">Approved</mat-option>
-                        <mat-option value="PC">Pending Cancellation</mat-option>
-                        <mat-option value="C">Cancelled</mat-option>
-                        <mat-option value="R">Rejected</mat-option>
-                        <mat-option value="E">Expired</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-3">
-                    <mat-form-field>
                       <mat-label>Start Date</mat-label>
                       <input
                               [(ngModel)]="fromAR"
@@ -379,9 +308,7 @@
                       Filter
                     </button>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
+                  <div class="col-md-3">
                     <mat-form-field>
                       <input
                               matInput
@@ -390,44 +317,11 @@
                       />
                     </mat-form-field>
                   </div>
-                  <div class="col-md-6">
-                    <!-- <form class="date-block" [formGroup]="filterForm">
-                      <div class="row">
-                        <div class="col-md-3">
-                          <div class="date-block__list">
-                            <mat-form-field>
-                              <input matInput
-                                [matDatepicker]="fromDate"
-                                placeholder="From Date"
-                                formControlName="fromDate">
-                              <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
-                              <mat-datepicker #fromDate></mat-datepicker>
-                            </mat-form-field>
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-                          <div class="date-block__list">
-                              <mat-form-field>
-                                <input matInput
-                                  [matDatepicker]="toDate"
-                                  placeholder="To Date"
-                                  formControlName="toDate">
-                                <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
-                                <mat-datepicker #toDate></mat-datepicker>
-                              </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                          <button mat-button color="primary" class="primary" (click)="getDateRange(filterForm.value)">Submit</button>
-                        </div>
-                      </div>
-                    </form> -->
-                  </div>
                 </div>
                 <div class="mat-elevation-z8">
                   <table
                           class="table"
-                          #dataTableAR
+                          #dataTable
                           mat-table
                           [dataSource]="dataSourceAR"
                           matSort
@@ -576,8 +470,8 @@
                   </table>
 
                   <mat-paginator
-                          [pageSizeOptions]="[5, 10, 20]"
-                          showFirstLastButtons
+                    [pageSizeOptions]="[5, 10, 20]"
+                    showFirstLastButtons
                   ></mat-paginator>
                 </div>
               </div>
@@ -738,51 +632,6 @@
                       </td>
                     </ng-container>
 
-                    <!-- <ng-container matColumnDef="action">
-                      <th mat-header-cell *matHeaderCellDef>Action</th>
-                      <td mat-cell *matCellDef="let row">
-                        <button
-                          mat-raised-button
-                          matTooltip="Approve or Reject Request"
-                          aria-label="Button that displays a tooltip when focused or hovered over"
-                          class="btn btn-primary btn-link btn-sm btn-just-icon"
-                          [matMenuTriggerFor]="menu"
-                        >
-                          <i class="material-icons">whatshot</i>
-                        </button>
-
-                        <mat-menu #menu="matMenu">
-                          <button
-                            *ngIf="role === 'TOP' && workFlow.mode === 'WF'"
-                            (click)="makeCancellationRequest(row)"
-                            mat-menu-item
-                          >
-                            Make Cancellation Request
-                          </button>
-                          <button
-                            *ngIf="role === 'TOP' && workFlow.mode === 'NWF'"
-                            (click)="confirmCancellationRequest(row)"
-                            mat-menu-item
-                          >
-                            Cancel Request
-                          </button>
-                          <button
-                            *ngIf="role === 'ADMIN'"
-                            (click)="confirmCancellationRequest(row)"
-                            mat-menu-item
-                          >
-                            Confirm Cancellation Request
-                          </button>
-                          <button
-                            mat-menu-item
-                            (click)="onOpenRejectDialog(row)"
-                          >
-                            Reject
-                          </button>
-                        </mat-menu>
-                      </td>
-                    </ng-container> -->
-
                     <tr
                       mat-header-row
                       *matHeaderRowDef="displayedHistoryColumns"
@@ -794,7 +643,6 @@
                   </table>
 
                   <mat-paginator
-                    #HistoryPaginator
                     [pageSizeOptions]="[5, 10, 20]"
                     showFirstLastButtons
                   ></mat-paginator>
@@ -1014,9 +862,8 @@
                   </table>
 
                   <mat-paginator
-                          #HistoryPaginatorAR
-                          [pageSizeOptions]="[5, 10, 20]"
-                          showFirstLastButtons
+                    [pageSizeOptions]="[5, 10, 20]"
+                    showFirstLastButtons
                   ></mat-paginator>
                 </div>
               </div>

@@ -8,14 +8,21 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 })
 export class ReservationRequestsService {
   private url = "/main/api/reservations/requests";
+  private urlPending = "/main/api/reservations/requests/pending";
   private urlh = "/main/api/reservations/requests/history";
   private urlaR = "/main/api/arreservations/requests";
+  private urlaRPending = "/main/api/arreservations/requests/pending";
   private urlhaR = "/main/api/arreservations/requests/history";
 
   constructor(private http: HttpClient) {}
 
   async getList(): Promise<any> {
     const url = `${this.url}`;
+    return await this.http.get(url).toPromise().catch(this.handleError);
+  }
+
+  async getPendingList(): Promise<any> {
+    const url = `${this.urlPending}`;
     return await this.http.get(url).toPromise().catch(this.handleError);
   }
 
@@ -27,6 +34,11 @@ export class ReservationRequestsService {
 
   async getARList(): Promise<any> {
     const url = `${this.urlaR}`;
+    return await this.http.get(url).toPromise().catch(this.handleError);
+  }
+
+  async getARPendingList(): Promise<any> {
+    const url = `${this.urlaRPending}`;
     return await this.http.get(url).toPromise().catch(this.handleError);
   }
 

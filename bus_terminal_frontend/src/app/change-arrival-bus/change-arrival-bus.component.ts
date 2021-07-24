@@ -122,7 +122,7 @@ export class ChangeArrivalBusComponent implements OnInit {
     this.time = this.data.row.time;
     console.log(this.id);
     this.httpClient
-      .put("/main/api/approve/reservations/requests/" + this.data.row.res_uuid, {
+      .put("/main/api/arrival/approve/arreservations/requests/" + this.data.row.res_uuid, {
         bus_id: this.f.bus.value,
       })
       .subscribe(
