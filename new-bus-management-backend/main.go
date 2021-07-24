@@ -83,7 +83,6 @@ func main() {
 	router.Handle("/main/api/reservations/requests/history", controllers.GetReservationsRequestsHistoryController).Methods("GET")
 	//router.Handle("/main/api/reservations/requests/history/range", controllers.GetReservationsRequestsHistoryController).Methods("GET")
 	router.Handle("/main/api/approve/reservations/requests/{id}", controllers.UpdateReservationController).Methods("PUT")
-	router.Handle("/main/arrival/api/approve/reservations/requests/{id}", controllers.UpdateArrivalReservationController).Methods("PUT")
 	router.Handle("/main/api/slots/close", controllers.CloseReservationController).Methods("PUT")
 
 	// Arrival Reservations Approval routes

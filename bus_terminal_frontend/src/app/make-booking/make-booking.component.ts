@@ -361,6 +361,7 @@ export class MakeBookingComponent implements OnInit {
                       let messagem = "Dear Manager,"
                       messagem += "\nA new application for departure has been submitted for your approval."
                       messagem += "\nBelow are the details:";
+                      messagem += "\nOperator: " + this.userItems.username;
                       messagem += '\nTime: ' + this.data.row.reservation_time.split('T')[0] + ' ' + this.data.row.time;
                       messagem += '\nDestination: ' + resRoute.routes.end_route;
                       messagem += '\nSlot: ' + this.f.slot.value;
