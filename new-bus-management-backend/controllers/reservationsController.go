@@ -39,6 +39,15 @@ var GetReservationsController = http.HandlerFunc(func(w http.ResponseWriter, r *
 	utils.Respond(w, resp)
 })
 
+var GetPendingReservationsController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+	data := models.GetPendingReservations()
+	resp := utils.Message(true, "success")
+	resp["data"] = data
+	log.Println(resp)
+	utils.Respond(w, resp)
+})
+
 // GetReservationsForController Function for retrieving reservations for a particular user
 var GetReservationsForController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 

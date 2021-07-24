@@ -23,6 +23,16 @@ var GetReservationsRequestsController = http.HandlerFunc(func(w http.ResponseWri
 	utils.Respond(w, resp)
 })
 
+// GetReservationsRequestsPendingController Function retrieving Reservations requests Admin side
+var GetReservationsRequestsPendingController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+	data := models.GetCurrentPendingReservation()
+	resp := utils.Message(true, "success")
+	resp["data"] = data
+	log.Println(resp)
+	utils.Respond(w, resp)
+})
+
 // GetReservationsRequestsHistoryController blah blah
 var GetReservationsRequestsHistoryController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 

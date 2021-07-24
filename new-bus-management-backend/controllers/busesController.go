@@ -32,3 +32,14 @@ var GetAvailableBusesController = http.HandlerFunc(func(w http.ResponseWriter, r
 	log.Println(resp)
 	utils.Respond(w, resp)
 })
+
+var GetArrivalAvailableBusesController = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	id := params["id"]
+
+	data := models.GetArrivalAvailableBuses(id)
+	resp := utils.Message(true, "success")
+	resp["data"] = data
+	log.Println(resp)
+	utils.Respond(w, resp)
+})

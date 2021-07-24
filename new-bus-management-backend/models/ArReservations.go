@@ -187,10 +187,27 @@ func ArGetCurrentReservation() []*EdArResult {
 	return result
 }
 
+// ArGetCurrentReservation get reservations for a particular day
+func ArGetCurrentPendingReservation() []*EdArResult {
+
+	t := time.Now()
+	reservedTime := time.Date(t.Year(), t.Month(), t.Day(), 23, 59, 59, 0, t.Location())
+	log.Println(reservedTime)
+	result := make([]*EdArResult, 0)
+	err := GetDB().Preload("EdBusRoute").Table("ed_ar_reservations").Select("ed_ar_reservations.*, probase_tbl_users.username, probase_tbl_bus.company, probase_tbl_bus.license_plate, ed_bus_routes.end_route").Joins("left join probase_tbl_users on ed_ar_reservations.user_id = probase_tbl_users.id").Joins("left join probase_tbl_bus on ed_ar_reservations.bus_id=probase_tbl_bus.id").Joins("left join ed_bus_routes on ed_ar_reservations.ed_bus_route_id = ed_bus_routes.id").Where("ed_ar_reservations.reserved_time > ? AND reservation_status = 'P'", reservedTime).Find(&result).Error
+	log.Println(err)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+
+	return result
+}
+
 // ArGetReservationHistory blah blah
 func ArGetReservationHistory() []*EdArResult {
 	result := make([]*EdArResult, 0)
-	err := GetDB().Preload("EdBusRoute").Table("ed_ar_reservations").Select("ed_ar_reservations.*, ed_ar_reservations.id, probase_tbl_users.username, probase_tbl_bus.company, probase_tbl_bus.license_plate").Joins("left join probase_tbl_users on ed_ar_reservations.user_id = probase_tbl_users.id").Joins("left join probase_tbl_bus on ed_ar_reservations.bus_id=probase_tbl_bus.id").Find(&result).Error
+	err := GetDB().Preload("EdBusRoute").Table("ed_ar_reservations").Select("ed_ar_reservations.*, ed_ar_reservations.id, probase_tbl_users.username, probase_tbl_bus.company, probase_tbl_bus.license_plate").Joins("left join probase_tbl_users on ed_ar_reservations.user_id = probase_tbl_users.id").Joins("left join probase_tbl_bus on ed_ar_reservations.bus_id=probase_tbl_bus.id").Where("reservation_status <> 'P'").Find(&result).Error
 	log.Println(err)
 	if err != nil {
 		log.Println(err)

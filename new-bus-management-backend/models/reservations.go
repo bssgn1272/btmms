@@ -136,6 +136,20 @@ func GetReservations() []*EdReservation {
 }
 
 // get reservations
+func GetPendingReservations() []*EdReservation {
+
+	reservations := make([]*EdReservation, 0)
+	err := GetDB().Table("ed_reservations").Where("reservation_status = 'P'").Find(&reservations).Error
+	log.Println(err)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+
+	return reservations
+}
+
+// get reservations
 //func GetReservationsHistory(fromDate time.Time, toDate time.Time) ([]*EdResult) {
 //
 //	result := make([]*EdResult, 0)
@@ -166,10 +180,27 @@ func GetCurrentReservation() []*EdResult {
 	return result
 }
 
+// GetCurrentPendingReservation get reservations for a particular day
+func GetCurrentPendingReservation() []*EdResult {
+
+	t := time.Now()
+	reservedTime := time.Date(t.Year(), t.Month(), t.Day(), 0, 0, 0, 0, t.Location())
+	log.Println(reservedTime)
+	result := make([]*EdResult, 0)
+	err := GetDB().Table("ed_reservations").Select("ed_reservations.*, ed_reservations.id, probase_tbl_users.username, probase_tbl_bus.company, probase_tbl_bus.license_plate, ed_bus_routes.end_route").Joins("left join probase_tbl_users on ed_reservations.user_id = probase_tbl_users.id").Joins("left join probase_tbl_bus on ed_reservations.bus_id=probase_tbl_bus.id").Joins("left join ed_bus_routes on ed_reservations.ed_bus_route_id=ed_bus_routes.id").Where("ed_reservations.reserved_time > ? AND reservation_status = 'P'", reservedTime).Find(&result).Error
+	log.Println(err)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+
+	return result
+}
+
 // GetReservationHistory get reservations historically
 func GetReservationHistory() []*EdResult {
 	result := make([]*EdResult, 0)
-	err := GetDB().Table("ed_reservations").Select("ed_reservations.*, ed_reservations.id, probase_tbl_users.username, probase_tbl_bus.company, probase_tbl_bus.license_plate, ed_bus_routes.end_route").Joins("left join probase_tbl_users on ed_reservations.user_id = probase_tbl_users.id").Joins("left join probase_tbl_bus on ed_reservations.bus_id=probase_tbl_bus.id").Joins("left join ed_bus_routes on ed_reservations.ed_bus_route_id=ed_bus_routes.id").Find(&result).Error
+	err := GetDB().Table("ed_reservations").Select("ed_reservations.*, ed_reservations.id, probase_tbl_users.username, probase_tbl_bus.company, probase_tbl_bus.license_plate, ed_bus_routes.end_route").Joins("left join probase_tbl_users on ed_reservations.user_id = probase_tbl_users.id").Joins("left join probase_tbl_bus on ed_reservations.bus_id=probase_tbl_bus.id").Joins("left join ed_bus_routes on ed_reservations.ed_bus_route_id=ed_bus_routes.id").Where("reservation_status <> 'P'").Find(&result).Error
 	log.Println(err)
 	if err != nil {
 		log.Println(err)

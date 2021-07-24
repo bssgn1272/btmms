@@ -79,13 +79,16 @@ func main() {
 
 	// Reservations Approval routes
 	router.Handle("/main/api/reservations/requests", controllers.GetReservationsRequestsController).Methods("GET")
+	router.Handle("/main/api/reservations/requests/pending", controllers.GetReservationsRequestsPendingController).Methods("GET")
 	router.Handle("/main/api/reservations/requests/history", controllers.GetReservationsRequestsHistoryController).Methods("GET")
 	//router.Handle("/main/api/reservations/requests/history/range", controllers.GetReservationsRequestsHistoryController).Methods("GET")
 	router.Handle("/main/api/approve/reservations/requests/{id}", controllers.UpdateReservationController).Methods("PUT")
+	router.Handle("/main/arrival/api/approve/reservations/requests/{id}", controllers.UpdateArrivalReservationController).Methods("PUT")
 	router.Handle("/main/api/slots/close", controllers.CloseReservationController).Methods("PUT")
 
 	// Arrival Reservations Approval routes
 	router.Handle("/main/api/arreservations/requests", controllers.GetARReservationsRequestsController).Methods("GET")
+	router.Handle("/main/api/arreservations/requests/pending", controllers.GetARReservationsRequestsPendingController).Methods("GET")
 	router.Handle("/main/api/arreservations/requests/history", controllers.GetARReservationsRequestsHistoryController).Methods("GET")
 	//router.Handle("/main/api/reservations/requests/history/range", controllers.GetReservationsRequestsHistoryController).Methods("GET")
 	router.Handle("/main/api/approve/arreservations/requests/{id}", controllers.UpdateARReservationController).Methods("PUT")
@@ -109,6 +112,7 @@ func main() {
 	// Buses routes
 	router.Handle("/main/api/buses/{id}", controllers.GetBusesController).Methods("GET")
 	router.Handle("/main/api/available/buses/{id}", controllers.GetAvailableBusesController).Methods("GET")
+	router.Handle("/main/api/arrival/available/buses/{id}", controllers.GetArrivalAvailableBusesController).Methods("GET")
 
 	// Workflow Routes
 	router.Handle("/main/api/workflow", controllers.GetModesController).Methods("GET")
