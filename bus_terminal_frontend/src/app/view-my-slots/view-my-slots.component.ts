@@ -78,8 +78,8 @@ export class ViewMySlotsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  @ViewChild(MatPaginator) arPaginator: MatPaginator;
-  @ViewChild(MatSort) arSort: MatSort;
+  @ViewChild("arPaginator", {read: MatPaginator}) arPaginator: MatPaginator;
+  @ViewChild("arSort", {read: MatSort}) arSort: MatSort;
   userItems: any;
 
 
@@ -94,8 +94,8 @@ export class ViewMySlotsComponent implements OnInit {
 
   dataSourceHistory = new MatTableDataSource([]);
 
-  @ViewChild('HistoryPaginator') paginatorHistory: MatPaginator;
-  @ViewChild('HistorySort') sortHistory: MatSort;
+  @ViewChild('paginatorHistory', {read: MatPaginator}) paginatorHistory: MatPaginator;
+  @ViewChild('HistorySort', {read: MatSort}) sortHistory: MatSort;
 
   displayedArrivalHistoryColumns: string[] = [
     'time',
@@ -108,8 +108,8 @@ export class ViewMySlotsComponent implements OnInit {
 
   dataSourceArrivalHistory = new MatTableDataSource([]);
 
-  @ViewChild('ArrivalHistoryPaginator') paginatorArrivalHistory: MatPaginator;
-  @ViewChild('ArrivalHistorySort') sortArrivalHistory: MatSort;
+  @ViewChild('paginatorArrivalHistory', {read: MatPaginator}) paginatorArrivalHistory: MatPaginator;
+  @ViewChild('sortArrivalHistory', {read: MatSort}) sortArrivalHistory: MatSort;
 
   displayData: any;
   arDisplayData: any;
@@ -144,7 +144,6 @@ export class ViewMySlotsComponent implements OnInit {
     const _id = this.userItems.ID;
 
     this.viewSlots.getList(_id).then((res) => {
-      console.log('MY SLOTS>>>>', _id, res.data);
       this.displayData = res.data;
       this.filterDataSource = this.displayData;
       this.dataSource = new MatTableDataSource(this.displayData);
@@ -153,7 +152,6 @@ export class ViewMySlotsComponent implements OnInit {
     });
 
     this.viewSlots.arGetList(_id).then((res) => {
-      console.log('MY AR SLOTS>>>>', res.data);
       this.arDisplayData = res.data;
       this.filterDataSource = this.arDisplayData;
       this.arDataSource = new MatTableDataSource(this.arDisplayData);
@@ -173,8 +171,8 @@ export class ViewMySlotsComponent implements OnInit {
       this.displayDataArrivalHistory = res.data;
       this.filterDataSourceArrivalHistory = this.displayDataArrivalHistory;
       this.dataSourceArrivalHistory = new MatTableDataSource(res.data);
-      this.dataSourceArrivalHistory.paginator = this.paginatorHistory;
-      this.dataSourceArrivalHistory.sort = this.sortHistory;
+      this.dataSourceArrivalHistory.paginator = this.paginatorArrivalHistory;
+      this.dataSourceArrivalHistory.sort = this.sortArrivalHistory;
     });
 
     // console.log(this.currentUser.id);

@@ -321,7 +321,7 @@
                 <div class="mat-elevation-z8">
                   <table
                           class="table"
-                          #dataTable
+                          #sortAR
                           mat-table
                           [dataSource]="dataSourceAR"
                           matSort
@@ -470,6 +470,7 @@
                   </table>
 
                   <mat-paginator
+                    #paginatorAR
                     [pageSizeOptions]="[5, 10, 20]"
                     showFirstLastButtons
                   ></mat-paginator>
@@ -553,7 +554,7 @@
                 <div class="mat-elevation-z8">
                   <table
                     class="table"
-                    #HistorySort
+                    #sortHistory
                     mat-table
                     [dataSource]="dataSourceHistory"
                     matSort
@@ -643,6 +644,7 @@
                   </table>
 
                   <mat-paginator
+                    #paginatorHistory
                     [pageSizeOptions]="[5, 10, 20]"
                     showFirstLastButtons
                   ></mat-paginator>
@@ -727,7 +729,7 @@
                 <div class="mat-elevation-z8">
                   <table
                           class="table"
-                          #HistorySortAR
+                          #sortHistoryAR
                           mat-table
                           [dataSource]="dataSourceHistoryAR"
                           matSort
@@ -862,6 +864,7 @@
                   </table>
 
                   <mat-paginator
+                    #paginatorHistoryAR
                     [pageSizeOptions]="[5, 10, 20]"
                     showFirstLastButtons
                   ></mat-paginator>
