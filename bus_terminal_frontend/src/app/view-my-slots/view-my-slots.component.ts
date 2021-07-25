@@ -140,6 +140,10 @@ export class ViewMySlotsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadData();
+  }
+
+  loadData(){
     this.userItems = this.getFromLocalStrorage();
     const _id = this.userItems.ID;
 
@@ -174,8 +178,10 @@ export class ViewMySlotsComponent implements OnInit {
       this.dataSourceArrivalHistory.paginator = this.paginatorArrivalHistory;
       this.dataSourceArrivalHistory.sort = this.sortArrivalHistory;
     });
+  }
 
-    // console.log(this.currentUser.id);
+  clearFilters(){
+    this.loadData();
   }
 
   isExpansionDetailRow = (i: number, row: Object) => row.hasOwnProperty('detailRow');
@@ -319,18 +325,18 @@ export class ViewMySlotsComponent implements OnInit {
     if (this.rStatus !== 'All') {
       this.filterDataSource = this.displayData.filter(
         (x) =>
-          x.reserved_time >
+          x.reserved_time >=
             formatDate(this.from, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530') &&
-          x.reserved_time <
+          x.reserved_time <=
             formatDate(this.to, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530') &&
           x.reservation_status === this.rStatus
       );
     } else {
       this.filterDataSource = this.displayData.filter(
         (x) =>
-          x.reserved_time >
+          x.reserved_time >=
             formatDate(this.from, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530') &&
-          x.reserved_time <
+          x.reserved_time <=
             formatDate(this.to, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530')
       );
     }
@@ -349,18 +355,18 @@ export class ViewMySlotsComponent implements OnInit {
     if (this.rStatus !== 'All') {
       this.arFilterDataSource = this.arDisplayData.filter(
         (x) =>
-          x.reserved_time >
+          x.reserved_time >=
             formatDate(this.from, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530') &&
-          x.reserved_time <
+          x.reserved_time <=
             formatDate(this.to, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530') &&
           x.status === this.rStatus
       );
     } else {
       this.arFilterDataSource = this.arDisplayData.filter(
         (x) =>
-          x.reserved_time >
+          x.reserved_time >=
             formatDate(this.from, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530') &&
-          x.reserved_time <
+          x.reserved_time <=
             formatDate(this.to, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530')
       );
     }
@@ -441,14 +447,14 @@ export class ViewMySlotsComponent implements OnInit {
     if (this.rStatus !== 'All') {
       this.filterDataSourceHistory = this.displayDataHistory.filter(
         (x) =>
-          x.reserved_time >
+          x.reserved_time >=
             formatDate(
               this.fromHistory,
               'yyy-MM-dd hh:mm:ss',
               'en-US',
               '+0530'
             ) &&
-          x.reserved_time <
+          x.reserved_time <=
             formatDate(this.toHistory, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530')
         // &&
         // x.status === this.rStatus
@@ -456,14 +462,14 @@ export class ViewMySlotsComponent implements OnInit {
     } else {
       this.filterDataSourceHistory = this.displayDataHistory.filter(
         (x) =>
-          x.reserved_time >
+          x.reserved_time >=
             formatDate(
               this.fromHistory,
               'yyy-MM-dd hh:mm:ss',
               'en-US',
               '+0530'
             ) &&
-          x.reserved_time <
+          x.reserved_time <=
             formatDate(this.toHistory, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530')
       );
     }
@@ -484,14 +490,14 @@ export class ViewMySlotsComponent implements OnInit {
     if (this.rStatus !== 'All') {
       this.filterDataSourceArrivalHistory = this.displayDataArrivalHistory.filter(
         (x) =>
-          x.reserved_time >
+          x.reserved_time >=
             formatDate(
               this.fromArrivalHistory,
               'yyy-MM-dd hh:mm:ss',
               'en-US',
               '+0530'
             ) &&
-          x.reserved_time <
+          x.reserved_time <=
             formatDate(this.toArrivalHistory, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530')
         // &&
         // x.status === this.rStatus
@@ -499,14 +505,14 @@ export class ViewMySlotsComponent implements OnInit {
     } else {
       this.filterDataSourceArrivalHistory = this.displayDataArrivalHistory.filter(
         (x) =>
-          x.reserved_time >
+          x.reserved_time >=
             formatDate(
               this.fromArrivalHistory,
               'yyy-MM-dd hh:mm:ss',
               'en-US',
               '+0530'
             ) &&
-          x.reserved_time <
+          x.reserved_time <=
             formatDate(this.toArrivalHistory, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530')
       );
     }

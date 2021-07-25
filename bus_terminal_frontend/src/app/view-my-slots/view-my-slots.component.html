@@ -109,7 +109,7 @@
                       <mat-datepicker #toDate></mat-datepicker>
                     </mat-form-field>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-2">
                     <button
                       mat-raised-button
                       color="primary"
@@ -117,6 +117,16 @@
                       (click)="dateRange()"
                     >
                       Filter
+                    </button>
+                  </div>
+                  <div class="col-md-1">
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      aria-label="filter date"
+                      (click)="clearFilters()"
+                    >
+                      Clear
                     </button>
                   </div>
                 </div>
@@ -307,7 +317,7 @@
                       <mat-datepicker #arToDate></mat-datepicker>
                     </mat-form-field>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-2">
                     <button
                       mat-raised-button
                       color="primary"
@@ -315,6 +325,16 @@
                       (click)="arDateRange()"
                     >
                       Filter
+                    </button>
+                  </div>
+                  <div class="col-md-1">
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      aria-label="filter date"
+                      (click)="clearFilters()"
+                    >
+                      Clear
                     </button>
                   </div>
                 </div>
@@ -506,7 +526,7 @@
                       <mat-datepicker #toHistoryDate></mat-datepicker>
                     </mat-form-field>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-2">
                     <button
                       mat-raised-button
                       color="primary"
@@ -514,6 +534,16 @@
                       (click)="dateRangeHistory()"
                     >
                       Filter
+                    </button>
+                  </div>
+                  <div class="col-md-1">
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      aria-label="filter date"
+                      (click)="clearFilters()"
+                    >
+                      Clear
                     </button>
                   </div>
                 </div>
@@ -689,7 +719,7 @@
                       <mat-datepicker #toArrivalHistoryDate></mat-datepicker>
                     </mat-form-field>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-2">
                     <button
                       mat-raised-button
                       color="primary"
@@ -697,6 +727,16 @@
                       (click)="dateRangeArrivalHistory()"
                     >
                       Filter
+                    </button>
+                  </div>
+                  <div class="col-md-1">
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      aria-label="filter date"
+                      (click)="clearFilters()"
+                    >
+                      Clear
                     </button>
                   </div>
                 </div>

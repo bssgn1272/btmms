@@ -273,18 +273,18 @@ export class ViewSlotsComponent implements OnInit {
     if (this.rStatus !== 'All') {
       this.filterDataSource = this.displayData.filter(
         (x) =>
-          x.reserved_time >
+          x.reserved_time >=
             formatDate(this.from, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530') &&
-          x.reserved_time <
+          x.reserved_time <=
             formatDate(this.to, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530') &&
           x.reservation_status === this.rStatus
       );
     } else {
       this.filterDataSource = this.displayData.filter(
         (x) =>
-          x.reserved_time >
+          x.reserved_time >=
             formatDate(this.from, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530') &&
-          x.reserved_time <
+          x.reserved_time <=
             formatDate(this.to, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530')
       );
     }
@@ -303,18 +303,18 @@ export class ViewSlotsComponent implements OnInit {
     if (this.rStatus !== 'All') {
       this.arFilterDataSource = this.arDisplayData.filter(
         (x) =>
-          x.reserved_time >
+          x.reserved_time >=
             formatDate(this.from, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530') &&
-          x.reserved_time <
+          x.reserved_time <=
             formatDate(this.to, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530') &&
           x.status === this.rStatus
       );
     } else {
       this.arFilterDataSource = this.arDisplayData.filter(
         (x) =>
-          x.reserved_time >
+          x.reserved_time >=
             formatDate(this.from, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530') &&
-          x.reserved_time <
+          x.reserved_time <=
             formatDate(this.to, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530')
       );
     }
@@ -364,14 +364,14 @@ export class ViewSlotsComponent implements OnInit {
     if (this.rStatus !== 'All') {
       this.filterDataSourceHistory = this.displayDataHistory.filter(
         (x) =>
-          x.reserved_time >
+          x.reserved_time >=
             formatDate(
               this.fromHistory,
               'yyy-MM-dd hh:mm:ss',
               'en-US',
               '+0530'
             ) &&
-          x.reserved_time <
+          x.reserved_time <=
             formatDate(this.toHistory, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530')
         // &&
         // x.status === this.rStatus
@@ -379,14 +379,14 @@ export class ViewSlotsComponent implements OnInit {
     } else {
       this.filterDataSourceHistory = this.displayDataHistory.filter(
         (x) =>
-          x.reserved_time >
+          x.reserved_time >=
             formatDate(
               this.fromHistory,
               'yyy-MM-dd hh:mm:ss',
               'en-US',
               '+0530'
             ) &&
-          x.reserved_time <
+          x.reserved_time <=
             formatDate(this.toHistory, 'yyy-MM-dd hh:mm:ss', 'en-US', '+0530')
       );
     }
