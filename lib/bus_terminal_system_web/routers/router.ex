@@ -145,15 +145,27 @@ defmodule BusTerminalSystemWeb.Router do
     forward "/mailbox", Plug.Swoosh.MailboxPreview, [base_path: "/dev/mailbox"]
   end
 
-  scope "/btms/services/graphql/" do
-    pipe_through :api
+#  scope "/btms/services/graphql/" do
+#    pipe_through :api
+#
+#    forward "/interface", Absinthe.Plug.GraphiQL,
+#            schema: BusTerminalSystemWeb.Schema
+#
+#    forward "/", Absinthe.Plug,
+#            schema: BusTerminalSystemWeb.Schema
+#  end
 
-    forward "/interface", Absinthe.Plug.GraphiQL,
-            schema: BusTerminalSystemWeb.Schema
-
-    forward "/", Absinthe.Plug,
-            schema: BusTerminalSystemWeb.Schema
-  end
+#  scope "/btmms/api/napsa", BusTerminalSystemWeb do
+#    pipe_through :api
+#
+#    match :*, "/contributions", NapsaController, :contribute
+#    match :*, "/contributions/returns", NapsaController, :return_upload
+#    match :*, "/member/search", NapsaController, :search_member
+#    match :*, "/member/register", NapsaController, :register_member
+#
+#  end
+#
+#
 
   scope "/btmms/api/napsa", BusTerminalSystemWeb do
     pipe_through :api
@@ -165,55 +177,9 @@ defmodule BusTerminalSystemWeb.Router do
 
   end
 
-
-  # Other scopes may use custom stacks.
+#  # Other scopes may use custom stacks.
   scope "/api/v1", BusTerminalSystemWeb do
     pipe_through :api
-
-    post "/btms/Dashboard/Checker/View", MakerCheckerController, :view
-
-    post "/btms/secured/password/reset", SessionController, :reset_password
-    post "/btms/secured/password/fta_update", SessionController, :fta_update
-
-    post "/btms/tickets/secured/board_ticket", TicketController, :ticket_board_passenger
-    post "/btms/tickets/secured/submit_ledger_transaction", TicketController, :transaction_post_to_ledger
-    post "/btms/tickets/secured/find", TicketController, :find_ticket
-    post "/btms/tickets/secured/find/external_ref", TicketController, :find_ticket_external_ref
-    post "/btms/tickets/secured/find/serial", TicketController, :find_ticket_serial
-    post "/btms/tickets/secured/purchase", TicketController, :purchase_ticket
-    get "/btms/travel/secured/destinations", TicketController, :get_schedules
-    post "/btms/travel/secured/cancel_trip", TicketController, :cancel_trip
-    post "/btms/travel/secured/internal/destinations", TicketController, :get_schedules_internal
-    get "/btms/tickets/secured/internal/get_luggage_weight", TicketController, :get_luggage_weight
-    post "/btms/operator/reset_password", FrontendApiController, :reset_password
-    post "/btms/operator/search", FrontendApiController, :find_operator
-    post "/btms/H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hICn", FrontendApiController, :form_validation_api
-    post "/btms/H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hIC0", FrontendApiController, :change_user_password
-
-    post "/btms/travel/secured/internal/locations/destinations",
-         TicketController,
-         :get_schedules_buses
-
-    post "/btms/travel/secured/internal/locations/destinations/internal",
-         TicketController,
-         :get_schedules_buses_internal
-
-    post "/btms/plvPM5f+H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hICn", TicketController, :create_ticket_payload
-
-    match :*, "/btms/travel/secured/routes", TicketController, :get_travel_routes
-
-    get "/btms/tickets/secured/list", TicketController, :list_tickets
-
-
-    post "/btms/market/secured/marketer_kyc", MarketApiController, :fetch_kyc
-    get "/btms/market/secured/all_marketer_kyc", MarketApiController, :all_marketeer_kyc
-    post "/btms/market/secured/marketer_kyc_minimal", MarketApiController, :fetch_kyc_minimal
-    post "/btms/market/secured/authenticate_marketer", MarketApiController, :authenticate_marketer
-    post "/btms/market/secured/update_pin", MarketApiController, :update_pin
-    post "/btms/market/secured/reset_pin", MarketApiController, :reset_pin
-    post "/btms/market/secured/register_market", MarketApiController, :register_marketeer
-
-    post "/btms/operator/secured/update_password", FrontendApiController, :update_user_password
 
     post "/internal/create/acquire_luggage", FrontendApiController, :acquire_luggage
     post "/internal/create/acquire_luggage_plain", FrontendApiController, :acquire_luggage_form_view
@@ -268,6 +234,107 @@ defmodule BusTerminalSystemWeb.Router do
     post "/internal/banks/retry", FrontendApiController, :retry_account_creation
     post "/internal/verify/user_id", FrontendApiController, :verify_user_id
   end
+#  scope "/api/v1", BusTerminalSystemWeb do
+#    pipe_through :api
+#
+#    post "/btms/Dashboard/Checker/View", MakerCheckerController, :view
+#
+#    post "/btms/secured/password/reset", SessionController, :reset_password
+#    post "/btms/secured/password/fta_update", SessionController, :fta_update
+#
+#    post "/btms/tickets/secured/board_ticket", TicketController, :ticket_board_passenger
+#    post "/btms/tickets/secured/submit_ledger_transaction", TicketController, :transaction_post_to_ledger
+#    post "/btms/tickets/secured/find", TicketController, :find_ticket
+#    post "/btms/tickets/secured/find/external_ref", TicketController, :find_ticket_external_ref
+#    post "/btms/tickets/secured/find/serial", TicketController, :find_ticket_serial
+#    post "/btms/tickets/secured/purchase", TicketController, :purchase_ticket
+#    get "/btms/travel/secured/destinations", TicketController, :get_schedules
+#    post "/btms/travel/secured/cancel_trip", TicketController, :cancel_trip
+#    post "/btms/travel/secured/internal/destinations", TicketController, :get_schedules_internal
+#    get "/btms/tickets/secured/internal/get_luggage_weight", TicketController, :get_luggage_weight
+#    post "/btms/operator/reset_password", FrontendApiController, :reset_password
+#    post "/btms/operator/search", FrontendApiController, :find_operator
+#    post "/btms/H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hICn", FrontendApiController, :form_validation_api
+#    post "/btms/H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hIC0", FrontendApiController, :change_user_password
+#
+#    post "/btms/travel/secured/internal/locations/destinations",
+#         TicketController,
+#         :get_schedules_buses
+#
+#    post "/btms/travel/secured/internal/locations/destinations/internal",
+#         TicketController,
+#         :get_schedules_buses_internal
+#
+#    post "/btms/plvPM5f+H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hICn", TicketController, :create_ticket_payload
+#
+#    match :*, "/btms/travel/secured/routes", TicketController, :get_travel_routes
+#
+#    get "/btms/tickets/secured/list", TicketController, :list_tickets
+#
+#
+#    post "/btms/market/secured/marketer_kyc", MarketApiController, :fetch_kyc
+#    get "/btms/market/secured/all_marketer_kyc", MarketApiController, :all_marketeer_kyc
+#    post "/btms/market/secured/marketer_kyc_minimal", MarketApiController, :fetch_kyc_minimal
+#    post "/btms/market/secured/authenticate_marketer", MarketApiController, :authenticate_marketer
+#    post "/btms/market/secured/update_pin", MarketApiController, :update_pin
+#    post "/btms/market/secured/reset_pin", MarketApiController, :reset_pin
+#    post "/btms/market/secured/register_market", MarketApiController, :register_marketeer
+#
+#    post "/btms/operator/secured/update_password", FrontendApiController, :update_user_password
+#
+#    post "/internal/create/acquire_luggage", FrontendApiController, :acquire_luggage
+#    post "/internal/create/acquire_luggage_plain", FrontendApiController, :acquire_luggage_form_view
+#    post "/internal/create/virtual_ticket", FrontendApiController, :create_virtual_luggage_ticket
+#    post "/internal/query/route", FrontendApiController, :query_route
+#    post "/internal/delete/route", FrontendApiController, :delete_route
+#    post "/internal/update/route", FrontendApiController, :update_route_bus_route
+#
+#    post "/internal/reset_password", FrontendApiController, :reset_password
+#    post "/internal/user/permissions", FrontendApiController, :get_permissions
+#    post "/internal/list/bus", FrontendApiController, :query_list_buses
+#    get "/internal/list/bus_routes", FrontendApiController, :list_travel_routes
+#    get "/internal/list/bus_operators", FrontendApiController, :list_bus_operators
+#    post "/internal/query/user", FrontendApiController, :query_user
+#    post "/internal/query/user/id", FrontendApiController, :query_user_by_id
+#    post "/internal/update/user", FrontendApiController, :update_user
+#    post "/internal/query/bus", FrontendApiController, :query_bus
+#    post "/internal/update/bus", FrontendApiController, :update_bus
+#    get "/internal/update/balances", FrontendApiController, :update_balances
+#    post "/internal/delete/bus", FrontendApiController, :delete_bus
+#    post "/internal/tickets/find", TicketController, :find_ticket_internal
+#    get "/internal/scale/query", FrontendApiController, :get_scale_query
+#
+#    get "/internal/banks/list", FrontendApiController, :bank_list
+#    post "/internal/banks/get_bank_branches", FrontendApiController, :branch_list
+#    post "/internal/banks/get_bank", FrontendApiController, :get_bank
+#
+#
+#    post "/internal/get_luggage_tarrif", FrontendApiController, :get_luggage_tarrif
+#    post "/internal/get_luggage_by_ticket_id", FrontendApiController, :get_luggage_by_ticket
+#    post "/internal/get_luggage_by_ticket_id_total_cost", FrontendApiController, :get_luggage_by_ticket_total_cost
+#    post "/internal/add_luggage", FrontendApiController, :add_luggage
+#    post "/internal/checkin", FrontendApiController, :checkin_passenger
+#    post "/internal/tickets/cancel", FrontendApiController, :cancel_ticket
+#    post "/internal/tickets/update", FrontendApiController, :update_ticket
+#
+#    post "/internal/napsa/add_member_beneficiary", FrontendApiController, :add_beneficiary
+#    post "/internal/napsa/clear_member_beneficiaries", FrontendApiController, :clear_beneficiaries
+#
+#    post "/internal/discounts/operator", FrontendApiController, :discount_operator
+#    post "/internal/discounts/enable", FrontendApiController, :enable_discount
+#    post "/internal/discounts/set", FrontendApiController, :set_discount
+#    get "/internal/routes/threshold", FrontendApiController, :minimum_route_price
+#
+#    post "/internal/markets", FrontendApiController, :modules
+#
+#    post "/internal/transaction/deposit", TellerController, :deposit
+#    post "/internal/transaction/withdraw", TellerController, :withdraw
+#
+#    post "/internal/funds_sweep", FrontendApiController, :funds_transfer
+#    post "/internal/update/settings", FrontendApiController, :update_settings
+#    post "/internal/banks/retry", FrontendApiController, :retry_account_creation
+#    post "/internal/verify/user_id", FrontendApiController, :verify_user_id
+#  end
 
   # Maker checker implementation
   scope "/authorisation", BusTerminalSystemWeb do
