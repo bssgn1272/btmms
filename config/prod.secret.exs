@@ -8,7 +8,7 @@ config :bus_terminal_system, BusTerminalSystem.Repo,
    username: "probase",
    password: "V1neyard",
    database: "btmms",
-   hostname: "10.10.1.88",
+   hostname: "10.70.1.4",
    timeout: :infinity,
    port: 3306,
    show_sensitive_data_on_connection_error: false,
@@ -25,8 +25,12 @@ config :sentry,
    included_environments: [:prod]
 
 config :bus_terminal_system, BusTerminalSystemWeb.Endpoint,
-  http: [port: String.to_integer(System.get_env("PORT") || "4000")],
-  secret_key_base: "07MuWl3Z1fuEoGxPgpLoGGiy3/DMF1pgbUItrCY+PyMO6NNEMwWvpqXm72K1b1kP"
+   http: [port: String.to_integer(System.get_env("PORT") || "4000")],
+   secret_key_base: "07MuWl3Z1fuEoGxPgpLoGGiy3/DMF1pgbUItrCY+PyMO6NNEMwWvpqXm72K1b1kP"
+
+config :bus_terminal_system, BusTerminalSystemWeb.ApiEndpoint,
+   http: [port: String.to_integer(System.get_env("PORT") || "4001")],
+   secret_key_base: "kbI+dvsxztnGHY03dBMj3g37NPHV0V3Klxe/sDgZunKrfp5njkMIm/5Si/27zUbC"
 
 # ## Using releases (Elixir v1.9+)
 #
@@ -34,6 +38,7 @@ config :bus_terminal_system, BusTerminalSystemWeb.Endpoint,
 # to start each relevant endpoint:
 #
 config :bus_terminal_system, BusTerminalSystemWeb.Endpoint, server: true
+config :bus_terminal_system, BusTerminalSystemWeb.ApiEndpoint, server: true
 #
 # Then you can assemble a release by calling `mix release`.
 # See `mix help release` for more information.
