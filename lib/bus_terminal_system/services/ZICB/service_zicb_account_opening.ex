@@ -156,8 +156,7 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
           }
           |> Poison.encode!()
           |> http()
-
-
+          
           query_account_by_mobile(args["mobileNumber"], user)
           |> account_balance_inquiry2(user)
 
@@ -179,7 +178,7 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
                      "service" => "ZB0629",
                      "request" => %{
                        "accountNos" =>  details["accountNo"],
-                       "serviceKey" => Settings.find_by(key: "BANK_AUTH_SERVICE_KEY").value
+                       "serviceKey" => Settings.find_by(key: "BANK_INFO_SERVICE_KEY").value
                      }
                    } |> Poison.encode!() |> http()
 
@@ -231,7 +230,7 @@ defmodule BusTerminalSystem.Service.Zicb.AccountOpening do
   defp http(request) do
     headers = [
       {"Content-Type", "application/json"},
-      {"authKey", Settings.find_by(key: "BANK_AUTH_KEY").value},
+      {"authKey", Settings.find_by(key: "BANK_INFO_AUTH_KEY").value},
     ]
 
     case HTTPoison.post(Settings.find_by(key: "BANK_URL").value, request,  headers, [recv_timeout: 200_000, timeout: 200_000, hackney: [:insecure]]) do

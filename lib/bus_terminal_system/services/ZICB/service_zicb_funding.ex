@@ -60,26 +60,18 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
 
     end)
     txn_request = bank_request.(transaction)
-    bank_response = txn_request |> Poison.encode!()
-    |> http(Settings.find_by(key: "BANK_AUTH_KEY").value)
-
+    bank_response = (fn req -> if req["type"] == "SRC", do: req |> Poison.encode!() |> http(Settings.find_by(key: "BANK_SETTLEMENT_AUTH_KEY").value), else: req |> Poison.encode!() |> http(Settings.find_by(key: "BANK_COLLECTIONS_AUTH_KEY").value)  end)
+#    bank_response = txn_request |> Poison.encode!() |> http(Settings.find_by(key: "BANK_SETTLEMENT_AUTH_KEY").value)
+      bank_response = bank_response.(txn_request)
       txn_response = bank_response["response"]["txn"]
-
-#      try do
-#      if txn_response["tekHeader"]["status"] == "SUCCESS" do
-#        spawn(fn ->
-#          BusTerminalSystem.Service.Zicb.AccountOpening.run()
-#        end)
 
         if txn_request["type"] == "SRC" and txn_response["tekHeader"]["status"] == "SUCCESS" do
           [account] = bank_response["response"]["srcAcc"]["response"]["accountList"]
           [dest_account] = bank_response["response"]["destAcc"]["response"]["accountList"]
-#          User.find(transaction.user_id) |> User.update([bank_account_balance: account["availablebalance"]])
 
 
           Ecto.Multi.new()
           |> Multi.update(:account, Ecto.Changeset.change(User.find_by(id: transaction.user_id), %{bank_account_balance: Decimal.new(account["availablebalance"]) |> Decimal.to_float}))
-#          |> Multi.update(:dest_account, Ecto.Changeset.change(User.find_by(account_number: dest_account["accountno"]), %{bank_account_balance: Decimal.new(dest_account["availablebalance"]) |> Decimal.to_float}))
           |> BusTerminalSystem.Repo.transaction
           |> case do
                {:ok, _} ->
@@ -96,11 +88,8 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
         else
           [account] = bank_response["response"]["destAcc"]["response"]["accountList"]
           [src_account] = bank_response["response"]["srcAcc"]["response"]["accountList"]
-#          User.find_by(account_number: src_account["accountno"]) |> User.update([bank_account_balance: src_account["availablebalance"]])
-#          User.find(transaction.user_id) |> User.update([bank_account_balance: account["availablebalance"]])
           Ecto.Multi.new()
           |> Multi.update(:account, Ecto.Changeset.change(User.find_by(id: transaction.user_id), %{bank_account_balance: Decimal.new(account["availablebalance"]) |> Decimal.to_float}))
-#          |> Multi.update(:src_account, Ecto.Changeset.change(User.find_by(account_number: src_account["accountno"]), %{bank_account_balance: Decimal.new(src_account["availablebalance"]) |> Decimal.to_float}))
           |> BusTerminalSystem.Repo.transaction
           |> case do
                {:ok, _} ->
@@ -115,15 +104,6 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
                  |> update_transaction(transaction)
              end
         end
-
-
-
-#      else
-#
-#      end
-#    rescue
-#      _ -> %{:status => "FAILED", :message => "Bank Connection Failed", :transaction => %{}}
-#    end
   end
 
   def update_transaction(updates, transaction) do
@@ -152,28 +132,12 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
         "transferRef" => args["transferRef"]
       }
     } |> Poison.encode!()
-#      |> http(Settings.find_by(key: "BANK_AUTH_KEY").value)
 
-#    try do
-#      if bank_response["response"]["tekHeader"]["status"] == "SUCCESS" do
         %{
-#          "hostrefno" => bank_response["response"]["tekHeader"]["hostrefno"],
-#          "status" => bank_response["response"]["tekHeader"]["status"]
           "status" => "PENDING"
         }
         |> Map.merge(args)
         args |> transaction
-#      else
-#        %{
-#          "status" => bank_response["tekHeader"]["status"]
-#        }
-#        |> Map.merge(args)
-#        |> transaction
-#      end
-#    rescue
-#      _ -> %{:status => "FAILED", :message => "Bank Connection Failed", :transaction => %{}}
-#    end
-
 
   end
 
@@ -191,27 +155,12 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
         "transferRef" => args["transferRef"]
       }
     } |> Poison.encode!()
-#      |> http(Settings.find_by(key: "BANK_AUTH_KEY").value)
 
-#    try do
-#      if bank_response["response"]["tekHeader"]["status"] == "SUCCESS" do
         %{
-#          "hostrefno" => bank_response["response"]["tekHeader"]["hostrefno"],
-#          "status" => bank_response["response"]["tekHeader"]["status"]
           "status" => "PENDING"
         }
         |> Map.merge(args)
          args |> transaction
-#      else
-#        %{
-#          "status" => bank_response["tekHeader"]["status"]
-#        }
-#        |> Map.merge(args)
-#        |> transaction
-#      end
-#    rescue
-#      _ -> %{:status => "FAILED", :message => "Bank Connection Failed", :transaction => %{}}
-#    end
 
   end
 
@@ -334,7 +283,7 @@ defmodule BusTerminalSystem.Service.Zicb.Funding do
   def wallet_transact(request) do
     headers = [
       {"Content-Type", "application/json"},
-      {"authKey", Settings.find_by(key: "BANK_AUTH_KEY").value}
+      {"authKey", Settings.find_by(key: "BANK_COLLECTIONS_AUTH_KEY").value}
     ]
 
     #    try do
