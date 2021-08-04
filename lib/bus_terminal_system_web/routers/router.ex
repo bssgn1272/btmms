@@ -247,6 +247,8 @@ defmodule BusTerminalSystemWeb.Router do
     post "/btms/plvPM5f+H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hICn", TicketController, :create_ticket_payload
     post "/btms/travel/secured/internal/locations/destinations", TicketController, :get_schedules_buses
 
+    post "/btms/Dashboard/Checker/View", MakerCheckerController, :view
+
   end
 #  scope "/api/v1", BusTerminalSystemWeb do
 #    pipe_through :api

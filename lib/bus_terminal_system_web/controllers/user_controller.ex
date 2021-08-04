@@ -632,7 +632,7 @@ defmodule BusTerminalSystemWeb.UserController do
       "ssn" => payload["ssn"],
     }
 
-    case AccountManager.create_user(payload) do
+    case AccountManager.create_user(payload, conn) do
       {:ok, user} ->
 
 #        conn

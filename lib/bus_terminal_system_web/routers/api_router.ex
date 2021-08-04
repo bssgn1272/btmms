@@ -38,7 +38,8 @@ defmodule BusTerminalSystemWeb.ApiRouter do
   scope "/api/v1", BusTerminalSystemWeb do
     pipe_through :api
 
-
+#    post "/btms/secured/password/reset", SessionController, :reset_password
+#    post "/btms/secured/password/fta_update", SessionController, :fta_update
 
     post "/btms/tickets/secured/board_ticket", TicketController, :ticket_board_passenger
     post "/btms/tickets/secured/submit_ledger_transaction", TicketController, :transaction_post_to_ledger
@@ -48,6 +49,19 @@ defmodule BusTerminalSystemWeb.ApiRouter do
     post "/btms/tickets/secured/purchase", TicketController, :purchase_ticket
     get "/btms/travel/secured/destinations", TicketController, :get_schedules
     post "/btms/travel/secured/cancel_trip", TicketController, :cancel_trip
+
+#    post "/btms/travel/secured/internal/destinations", TicketController, :get_schedules_internal
+#    get "/btms/tickets/secured/internal/get_luggage_weight", TicketController, :get_luggage_weight
+#    post "/btms/operator/reset_password", FrontendApiController, :reset_password
+#    post "/btms/operator/search", FrontendApiController, :find_operator
+#    post "/btms/H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hICn", FrontendApiController, :form_validation_api
+#    post "/btms/H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hIC0", FrontendApiController, :change_user_password
+#    post "/btms/operator/secured/update_password", FrontendApiController, :update_user_password
+#    post "/btms/travel/secured/internal/locations/destinations/internal", TicketController, :get_schedules_buses_internal
+#    post "/btms/plvPM5f+H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hICn", TicketController, :create_ticket_payload
+#
+#    post "/btms/travel/secured/internal/locations/destinations", TicketController, :get_schedules_buses
+
 
     match :*, "/btms/travel/secured/routes", TicketController, :get_travel_routes
     get "/btms/tickets/secured/list", TicketController, :list_tickets
