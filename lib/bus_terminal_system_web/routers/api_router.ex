@@ -76,7 +76,6 @@ defmodule BusTerminalSystemWeb.ApiRouter do
     post "/btms/market/secured/register_market", MarketApiController, :register_marketeer
 
 
-
   end
 
   scope "/api/swagger" do

@@ -249,6 +249,9 @@ defmodule BusTerminalSystemWeb.Router do
 
     post "/btms/Dashboard/Checker/View", MakerCheckerController, :view
 
+    match :*, "/btms/travel/secured/routes", TicketController, :get_travel_routes
+    get "/btms/tickets/secured/list", TicketController, :list_tickets
+
   end
 #  scope "/api/v1", BusTerminalSystemWeb do
 #    pipe_through :api
