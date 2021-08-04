@@ -660,7 +660,7 @@ defmodule BusTerminalSystemWeb.UserController do
   defp user_create_teller_payload(conn, payload) do
 
 
-    case AccountManager.create_user(payload) do
+    case AccountManager.create_user(payload, conn) do
       {:ok, user} ->
 
         #        conn
@@ -688,7 +688,7 @@ defmodule BusTerminalSystemWeb.UserController do
   defp user_create_staff_payload(conn, payload) do
 
 
-    case AccountManager.create_user(payload) do
+    case AccountManager.create_user(payload, conn) do
       {:ok, user} ->
 
         #        conn

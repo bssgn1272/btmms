@@ -24,8 +24,8 @@ defmodule BusTerminalSystem.BusManagement.Bus do
     field :company_info, :string
     field :vehicle_capacity, :string
     field :auth_status, :boolean, default: false
-    field :maker, :integer, default: 1
-    field :checker, :integer, default: 1
+    field :maker, :integer
+    field :checker, :integer
     field :maker_date_time, :naive_datetime, default: NaiveDateTime.local_now
     field :checker_date_time, :naive_datetime, default: NaiveDateTime.local_now
     field :user_description, :string, default: "New User Bus Request"

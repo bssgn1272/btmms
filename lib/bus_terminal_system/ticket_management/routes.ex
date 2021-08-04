@@ -16,8 +16,8 @@ defmodule BusTerminalSystem.TravelRoutes do
     field :route_uuid, :string
     field :route_fare, :integer
     field :auth_status, :boolean, default: false
-    field :maker, :integer, default: 1
-    field :checker, :integer, default: 1
+    field :maker, :integer
+    field :checker, :integer
     field :maker_date_time, :naive_datetime, default: NaiveDateTime.local_now
     field :checker_date_time, :naive_datetime, default: NaiveDateTime.local_now
     field :user_description, :string, default: "New Route Creation Request"
