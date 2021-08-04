@@ -100,7 +100,7 @@ defmodule BusTerminalSystem.MakerCheckModule do
   end
 
   def approve(conn, params) do
-    Repo.query("UPDATE "<>params["table"]<>" SET auth_status='1' WHERE id="<>params["id"]<>";")
+    Repo.query("UPDATE "<>params["table"]<>" SET auth_status='1', checker='#{conn.assigns.user.id}' WHERE id="<>params["id"]<>";")
     |> case do
          {:ok, _} -> {:ok, "Approval Successful!"}
          {:error} -> {:error, "Error Code: 200-9099"}
