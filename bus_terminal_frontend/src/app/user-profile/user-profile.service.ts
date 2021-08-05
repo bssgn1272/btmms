@@ -13,7 +13,7 @@ export class OpenSlotsService {
 
   async getList(date: any = new String('1970-01-01')): Promise<any> {
     let today = new Date();
-    today.setDate(today.getDate() + 1);
+    today.setDate(today.getDate());
     if (!(date == '1970-01-01')) {
       today = new Date(date);
     }
@@ -27,7 +27,7 @@ export class OpenSlotsService {
 
   async arGetList(date: any = new String('1970-01-01')): Promise<any> {
     let today = new Date();
-    today.setDate(today.getDate() + 1);
+    today.setDate(today.getDate());
     if (!(date == '1970-01-01')) {
       today = new Date(date);
     }
@@ -58,7 +58,7 @@ export class OpenSlotsService {
     if (mm < 10) {
         month = '0' + mm;
     }
-    const dt = yyyy + '-' + month + '-' + day + ' ' + '20:00:00';
+    const dt = yyyy + '-' + month + '-' + day + ' ' + '00:00:00';
     return dt;
   }
 

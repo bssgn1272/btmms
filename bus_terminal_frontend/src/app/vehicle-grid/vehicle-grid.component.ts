@@ -65,8 +65,8 @@ export class VehicleGridComponent implements OnInit {
     private penaltiesService: ViewMyPenaltiesService,
     private optionsService: OptionsService
   ) {
-    this.valDate.setDate(this.valDate.getDate() + 1);
-    this.valArDate.setDate(this.valDate.getDate() + 1);
+    this.valDate.setDate(this.valDate.getDate());
+    this.valArDate.setDate(this.valDate.getDate());
   }
 
   public getFromLocalStrorage() {
@@ -84,7 +84,7 @@ export class VehicleGridComponent implements OnInit {
     this.user = this.userItems.username;
     this.minDate = new Date();
     this.maxDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() + 1);
+    this.minDate.setDate(this.minDate.getDate());
     this.maxDate.setDate(this.maxDate.getDate() + 7);
 
     this.operatingDate = this.convertDate(this.valDate);

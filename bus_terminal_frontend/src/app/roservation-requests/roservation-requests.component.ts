@@ -166,6 +166,7 @@ export class RoservationRequestsComponent implements OnInit {
     this.userItems = this.getFromLocalStrorage();
     this.role = this.userItems.role;
     this.requests.getPendingList().then((res) => {
+      console.log(res.data);
       this.displayData = res.data;
       this.filterDataSource = this.displayData;
       this.dataSource = new MatTableDataSource(this.displayData);

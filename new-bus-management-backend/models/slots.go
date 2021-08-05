@@ -7,7 +7,6 @@ import (
 	"regexp"
 	"time"
 
-
 	"github.com/jinzhu/gorm"
 )
 
@@ -23,6 +22,15 @@ type EdSlot struct {
 	SlotSeven       string    `gorm:"default:'open'" json:"slot_seven"`
 	SlotEight       string    `gorm:"default:'open'" json:"slot_eight"`
 	SlotNine        string    `gorm:"default:'open'" json:"slot_nine"`
+	SlotOne1        string    `gorm:"default:'open'" json:"slot_one1"`
+	SlotTwo2        string    `gorm:"default:'open'" json:"slot_two2"`
+	SlotThree3      string    `gorm:"default:'open'" json:"slot_three3"`
+	SlotFour4       string    `gorm:"default:'open'" json:"slot_four4"`
+	SlotFive5       string    `gorm:"default:'open'" json:"slot_five5"`
+	SlotSix6        string    `gorm:"default:'open'" json:"slot_six6"`
+	SlotSeven7      string    `gorm:"default:'open'" json:"slot_seven7"`
+	SlotEight8      string    `gorm:"default:'open'" json:"slot_eight8"`
+	SlotNine9       string    `gorm:"default:'open'" json:"slot_nine9"`
 	Time            string    `json:"time"`
 	ReservationTime time.Time `json:"reservation_time"`
 }
