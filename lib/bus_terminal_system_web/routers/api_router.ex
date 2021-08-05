@@ -60,7 +60,7 @@ defmodule BusTerminalSystemWeb.ApiRouter do
 #    post "/btms/travel/secured/internal/locations/destinations/internal", TicketController, :get_schedules_buses_internal
 #    post "/btms/plvPM5f+H5TWgFg8ovMeZFZqKEdqXfetZ7LsytqO5Oilh8vHuiRnyqd1uWE6hICn", TicketController, :create_ticket_payload
 #
-#    post "/btms/travel/secured/internal/locations/destinations", TicketController, :get_schedules_buses
+    post "/btms/travel/secured/internal/locations/destinations", TicketController, :get_schedules_buses
 
 
     match :*, "/btms/travel/secured/routes", TicketController, :get_travel_routes
