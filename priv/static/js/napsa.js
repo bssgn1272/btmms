@@ -173,6 +173,11 @@ function register_member() {
 
 }
 
+function skip_registration(){
+    $("#napsa_member").val("");
+    $("#new_user_redirect_form").submit();
+}
+
 function confirm_registration() {
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {

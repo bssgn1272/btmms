@@ -176,8 +176,6 @@
                                                         <%= if access(@user.id, 116) do %>
                                                             <li><%= link "Shop Allocation", to: Routes.marketer_path(@conn, :standallocation) %></li>
                                                         <% end %>
-
-
                                                     </ul>
                                                 </li>
                                             <% end %>

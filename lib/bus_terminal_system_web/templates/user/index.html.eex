@@ -526,6 +526,7 @@
         <hr>
         <div class="modal-footer">
             <button type="submit" onclick="validate_national_id()" class="w3-btn w3-indigo w3-round">Search</button>
+            <button type="submit" onclick="skip_registration()" class="w3-btn w3-indigo w3-round">Skip</button>
             <button type="submit" class="w3-btn w3-red w3-round" data-dismiss="modal">Close</button>
         </div>
       </div>

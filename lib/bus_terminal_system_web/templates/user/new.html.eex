@@ -64,17 +64,17 @@
 
                                     <div class="form-group" id="user_first_name" >
                                           <label>First Name: <span style="color: red;">*</span></label>
-                                          <input class="form-control" readonly name="payload[first_name]" value="<%= (@napsa_user["firstName"] || "") %>" placeholder="Date of birth" type="text">
+                                          <input class="form-control" <%= raw if @napsa_user["firstName"] != nil, do: "readonly" %> name="payload[first_name]" value="<%= (@napsa_user["firstName"] || "") %>" placeholder="First Name" type="text">
                                     </div>
 
                                     <div class="form-group" id="user_last_name" >
                                           <label>Last Name: <span style="color: red;">*</span></label>
-                                          <input name="payload[last_name]"  class="form-control" readonly value="<%= (@napsa_user["lastName"] || "") %>" placeholder="Enter Last Name" type="text">
+                                          <input name="payload[last_name]"  class="form-control" <%= raw if @napsa_user["lastName"] != nil, do: "readonly" %> value="<%= (@napsa_user["lastName"] || "") %>" placeholder="Enter Last Name" type="text">
                                     </div>
 
                                     <div class="form-group" id="user_dob" >
                                         <label>Date of Birth: <span style="color: red;">*</span></label>
-                                        <input name="payload[dob]"  class="form-control" readonly value="<%= (@napsa_user["dob"] || "") %>" placeholder="Enter Last Name" type="text">
+                                        <input name="payload[dob]"  class="form-control" <%= raw if @napsa_user["dob"] != nil, do: "readonly", else: "type=\"date\" onblur=\"return dobcheck()\""  %> value="<%= (@napsa_user["dob"] || "") %>" placeholder="Date of birth" type="text">
                                     </div>
 
                                     <div id="Account" class="form-group" id="user_account_number" >
@@ -104,7 +104,7 @@
 
                                     <div class="form-group">
                                           <label>NRC: <span style="color: red;">*</span></label>
-                                          <input name="payload[nrc]" id="NRC" oninput=(user_validation(this)) class="form-control" required readonly value="<%= (@napsa_user["nrc"] || "") %>" placeholder="Enter Nrc Number" type="text">
+                                          <input name="payload[nrc]" id="NRC" oninput=(user_validation(this)) class="form-control" required <%= raw if @napsa_user["nrc"] != nil, do: "readonly" %> value="<%= (@napsa_user["nrc"] || "") %>" placeholder="Enter Nrc Number" type="text">
                                     </div>
 
                                     <div class="form-group">
