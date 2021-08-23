@@ -96,7 +96,7 @@ defmodule BusTerminalSystem.AccountManager do
 
   def create_user(attrs, conn) do
     %User{}
-    |> User.changeset(Map.put(attrs, :maker, conn.assigns.user.id))
+    |> User.changeset(Map.put(attrs, "maker", conn.assigns.user.id))
     |> Repo.insert()
   end
 
