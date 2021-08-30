@@ -1,2 +1,3 @@
 bus_terminal_frontend/node_modules
 new-bus-management-backend/activity.log
+new-bus-management-backend/.env
